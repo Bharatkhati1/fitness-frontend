@@ -1,0 +1,33 @@
+
+.editing{
+  border: 2px solid #f57b47;
+}
+.card-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button{
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: white;
+  }
+}
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #ffffff;
+//   }
+//   a:hover {
+//     color: #747bff;
+//   }
+//   button {
+//     background-color: #f9f9f9;
+//   }
+// }
