@@ -40,7 +40,7 @@ const App = () => {
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPasswordForm />} />
           <Route path="*" element={<Navigate replace to="/login" />} />
-           <Route path="Home" element={<Home/>} />
+          <Route path="Home" element={<Home/>} />
           
         </Routes>
       </Suspense>
