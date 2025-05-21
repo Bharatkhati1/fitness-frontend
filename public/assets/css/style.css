@@ -1,0 +1,1506 @@
+/*--------------------------------------------------------------------------------------*/
+/*General-Css-Here
+/*--------------------------------------------------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  color: #000;
+}
+
+a {
+  -webkit-transition: 0.5s ease-out;
+  -moz-transition: 0.5s ease-out;
+  -o-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-left: 0 !important;
+}
+
+/* ::-webkit-scrollbar {
+      height: 10px;
+      width: 10px;
+  } */
+p,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+footer,
+header,
+section {
+  display: block;
+}
+
+footer:after,
+footer:before,
+header:after,
+header:before,
+section:after,
+section:before {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+@media (min-width: 1730px) {
+  .container {
+    max-width: 1680px;
+  }
+}
+
+a:focus {
+  border: 0;
+  outline: 0;
+}
+
+button:focus {
+  border: 0;
+  outline: 0;
+}
+
+select {
+  appearance: none;
+}
+
+p,
+span {
+  margin: 0;
+  padding: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold);
+}
+
+button:focus:not(:focus-visible) {
+  outline: 0;
+  box-shadow: none;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+  color: #fff;
+}
+
+.space-similer {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* a {
+  -webkit-transition: background-color 2s ease-out;
+  -moz-transition: background-color 2s ease-out;
+  -o-transition: background-color 2s ease-out;
+  transition: background-color 2s ease-out;
+} */
+
+:root {
+  --primary-color: #800030;
+  --secondary-color: #04aa6d;
+}
+
+/*--------------------------------------------------------------------------------------*/
+/*Common-Css-Here
+/*--------------------------------------------------------------------------------------*/
+
+.PageTitle p {
+  font-size: 16px;
+  color: #2a2a2a;
+}
+.PageTitle {
+  margin-bottom: 50px;
+}
+.PageTitle h2 {
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.btn {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 47px;
+  border-radius: 0;
+  color: #fff !important;
+  padding: 0 14px;
+  border: 0;
+  cursor: pointer;
+}
+body .btn.btn-primary {
+  background: var(--secondary-color);
+}
+.bg-solid {
+  background: #f6edf0;
+}
+.btn.max-btn {
+  min-width: 235px;
+}
+.PageTitle span {
+  color: #007946;
+  text-transform: capitalize;
+}
+.SmartKichin .btn-info {
+  position: absolute;
+  right: 15px;
+  top: 33px;
+}
+.PageTitle {
+  position: relative;
+}
+.btn-info {
+  background: #1976d2;
+}
+
+.btn.s-btn {
+  min-width: 100px;
+}
+
+input.form-control {
+  height: 43px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(0 0 0 / 60%);
+}
+
+label {
+  font-size: 14px;
+  color: #2a2a2a;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+textarea.form-control {
+  background: #fff;
+}
+
+input.form-control:focus {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+}
+/*--------------------------------------------------------------------------------------*/
+/*Home-Css-Here
+/*--------------------------------------------------------------------------------------*/
+header {
+  padding: 15px 0;
+}
+header .navbar-nav .nav-link {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000ba;
+  padding: 0 15px !important;
+}
+.header-btn {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--primary-color);
+  padding: 10px 10px;
+  height: 40px;
+  min-width: 160px;
+  border-radius: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.bannerSection {
+  background: #f5f5f5 url(../img/slider-bg.png);
+  background-repeat: no-repeat;
+  padding-top: 85px;
+}
+.Login-info {
+  padding-left: 95px;
+}
+.BestTag {
+  max-width: 210px;
+  background: #fff;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 33px;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+.BestTag img {
+  margin-right: 10px;
+}
+.bannerSectionLeft h1 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--primary-color);
+  margin-bottom: 48px;
+}
+.bannerSection .BannerBtn a {
+  font-size: 18px;
+  color: #fff !important;
+  display: flex;
+  background: var(--secondary-color);
+  padding: 10px 20px;
+  font-weight: 800;
+  height: 53px;
+  align-items: center;
+  margin-right: 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.bannerSection {
+  position: relative;
+}
+.bannerSectionInner {
+  margin-bottom: -17px;
+}
+.ClientInfo b {
+  font-size: 30px;
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+.ClientInfo p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+.ClientListinfo {
+  margin-bottom: 45px;
+}
+.ClientListinfo li {
+  border-right: 1px solid #00000080;
+  padding-right: 30px;
+  margin-right: 30px;
+}
+.ClientListinfo li:last-child {
+  border-right: 0;
+}
+.circletagShape {
+  position: absolute;
+  right: 50px;
+  top: 165px;
+}
+.shapeImgLeft {
+  position: absolute;
+  left: -78px;
+  top: 20px;
+}
+.shapeImgRight {
+  position: absolute;
+  right: -78px;
+  bottom: 20px;
+}
+
+.AboutInfo h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 27px;
+  color: var(--primary-color);
+}
+.AboutInfo h2 span {
+  color: var(--secondary-color);
+}
+.AboutInfoLeft p {
+  font-size: 20px;
+  color: #2a2a2a;
+  font-weight: 400;
+}
+.AboutInfo {
+  padding-top: 35px;
+  padding-bottom: 65px;
+}
+
+.OurServices {
+  padding-top: 35px;
+  padding-bottom: 65px;
+}
+.OurServicesContent {
+  box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.OurServicesContent figcaption {
+  padding: 15px 15px 19px;
+  background: #fff;
+}
+.OurServicesContent figcaption h3 {
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.OurServicesContent figure img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  height: 203px;
+}
+.OurServicesContent figcaption p {
+  font-size: 14px;
+  color: #2a2a2a;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.OurServicesRow .col-md-4 {
+  margin-bottom: 80px;
+  padding: 0 40px;
+}
+.OurServices .OurServicesRow {
+  width: 96%;
+  margin: auto;
+}
+.VideBox {
+  background: rgb(0 0 0 / 12%);
+}
+.VideBox iframe {
+  display: block;
+  margin: auto;
+}
+
+.WhyChoose {
+  padding-top: 35px;
+  padding-bottom: 45px;
+}
+.WhyChoose {
+  position: relative;
+}
+.WhyChoose:after {
+  background: url(../img/whychoosePettern.png);
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  background-size: cover;
+  width: 100%;
+  z-index: -1;
+}
+
+.SmartKichin {
+  padding-top: 56px;
+  padding-bottom: 80px;
+}
+.SmartKichinContent figcaption {
+  width: 320px;
+  margin: auto;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
+  padding: 15px 15px 20px;
+  margin-top: -20px;
+  background: #fff;
+  z-index: 9;
+  position: relative;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.SmartKichinContent figcaption h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  height: 53px;
+  margin-bottom: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.SmartKichinContent figcaption p {
+  color: #000000e5;
+  margin-bottom: 15px;
+}
+.SmartKichin .row .col-md-4 {
+  padding: 0 25px;
+}
+
+.PosterSec {
+  background: url(../img/posterSec.png);
+  background-repeat: no-repeat;
+  height: 361px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+}
+.PosterContent {
+  max-width: 800px;
+  margin: auto;
+}
+.PosterContent h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.PosterContent p {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.PosterContent {
+  max-width: 640px;
+  margin: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  padding: 25px 25px;
+}
+.PosterSec.empoweringhealth {
+  background: url(../img/posterSec2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.OurHealthBlog {
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+.OurHealthBlogContent figure img {
+  width: 100%;
+  height: 310px;
+  object-fit: cover;
+  display: block;
+}
+.OurHealthBlogContent figcaption {
+  text-align: center;
+  margin-top: 15px;
+  padding: 0 20px;
+}
+.OurHealthBlogContent figcaption span {
+  font-size: 14px;
+  color: #800030;
+  margin-bottom: 12px;
+  display: block;
+}
+.OurHealthBlogContent figcaption h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.row.OurHealthBlogRows {
+  width: 84%;
+  margin: auto;
+}
+.col-md-6.OurHealthBlogContent {
+  margin-bottom: 80px;
+  padding: 0 40px;
+}
+
+.meetOurExperts {
+  background: #f5f4f4;
+  padding: 30px 0;
+}
+
+.meetOurExperts figure img {
+  margin: auto;
+  display: block;
+  width: 750px;
+}
+
+.infobox {
+  background: #fff;
+  display: inline-flex;
+  text-align: center;
+  border-radius: 14px;
+  padding: 12px 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 220px;
+}
+.infobox h4 {
+  font-size: 28px;
+  color: #800030;
+  display: block;
+  width: 100%;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.infobox span {
+  font-size: 15px;
+  color: #2a2a2a;
+  font-weight: 600;
+}
+
+.meetOurExpertscontentg {
+  position: relative;
+}
+
+.infobox.infoboxLeft {
+  position: absolute;
+  top: 115px;
+  left: 12px;
+}
+
+.infobox.infoboxLeftRight {
+  position: absolute;
+  right: 25px;
+  top: 260px;
+}
+
+.trailoffer {
+  position: relative;
+}
+
+.shape1 {
+  position: absolute;
+  top: -20px;
+  left: -5px;
+}
+
+.shape2 {
+  position: absolute;
+  left: 240px;
+  top: 285px;
+  transform: rotate(-86deg);
+}
+
+.shape3 {
+  position: absolute;
+  bottom: 0;
+  transform: rotate(85deg);
+}
+
+.shape4 {
+  position: absolute;
+  right: 0;
+  transform: rotate(105deg);
+  top: -80px;
+}
+
+.shape5 {
+  position: absolute;
+  right: 215px;
+  top: 200px;
+  transform: rotate(170deg);
+}
+
+.shape6 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.trailoffer {
+  padding-top: 60px;
+  padding-bottom: 55px;
+}
+
+.trailofferList li {
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgb(0 0 0 / 20%);
+  margin-bottom: 24px;
+  line-height: 1.8;
+  position: relative;
+  padding-left: 35px;
+}
+
+.trailofferList li:after {
+  background: url("../img/checkTick.png");
+  position: absolute;
+  left: 0;
+  top: 4px;
+  content: "";
+  width: 20px;
+  height: 20px;
+}
+
+.trailofferform {
+  box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
+  padding: 25px 25px;
+  border-radius: 10px;
+}
+
+.trailofferform input.form-control {
+  background: #f1f1f1 !important;
+}
+
+.trailofferform .contactInput span {
+  background: #f1f1f1;
+}
+
+.trailofferform textarea.form-control {
+  background: #f1f1f1;
+}
+
+.trailofferform label {
+  font-size: 14px;
+  color: #2a2a2a;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.contactInput {
+  display: flex;
+  border-radius: 5px;
+  background: #f1f1f1;
+  border: 1px solid #e6e6e6;
+  overflow: hidden;
+}
+
+.contactInput span {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgb(0 0 0 / 60%);
+  pointer-events: none;
+  border-right: 1px solid #e6e6e6;
+  background: #fff;
+  overflow: hidden;
+}
+
+.contactInput input.form-control {
+  border: 0;
+  background: #fff;
+  padding-left: 12px;
+  border: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-control:focus {
+  background: #fff;
+}
+
+textarea.form-control {
+  height: 106px;
+  border: 1px solid #e6e6e6;
+  font-size: 14px;
+  color: rgb(0 0 0 / 60%);
+  border-radius: 5px;
+
+  resize: none;
+}
+
+.GetIntouch {
+  background: #f5f5f5;
+}
+
+.GetIntouchRight {
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+.form-checkList {
+  flex-wrap: wrap;
+}
+
+.form-checkList li {
+  margin-right: 10px;
+  width: 31%;
+  margin-bottom: 13px;
+}
+
+.ContactUs {
+  background: linear-gradient(
+    to bottom,
+    rgba(167, 167, 167, 1) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  padding: 20px 20px;
+  position: absolute;
+  width: 290px;
+  margin: auto;
+  left: 40px;
+  top: 30px;
+  border-radius: 8px;
+}
+
+.ContactUs h3 {
+  font-size: 24px;
+  color: #2a2a2a;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.ContactUs p {
+  font-size: 12px;
+  color: #2a2a2a;
+  font-weight: 600;
+}
+.ContactInfoList {
+  margin-top: 20px;
+}
+.ContactInfoList li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ContactInfoList span {
+  font-size: 14px;
+  color: #2a2a2a;
+}
+
+.ContactInfoList img {
+  margin-right: 12px;
+}
+
+.ContactInfoList a {
+  font-size: 12px;
+  color: #2a2a2a;
+  font-weight: 600;
+}
+
+.SoicalList {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.SoicalList li {
+  margin-right: 20px;
+}
+
+footer {
+  background: #f6edf0;
+  padding-top: 45px;
+}
+
+.FooterContent h3 {
+  font-size: 18px;
+  color: #800030;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.FooterContent figure {
+  margin-bottom: 15px;
+}
+
+.FooterContentInfo h4 {
+  font-size: 13px;
+  color: #800030;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.FooterContentInfo p {
+  font-size: 10px;
+  color: #000000e5;
+}
+
+.userlinks li a {
+  font-size: 12px;
+  color: rgb(0 0 0 / 90%);
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 400;
+}
+
+.ContactInfoFooter li a {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+.ContactInfoFooter li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.ContactInfoFooter li img {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%)
+    hue-rotate(112deg) brightness(102%) contrast(97%);
+}
+
+.FooterSubscribe h2 {
+  font-size: 16px;
+  color: #1e1e1e;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.BottomFooter {
+  background: #1e1e1e;
+  padding: 10px 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+
+  margin-top: 65px;
+}
+
+.GetIntouchLeft figure img {
+  display: block;
+}
+
+textarea.form-control:focus {
+  background: rgb(255, 255, 255);
+  border: 1px solid #e6e6e6;
+}
+.GetIntouch {
+  position: relative;
+}
+.GetIntouchShape1 {
+  position: absolute;
+  left: 0;
+  top: 45px;
+}
+
+.GetIntouchShape2 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+header .navbar-nav .nav-link:hover {
+  color: #800030;
+}
+
+header .navbar-nav .nav-link.active {
+  font-weight: 700;
+}
+
+header .navbar-nav .nav-link {
+  position: relative;
+}
+header .navbar-nav .nav-link.active:after {
+  content: "";
+  background: #800030;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  bottom: -11px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.form-check-input {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+}
+.bannerSectionInner figure {
+  position: relative;
+}
+.bannerSectionInner figure:after {
+  width: 509px;
+  height: 509px;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#efefef+0,ffffff+100 */
+  background: linear-gradient(
+    to bottom,
+    rgba(239, 239, 239, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  left: -53px;
+  z-index: 9;
+  bottom: 85px;
+}
+
+.bannerSectionInner figure img {
+  z-index: 99;
+  position: relative;
+}
+header.sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.trailofferList li:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.carticon {
+  cursor: pointer;
+}
+
+.carticon:hover {
+  transform: scale(0.98);
+}
+
+.BottomFooterList li {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px solid;
+}
+
+@media (max-width: 1199px) {
+  .bannerSection {
+    overflow: hidden;
+  }
+  .bannerSectionInner figure:after {
+    width: 400px;
+    height: 400px;
+  }
+  .Login-info {
+    padding-left: 0;
+  }
+  header .navbar-nav .nav-link {
+    font-size: 14px;
+    padding: 0 11px !important;
+  }
+  .header-btn {
+    min-width: 135px;
+  }
+  .bannerSectionLeft h1 {
+    font-size: 32px;
+  }
+  .bannerSection .BannerBtn a {
+    font-weight: 700;
+  }
+  .circletagShape img {
+    width: 63px;
+  }
+  .circletagShape {
+    right: 20px;
+    top: 52px;
+  }
+  .AboutInfo {
+    padding-top: 35px;
+    padding-bottom: 50px;
+  }
+  .OurServicesRow .col-md-4 {
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  .VideBox iframe {
+    width: 65%;
+  }
+  .SmartKichin .PageTitle p {
+    padding: 0 180px;
+  }
+  .SmartKichinContent figcaption {
+    width: 90%;
+  }
+  .SmartKichinContent figcaption h3 {
+    font-size: 20px;
+  }
+  .col-md-6.OurHealthBlogContent {
+    padding: 0 20px;
+  }
+  .OurHealthBlogContent figcaption h3 {
+    font-size: 20px;
+  }
+  .PageTitle {
+    margin-bottom: 35px;
+  }
+  .trailofferList li {
+    font-size: 13px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+  }
+  .OurServicesContent .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .OurServicesContent .btn:last-child {
+    margin-bottom: 0;
+  }
+  .SmartKichinContent figcaption p {
+    font-size: 14px;
+  }
+  .PosterContent h2 {
+    font-size: 22px;
+  }
+  .PageTitle p {
+    font-size: 15px;
+  }
+  .form-checkList li {
+    width: 46%;
+  }
+  .GetIntouchRight .col-md-6.mb-3 {
+    margin-bottom: 15px !important;
+  }
+  .GetIntouchRight {
+    padding-bottom: 30px;
+  }
+  .AboutInfo h2 {
+    font-size: 28px;
+  }
+  .AboutInfoLeft p {
+    font-size: 18px;
+  }
+
+  .menuRows {
+    margin-top: 50px;
+  }
+  .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent {
+    width: 50%;
+  }
+
+  .col-xl.col-md-12.order-xl-2.order-3.menuRows {
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse.show {
+    margin-left: 0;
+    left: 0;
+    transition: 0.5s;
+  }
+  .navbar-collapse {
+    background-color: #000;
+    height: 100vh;
+    padding-top: 110px;
+    position: fixed;
+    left: -227px;
+    top: 0;
+    transition: 0.3s;
+    width: 227px;
+    z-index: 9;
+  }
+  .navRight {
+    flex-direction: row-reverse;
+  }
+  .bannerSectionLeft h1 {
+    font-size: 24px;
+  }
+  .ClientListinfo li {
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+  .ClientListinfo {
+    margin-bottom: 20px;
+  }
+  .bannerSectionLeft h1 {
+    margin-bottom: 22px;
+  }
+  .bannerSectionInner figure:after {
+    width: 300px;
+    height: 300px;
+  }
+  .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent {
+    width: 50%;
+  }
+
+  .col-xl.col-md-12.order-xl-2.order-3.menuRows {
+    margin-top: 30px;
+  }
+  footer {
+    padding-top: 25px;
+  }
+  .BottomFooter {
+    margin-top: 30px;
+  }
+  button.navbar-toggler.collapsed {
+    background: #000;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 9px;
+    opacity: 1;
+  }
+  button.navbar-toggler.collapsed span {
+    filter: brightness(0) invert(1);
+  }
+  nav.navbar.navbar-expand-lg.navbar-light {
+    padding: 0;
+  }
+  header {
+    padding: 10px 0;
+  }
+  .ClientInfo p {
+    font-size: 14px;
+  }
+  .circletagShape {
+    top: 10px;
+  }
+  .bannerSection .BannerBtn a {
+    font-size: 16px;
+    height: 45px;
+  }
+  .ClientInfo b {
+    font-size: 24px;
+  }
+  .OurServicesRow .col-md-4 {
+    width: 50%;
+  }
+  .OurServicesContent figcaption h3 {
+    font-size: 20px;
+  }
+  .SmartKichin .row .col-md-4 {
+    padding: 0 10px;
+  }
+  .SmartKichinContent figcaption h3 {
+    font-size: 18px;
+  }
+  .btn {
+    height: 40px;
+  }
+  .OurHealthBlog {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .row.OurHealthBlogRows {
+    width: 100%;
+  }
+
+  .infobox.infoboxLeft {
+    top: -83px;
+  }
+
+  .infobox.infoboxLeftRight {
+    top: auto;
+    bottom: 30px;
+  }
+
+  .infobox h4 {
+    font-size: 23px;
+  }
+
+  section.trailoffer .col-md-6.pe-5 {
+    padding-right: 20px !important;
+  }
+
+  .trailofferform .col-md-6.mb-3 {
+    width: 100%;
+  }
+  .col-md-6.GetIntouchLeft {
+    width: 100%;
+  }
+
+  .col-md-6.GetIntouchRight {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .col-md-6.bannerSectionLeft.pe-0 {
+    width: 50%;
+  }
+  .col-md-6.bannerSectionRight.ps-5.justify-content-end {
+    width: 50%;
+    padding-left: 0 !important;
+  }
+  .BestTag {
+    margin-bottom: 14px;
+    max-width: 186px;
+    font-size: 14px;
+  }
+
+  .bannerSectionInner figure:after {
+    display: none;
+  }
+
+  .bannerSectionLeft h1 {
+    font-size: 15px;
+  }
+
+  .ClientInfo p {
+    font-size: 10px;
+  }
+  .ClientInfo b {
+    font-size: 20px;
+  }
+
+  .bannerSection .BannerBtn a {
+    padding: 10px 13px;
+    margin-right: 10px;
+  }
+
+  .bannerSection .BannerBtn a {
+    font-size: 14px;
+  }
+
+  .col-md-7.text-center.p-4.me-auto.AboutInfoLeft {
+    padding: 10px !important;
+  }
+
+  .AboutInfo .row {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .AboutInfo .col-md-5.text-left {
+    text-align: center;
+  }
+
+  .OurServices .OurServicesRow {
+    width: 100%;
+  }
+  .btn {
+    font-size: 12px;
+  }
+
+  .OurServicesContent .btn.max-btn {
+    min-width: 100%;
+  }
+
+  .OurServicesContent {
+    margin-bottom: 30px;
+  }
+
+  .VideBox iframe {
+    width: 80%;
+    height: 300px;
+  }
+
+  .SmartKichin .PageTitle p {
+    padding: 0 0px;
+  }
+
+  .SmartKichin .btn-info {
+    position: static;
+    right: 0;
+    top: 0;
+    margin-top: 23px;
+  }
+
+  .col-md-4.SmartKichinContent figure img {
+    width: 100%;
+  }
+
+  .SmartKichin .row .col-md-4 {
+    margin-bottom: 30px;
+  }
+
+  .SmartKichinContent figcaption h3 {
+    height: auto;
+  }
+
+  .SmartKichinContent figcaption h3 {
+    font-size: 22px;
+  }
+
+  .AboutInfo h2 {
+    font-size: 22px;
+  }
+
+  .AboutInfoLeft p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 575px) {
+  .OurServicesRow .col-md-4 {
+    width: 100%;
+  }
+
+  .AboutInfo .col-md-5.text-left figure img {
+    width: 300px;
+    margin-left: 30px;
+  }
+
+  .bannerSectionInner figure img {
+    width: 222px;
+    margin: auto;
+    display: block;
+    margin-bottom: 0;
+    padding-left: 15px;
+  }
+  .col-md-6.bannerSectionLeft.pe-0 {
+    margin-top: 45px;
+    margin-bottom: 20px;
+  }
+  .col-md-6.bannerSectionRight.ps-5.justify-content-end {
+    position: absolute;
+    right: 0;
+    width: 180px;
+    bottom: 17px;
+  }
+
+  .col-md-6.bannerSectionLeft.pe-0 {
+    margin-top: 10px;
+    margin-bottom: 38px;
+    padding-right: 150px !important;
+    width: 100%;
+  }
+  .circletagShape {
+    top: -33px;
+  }
+
+  .BestTag {
+    margin-bottom: 13px;
+    max-width: max-content;
+    font-size: 13px;
+    padding: 0 15px;
+  }
+
+  .bannerSection .BannerBtn a {
+    height: 40px;
+  }
+
+  .bannerSection .BannerBtn a {
+    font-size: 12px;
+  }
+
+  .col-xl.col-md-12.order-xl-2.order-3.menuRows {
+    order: 2 !important;
+  }
+  .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent .ps-3 {
+    padding-left: 0 !important;
+  }
+  .col-md.col-sm-6.FooterContent {
+    margin-bottom: 20px;
+    width: 50%;
+  }
+  .header-btn {
+    min-width: 120px;
+    font-size: 12px;
+    padding: 10px 7px;
+    height: 33px;
+  }
+
+  button.navbar-toggler.collapsed {
+    width: 33px;
+    height: 33px;
+  }
+
+  button.navbar-toggler.collapsed span {
+    width: 17px;
+  }
+
+  .AboutInfoLeft p {
+    font-size: 14px;
+  }
+
+  .bannerSectionLeft h1 {
+    margin-bottom: 10px;
+  }
+
+  .PageTitle h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 480px) {
+  a.navbar-brand img {
+    width: 100px;
+  }
+  .header-btn {
+    min-width: 107px;
+    font-size: 11px;
+    padding: 10px 1px;
+    height: 30px;
+    margin-left: 5px;
+  }
+
+  .col-md-6.bannerSectionLeft.pe-0 {
+    padding-right: 35px !important;
+  }
+
+  span.shapeImgLeft img {
+    width: 116px;
+  }
+
+  span.shapeImgRight img {
+    width: 116px;
+  }
+
+  .circletagShape {
+    top: -132px;
+  }
+
+  .circletagShape img {
+    width: 45px;
+  }
+
+  .col-md-6.bannerSectionRight.ps-5.justify-content-end {
+    position: absolute;
+    right: -7px;
+    width: 109px;
+    bottom: 14px;
+  }
+
+  .AboutInfo .col-md-5.text-left figure img {
+    width: auto;
+    margin-left: 0;
+  }
+
+  .OurHealthBlogContent figure img {
+    height: 170px;
+  }
+
+  .ContactUs {
+    width: 67%;
+
+    left: 15px;
+    top: 13px;
+  }
+
+  .form-checkList li {
+    width: 100%;
+  }
+
+  .col-md.col-sm-6.FooterContent {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .BottomFooter {
+    flex-direction: column;
+  }
+
+  ul.BottomFooterList li:first-child {
+    border-left: 0;
+  }
+
+  .ContactInfoList li {
+    margin-bottom: 5px;
+  }
+}

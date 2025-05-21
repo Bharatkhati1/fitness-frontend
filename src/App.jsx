@@ -10,6 +10,10 @@ import "../public/assets/css/vendor.min.css"
 import PageLoader from "./components/PageLoader/index.jsx";
 import AppRoutes from "./components/Routes/AppRoutes.jsx";
 import "./index.scss"
+import Home from "./pages/Home.jsx";
+
+
+
 const Login = lazy(() => import("./components/unauthorized/login.jsx"));
 const Signup = lazy(() => import("./components/unauthorized/Signup.jsx"));
 const ForgotPasswordForm = lazy(() =>
@@ -36,6 +40,8 @@ const App = () => {
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPasswordForm />} />
           <Route path="*" element={<Navigate replace to="/login" />} />
+           <Route path="Home" element={<Home/>} />
+          
         </Routes>
       </Suspense>
     );
