@@ -2,7 +2,7 @@ export const initialState = {
   isLoggedIn: false,
   disableLoginButton: false,
   accessToken: "",
-  isAdmin:true,
+  isAdmin:false,
   isCheckingToken: true,
   user: {},
   permissions: {},

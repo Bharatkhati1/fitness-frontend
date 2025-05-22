@@ -37,7 +37,6 @@ import ContactRight from "../../../../../public/assets/img/ContactShAPe2.png";
 function Home() {
   return (
     <>
-   
       <section className="bannerSection">
         <span className="shapeImgLeft">
           <img src={ShapeLeft} />
@@ -554,7 +553,6 @@ function Home() {
           </div>
         </div>
       </section>
-
       <section className="GetIntouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />

@@ -986,3 +986,146 @@ header.sticky {
   border-left: 1px solid;
 }
 
+
+
+/**login****/
+
+
+.LoginPage{ background: url("../img/loginBanner.png");
+   background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+            padding-top: 50px;
+            
+
+}
+.RegisterPage .col-md-7.me-auto,.col-md-4.me-auto{        margin: 20px 0;}
+.formBox {
+    background: linear-gradient(to bottom, rgb(237 237 237 / 64%) 0%, rgb(219 219 219 / 58%) 100%);
+    box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
+    border-radius: 8px;
+    padding: 30px 45px 35px;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+}
+
+.formBoxHead h3 {
+    font-size: 24px;
+    color: #800030;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+}
+
+.formBoxHead {
+    margin-bottom: 30px;
+}
+
+.fieldbox label {
+    font-size: 14px;
+    color: #2A2A2A;
+    font-weight: 600;
+}
+
+.withIcon {
+    position: relative;
+}
+
+.EyeIcon {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.TextLink {
+    font-size: 14px;
+    color:var(--primary-color);
+    font-weight: 600;
+}
+
+.DotHave {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.or-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    text-transform: uppercase;
+}
+
+.SocialUsers a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    background: #Fff;
+    height: 48px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.SocialUsers a:hover{ opacity: 0.6;}
+
+.SocialUsers a img{ margin-right: 10px;}
+
+
+.SocialUsers a:last-child{margin-bottom: 0;}
+
+.SocialUsers {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formBox input.form-control{ font-size: 12px;}
+
+.btn.max-width {
+    min-width: 353px;
+    margin: auto;
+}
+.RegisterPage .SocialUsers{ gap: 10px;}
+
+.RegisterPage .SocialUsers a{ width: 50%;}
+
+.RegisterPage .termscheck {
+    margin-bottom: 50px;
+}
+
+.RegisterPage .form-check-input {
+    margin-top: -1px;
+    margin-right: 8px;
+    width: 23px;
+    height: 23px;
+      border: 1px solid hsl(0deg 0% 0% / 60%);
+    border-radius: 5px !important;
+}
+
+.RegisterPage .form-check-label {
+    font-size: 14px;
+    color: #2A2A2A;
+    margin-bottom: 0;
+}
+
+.RegisterPage .form-check-label a {
+    color: #2795D9;
+    cursor: pointer;
+}

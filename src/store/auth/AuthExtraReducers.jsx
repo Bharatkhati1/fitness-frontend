@@ -3,7 +3,7 @@ import { GATEWAY_URL } from "../../utils/constants";
 import { authActions } from "./index";
 import { toast } from "react-toastify";
 
-export const LoginUser = (userData, navigate) => {
+export const Login = (userData, navigate) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -22,7 +22,7 @@ export const LoginUser = (userData, navigate) => {
           withCredentials: true,
         }
       );
-      console.log(data);
+      toast.success("Login successfully")
       dispatch(
         authActions.loginUser({
           accessToken: data?.accessToken || "",
@@ -36,7 +36,6 @@ export const LoginUser = (userData, navigate) => {
       }else{
         navigate("/home", { replace: true });
       }
-      
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -67,7 +66,7 @@ export const getAccessToken = () => {
   };
 };
 
-export const logoutUser = (navigate) => {
+export const logoutUser = () => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }

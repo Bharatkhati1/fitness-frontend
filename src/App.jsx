@@ -9,15 +9,14 @@ import "../public/assets/css/vendor.min.css";
 
 import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
+import LoginUser from "./components/unauthorized/LoginUser.jsx";
+import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
-const Login = lazy(() => import("./components/unauthorized/login.jsx"));
-const Signup = lazy(() => import("./components/unauthorized/Signup.jsx"));
 const ForgotPasswordForm = lazy(() =>
   import("./components/unauthorized/forgotPassword.jsx")
 );
-
 
 const ProtectedRoute = ({ condition, redirectTo = "/login", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
@@ -25,8 +24,11 @@ const ProtectedRoute = ({ condition, redirectTo = "/login", children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(state => state.auth);
+  const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(
+    (state) => state.auth
+  );
 
+  console.log(isAdmin,isLoggedIn)
   useEffect(() => {
     dispatch(getAccessToken());
   }, [dispatch]);
@@ -37,31 +39,31 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/admin" element={<LoginUser />} />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="*" element={<Navigate replace to="/login" />} />
+          <Route path="/*" element={<UserRoutes />} />
+          <Route path="LoginUser" element={<LoginUser />} />
+          <Route path="SignUpUser" element={<SignUpUser />} />
+          <Route path="*" element={<Navigate replace to="/*" />} />
         </Routes>
       </Suspense>
     );
   }
 
   return (
-<Suspense fallback={<PageLoader />}>
-  <Routes>
-    <Route
-      path="/admin/*"
-      element={
-        <ProtectedRoute condition={isAdmin} redirectTo="/home">
-          <AdminRoutes />
-        </ProtectedRoute>
-      }
-    />
-    <Route path="/*" element={<UserRoutes />} />
-  </Routes>
-</Suspense>
-
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute condition={isAdmin} redirectTo="/home">
+              <AdminRoutes />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/*" element={<UserRoutes />} />
+      </Routes>
+    </Suspense>
   );
 };
 
