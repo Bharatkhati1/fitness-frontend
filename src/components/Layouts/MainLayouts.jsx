@@ -1,8 +1,8 @@
 // src/layouts/MainLayout.jsx
 import { Outlet } from 'react-router-dom';
 // import ThemeSettings from '../components/ThemeSettings/ThemeSettings';
-import MainNavbarLeft from '../authorized/MainNavbarLeft/MainNavbarLeft';
-import TopBar from '../authorized/TopBar/TopBar';
+import MainNavbarLeft from '../authorized/AdminUI/MainNavbarLeft/MainNavbarLeft';
+import TopBar from '../authorized/AdminUI/TopBar/TopBar';
 
 const MainLayouts=() =>{
   return (

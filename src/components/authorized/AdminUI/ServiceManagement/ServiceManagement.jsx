@@ -1,60 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
-import axiosInstance from "../../../utils/axios/axiosInstance.jsx";
+import axiosInstance from "../../../../utils/axios/axiosInstance.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import DOMPurify from 'dompurify';
 
-const ProductManagement = () => {
-  const [packageName, setPackageName] = useState("");
-  const [packageDesc, setPackageDesc] = useState("");
-  const [packageStatus, setPackageStatus] = useState("1");
-  const [packageType, setPackageType] = useState("");
-  const [packagePrice, setPackagePrice] = useState(0);
-  const [selectedServiceTypeId, setSelectedServiecTypeId] = useState(null);
-  const [selectedPackageId, setSelectedPackageId] = useState(null);
+const ServiceManagement = () => {
+  const [sliderName, setSliderName] = useState("");
+  const [sliderHeading, setSliderHeading] = useState("");
+  const [sliderStatus, setSliderStatus] = useState("1");
+  const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
-  const [packageImage, setPakageImage] = useState(null);
+  const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const [packages, setPackage] = useState([]);
-  const [allServices, setAllServices] = useState([]);
-
+  const [sliders, setSliders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(5);
   const fileInputRef = useRef(null);
-  const fetchAllPackage = async () => {
+  const fetchAllServices = async (page = 1) => {
     try {
-      const res = await axiosInstance.get(`/package`);
-      setPackage(res.data.data);
-    } catch (error) {
-      console.error("Failed to fetch sliders:", error);
-    }
-  };
-
-  const fetchAllServices = async () => {
-    try {
-      const res = await axiosInstance.post(`/service/get-all-services`);
-      setAllServices(res.data.data);
+      const res = await axiosInstance.post(`/service/get-services`, {
+        page,
+        limit,
+      });
+      setSliders(res.data.data);
+      setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
     }
   };
 
   const handleSubmit = async () => {
-    if (!packageImage && !isEdit) {
-      toast.warning("Please select an image.");
+    if (!sliderImage && !isEdit) {
+      toast.warning("Please fill all required select an image.");
       return;
     }
+
     const formData = new FormData();
-    formData.append("name", packageName);
-    formData.append("description", packageDesc);
-    formData.append("is_active", packageStatus);
-    formData.append("service_type_id", selectedServiceTypeId);
-    formData.append("type", packageType);
-    formData.append("price", packagePrice);
-    packageImage && formData.append("image", packageImage);
+    formData.append("name", sliderName);
+    formData.append("description", sliderHeading);
+    formData.append("is_active", sliderStatus);
+    sliderImage && formData.append("image", sliderImage);
 
     try {
       let url = isEdit
-        ? `/package/edit/${selectedPackageId}`
-        : `/package/create`;
+        ? `/service/edit-service/${selectedSliderId}`
+        : `/service/create-service`;
       const response = await axiosInstance.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -62,17 +55,15 @@ const ProductManagement = () => {
       });
 
       if (response.status == 201) {
-        fetchAllPackage();
+        fetchAllServices();
         setIsEdit(false);
-        setSelectedPackageId(null);
-        setPackageName("");
-        setPackageType(null);
-        setSelectedServiecTypeId("");
-        setPackageDesc("");
-        setPackageStatus("1");
-        setPackagePrice(0);
-        setPakageImage(null);
+        setSelectedSliderId(null);
+        setSliderName("");
+        setSliderHeading("");
+        setSliderStatus("1");
+        setSliderImage(null);
         setSelectedFileName(null);
+        setSliderStatus(`1`);
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
@@ -86,36 +77,52 @@ const ProductManagement = () => {
     }
   };
 
-  const deletePackage = async (id) => {
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const deleteSlider = async (id) => {
     try {
-      await axiosInstance.delete(`/package/${id}`);
+      await axiosInstance.delete(`/service/${id}`);
       toast.success("Deleted Successfully");
-      fetchAllPackage();
+      fetchAllServices();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || '';
+  };
+  
+  const getShortText = (html, limit = 80) => {
+    const plainText = stripHtml(html);
+    return plainText.length > limit
+      ? plainText.slice(0, limit) + '...'
+      : plainText;
+  };
+
   const onCancelEdit =()=>{
     setIsEdit(false);
-    setSelectedPackageId(null);
-    setPackageName("");
-    setPackageType(null);
-    setSelectedServiecTypeId("");
-    setPackageDesc("");
-    setPackageStatus("1");
-    setPackagePrice(0);
-    setPakageImage(null);
+    setSelectedSliderId(null);
+    setSliderName("");
+    setSliderHeading("");
+    setSliderStatus("1");
+    setSliderImage(null);
     setSelectedFileName(null);
+    setSliderStatus(`1`);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   }
 
   useEffect(() => {
-    fetchAllPackage();
-    fetchAllServices();
-  }, []);
+    fetchAllServices(currentPage);
+  }, [currentPage]);
 
   return (
     <>
@@ -124,7 +131,7 @@ const ProductManagement = () => {
         <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Package` : `Create Package`}
+                {isEdit ? `Edit Selected Service` : `Create Service`}
               </h4>
               {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
             </div>
@@ -134,24 +141,24 @@ const ProductManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
-                      Package Name
+                      Service Name
                     </label>
                     <input
                       type="text"
                       id="service-name"
                       className="form-control"
                       placeholder="Enter name"
-                      value={packageName}
-                      onChange={(e) => setPackageName(e.target.value)}
+                      value={sliderName}
+                      onChange={(e) => setSliderName(e.target.value)}
                     />
                   </div>
                 </div>
 
-                {/* Package Image */}
+                {/* Slider Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Package Image {isEdit && ` : ${selectedFileName}`}
+                      Service Image {isEdit && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -159,84 +166,24 @@ const ProductManagement = () => {
                       id="service-image"
                       ref={fileInputRef}
                       className="form-control"
-                      onChange={(e) => setPakageImage(e.target.files[0])}
+                      onChange={(e) => setSliderImage(e.target.files[0])}
                     />
                   </div>
                 </div>
 
-                {/* Package Price */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-price" className="form-label">
-                      Package Price
-                    </label>
-                    <input
-                      type="number"
-                      id="package-price"
-                      value={packagePrice}
-                      className="form-control"
-                      onChange={(e) => setPackagePrice(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Package type
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      name="packageType"
-                      value={packageType}
-                      onChange={(e) => setPackageType(e.target.value)}
-                    >
-                      <option value="">Select type</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="subscription">Subscription</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Service type
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      value={selectedServiceTypeId}
-                      onChange={(e) => setSelectedServiecTypeId(e.target.value)}
-                    >
-                      <option value="">Select type</option>
-                      {allServices?.map((service) => (
-                        <option value={service.id}>{service.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
+                {/* Heading */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Package Desciption
+                      Service Desciption
                     </label>
-                    <input
-                      type="text"
-                      id="service-des"
-                      className="form-control"
-                      placeholder="Enter Description"
-                      value={packageDesc}
-                      onChange={(e) => setPackageDesc(e.target.value)}
-                    />
+                    <Ckeditor text={sliderHeading} setText={setSliderHeading} />
                   </div>
                 </div>
 
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Package Status</p>
+                  <p>Service Status</p>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
@@ -244,8 +191,8 @@ const ProductManagement = () => {
                         type="radio"
                         name="service-status"
                         value="1"
-                        checked={packageStatus === "1"}
-                        onChange={() => setPackageStatus("1")}
+                        checked={sliderStatus === "1"}
+                        onChange={() => setSliderStatus("1")}
                         id="status-active"
                       />
                       <label
@@ -261,8 +208,8 @@ const ProductManagement = () => {
                         type="radio"
                         name="service-status"
                         value="0"
-                        checked={packageStatus === "0"}
-                        onChange={() => setPackageStatus("0")}
+                        checked={sliderStatus === "0"}
+                        onChange={() => setSliderStatus("0")}
                         id="status-inactive"
                       />
                       <label
@@ -295,7 +242,7 @@ const ProductManagement = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Packages</h4>
+              <h4 className="card-title">All Sliders</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -306,24 +253,21 @@ const ProductManagement = () => {
                       <th>Image</th>
                       <th>Name</th>
                       <th>Description</th>
-                      <th>Service Type</th>
-                      <th>Package Type</th>
-                      <th>Price</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {packages.length > 0 ? (
-                      packages.map((item, index) => (
+                    {sliders.length > 0 ? (
+                      sliders.map((slider, index) => (
                         <tr key={index}>
-                          <td>{item.id}</td>
+                          <td>{slider.id}</td>
                           <td>
-                            <Link target="_blank" to={item.img_url}>
+                            <Link target="_blank" to={slider.img_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={item.img_url}
+                                src={slider.img_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -334,26 +278,23 @@ const ProductManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    item.img_url
+                                    slider.img_url
                                   );
                                 }}
                               />
                             </Link>
                           </td>
-                          <td>{item.name}</td>
-                          <td>{item.description}</td>
-                          <td>{item.service_name}</td>
-                          <td>{item.type}</td>
-                          <td>{item.price}</td>
+                          <td>{slider.name}</td>
+                          <td>{getShortText(slider.description)}</td>
                           <td>
                             <span
                               className={`badge ${
-                                item.is_active === 1
+                                slider.is_active === 1
                                   ? "bg-success"
                                   : "bg-danger"
                               }`}
                             >
-                              {item.is_active === 1 ? "Active" : "Inactive"}
+                              {slider.is_active === 1 ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -362,14 +303,11 @@ const ProductManagement = () => {
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
-                                  setSelectedPackageId(item.id);
-                                  setPackageName(item.name);
-                                  setPackageType(item.type);
-                                  setSelectedServiecTypeId(item.service_type_id);
-                                  setPackageDesc(item.description);
-                                  setPackageStatus(`${item.is_active}`);
-                                  setPackagePrice(item.price);
-                                  setSelectedFileName(item.img_name);
+                                  setSelectedSliderId(slider.id);
+                                  setSliderName(slider.name);
+                                  setSliderHeading(slider.description);
+                                  setSelectedFileName(slider.img_name);
+                                  setSliderStatus(`${slider.is_active}`);
                                 }}
                               >
                                 <iconify-icon
@@ -379,9 +317,9 @@ const ProductManagement = () => {
                               </button>
 
                               <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this Package ?"
-                                title="Delete Package"
-                                onOk={() => deletePackage(item.id)}
+                                bodyText="Are you sure you want to delete this Service ?"
+                                title="Delete Service "
+                                onOk={() => deleteSlider(slider.id)}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
@@ -404,6 +342,51 @@ const ProductManagement = () => {
                 </table>
               </div>
             </div>
+            <div className="card-footer border-top">
+              <nav aria-label="Page navigation example">
+                <ul className="pagination justify-content-end mb-0">
+                  <li
+                    className={`page-item ${
+                      currentPage === 1 ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <li
+                      key={i}
+                      className={`page-item ${
+                        currentPage === i + 1 ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(i + 1)}
+                      >
+                        {i + 1}
+                      </button>
+                    </li>
+                  ))}
+                  <li
+                    className={`page-item ${
+                      currentPage === totalPages ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
@@ -411,4 +394,4 @@ const ProductManagement = () => {
   );
 };
 
-export default ProductManagement;
+export default ServiceManagement;

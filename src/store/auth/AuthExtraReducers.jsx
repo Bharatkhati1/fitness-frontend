@@ -16,22 +16,27 @@ export const LoginUser = (userData, navigate) => {
         `${GATEWAY_URL}/login`,
         {
           username: userData.username,
-          password: userData.password
+          password: userData.password,
         },
         {
           withCredentials: true,
         }
       );
+      console.log(data);
       dispatch(
         authActions.loginUser({
-          accessToken: data?.accessToken||"",
+          accessToken: data?.accessToken || "",
           isLoggedIn: true,
-          user: { ...data?.user, permissions: data?.user?.permissions?.id },
-          permissions: data?.user?.permissions,
-          orgId: data?.user?.org_id,
+          isAdmin: data.user.roleId === 1,
+          user: { ...data?.user },
         })
       );
-      navigate("/slider-management", { replace: true });
+      if(data.user.roleId === 1){
+        navigate("/admin/slider-management", { replace: true });
+      }else{
+        navigate("/home", { replace: true });
+      }
+      
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -48,11 +53,10 @@ export const getAccessToken = () => {
       });
       dispatch(
         authActions.loginUser({
-          accessToken: data.accessToken,
+          accessToken: data?.accessToken || "",
           isLoggedIn: true,
-          user: { ...data.user, permissions: null },
-          permissions: data.user.permissions,
-          orgId: data.user.org_id,
+          isAdmin: data.user.roleId === 1,
+          user: { ...data?.user },
         })
       );
     } catch (error) {

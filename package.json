@@ -2,6 +2,7 @@
   "name": "fitnessfrontend",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://daily-fitness.24livehost.com/TDFfrontend/",
   "type": "module",
   "scripts": {
     "dev": "vite",

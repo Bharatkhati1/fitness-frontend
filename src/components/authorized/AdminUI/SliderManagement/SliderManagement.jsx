@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import axiosInstance from "../../../utils/axios/axiosInstance.jsx";
+import axiosInstance from "../../../../utils/axios/axiosInstance.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import Ckeditor from "../CkEditor/Ckeditor.jsx";
-import DOMPurify from 'dompurify';
 
-const ServiceManagement = () => {
+const SliderManagement = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
+  const [sliderSubheading, setSliderSubheading] = useState("");
   const [sliderStatus, setSliderStatus] = useState("1");
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -19,9 +18,9 @@ const ServiceManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(5);
   const fileInputRef = useRef(null);
-  const fetchAllServices = async (page = 1) => {
+  const fetchAllSliders = async (page = 1) => {
     try {
-      const res = await axiosInstance.post(`/service/get-services`, {
+      const res = await axiosInstance.post(`/slider/get-sliders`, {
         page,
         limit,
       });
@@ -40,14 +39,15 @@ const ServiceManagement = () => {
 
     const formData = new FormData();
     formData.append("name", sliderName);
-    formData.append("description", sliderHeading);
+    formData.append("heading", sliderHeading);
+    formData.append("subheading", sliderSubheading);
     formData.append("is_active", sliderStatus);
     sliderImage && formData.append("image", sliderImage);
 
     try {
       let url = isEdit
-        ? `/service/edit-service/${selectedSliderId}`
-        : `/service/create-service`;
+        ? `/slider/edit-slider/${selectedSliderId}`
+        : `/slider/create-slider`;
       const response = await axiosInstance.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -55,11 +55,12 @@ const ServiceManagement = () => {
       });
 
       if (response.status == 201) {
-        fetchAllServices();
+        fetchAllSliders();
         setIsEdit(false);
         setSelectedSliderId(null);
         setSliderName("");
         setSliderHeading("");
+        setSliderSubheading("");
         setSliderStatus("1");
         setSliderImage(null);
         setSelectedFileName(null);
@@ -85,53 +86,40 @@ const ServiceManagement = () => {
 
   const deleteSlider = async (id) => {
     try {
-      await axiosInstance.delete(`/service/${id}`);
+      await axiosInstance.delete(`/slider/${id}`);
       toast.success("Deleted Successfully");
-      fetchAllServices();
+      fetchAllSliders();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || '';
-  };
-  
-  const getShortText = (html, limit = 80) => {
-    const plainText = stripHtml(html);
-    return plainText.length > limit
-      ? plainText.slice(0, limit) + '...'
-      : plainText;
-  };
+  useEffect(() => {
+    fetchAllSliders(currentPage);
+  }, [currentPage]);
 
   const onCancelEdit =()=>{
     setIsEdit(false);
-    setSelectedSliderId(null);
-    setSliderName("");
-    setSliderHeading("");
-    setSliderStatus("1");
-    setSliderImage(null);
-    setSelectedFileName(null);
-    setSliderStatus(`1`);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+        setSelectedSliderId(null);
+        setSliderName("");
+        setSliderHeading("");
+        setSliderSubheading("");
+        setSliderStatus("1");
+        setSliderImage(null);
+        setSelectedFileName(null);
+        setSliderStatus(`1`);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
   }
-
-  useEffect(() => {
-    fetchAllServices(currentPage);
-  }, [currentPage]);
-
   return (
     <>
       <div className="row">
         <div className="col-lg-12">
-        <div className={`card ${isEdit && `editing`}`}>
+          <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Service` : `Create Service`}
+                {isEdit ? `Edit Selected Slider` : `Create Slider`}
               </h4>
               {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
             </div>
@@ -140,12 +128,12 @@ const ServiceManagement = () => {
                 {/* Slider Name */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="service-name" className="form-label">
-                      Service Name
+                    <label htmlFor="slider-name" className="form-label">
+                      Slider Name
                     </label>
                     <input
                       type="text"
-                      id="service-name"
+                      id="slider-name"
                       className="form-control"
                       placeholder="Enter name"
                       value={sliderName}
@@ -157,13 +145,13 @@ const ServiceManagement = () => {
                 {/* Slider Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="service-image" className="form-label">
-                      Service Image {isEdit && ` : ${selectedFileName}`}
+                    <label htmlFor="slider-image" className="form-label">
+                      Slider Image {isEdit && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                      id="service-image"
+                      id="slider-image"
                       ref={fileInputRef}
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
@@ -174,22 +162,46 @@ const ServiceManagement = () => {
                 {/* Heading */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Service Desciption
+                    <label htmlFor="slider-heading" className="form-label">
+                      Slider Heading
                     </label>
-                    <Ckeditor text={sliderHeading} setText={setSliderHeading} />
+                    <input
+                      type="text"
+                      id="slider-heading"
+                      className="form-control"
+                      placeholder="Enter heading"
+                      value={sliderHeading}
+                      onChange={(e) => setSliderHeading(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Subheading */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="slider-subheading" className="form-label">
+                      Slider SubHeading
+                    </label>
+                    <input
+                      type="text"
+                      id="slider-subheading"
+                      className="form-control"
+                      placeholder="Enter subheading"
+                      value={sliderSubheading}
+                      onChange={(e) => setSliderSubheading(e.target.value)}
+                    />
                   </div>
                 </div>
 
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Service Status</p>
+                  <p>Slider Status</p>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
                         className="form-check-input"
                         type="radio"
-                        name="service-status"
+                        name="slider-status"
                         value="1"
                         checked={sliderStatus === "1"}
                         onChange={() => setSliderStatus("1")}
@@ -206,7 +218,7 @@ const ServiceManagement = () => {
                       <input
                         className="form-check-input"
                         type="radio"
-                        name="service-status"
+                        name="slider-status"
                         value="0"
                         checked={sliderStatus === "0"}
                         onChange={() => setSliderStatus("0")}
@@ -252,7 +264,8 @@ const ServiceManagement = () => {
                       <th>ID</th>
                       <th>Image</th>
                       <th>Name</th>
-                      <th>Description</th>
+                      <th>Heading</th>
+                      <th>Subheading</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -285,7 +298,8 @@ const ServiceManagement = () => {
                             </Link>
                           </td>
                           <td>{slider.name}</td>
-                          <td>{getShortText(slider.description)}</td>
+                          <td>{slider.heading}</td>
+                          <td>{slider.subheading}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -298,14 +312,15 @@ const ServiceManagement = () => {
                             </span>
                           </td>
                           <td>
-                            <div class="d-flex gap-2">
+                            <div className="d-flex gap-2">
                               <button
-                                class="btn btn-soft-primary btn-sm"
+                                className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedSliderId(slider.id);
                                   setSliderName(slider.name);
-                                  setSliderHeading(slider.description);
+                                  setSliderHeading(slider.heading);
+                                  setSliderSubheading(slider.subheading);
                                   setSelectedFileName(slider.img_name);
                                   setSliderStatus(`${slider.is_active}`);
                                 }}
@@ -317,8 +332,8 @@ const ServiceManagement = () => {
                               </button>
 
                               <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this Service ?"
-                                title="Delete Service "
+                                bodyText="Are you sure you want to delete this Slider ?"
+                                title="Delete Slider "
                                 onOk={() => deleteSlider(slider.id)}
                                 buttonText={
                                   <iconify-icon
@@ -394,4 +409,4 @@ const ServiceManagement = () => {
   );
 };
 
-export default ServiceManagement;
+export default SliderManagement;

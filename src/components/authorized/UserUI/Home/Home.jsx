@@ -1,99 +1,43 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Logo from "../../public/assets/img/logo.png";
-import CartIcon from "../../public/assets/img/carticon.png";
-import UserCoupleImg from "../../public/assets/img/bannerCouple.png";
-import TagCheckIcon from "../../public/assets/img/tagCheck.png";
-import Tagcircle from "../../public/assets/img/BannerCircle.svg";
-import ShapeLeft from "../../public/assets/img/bannerShapeLeft.png";
-import ShapeRight from "../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../public/assets/img/wightLosssChart.png";
-import ServiceImg1 from "../../public/assets/img/ServiceImg-1.png";
-import ServiceImg2 from "../../public/assets/img/ServiceImg-2.png";
-import ServiceImg3 from "../../public/assets/img/ServiceImg-3.png";
-import ServiceImg4 from "../../public/assets/img/ServiceImg-4.png";
-import ServiceImg5 from "../../public/assets/img/ServiceImg-5.png";
-import ServiceImg6 from "../../public/assets/img/ServiceImg-6.png";
-import SmartKichinImg1 from "../../public/assets/img/SmartKichinImg1.png";
-import SmartKichinImg2 from "../../public/assets/img/SmartKichinImg2.png";
-import SmartKichinImg3 from "../../public/assets/img/SmartKichinImg3.png";
-import BlogImg1 from "../../public/assets/img/BlogImg1.png";
-import BlogImg2 from "../../public/assets/img/BlogImg2.png";
-import BlogImg3 from "../../public/assets/img/BlogImg3.png";
-import BlogImg4 from "../../public/assets/img/BlogImg4.png";
-import VectorImg from "../../public/assets/img/vectorimg1.png";
-import ContactUs from "../../public/assets/img/contactUs.png";
 
-import MeetExperts from "../../public/assets/img/OurMeetExpertsImg.png";
+import UserCoupleImg from "../../../../../public/assets/img/bannerCouple.png";
+import TagCheckIcon from "../../../../../public/assets/img/tagCheck.png";
+import Tagcircle from "../../../../../public/assets/img/BannerCircle.svg";
+import ShapeLeft from "../../../../../public/assets/img/bannerShapeLeft.png";
+import ShapeRight from "../../../../../public/assets/img/bannerShapeRight.png";
+import wightLosssChart from "../../../../../public/assets/img/wightLosssChart.png";
+import ServiceImg1 from "../../../../../public/assets/img/ServiceImg-1.png";
+import ServiceImg2 from "../../../../../public/assets/img/ServiceImg-2.png";
+import ServiceImg3 from "../../../../../public/assets/img/ServiceImg-3.png";
+import ServiceImg4 from "../../../../../public/assets/img/ServiceImg-4.png";
+import ServiceImg5 from "../../../../../public/assets/img/ServiceImg-5.png";
+import ServiceImg6 from "../../../../../public/assets/img/ServiceImg-6.png";
+import SmartKichinImg1 from "../../../../../public/assets/img/SmartKichinImg1.png";
+import SmartKichinImg2 from "../../../../../public/assets/img/SmartKichinImg2.png";
+import SmartKichinImg3 from "../../../../../public/assets/img/SmartKichinImg3.png";
+import BlogImg1 from "../../../../../public/assets/img/BlogImg1.png";
+import BlogImg2 from "../../../../../public/assets/img/BlogImg2.png";
+import BlogImg3 from "../../../../../public/assets/img/BlogImg3.png";
+import BlogImg4 from "../../../../../public/assets/img/BlogImg4.png";
+import VectorImg from "../../../../../public/assets/img/vectorimg1.png";
+import ContactUs from "../../../../../public/assets/img/contactUs.png";
+import MeetExperts from "../../../../../public/assets/img/OurMeetExpertsImg.png";
 
-import CallIcon from "../../public/assets/img/callIcon.png";
-import MsgeIcon from "../../public/assets/img/Mesgeicon.png";
-import InstaIcon from "../../public/assets/img/instagraIcon.png";
-import TwitterIcon from "../../public/assets/img/twitterIcon.png";
-import YoutUbeIcon from "../../public/assets/img/YoutubeIcon.png";
+import CallIcon from "../../../../../public/assets/img/callIcon.png";
+import MsgeIcon from "../../../../../public/assets/img/Mesgeicon.png";
+import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
+import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
+import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
 
-import FooterLogo from "../../public/assets/img/footerLogo.png";
 
-import ContactLeft from "../../public/assets/img/ContactShAPe1.png";
-import ContactRight from "../../public/assets/img/ContactShAPe2.png";
 
-import heartbeat from '../../public/assets/img/heartbeat.png'
+import ContactLeft from "../../../../../public/assets/img/ContactShAPe1.png";
+import ContactRight from "../../../../../public/assets/img/ContactShAPe2.png";
 
 function Home() {
   return (
     <>
-      <header id="fixed-header" className="sticky">
-        <div className="container">
-          <div className="navInner d-flex justify-content-between align-items-center">
-            <div className="navLeft">
-              <Navbar.Brand href="#home">
-                <img src={Logo} />
-              </Navbar.Brand>
-            </div>
-            <div className="navRight d-flex align-items-center">
-              <Navbar expand="lg">
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="">
-                    <Nav.Link href="#home" className="active">
-                      Home
-                    </Nav.Link>
-                    <Nav.Link href="#link">About</Nav.Link>
-                    <NavDropdown title="Packages" id="basic-nav-dropdown">
-                      <NavDropdown.Item href="#action/3.1">
-                        Action
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.2">
-                        Another action
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action/3.3">
-                        Something
-                      </NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action/3.4">
-                        Separated link
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#home">Tools</Nav.Link>
-                    <Nav.Link href="#link">Testimonials</Nav.Link>
-                    <Nav.Link href="#link">Blogs</Nav.Link>
-                    <Nav.Link href="#link">Contact Us</Nav.Link>
-                  </Nav>
-                </Navbar.Collapse>
-              </Navbar>
-              <div className="Login-info d-flex align-items-center">
-                <a className="carticon">
-                  <img src={CartIcon} />
-                </a>
-                <a className="header-btn ">Login / Register</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+   
       <section className="bannerSection">
         <span className="shapeImgLeft">
           <img src={ShapeLeft} />
@@ -797,166 +741,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-2 col-sm-6 order-md-1 order-1 FooterContent  ">
-              <figure>
-                <img src={FooterLogo} />
-              </figure>
-
-              <div className="ps-3">
-                <div className="FooterContentInfo">
-                  <h4>Wellness</h4>
-                  <p>Your health journey starts with us today.</p>
-                </div>
-
-                <ul className="SoicalList mt-3">
-                  <li>
-                    <a>
-                      <img src={InstaIcon}></img>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <img src={TwitterIcon}></img>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <img src={YoutUbeIcon}></img>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-xl col-md-12 order-xl-2 order-3 menuRows">
-              <div className="row g-0">
-                <div className="col-md col-sm-6 FooterContent  ">
-                  <h3>Services</h3>
-
-                  <ul className="userlinks">
-                    <li>
-                      <a>Fitness</a>
-                    </li>
-                    <li>
-                      <a>Disease Management</a>
-                    </li>
-                    <li>
-                      <a>Injury/Pain Management</a>
-                    </li>
-                    <li>
-                      <a>Medical Consultation</a>
-                    </li>
-                    <li>
-                      <a>Alternative Medicine</a>
-                    </li>
-                    <li>
-                      <a>Mental Health</a>
-                    </li>
-                    <li>
-                      <a>Sexual Health</a>
-                    </li>
-                    <li>
-                      <a>Smart Packages</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="col-md col-sm-6 FooterContent ">
-                  <h3>company</h3>
-
-                  <ul className="userlinks">
-                    <li>
-                      <a>Events</a>
-                    </li>
-                    <li>
-                      <a>News & Media</a>
-                    </li>
-                    <li>
-                      <a>Who We Are</a>
-                    </li>
-                    <li>
-                      <a>Innovation</a>
-                    </li>
-                    <li>
-                      <a>Careers</a>
-                    </li>
-                    <li>
-                      <a>Business Partners</a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="col-md col-sm-6 FooterContent ">
-                  <h3>Tools</h3>
-
-                  <ul className="userlinks">
-                    <li>
-                      <a>BMI Calculator</a>
-                    </li>
-                    <li>
-                      <a>Calorie Calculator</a>
-                    </li>
-                    <li>
-                      <a>Ideal Weight Calculator</a>
-                    </li>
-                    <li>
-                      <a>Fat Loss Calculator</a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="col-md col-sm-6 FooterContent ">
-                  <h3>fitness</h3>
-
-                  <ul class="ContactInfoFooter">
-                    <li>
-                      <img src="/public/assets/img/callIcon.png" />
-                      <a href="tel:8839036035">8839036035</a>
-                    </li>
-                    <li>
-                      <img src="/public/assets/img/Mesgeicon.png" />
-                      <a href="mailto:info@thedailyfitness.in">
-                        info@thedailyfitness.in
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-sm-6 order-xl-3 order-2 FooterContent">
-              <div className="FooterSubscribe">
-                <h2>Enter Your Email ID*</h2>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter your email id"
-                ></input>
-                <button className="btn btn-primary mt-2 ml-1 hvr-shutter-out-horizontal">
-                  subscribe for better health
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="BottomFooter d-flex align-items-center  justify-content-center">
-          <p>© 2024. All rights reserved</p>
-          <ul className="BottomFooterList d-flex">
-            <li>
-              <a>Privacy Policy</a>
-            </li>
-            <li>
-              <a> Refund Policy</a>
-            </li>
-            <li>
-              <a> Cookie Settings</a>
-            </li>
-          </ul>
-        </div>
-      </footer>
     </>
   );
 }

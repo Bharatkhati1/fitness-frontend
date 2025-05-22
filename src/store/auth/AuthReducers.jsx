@@ -3,9 +3,7 @@ export const reducers = {
     state.accessToken = action.payload.accessToken;
     state.isLoggedIn = action.payload.isLoggedIn;
     state.user = action.payload.user;
-    state.permissions = action.payload.permissions;
-    state.orgId = action.payload.orgId;
-    state.role = action.payload.permissions?.name;
+    state.isAdmin = action.payload.isAdmin;
   },
   checkingUserToken(state, action) {
     state.isCheckingToken = action.payload;

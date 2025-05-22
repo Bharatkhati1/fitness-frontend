@@ -223,7 +223,7 @@ var chart = new ApexCharts(
     options
 );
 
-chart.render();
+chart?.render();
 
 
 class VectorMap {

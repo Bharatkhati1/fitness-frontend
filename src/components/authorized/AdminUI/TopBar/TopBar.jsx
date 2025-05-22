@@ -1,5 +1,5 @@
 import React from "react";
-import { logoutUser } from "../../../store/auth/AuthExtraReducers";
+import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
