@@ -11,6 +11,9 @@ import PageLoader from "./components/PageLoader/index.jsx";
 import AppRoutes from "./components/Routes/AppRoutes.jsx";
 import "./index.scss"
 import Home from "./pages/Home.jsx";
+import LoginUser from "./pages/LoginUser.jsx";
+import SignUp from "./pages/SignUpUser.jsx";
+import SignUpUser from "./pages/SignUpUser.jsx";
 
 
 
@@ -41,6 +44,9 @@ const App = () => {
           <Route path="forgot-password" element={<ForgotPasswordForm />} />
           <Route path="*" element={<Navigate replace to="/login" />} />
           <Route path="Home" element={<Home/>} />
+          <Route path="LoginUser" element={<LoginUser/>} />
+
+            <Route path="SignUpUser" element={<SignUpUser/>} />
           
         </Routes>
       </Suspense>

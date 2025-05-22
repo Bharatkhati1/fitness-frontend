@@ -105,6 +105,22 @@
   .col-xl.col-md-12.order-xl-2.order-3.menuRows {
     margin-top: 35px;
   }
+
+  .LoginPage .col-md-4.me-auto {
+    width: 50%;
+  }
+
+  .LoginPage {
+    background-position: center;
+  }
+
+  .formBox {
+    padding: 30px 35px 35px;
+  }
+
+  .RegisterPage .SocialUsers {
+    width: 95%;
+  }
 }
 
 @media (max-width: 991px) {
@@ -240,6 +256,16 @@
     width: 100%;
     margin-top: 20px;
   }
+
+  .LoginPage .col-md-4.me-auto {
+    width: 65%;
+    margin: auto;
+  }
+
+  .RegisterPage .col-md-7.me-auto {
+    width: 90%;
+    margin: auto;
+  }
 }
 @media (max-width: 767px) {
   .col-md-6.bannerSectionLeft.pe-0 {
@@ -347,6 +373,30 @@
   .AboutInfoLeft p {
     font-size: 16px;
   }
+
+  .LoginPage .col-md-4.me-auto {
+    width: 100%;
+    margin: auto;
+  }
+
+  .LoginPage {
+    background-position: 100%;
+  }
+
+  .fieldbox {
+    margin-bottom: 15px !important;
+  }
+
+  .RegisterPage .SocialUsers {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .RegisterPage .SocialUsers a {
+    width: 90%;
+    margin: auto;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -438,6 +488,29 @@
 
   .PageTitle h2 {
     font-size: 20px;
+  }
+
+  .formBox {
+    background: linear-gradient(
+      to bottom,
+      rgb(237 237 237 / 64%) 0%,
+      rgb(219 219 219) 100%
+    );
+
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+  }
+
+  .formBox {
+    padding: 30px 20px 35px;
+  }
+
+  .btn.max-width {
+    min-width: 100%;
+  }
+
+  .RegisterPage .col-md-7.me-auto {
+    width: 100%;
   }
 }
 @media (max-width: 480px) {
