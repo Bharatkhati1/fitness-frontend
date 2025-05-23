@@ -212,8 +212,8 @@ const ProductManagement = () => {
                     </label>
                     <textarea
                       type="text"
-                      minLength={6}
                       id="service-des"
+                      style={{ resize: "vertical", minHeight: "100px" }}
                       className="form-control"
                       placeholder="Enter short description"
                       value={packageDesc}
@@ -229,8 +229,8 @@ const ProductManagement = () => {
                     </label>
                     <textarea
                       type="text"
-                      minLength={6}
                       id="service-des"
+                      style={{ resize: "vertical", minHeight: "100px" }}
                       className="form-control"
                       placeholder="Enter long description"
                       value={longDescription}
