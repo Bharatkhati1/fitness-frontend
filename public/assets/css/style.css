@@ -1211,6 +1211,7 @@ ul.BottomFooterList,
   border-radius: 10px;
   box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
   margin-top: 30px;
+  padding-bottom: 40px;
 }
 .calculateHead h4 {
   font-size: 18px;
@@ -1219,9 +1220,6 @@ ul.BottomFooterList,
 .calculateHead {
   padding: 28px 20px;
   border-bottom: 1px solid rgb(0 0 0 / 15%);
-}
-.calculatebody {
-  padding: 20px 20px;
 }
 
 .calculaField {
@@ -1343,7 +1341,8 @@ ul.wightList figure {
 }
 
 .calculatebody {
-  padding: 30px 70px 40px 30px;
+  padding: 30px 30px 3px 30px;
+  width: 80%;
 }
 
 .innerbanner figure img {
@@ -1370,13 +1369,13 @@ ul.wightList figure {
   border-radius: 5px;
 }
 
-[type="radio"]:checked,
-[type="radio"]:not(:checked) {
+.radioList [type="radio"]:checked,
+.radioList [type="radio"]:not(:checked) {
   position: absolute;
   left: -9999px;
 }
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label {
+.radioList [type="radio"]:checked + label,
+.radioList [type="radio"]:not(:checked) + label {
   position: relative;
   padding-left: 41px;
   cursor: pointer;
@@ -1385,8 +1384,8 @@ ul.wightList figure {
   font-size: 24px;
   font-weight: 400;
 }
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
+.radioList [type="radio"]:checked + label:before,
+.radioList [type="radio"]:not(:checked) + label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1397,8 +1396,8 @@ ul.wightList figure {
   border-radius: 100%;
   background: #fff;
 }
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
+.radioList [type="radio"]:checked + label:after,
+.radioList [type="radio"]:not(:checked) + label:after {
   content: "";
   width: 13px;
   height: 13px;
@@ -1411,18 +1410,18 @@ ul.wightList figure {
   transition: all 0.2s ease;
   right: 0;
 }
-[type="radio"]:not(:checked) + label:after {
+.radioList [type="radio"]:not(:checked) + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
-[type="radio"]:checked + label:after {
+.radioList [type="radio"]:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-[type="radio"]:checked + label:before {
+.radioList [type="radio"]:checked + label:before {
   border: 1px solid #800030;
 }
 
@@ -1484,4 +1483,123 @@ span.day-text sub {
 
 span.text-primary {
   color: #800030 !important;
+}
+
+.Diet3 {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  margin-bottom: 0;
+}
+
+.ResultBoxinner-left p {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.optinallyList li {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+ul.optinallyList {
+  padding: 20px 0 60px;
+  padding-right: 138px;
+}
+.smallNote {
+  font-size: 14px !important;
+  color: #1e1e1e;
+  font-weight: 300 !important;
+  font-style: italic;
+  padding-right: 212px;
+  text-transform: capitalize;
+}
+.taginfo {
+  position: absolute;
+  right: -122px;
+  top: 17px;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.calculateButton .btn.btn-primary {
+  font-size: 18px;
+  font-weight: 600;
+  min-width: 425px;
+  height: 53px;
+}
+
+.ToolsPageMain.sectionSpace {
+  padding-top: 45px;
+  padding-bottom: 50px;
+}
+
+.InnerpageHead h3 {
+  font-size: 30px;
+  color: #800030;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.InnerpageHead p {
+  font-size: 16px;
+  color: rgb(0 0 0 / 90%);
+  font-weight: 6;
+}
+
+.InnerpageHead {
+  margin-bottom: 50px;
+}
+
+.ToolsPageBox {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+  border-radius: 20px;
+  padding: 25px 95px;
+  margin-bottom: 30px;
+  background: #f5f5f5;
+}
+
+.ToolsPageBox h4 {
+  font-size: 30px;
+  color: #2a2a2a;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.ToolsPageBox:nth-child(odd) .row .col-md-8 {
+  padding-left: 125px !important;
+}
+
+.ToolsPageBox:last-child {
+  margin-bottom: 0;
+}
+.ToolsPageBox p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1e1e1e;
+  line-height: 1.8;
+}
+.ToolsPageBox figure {
+  margin-bottom: 0;
+}
+.ToolsPageBox figure img {
+  width: 372px;
+  height: 209px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.ToolsPageBox .col-md-4 {
+  padding: 0;
+}
+
+.ToolsPageBox:nth-child(odd) .row {
+  flex-direction: row-reverse;
+}
+
+.ToolsPageBox .row {
+  align-items: center;
 }

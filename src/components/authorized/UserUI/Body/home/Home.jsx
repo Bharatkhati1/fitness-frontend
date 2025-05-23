@@ -56,14 +56,14 @@ function Home() {
       const response = await userAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
 
-      const chunkSize = 6;
-      const chunkedServices = [];
+      // const chunkSize = 6;
+      // const chunkedServices = [];
 
-      for (let i = 0; i < servicesData.length; i += chunkSize) {
-        chunkedServices.push(servicesData.slice(i, i + chunkSize));
-      }
+      // for (let i = 0; i < servicesData.length; i += chunkSize) {
+      //   chunkedServices.push(servicesData.slice(i, i + chunkSize));
+      // }
 
-      setServices(chunkedServices);
+      setServices(servicesData);
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
@@ -179,11 +179,11 @@ function Home() {
             </p>
           </div>
           <div className="row OurServicesRow">
-            <OwlCarousel
+            {/* <OwlCarousel
               className="owl-theme"
               autoplay={false}
               dots={false}
-              items={1} // Only 1 "group" of 6 services per slide
+              items={1} 
               loop
               margin={10}
               nav={false}
@@ -214,8 +214,35 @@ function Home() {
                   ))}
                 </div>
               ))}
+            </OwlCarousel> */}
+            <OwlCarousel
+              className="owl-theme"
+              autoplay={false}
+              dots={false}
+              items={3}
+              loop
+              margin={10}
+              nav={false}
+              autoplaySpeed={500}
+              autoplayTimeout={3000}
+            >
+              {services.map((service, index) => (
+               <div className="">
+               <div className="OurServicesContent">
+                 <figure>
+                   <img crossOrigin="annoymous" src={service.image_url} />
+                 </figure>
+                 <figcaption>
+                   <h3>{service.name}</h3>
+                   <p>{stripHtml(service.description)}</p>
+                   <a className="btn btn-primary hvr-shutter-out-horizontal">
+                     book a free consultation
+                   </a>
+                 </figcaption>
+               </div>
+             </div>
+              ))}
             </OwlCarousel>
-
             {/* {services.map((service) => (
               <div className="col-md-4">
                 <div className="OurServicesContent">

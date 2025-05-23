@@ -36,7 +36,6 @@ const userAxios = axios.create({
 userAxios.interceptors.request.use(
   async (config) => {
     if (jwtVerify()) return config;
-
     try {
       const { data } = await axios.get(`${GATEWAY_URL}/user/refresh`, {
         withCredentials: true,

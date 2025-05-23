@@ -1,6 +1,6 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { getAccessToken } from "./store/auth/AuthExtraReducers.jsx";
 
 import "../public/assets/css/app.min.css";
@@ -13,9 +13,8 @@ import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
-import BmiCalculatorPage from "./components/pages/BmiCalculatorPage.jsx";
-import CalorieCalulator from "./components/pages/CalorieCalulator.jsx";
-import IdealweightPage from "./components/pages/IdealweightPage.jsx";
+import FatperchantageCalculator from "./components/pages/FatperchantageCalculator.jsx";
+import Tools from "./components/pages/Tools.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -50,10 +49,10 @@ const App = () => {
           <Route path="SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
-
-          <Route path="BmiCalculatorePage" element={<BmiCalculatorPage />} />
-          <Route path="CalorieCalulator" element={<CalorieCalulator />} />
-          <Route path="IdealweightPage" element={<IdealweightPage />} />
+          <Route
+            path="FatperchantageCalculator"
+            element={<FatperchantageCalculator />}
+          />
         </Routes>
       </Suspense>
     );
