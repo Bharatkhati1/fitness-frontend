@@ -1175,6 +1175,7 @@ ul.BottomFooterList,
   font-size: 48px;
   color: #ffffff;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .innerbannerContent p {
@@ -1238,7 +1239,7 @@ ul.BottomFooterList,
 
 .calculainSelect {
   flex: 1;
-  padding-left: 20px;
+
   display: flex;
   position: relative;
 }
@@ -1271,7 +1272,8 @@ ul.BottomFooterList,
   font-size: 24px;
   color: #1e1e1e;
   font-weight: 600;
-  min-width: 95px;
+  min-width: 110px;
+  max-width: 110px;
 }
 
 .calulaterResult {
@@ -1342,4 +1344,144 @@ ul.wightList figure {
 
 .calculatebody {
   padding: 30px 70px 40px 30px;
+}
+
+.innerbanner figure img {
+  height: 565px;
+  object-fit: cover;
+  width: 100%;
+}
+.calculatebody .btn.btn-primary {
+  font-size: 18px;
+  height: 53px;
+}
+/**/
+
+.FieldIn {
+  flex: 1;
+}
+
+.FieldIn input.form-control,
+.FieldIn select.form-select {
+  height: 61px;
+  font-size: 20px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label {
+  position: relative;
+  padding-left: 41px;
+  cursor: pointer;
+  line-height: 28px;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 400;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 29px;
+  height: 29px;
+  border: 1px solid #ddd;
+  border-radius: 100%;
+  background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+  content: "";
+  width: 13px;
+  height: 13px;
+  background: #800030;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  border-radius: 100%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  right: 0;
+}
+[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+[type="radio"]:checked + label:before {
+  border: 1px solid #800030;
+}
+
+ul.radioList li {
+  margin-right: 50px;
+}
+
+ul.radioList {
+  margin-bottom: 0;
+}
+
+.calulaterResult.calulaterDiet {
+  padding: 30px 40px;
+}
+
+.calulaterResult.calulaterDiet h4 {
+  font-size: 30px;
+  color: #800030;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ResultBox-left p {
+  margin-bottom: 0;
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+
+.day-text {
+  display: flex;
+  font-size: 60px;
+  color: #007946;
+  font-weight: 700;
+}
+
+span.day-text sub {
+  font-size: 24px;
+  color: #00000099;
+  font-weight: 400;
+  line-height: 96px;
+  padding-left: 3px;
+}
+
+.ResultBox-left {
+  padding-right: 40px;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.ResultBox-right {
+  width: 196px;
+}
+
+.ResultBox {
+  display: flex;
+  align-items: center;
+}
+
+span.text-primary {
+  color: #800030 !important;
 }
