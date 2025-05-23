@@ -49,7 +49,7 @@ export default function Tools() {
                   It is calculated by dividing a person's weight in kilograms by
                   the square of their height in meters.
                 </p>
-                <a className="btn btn-primary">calculate your bmi</a>
+                <a className="btn btn-primary hvr-shutter-out-horizontal">calculate your bmi</a>
               </div>
 
               <div className="col-md-4">
@@ -68,7 +68,7 @@ export default function Tools() {
                   Calculate your daily calorie needs to maintain or lose weight
                   based on your activity level.
                 </p>
-                <a className="btn btn-primary">calculate your calorie intake</a>
+                <a className="btn btn-primary hvr-shutter-out-horizontal">calculate your calorie intake</a>
               </div>
 
               <div className="col-md-4">
@@ -87,7 +87,7 @@ export default function Tools() {
                   Determine your Body Fat Percentage to assess your weight
                   status and overall health risk.
                 </p>
-                <a className="btn btn-primary">calculate your fat loss</a>
+                <a className="btn btn-primary hvr-shutter-out-horizontal">calculate your fat loss</a>
               </div>
 
               <div className="col-md-4">
@@ -105,7 +105,7 @@ export default function Tools() {
                   Calculate your daily calorie needs to maintain or lose weight
                   based on your activity level.
                 </p>
-                <a className="btn btn-primary">calculate your ideal weight</a>
+                <a className="btn btn-primary hvr-shutter-out-horizontal">calculate your ideal weight</a>
               </div>
 
               <div className="col-md-4">
