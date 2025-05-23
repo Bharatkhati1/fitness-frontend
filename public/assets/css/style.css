@@ -1343,3 +1343,10 @@ ul.wightList figure {
 .calculatebody {
   padding: 30px 70px 40px 30px;
 }
+
+
+.innerbanner figure img {
+    height: 565px;
+    object-fit: cover;
+    width: 100%;
+}
