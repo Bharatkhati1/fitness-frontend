@@ -2,7 +2,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
-import Home from "../authorized/UserUI/Home/Home";
+import Home from "../authorized/UserUI/Body/home/Home";
 import AppLayout from "../authorized/UserUI/AppLayout";
 
 

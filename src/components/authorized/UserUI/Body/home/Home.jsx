@@ -1,38 +1,38 @@
 import React from "react";
 
-import UserCoupleImg from "../../../../../public/assets/img/bannerCouple.png";
-import TagCheckIcon from "../../../../../public/assets/img/tagCheck.png";
-import Tagcircle from "../../../../../public/assets/img/BannerCircle.svg";
-import ShapeLeft from "../../../../../public/assets/img/bannerShapeLeft.png";
-import ShapeRight from "../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../public/assets/img/wightLosssChart.png";
-import ServiceImg1 from "../../../../../public/assets/img/ServiceImg-1.png";
-import ServiceImg2 from "../../../../../public/assets/img/ServiceImg-2.png";
-import ServiceImg3 from "../../../../../public/assets/img/ServiceImg-3.png";
-import ServiceImg4 from "../../../../../public/assets/img/ServiceImg-4.png";
-import ServiceImg5 from "../../../../../public/assets/img/ServiceImg-5.png";
-import ServiceImg6 from "../../../../../public/assets/img/ServiceImg-6.png";
-import SmartKichinImg1 from "../../../../../public/assets/img/SmartKichinImg1.png";
-import SmartKichinImg2 from "../../../../../public/assets/img/SmartKichinImg2.png";
-import SmartKichinImg3 from "../../../../../public/assets/img/SmartKichinImg3.png";
-import BlogImg1 from "../../../../../public/assets/img/BlogImg1.png";
-import BlogImg2 from "../../../../../public/assets/img/BlogImg2.png";
-import BlogImg3 from "../../../../../public/assets/img/BlogImg3.png";
-import BlogImg4 from "../../../../../public/assets/img/BlogImg4.png";
-import VectorImg from "../../../../../public/assets/img/vectorimg1.png";
-import ContactUs from "../../../../../public/assets/img/contactUs.png";
-import MeetExperts from "../../../../../public/assets/img/OurMeetExpertsImg.png";
+import UserCoupleImg from "../../../../../../public/assets/img/bannerCouple.png";
+import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
+import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
+import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
+import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
+import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
+import ServiceImg1 from "../../../../../../public/assets/img/ServiceImg-1.png";
+import ServiceImg2 from "../../../../../../public/assets/img/ServiceImg-2.png";
+import ServiceImg3 from "../../../../../../public/assets/img/ServiceImg-3.png";
+import ServiceImg4 from "../../../../../../public/assets/img/ServiceImg-4.png";
+import ServiceImg5 from "../../../../../../public/assets/img/ServiceImg-5.png";
+import ServiceImg6 from "../../../../../../public/assets/img/ServiceImg-6.png";
+import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
+import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
+import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
+import BlogImg1 from "../../../../../../public/assets/img/BlogImg1.png";
+import BlogImg2 from "../../../../../../public/assets/img/BlogImg2.png";
+import BlogImg3 from "../../../../../../public/assets/img/BlogImg3.png";
+import BlogImg4 from "../../../../../../public/assets/img/BlogImg4.png";
+import VectorImg from "../../../../../../public/assets/img/vectorimg1.png";
+import ContactUs from "../../../../../../public/assets/img/contactUs.png";
+import MeetExperts from "../../../../../../public/assets/img/OurMeetExpertsImg.png";
 
-import CallIcon from "../../../../../public/assets/img/callIcon.png";
-import MsgeIcon from "../../../../../public/assets/img/Mesgeicon.png";
-import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
-import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
-import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
+import CallIcon from "../../../../../../public/assets/img/callIcon.png";
+import MsgeIcon from "../../../../../../public/assets/img/Mesgeicon.png";
+import InstaIcon from "../../../../../../public/assets/img/instagraIcon.png";
+import TwitterIcon from "../../../../../../public/assets/img/twitterIcon.png";
+import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 
 
-import ContactLeft from "../../../../../public/assets/img/ContactShAPe1.png";
-import ContactRight from "../../../../../public/assets/img/ContactShAPe2.png";
+import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
+import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
 
 function Home() {
   return (
