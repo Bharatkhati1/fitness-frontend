@@ -986,146 +986,360 @@ header.sticky {
   border-left: 1px solid;
 }
 
-
-
 /**login****/
 
-
-.LoginPage{ background: url("../img/loginBanner.png");
-   background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: auto;
-            padding-top: 50px;
-            
-
+.LoginPage {
+  background: url("../img/loginBanner.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  padding-top: 50px;
 }
-.RegisterPage .col-md-7.me-auto,.col-md-4.me-auto{        margin: 20px 0;}
+.RegisterPage .col-md-7.me-auto,
+.col-md-4.me-auto {
+  margin: 20px 0;
+}
 .formBox {
-    background: linear-gradient(to bottom, rgb(237 237 237 / 64%) 0%, rgb(219 219 219 / 58%) 100%);
-    box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
-    border-radius: 8px;
-    padding: 30px 45px 35px;
-    -webkit-backdrop-filter: blur(1px);
-    backdrop-filter: blur(1px);
+  background: linear-gradient(
+    to bottom,
+    rgb(237 237 237 / 64%) 0%,
+    rgb(219 219 219 / 58%) 100%
+  );
+  box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
+  border-radius: 8px;
+  padding: 30px 45px 35px;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
 }
 
 .formBoxHead h3 {
-    font-size: 24px;
-    color: #800030;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
+  font-size: 24px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
 }
 
 .formBoxHead {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .fieldbox label {
-    font-size: 14px;
-    color: #2A2A2A;
-    font-weight: 600;
+  font-size: 14px;
+  color: #2a2a2a;
+  font-weight: 600;
 }
 
 .withIcon {
-    position: relative;
+  position: relative;
 }
 
 .EyeIcon {
-    position: absolute;
-    right: 15px;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
+  position: absolute;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 .TextLink {
-    font-size: 14px;
-    color:var(--primary-color);
-    font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .DotHave {
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    margin-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 15px;
 }
 
 .or-text {
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-    text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  text-transform: uppercase;
 }
 
 .SocialUsers a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000000;
-    background: #Fff;
-    height: 48px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  background: #fff;
+  height: 48px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.SocialUsers a:hover{ opacity: 0.6;}
+.SocialUsers a:hover {
+  opacity: 0.6;
+}
 
-.SocialUsers a img{ margin-right: 10px;}
+.SocialUsers a img {
+  margin-right: 10px;
+}
 
-
-.SocialUsers a:last-child{margin-bottom: 0;}
+.SocialUsers a:last-child {
+  margin-bottom: 0;
+}
 
 .SocialUsers {
-    width: 85%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.formBox input.form-control{ font-size: 12px;}
+.formBox input.form-control {
+  font-size: 12px;
+}
 
 .btn.max-width {
-    min-width: 353px;
-    margin: auto;
+  min-width: 353px;
+  margin: auto;
 }
-.RegisterPage .SocialUsers{ gap: 10px;}
+.RegisterPage .SocialUsers {
+  gap: 10px;
+}
 
-.RegisterPage .SocialUsers a{ width: 50%;}
+.RegisterPage .SocialUsers a {
+  width: 50%;
+}
 
 .RegisterPage .termscheck {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .RegisterPage .form-check-input {
-    margin-top: -1px;
-    margin-right: 8px;
-    width: 23px;
-    height: 23px;
-      border: 1px solid hsl(0deg 0% 0% / 60%);
-    border-radius: 5px !important;
+  margin-top: -1px;
+  margin-right: 8px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid hsl(0deg 0% 0% / 60%);
+  border-radius: 5px !important;
 }
 
 .RegisterPage .form-check-label {
-    font-size: 14px;
-    color: #2A2A2A;
-    margin-bottom: 0;
+  font-size: 14px;
+  color: #2a2a2a;
+  margin-bottom: 0;
 }
 
 .RegisterPage .form-check-label a {
-    color: #2795D9;
-    cursor: pointer;
+  color: #2795d9;
+  cursor: pointer;
+}
+ul.BottomFooterList,
+.BottomFooter p {
+  margin-bottom: 0;
+}
+
+/**tools*/
+
+.innerbanner {
+  position: relative;
+}
+
+.innerbannerContent {
+  position: absolute;
+  bottom: 55px;
+  z-index: 9;
+}
+
+.innerbanner:after {
+  background: rgb(0 0 0 / 50%);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+}
+.innerbannerContent h2 {
+  font-size: 48px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.innerbannerContent p {
+  font-size: 19px;
+  color: #ffffff;
+}
+
+.innerbanner figure {
+  margin-bottom: 0;
+}
+
+.InnerSpace {
+  padding: 45px 0;
+}
+.InnerPageTitle {
+  margin-bottom: 40px;
+}
+.InnerPageTitle h4 {
+  font-size: 30px;
+  color: var(--primary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.InnerPageTitle p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.bmiCalculatorBg {
+  background: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
+  margin-top: 30px;
+}
+.calculateHead h4 {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+.calculateHead {
+  padding: 28px 20px;
+  border-bottom: 1px solid rgb(0 0 0 / 15%);
+}
+.calculatebody {
+  padding: 20px 20px;
+}
+
+.calculaField {
+  display: flex;
+  align-items: center;
+}
+
+.calculainSelect {
+  display: flex;
+}
+
+.calculaField label {
+  margin-bottom: 0;
+}
+
+.calculainSelect {
+  flex: 1;
+  padding-left: 20px;
+  display: flex;
+  position: relative;
+}
+.calculaField {
+  display: flex;
+  align-items: center;
+}
+
+.calculainSelect .form-select {
+  color: #fff !important;
+  width: 75px;
+  background-color: #800030;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-left: 12px;
+  font-size: 18px;
+  font-weight: 400;
+  background-image: url(../img/arrow-drop.png);
+  background-size: 16px;
+  background-position: right 10px center;
+}
+.calculainSelect input.form-control {
+  font-size: 20px;
+  height: 61px;
+}
+
+.calculaField label {
+  margin-bottom: 0;
+  font-size: 24px;
+  color: #1e1e1e;
+  font-weight: 600;
+  min-width: 95px;
+}
+
+.calulaterResult {
+  box-shadow: 0 8px 8px rgb(0 0 0 / 15%);
+  background: #f5f5f5;
+  border-radius: 20px;
+}
+
+ul.wightList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.calulaterResultHead h3 {
+  font-size: 28px;
+  color: #800030;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.calulaterResultHead {
+  border-bottom: 1px solid rgb(0 0 0 / 15%);
+  padding: 20px 20px;
+  margin-bottom: 15px;
+}
+
+ul.wightList li {
+  width: 25%;
+  padding: 0 10px;
+  text-align: center;
+}
+
+ul.wightList h4 {
+  font-size: 24px;
+  color: #1e1e1e;
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: 700;
+  padding-left: 11px;
+  padding: 12px 0;
+}
+
+ul.wightList figure {
+  margin-bottom: 0;
+}
+
+.btn.sm-btn {
+  min-width: 304px;
+}
+.yourBmi {
+  font-size: 28px;
+  color: #000;
+  font-weight: 500;
+  padding: 14px 20px;
+  border-top: 1px solid rgb(0 0 0 / 15%);
+}
+
+.yourBmi span {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.yourBmi span b {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.calculatebody {
+  padding: 30px 70px 40px 30px;
 }
