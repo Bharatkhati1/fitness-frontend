@@ -262,11 +262,11 @@ const SliderManagement = () => {
                         <tr key={index}>
                           <td>{slider.id}</td>
                           <td>
-                            <Link target="_blank" to={slider.image}>
+                            <Link target="_blank" to={slider.image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={slider.image}
+                                src={slider.image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -277,7 +277,7 @@ const SliderManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    slider.image
+                                    slider.image_url
                                   );
                                 }}
                               />

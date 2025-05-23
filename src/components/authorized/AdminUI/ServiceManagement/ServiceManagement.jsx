@@ -243,7 +243,7 @@ const ServiceManagement = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Sliders</h4>
+              <h4 className="card-title">All Services</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">

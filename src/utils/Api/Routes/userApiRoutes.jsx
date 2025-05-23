@@ -1,7 +1,7 @@
 const userApiRoutes = {
-    refresh: "/refresh",
-    logout: "/logout",
-    login: "/login",
+    get_sliders: "/sliders",
+    get_services: "/services",
+    get_blogs:()=>`/blogs`,
   };
   
   export default userApiRoutes;
