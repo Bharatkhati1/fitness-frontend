@@ -6,13 +6,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+figure {
+  margin-bottom: 0 !important;
+}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
   color: #000;
+  background: #fff !important;
 }
 
 a {
@@ -144,9 +148,10 @@ button:focus:not(:focus-visible) {
 .PageTitle p {
   font-size: 16px;
   color: #2a2a2a;
+  margin-bottom: 0;
 }
 .PageTitle {
-  margin-bottom: 50px;
+  margin-bottom: 45px;
 }
 .PageTitle h2 {
   font-size: 24px;
@@ -192,7 +197,7 @@ body .btn.btn-primary {
   position: relative;
 }
 .btn-info {
-  background: #1976d2;
+  background: #1976d2 !important;
 }
 
 .btn.s-btn {
@@ -250,8 +255,15 @@ header .navbar-nav .nav-link {
   align-items: center;
   justify-content: center;
   margin-left: 15px;
+  border: 0;
 }
 
+header .navbar-collapse .nav-link.active {
+  color: var(--primary-color);
+}
+.GetIntouchRight {
+  padding-bottom: 50px;
+}
 .bannerSection {
   background: #f5f5f5 url(../img/slider-bg.png);
   background-repeat: no-repeat;
@@ -271,6 +283,7 @@ header .navbar-nav .nav-link {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 25px;
+  color: #000;
 }
 .BestTag img {
   margin-right: 10px;
@@ -299,7 +312,7 @@ header .navbar-nav .nav-link {
   position: relative;
 }
 .bannerSectionInner {
-  margin-bottom: -17px;
+  margin-bottom: -5px;
 }
 .ClientInfo b {
   font-size: 30px;
@@ -322,10 +335,23 @@ header .navbar-nav .nav-link {
 .ClientListinfo li:last-child {
   border-right: 0;
 }
-.circletagShape {
+.circletagShapeBox {
   position: absolute;
-  right: 50px;
+  right: 70px;
   top: 165px;
+}
+
+.header-btn:hover {
+  opacity: 0.8;
+}
+
+.carticon:hover img {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.carticon img {
+  transition: 0.3s;
 }
 .shapeImgLeft {
   position: absolute;
@@ -337,7 +363,16 @@ header .navbar-nav .nav-link {
   right: -78px;
   bottom: 20px;
 }
-
+.heartBeatImg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  width: 27px;
+  margin: auto;
+}
 .AboutInfo h2 {
   font-size: 32px;
   font-weight: 700;
@@ -358,8 +393,8 @@ header .navbar-nav .nav-link {
 }
 
 .OurServices {
-  padding-top: 35px;
-  padding-bottom: 65px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 .OurServicesContent {
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
@@ -405,8 +440,8 @@ header .navbar-nav .nav-link {
 }
 
 .WhyChoose {
-  padding-top: 35px;
-  padding-bottom: 45px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 .WhyChoose {
   position: relative;
@@ -426,15 +461,15 @@ header .navbar-nav .nav-link {
 }
 
 .SmartKichin {
-  padding-top: 56px;
-  padding-bottom: 80px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 .SmartKichinContent figcaption {
   width: 320px;
   margin: auto;
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
   padding: 15px 15px 20px;
-  margin-top: -20px;
+  margin-top: -55px;
   background: #fff;
   z-index: 9;
   position: relative;
@@ -470,32 +505,30 @@ header .navbar-nav .nav-link {
   text-align: center;
   background-size: cover;
 }
+
 .PosterContent {
-  max-width: 800px;
-  margin: auto;
-}
-.PosterContent h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 20px;
-}
-.PosterContent p {
-  font-size: 14px;
-  color: #fff;
-  font-weight: 400;
-  margin-bottom: 12px;
-}
-.PosterContent {
-  max-width: 640px;
+  max-width: 840px;
   margin: auto;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.5) 0,
     rgba(255, 255, 255, 0.5) 100%
   );
-  padding: 25px 25px;
+  padding: 35px 25px;
 }
+.PosterContent h2 {
+  font-size: 33px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.PosterContent p {
+  font-size: 19px;
+  color: #fff;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
 .PosterSec.empoweringhealth {
   background: url(../img/posterSec2.png);
   background-repeat: no-repeat;
@@ -504,7 +537,7 @@ header .navbar-nav .nav-link {
 
 .OurHealthBlog {
   padding-top: 60px;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
 }
 .OurHealthBlogContent figure img {
   width: 100%;
@@ -526,19 +559,20 @@ header .navbar-nav .nav-link {
 .OurHealthBlogContent figcaption h3 {
   font-size: 24px;
   font-weight: 600;
+  color: #2a2a2a;
 }
 .row.OurHealthBlogRows {
   width: 84%;
   margin: auto;
 }
 .col-md-6.OurHealthBlogContent {
-  margin-bottom: 80px;
+  margin-bottom: 55px;
   padding: 0 40px;
 }
 
 .meetOurExperts {
   background: #f5f4f4;
-  padding: 30px 0;
+  padding: 60px 0 70px;
 }
 
 .meetOurExperts figure img {
@@ -728,9 +762,9 @@ textarea.form-control {
 }
 
 .GetIntouch {
-  background: #f5f5f5;
+  position: relative;
+  padding-top: 55px;
 }
-
 .GetIntouchRight {
   padding-top: 30px;
   padding-left: 30px;
@@ -842,7 +876,7 @@ footer {
 
 .userlinks li a {
   font-size: 12px;
-  color: rgb(0 0 0 / 90%);
+  color: rgb(0 0 0 / 90%) !important;
   margin-bottom: 8px;
   display: block;
   font-weight: 400;
@@ -1602,4 +1636,43 @@ ul.optinallyList {
 
 .ToolsPageBox .row {
   align-items: center;
+}
+
+.GetIntouchLeft {
+  display: flex;
+  align-items: flex-end;
+}
+
+.ContactInfoFooter li a {
+  color: #000;
+}
+
+.circleshape {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+
+
+span.circleshape2 {
+    position: absolute;
+    right: 91px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+}
+
+.userlinks li a:hover,.ContactInfoFooter li a:hover {
+    color: #800030 !important;
+    cursor: pointer;
+}
+
+ul.BottomFooterList li a:hover {
+    cursor: pointer;
+    text-decoration: underline !important;
 }
