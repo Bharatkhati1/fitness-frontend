@@ -2,6 +2,8 @@ import axios from "axios";
 import { GATEWAY_URL } from "../../utils/constants";
 import { authActions } from "./index";
 import { toast } from "react-toastify";
+import userAxios from "../../utils/Api/userAxios";
+import store from "..";
 
 export const Login = (userData, navigate) => {
   return async (dispatch) => {
@@ -11,9 +13,8 @@ export const Login = (userData, navigate) => {
         return;
       }
       dispatch(authActions.setLoginButtonDisable(true));
-
       const { data } = await axios.post(
-        `${GATEWAY_URL}/login`,
+        `${GATEWAY_URL}/web/login`,
         {
           username: userData.username,
           password: userData.password,
@@ -47,7 +48,7 @@ export const Login = (userData, navigate) => {
 export const getAccessToken = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${GATEWAY_URL}/refresh`, {
+      const { data } = await axios.get(`${GATEWAY_URL}/web/refresh`, {
         withCredentials: true,
       });
       dispatch(
@@ -70,16 +71,19 @@ export const logoutUser = () => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
+ const accessToken =  store.getState().auth.accessToken
   window.sessionStorage.clear();
   window.localStorage.clear();
   window.indexedDB.deleteDatabase("");
-
   return async (dispatch) => {
     dispatch(authActions.setLoginButtonDisable(true));
     const fetchData = async () => {
-      await axios
-        .get(`${GATEWAY_URL}/logout`, {
+      await userAxios
+        .get(`/logout`, {
           withCredentials: true,
+          headers: {
+            "authorization": `Bearer ${accessToken}`
+          },
         })
         .then(() => {
           if (window.performance && window.performance.clearResourceTimings) {
@@ -93,7 +97,7 @@ export const logoutUser = () => {
 
     try {
       await fetchData();
-      window.open("/login", "_self", false);
+      window.open("/LoginUser", "_self", false);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {

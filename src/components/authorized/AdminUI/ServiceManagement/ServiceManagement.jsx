@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import axiosInstance from "../../../../utils/axios/axiosInstance.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
+import adminAxios from "../../../../utils/Api/adminAxios.jsx";
+import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
 const ServiceManagement = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
-  const [sliderStatus, setSliderStatus] = useState("1");
+  const [sliderStatus, setSliderStatus] = useState(true);
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
@@ -21,7 +22,7 @@ const ServiceManagement = () => {
   const fileInputRef = useRef(null);
   const fetchAllServices = async (page = 1) => {
     try {
-      const res = await axiosInstance.post(`/service/get-services`, {
+      const res = await adminAxios.get(adminApiRoutes.get_services, {
         page,
         limit,
       });
@@ -42,19 +43,29 @@ const ServiceManagement = () => {
     formData.append("name", sliderName);
     formData.append("description", sliderHeading);
     formData.append("is_active", sliderStatus);
-    sliderImage && formData.append("image", sliderImage);
+    sliderImage && formData.append("service_image", sliderImage);
 
     try {
       let url = isEdit
-        ? `/service/edit-service/${selectedSliderId}`
-        : `/service/create-service`;
-      const response = await axiosInstance.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        ? adminApiRoutes.update_service(selectedSliderId)
+        : adminApiRoutes.create_service;
 
-      if (response.status == 201) {
+      let response;
+      if (isEdit) {
+        response = await adminAxios.put(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await adminAxios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+
+      if (response.status == 200) {
         fetchAllServices();
         setIsEdit(false);
         setSelectedSliderId(null);
@@ -83,9 +94,9 @@ const ServiceManagement = () => {
     }
   };
 
-  const deleteSlider = async (id) => {
+  const deleteService = async (id) => {
     try {
-      await axiosInstance.delete(`/service/${id}`);
+      await adminAxios.delete(adminApiRoutes.delete_service(id));
       toast.success("Deleted Successfully");
       fetchAllServices();
     } catch (error) {
@@ -94,19 +105,19 @@ const ServiceManagement = () => {
   };
 
   const stripHtml = (html) => {
-    const tempDiv = document.createElement('div');
+    const tempDiv = document.createElement("div");
     tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || '';
+    return tempDiv.textContent || tempDiv.innerText || "";
   };
-  
+
   const getShortText = (html, limit = 80) => {
     const plainText = stripHtml(html);
     return plainText.length > limit
-      ? plainText.slice(0, limit) + '...'
+      ? plainText.slice(0, limit) + "..."
       : plainText;
   };
 
-  const onCancelEdit =()=>{
+  const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedSliderId(null);
     setSliderName("");
@@ -118,22 +129,25 @@ const ServiceManagement = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }
+  };
 
   useEffect(() => {
     fetchAllServices(currentPage);
   }, [currentPage]);
 
+  console.log(sliderStatus);
   return (
     <>
       <div className="row">
         <div className="col-lg-12">
-        <div className={`card ${isEdit && `editing`}`}>
+          <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
                 {isEdit ? `Edit Selected Service` : `Create Service`}
               </h4>
-              {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
+              {isEdit && (
+                <button onClick={() => onCancelEdit()}>Cancel Edit</button>
+              )}
             </div>
             <div className="card-body">
               <div className="row">
@@ -190,9 +204,9 @@ const ServiceManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value="1"
-                        checked={sliderStatus === "1"}
-                        onChange={() => setSliderStatus("1")}
+                        value={true}
+                        checked={sliderStatus == true}
+                        onChange={() => setSliderStatus(true)}
                         id="status-active"
                       />
                       <label
@@ -207,9 +221,9 @@ const ServiceManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value="0"
-                        checked={sliderStatus === "0"}
-                        onChange={() => setSliderStatus("0")}
+                        value={false}
+                        checked={sliderStatus == false}
+                        onChange={() => setSliderStatus(false)}
                         id="status-inactive"
                       />
                       <label
@@ -259,15 +273,15 @@ const ServiceManagement = () => {
                   </thead>
                   <tbody>
                     {sliders.length > 0 ? (
-                      sliders.map((slider, index) => (
+                      sliders.map((service, index) => (
                         <tr key={index}>
-                          <td>{slider.id}</td>
+                          <td>{service.id}</td>
                           <td>
-                            <Link target="_blank" to={slider.img_url}>
+                            <Link target="_blank" to={service.img_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={slider.img_url}
+                                src={service.img_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -278,23 +292,23 @@ const ServiceManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    slider.img_url
+                                    service.img_url
                                   );
                                 }}
                               />
                             </Link>
                           </td>
-                          <td>{slider.name}</td>
-                          <td>{getShortText(slider.description)}</td>
+                          <td>{service.name}</td>
+                          <td>{getShortText(service.description)}</td>
                           <td>
                             <span
                               className={`badge ${
-                                slider.is_active === 1
+                                service.is_active === 1
                                   ? "bg-success"
                                   : "bg-danger"
                               }`}
                             >
-                              {slider.is_active === 1 ? "Active" : "Inactive"}
+                              {service.is_active === 1 ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -303,11 +317,11 @@ const ServiceManagement = () => {
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
-                                  setSelectedSliderId(slider.id);
-                                  setSliderName(slider.name);
-                                  setSliderHeading(slider.description);
-                                  setSelectedFileName(slider.img_name);
-                                  setSliderStatus(`${slider.is_active}`);
+                                  setSelectedSliderId(service.id);
+                                  setSliderName(service.name);
+                                  setSliderHeading(service.description);
+                                  setSelectedFileName(service.image);
+                                  setSliderStatus(service.isActive);
                                 }}
                               >
                                 <iconify-icon
@@ -319,7 +333,7 @@ const ServiceManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Service ?"
                                 title="Delete Service "
-                                onOk={() => deleteSlider(slider.id)}
+                                onOk={() => deleteService(service.id)}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"

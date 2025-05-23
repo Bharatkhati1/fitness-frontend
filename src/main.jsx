@@ -9,7 +9,9 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/TDFfrontend/">
+    <BrowserRouter 
+    // basename="/TDFfrontend/"
+    >
       <Provider store={store}>
         <ToastContainer position="top-right" autoClose={3000} />
         <React.Suspense fallback="Loading...">

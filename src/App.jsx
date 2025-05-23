@@ -18,7 +18,7 @@ const ForgotPasswordForm = lazy(() =>
   import("./components/unauthorized/forgotPassword.jsx")
 );
 
-const ProtectedRoute = ({ condition, redirectTo = "/login", children }) => {
+const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
 };
 
@@ -28,7 +28,6 @@ const App = () => {
     (state) => state.auth
   );
 
-  console.log(isAdmin,isLoggedIn)
   useEffect(() => {
     dispatch(getAccessToken());
   }, [dispatch]);
@@ -41,9 +40,9 @@ const App = () => {
         <Routes>
           <Route path="/admin" element={<LoginUser />} />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="/*" element={<UserRoutes />} />
           <Route path="LoginUser" element={<LoginUser />} />
           <Route path="SignUpUser" element={<SignUpUser />} />
+          <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
         </Routes>
       </Suspense>

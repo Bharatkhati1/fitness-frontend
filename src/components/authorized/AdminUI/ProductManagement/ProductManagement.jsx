@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import axiosInstance from "../../../../utils/axios/axiosInstance.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import adminAxios from "../../../../utils/Api/adminAxios.jsx";
+import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
 const ProductManagement = () => {
   const [packageName, setPackageName] = useState("");
@@ -17,11 +18,11 @@ const ProductManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [packages, setPackage] = useState([]);
   const [allServices, setAllServices] = useState([]);
-
   const fileInputRef = useRef(null);
+
   const fetchAllPackage = async () => {
     try {
-      const res = await axiosInstance.get(`/package`);
+      const res = await adminAxios.get(adminApiRoutes.get_package);
       setPackage(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
@@ -30,7 +31,7 @@ const ProductManagement = () => {
 
   const fetchAllServices = async () => {
     try {
-      const res = await axiosInstance.post(`/service/get-all-services`);
+      const res = await adminAxios.post(adminApiRoutes.get_services);
       setAllServices(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
@@ -53,15 +54,26 @@ const ProductManagement = () => {
 
     try {
       let url = isEdit
-        ? `/package/edit/${selectedPackageId}`
-        : `/package/create`;
-      const response = await axiosInstance.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        ? adminApiRoutes.update_package(selectedPackageId)
+        : adminApiRoutes.create_package;
 
-      if (response.status == 201) {
+        let response;
+        if (isEdit) {
+          response = await adminAxios.put(url, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+        } else {
+          response = await adminAxios.post(url, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+        }
+  
+
+      if (response.status == 200) {
         fetchAllPackage();
         setIsEdit(false);
         setSelectedPackageId(null);
@@ -88,7 +100,7 @@ const ProductManagement = () => {
 
   const deletePackage = async (id) => {
     try {
-      await axiosInstance.delete(`/package/${id}`);
+      await adminAxios.delete(adminApiRoutes.delete_package(id));
       toast.success("Deleted Successfully");
       fetchAllPackage();
     } catch (error) {

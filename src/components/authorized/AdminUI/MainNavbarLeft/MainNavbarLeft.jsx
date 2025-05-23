@@ -28,7 +28,7 @@ const MainNavbarLeft = () => {
           {Navitems.map((item) => (
             <li className="nav-item">
               <Link
-                to={item.path}
+                to={`/admin/${item.path}`}
                 className={`nav-link ${
                   pathname.includes(item.path) && "active"
                 }`}

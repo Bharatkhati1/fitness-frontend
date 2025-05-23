@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import axiosInstance from "../../../../utils/axios/axiosInstance.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import adminAxios from "../../../../utils/Api/adminAxios.jsx";
+import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
 const SliderManagement = () => {
   const [sliderName, setSliderName] = useState("");
@@ -18,16 +20,14 @@ const SliderManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(5);
   const fileInputRef = useRef(null);
-  const fetchAllSliders = async (page = 1) => {
+  const fetchAllSliders = async () => {
     try {
-      const res = await axiosInstance.post(`/slider/get-sliders`, {
-        page,
-        limit,
-      });
+      const res = await adminAxios.get(adminApiRoutes.get_sliders);
       setSliders(res.data.data);
       setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
+      toast.error(error.response.data.error)
     }
   };
 
@@ -40,21 +40,30 @@ const SliderManagement = () => {
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("heading", sliderHeading);
-    formData.append("subheading", sliderSubheading);
+    formData.append("subHeading", sliderSubheading);
     formData.append("is_active", sliderStatus);
     sliderImage && formData.append("image", sliderImage);
 
     try {
       let url = isEdit
-        ? `/slider/edit-slider/${selectedSliderId}`
-        : `/slider/create-slider`;
-      const response = await axiosInstance.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        ? adminApiRoutes.update_slider(selectedSliderId)
+        : adminApiRoutes.create_slider;
 
-      if (response.status == 201) {
+      if (isEdit) {
+        response = await adminAxios.put(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await adminAxios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+
+      if (response.status == 200) {
         fetchAllSliders();
         setIsEdit(false);
         setSelectedSliderId(null);
@@ -71,10 +80,9 @@ const SliderManagement = () => {
         toast.success(response.data.message);
         return;
       }
-      toast.error(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error("Failed to create slider.");
+      toast.error(`Failed to create slider.${error.response.data.error}`);
     }
   };
 
@@ -86,11 +94,12 @@ const SliderManagement = () => {
 
   const deleteSlider = async (id) => {
     try {
-      await axiosInstance.delete(`/slider/${id}`);
+      await adminAxios.delete(adminApiRoutes.delete_slider(id));
       toast.success("Deleted Successfully");
       fetchAllSliders();
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.error)
     }
   };
 
@@ -98,20 +107,20 @@ const SliderManagement = () => {
     fetchAllSliders(currentPage);
   }, [currentPage]);
 
-  const onCancelEdit =()=>{
+  const onCancelEdit = () => {
     setIsEdit(false);
-        setSelectedSliderId(null);
-        setSliderName("");
-        setSliderHeading("");
-        setSliderSubheading("");
-        setSliderStatus("1");
-        setSliderImage(null);
-        setSelectedFileName(null);
-        setSliderStatus(`1`);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-  }
+    setSelectedSliderId(null);
+    setSliderName("");
+    setSliderHeading("");
+    setSliderSubheading("");
+    setSliderStatus("1");
+    setSliderImage(null);
+    setSelectedFileName(null);
+    setSliderStatus(`1`);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
   return (
     <>
       <div className="row">
@@ -121,7 +130,9 @@ const SliderManagement = () => {
               <h4 className="card-title">
                 {isEdit ? `Edit Selected Slider` : `Create Slider`}
               </h4>
-              {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
+              {isEdit && (
+                <button onClick={() => onCancelEdit()}>Cancel Edit</button>
+              )}
             </div>
             <div className="card-body">
               <div className="row">
