@@ -10,7 +10,7 @@ const SliderManagement = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
   const [sliderSubheading, setSliderSubheading] = useState("");
-  const [sliderStatus, setSliderStatus] = useState("1");
+  const [sliderStatus, setSliderStatus] = useState(true);
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
@@ -27,7 +27,7 @@ const SliderManagement = () => {
       setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -36,19 +36,18 @@ const SliderManagement = () => {
       toast.warning("Please fill all required select an image.");
       return;
     }
-
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("heading", sliderHeading);
     formData.append("subHeading", sliderSubheading);
-    formData.append("is_active", sliderStatus);
-    sliderImage && formData.append("image", sliderImage);
+    formData.append("isActive", sliderStatus);
+    sliderImage && formData.append("slider_image", sliderImage);
 
     try {
       let url = isEdit
         ? adminApiRoutes.update_slider(selectedSliderId)
         : adminApiRoutes.create_slider;
-
+      let response;
       if (isEdit) {
         response = await adminAxios.put(url, formData, {
           headers: {
@@ -62,27 +61,12 @@ const SliderManagement = () => {
           },
         });
       }
-
-      if (response.status == 200) {
-        fetchAllSliders();
-        setIsEdit(false);
-        setSelectedSliderId(null);
-        setSliderName("");
-        setSliderHeading("");
-        setSliderSubheading("");
-        setSliderStatus("1");
-        setSliderImage(null);
-        setSelectedFileName(null);
-        setSliderStatus(`1`);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-        toast.success(response.data.message);
-        return;
-      }
+      toast.success(response.data.message);
+      fetchAllSliders();
+      onCancelEdit();
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create slider.${error.response.data.error}`);
+      toast.error(`Failed to create slider.${error.response.data.message}`);
     }
   };
 
@@ -99,7 +83,7 @@ const SliderManagement = () => {
       fetchAllSliders();
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -113,14 +97,14 @@ const SliderManagement = () => {
     setSliderName("");
     setSliderHeading("");
     setSliderSubheading("");
-    setSliderStatus("1");
+    setSliderStatus(true);
     setSliderImage(null);
     setSelectedFileName(null);
-    setSliderStatus(`1`);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
+
   return (
     <>
       <div className="row">
@@ -213,9 +197,9 @@ const SliderManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="slider-status"
-                        value="1"
-                        checked={sliderStatus === "1"}
-                        onChange={() => setSliderStatus("1")}
+                        value={true}
+                        checked={sliderStatus}
+                        onChange={() => setSliderStatus(true)}
                         id="status-active"
                       />
                       <label
@@ -230,9 +214,9 @@ const SliderManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="slider-status"
-                        value="0"
-                        checked={sliderStatus === "0"}
-                        onChange={() => setSliderStatus("0")}
+                        value={false}
+                        checked={!sliderStatus}
+                        onChange={() => setSliderStatus(false)}
                         id="status-inactive"
                       />
                       <label
@@ -310,16 +294,14 @@ const SliderManagement = () => {
                           </td>
                           <td>{slider.name}</td>
                           <td>{slider.heading}</td>
-                          <td>{slider.subheading}</td>
+                          <td>{slider.subHeading}</td>
                           <td>
                             <span
                               className={`badge ${
-                                slider.is_active === 1
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                slider.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {slider.is_active === 1 ? "Active" : "Inactive"}
+                              {slider.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -331,9 +313,9 @@ const SliderManagement = () => {
                                   setSelectedSliderId(slider.id);
                                   setSliderName(slider.name);
                                   setSliderHeading(slider.heading);
-                                  setSliderSubheading(slider.subheading);
-                                  setSelectedFileName(slider.img_name);
-                                  setSliderStatus(`${slider.is_active}`);
+                                  setSliderSubheading(slider.subHeading);
+                                  setSelectedFileName(slider.image);
+                                  setSliderStatus(slider.isActive);
                                 }}
                               >
                                 <iconify-icon
@@ -367,51 +349,6 @@ const SliderManagement = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div className="card-footer border-top">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-end mb-0">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <li
-                      key={i}
-                      className={`page-item ${
-                        currentPage === i + 1 ? "active" : ""
-                      }`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => handlePageChange(i + 1)}
-                      >
-                        {i + 1}
-                      </button>
-                    </li>
-                  ))}
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ const adminApiRoutes = {
     get_sliders:"/slider",
     create_slider:"/slider",
     update_slider:(sliderId)=>`/slider/${sliderId}`,
-    delete_slider:(sliderId)=>`/delete/${sliderId}`,
+    delete_slider:(sliderId)=>`/slider/${sliderId}`,
 
   };
   

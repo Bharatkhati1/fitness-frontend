@@ -8,7 +8,8 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 const ProductManagement = () => {
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
-  const [packageStatus, setPackageStatus] = useState("1");
+  const [longDescription, setLongDescription] = useState("")
+  const [packageStatus, setPackageStatus] = useState(true);
   const [packageType, setPackageType] = useState("");
   const [packagePrice, setPackagePrice] = useState(0);
   const [selectedServiceTypeId, setSelectedServiecTypeId] = useState(null);
@@ -26,15 +27,17 @@ const ProductManagement = () => {
       setPackage(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
+       toast.error(error.response.data.message)
     }
   };
 
   const fetchAllServices = async () => {
     try {
-      const res = await adminAxios.post(adminApiRoutes.get_services);
+      const res = await adminAxios.get(adminApiRoutes.get_services);
       setAllServices(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
+      toast.error(error.response.data.message)
     }
   };
 
@@ -45,12 +48,13 @@ const ProductManagement = () => {
     }
     const formData = new FormData();
     formData.append("name", packageName);
-    formData.append("description", packageDesc);
+    formData.append("shortDescription", packageDesc);
     formData.append("is_active", packageStatus);
-    formData.append("service_type_id", selectedServiceTypeId);
+    formData.append("longDescription", longDescription);
+    formData.append("service_id", selectedServiceTypeId);
     formData.append("type", packageType);
     formData.append("price", packagePrice);
-    packageImage && formData.append("image", packageImage);
+    packageImage && formData.append("package_image", packageImage);
 
     try {
       let url = isEdit
@@ -75,26 +79,14 @@ const ProductManagement = () => {
 
       if (response.status == 200) {
         fetchAllPackage();
-        setIsEdit(false);
-        setSelectedPackageId(null);
-        setPackageName("");
-        setPackageType(null);
-        setSelectedServiecTypeId("");
-        setPackageDesc("");
-        setPackageStatus("1");
-        setPackagePrice(0);
-        setPakageImage(null);
-        setSelectedFileName(null);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
+        onCancelEdit();
         toast.success(response.data.message);
         return;
       }
       toast.error(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error("Failed to create slider.");
+      toast.error(`Failed to create slider.${error.response.data.message}`);
     }
   };
 
@@ -105,6 +97,7 @@ const ProductManagement = () => {
       fetchAllPackage();
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.message)
     }
   };
 
@@ -118,6 +111,7 @@ const ProductManagement = () => {
     setPackageStatus("1");
     setPackagePrice(0);
     setPakageImage(null);
+    setLongDescription("")
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -233,7 +227,7 @@ const ProductManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Package Desciption
+                    Short Desciption
                     </label>
                     <input
                       type="text"
@@ -242,6 +236,21 @@ const ProductManagement = () => {
                       placeholder="Enter Description"
                       value={packageDesc}
                       onChange={(e) => setPackageDesc(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                     Long Desciption
+                    </label>
+                    <input
+                      type="text"
+                      id="service-des"
+                      className="form-control"
+                      placeholder="Enter Description"
+                      value={longDescription}
+                      onChange={(e) => setLongDescription(e.target.value)}
                     />
                   </div>
                 </div>
@@ -255,9 +264,9 @@ const ProductManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value="1"
-                        checked={packageStatus === "1"}
-                        onChange={() => setPackageStatus("1")}
+                        value={true}
+                        checked={packageStatus}
+                        onChange={() => setPackageStatus(true)}
                         id="status-active"
                       />
                       <label
@@ -272,9 +281,9 @@ const ProductManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value="0"
-                        checked={packageStatus === "0"}
-                        onChange={() => setPackageStatus("0")}
+                        value={false}
+                        checked={!packageStatus}
+                        onChange={() => setPackageStatus(false)}
                         id="status-inactive"
                       />
                       <label
@@ -317,7 +326,7 @@ const ProductManagement = () => {
                       <th>ID</th>
                       <th>Image</th>
                       <th>Name</th>
-                      <th>Description</th>
+                      <th>Short Description</th>
                       <th>Service Type</th>
                       <th>Package Type</th>
                       <th>Price</th>
@@ -353,19 +362,19 @@ const ProductManagement = () => {
                             </Link>
                           </td>
                           <td>{item.name}</td>
-                          <td>{item.description}</td>
-                          <td>{item.service_name}</td>
+                          <td>{item.shortDescription}</td>
+                          <td>{item.Service.name}</td>
                           <td>{item.type}</td>
                           <td>{item.price}</td>
                           <td>
                             <span
                               className={`badge ${
-                                item.is_active === 1
+                                item.isActive 
                                   ? "bg-success"
                                   : "bg-danger"
                               }`}
                             >
-                              {item.is_active === 1 ? "Active" : "Inactive"}
+                              {item.isActive  ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -377,11 +386,12 @@ const ProductManagement = () => {
                                   setSelectedPackageId(item.id);
                                   setPackageName(item.name);
                                   setPackageType(item.type);
-                                  setSelectedServiecTypeId(item.service_type_id);
-                                  setPackageDesc(item.description);
-                                  setPackageStatus(`${item.is_active}`);
+                                  setSelectedServiecTypeId(item.serviceId);
+                                  setPackageDesc(item.shortDescription);
+                                  setLongDescription(item.longDescription);
+                                  setPackageStatus(item.isActive);
                                   setPackagePrice(item.price);
-                                  setSelectedFileName(item.img_name);
+                                  setSelectedFileName(item.image);
                                 }}
                               >
                                 <iconify-icon
