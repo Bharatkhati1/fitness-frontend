@@ -50,7 +50,6 @@ userAxios.interceptors.request.use(
       }));
       config.headers["authorization"] = `Bearer ${getToken()}`;
     } catch {
-      window.open("/login", "_self");
     }
 
     return config;

@@ -47,7 +47,7 @@ adminAxios.interceptors.request.use(
       }));
       config.headers["authorization"] = `Bearer ${getToken()}`;
     } catch {
-      window.open("/login", "_self");
+      window.open("/LoginUser", "_self");
     }
 
     return config;

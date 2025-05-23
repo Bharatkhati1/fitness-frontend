@@ -54,7 +54,7 @@ axiosInstance.interceptors.request.use(
         );
         console.log("data::::", data);
       } catch (error) {
-        window.open("/login", "_self");
+        window.open("/LoginUser", "_self");
       }
       if (config?.headers) {
         config.headers["authorization"] = `Bearer ${getToken()}`;

@@ -48,7 +48,7 @@ const ForgotPasswordForm = () => {
           </Form>
 
           <p className="mt-5 text-danger text-center">
-            Back to <Link to="/login" className="fw-bold">Sign In</Link>
+            Back to <Link to="/LoginUser" className="fw-bold">Sign In</Link>
           </p>
         </div>
       </div>
