@@ -29,7 +29,6 @@ const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(
     (state) => state.auth
   );
