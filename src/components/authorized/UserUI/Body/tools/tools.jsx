@@ -6,6 +6,7 @@ import BmiCalculator from './BmiCalculatore'
 import Idealweight from './IdealWeight'
 import CaloriesCalculatore from './CaloriesCalculatore'
 import ToolsMain from './ToolsMain'
+import FatLoass from './FatLoss'
 
 const Tools = () => {
   return (
@@ -15,6 +16,7 @@ const Tools = () => {
           <Route path="bmi-calculator" element={<BmiCalculator />} />
           <Route path="ideal-weight" element={<Idealweight />} />
           <Route path="calorie-calculator" element={<CaloriesCalculatore />} />
+          <Route path="fat-loss-calculator" element={<FatLoass />} />
         </Routes>
       </Suspense>
   )
