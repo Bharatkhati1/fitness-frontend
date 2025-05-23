@@ -7,14 +7,14 @@ import "../public/assets/css/app.min.css";
 import "../public/assets/css/icons.min.css";
 import "../public/assets/css/vendor.min.css";
 
+import "../public/assets/js/vendor.js";
+
 import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
-import BmiCalculatore from "./components/authorized/AdminUI/Tools/BmiCalculatore.jsx";
 import BmiCalculatorPage from "./components/pages/BmiCalculatorPage.jsx";
 import CalorieCalulator from "./components/pages/CalorieCalulator.jsx";
-import idealweightpage from "./components/pages/IdealweightPage.jsx";
 import IdealweightPage from "./components/pages/IdealweightPage.jsx";
 import FatperchantageCalculator from "./components/pages/FatperchantageCalculator.jsx";
 import Tools from "./components/pages/Tools.jsx";
@@ -40,13 +40,6 @@ const App = () => {
     dispatch(getAccessToken());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (isAdmin) {
-      navigate("/admin/slider-management", { replace: true });
-    } else if (isLoggedIn) {
-      navigate("/home", { replace: true });
-    }
-  }, [isAdmin, isLoggedIn]);
 
   if (isCheckingToken) return <PageLoader />;
 
@@ -75,6 +68,8 @@ const App = () => {
           <Route path="Tools" element={<Tools />} />
 
           <Route path="BmiCalculatorePage" element={<BmiCalculatorPage />} />
+          <Route path="CalorieCalulator" element={<CalorieCalulator />} />
+          <Route path="IdealweightPage" element={<IdealweightPage />} />
         </Routes>
       </Suspense>
     );
@@ -86,7 +81,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute condition={isAdmin} redirectTo="/home">
+            <ProtectedRoute condition={isAdmin} redirectTo="/">
               <AdminRoutes />
             </ProtectedRoute>
           }

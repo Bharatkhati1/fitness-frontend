@@ -12,6 +12,7 @@ export const Login = (userData, navigate) => {
         toast.error("Please check your Internet Connection");
         return;
       }
+      dispatch(authActions.checkingUserToken(true))
       dispatch(authActions.setLoginButtonDisable(true));
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/login`,
@@ -32,15 +33,18 @@ export const Login = (userData, navigate) => {
           user: { ...data?.user },
         })
       );
-      if(data.user.roleId === 1){
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      if (data.user.roleId === 1) {
         navigate("/admin/slider-management", { replace: true });
-      }else{
-        navigate("/home", { replace: true });
+      } else {
+        navigate("/", { replace: true });
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
       dispatch(authActions.setLoginButtonDisable(false));
+      dispatch(authActions.checkingUserToken(false))
     }
   };
 };

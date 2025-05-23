@@ -2,20 +2,21 @@ import React from "react";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Logo from "../../../../../public/assets/img/logo.png";
 import CartIcon from "../../../../../public/assets/img/carticon.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 
 const Header = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const navigate = useNavigate()
-  const dispatch=useDispatch()
- const handleLogout =()=>{
-  dispatch(logoutUser(navigate))
- }
+  const {pathname } = useLocation()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logoutUser(navigate));
+  };
+  console.log(pathname)
   return (
     <header id="fixed-header" className="sticky">
       <div className="container">
@@ -30,29 +31,27 @@ const Header = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="">
-                  <Link to={"/home"} className="active">
+                  <Nav.Link as={Link} to="/" className={pathname.length==1&&`active`}>
                     Home
-                  </Link>
-                  <Nav.Link href="#link">About</Nav.Link>
-                  <NavDropdown title="Packages" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">
-                      Action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">
-                      Something
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">
-                      Separated link
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link href="#home">Tools</Nav.Link>
-                  <Nav.Link href="#link">Testimonials</Nav.Link>
-                  <Nav.Link href="#link">Blogs</Nav.Link>
-                  <Nav.Link href="#link">Contact Us</Nav.Link>
+                  </Nav.Link>
+                  <Nav.Link as={Link}  className={pathname.includes("/about")&&`active`}>
+                    About
+                  </Nav.Link>
+                  <Nav.Link as={Link}  className={pathname.includes("/packages")&&`active`}>
+                    Packages
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/tools" className={pathname.includes("/tools")&&`active`}>
+                    Tools
+                  </Nav.Link>
+                  <Nav.Link as={Link}  className={pathname.includes("/testimonials")&&`active`}>
+                    Testimonials
+                  </Nav.Link>
+                  <Nav.Link as={Link}  className={pathname.includes("/blogs")&&`active`}>
+                    Blogs
+                  </Nav.Link>
+                  <Nav.Link as={Link} className={pathname.includes("/contact-us")&&`active`}>
+                    Contact Us
+                  </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
@@ -61,7 +60,7 @@ const Header = () => {
                 <img src={CartIcon} />
               </a>
               {isLoggedIn ? (
-                <button onClick={()=>handleLogout()} className="header-btn ">
+                <button onClick={() => handleLogout()} className="header-btn ">
                   Logout
                 </button>
               ) : (
