@@ -11,6 +11,8 @@ import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
+import BmiCalculatore from "./components/authorized/AdminUI/Tools/BmiCalculatore.jsx";
+import BmiCalculatorPage from "./components/pages/BmiCalculatorPage.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -44,6 +46,7 @@ const App = () => {
           <Route path="SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
+          <Route path="BmiCalculatorePage" element={<BmiCalculatorPage />} />
         </Routes>
       </Suspense>
     );

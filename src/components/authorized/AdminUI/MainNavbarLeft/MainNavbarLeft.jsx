@@ -10,7 +10,6 @@ const MainNavbarLeft = () => {
     { name: "Service Management ", path: "service-management" },
     { name: "Package Management ", path: "package-management" },
     { name: "Success Story", path: "success-stories" },
-    { name: "Tools", path: "tools" },
   ];
 
   return (
