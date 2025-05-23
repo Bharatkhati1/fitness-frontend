@@ -1,5 +1,6 @@
 import React from "react";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
+import userImage from "../../../../../public/assets/images/users/avatar-1.jpg"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -250,7 +251,7 @@ const TopBar = () => {
                   <img
                     className="rounded-circle"
                     width="32"
-                    src="assets/images/users/avatar-1.jpg"
+                    src={userImage}
                     alt="avatar-3/"
                   />
                 </span>
