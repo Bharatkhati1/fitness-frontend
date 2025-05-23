@@ -66,7 +66,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute condition={isAdmin} redirectTo="/home">
+            <ProtectedRoute condition={isAdmin} redirectTo="/">
               <AdminRoutes />
             </ProtectedRoute>
           }

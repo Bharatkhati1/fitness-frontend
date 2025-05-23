@@ -36,7 +36,7 @@ export const Login = (userData, navigate) => {
       if(data.user.roleId === 1){
         navigate("/admin/slider-management", { replace: true });
       }else{
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
