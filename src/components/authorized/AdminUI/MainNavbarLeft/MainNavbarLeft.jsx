@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../../../../public/assets/images/logo-light.png"
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
@@ -8,7 +9,7 @@ const MainNavbarLeft = () => {
     { name: "Slider Management ", path: "slider-management" },
     { name: "Service Management ", path: "service-management" },
     { name: "Package Management ", path: "package-management" },
-    { name: "Tools", path: "tools" },
+    { name: "Success Story", path: "success-stories" },
   ];
 
   return (
@@ -16,7 +17,7 @@ const MainNavbarLeft = () => {
       <div className="logo-box">
         <a className="logo-light">
           <img
-            src="assets/images/logo-light.png"
+            src={logo}
             height="50"
             alt="logo light"
           />

@@ -18,8 +18,7 @@ export default function AdminRoutes() {
           <Route path="slider-management" element={<SliderManagement />} />
           <Route path="service-management" element={<ServiceManagement />} />
           <Route path="package-management" element={<ProductManagement />} />
-          {/* <Route path="success-stories" element={<SuccessStories />} /> */}
-          <Route path="tools" element={<Tools />} />
+          <Route path="success-stories" element={<SuccessStories />} />
           <Route path="*" element={<Navigate replace to="slider-management" />} />
         </Route>
       </Routes>

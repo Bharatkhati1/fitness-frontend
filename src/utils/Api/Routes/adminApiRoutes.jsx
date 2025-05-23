@@ -16,7 +16,13 @@ const adminApiRoutes = {
     get_sliders:"/slider",
     create_slider:"/slider",
     update_slider:(sliderId)=>`/slider/${sliderId}`,
-    delete_slider:(sliderId)=>`/delete/${sliderId}`,
+    delete_slider:(sliderId)=>`/slider/${sliderId}`,
+
+    //SUCCESS STORIES
+    get_success_stories:"/success-story",
+    create_success_story:"/success-story",
+    update_success_story:(id)=>`/success-story/${id}`,
+    delete_success_story:(id)=>`/success-story/${id}`,
 
   };
   

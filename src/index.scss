@@ -19,6 +19,26 @@
   }
 }
 
+
+.bmi-underweight {
+  color: #00bcd4; /* Cyan */
+  font-weight: bold;
+}
+
+.bmi-normal {
+  color: #4caf50; /* Green */
+  font-weight: bold;
+}
+
+.bmi-overweight {
+  color: #ff9800; /* Orange */
+  font-weight: bold;
+}
+
+.bmi-obese {
+  color: #f44336; /* Red */
+  font-weight: bold;
+}
 // @media (prefers-color-scheme: light) {
 //   :root {
 //     color: #213547;

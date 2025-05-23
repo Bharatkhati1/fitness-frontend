@@ -29,8 +29,6 @@ import InstaIcon from "../../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../../public/assets/img/twitterIcon.png";
 import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
-
-
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
 
@@ -454,7 +452,7 @@ function Home() {
           </div>
         </div>
       </section>
-
+{/* 
       <section className="trailoffer">
         <div className="container">
           <div className="row">
@@ -552,7 +550,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="GetIntouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />

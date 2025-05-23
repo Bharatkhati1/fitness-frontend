@@ -11,6 +11,7 @@ const ServiceManagement = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
   const [sliderStatus, setSliderStatus] = useState(true);
+
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
@@ -18,7 +19,7 @@ const ServiceManagement = () => {
   const [sliders, setSliders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(5);
+  const [limit] = useState(1);
   const fileInputRef = useRef(null);
   const fetchAllServices = async (page = 1) => {
     try {
@@ -30,6 +31,7 @@ const ServiceManagement = () => {
       setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -42,7 +44,7 @@ const ServiceManagement = () => {
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("description", sliderHeading);
-    formData.append("is_active", sliderStatus);
+    formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
 
     try {
@@ -65,26 +67,12 @@ const ServiceManagement = () => {
         });
       }
 
-      if (response.status == 200) {
-        fetchAllServices();
-        setIsEdit(false);
-        setSelectedSliderId(null);
-        setSliderName("");
-        setSliderHeading("");
-        setSliderStatus("1");
-        setSliderImage(null);
-        setSelectedFileName(null);
-        setSliderStatus(`1`);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-        toast.success(response.data.message);
-        return;
-      }
-      toast.error(response.data.message);
+      fetchAllServices();
+      onCancelEdit();
+      toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error("Failed to create slider.");
+      toast.error(`Failed to create - ${error.response.data.message}`);
     }
   };
 
@@ -101,6 +89,7 @@ const ServiceManagement = () => {
       fetchAllServices();
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -122,10 +111,9 @@ const ServiceManagement = () => {
     setSelectedSliderId(null);
     setSliderName("");
     setSliderHeading("");
-    setSliderStatus("1");
+    setSliderStatus(true);
     setSliderImage(null);
     setSelectedFileName(null);
-    setSliderStatus(`1`);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -135,7 +123,6 @@ const ServiceManagement = () => {
     fetchAllServices(currentPage);
   }, [currentPage]);
 
-  console.log(sliderStatus);
   return (
     <>
       <div className="row">
@@ -277,11 +264,11 @@ const ServiceManagement = () => {
                         <tr key={index}>
                           <td>{service.id}</td>
                           <td>
-                            <Link target="_blank" to={service.img_url}>
+                            <Link target="_blank" to={service.image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={service.img_url}
+                                src={service.image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -292,7 +279,7 @@ const ServiceManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    service.img_url
+                                    service.image_url
                                   );
                                 }}
                               />
@@ -303,12 +290,10 @@ const ServiceManagement = () => {
                           <td>
                             <span
                               className={`badge ${
-                                service.is_active === 1
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                service.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {service.is_active === 1 ? "Active" : "Inactive"}
+                              {service.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
