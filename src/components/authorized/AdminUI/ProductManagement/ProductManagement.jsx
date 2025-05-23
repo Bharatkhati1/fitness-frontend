@@ -207,6 +207,40 @@ const ProductManagement = () => {
 
                 <div className="col-lg-6">
                   <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                    Short Desciption
+                    </label>
+                    <textarea
+                      type="text"
+                      minLength={6}
+                      id="service-des"
+                      className="form-control"
+                      placeholder="Enter short description"
+                      value={packageDesc}
+                      onChange={(e) => setPackageDesc(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                     Long Desciption
+                    </label>
+                    <textarea
+                      type="text"
+                      minLength={6}
+                      id="service-des"
+                      className="form-control"
+                      placeholder="Enter long description"
+                      value={longDescription}
+                      onChange={(e) => setLongDescription(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
                       Service type
                     </label>
@@ -223,38 +257,6 @@ const ProductManagement = () => {
                     </select>
                   </div>
                 </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                    Short Desciption
-                    </label>
-                    <input
-                      type="text"
-                      id="service-des"
-                      className="form-control"
-                      placeholder="Enter Description"
-                      value={packageDesc}
-                      onChange={(e) => setPackageDesc(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                     Long Desciption
-                    </label>
-                    <input
-                      type="text"
-                      id="service-des"
-                      className="form-control"
-                      placeholder="Enter Description"
-                      value={longDescription}
-                      onChange={(e) => setLongDescription(e.target.value)}
-                    />
-                  </div>
-                </div>
-
                 {/* Status */}
                 <div className="col-lg-6">
                   <p>Package Status</p>
@@ -340,11 +342,11 @@ const ProductManagement = () => {
                         <tr key={index}>
                           <td>{item.id}</td>
                           <td>
-                            <Link target="_blank" to={item.img_url}>
+                            <Link target="_blank" to={item.image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={item.img_url}
+                                src={item.image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -355,15 +357,15 @@ const ProductManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    item.img_url
+                                    item.image_url
                                   );
                                 }}
                               />
                             </Link>
                           </td>
-                          <td>{item.name}</td>
+                          <td>{item?.name}</td>
                           <td>{item.shortDescription}</td>
-                          <td>{item.Service.name}</td>
+                          <td>{item?.Service?.name}</td>
                           <td>{item.type}</td>
                           <td>{item.price}</td>
                           <td>

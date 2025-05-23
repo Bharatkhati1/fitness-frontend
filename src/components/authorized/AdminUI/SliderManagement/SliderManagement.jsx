@@ -16,15 +16,12 @@ const SliderManagement = () => {
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(5);
   const fileInputRef = useRef(null);
+
   const fetchAllSliders = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_sliders);
       setSliders(res.data.data);
-      setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -70,12 +67,6 @@ const SliderManagement = () => {
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
   const deleteSlider = async (id) => {
     try {
       await adminAxios.delete(adminApiRoutes.delete_slider(id));
@@ -88,8 +79,8 @@ const SliderManagement = () => {
   };
 
   useEffect(() => {
-    fetchAllSliders(currentPage);
-  }, [currentPage]);
+    fetchAllSliders();
+  }, []);
 
   const onCancelEdit = () => {
     setIsEdit(false);
@@ -271,11 +262,11 @@ const SliderManagement = () => {
                         <tr key={index}>
                           <td>{slider.id}</td>
                           <td>
-                            <Link target="_blank" to={slider.img_url}>
+                            <Link target="_blank" to={slider.image}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={slider.img_url}
+                                src={slider.image}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -286,7 +277,7 @@ const SliderManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    slider.img_url
+                                    slider.image
                                   );
                                 }}
                               />

@@ -44,7 +44,7 @@ const ServiceManagement = () => {
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("description", sliderHeading);
-    formData.append("is_active", sliderStatus);
+    formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
 
     try {
@@ -264,11 +264,11 @@ const ServiceManagement = () => {
                         <tr key={index}>
                           <td>{service.id}</td>
                           <td>
-                            <Link target="_blank" to={service.img_url}>
+                            <Link target="_blank" to={service.image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={service.img_url}
+                                src={service.image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -279,7 +279,7 @@ const ServiceManagement = () => {
                                 onError={(e) => {
                                   console.error(
                                     "Image failed to load:",
-                                    service.img_url
+                                    service.image_url
                                   );
                                 }}
                               />
