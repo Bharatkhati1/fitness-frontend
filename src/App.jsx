@@ -15,6 +15,9 @@ import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
+const ForgotPasswordForm = lazy(() =>
+  import("./components/unauthorized/forgotPassword.jsx")
+);
 
 const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
@@ -22,7 +25,8 @@ const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isCheckingToken, isLoggedIn, adminAccessToken } = useSelector(
+  const [isAdminLocal, setIsAdminLocal] = useState(false)
+  const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(
     (state) => state.auth
   );
 
@@ -37,9 +41,10 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin-login" element={<LoginUser />} />
-          <Route path="login-user" element={<LoginUser/>} />
-          <Route path="sign-up" element={<SignUpUser />} />
+          <Route path="/admin" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="LoginUser" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
+          <Route path="SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
         </Routes>
@@ -53,7 +58,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute condition={adminAccessToken?.length>0} redirectTo="/">
+            <ProtectedRoute condition={isAdminLocal||isAdmin} redirectTo="/">
               <AdminRoutes />
             </ProtectedRoute>
           }
