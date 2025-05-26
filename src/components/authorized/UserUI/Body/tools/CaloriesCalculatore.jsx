@@ -186,7 +186,9 @@ function CaloriesCalculatore() {
                     </Form.Select>
                   </div>
 
-                  <div className="calculateButton text-center mt-4">
+               
+                </div>
+                   <div className="calculateButton text-center mt-3">
                     <button
                       className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                       onClick={calculateCalories}
@@ -194,7 +196,6 @@ function CaloriesCalculatore() {
                       Calculate Your Calories
                     </button>
                   </div>
-                </div>
               </div>
             </div>
 

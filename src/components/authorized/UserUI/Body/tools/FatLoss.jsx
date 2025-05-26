@@ -210,7 +210,7 @@ const FatLoass = () => {
                   </div>
                 </div>
 
-                <div className="calculateButton text-center mt-4">
+                <div className="calculateButton text-center mt-3">
                   <button
                     className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                     onClick={calculateFatPercentage}

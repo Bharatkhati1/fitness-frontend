@@ -1,3 +1,100 @@
+@media (min-width: 1200px) and (max-width: 1680px) {
+  .OurServices.bg-solid {
+    padding-bottom: 0;
+  }
+  .circletagShapeBox {
+    position: absolute;
+    right: 8px;
+    top: 120px;
+  }
+
+  .col-md-5.text-left figure img {
+    width: 365px;
+    z-index: 9;
+    position: relative;
+  }
+  .OurServicesContent figcaption h3 {
+    font-size: 20px;
+  }
+
+  .OurServicesRow .col-md-4 {
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .VideBox iframe {
+    height: 400px;
+  }
+
+  .SmartKichin .PageTitle.text-center {
+    padding: 0 170px;
+  }
+
+  .SmartKichinContent figcaption {
+    width: 294px;
+  }
+
+  .col-md-6.OurHealthBlogContent {
+    padding: 0 25px;
+  }
+  .Login-info.d-flex.align-items-center {
+    padding-left: 30px;
+  }
+  .bannerSectionLeft h1 {
+    font-size: 36px;
+  }
+
+  .innerbanner figure img {
+    height: 390px;
+  }
+
+  .innerbannerContent h2 {
+    font-size: 38px;
+  }
+  .innerbannerContent p {
+    font-size: 16px;
+  }
+
+  .ToolsPageBox h4 {
+    margin-bottom: 10px;
+    font-size: 26px;
+  }
+
+  section.InnnerPage.bmiCalculator.InnerSpace .col-md-5 {
+    width: 44%;
+  }
+  ul.wightList h4 {
+    font-size: 18px;
+  }
+
+  .calculainSelect input.form-control {
+    font-size: 16px;
+    height: 54px;
+  }
+
+  .calculainSelect .form-select {
+    padding-left: 10px;
+    font-size: 14px;
+  }
+
+  .calculaField label {
+    font-size: 18px;
+  }
+
+  .calculateButton .btn.btn-primary {
+    height: 50px;
+  }
+
+  .radioList [type="radio"]:checked + label,
+  .radioList [type="radio"]:not(:checked) + label {
+    font-size: 18px;
+  }
+
+  .calculaField label {
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 1199px) {
   .bannerSection {
     overflow: hidden;
@@ -7,7 +104,7 @@
     height: 400px;
   }
   .Login-info {
-    padding-left: 0;
+    padding-left: 10px;
   }
   header .navbar-nav .nav-link {
     font-size: 14px;
@@ -17,10 +114,13 @@
     min-width: 135px;
   }
   .bannerSectionLeft h1 {
-    font-size: 32px;
+    font-size: 30px;
+    margin-bottom: 30px;
   }
+
   .bannerSection .BannerBtn a {
     font-weight: 700;
+    font-size: 16px;
   }
   .circletagShape img {
     width: 63px;
@@ -122,19 +222,44 @@
     width: 95%;
   }
 
-  .innerbanner figure img{height: 355px;}
+  .innerbanner figure img {
+    height: 355px;
+  }
   .innerbannerContent h2 {
-    font-size: 32px;}
-    .innerbannerContent p {
-    font-size: 14px;}
-    .ToolsPageBox h4 {
-    font-size: 24px;}
+    font-size: 32px;
+  }
+  .innerbannerContent p {
+    font-size: 14px;
+  }
+  .ToolsPageBox h4 {
+    font-size: 24px;
+  }
 
-    .ToolsPageBox p {
-    font-size: 14px;}
+  .ToolsPageBox p {
+    font-size: 14px;
+  }
+  .circletagShapeBox {
+    right: 20px;
+    top: 115px;
+  }
+
+  .heartBeatImg {
+    width: 17px;
+  }
 }
 
 @media (max-width: 991px) {
+  header .navbar-nav .nav-link.active:after {
+    display: none;
+  }
+  header .navbar-nav .nav-link {
+    padding: 7px 17px !important;
+    color: #fff;
+  }
+  .circletagShapeBox {
+    right: 11px;
+    top: 25px;
+  }
   .navbar-collapse.show {
     margin-left: 0;
     left: 0;
@@ -143,7 +268,7 @@
   .navbar-collapse {
     background-color: #000;
     height: 100vh;
-    padding-top: 110px;
+    padding-top: 20px;
     position: fixed;
     left: -227px;
     top: 0;
@@ -184,7 +309,7 @@
   .BottomFooter {
     margin-top: 30px;
   }
-  button.navbar-toggler.collapsed {
+  button.navbar-toggler {
     background: #000;
     padding: 0;
     width: 40px;
@@ -276,6 +401,16 @@
   .RegisterPage .col-md-7.me-auto {
     width: 90%;
     margin: auto;
+  }
+  .bannerSectionInner {
+    margin-bottom: -28px;
+  }
+  .bannerSectionInner figure:after {
+    display: none;
+  }
+
+  span.circleshape2 {
+    display: none;
   }
 }
 @media (max-width: 767px) {
