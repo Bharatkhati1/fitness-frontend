@@ -149,8 +149,8 @@ function Home() {
                   <img src={UserCoupleImg} />
                 </figure>
               </div> */}
-               <div className="bannerSectionInner">
-               <div className="circletagShapeBox">
+              <div className="bannerSectionInner">
+                <div className="circletagShapeBox">
                   <img className="heartBeatImg" src={heartbeat} alt="" />
                   <span className="circletagShape">
                     {" "}
@@ -223,42 +223,51 @@ function Home() {
             </p>
           </div>
           <div className="row OurServicesRow">
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={false}
-              items={1}
-              loop
-              margin={10}
-              nav={false}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-            >
-              {services.map((group, index) => (
-                <div className="row" key={index}>
-                  {group.map((srv, idx) => (
-                    <div className="col-md-4" key={idx}>
-                      <div className="OurServicesContent">
-                        <figure>
-                          <img
-                            crossOrigin="anonymous"
-                            src={srv.image_url}
-                            alt={srv.name}
-                          />
-                        </figure>
-                        <figcaption>
-                          <h3>{srv.name}</h3>
-                          <p>{stripHtml(srv.description)}</p>
-                          <a className="btn btn-primary hvr-shutter-out-horizontal">
-                            Book a Free Consultation
-                          </a>
-                        </figcaption>
+            {Array.isArray(services) &&
+            services.length > 0 &&
+            Array.isArray(services[0]) ? (
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={false}
+                items={1}
+                loop
+                margin={10}
+                nav={false}
+                autoplaySpeed={500}
+                autoplayTimeout={3000}
+              >
+                {services.map((group, index) => (
+                  <div className="row" key={index}>
+                    {group.map((srv, idx) => (
+                      <div className="col-md-4" key={idx}>
+                        <div className="OurServicesContent">
+                          <figure>
+                            <img
+                              crossOrigin="anonymous"
+                              src={srv.image_url}
+                              alt={srv.name}
+                            />
+                          </figure>
+                          <figcaption>
+                            <h3>{srv.name}</h3>
+                            <p>{stripHtml(srv.description)}</p>
+                            <a className="btn btn-primary hvr-shutter-out-horizontal">
+                              Book a Free Consultation
+                            </a>
+                          </figcaption>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </OwlCarousel> 
+                    ))}
+                  </div>
+                ))}
+              </OwlCarousel>
+            ) : (
+              <div className="text-center py-5">
+                <h5>No services found.</h5>
+              </div>
+            )}
+
             {/* {services.map((service) => (
               <div className="col-md-4">
                 <div className="OurServicesContent">
