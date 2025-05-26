@@ -5,7 +5,7 @@ import { GATEWAY_URL } from "../constants";
 import moment from "moment";
 
 const getToken = () => {
-  return store.getState().auth.userAccessToken;
+  return store.getState().auth.accessToken;
 };
 
 const jwtVerify = () => {
@@ -36,6 +36,7 @@ const userAxios = axios.create({
 userAxios.interceptors.request.use(
   async (config) => {
     if (jwtVerify()) return config;
+
     try {
       const { data } = await axios.get(`${GATEWAY_URL}/user/refresh`, {
         withCredentials: true,
@@ -49,6 +50,7 @@ userAxios.interceptors.request.use(
       }));
       config.headers["authorization"] = `Bearer ${getToken()}`;
     } catch {
+      window.open("/LoginUser", "_self");
     }
 
     return config;

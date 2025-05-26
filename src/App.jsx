@@ -16,7 +16,7 @@ import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
 
-const ProtectedRoute = ({ condition, redirectTo = "/login-user", children }) => {
+const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
 };
 
