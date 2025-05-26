@@ -206,7 +206,7 @@ function CaloriesCalculatore() {
                       Based on your details and chosen goal, you should consume around
                     </p>
                     <span className="day-text">
-                      {calories ? `${calories} ` : "--"}<sub>Calories/day</sub>
+                      {calories ? `${calories} ` : <div className="dash-class">--</div>}<sub>Calories/day</sub>
                     </span>
                   </div>
                   <div className="ResultBox-right">

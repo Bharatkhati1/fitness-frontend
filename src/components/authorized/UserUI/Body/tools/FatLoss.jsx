@@ -235,7 +235,7 @@ const FatLoass = () => {
                         <span className="day-text">{result} %</span>
                       </>
                     ) : (
-                      <p>Please enter the values and click calculate.</p>
+                      <p className="dash-class">--</p>
                     )}
                     <ul className="optinallyList">
                       <li>Optionally, compare to standard ranges:</li>

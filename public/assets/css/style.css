@@ -1486,7 +1486,16 @@ ul.radioList {
   color: #1e1e1e;
   font-weight: 600;
 }
-
+body .dash-class{
+  font-size: 60px;
+  color: #007946;
+  font-weight: 700;
+}
+body .ResultBoxinner-left .dash-class{
+   font-size: 60px;
+  color: #007946;
+  font-weight: 700;
+}
 .day-text {
   display: flex;
   font-size: 60px;

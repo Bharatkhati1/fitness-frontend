@@ -177,7 +177,7 @@ function Idealweight() {
                         <p className="mt-2">Healthy Range: {result.range}</p>
                       </>
                     ) : (
-                      <p>Please enter details to see result.</p>
+                      <p className="dash-class">--</p>
                     )}
                   </div>
 
