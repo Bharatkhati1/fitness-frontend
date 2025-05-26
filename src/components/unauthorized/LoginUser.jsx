@@ -108,9 +108,9 @@ const LoginUser = ({setIsAdminLocal}) => {
                 {errors.password && (
                   <div className="text-danger">{errors.password}</div>
                 )}
-                <a className="TextLink text-end d-block mt-2">
+                <Link to="forgot-password" className="TextLink text-end d-block mt-2">
                   Forgot Password?
-                </a>
+                </Link>
               </div>
 
               <div className="mb-3 form-check">
