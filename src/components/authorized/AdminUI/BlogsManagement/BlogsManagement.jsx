@@ -37,9 +37,7 @@ const BlogsManagement = () => {
     formData.append("description", longDescription);
     formData.append("isActive", status);
     formData.append("shortDescription", shortDesc);
-    formData.append("type", packageType);
-    formData.append("price", packagePrice);
-    packageImage && formData.append("package_image", packageImage);
+    packageImage && formData.append("blog_image", packageImage);
 
     try {
       let url = isEdit

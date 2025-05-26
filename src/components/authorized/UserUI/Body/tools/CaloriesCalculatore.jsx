@@ -4,11 +4,11 @@ import Form from "react-bootstrap/Form";
 import Diet1 from "../../../../../../public/assets/img/Diet1.png";
 
 function CaloriesCalculatore() {
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState();
   const [gender, setGender] = useState("male");
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState();
   const [heightUnit, setHeightUnit] = useState("cm");
-  const [weight, setWeight] = useState(0);
+  const [weight, setWeight] = useState();
   const [weightUnit, setWeightUnit] = useState("kg");
   const [activityLevel, setActivityLevel] = useState("sedentary");
   const [goal, setGoal] = useState("maintain");
