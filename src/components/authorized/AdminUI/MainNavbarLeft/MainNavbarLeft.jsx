@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../../../../public/assets/images/logo-light.png"
+import logo from "../../../../../public/assets/images/logo-light.png";
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
@@ -9,6 +9,7 @@ const MainNavbarLeft = () => {
     { name: "Slider Management ", path: "slider-management" },
     { name: "Service Management ", path: "service-management" },
     { name: "Package Management ", path: "package-management" },
+    { name: "Blog Management", path: "blog-management" },
     { name: "Success Story", path: "success-stories" },
   ];
 
@@ -16,11 +17,7 @@ const MainNavbarLeft = () => {
     <div className="main-nav">
       <div className="logo-box">
         <a className="logo-light">
-          <img
-            src={logo}
-            height="50"
-            alt="logo light"
-          />
+          <img src={logo} height="50" alt="logo light" />
         </a>
       </div>
       <div className="scrollbar" data-simplebar>

@@ -131,7 +131,7 @@ const SuccessStories = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-               {isEdit ? `Edit Selected Service` : `Create Service`}
+               {isEdit ? `Edit Selected Slider` : `Create Slider`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>

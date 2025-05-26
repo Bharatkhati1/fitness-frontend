@@ -32,7 +32,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    dispatch(getAccessToken());
+    dispatch(getAccessToken(setIsAdminLocal));
   }, [dispatch]);
 
 

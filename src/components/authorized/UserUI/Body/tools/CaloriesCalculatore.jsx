@@ -92,6 +92,7 @@ function CaloriesCalculatore() {
                 <div className="calculatebody">
                   <div className="calculaField mb-3">
                     <label>Age:</label>
+                    <div className="calculainSelect">
                     <input
                       className="form-control"
                       type="number"
@@ -99,6 +100,7 @@ function CaloriesCalculatore() {
                       value={age}
                       onChange={e => setAge(Number(e.target.value))}
                     />
+                    </div>
                   </div>
 
                   <div className="calculaField mb-3">

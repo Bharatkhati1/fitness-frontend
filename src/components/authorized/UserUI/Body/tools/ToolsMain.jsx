@@ -78,12 +78,12 @@ const ToolsMain = () => {
           <div className="ToolsPageBox">
             <div className="row">
               <div className="col-md-8 pe-5">
-                <h4>Fat loss Calculator</h4>
+                <h4>Fat Percentage Calculator</h4>
                 <p>
                   Determine your Body Fat Percentage to assess your weight
                   status and overall health risk.
                 </p>
-                <Link to="fat-loss-calculator"  className="btn btn-primary hvr-shutter-out-horizontal">calculate your fat loss</Link>
+                <Link to="fat-loss-calculator"  className="btn btn-primary hvr-shutter-out-horizontal">calculate your fat percentage</Link>
               </div>
 
               <div className="col-md-4">

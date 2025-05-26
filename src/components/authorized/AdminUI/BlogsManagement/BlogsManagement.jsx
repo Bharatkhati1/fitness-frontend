@@ -6,10 +6,12 @@ import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
 const BlogsManagement = () => {
-  const [name, SetName] = useState("");
+  const [name, setName] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [longDescription, setLongDescription] = useState("")
   const [status, setStatus] = useState(true);
+  const [allCategories, setAllCategories] = useState([])
+  const [categoryId, setCategoryId] = useState(null)
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [image, setImage] = useState(null);
@@ -36,8 +38,9 @@ const BlogsManagement = () => {
     formData.append("title", name);
     formData.append("description", longDescription);
     formData.append("isActive", status);
+    formData.append("categoryId", categoryId);
     formData.append("shortDescription", shortDesc);
-    packageImage && formData.append("blog_image", packageImage);
+    image && formData.append("blog_image", image);
 
     try {
       let url = isEdit
@@ -61,7 +64,7 @@ const BlogsManagement = () => {
   
 
       if (response.status == 200) {
-        fetchAllPackage();
+        fetchAllBlogs();
         onCancelEdit();
         toast.success(response.data.message);
         return;
@@ -73,11 +76,11 @@ const BlogsManagement = () => {
     }
   };
 
-  const deletePackage = async (id) => {
+  const deleteBlog = async (id) => {
     try {
       await adminAxios.delete(adminApiRoutes.delete_package(id));
       toast.success("Deleted Successfully");
-      fetchAllPackage();
+      fetchAllBlogs();
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message)
@@ -86,15 +89,13 @@ const BlogsManagement = () => {
 
   const onCancelEdit =()=>{
     setIsEdit(false);
-    setSelectedPackageId(null);
-    setPackageName("");
-    setPackageType(null);
-    setSelectedServiecTypeId("");
-    setPackageDesc("");
-    setPackageStatus("1");
-    setPackagePrice(0);
-    setPakageImage(null);
-    setLongDescription("")
+    setSelectedId(null);
+    setName("");
+    setCategoryId("");
+    setLongDescription("");
+    setShortDesc("");
+    setStatus("1");
+    setImage(null)
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -112,34 +113,33 @@ const BlogsManagement = () => {
         <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Package` : `Create Package`}
+                {isEdit ? `Edit Selected Blog` : `Create Blog`}
               </h4>
               {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
             </div>
             <div className="card-body">
               <div className="row">
-                {/* Slider Name */}
+
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
-                      Package Name
+                      Blog title
                     </label>
                     <input
                       type="text"
                       id="service-name"
                       className="form-control"
                       placeholder="Enter name"
-                      value={packageName}
-                      onChange={(e) => setPackageName(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                 </div>
 
-                {/* Package Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Package Image {isEdit && ` : ${selectedFileName}`}
+                      Blog Image {isEdit && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -147,43 +147,8 @@ const BlogsManagement = () => {
                       id="service-image"
                       ref={fileInputRef}
                       className="form-control"
-                      onChange={(e) => setPakageImage(e.target.files[0])}
+                      onChange={(e) => setImage(e.target.files[0])}
                     />
-                  </div>
-                </div>
-
-                {/* Package Price */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-price" className="form-label">
-                      Package Price
-                    </label>
-                    <input
-                      type="number"
-                      id="package-price"
-                      value={packagePrice}
-                      className="form-control"
-                      onChange={(e) => setPackagePrice(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Package type
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      name="packageType"
-                      value={packageType}
-                      onChange={(e) => setPackageType(e.target.value)}
-                    >
-                      <option value="">Select type</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="subscription">Subscription</option>
-                    </select>
                   </div>
                 </div>
 
@@ -198,8 +163,8 @@ const BlogsManagement = () => {
                       style={{ resize: "vertical", minHeight: "100px" }}
                       className="form-control"
                       placeholder="Enter short description"
-                      value={packageDesc}
-                      onChange={(e) => setPackageDesc(e.target.value)}
+                      value={shortDesc}
+                      onChange={(e) => setShortDesc(e.target.value)}
                     />
                   </div>
                 </div>
@@ -224,24 +189,24 @@ const BlogsManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
-                      Service type
+                      Select Category
                     </label>
                     <select
                       id="package-type"
                       className="form-select"
-                      value={selectedServiceTypeId}
-                      onChange={(e) => setSelectedServiecTypeId(e.target.value)}
+                      value={categoryId}
+                      onChange={(e) => setCategoryId(e.target.value)}
                     >
-                      <option value="">Select type</option>
-                      {allServices?.map((service) => (
-                        <option value={service.id}>{service.name}</option>
+                      <option value="">Select category</option>
+                      {allCategories?.map((category) => (
+                        <option value={category.id}>{category.name}</option>
                       ))}
                     </select>
                   </div>
                 </div>
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Package Status</p>
+                  <p>Blog Status</p>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
@@ -249,8 +214,8 @@ const BlogsManagement = () => {
                         type="radio"
                         name="service-status"
                         value={true}
-                        checked={packageStatus}
-                        onChange={() => setPackageStatus(true)}
+                        checked={status}
+                        onChange={() => setStatus(true)}
                         id="status-active"
                       />
                       <label
@@ -266,8 +231,8 @@ const BlogsManagement = () => {
                         type="radio"
                         name="service-status"
                         value={false}
-                        checked={!packageStatus}
-                        onChange={() => setPackageStatus(false)}
+                        checked={!status}
+                        onChange={() => setStatus(false)}
                         id="status-inactive"
                       />
                       <label
@@ -300,7 +265,7 @@ const BlogsManagement = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Packages</h4>
+              <h4 className="card-title">All Blogs</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -311,16 +276,14 @@ const BlogsManagement = () => {
                       <th>Image</th>
                       <th>Name</th>
                       <th>Short Description</th>
-                      <th>Service Type</th>
-                      <th>Package Type</th>
-                      <th>Price</th>
+                      <th>Category</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {packages.length > 0 ? (
-                      packages.map((item, index) => (
+                    {blogs.length > 0 ? (
+                      blogs.map((item, index) => (
                         <tr key={index}>
                           <td>{item.id}</td>
                           <td>
@@ -347,9 +310,7 @@ const BlogsManagement = () => {
                           </td>
                           <td>{item?.name}</td>
                           <td>{item.shortDescription}</td>
-                          <td>{item?.Service?.name}</td>
-                          <td>{item.type}</td>
-                          <td>{item.price}</td>
+                          <td>{item?.category?.name}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -367,14 +328,12 @@ const BlogsManagement = () => {
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
-                                  setSelectedPackageId(item.id);
-                                  setPackageName(item.name);
-                                  setPackageType(item.type);
-                                  setSelectedServiecTypeId(item.serviceId);
-                                  setPackageDesc(item.shortDescription);
+                                  setSelectedId(item.id);
+                                  setName(item.name);
+                                  setCategoryId(item.category);
+                                  setShortDesc(item.shortDescription);
                                   setLongDescription(item.longDescription);
-                                  setPackageStatus(item.isActive);
-                                  setPackagePrice(item.price);
+                                  setStatus(item.isActive);
                                   setSelectedFileName(item.image);
                                 }}
                               >
@@ -387,7 +346,7 @@ const BlogsManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Package ?"
                                 title="Delete Package"
-                                onOk={() => deletePackage(item.id)}
+                                onOk={() => deleteBlog(item.id)}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
