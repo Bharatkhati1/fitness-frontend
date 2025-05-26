@@ -50,13 +50,12 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
   };
 };
 
-export const getAccessToken = (setIsAdminLocal) => {
+export const getAccessToken = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`${GATEWAY_URL}/web/refresh`, {
         withCredentials: true,
       });
-      setIsAdminLocal(data.user.roleId === 1)
       dispatch(
         authActions.loginUser({
           accessToken: data?.accessToken || "",
@@ -73,12 +72,11 @@ export const getAccessToken = (setIsAdminLocal) => {
   };
 };
 
-
 export const logoutUser = () => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
- const accessToken = store.getState().auth.accessToken
+ const accessToken =  store.getState().auth.accessToken
   window.sessionStorage.clear();
   window.localStorage.clear();
   window.indexedDB.deleteDatabase("");
