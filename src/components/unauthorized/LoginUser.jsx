@@ -23,8 +23,10 @@ const LoginUser = ({ setIsAdminLocal }) => {
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [loadingReset, setLoadingReset] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [otpSent, setOtpSent] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -91,9 +93,10 @@ const LoginUser = ({ setIsAdminLocal }) => {
         await new Promise((res) => setTimeout(res, 500));
         setResetStep(3);
       } else if (resetStep === 3) {
-        await axios.post(`${GATEWAY_URL}/web/reset-password`, {
+        await axios.post(`${GATEWAY_URL}/web/change-password`, {
           email: resetEmail,
-          newPassword: newPassword,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
         });
         toast.success("Password reset successful. Please login.");
         setIsForgotPassword(false);
@@ -111,15 +114,13 @@ const LoginUser = ({ setIsAdminLocal }) => {
       setLoadingReset(false);
     }
   };
-  
-  
 
   const renderForgotPassword = () => (
     <form className="formBox" onSubmit={handleResetSubmit}>
       <div className="formBoxHead">
         <h3>Forgot Password</h3>
       </div>
-  
+
       {resetStep === 1 && (
         <>
           <div className="fieldbox mb-3">
@@ -142,7 +143,7 @@ const LoginUser = ({ setIsAdminLocal }) => {
           </button>
         </>
       )}
-  
+
       {resetStep === 2 && (
         <>
           <div className="fieldbox mb-3">
@@ -165,7 +166,7 @@ const LoginUser = ({ setIsAdminLocal }) => {
           </button>
         </>
       )}
-  
+
       {resetStep === 3 && (
         <>
           <div className="fieldbox mb-3">
@@ -179,16 +180,33 @@ const LoginUser = ({ setIsAdminLocal }) => {
               required
             />
           </div>
+
+          <div className="fieldbox mb-3">
+            <label>Confirm Password*</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {confirmPassword && newPassword !== confirmPassword && (
+            <div className="text-danger mb-3">Passwords do not match.</div>
+          )}
+
           <button
             type="submit"
             className="btn btn-primary w-100"
-            disabled={loadingReset}
+            disabled={loadingReset || newPassword !== confirmPassword}
           >
             {loadingReset ? "Resetting..." : "Reset Password"}
           </button>
         </>
       )}
-  
+
       <div className="DotHave mt-3 text-center">
         <span
           className="TextLink"
@@ -203,7 +221,6 @@ const LoginUser = ({ setIsAdminLocal }) => {
       </div>
     </form>
   );
-  
 
   return (
     <section className="LoginPage">
