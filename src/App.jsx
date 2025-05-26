@@ -12,25 +12,22 @@ import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
-import FatperchantageCalculator from "./components/pages/FatperchantageCalculator.jsx";
-import ForgotPassword from "./components/unauthorized/forgotPassword.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
 
-const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
+const ProtectedRoute = ({ condition, redirectTo = "/login-user", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
 };
 
 const App = () => {
   const dispatch = useDispatch();
-  const [isAdminLocal, setIsAdminLocal] = useState(false)
-  const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(
+  const { isCheckingToken, isLoggedIn, adminAccessToken } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    dispatch(getAccessToken(setIsAdminLocal));
+    dispatch(getAccessToken());
   }, [dispatch]);
 
 
@@ -40,15 +37,11 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
-          <Route path="LoginUser" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
-          <Route path="SignUpUser" element={<SignUpUser />} />
+          <Route path="/admin-login" element={<LoginUser />} />
+          <Route path="login-user" element={<LoginUser/>} />
+          <Route path="sign-up" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
-          <Route
-            path="FatperchantageCalculator"
-            element={<FatperchantageCalculator />}
-          />
         </Routes>
       </Suspense>
     );
@@ -60,7 +53,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute condition={isAdminLocal||isAdmin} redirectTo="/">
+            <ProtectedRoute condition={adminAccessToken?.length>0} redirectTo="/">
               <AdminRoutes />
             </ProtectedRoute>
           }

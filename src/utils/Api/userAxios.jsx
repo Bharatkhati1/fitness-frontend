@@ -5,7 +5,7 @@ import { GATEWAY_URL } from "../constants";
 import moment from "moment";
 
 const getToken = () => {
-  return store.getState().auth.accessToken;
+  return store.getState().auth.userAccessToken;
 };
 
 const jwtVerify = () => {

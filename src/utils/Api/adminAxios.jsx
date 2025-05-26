@@ -4,7 +4,7 @@ import { authActions } from "../../store/auth";
 import { GATEWAY_URL } from "../constants";
 import moment from "moment";
 
-const getToken = () => store.getState().auth.accessToken;
+const getToken = () => store.getState().auth.adminAccessToken;
 
 const jwtVerify = () => {
   const token = getToken();
@@ -47,7 +47,7 @@ adminAxios.interceptors.request.use(
       }));
       config.headers["authorization"] = `Bearer ${getToken()}`;
     } catch {
-      window.open("/LoginUser", "_self");
+      window.open("/login-user", "_self");
     }
 
     return config;

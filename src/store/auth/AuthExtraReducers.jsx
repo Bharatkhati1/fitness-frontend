@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 
-export const Login = (userData, navigate, setIsAdminLocal) => {
+export const Login = (userData, navigate) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -27,15 +27,25 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
         }
       );
       const isAdminUser = data.user.roleId === 1;
-      dispatch(
-        authActions.loginUser({
-          accessToken: data?.accessToken || "",
-          isLoggedIn: true,
-          isAdmin: isAdminUser,
-          user: { ...data?.user },
-        })
-      );
-      setIsAdminLocal(isAdminUser)
+      if(isAdminUser){
+        dispatch(
+          authActions.loginUser({
+            adminAccessToken: data?.accessToken || "",
+            isLoggedIn: true,
+            isAdmin: isAdminUser,
+            adminDetails: { ...data?.user },
+          })
+        );
+      }else{
+        dispatch(
+          authActions.loginUser({
+            userAccessToken: data?.accessToken || "",
+            isLoggedIn: true,
+            isAdmin: isAdminUser,
+            userDetails: { ...data?.user },
+          })
+        );
+      }
       await new Promise((resolve) => setTimeout(resolve, 500));
       navigate(isAdminUser ? "/admin/slider-management" : "/", { replace: true });
     } catch (error) {
@@ -47,13 +57,12 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
   };
 };
 
-export const getAccessToken = (setIsAdminLocal) => {
+export const getAccessToken = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`${GATEWAY_URL}/web/refresh`, {
         withCredentials: true,
       });
-      setIsAdminLocal(data.user.roleId === 1)
       dispatch(
         authActions.loginUser({
           accessToken: data?.accessToken || "",
@@ -70,11 +79,11 @@ export const getAccessToken = (setIsAdminLocal) => {
   };
 };
 
-export const logoutUser = () => {
+export const logoutUser = (isUser) => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
- const accessToken =  store.getState().auth.accessToken
+ const accessToken = isUser ? store.getState().auth.userAccessToken : store.getState().auth.adminAccessToken;
   window.sessionStorage.clear();
   window.localStorage.clear();
   window.indexedDB.deleteDatabase("");
@@ -100,7 +109,7 @@ export const logoutUser = () => {
 
     try {
       await fetchData();
-      window.open("/LoginUser", "_self", false);
+      window.open("/login-user", "_self", false);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {

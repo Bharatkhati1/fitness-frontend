@@ -5,6 +5,7 @@ export const initialState = {
   userAccessToken: "",
   isAdmin:false,
   isCheckingToken: true,
-  user: {},
+  adminDetails: {},
+  userDetails: {},
   permissions: {},
 };

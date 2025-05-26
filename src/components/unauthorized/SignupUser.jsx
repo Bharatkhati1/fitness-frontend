@@ -102,7 +102,7 @@ function SignUpUser() {
         });
   
         setMessage("Verification successful! Redirecting...");
-        setTimeout(() => navigate("/LoginUser"), 2000);
+        setTimeout(() => navigate("/login-user"), 2000);
       } catch (err) {
         toast.update(toastId, {
           render:
@@ -225,7 +225,7 @@ function SignUpUser() {
         <button
           type="button"
           className="btn btn-link p-0"
-          onClick={() => navigate("/LoginUser")}
+          onClick={() => navigate("/login-user")}
           style={{ textDecoration: "underline", color: "#007bff" }}
         >
           Login
