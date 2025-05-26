@@ -1,19 +1,14 @@
 import React from "react";
-import Header from "../authorized/UserUI/Header/Header";
-import Footer from "../authorized/UserUI/Footer/Footer";
-import CalorieCalculatorBanner from "../../../public/assets/img/ToolsBannerBg.png";
-
-import toolsImg1 from "../../../public/assets/img/toolsImg1.png";
-import toolsImg2 from "../../../public/assets/img/toolsImg2.png";
-import toolsImg3 from "../../../public/assets/img/toolsImg3.png";
-import toolsImg4 from "../../../public/assets/img/toolsImg4.png";
+import CalorieCalculatorBanner from "../../../../../../public/assets/img/ToolsBannerBg.png";
 import { Link } from "react-router-dom";
+import toolsImg1 from "../../../../../../public/assets/img/toolsImg1.png";
+import toolsImg2 from "../../../../../../public/assets/img/toolsImg2.png";
+import toolsImg3 from "../../../../../../public/assets/img/toolsImg3.png";
+import toolsImg4 from "../../../../../../public/assets/img/toolsImg4.png";
 
-export default function Tools() {
+const ToolsMain = () => {
   return (
     <>
-      <Header />
-
       <section className="innerbanner">
         <figure>
           <img src={CalorieCalculatorBanner} />
@@ -88,7 +83,7 @@ export default function Tools() {
                   Determine your Body Fat Percentage to assess your weight
                   status and overall health risk.
                 </p>
-                <Link  className="btn btn-primary hvr-shutter-out-horizontal">calculate your fat loss</Link>
+                <Link to="fat-loss-calculator"  className="btn btn-primary hvr-shutter-out-horizontal">calculate your fat loss</Link>
               </div>
 
               <div className="col-md-4">
@@ -118,8 +113,8 @@ export default function Tools() {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </>
-  );
+  </>
+  )
 }
+
+export default ToolsMain

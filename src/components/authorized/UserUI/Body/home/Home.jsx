@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import UserCoupleImg from "../../../../../../public/assets/img/bannerCouple.png";
 import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
@@ -31,14 +31,59 @@ import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
+import userAxios from "../../../../../utils/Api/userAxios";
+import userApiRoutes from "../../../../../utils/Api/Routes/userApiRoutes";
+import { toast } from "react-toastify";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 
 import heartbeat from "../../../../../../public/assets/img/heartbeat.png";
 
-import circleShapeLeft  from "../../../../../../public/assets/img/circleShapeLeft.png";
-import circleShapeRight  from "../../../../../../public/assets/img/circleShapeRight.png";
-
+import circleShapeLeft from "../../../../../../public/assets/img/circleShapeLeft.png";
+import circleShapeRight from "../../../../../../public/assets/img/circleShapeRight.png";
 
 function Home() {
+  const [sliders, setSliders] = useState([]);
+  const [services, setServices] = useState([]);
+  const getSliders = async () => {
+    try {
+      const response = await userAxios.get(userApiRoutes.get_sliders);
+      setSliders(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
+    }
+  };
+
+  const getServices = async () => {
+    try {
+      const response = await userAxios.get(userApiRoutes.get_services);
+      const servicesData = response.data.data;
+
+      // const chunkSize = 6;
+      // const chunkedServices = [];
+
+      // for (let i = 0; i < servicesData.length; i += chunkSize) {
+      //   chunkedServices.push(servicesData.slice(i, i + chunkSize));
+      // }
+
+      setServices(servicesData);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  };
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+  useEffect(() => {
+    getSliders();
+    getServices();
+  }, []);
+  console.log(services, sliders);
   return (
     <>
       <section className="bannerSection">
@@ -81,12 +126,37 @@ function Home() {
             <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
               <div className="bannerSectionInner">
                 <div className="circletagShapeBox">
-                   <img className="heartBeatImg" src={heartbeat} alt="" /> 
-                <span className="circletagShape">  <img src={Tagcircle} /></span>
+                  <img className="heartBeatImg" src={heartbeat} alt="" />
+                  <span className="circletagShape">
+                    {" "}
+                    <img src={Tagcircle} />
+                  </span>
                 </div>
-                 <figure>
+                <figure>
                   <img src={UserCoupleImg} />
                 </figure>
+                <span className="circletagShape">
+                  <img src={Tagcircle} />
+                </span>
+                <OwlCarousel
+                  autoplay={false}
+                  dots={false}
+                  items={1}
+                  className="owl-theme"
+                  autoplaySpeed={500}
+                  autoplayTimeout={3000}
+                  loop
+                  margin={50}
+                  nav={false}
+                >
+                  {sliders.map((slider) => (
+                    <div class="item">
+                      <figure>
+                        <img crossOrigin="annoymous" src={slider.image_url} />
+                      </figure>
+                    </div>
+                  ))}
+                </OwlCarousel>
               </div>
             </div>
           </div>
@@ -96,10 +166,10 @@ function Home() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-7 text-center p-4 me-auto AboutInfoLeft">
-              <span className="circleshape"><img src={circleShapeLeft}/></span>
-            
+              <span className="circleshape">
+                <img src={circleShapeLeft} />
+              </span>
 
-              
               <h2>
                 We’re not just another weight loss website we’re your &nbsp;
                 <span>HEALTH UNIVERSE</span>
@@ -110,7 +180,9 @@ function Home() {
               </p>
             </div>
             <div className="col-md-5 text-left">
-                 <span className="circleshape2"><img src={circleShapeRight}/></span>
+              <span className="circleshape2">
+                <img src={circleShapeRight} />
+              </span>
               <figure>
                 <img src={wightLosssChart} />
               </figure>
@@ -129,123 +201,86 @@ function Home() {
             </p>
           </div>
           <div className="row OurServicesRow">
-            <div className="col-md-4">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg1} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                </figcaption>
+            {/* <OwlCarousel
+              className="owl-theme"
+              autoplay={false}
+              dots={false}
+              items={1} 
+              loop
+              margin={10}
+              nav={false}
+              autoplaySpeed={500}
+              autoplayTimeout={3000}
+            >
+              {services.map((group, index) => (
+                <div className="row" key={index}>
+                  {group.map((srv, idx) => (
+                    <div className="col-md-4" key={idx}>
+                      <div className="OurServicesContent">
+                        <figure>
+                          <img
+                            crossOrigin="anonymous"
+                            src={srv.image_url}
+                            alt={srv.name}
+                          />
+                        </figure>
+                        <figcaption>
+                          <h3>{srv.name}</h3>
+                          <p>{stripHtml(srv.description)}</p>
+                          <a className="btn btn-primary hvr-shutter-out-horizontal">
+                            Book a Free Consultation
+                          </a>
+                        </figcaption>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </OwlCarousel> */}
+            <OwlCarousel
+              className="owl-theme"
+              autoplay={false}
+              dots={false}
+              items={3}
+              loop
+              margin={10}
+              nav={false}
+              autoplaySpeed={500}
+              autoplayTimeout={3000}
+            >
+              {services.map((service, index) => (
+                <div className="">
+                  <div className="OurServicesContent">
+                    <figure>
+                      <img crossOrigin="annoymous" src={service.image_url} />
+                    </figure>
+                    <figcaption>
+                      <h3>{service.name}</h3>
+                      <p>{stripHtml(service.description)}</p>
+                      <a className="btn btn-primary hvr-shutter-out-horizontal">
+                        book a free consultation
+                      </a>
+                    </figcaption>
+                  </div>
+                </div>
+              ))}
+            </OwlCarousel>
+            {/* {services.map((service) => (
+              <div className="col-md-4">
+                <div className="OurServicesContent">
+                  <figure>
+                    <img crossOrigin="annoymous" src={service.image_url} />
+                  </figure>
+                  <figcaption>
+                    <h3>{service.name}</h3>
+                    <p>{stripHtml(service.description)}</p>
+                    <a className="btn btn-primary hvr-shutter-out-horizontal">
+                      book a free consultation
+                    </a>
+                  </figcaption>
+                </div>
               </div>
-            </div>
-            <div className="col-md-4">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg2} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                </figcaption>
-              </div>
-            </div>
-            <div className="col-md-4 ">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg3} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                </figcaption>
-              </div>
-            </div>
-            <div className="col-md-4 mb-0">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg4} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary max-btn me-1 hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    join
-                  </a>
-                </figcaption>
-              </div>
-            </div>
-            <div className="col-md-4 mb-0">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg5} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary max-btn me-1 hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    join
-                  </a>
-                </figcaption>
-              </div>
-            </div>
-            <div className="col-md-4 mb-0">
-              <div className="OurServicesContent">
-                <figure>
-                  <img src={ServiceImg6} />
-                </figure>
-                <figcaption>
-                  <h3>FAT LOSS</h3>
-                  <p>
-                    Sustainable approach towards managing your weight in a
-                    healthy manner where in you not only lose fat, but also gain
-                    strength and confidence.
-                  </p>
-                  <a className="btn btn-primary max-btn me-1 hvr-shutter-out-horizontal">
-                    book a free consultation
-                  </a>
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
-                    join
-                  </a>
-                </figcaption>
-              </div>
-            </div>
+            ))} */}
           </div>
         </div>
       </section>
@@ -403,7 +438,6 @@ function Home() {
             </div>
           </div>
           <div className="text-center btn-sec mt-4">
-           
             <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
               view All
             </a>
@@ -463,7 +497,7 @@ function Home() {
           </div>
         </div>
       </section>
-{/* 
+      {/* 
       <section className="trailoffer">
         <div className="container">
           <div className="row">

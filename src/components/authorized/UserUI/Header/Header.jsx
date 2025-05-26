@@ -22,7 +22,7 @@ const Header = () => {
       <div className="container">
         <div className="navInner d-flex justify-content-between align-items-center">
           <div className="navLeft">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand as={Link} to="/">
               <img src={Logo} />
             </Navbar.Brand>
           </div>
