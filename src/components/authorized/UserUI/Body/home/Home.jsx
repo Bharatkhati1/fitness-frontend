@@ -38,6 +38,12 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
+import heartbeat from "../../../../../../public/assets/img/heartbeat.png";
+
+import circleShapeLeft  from "../../../../../../public/assets/img/circleShapeLeft.png";
+import circleShapeRight  from "../../../../../../public/assets/img/circleShapeRight.png";
+
+
 function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
@@ -133,28 +139,13 @@ function Home() {
             </div>
             <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
               <div className="bannerSectionInner">
-                <span className="circletagShape">
-                  <img src={Tagcircle} />
-                </span>
-                <OwlCarousel
-                  autoplay={false}
-                  dots={false}
-                  items={1}
-                  className="owl-theme"
-                  autoplaySpeed={500}
-                  autoplayTimeout={3000}
-                  loop
-                  margin={50}
-                  nav={false}
-                >
-                  {sliders.map((slider) => (
-                    <div class="item">
-                      <figure>
-                        <img crossOrigin="annoymous" src={slider.image_url} />
-                      </figure>
-                    </div>
-                  ))}
-                </OwlCarousel>
+                <div className="circletagShapeBox">
+                   <img className="heartBeatImg" src={heartbeat} alt="" /> 
+                <span className="circletagShape">  <img src={Tagcircle} /></span>
+                </div>
+                 <figure>
+                  <img src={UserCoupleImg} />
+                </figure>
               </div>
             </div>
           </div>
@@ -164,6 +155,10 @@ function Home() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-7 text-center p-4 me-auto AboutInfoLeft">
+              <span className="circleshape"><img src={circleShapeLeft}/></span>
+            
+
+              
               <h2>
                 We’re not just another weight loss website we’re your &nbsp;
                 <span>HEALTH UNIVERSE</span>
@@ -174,6 +169,7 @@ function Home() {
               </p>
             </div>
             <div className="col-md-5 text-left">
+                 <span className="circleshape2"><img src={circleShapeRight}/></span>
               <figure>
                 <img src={wightLosssChart} />
               </figure>
@@ -400,8 +396,8 @@ function Home() {
               </figcaption>
             </div>
           </div>
-          <div className="text-center btn-sec mt-5">
-            {" "}
+          <div className="text-center btn-sec mt-4">
+           
             <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
               view All
             </a>
