@@ -46,7 +46,7 @@ import circleShapeRight from "../../../../../../public/assets/img/circleShapeRig
 function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
   const getSliders = async () => {
     try {
       const response = await userAxios.get(userApiRoutes.get_sliders);
@@ -78,7 +78,7 @@ function Home() {
       for (let i = 0; i < servicesData.length; i += chunkSize) {
         chunkedServices.push(servicesData.slice(i, i + chunkSize));
       }
-      
+
       setServices(chunkedServices);
     } catch (error) {
       console.error(error);
@@ -95,7 +95,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getServices();
-    getBlogs()
+    getBlogs();
   }, []);
   return (
     <>
@@ -137,10 +137,23 @@ function Home() {
               </div>
             </div>
             <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-              <div className="bannerSectionInner">
+              {/* <div className="bannerSectionInner">
                 <div className="circletagShapeBox">
                   <img className="heartBeatImg" src={heartbeat} alt="" />
                   <span className="circletagShape">
+                    {" "}
+                    <img src={Tagcircle} />
+                  </span>
+                </div>
+                <figure>
+                  <img src={UserCoupleImg} />
+                </figure>
+              </div> */}
+               <div className="bannerSectionInner">
+               <div className="circletagShapeBox">
+                  <img className="heartBeatImg" src={heartbeat} alt="" />
+                  <span className="circletagShape">
+                    {" "}
                     <img src={Tagcircle} />
                   </span>
                 </div>
@@ -152,17 +165,15 @@ function Home() {
                   autoplaySpeed={500}
                   autoplayTimeout={3000}
                   loop
-                  margin={0}
+                  margin={50}
                   nav={false}
                 >
                   {sliders.map((slider) => (
-                    <>
                     <div class="item">
                       <figure>
                         <img crossOrigin="annoymous" src={slider.image_url} />
                       </figure>
-                    </div></>
-                    
+                    </div>
                   ))}
                 </OwlCarousel>
               </div>
@@ -191,6 +202,9 @@ function Home() {
               <span className="circleshape2">
                 <img src={circleShapeRight} />
               </span>
+              <span className="circleshape2">
+                <img src={circleShapeRight} />
+              </span>
               <figure>
                 <img src={wightLosssChart} />
               </figure>
@@ -213,7 +227,7 @@ function Home() {
               className="owl-theme"
               autoplay={false}
               dots={false}
-              items={1} 
+              items={1}
               loop
               margin={10}
               nav={false}
@@ -380,9 +394,18 @@ function Home() {
             </p>
           </div>
           <div className="row OurHealthBlogRows">
+            {/* {blogs.slice(0, 4).map((blog)=> <div className="col-md-6 OurHealthBlogContent">
+              <figure>
+                <img  crossOrigin="anonymous" src={blog.image_url} />
+              </figure>
+              <figcaption>
+                <span>{new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2 min read</span>
+                <h3>{blog.title}</h3>
+              </figcaption>
+            </div>)} */}
             <div className="col-md-6 OurHealthBlogContent">
               <figure>
-                <img src={BlogImg1} />
+                <img src={BlogImg2} />
               </figure>
               <figcaption>
                 <span>4/21/2025 . 2 min read</span>
