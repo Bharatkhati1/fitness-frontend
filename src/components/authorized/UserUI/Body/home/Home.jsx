@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
 import UserCoupleImg from "../../../../../../public/assets/img/bannerCouple.png";
 import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
@@ -47,6 +47,9 @@ function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const videoRef = useRef(null);
+  const videoContainerRef = useRef(null);
+
   const getSliders = async () => {
     try {
       const response = await userAxios.get(userApiRoutes.get_sliders);
@@ -93,10 +96,52 @@ function Home() {
   };
 
   useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          // video.currentTime = 0;
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => {
+      if (videoContainerRef.current) {
+        observer.unobserve(videoContainerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     getSliders();
     getServices();
     getBlogs();
   }, []);
+
+  const prevArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
+
+  const nextArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
+
   return (
     <>
       <section className="bannerSection">
@@ -106,38 +151,53 @@ function Home() {
         <span className="shapeImgRight">
           <img src={ShapeRight} />
         </span>
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6 bannerSectionLeft pe-0">
-              <span className="BestTag">
-                <img src={TagCheckIcon} />
-                The Best in Town
-              </span>
-              <h1>
-                WELCOME TO THE WORLD’S BEST ONLINE PERSONAL HEALTH CUM FITNESS
-                PROGRAM
-              </h1>
-              <ul className="ClientListinfo d-flex">
-                <li>
-                  <div className="ClientInfo">
-                    <b>150+</b>
-                    <p>Happy Clients</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="ClientInfo">
-                    <b>15</b>
-                    <p>Years of Experience</p>
-                  </div>
-                </li>
-              </ul>
-              <div className="BannerBtn d-flex">
-                <a className="hvr-shutter-out-horizontal">Join Now</a>
-                <a className="hvr-shutter-out-horizontal">book a trial</a>
-              </div>
-            </div>
-            <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-              {/* <div className="bannerSectionInner">
+        {sliders.length > 0 && (
+          <OwlCarousel
+            autoplay={true}
+            dots={true}
+            items={1}
+            className="owl-theme"
+            autoplaySpeed={1000}
+            autoplayTimeout={5000}
+            loop
+            margin={0}
+            nav={true}
+            navText={[prevArrow, nextArrow]}
+          >
+            {sliders.map((slider) => (
+              <div>
+                <div className="container h-100">
+                  <div className="row align-items-center">
+                    <div className="col-md-6 bannerSectionLeft pe-0">
+                      <span className="BestTag">
+                        <img src={TagCheckIcon} />
+                        The Best in Town
+                      </span>
+                      <h1 className="mb-1">{slider.heading}</h1>
+                      <p className="owl-p">{slider.subHeading}</p>
+                      <ul className="ClientListinfo d-flex">
+                        <li>
+                          <div className="ClientInfo">
+                            <b>150+</b>
+                            <p>Happy Clients</p>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="ClientInfo">
+                            <b>15</b>
+                            <p>Years of Experience</p>
+                          </div>
+                        </li>
+                      </ul>
+                      <div className="BannerBtn d-flex">
+                        <a className="hvr-shutter-out-horizontal">Join Now</a>
+                        <a className="hvr-shutter-out-horizontal">
+                          book a trial
+                        </a>
+                      </div>
+                    </div>
+                    <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
+                      {/* <div className="bannerSectionInner">
                 <div className="circletagShapeBox">
                   <img className="heartBeatImg" src={heartbeat} alt="" />
                   <span className="circletagShape">
@@ -149,37 +209,35 @@ function Home() {
                   <img src={UserCoupleImg} />
                 </figure>
               </div> */}
-              <div className="bannerSectionInner">
-                <div className="circletagShapeBox">
-                  <img className="heartBeatImg" src={heartbeat} alt="" />
-                  <span className="circletagShape">
-                    {" "}
-                    <img src={Tagcircle} />
-                  </span>
-                </div>
-                <OwlCarousel
-                  autoplay={false}
-                  dots={false}
-                  items={1}
-                  className="owl-theme"
-                  autoplaySpeed={500}
-                  autoplayTimeout={3000}
-                  loop
-                  margin={0}
-                  nav={false}
-                >
-                  {sliders.map((slider) => (
-                    <div class="item">
-                      <figure>
-                        <img crossOrigin="annoymous" src={slider.image_url} />
-                      </figure>
+                      <div className="bannerSectionInner">
+                        <div className="circletagShapeBox">
+                          <img
+                            className="heartBeatImg"
+                            src={heartbeat}
+                            alt=""
+                          />
+                          <span className="circletagShape">
+                            {" "}
+                            <img src={Tagcircle} />
+                          </span>
+                        </div>
+
+                        <div class="item">
+                          <figure>
+                            <img
+                              crossOrigin="annoymous"
+                              src={slider.image_url}
+                            />
+                          </figure>
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                </OwlCarousel>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            ))}
+          </OwlCarousel>
+        )}
       </section>
       <section className="AboutInfo">
         <div className="container">
@@ -228,14 +286,15 @@ function Home() {
             Array.isArray(services[0]) ? (
               <OwlCarousel
                 className="owl-theme"
-                autoplay={false}
-                dots={false}
+                autoplay={true}
+                dots={true}
                 items={1}
-                loop
+                loop={true}
                 margin={10}
-                nav={false}
-                autoplaySpeed={500}
-                autoplayTimeout={3000}
+                nav={true}
+                navText={[prevArrow, nextArrow]}
+                autoplaySpeed={1000}
+                autoplayTimeout={5000}
               >
                 {services.map((group, index) => (
                   <div className="row" key={index}>
@@ -299,16 +358,16 @@ function Home() {
             </p>
           </div>
         </div>
-        <div className="VideBox">
-          <iframe
-            src="https://www.youtube.com/embed/jSJ-9uB6pzo?h=null&playlist=jSJ-9uB6pzo&autoplay=1&controls=1&loop=1&autopause=0&playsinline=1&mute=1"
-            width="926"
+        <div className="VideBox bg-black" ref={videoContainerRef}>
+          <video
+            ref={videoRef}
+            src="assets/video/01.mp4"
+            width="100%"
             height="509"
-            frameborder="0"
-            webkitAllowFullScreen
-            mozallowfullscreen
-            allowFullScreen
-          ></iframe>
+            controls={false}
+            muted
+            playsInline
+          />
         </div>
       </section>
       <section className="SmartKichin">

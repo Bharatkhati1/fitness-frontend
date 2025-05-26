@@ -180,13 +180,13 @@ function BmiCalculator() {
                   </ul>
 
                   <div className="yourBmi">
-                    Your BMI:
+                    <span className="d-inline-block">Your BMI:</span>
                     {bmi ? (
                       <span className={getCategoryColorClass(category)}>
                         {bmi} <b>({category})</b>
                       </span>
                     ) : (
-                      <span> -- </span>
+                      <span className="dash-class"> -- </span>
                     )}
                   </div>
                 </div>

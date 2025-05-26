@@ -26,9 +26,7 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
           withCredentials: true,
         }
       );
-
       const isAdminUser = data.user.roleId === 1;
-
       dispatch(
         authActions.loginUser({
           accessToken: data?.accessToken || "",
@@ -40,7 +38,6 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
       setIsAdminLocal(isAdminUser)
       await new Promise((resolve) => setTimeout(resolve, 500));
       navigate(isAdminUser ? "/admin/slider-management" : "/", { replace: true });
-
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -67,31 +64,6 @@ export const getAccessToken = (setIsAdminLocal) => {
       );
     } catch (error) {
       toast.error(error?.response?.data?.message);
-    } finally {
-      dispatch(authActions.checkingUserToken(false));
-    }
-  };
-};
-
-export const handleSignup = (payload) => {
-  return async (dispatch) => {
-    dispatch(authActions.checkingUserToken(true)); // Optional: show loading state
-    try {
-      const { data } = await axios.post(`${GATEWAY_URL}/web/signup`, payload, {
-        withCredentials: true,
-      });
-
-      setIsAdminLocal(data.user.roleId === 1);
-      dispatch(
-        authActions.loginUser({
-          accessToken: data?.accessToken || "",
-          isLoggedIn: true,
-          isAdmin: data.user.roleId === 1,
-          user: { ...data?.user },
-        })
-      );
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Signup failed.");
     } finally {
       dispatch(authActions.checkingUserToken(false));
     }
