@@ -40,14 +40,13 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 
 import heartbeat from "../../../../../../public/assets/img/heartbeat.png";
 
-import circleShapeLeft  from "../../../../../../public/assets/img/circleShapeLeft.png";
-import circleShapeRight  from "../../../../../../public/assets/img/circleShapeRight.png";
-
+import circleShapeLeft from "../../../../../../public/assets/img/circleShapeLeft.png";
+import circleShapeRight from "../../../../../../public/assets/img/circleShapeRight.png";
 
 function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
   const getSliders = async () => {
     try {
       const response = await userAxios.get(userApiRoutes.get_sliders);
@@ -79,7 +78,7 @@ function Home() {
       for (let i = 0; i < servicesData.length; i += chunkSize) {
         chunkedServices.push(servicesData.slice(i, i + chunkSize));
       }
-      
+
       setServices(chunkedServices);
     } catch (error) {
       console.error(error);
@@ -96,7 +95,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getServices();
-    getBlogs()
+    getBlogs();
   }, []);
   return (
     <>
@@ -138,14 +137,45 @@ function Home() {
               </div>
             </div>
             <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-              <div className="bannerSectionInner">
+              {/* <div className="bannerSectionInner">
                 <div className="circletagShapeBox">
-                   <img className="heartBeatImg" src={heartbeat} alt="" /> 
-                <span className="circletagShape">  <img src={Tagcircle} /></span>
+                  <img className="heartBeatImg" src={heartbeat} alt="" />
+                  <span className="circletagShape">
+                    {" "}
+                    <img src={Tagcircle} />
+                  </span>
                 </div>
-                 <figure>
+                <figure>
                   <img src={UserCoupleImg} />
                 </figure>
+              </div> */}
+               <div className="bannerSectionInner">
+               <div className="circletagShapeBox">
+                  <img className="heartBeatImg" src={heartbeat} alt="" />
+                  <span className="circletagShape">
+                    {" "}
+                    <img src={Tagcircle} />
+                  </span>
+                </div>
+                <OwlCarousel
+                  autoplay={false}
+                  dots={false}
+                  items={1}
+                  className="owl-theme"
+                  autoplaySpeed={500}
+                  autoplayTimeout={3000}
+                  loop
+                  margin={50}
+                  nav={false}
+                >
+                  {sliders.map((slider) => (
+                    <div class="item">
+                      <figure>
+                        <img crossOrigin="annoymous" src={slider.image_url} />
+                      </figure>
+                    </div>
+                  ))}
+                </OwlCarousel>
               </div>
             </div>
           </div>
@@ -155,10 +185,9 @@ function Home() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-7 text-center p-4 me-auto AboutInfoLeft">
-              <span className="circleshape"><img src={circleShapeLeft}/></span>
-            
-
-              
+              <span className="circleshape">
+                <img src={circleShapeLeft} />
+              </span>
               <h2>
                 We’re not just another weight loss website we’re your &nbsp;
                 <span>HEALTH UNIVERSE</span>
@@ -169,7 +198,9 @@ function Home() {
               </p>
             </div>
             <div className="col-md-5 text-left">
-                 <span className="circleshape2"><img src={circleShapeRight}/></span>
+              <span className="circleshape2">
+                <img src={circleShapeRight} />
+              </span>
               <figure>
                 <img src={wightLosssChart} />
               </figure>
@@ -192,7 +223,7 @@ function Home() {
               className="owl-theme"
               autoplay={false}
               dots={false}
-              items={1} 
+              items={1}
               loop
               margin={10}
               nav={false}
@@ -359,9 +390,18 @@ function Home() {
             </p>
           </div>
           <div className="row OurHealthBlogRows">
+            {/* {blogs.slice(0, 4).map((blog)=> <div className="col-md-6 OurHealthBlogContent">
+              <figure>
+                <img  crossOrigin="anonymous" src={blog.image_url} />
+              </figure>
+              <figcaption>
+                <span>{new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2 min read</span>
+                <h3>{blog.title}</h3>
+              </figcaption>
+            </div>)} */}
             <div className="col-md-6 OurHealthBlogContent">
               <figure>
-                <img src={BlogImg1} />
+                <img src={BlogImg2} />
               </figure>
               <figcaption>
                 <span>4/21/2025 . 2 min read</span>
@@ -397,7 +437,6 @@ function Home() {
             </div>
           </div>
           <div className="text-center btn-sec mt-4">
-           
             <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
               view All
             </a>
