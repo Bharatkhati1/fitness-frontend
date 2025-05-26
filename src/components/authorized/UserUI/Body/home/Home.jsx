@@ -188,6 +188,7 @@ function Home() {
               <span className="circleshape">
                 <img src={circleShapeLeft} />
               </span>
+
               <h2>
                 We’re not just another weight loss website we’re your &nbsp;
                 <span>HEALTH UNIVERSE</span>
@@ -198,6 +199,9 @@ function Home() {
               </p>
             </div>
             <div className="col-md-5 text-left">
+              <span className="circleshape2">
+                <img src={circleShapeRight} />
+              </span>
               <span className="circleshape2">
                 <img src={circleShapeRight} />
               </span>
@@ -254,7 +258,7 @@ function Home() {
                   ))}
                 </div>
               ))}
-            </OwlCarousel>
+            </OwlCarousel> 
             {/* {services.map((service) => (
               <div className="col-md-4">
                 <div className="OurServicesContent">

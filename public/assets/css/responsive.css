@@ -121,6 +121,17 @@
   .RegisterPage .SocialUsers {
     width: 95%;
   }
+
+  .innerbanner figure img{height: 355px;}
+  .innerbannerContent h2 {
+    font-size: 32px;}
+    .innerbannerContent p {
+    font-size: 14px;}
+    .ToolsPageBox h4 {
+    font-size: 24px;}
+
+    .ToolsPageBox p {
+    font-size: 14px;}
 }
 
 @media (max-width: 991px) {
