@@ -60,15 +60,15 @@ function Home() {
     }
   };
 
-  const getBlogs = async () => {
-    try {
-      const response = await userAxios.get(userApiRoutes.get_blogs());
-      setBlogs(response.data.data);
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Failed to fetch sliders");
-    }
-  };
+  // const getBlogs = async () => {
+  //   try {
+  //     const response = await userAxios.get(userApiRoutes.get_blogs());
+  //     setBlogs(response.data.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error(error.response?.data?.message || "Failed to fetch sliders");
+  //   }
+  // };
 
   const getServices = async () => {
     try {
@@ -127,7 +127,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getServices();
-    getBlogs();
+    // getBlogs();
   }, []);
 
   const prevArrow = `
