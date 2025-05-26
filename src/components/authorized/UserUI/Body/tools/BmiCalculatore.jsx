@@ -131,7 +131,9 @@ function BmiCalculator() {
                     </div>
                   </div>
 
-                  <div className="calculateButton text-center mt-4">
+                </div>
+                
+                  <div className="calculateButton text-center mt-3">
                     <button
                       className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                       type="button"
@@ -140,7 +142,6 @@ function BmiCalculator() {
                       Calculate your BMI
                     </button>
                   </div>
-                </div>
               </div>
             </div>
 

@@ -165,7 +165,7 @@ function Home() {
                   autoplaySpeed={500}
                   autoplayTimeout={3000}
                   loop
-                  margin={50}
+                  margin={0}
                   nav={false}
                 >
                   {sliders.map((slider) => (

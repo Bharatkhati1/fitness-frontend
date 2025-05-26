@@ -145,7 +145,7 @@ const LoginUser = ({setIsAdminLocal}) => {
               <span className="or-text">Or</span>
 
               <div className="SocialUsers">
-                <GoogleLogin
+               <a className="GoogleUser"> <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     const decoded = jwtDecode(credentialResponse.credential);
                     console.log('Decoded User:', decoded);
@@ -153,7 +153,7 @@ const LoginUser = ({setIsAdminLocal}) => {
                   onError={() => {
                     console.log("Login Failed");
                   }}
-                />
+                /></a>
                 <a href="#">
                   <img src={AppleIcon} alt="Apple icon" />
                   login using apple

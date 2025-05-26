@@ -148,7 +148,9 @@ function Idealweight() {
                     </div>
                   </div>
 
-                  <div className="calculateButton text-center mt-4">
+                </div>
+                
+                  <div className="calculateButton text-center mt-3">
                     <button
                       className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                       onClick={calculateIdealWeight}
@@ -156,7 +158,6 @@ function Idealweight() {
                       Calculate your ideal weight
                     </button>
                   </div>
-                </div>
               </div>
             </div>
 
