@@ -73,6 +73,31 @@ export const getAccessToken = (setIsAdminLocal) => {
   };
 };
 
+export const handleSignup = (payload) => {
+  return async (dispatch) => {
+    dispatch(authActions.checkingUserToken(true)); // Optional: show loading state
+    try {
+      const { data } = await axios.post(`${GATEWAY_URL}/web/signup`, payload, {
+        withCredentials: true,
+      });
+
+      setIsAdminLocal(data.user.roleId === 1);
+      dispatch(
+        authActions.loginUser({
+          accessToken: data?.accessToken || "",
+          isLoggedIn: true,
+          isAdmin: data.user.roleId === 1,
+          user: { ...data?.user },
+        })
+      );
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Signup failed.");
+    } finally {
+      dispatch(authActions.checkingUserToken(false));
+    }
+  };
+};
+
 export const logoutUser = () => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
