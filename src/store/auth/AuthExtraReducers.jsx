@@ -5,15 +5,17 @@ import { toast } from "react-toastify";
 import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 
-export const Login = (userData, navigate) => {
+export const Login = (userData, navigate, setIsAdminLocal) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
         toast.error("Please check your Internet Connection");
         return;
       }
-      dispatch(authActions.checkingUserToken(true))
+
+      dispatch(authActions.checkingUserToken(true));
       dispatch(authActions.setLoginButtonDisable(true));
+
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/login`,
         {
@@ -24,27 +26,26 @@ export const Login = (userData, navigate) => {
           withCredentials: true,
         }
       );
-      toast.success("Login successfully")
+
+      const isAdminUser = data.user.roleId === 1;
+
       dispatch(
         authActions.loginUser({
           accessToken: data?.accessToken || "",
           isLoggedIn: true,
-          isAdmin: data.user.roleId === 1,
+          isAdmin: isAdminUser,
           user: { ...data?.user },
         })
       );
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsAdminLocal(isAdminUser)
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate(isAdminUser ? "/admin/slider-management" : "/", { replace: true });
 
-      if (data.user.roleId === 1) {
-        navigate("/admin/slider-management", { replace: true });
-      } else {
-        navigate("/", { replace: true });
-      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
       dispatch(authActions.setLoginButtonDisable(false));
-      dispatch(authActions.checkingUserToken(false))
+      dispatch(authActions.checkingUserToken(false));
     }
   };
 };

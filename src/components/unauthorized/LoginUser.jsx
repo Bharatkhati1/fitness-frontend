@@ -8,7 +8,7 @@ import { Login } from "../../store/auth/AuthExtraReducers";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
-const LoginUser = () => {
+const LoginUser = ({setIsAdminLocal}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const disableLoginButton = useSelector(
@@ -54,7 +54,8 @@ const LoginUser = () => {
       dispatch(
         Login(
           { username: formData.username, password: formData.password },
-          navigate
+          navigate, 
+          setIsAdminLocal
         )
       );
     }
