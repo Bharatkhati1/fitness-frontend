@@ -41,10 +41,21 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
+  const [blogs, setBlogs] = useState([])
   const getSliders = async () => {
     try {
       const response = await userAxios.get(userApiRoutes.get_sliders);
       setSliders(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
+    }
+  };
+
+  const getBlogs = async () => {
+    try {
+      const response = await userAxios.get(userApiRoutes.get_blogs());
+      setBlogs(response.data.data);
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to fetch sliders");
@@ -56,29 +67,31 @@ function Home() {
       const response = await userAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
 
-      // const chunkSize = 6;
-      // const chunkedServices = [];
+      const chunkSize = 6;
+      const chunkedServices = [];
 
-      // for (let i = 0; i < servicesData.length; i += chunkSize) {
-      //   chunkedServices.push(servicesData.slice(i, i + chunkSize));
-      // }
-
-      setServices(servicesData);
+      for (let i = 0; i < servicesData.length; i += chunkSize) {
+        chunkedServices.push(servicesData.slice(i, i + chunkSize));
+      }
+      
+      setServices(chunkedServices);
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
     }
   };
+
   const stripHtml = (html) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
     return tempDiv.textContent || tempDiv.innerText || "";
   };
+
   useEffect(() => {
     getSliders();
     getServices();
+    getBlogs()
   }, []);
-  console.log(services, sliders);
   return (
     <>
       <section className="bannerSection">
@@ -179,7 +192,7 @@ function Home() {
             </p>
           </div>
           <div className="row OurServicesRow">
-            {/* <OwlCarousel
+            <OwlCarousel
               className="owl-theme"
               autoplay={false}
               dots={false}
@@ -213,34 +226,6 @@ function Home() {
                     </div>
                   ))}
                 </div>
-              ))}
-            </OwlCarousel> */}
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={false}
-              items={3}
-              loop
-              margin={10}
-              nav={false}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-            >
-              {services.map((service, index) => (
-               <div className="">
-               <div className="OurServicesContent">
-                 <figure>
-                   <img crossOrigin="annoymous" src={service.image_url} />
-                 </figure>
-                 <figcaption>
-                   <h3>{service.name}</h3>
-                   <p>{stripHtml(service.description)}</p>
-                   <a className="btn btn-primary hvr-shutter-out-horizontal">
-                     book a free consultation
-                   </a>
-                 </figcaption>
-               </div>
-             </div>
               ))}
             </OwlCarousel>
             {/* {services.map((service) => (
