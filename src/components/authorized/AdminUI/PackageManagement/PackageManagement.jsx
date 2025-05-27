@@ -120,9 +120,9 @@ const PackageManagement = () => {
     }
   };
 
-  const deletePackage = async (id) => {
+  const deletePackage = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_package(id));
+      await adminAxios.delete(adminApiRoutes.delete_package(selectedPackageId));
       toast.success("Deleted Successfully");
       fetchAllPackage();
     } catch (error) {
@@ -529,11 +529,12 @@ const PackageManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Package ?"
                                 title="Delete Package"
-                                onOk={() => deletePackage(item.id)}
+                                onOk={() => deletePackage()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
+                                    onClick={() => setSelectedPackageId(item.id)}
                                   ></iconify-icon>
                                 }
                               />

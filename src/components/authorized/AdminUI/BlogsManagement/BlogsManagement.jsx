@@ -21,7 +21,7 @@ const BlogsManagement = () => {
 
   const fetchAllBlogs = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_package);
+      const res = await adminAxios.get(adminApiRoutes.get_blogs);
       setBlogs(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
@@ -29,8 +29,18 @@ const BlogsManagement = () => {
     }
   };
 
+  const fetchAllCategories = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      setAllCategories(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch blog categories:", error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const handleSubmit = async () => {
-    if (!packageImage && !isEdit) {
+    if (!image && !isEdit) {
       toast.warning("Please select an image.");
       return;
     }
@@ -44,8 +54,8 @@ const BlogsManagement = () => {
 
     try {
       let url = isEdit
-        ? adminApiRoutes.update_package(selectedPackageId)
-        : adminApiRoutes.create_package;
+        ? adminApiRoutes.update_blog(selectedId)
+        : adminApiRoutes.create_blog;
 
         let response;
         if (isEdit) {
@@ -76,9 +86,9 @@ const BlogsManagement = () => {
     }
   };
 
-  const deleteBlog = async (id) => {
+  const deleteBlog = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_package(id));
+      await adminAxios.delete(adminApiRoutes.delete_blog(selectedId));
       toast.success("Deleted Successfully");
       fetchAllBlogs();
     } catch (error) {
@@ -104,6 +114,7 @@ const BlogsManagement = () => {
 
   useEffect(() => {
     fetchAllBlogs();
+    fetchAllCategories();
   }, []);
 
   return (
@@ -308,9 +319,9 @@ const BlogsManagement = () => {
                               />
                             </Link>
                           </td>
-                          <td>{item?.name}</td>
+                          <td>{item?.title}</td>
                           <td>{item.shortDescription}</td>
-                          <td>{item?.category?.name}</td>
+                          <td>{item?.categoryId}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -329,10 +340,10 @@ const BlogsManagement = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
-                                  setName(item.name);
-                                  setCategoryId(item.category);
+                                  setName(item.title);
+                                  setCategoryId(item.categoryId);
                                   setShortDesc(item.shortDescription);
-                                  setLongDescription(item.longDescription);
+                                  setLongDescription(item.description);
                                   setStatus(item.isActive);
                                   setSelectedFileName(item.image);
                                 }}
@@ -346,11 +357,12 @@ const BlogsManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Package ?"
                                 title="Delete Package"
-                                onOk={() => deleteBlog(item.id)}
+                                onOk={() => deleteBlog()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
+                                    onClick={() => setSelectedId(item.id)}
                                   ></iconify-icon>
                                 }
                               />

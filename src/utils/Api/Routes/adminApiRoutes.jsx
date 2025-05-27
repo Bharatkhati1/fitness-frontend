@@ -24,6 +24,18 @@ const adminApiRoutes = {
     update_success_story:(id)=>`/success-story/${id}`,
     delete_success_story:(id)=>`/success-story/${id}`,
 
+    //CATEGORY ROUTES
+    get_categories: "/blog-category",
+    create_category: "/blog-category",
+    update_category: (categoryId) => `/blog-category/${categoryId}`,
+    delete_category: (categoryId) => `/blog-category/${categoryId}`,
+
+    //BLOG ROUTES
+    get_blogs: "/blog",
+    create_blog: "/blog",
+    update_blog: (blogId) => `/blog/${blogId}`,
+    delete_blog: (blogId) => `/blog/${blogId}`,
+
   };
   
   export default adminApiRoutes;

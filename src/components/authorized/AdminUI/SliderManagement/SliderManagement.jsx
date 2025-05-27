@@ -67,9 +67,9 @@ const SliderManagement = () => {
     }
   };
 
-  const deleteSlider = async (id) => {
+  const deleteSlider = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_slider(id));
+      await adminAxios.delete(adminApiRoutes.delete_slider(selectedSliderId));
       toast.success("Deleted Successfully");
       fetchAllSliders();
     } catch (error) {
@@ -318,11 +318,14 @@ const SliderManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Slider ?"
                                 title="Delete Slider "
-                                onOk={() => deleteSlider(slider.id)}
+                                onOk={() => deleteSlider()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
+                                    onClick={() => {
+                                      setSelectedSliderId(slider.id);
+                                    }}
                                   ></iconify-icon>
                                 }
                               />

@@ -66,9 +66,9 @@ const SuccessStories = () => {
         });
       }
 
-        fetchAllSuccessStories();
-        onCancelEdit();
-        toast.success(response.data.message);
+      fetchAllSuccessStories();
+      onCancelEdit();
+      toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
       toast.error(`Failed to create slider.${error.response.data.message}`);
@@ -81,11 +81,13 @@ const SuccessStories = () => {
     }
   };
 
-  const deleteSuccessStory = async (id) => {
+  const deleteSuccessStory = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_service(id));
+      await adminAxios.delete(
+        adminApiRoutes.delete_service(selectedSuccesStoryId)
+      );
       toast.success("Deleted Successfully");
-      fetchAllServices();
+      fetchAllSuccessStories();
     } catch (error) {
       console.log(error);
     }
@@ -131,11 +133,11 @@ const SuccessStories = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-               {isEdit ? `Edit Selected Slider` : `Create Slider`}
+                {isEdit ? `Edit Selected Slider` : `Create Slider`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
-              )} 
+              )}
             </div>
             <div className="card-body">
               <div className="row">
@@ -344,11 +346,14 @@ const SuccessStories = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Success Story ?"
                                 title="Delete Success Story "
-                                onOk={() => deleteSuccessStory(story.id)}
+                                onOk={() => deleteSuccessStory()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
+                                    onClick={() => {
+                                      setSelectedSuccesStoryId(story.id);
+                                    }}
                                   ></iconify-icon>
                                 }
                               />

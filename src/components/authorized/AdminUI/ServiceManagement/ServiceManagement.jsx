@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import DOMPurify from "dompurify";
+import "./services.scss"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
@@ -96,9 +98,9 @@ const ServiceManagement = () => {
     }
   };
 
-  const deleteService = async (id) => {
+  const deleteService = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_service(id));
+      await adminAxios.delete(adminApiRoutes.delete_service(selectedSliderId));
       toast.success("Deleted Successfully");
       fetchAllServices();
     } catch (error) {
@@ -132,11 +134,33 @@ const ServiceManagement = () => {
       fileInputRef.current.value = "";
     }
   };
+  const handleDragEnd = async (result) => {
+    if (!result.destination) return;
+
+    const reordered = Array.from(sliders);
+    const [movedItem] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, movedItem);
+    setSliders(reordered);
+
+    // try {
+    //   // Send the new order to the backend
+    //   await adminAxios.post(adminApiRoutes.update_service_order, {
+    //     orderedIds: reordered.map((item) => item.id),
+    //   });
+    //   toast.success("Service order updated successfully");
+    // } catch (error) {
+    //   console.error("Failed to update order:", error);
+    //   toast.error("Failed to update service order");
+    //   // Revert to the original order if the API call fails
+    //   fetchAllServices(currentPage);
+    // }
+  };
 
   useEffect(() => {
     fetchAllServices(currentPage);
   }, [currentPage]);
 
+  
   return (
     <>
       <div className="row">
@@ -258,9 +282,7 @@ const ServiceManagement = () => {
                               const selected = ctaButtons.includes(option);
                               setCtaButtons(
                                 selected
-                                  ? ctaButtons.filter(
-                                      (item) => item !== option
-                                    )
+                                  ? ctaButtons.filter((item) => item !== option)
                                   : [...ctaButtons, option]
                               );
                             }}
@@ -363,86 +385,117 @@ const ServiceManagement = () => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {sliders.length > 0 ? (
-                      sliders.map((service, index) => (
-                        <tr key={index}>
-                          <td>{service.id}</td>
-                          <td>
-                            <Link target="_blank" to={service.image_url}>
-                              {" "}
-                              <img
-                                crossorigin="anonymous"
-                                src={service.image_url}
-                                alt="Slider"
-                                style={{
-                                  width: "50px",
-                                  height: "50px",
-                                  objectFit: "contain",
-                                  border: "1px solid #eee",
-                                }}
-                                onError={(e) => {
-                                  console.error(
-                                    "Image failed to load:",
-                                    service.image_url
-                                  );
-                                }}
-                              />
-                            </Link>
-                          </td>
-                          <td>{service.name}</td>
-                          <td>{getShortText(service.description)}</td>
-                          <td>
-                            <span
-                              className={`badge ${
-                                service.isActive ? "bg-success" : "bg-danger"
-                              }`}
-                            >
-                              {service.isActive ? "Active" : "Inactive"}
-                            </span>
-                          </td>
-                          <td>
-                            <div class="d-flex gap-2">
-                              <button
-                                class="btn btn-soft-primary btn-sm"
-                                onClick={() => {
-                                  setIsEdit(true);
-                                  setSelectedSliderId(service.id);
-                                  setSliderName(service.name);
-                                  setSliderHeading(service.description);
-                                  setSelectedFileName(service.image);
-                                  setSliderStatus(service.isActive);
-                                }}
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    {sliders.length > 0 && (
+                      <Droppable droppableId={"droppable"}>
+                        {(provided) => (
+                          <tbody
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                          >
+                            {sliders.map((service, index) => (
+                              <Draggable
+                                key={service.id.toString()}
+                                draggableId={service.id.toString()}
+                                index={index}
                               >
-                                <iconify-icon
-                                  icon="solar:pen-2-broken"
-                                  class="align-middle fs-18"
-                                ></iconify-icon>
-                              </button>
+                                {(provided) => (
+                                  <tr
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={{
+                                      ...provided.draggableProps.style,
+                                      display: 'table-row',
+                                    }}
+                                  >
+                                    <td>{service.id}</td>
+                                    <td>
+                                      <Link
+                                        target="_blank"
+                                        to={service.image_url}
+                                      >
+                                        <img
+                                          crossOrigin="anonymous"
+                                          src={service.image_url}
+                                          alt="Slider"
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                            objectFit: "contain",
+                                            border: "1px solid #eee",
+                                          }}
+                                          onError={(e) => {
+                                            console.error(
+                                              "Image failed to load:",
+                                              service.image_url
+                                            );
+                                          }}
+                                        />
+                                      </Link>
+                                    </td>
+                                    <td>{service.name}</td>
+                                    <td>{getShortText(service.description)}</td>
+                                    <td>
+                                      <span
+                                        className={`badge ${
+                                          service.isActive
+                                            ? "bg-success"
+                                            : "bg-danger"
+                                        }`}
+                                      >
+                                        {service.isActive
+                                          ? "Active"
+                                          : "Inactive"}
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <div className="d-flex gap-2">
+                                        <button
+                                          className="btn btn-soft-primary btn-sm"
+                                          onClick={() => {
+                                            setIsEdit(true);
+                                            setSelectedSliderId(service.id);
+                                            setSliderName(service.name);
+                                            setSliderHeading(
+                                              service.description
+                                            );
+                                            setSelectedFileName(service.image);
+                                            setSliderStatus(service.isActive);
+                                          }}
+                                        >
+                                          <iconify-icon
+                                            icon="solar:pen-2-broken"
+                                            class="align-middle fs-18"
+                                          ></iconify-icon>
+                                        </button>
 
-                              <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this Service ?"
-                                title="Delete Service "
-                                onOk={() => deleteService(service.id)}
-                                buttonText={
-                                  <iconify-icon
-                                    icon="solar:trash-bin-minimalistic-2-broken"
-                                    class="align-middle fs-18"
-                                  ></iconify-icon>
-                                }
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="6" className="text-center">
-                          No sliders found.
-                        </td>
-                      </tr>
+                                        <ConfirmationPopup
+                                          bodyText="Are you sure you want to delete this Service?"
+                                          title="Delete Service"
+                                          onOk={() => deleteService()}
+                                          buttonText={
+                                            <iconify-icon
+                                              icon="solar:trash-bin-minimalistic-2-broken"
+                                              class="align-middle fs-18"
+                                              onClick={() =>
+                                                setSelectedSliderId(service.id)
+                                              }
+                                            ></iconify-icon>
+                                          }
+                                        />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
                     )}
-                  </tbody>
+                  </DragDropContext>
                 </table>
               </div>
             </div>

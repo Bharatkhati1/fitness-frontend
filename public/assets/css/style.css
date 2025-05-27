@@ -476,6 +476,7 @@ body .heartBeatImg {
   margin: auto;
 }
 .VideBox {
+  object-fit: fill;
   background: rgb(0 0 0 / 12%);
 }
 .VideBox iframe {
