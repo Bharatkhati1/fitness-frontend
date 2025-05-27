@@ -5,42 +5,53 @@ import { toast } from "react-toastify";
 import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 
-export const Login = (userData, navigate, setIsAdminLocal) => {
+export const Login = (userData, navigate, isAdmin = false) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
         toast.error("Please check your Internet Connection");
         return;
       }
-
       dispatch(authActions.checkingUserToken(true));
       dispatch(authActions.setLoginButtonDisable(true));
-
+      const type = isAdmin ? "adminRefreshToken" : "userRefreshToken";
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/login`,
         {
           username: userData.username,
           password: userData.password,
+          type: type,
         },
         {
           withCredentials: true,
         }
       );
 
-      const isAdminUser = data.user.roleId === 1;
-
-      dispatch(
-        authActions.loginUser({
-          accessToken: data?.accessToken || "",
-          isLoggedIn: true,
-          isAdmin: isAdminUser,
-          user: { ...data?.user },
-        })
-      );
-      setIsAdminLocal(isAdminUser)
+      if (isAdmin) {
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            isAdmin: isAdmin,
+          })
+        );
+        dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
+        dispatch(authActions.setAdminDetails({ ...data?.user }));
+      } else {
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            isAdmin: isAdmin,
+          })
+        );
+        dispatch(authActions.setUserDetails({ ...data?.user }));
+        dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+      }
+      localStorage.setItem("isAdmin", isAdmin);
+      dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(isAdminUser ? "/admin/slider-management" : "/", { replace: true });
-
+      navigate(isAdmin ? "/admin/slider-management" : "/", {
+        replace: true,
+      });
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -50,21 +61,36 @@ export const Login = (userData, navigate, setIsAdminLocal) => {
   };
 };
 
-export const getAccessToken = (setIsAdminLocal) => {
+export const getAccessToken = (isAdmin) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${GATEWAY_URL}/web/refresh`, {
+      dispatch(authActions.checkingUserToken(true));
+      const type = isAdmin ? "adminRefreshToken" : "userRefreshToken";
+      const { data } = await axios.post(`${GATEWAY_URL}/web/refresh`, { type }, {
         withCredentials: true,
       });
-      setIsAdminLocal(data.user.roleId === 1)
-      dispatch(
-        authActions.loginUser({
-          accessToken: data?.accessToken || "",
-          isLoggedIn: true,
-          isAdmin: data.user.roleId === 1,
-          user: { ...data?.user },
-        })
-      );
+
+      if (isAdmin) {
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            isAdmin: isAdmin,
+          })
+        );
+        localStorage.setItem("isAdmin", isAdmin);
+        dispatch(authActions.checkingUserToken(false));
+        dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
+        dispatch(authActions.setAdminDetails({ ...data?.user }));
+      } else {
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            isAdmin: isAdmin,
+          })
+        );
+        dispatch(authActions.setUserDetails({ ...data?.user }));
+        dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -73,47 +99,23 @@ export const getAccessToken = (setIsAdminLocal) => {
   };
 };
 
-export const handleSignup = (payload) => {
-  return async (dispatch) => {
-    dispatch(authActions.checkingUserToken(true)); // Optional: show loading state
-    try {
-      const { data } = await axios.post(`${GATEWAY_URL}/web/signup`, payload, {
-        withCredentials: true,
-      });
-
-      setIsAdminLocal(data.user.roleId === 1);
-      dispatch(
-        authActions.loginUser({
-          accessToken: data?.accessToken || "",
-          isLoggedIn: true,
-          isAdmin: data.user.roleId === 1,
-          user: { ...data?.user },
-        })
-      );
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Signup failed.");
-    } finally {
-      dispatch(authActions.checkingUserToken(false));
-    }
-  };
-};
-
-export const logoutUser = () => {
+export const logoutUser = (isUser) => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
- const accessToken =  store.getState().auth.accessToken
+  const accessToken = isUser? store.getState().auth.userAccessToken : store.getState().auth.adminAccessToken;
   window.sessionStorage.clear();
   window.localStorage.clear();
   window.indexedDB.deleteDatabase("");
   return async (dispatch) => {
+    const type = isUser ? "userRefreshToken" : "adminRefreshToken";
     dispatch(authActions.setLoginButtonDisable(true));
     const fetchData = async () => {
       await userAxios
-        .get(`/logout`, {
+        .post(`/logout`, { type }, {
           withCredentials: true,
           headers: {
-            "authorization": `Bearer ${accessToken}`
+            authorization: `Bearer ${accessToken}`,
           },
         })
         .then(() => {
@@ -125,10 +127,14 @@ export const logoutUser = () => {
           window.indexedDB.deleteDatabase("");
         });
     };
-
     try {
       await fetchData();
-      window.open("/LoginUser", "_self", false);
+      if(isUser){
+        window.open("/login-user", "_self", false);
+      } else{
+        localStorage.removeItem("isAdmin");
+        window.open("/admin-login", "_self", false);
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {

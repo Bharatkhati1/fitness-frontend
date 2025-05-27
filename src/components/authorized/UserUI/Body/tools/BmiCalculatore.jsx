@@ -12,7 +12,7 @@ function BmiCalculator() {
   const [weightUnit, setWeightUnit] = useState("kg");
   const [bmi, setBmi] = useState(null);
   const [category, setCategory] = useState("");
-
+  const [error, setError] = useState(null);
   const calculateBMI = () => {
     let weightKg = parseFloat(weight);
     if (weightUnit === "lbs") {
@@ -26,7 +26,10 @@ function BmiCalculator() {
       heightM = heightM * 0.0254;
     }
 
-    if (!weightKg || !heightM || heightM <= 0) return;
+  if (!weightKg || !heightM || heightM <= 0 || weightKg <= 0) {
+    setError("Please enter valid height and weight values.");
+    return;
+  }
 
     const bmiValue = weightKg / (heightM * heightM);
     setBmi(bmiValue.toFixed(1));
@@ -100,6 +103,7 @@ function BmiCalculator() {
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
                         placeholder="Enter value"
+                         min="1"
                       />
                       <Form.Select
                         value={heightUnit}
@@ -120,6 +124,7 @@ function BmiCalculator() {
                         value={weight}
                         onChange={(e) => setWeight(e.target.value)}
                         placeholder="Enter value"
+                         min="1"
                       />
                       <Form.Select
                         value={weightUnit}
@@ -134,6 +139,7 @@ function BmiCalculator() {
                 </div>
                 
                   <div className="calculateButton text-center mt-3">
+                   { error&&<p style={{color:"orange"}}>{error}</p>}
                     <button
                       className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                       type="button"

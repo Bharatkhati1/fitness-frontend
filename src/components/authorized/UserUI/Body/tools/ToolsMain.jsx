@@ -17,8 +17,8 @@ const ToolsMain = () => {
           <div className="innerbannerContent">
             <h2>YOUR FITNESS TOOLS</h2>
             <p>
-              Access our calorie, BMI, and fat percentage calculators to enhance
-              your health journey today!
+              Access Our Calorie, BMI, And Fat Percentage Calculators To Enhance
+              Your Health Journey Today!
             </p>
           </div>
         </div>

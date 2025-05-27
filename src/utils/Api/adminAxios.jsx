@@ -4,7 +4,7 @@ import { authActions } from "../../store/auth";
 import { GATEWAY_URL } from "../constants";
 import moment from "moment";
 
-const getToken = () => store.getState().auth.accessToken;
+const getToken = () => store.getState().auth.adminAccessToken;
 
 const jwtVerify = () => {
   const token = getToken();
@@ -34,20 +34,22 @@ const adminAxios = axios.create({
 adminAxios.interceptors.request.use(
   async (config) => {
     if (jwtVerify()) return config;
+
     try {
-      const { data } = await axios.get(`${GATEWAY_URL}/web/refresh`, {
+      const { data } = await axios.post(`${GATEWAY_URL}/web/refresh`, { type: "adminRefreshToken" }, {
         withCredentials: true,
       });
-      store.dispatch(authActions.loginUser({
-        accessToken: data.accessToken,
-        isLoggedIn: true,
-        user: { ...data.user },
-        permissions: data.user.permissions,
-        orgId: data.user.org_id,
-      }));
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            isAdmin: isAdminUser,
+            user: { ...data?.user },
+          })
+        );
+        dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
       config.headers["authorization"] = `Bearer ${getToken()}`;
     } catch {
-      window.open("/LoginUser", "_self");
+      window.open("/admin-login", "_self");
     }
 
     return config;

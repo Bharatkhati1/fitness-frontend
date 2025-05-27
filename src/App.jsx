@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { getAccessToken } from "./store/auth/AuthExtraReducers.jsx";
 
 import "../public/assets/css/app.min.css";
@@ -12,29 +12,46 @@ import PageLoader from "./components/PageLoader/index.jsx";
 import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
-import FatperchantageCalculator from "./components/pages/FatperchantageCalculator.jsx";
-import ForgotPassword from "./components/unauthorized/forgotPassword.jsx";
+import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import AboutUs from "./components/pages/AboutUs.jsx";
 import Blogs from "./components/pages/Blogs.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
+const ForgotPasswordForm = lazy(() =>
+  import("./components/unauthorized/forgotPassword.jsx")
+);
 
-const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
+const ProtectedRoute = ({
+  condition,
+  redirectTo = "/login-user",
+  children,
+}) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
 };
 
 const App = () => {
   const dispatch = useDispatch();
-  const [isAdminLocal, setIsAdminLocal] = useState(false)
-  const { isCheckingToken, isLoggedIn, isAdmin } = useSelector(
-    (state) => state.auth
+  const {
+    isCheckingToken,
+    isLoggedIn,
+    userAccessToken,
+    adminAccessToken
+  } = useSelector((state) => state.auth);
+  const {pathname} = useLocation();
+  const isAdmin = pathname.includes("/admin");
+  
+  const [isAdminLogined, setIsAdminLogined] = useState(
+    localStorage.getItem("isAdmin") === "true"
   );
 
   useEffect(() => {
-    dispatch(getAccessToken(setIsAdminLocal));
-  }, [dispatch]);
+    dispatch(getAccessToken(isAdmin));
+  }, [dispatch, isAdmin]);
 
+  useEffect(() => {
+    setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
+  }, [isCheckingToken]);
 
   if (isCheckingToken) return <PageLoader />;
 
@@ -42,15 +59,12 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
-          <Route path="LoginUser" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
-          <Route path="SignUpUser" element={<SignUpUser />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="/login-user" element={<LoginUser />} />
+          <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
-          <Route
-            path="FatperchantageCalculator"
-            element={<FatperchantageCalculator />}
-          />  
           <Route path="AboutUs" element={<AboutUs />} />
           <Route path="Blogs" element={<Blogs />} />
         </Routes>
@@ -63,10 +77,19 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        {adminAccessToken.length == 0 && (
+          <Route path="/admin-login" element={<AdminLogin />} />
+        )}
+        {userAccessToken.length == 0 && (
+          <Route path="/login-user" element={<LoginUser />} />
+        )}
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute condition={isAdminLocal||isAdmin} redirectTo="/">
+            <ProtectedRoute
+              condition={isAdminLogined}
+              redirectTo="/"
+            >
               <AdminRoutes />
             </ProtectedRoute>
           }

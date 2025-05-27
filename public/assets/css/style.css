@@ -363,15 +363,50 @@ header .navbar-collapse .nav-link.active {
   right: -78px;
   bottom: 20px;
 }
-.heartBeatImg {
+body .heartBeatImg {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   z-index: 9;
-  width: 27px;
+  max-width: 27px !important;
   margin: auto;
+}
+.bannerSection .owl-item,
+.bannerSection .owl-stage-outer,
+.bannerSection .owl-carousel{
+  height: 100%;
+}
+.owl-nav button:hover,
+.owl-nav button{
+  background: transparent !important;
+}
+.bannerSection .owl-nav button.owl-next{
+  right: 10px;
+}
+.bannerSection .owl-nav button.owl-prev{
+  left: 10px;
+}
+.owl-nav button.owl-next{
+  right: -25px;
+}
+.owl-nav button.owl-prev{
+  left: -25px;
+}
+.bannerSection .owl-nav button{
+  top: calc(50%);
+ }
+ .owl-nav button{
+  position: absolute;
+  top: calc(50% + -62px);
+  transform: translateY(-50%);
+}
+.owl-p{
+  font-size:16px;
+}
+.owl-dots .owl-dot.active span{
+  background: var(--primary-color)  !important;
 }
 .AboutInfo h2 {
   font-size: 32px;
@@ -406,14 +441,14 @@ header .navbar-collapse .nav-link.active {
   background: #fff;
 }
 .OurServicesContent figcaption h3 {
-  font-size: 24px;
+  font-size: 21px;
   color: var(--primary-color);
   font-weight: 700;
   margin-bottom: 10px;
 }
 .OurServicesContent figure img {
   display: block;
-  width: 100%;
+  width: 100% !important  ;
   object-fit: cover;
   height: 203px;
 }
@@ -421,7 +456,16 @@ header .navbar-collapse .nav-link.active {
   font-size: 14px;
   color: #2a2a2a;
   line-height: 1.6;
+  min-height: 89px;
   margin-bottom: 20px;
+
+  display: -webkit-box;        /* Creates a flexible box layout */
+  -webkit-box-orient: vertical; /* Vertical orientation */
+  -webkit-line-clamp: 4;        /* Limit to 4 lines */
+  overflow: hidden;             /* Hide overflowing text */
+  text-overflow: ellipsis;      /* Show "..." at the end */
+  /* Optional: fix word breaking */
+  word-break: break-word;
 }
 .OurServicesRow .col-md-4 {
   margin-bottom: 80px;
@@ -972,6 +1016,9 @@ header .navbar-nav .nav-link.active:after {
   width: 17px;
   height: 17px;
   border-radius: 4px;
+}
+.bannerSection{
+  position: relative;
 }
 .bannerSectionInner figure {
   position: relative;
@@ -1705,9 +1752,12 @@ ul.BottomFooterList li a:hover {
 .bannerSectionRight .owl-carousel .owl-item img {
   width: auto;
 }
-
-.OurServicesContent figure img {
-  height: 203px;
+.owl-carousel .owl-item img{
+  width: auto !important;
+}
+body .OurServicesContent figure img {
+  height: 210px;
+  width: 100%;
   background: #fff;
 }
 
