@@ -11,16 +11,30 @@ const ServiceManagement = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
   const [sliderStatus, setSliderStatus] = useState(true);
-
+  const [serviceBannerImage, setServiceBannerImage] = useState(null);
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [selectedBannerFileName, setSelectedBannerFileName] = useState("");
+  const [serviceShortDescription, setServiceShortDescription] = useState("");
+  const [longDescription, setLongDescription] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [ctaButtons, setCtaButtons] = useState([]);
   const [limit] = useState(1);
   const fileInputRef = useRef(null);
+  const fileInputBannerRef = useRef(null);
+
+  const ctaOptions = [
+    "Join",
+    "Book A Consultation",
+    "Smart Health Package",
+    "Talk To A Fitness Expert",
+    "Talk To A Therapist",
+  ];
+
   const fetchAllServices = async (page = 1) => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_services, {
@@ -155,7 +169,63 @@ const ServiceManagement = () => {
                   </div>
                 </div>
 
-                {/* Slider Image */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Service Banner Image{" "}
+                      {isEdit && ` : ${selectedBannerFileName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={fileInputBannerRef}
+                      className="form-control"
+                      onChange={(e) => setServiceBannerImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Short Description
+                    </label>
+                    <textarea
+                      id="service-des"
+                      style={{ resize: "vertical", minHeight: "100px" }}
+                      className="form-control"
+                      placeholder="Enter short description"
+                      value={serviceShortDescription}
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        if (text.length <= 200) {
+                          setServiceShortDescription(text);
+                        }
+                      }}
+                    />
+                    <small className="text-muted">
+                      {serviceShortDescription.length}/200 characters
+                    </small>
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Long Desciption
+                    </label>
+                    <textarea
+                      type="text"
+                      id="service-des"
+                      style={{ resize: "vertical", minHeight: "100px" }}
+                      className="form-control"
+                      placeholder="Enter long description"
+                      value={longDescription}
+                      onChange={(e) => setLongDescription(e.target.value)}
+                    />
+                  </div>
+                </div>
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -169,6 +239,41 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
                     />
+                  </div>
+                </div>
+
+                {/* CTA button */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">CTA Button</label>
+                    <div className="d-flex flex-wrap gap-3">
+                      {ctaOptions.map((option, index) => (
+                        <div className="form-check" key={index}>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`cta-${index}`}
+                            checked={ctaButtons.includes(option)}
+                            onChange={(e) => {
+                              const selected = ctaButtons.includes(option);
+                              setCtaButtons(
+                                selected
+                                  ? ctaButtons.filter(
+                                      (item) => item !== option
+                                    )
+                                  : [...ctaButtons, option]
+                              );
+                            }}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`cta-${index}`}
+                          >
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 

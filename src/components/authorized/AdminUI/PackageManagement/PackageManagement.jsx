@@ -4,8 +4,13 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import Inclusions from "./Inclusions.jsx";
+import Variants from "./Variants.jsx";
+import "./package.scss";
+import { Select } from "antd";
+const { Option } = Select;
 
-const ProductManagement = () => {
+const PackageManagement = () => {
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
   const [longDescription, setLongDescription] = useState("");
@@ -17,9 +22,35 @@ const ProductManagement = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [packageImage, setPakageImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const [ctaButtons, setCtaButtons] = useState([]);
   const [packages, setPackage] = useState([]);
+  const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
+
   const [allServices, setAllServices] = useState([]);
+  const [packageInclusions, setPackageInclusions] = useState([
+    { name: "", description: "", image: null, status: true },
+  ]);
+  const [packageVariants, setPackageVariants] = useState([
+    { name: "", duration: 0, price: "", description: "", image: null },
+  ]);
   const fileInputRef = useRef(null);
+
+  const ctaOptions = [
+    "Join",
+    "Book A Consultation",
+    "Smart Health Package",
+    "Talk To A Fitness Expert",
+    "Talk To A Therapist",
+  ];
+
+  const allConsultants = [
+    { id: "1", name: "Dr. Ayesha Khan" },
+    { id: "2", name: "Dr. Rahul Mehra" },
+    { id: "3", name: "Dr. Sarah Gupta" },
+    { id: "4", name: "Dr. Vikram Desai" },
+    { id: "5", name: "Dr. Nivedita Sharma" },
+    { id: "6", name: "Dr. Anil Kapoor" },
+  ];
 
   const fetchAllPackage = async () => {
     try {
@@ -117,6 +148,47 @@ const ProductManagement = () => {
     }
   };
 
+  const onAddInclusion = () => {
+    const isValid = packageInclusions.every(
+      (item) =>
+        item.name.trim() !== "" &&
+        item.description.trim() !== "" &&
+        item.image &&
+        item.status !== undefined
+    );
+
+    if (!isValid) {
+      toast.error("Please fill all inclusion fields before adding a new one.");
+      return;
+    }
+
+    setPackageInclusions([
+      ...packageInclusions,
+      { name: "", description: "", image: null, status: true },
+    ]);
+  };
+
+  const onAddVariant = () => {
+    const isValid = packageVariants.every(
+      (item) =>
+        item.name.trim() !== "" &&
+        item.duration > 0 &&
+        item.price.toString().trim() !== "" &&
+        item.description.trim() !== "" &&
+        item.image
+    );
+
+    if (!isValid) {
+      toast.error("Please fill all variant fields before adding a new one.");
+      return;
+    }
+
+    setPackageVariants([
+      ...packageVariants,
+      { name: "", duration: 0, price: "", description: "", image: null },
+    ]);
+  };
+
   useEffect(() => {
     fetchAllPackage();
     fetchAllServices();
@@ -137,7 +209,27 @@ const ProductManagement = () => {
             </div>
             <div className="card-body">
               <div className="row">
-                {/* Slider Name */}
+                {/* Package Type */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="package-type" className="form-label">
+                      Service type
+                    </label>
+                    <select
+                      id="package-type"
+                      className="form-select"
+                      value={selectedServiceTypeId}
+                      onChange={(e) => setSelectedServiecTypeId(e.target.value)}
+                    >
+                      <option value="">Select type</option>
+                      {allServices?.map((service) => (
+                        <option value={service.id}>{service.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Package Name */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
@@ -150,6 +242,23 @@ const ProductManagement = () => {
                       placeholder="Enter name"
                       value={packageName}
                       onChange={(e) => setPackageName(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Package Banner Image */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Package Banner Image {isEdit && ` : ${selectedFileName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={fileInputRef}
+                      className="form-control"
+                      onChange={(e) => setPakageImage(e.target.files[0])}
                     />
                   </div>
                 </div>
@@ -171,45 +280,11 @@ const ProductManagement = () => {
                   </div>
                 </div>
 
-                {/* Package Price */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-price" className="form-label">
-                      Package Price
-                    </label>
-                    <input
-                      type="number"
-                      id="package-price"
-                      value={packagePrice}
-                      className="form-control"
-                      onChange={(e) => setPackagePrice(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Package type
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      name="packageType"
-                      value={packageType}
-                      onChange={(e) => setPackageType(e.target.value)}
-                    >
-                      <option value="">Select type</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="subscription">Subscription</option>
-                    </select>
-                  </div>
-                </div>
-
+                {/* Package desciption */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Short Description
+                      Description
                     </label>
                     <textarea
                       id="service-des"
@@ -230,41 +305,63 @@ const ProductManagement = () => {
                   </div>
                 </div>
 
+                {/* Medical consultants */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Long Desciption
-                    </label>
-                    <textarea
-                      type="text"
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter long description"
-                      value={longDescription}
-                      onChange={(e) => setLongDescription(e.target.value)}
-                    />
+                      <label htmlFor="consultants" className="form-label">
+                        Medical Consultants
+                      </label>
+                      <Select
+                        mode="multiple"
+                        allowClear
+                        size="large"
+                        style={{ width: "100%" }}
+                        placeholder="Select medical consultants"
+                        value={selectedConsultantsId}
+                        onChange={(value) => setSelectedConsultantsId(value)}
+                      >
+                        {allConsultants.map((consultant) => (
+                          <Option key={consultant.id} value={consultant.id}>
+                            {consultant.name}
+                          </Option>
+                        ))}
+                      </Select>
                   </div>
                 </div>
 
+                {/* CTA button */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Service type
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      value={selectedServiceTypeId}
-                      onChange={(e) => setSelectedServiecTypeId(e.target.value)}
-                    >
-                      <option value="">Select type</option>
-                      {allServices?.map((service) => (
-                        <option value={service.id}>{service.name}</option>
+                    <label className="form-label">CTA Button</label>
+                    <div className="d-flex flex-wrap gap-3">
+                      {ctaOptions.map((option, index) => (
+                        <div className="form-check" key={index}>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`cta-${index}`}
+                            checked={ctaButtons.includes(option)}
+                            onChange={(e) => {
+                              const selected = ctaButtons.includes(option);
+                              setCtaButtons(
+                                selected
+                                  ? ctaButtons.filter((item) => item !== option)
+                                  : [...ctaButtons, option]
+                              );
+                            }}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`cta-${index}`}
+                          >
+                            {option}
+                          </label>
+                        </div>
                       ))}
-                    </select>
+                    </div>
                   </div>
                 </div>
+
                 {/* Status */}
                 <div className="col-lg-6">
                   <p>Package Status</p>
@@ -306,6 +403,27 @@ const ProductManagement = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="card-body">
+              <p className="title">
+                Package Inclusion{" "}
+                <button onClick={() => onAddInclusion()}>+</button>
+              </p>
+              <Inclusions
+                packageInclusions={packageInclusions}
+                setPackageInclusions={setPackageInclusions}
+              />
+            </div>
+
+            <div className="card-body">
+              <p className="title">
+                Package Variants{" "}
+                <button onClick={() => onAddVariant()}>+</button>
+              </p>
+              <Variants
+                packageVariants={packageVariants}
+                setPackageVariants={setPackageVariants}
+              />
             </div>
 
             {/* Submit Button */}
@@ -441,4 +559,4 @@ const ProductManagement = () => {
   );
 };
 
-export default ProductManagement;
+export default PackageManagement;
