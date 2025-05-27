@@ -93,6 +93,10 @@
   .calculaField label {
     font-size: 18px;
   }
+
+  .LoginPage .col-md-4.me-auto {
+    width: 40%;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -246,9 +250,73 @@
   .heartBeatImg {
     width: 17px;
   }
+
+  .wightList figure img {
+    height: 250px;
+  }
+
+  ul.wightList h4 {
+    font-size: 15px;
+  }
+
+  .yourBmi span {
+    font-size: 20px;
+  }
+
+  .calculatebody {
+    width: 95%;
+  }
+
+  .calculaField label {
+    font-size: 18px;
+  }
+
+  .bmiCalculator input.form-control,
+  .bmiCalculator select.form-select {
+    font-size: 14px;
+    height: 48px;
+  }
+
+  .calculateButton .btn.btn-primary {
+    font-size: 16px;
+
+    min-width: 65%;
+    height: 48px;
+  }
+
+  .radioList [type="radio"]:checked + label, .radioList [type="radio"]:not(:checked) + label{    font-size: 16px;}
+
+  .radioList [type="radio"]:checked + label:before, .radioList [type="radio"]:not(:checked) + label:before{    width: 25px;
+    height: 25px;}
+
+    .radioList [type="radio"]:checked + label:after, .radioList [type="radio"]:not(:checked) + label:after{    width: 13px;
+    height: 13px;    top: 6px;
+    left: 6px;}
+        .calculaField label {
+        font-size: 16px;
+    }
+    .ResultBox {
+    flex-wrap: wrap;
+    width: 100%;
+}
+.ResultBox-right {
+    width: 148px;
+}
+.ResultBox-left{ width: 100%; flex: initial;}
+
+.col-md-6.ps-4 {
+    padding-left: 15px !important;
+}
 }
 
 @media (max-width: 991px) {
+  .ToolsPageBox:nth-child(odd) .row .col-md-8 {
+    padding-left: 40px !important;
+  }
+
+  .ToolsPageBox {
+    padding: 25px 50px;
+  }
   header .navbar-nav .nav-link.active:after {
     display: none;
   }
@@ -412,10 +480,32 @@
   span.circleshape2 {
     display: none;
   }
+
+  .InnnerPage.bmiCalculator .col-md-6 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+  .InnnerPage.bmiCalculator .col-md-5.ms-auto {
+    width: 100%;
+}
+.bmiCalculatorBg{ margin-top: 0;}
 }
 @media (max-width: 767px) {
+  .innerbanner figure img {
+    height: 280px;
+  }
+  .innerbannerContent {
+    bottom: 10px;
+  }
   .col-md-6.bannerSectionLeft.pe-0 {
     width: 50%;
+  }
+  .innerbannerContent h2 {
+    font-size: 26px;
+  }
+  .innerbannerContent p {
+    font-size: 14px;
   }
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
     width: 50%;
@@ -543,6 +633,50 @@
     margin: auto;
     font-size: 14px;
   }
+
+  .ToolsPageBox .col-md-8.pe-5 {
+    padding-right: 0 !important;
+    text-align: center;
+    padding-left: 0;
+  }
+  .ToolsPageBox {
+    padding: 25px 30px;
+  }
+  .ToolsPageBox .row {
+    flex-direction: column-reverse;
+  }
+  .ToolsPageBox figure img {
+    width: 100%;
+    height: 209px;
+    margin-bottom: 20px;
+  }
+
+  .ToolsPageBox:nth-child(odd) .row {
+    flex-direction: column-reverse;
+  }
+  .ToolsPageBox:nth-child(odd) .row .col-md-8 {
+    padding-left: 0px !important;
+    text-align: center;
+  }
+
+  .InnerPageTitle h4 {
+    font-size: 22px;
+  }
+
+  .InnerPageTitle p {
+    font-size: 14px;
+  }
+
+  .ToolsPageBox h4 {
+    font-size: 22px;
+  }
+
+  .innerbannerContent {
+    padding: 0 12px;
+  }
+  ul.radioList li {
+    margin-right: 0;
+}
 }
 
 @media (max-width: 575px) {
@@ -615,12 +749,12 @@
     height: 33px;
   }
 
-  button.navbar-toggler.collapsed {
+  button.navbar-toggler {
     width: 33px;
     height: 33px;
   }
 
-  button.navbar-toggler.collapsed span {
+  button.navbar-toggler span {
     width: 17px;
   }
 
@@ -657,6 +791,14 @@
 
   .RegisterPage .col-md-7.me-auto {
     width: 100%;
+  }
+
+  .innerbanner figure img {
+    height: 280px;
+  }
+
+  .innerbannerContent h2 {
+    font-size: 24px;
   }
 }
 @media (max-width: 480px) {
@@ -734,4 +876,32 @@
   .ContactInfoList li {
     margin-bottom: 5px;
   }
+
+  .innerbanner figure img {
+    height: 235px;
+  }
+
+  .ToolsPageBox h4 {
+    font-size: 20px;
+  }
+
+  ul.wightList li{    padding: 0 5px;}
+
+  .calculatebody {
+    padding: 20px 20px;}
+
+    .calculaField label {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .calculaField.mb-3 {
+    margin-bottom: 10px ! important;
+}
+
+.calculateButton.text-center.mt-3 {
+    margin-top: 0 !important;
+}
+.calculateHead {
+    padding: 20px 20px;}
 }

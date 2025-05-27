@@ -26,13 +26,16 @@ const ToolsMain = () => {
 
       <div className="ToolsPageMain sectionSpace">
         <div className="container">
-          <div className="InnerpageHead text-center">
+          {/* <div className="InnerpageHead text-center">
             <h3>Health Calculators Hub</h3>
             <p>
               Explore our essential tools for tracking your health and fitness
               goals effectively and easily
             </p>
-          </div>
+          </div> */}
+
+          <div class="InnerPageTitle text-center"><h4>Health Calculators Hub</h4><p> Explore our essential tools for tracking your health and fitness
+              goals effectively and easily</p></div>
           <div className="ToolsPageBox mb-4">
             <div className="row">
               <div className="col-md-8 pe-5">

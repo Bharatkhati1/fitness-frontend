@@ -221,7 +221,7 @@ function SignUpUser() {
   
       {/* Already have an account button */}
       <div className="text-center mt-3 ">
-        <span>Already have an account? </span>
+        <span></span>
         <button
           type="button"
           className="btn btn-link p-0"
