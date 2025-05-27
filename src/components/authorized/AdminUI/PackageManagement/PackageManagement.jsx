@@ -25,7 +25,6 @@ const PackageManagement = () => {
   const [ctaButtons, setCtaButtons] = useState([]);
   const [packages, setPackage] = useState([]);
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
-
   const [allServices, setAllServices] = useState([]);
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, status: true },
@@ -33,6 +32,7 @@ const PackageManagement = () => {
   const [packageVariants, setPackageVariants] = useState([
     { name: "", duration: 0, price: "", description: "", image: null },
   ]);
+  
   const fileInputRef = useRef(null);
 
   const ctaOptions = [
@@ -417,7 +417,7 @@ const PackageManagement = () => {
 
             <div className="card-body">
               <p className="title">
-                Package Variants{" "}
+                Package Variants
                 <button onClick={() => onAddVariant()}>+</button>
               </p>
               <Variants

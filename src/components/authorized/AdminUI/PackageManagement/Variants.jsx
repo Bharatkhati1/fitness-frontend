@@ -7,120 +7,134 @@ const Variants = ({ packageVariants, setPackageVariants }) => {
     { value: 9, name: "9 Months" },
     { value: 12, name: "12 Months" },
   ];
+
   return (
     <>
       {packageVariants.map((inclusion, index) => (
         <div className="row mb-3" key={index}>
-          {/* Inclusion Name*/}
+          {/* Variant Name */}
           <div className="col-lg-6">
             <div className="mb-3">
-              <label htmlFor="inclusion-name" className="form-label">
+              <label htmlFor={`variants-name-${index}`} className="form-label">
                 Name
               </label>
               <input
                 type="text"
-                id="inclusion-name"
+                id={`variants-name-${index}`}
                 className="form-control"
                 placeholder="Enter name"
                 value={inclusion.name}
                 onChange={(e) => {
-                  const newInclusions = [...packageVariants];
-                  newInclusions[index].name = e.target.value;
-                  setPackageVariants(newInclusions);
+                  const newVariants = [...packageVariants];
+                  newVariants[index].name = e.target.value;
+                  setPackageVariants(newVariants);
                 }}
               />
             </div>
           </div>
 
-          {/* Inclusion Image */}
+          {/* Variant Image */}
           <div className="col-lg-6">
             <div className="mb-3">
-              <label htmlFor="service-image" className="form-label">
+              <label htmlFor={`variants-image-${index}`} className="form-label">
                 Image
               </label>
               <input
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                id="service-image"
-                value={inclusion.image}
+                id={`variants-image-${index}`}
                 className="form-control"
                 onChange={(e) => {
-                  const newInclusions = [...packageVariants];
-                  newInclusions[index].image = e.target.files[0];
-                  setPackageVariants(newInclusions);
+                  const newVariants = [...packageVariants];
+                  newVariants[index].image = e.target.files[0];
+                  setPackageVariants(newVariants);
                 }}
               />
             </div>
           </div>
 
-          {/* Package Image */}
+          {/* Variant Price */}
           <div className="col-lg-6">
             <div className="mb-3">
-              <label htmlFor="price" className="form-label">
+              <label htmlFor={`variants-price-${index}`} className="form-label">
                 Price
               </label>
               <input
                 type="number"
-                id="price"
+                id={`variants-price-${index}`}
                 value={inclusion.price}
                 placeholder="Enter price"
                 className="form-control"
                 onChange={(e) => {
-                  const newInclusions = [...packageVariants];
-                  newInclusions[index].price = e.target.value;
-                  setPackageVariants(newInclusions);
+                  const newVariants = [...packageVariants];
+                  newVariants[index].price = e.target.value;
+                  setPackageVariants(newVariants);
                 }}
               />
             </div>
           </div>
 
-          {/* duration */}
+          {/* Variant Duration */}
           <div className="col-lg-6">
             <div className="mb-3">
-              <label htmlFor="package-type" className="form-label">
+              <label htmlFor={`variants-duration-${index}`} className="form-label">
                 Duration
               </label>
               <select
-                id="package-type"
+                id={`variants-duration-${index}`}
                 className="form-select"
                 value={inclusion.duration}
                 onChange={(e) => {
-                  const newInclusions = [...packageVariants];
-                  newInclusions[index].duration = e.target.value;
-                  setPackageVariants(newInclusions);
+                  const newVariants = [...packageVariants];
+                  newVariants[index].duration = e.target.value;
+                  setPackageVariants(newVariants);
                 }}
               >
                 <option value="">Select type</option>
-                {allValues?.map((val) => (
-                  <option value={val.value}>{val.name}</option>
+                {allValues.map((val) => (
+                  <option key={val.value} value={val.value}>
+                    {val.name}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
 
-          {/* Inclusion Description */}
+          {/* Variant Description */}
           <div className="col-lg-6">
             <div className="mb-3">
-              <label htmlFor="inclusion-description" className="form-label">
+              <label htmlFor={`variants-description-${index}`} className="form-label">
                 Description
               </label>
               <textarea
-                type="text"
-                style={{ resize: "vertical", minHeight: "100px" }}
-                id="inclusion-description"
+                id={`variants-description-${index}`}
                 className="form-control"
+                style={{ resize: "vertical", minHeight: "100px" }}
                 placeholder="Enter description"
                 value={inclusion.description}
                 onChange={(e) => {
-                  const newInclusions = [...packageVariants];
-                  newInclusions[index].description = e.target.value;
-                  setPackageVariants(newInclusions);
+                  const newVariants = [...packageVariants];
+                  newVariants[index].description = e.target.value;
+                  setPackageVariants(newVariants);
                 }}
               />
             </div>
           </div>
+
+          {/* Remove Button */}
           {packageVariants.length > 1 && (
-            <button className="remove-btn-inclusion">Remove</button>
+            <div className="col-12">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => {
+                  const newVariants = packageVariants.filter((_, i) => i !== index);
+                  setPackageVariants(newVariants);
+                }}
+              >
+                Remove
+              </button>
+            </div>
           )}
         </div>
       ))}
