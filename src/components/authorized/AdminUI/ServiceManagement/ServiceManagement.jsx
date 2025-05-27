@@ -387,7 +387,7 @@ const ServiceManagement = () => {
                   </thead>
                   <DragDropContext onDragEnd={handleDragEnd}>
                     {sliders.length > 0 && (
-                      <Droppable droppableId={"droppable"}>
+                      <Droppable droppableId={"droppable"} direction="vertical">
                         {(provided) => (
                           <tbody
                             ref={provided.innerRef}
