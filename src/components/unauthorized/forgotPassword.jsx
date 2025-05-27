@@ -1,59 +1,78 @@
-import { Form, Input, Button, message } from "antd";
+import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { GATEWAY_URL } from "../../utils/constants.jsx";
+import { toast } from "react-toastify";
 
-const ForgotPasswordForm = () => {
-  const onForgotPasswordFormSubmit = async ({ username }) => {
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      toast.error("Please enter your registered email.");
+      return;
+    }
+
     try {
-      const res = await axios.get(`${GATEWAY_URL}/sign-up/check-username/${username}`, {
-        withCredentials: true,
-      });
-      message.success(res.data.message);
-    } catch (error) {
-      if (error.response?.status === 400) {
-        message.error(error.response.data.message);
-      } else {
-        message.error("Internal server error. Please try again later.");
-      }
+      setLoading(true);
+      await axios.post(`${GATEWAY_URL}/web/forgot-password`, { email });
+      toast.success("Reset instructions sent to your email.");
+      setSubmitted(true);
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Failed to send reset instructions."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="d-flex flex-column h-100 p-3">
-      <div className="row justify-content-center h-100">
-        <div className="col-lg-6 d-flex flex-column justify-content-center">
-          <div className="auth-logo mb-4">
-            <img src="assets/images/logo-dark.png" height="24" alt="logo" />
+    <section className="ForgotPasswordPage">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <form className="formBox" onSubmit={handleSubmit}>
+              <div className="formBoxHead">
+                <h3>Forgot Password</h3>
+                <p>Enter your registered email to receive reset instructions.</p>
+              </div>
+
+              {!submitted ? (
+                <>
+                  <div className="fieldbox mb-3">
+                    <label>Email Address*</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                    disabled={loading}
+                  >
+                    {loading ? "Sending..." : "Send Reset Link"}
+                  </button>
+                </>
+              ) : (
+                <div className="text-success mt-3">
+                  Instructions have been sent to your email.
+                </div>
+              )}
+            </form>
           </div>
-
-          <h2 className="fw-bold fs-24">Reset Password</h2>
-          <p className="text-muted mb-4">
-            Enter your email address and we'll send you an email to reset your password.
-          </p>
-
-          <Form layout="vertical" onFinish={onForgotPasswordFormSubmit}>
-            <Form.Item
-              name="username"
-              label="Email"
-              rules={[{ required: true, type: "email", message: "Enter a valid email" }]}
-            >
-              <Input placeholder="Enter your email" />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" block>
-                Reset Password
-              </Button>
-            </Form.Item>
-          </Form>
-
-          <p className="mt-5 text-danger text-center">
-            Back to <Link to="/LoginUser" className="fw-bold">Sign In</Link>
-          </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ForgotPasswordForm;
+export default ForgotPassword;

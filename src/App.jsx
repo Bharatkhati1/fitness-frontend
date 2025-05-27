@@ -13,12 +13,12 @@ import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import FatperchantageCalculator from "./components/pages/FatperchantageCalculator.jsx";
+import ForgotPassword from "./components/unauthorized/forgotPassword.jsx";
+import AboutUs from "./components/pages/AboutUs.jsx";
+import Blogs from "./components/pages/Blogs.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
-const ForgotPasswordForm = lazy(() =>
-  import("./components/unauthorized/forgotPassword.jsx")
-);
 
 const ProtectedRoute = ({ condition, redirectTo = "/LoginUser", children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
@@ -32,7 +32,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    dispatch(getAccessToken());
+    dispatch(getAccessToken(setIsAdminLocal));
   }, [dispatch]);
 
 
@@ -43,7 +43,6 @@ const App = () => {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/admin" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
-          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="LoginUser" element={<LoginUser setIsAdminLocal={setIsAdminLocal} />} />
           <Route path="SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
@@ -51,8 +50,12 @@ const App = () => {
           <Route
             path="FatperchantageCalculator"
             element={<FatperchantageCalculator />}
-          />
+          />  
+          <Route path="AboutUs" element={<AboutUs />} />
+          <Route path="Blogs" element={<Blogs />} />
         </Routes>
+
+       
       </Suspense>
     );
   }
@@ -69,8 +72,11 @@ const App = () => {
           }
         />
         <Route path="/*" element={<UserRoutes />} />
+        
       </Routes>
     </Suspense>
+
+    
   );
 };
 

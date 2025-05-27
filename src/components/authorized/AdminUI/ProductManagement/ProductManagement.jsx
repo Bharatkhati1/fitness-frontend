@@ -8,7 +8,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 const ProductManagement = () => {
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
-  const [longDescription, setLongDescription] = useState("")
+  const [longDescription, setLongDescription] = useState("");
   const [packageStatus, setPackageStatus] = useState(true);
   const [packageType, setPackageType] = useState("");
   const [packagePrice, setPackagePrice] = useState(0);
@@ -27,7 +27,7 @@ const ProductManagement = () => {
       setPackage(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
-       toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -37,7 +37,7 @@ const ProductManagement = () => {
       setAllServices(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -61,21 +61,20 @@ const ProductManagement = () => {
         ? adminApiRoutes.update_package(selectedPackageId)
         : adminApiRoutes.create_package;
 
-        let response;
-        if (isEdit) {
-          response = await adminAxios.put(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        } else {
-          response = await adminAxios.post(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        }
-  
+      let response;
+      if (isEdit) {
+        response = await adminAxios.put(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await adminAxios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
 
       if (response.status == 200) {
         fetchAllPackage();
@@ -97,11 +96,11 @@ const ProductManagement = () => {
       fetchAllPackage();
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
-  const onCancelEdit =()=>{
+  const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedPackageId(null);
     setPackageName("");
@@ -111,12 +110,12 @@ const ProductManagement = () => {
     setPackageStatus("1");
     setPackagePrice(0);
     setPakageImage(null);
-    setLongDescription("")
+    setLongDescription("");
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }
+  };
 
   useEffect(() => {
     fetchAllPackage();
@@ -127,12 +126,14 @@ const ProductManagement = () => {
     <>
       <div className="row">
         <div className="col-lg-12">
-        <div className={`card ${isEdit && `editing`}`}>
+          <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
                 {isEdit ? `Edit Selected Package` : `Create Package`}
               </h4>
-              {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
+              {isEdit && (
+                <button onClick={() => onCancelEdit()}>Cancel Edit</button>
+              )}
             </div>
             <div className="card-body">
               <div className="row">
@@ -208,24 +209,31 @@ const ProductManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                    Short Desciption
+                      Short Description
                     </label>
                     <textarea
-                      type="text"
                       id="service-des"
                       style={{ resize: "vertical", minHeight: "100px" }}
                       className="form-control"
                       placeholder="Enter short description"
                       value={packageDesc}
-                      onChange={(e) => setPackageDesc(e.target.value)}
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        if (text.length <= 200) {
+                          setPackageDesc(text);
+                        }
+                      }}
                     />
+                    <small className="text-muted">
+                      {packageDesc.length}/200 characters
+                    </small>
                   </div>
                 </div>
 
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                     Long Desciption
+                      Long Desciption
                     </label>
                     <textarea
                       type="text"
@@ -371,12 +379,10 @@ const ProductManagement = () => {
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive 
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                item.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {item.isActive  ? "Active" : "Inactive"}
+                              {item.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>

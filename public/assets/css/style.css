@@ -560,6 +560,7 @@ header .navbar-collapse .nav-link.active {
   font-size: 24px;
   font-weight: 600;
   color: #2a2a2a;
+  line-height: 1.3;
 }
 .row.OurHealthBlogRows {
   width: 84%;
@@ -763,13 +764,19 @@ textarea.form-control {
 
 .GetIntouch {
   position: relative;
-  padding-top: 55px;
 }
 .GetIntouchRight {
   padding-top: 30px;
   padding-left: 30px;
 }
 
+.GetIntouch .PageTitle {
+  margin-bottom: 30px;
+}
+.col-md-6.GetIntouchRight {
+  position: relative;
+  top: 25px;
+}
 .form-checkList {
   flex-wrap: wrap;
 }
@@ -791,7 +798,7 @@ textarea.form-control {
   width: 290px;
   margin: auto;
   left: 40px;
-  top: 30px;
+  top: 85px;
   border-radius: 8px;
 }
 
@@ -1031,7 +1038,7 @@ header.sticky {
   align-items: center;
   overflow: auto;
   padding-top: 50px;
-      background-position: 100% 15%;
+  background-position: 100% 15%;
 }
 .RegisterPage .col-md-7.me-auto,
 .col-md-4.me-auto {
@@ -1137,7 +1144,6 @@ header.sticky {
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .formBox input.form-control {
@@ -1157,7 +1163,7 @@ header.sticky {
 }
 
 .RegisterPage .termscheck {
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 }
 
 .RegisterPage .form-check-input {
@@ -1240,6 +1246,7 @@ ul.BottomFooterList,
 .InnerPageTitle p {
   font-size: 16px;
   font-weight: 400;
+  color: rgb(0 0 0 / 90%);
 }
 
 .bmiCalculatorBg {
@@ -1252,6 +1259,7 @@ ul.BottomFooterList,
 .calculateHead h4 {
   font-size: 18px;
   margin-bottom: 0;
+  color: #1e1e1e;
 }
 .calculateHead {
   padding: 28px 20px;
@@ -1349,6 +1357,7 @@ ul.wightList h4 {
   font-weight: 700;
   padding-left: 11px;
   padding: 12px 0;
+  font-size: 22px;
 }
 
 ul.wightList figure {
@@ -1382,7 +1391,7 @@ ul.wightList figure {
 }
 
 .innerbanner figure img {
-  height: 565px;
+  height: 490px;
   object-fit: cover;
   width: 100%;
 }
@@ -1486,13 +1495,14 @@ ul.radioList {
   color: #1e1e1e;
   font-weight: 600;
 }
-body .dash-class{
+body .dash-class {
   font-size: 60px;
   color: #007946;
   font-weight: 700;
+  line-height: 0.2;
 }
-body .ResultBoxinner-left .dash-class{
-   font-size: 60px;
+body .ResultBoxinner-left .dash-class {
+  font-size: 60px;
   color: #007946;
   font-weight: 700;
 }
@@ -1721,27 +1731,667 @@ ul.BottomFooterList li a:hover {
   font-weight: 700 !important;
 }
 
-
 .wightList figure img {
-    height: 305px;
+  height: 305px;
 }
 
-.bmiCalculator  input.form-control, .bmiCalculator  select.form-select {
-    font-size: 16px;
-    height: 54px;
-        border-radius: 5px;
-            border: 1px solid #e6e6e6;
+.bmiCalculator input.form-control,
+.bmiCalculator select.form-select {
+  font-size: 16px;
+  height: 54px;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
 }
 
 .bmiCalculator select.form-select {
-    background-size: 17px;
+  background-size: 17px;
 }
 
 .calculainSelect select.form-select {
-    background-size: 17px;
-    position: absolute;
-    right: 0;
-    width: 67px;
-        border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  background-size: 17px;
+  position: absolute;
+  right: 0;
+  width: 67px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.AboutBanner.innerSpace {
+  padding-top: 78px;
+}
+
+.AboutBanner {
+  background: url(../img/AboutBannerbg.png);
+  background-size: 100%;
+  background-position: 100% 65px;
+  height: 545px;
+  background-repeat: no-repeat;
+  align-items: center;
+  display: flex;
+}
+
+.AboutBannerContent span {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.AboutBannerContent h3 {
+  font-size: 40px;
+  color: #800030;
+  font-weight: 700;
+}
+
+.whoareList li {
+  width: 40%;
+  padding-right: 100px;
+  display: flex;
+}
+.whoareList {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.whoareList li figure img {
+  width: 30px;
+}
+
+ul.whoareList li figure {
+  width: 30px;
+  margin-right: 13px;
+  margin-top: 4px;
+}
+
+ul.whoareList li {
+  width: 40%;
+  padding-right: 100px;
+  display: flex;
+}
+
+ul.whoareList li figcaption h3 {
+  font-size: 24px;
+  color: #007946;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+ul.whoareList li figcaption p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000e5;
+}
+
+.AboutBannerContent {
+  margin-bottom: 35px;
+}
+
+ul.whoareList figcaption {
+  flex: 1;
+}
+
+.BannerShape {
+  position: absolute;
+  left: -55px;
+  top: 95px;
+}
+
+.FitnessJourney {
+  padding: 40px 0 40px;
+}
+
+.FitnessJourneyInner {
+  position: relative;
+}
+
+.FitnessJourneyContent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 58%;
+  text-align: center;
+}
+
+.FitnessJourneyInner .btn-primary {
+  min-width: 313px;
+}
+
+.FitnessJourneyContent h4 {
+  font-size: 40px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 52px;
+}
+
+.JoinSubTitle {
+  font-size: 31px;
+  color: #ffffff;
+  font-style: italic;
+  text-transform: capitalize;
+  margin-top: 55px;
+}
+
+.FitnessJourneyInner .link-text {
+  position: absolute;
+  bottom: 20px;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.OurVisionMission:after {
+  background: #f6edf0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  content: "";
+  width: 45%;
+  z-index: -1;
+  height: 475px;
+}
+
+.OurVisionMission {
+  position: relative;
+}
+
+.OurVisionMissionTitle {
+  padding: 25px 20px 20px;
+  text-align: center;
+  width: 85%;
+}
+
+.OurVisionMissionTitle h3 {
+  font-size: 24px;
+  color: #800030;
+  font-weight: 700;
+}
+
+.OurVisionMissionTitle p {
+  font-size: 16px;
+  color: #2a2a2a;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.OurMVBox {
+  position: relative;
+}
+.OurMVBox figure img {
+  width: 100%;
+  height: 342px;
+  object-fit: cover;
+}
+
+.OurMVBGcontent {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #800030;
+  width: 84px;
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 800;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.VisionMissionList {
+  margin-bottom: 0;
+  padding-top: 130px;
+}
+.VisionMissionList li {
+  display: flex;
+}
+
+ul.VisionMissionList li {
+  font-size: 16px;
+  color: #000000e5;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+.VisionMissioTitle {
+  position: relative;
+}
+.VisionMissioTitle:after {
+  background: #000;
+  position: absolute;
+  left: 0px;
+  top: 8px;
+  content: "";
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+}
+
+.VisionMissioTitle {
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+ul.VisionMissionList li figure img {
+  width: 28px;
+}
+
+.OurVisionMissionOdd::after {
+  left: auto;
+  right: 0px;
+}
+
+.OurVisionMission.OurVisionMissionOdd .row {
+  flex-direction: row-reverse;
+}
+
+.OurVisionMission.OurVisionMissionOdd .OurMVBGcontent {
+  left: 0;
+  right: auto;
+}
+
+.OurVisionMissionOdd .OurVisionMissionTitle {
+  margin-left: auto;
+}
+
+ul.VisionMissionList li figure {
+  width: 28px;
+}
+
+.VisionMissioTitle {
+  flex: 1;
+}
+
+section.OurTEAM {
+  padding-top: 100px;
+}
+
+.OurTEAMhead {
+  background: #f5f5f5;
+  padding: 20px 20px;
+  margin-bottom: 30px;
+}
+
+.OurTEAMhead span {
+  font-size: 20px;
+  color: #00000099;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.OurTEAMhead h2 {
+  font-size: 40px;
+  color: #800030;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.OurTEAMhead p {
+  font-size: 16px;
+  color: #000000e5;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.OurTeamsrowsL figure:after {
+  background: linear-gradient(
+    to right,
+    rgba(0, 121, 70, 0.49) 0%,
+    rgba(226, 226, 226, 0.17) 100%
+  );
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 220px;
+  margin: auto;
+  z-index: -1;
+}
+
+.OurTeamsrowsL {
+  text-align: center;
+}
+
+.OurTeamsrowsL figure {
+  position: relative;
+}
+
+.row.OurTeamsrows {
+  align-items: center;
+}
+
+.OurTeamsrowsR h4 {
+  font-size: 28px;
+  color: #007946;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.OurTeamsrowsR span {
+  font-size: 20px;
+  color: rgb(0 0 0 / 60%);
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.OurTeamsrowsR p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000e5;
+}
+
+.OurTeamsrowsL figure img {
+  width: 275px;
+  height: 275px;
+  border-radius: 50%;
+  margin: auto;
+  object-fit: cover;
+}
+
+.OurTeamsrowsL {
+  padding-right: 0;
+}
+
+.OurTeamsrowsR {
+  padding-left: 30px;
+}
+
+.row.OurTeamsrows {
+  padding-bottom: 10px;
+}
+.OurTeamsrows:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.OurTeamsrows:nth-child(even) figure:after {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e2e2e2+0,007946+99&0.17+0,0.49+100 */
+  background: linear-gradient(
+    to right,
+    rgba(226, 226, 226, 0.17) 0%,
+    rgba(0, 121, 70, 0.49) 99%,
+    rgba(0, 121, 70, 0.49) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.MoreProfessional {
+  background: #f5f5f5;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+  text-transform: capitalize;
+  padding: 20px 0;
+  height: 103px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.MoreProfessional p {
+  margin-bottom: 0;
+}
+
+.messageCofoundersBg {
+  text-align: center;
+  background: #f5f5f5;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  padding: 25px 25px;
+  border-radius: 10px;
+}
+
+.messageCofoundersTitle h2 {
+  font-size: 40px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+}
+
+.messageCofoundersTitle {
+  margin-bottom: 70px;
+}
+
+.messageCofounders {
+  padding: 40px 0px 70px;
+}
+
+.messageCofoundersBg figure img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.messageCofoundersBg figure {
+  margin-bottom: 20px !important;
+}
+
+.messageCofoundersBg figcaption h4 {
+  font-size: 21px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 15px;
+}
+
+.messageCofoundersBg figcaption p {
+  font-size: 18px;
+  color: #800030;
+  font-weight: 600;
+}
+
+.messageCofoundersBg figcaption {
+  padding: 0 60px;
+}
+
+button.SearchBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: 0;
+}
+
+.SearchBox input {
+  height: 58px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+  padding-left: 20px;
+  padding-right: 55px;
+}
+
+button.SearchBtn {
+  position: absolute;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  border: 0;
+  background: transparent;
+}
+
+.blogbanner .innerbannerContent {
+  bottom: 30px;
+}
+.SearchBox {
+  width: 827px;
+  position: relative;
+}
+
+.Bytext span:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+}
+
+.Bytext span {
+  color: #2a2a2aa6 !important;
+  font-size: 14px;
+  font-weight: 400;
+
+  font-style: italic;
+  position: relative;
+  display: inline-block !important;
+  margin-bottom: 0 !important;
+}
+
+.Bytext span:after {
+  position: absolute;
+  left: -40px;
+  top: 10px;
+  content: "";
+  width: 32px;
+  border-bottom: 1px solid #747474;
+}
+
+.Bytext span::before {
+  position: absolute;
+  right: -40px;
+  top: 10px;
+  content: "";
+  width: 32px;
+  border-bottom: 1px solid #747474;
+}
+
+.col-md-6.OurHealthBlogContent p {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.OurHealthBlogContent p a {
+  color: #007946 !important;
+  font-weight: 700;
+}
+
+.Bytext {
+  padding: 15px 0;
+}
+
+.OurBlogsTag {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.OurHealthBlogContent figure {
+  position: relative;
+}
+
+.OurBlogsTag {
+  border-radius: 28px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  height: 34px;
+  background: #2a2a2a3d;
+  width: 109px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.OurBlogs .OurHealthBlogContent figcaption {
+  padding: 0 35px;
+}
+
+.taginfolist li {
+  background: #4caf502e;
+  padding: 18px 40px;
+  height: 46px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border-radius: 22px;
+  font-size: 16px;
+  color: #007946;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-right: 20px;
+}
+
+.filtersBoxInner select.form-select {
+  width: 132px;
+  border: 1px solid #800030;
+  height: 46px;
+  border-radius: 5px;
+  color: #800030;
+  font-weight: 600;
+  background-color: #f6edf0;
+  font-size: 18px;
+}
+
+.filterOwl {
+  width: 85%;
+}
+
+.filtersBoxInner {
+  justify-content: space-between;
+}
+
+.OurBlogs .OurHealthBlogContent {
+  padding: 0 30px;
+}
+
+.taginfolist {
+  margin-bottom: 0;
+}
+
+.filtersBox {
+  padding: 32px 0 55px;
+}
+
+.taginfolist li.active {
+  background: #007946;
+  color: #fff;
+}
+
+.OurBlogs .OurHealthBlogContent figure img {
+  height: 481px;
+}
+
+ul.pagination {
+  margin-bottom: 35px;
+  margin-top: 30px;
+}
+
+.page-link {
+  border: 0;
+  font-size: 20px;
+  color: rgb(0 0 0 / 40%);
+  font-weight: 400;
+}
+
+.pagination li.active .page-link {
+  background: transparent;
+  color: #800030;
+  font-weight: 600;
+}
+
+.pagination .page-link {
+  border: 0;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 5px;
+}
+
+.OurHealthBlogContent a {
+  cursor: pointer;
 }
