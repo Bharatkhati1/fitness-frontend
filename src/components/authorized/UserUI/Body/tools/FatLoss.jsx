@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FatBannerBg from "../../../../../../public/assets/img/FatBannerBg.png";
 import Form from "react-bootstrap/Form";
 import Diet3 from "../../../../../../public/assets/img/Diet3.png";
@@ -16,7 +16,7 @@ const FatLoass = () => {
 
   const [hip, setHip] = useState("");
   const [hipUnit, setHipUnit] = useState("cm");
-
+  const [isInvalid, setIsInvalid] = useState(null);
   const [result, setResult] = useState(null);
 
   const convertToCm = (value, unit) => {
@@ -31,33 +31,62 @@ const FatLoass = () => {
   };
 
   const calculateFatPercentage = () => {
+    setIsInvalid(null);
     const h = convertToCm(parseFloat(height), heightUnit);
     const w = convertToCm(parseFloat(waist), waistUnit);
     const n = convertToCm(parseFloat(neck), neckUnit);
     const hp = convertToCm(parseFloat(hip), hipUnit);
 
     if (!h || !w || !n || (gender === "female" && !hp)) {
-      alert("Please fill in all required fields.");
+      setIsInvalid("Please fill in all required fields with valid numbers.");
+      return;
+    }
+
+    // Check for invalid conditions
+    if (
+      isNaN(h) ||
+      isNaN(w) ||
+      isNaN(n) ||
+      (gender === "female" && isNaN(hp)) ||
+      h <= 0 ||
+      w <= 0 ||
+      n <= 0 ||
+      (gender === "female" && hp <= 0)
+    ) {
+      setIsInvalid("Please enter valid, positive numbers only.");
       return;
     }
 
     let fatPercentage = 0;
 
-    if (gender === "male") {
-      fatPercentage =
-        495 / (1.0324 - 0.19077 * Math.log10(w - n) + 0.15456 * Math.log10(h)) -
-        450;
-    } else {
-      fatPercentage =
-        495 /
-          (1.29579 -
-            0.35004 * Math.log10(w + hp - n) +
-            0.221 * Math.log10(h)) -
-        450;
-    }
+    try {
+      if (gender === "male") {
+        const log1 = Math.log10(w - n);
+        const log2 = Math.log10(h);
+        if (isNaN(log1) || isNaN(log2)) throw new Error("Invalid math input.");
+        fatPercentage = 495 / (1.0324 - 0.19077 * log1 + 0.15456 * log2) - 450;
+      } else {
+        const log1 = Math.log10(w + hp - n);
+        const log2 = Math.log10(h);
+        if (isNaN(log1) || isNaN(log2)) throw new Error("Invalid math input.");
+        fatPercentage = 495 / (1.29579 - 0.35004 * log1 + 0.221 * log2) - 450;
+      }
 
-    setResult(fatPercentage.toFixed(1));
+      if (isNaN(fatPercentage) || fatPercentage < 0 || fatPercentage > 100) {
+        throw new Error("Result out of range.");
+      }
+
+      setResult(fatPercentage.toFixed(1));
+    } catch (error) {
+      console.log(error)
+      setIsInvalid("Invalid input. Please check your values.");
+      setResult("--");
+    }
   };
+
+  useEffect(() => {
+    setIsInvalid(null);
+  }, [waist, waistUnit, neck, neckUnit, hip, hipUnit, height, heightUnit]);
 
   return (
     <>
@@ -210,7 +239,11 @@ const FatLoass = () => {
                   </div>
                 </div>
 
-                <div className="calculateButton text-center mt-3">
+                <div
+                  style={{ color: "orange" }}
+                  className="calculateButton text-center mt-3"
+                >
+                  {isInvalid && <p>{isInvalid}</p>}
                   <button
                     className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                     onClick={calculateFatPercentage}
@@ -229,8 +262,9 @@ const FatLoass = () => {
                     {result ? (
                       <>
                         <p>
-                          Based on the information provided, your estimated body fat
-                          percentage using the U.S. Navy Body Fat Formula is:
+                          Based on the information provided, your estimated body
+                          fat percentage using the U.S. Navy Body Fat Formula
+                          is:
                         </p>
                         <span className="day-text">{result} %</span>
                       </>
@@ -243,7 +277,8 @@ const FatLoass = () => {
                       <li>◦ Women: 18–28% (average)</li>
                     </ul>
                     <p className="smallNote">
-                      Disclaimer: This is an estimate. For precise results, consult a professional.
+                      Disclaimer: This is an estimate. For precise results,
+                      consult a professional.
                     </p>
                     <figure className="Diet3">
                       <img src={Diet3} alt="Diet visual" />

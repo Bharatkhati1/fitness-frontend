@@ -10,13 +10,13 @@ import { jwtDecode } from "jwt-decode";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 
-const LoginUser = ({ setIsAdminLocal }) => {
+const LoginUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const disableLoginButton = useSelector(
     (state) => state.auth.disableLoginButton
   );
-
+ 
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [resetStep, setResetStep] = useState(1);
   const [resetEmail, setResetEmail] = useState("");
@@ -24,9 +24,6 @@ const LoginUser = ({ setIsAdminLocal }) => {
   const [newPassword, setNewPassword] = useState("");
   const [loadingReset, setLoadingReset] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [otpSent, setOtpSent] = useState(false);
-
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -66,8 +63,7 @@ const LoginUser = ({ setIsAdminLocal }) => {
       dispatch(
         Login(
           { username: formData.username, password: formData.password },
-          navigate,
-          setIsAdminLocal
+          navigate, false
         )
       );
     }

@@ -1,8 +1,10 @@
 export const initialState = {
   isLoggedIn: false,
   disableLoginButton: false,
-  accessToken: "",
+  adminAccessToken: "",
+  userAccessToken: "",
   isCheckingToken: true,
-  user: {},
+  userDetails: {},
+  adminDetails: {},
   permissions: {},
 };

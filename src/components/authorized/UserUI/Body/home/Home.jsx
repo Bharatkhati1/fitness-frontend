@@ -363,8 +363,9 @@ function Home() {
             ref={videoRef}
             src="assets/video/01.mp4"
             width="100%"
+            loop
             height="509"
-            controls={false}
+            controls={true}
             muted
             playsInline
           />

@@ -1,9 +1,19 @@
 export const reducers = {
   loginUser(state, action) {
-    state.accessToken = action.payload.accessToken;
     state.isLoggedIn = action.payload.isLoggedIn;
-    state.user = action.payload.user;
     state.isAdmin = action.payload.isAdmin;
+  },
+  setAdminDetails(state, action) {
+    state.adminDetails = action.payload;
+  },
+  setUserDetails(state, action) {
+    state.userDetails = action.payload;
+  },
+  setUserAcccessToken(state, action) {
+    state.userAccessToken = action.payload;
+  },
+  setAdminAcccessToken(state, action) {
+    state.adminAccessToken = action.payload;
   },
   checkingUserToken(state, action) {
     state.isCheckingToken = action.payload;

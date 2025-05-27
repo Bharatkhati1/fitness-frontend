@@ -30,7 +30,7 @@ function CaloriesCalculatore() {
 
     // BMR calculation
     let bmr;
-    if (gender === 'male') {
+    if (gender === "male") {
       bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
     } else {
       bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
@@ -42,17 +42,17 @@ function CaloriesCalculatore() {
       moderate: 1.375,
       active: 1.55,
       "very active": 1.725,
-      "extremely active": 1.9
+      "extremely active": 1.9,
     };
     const tdee = bmr * activityMap[activityLevel];
 
     // Goal adjustment
     let dailyCalories;
     switch (goal) {
-      case 'lose':
+      case "lose":
         dailyCalories = tdee - 500;
         break;
-      case 'gain':
+      case "gain":
         dailyCalories = tdee + 500;
         break;
       default:
@@ -87,19 +87,19 @@ function CaloriesCalculatore() {
             <div className="col-md-6">
               <div className="bmiCalculatorBg">
                 <div className="calculateHead">
-                  <h4>Calculate your calories by putting values below </h4>
+                  <h4>Calculate Your Calories By Putting Values Below </h4>
                 </div>
                 <div className="calculatebody">
                   <div className="calculaField mb-3">
                     <label>Age:</label>
                     <div className="calculainSelect">
-                    <input
-                      className="form-control"
-                      type="number"
-                      placeholder="Enter your age"
-                      value={age}
-                      onChange={e => setAge(Number(e.target.value))}
-                    />
+                      <input
+                        className="form-control"
+                        type="number"
+                        placeholder="Enter your age"
+                        value={age}
+                        onChange={(e) => setAge(Number(e.target.value))}
+                      />
                     </div>
                   </div>
 
@@ -139,9 +139,12 @@ function CaloriesCalculatore() {
                         type="number"
                         placeholder="Enter height"
                         value={height}
-                        onChange={e => setHeight(Number(e.target.value))}
+                        onChange={(e) => setHeight(Number(e.target.value))}
                       />
-                      <Form.Select value={heightUnit} onChange={e => setHeightUnit(e.target.value)}>
+                      <Form.Select
+                        value={heightUnit}
+                        onChange={(e) => setHeightUnit(e.target.value)}
+                      >
                         <option value="cm">cm</option>
                         <option value="inch">inch</option>
                         <option value="ft">ft</option>
@@ -157,9 +160,12 @@ function CaloriesCalculatore() {
                         type="number"
                         placeholder="Enter weight"
                         value={weight}
-                        onChange={e => setWeight(Number(e.target.value))}
+                        onChange={(e) => setWeight(Number(e.target.value))}
                       />
-                      <Form.Select value={weightUnit} onChange={e => setWeightUnit(e.target.value)}>
+                      <Form.Select
+                        value={weightUnit}
+                        onChange={(e) => setWeightUnit(e.target.value)}
+                      >
                         <option value="kg">kg</option>
                         <option value="lbs">lbs</option>
                       </Form.Select>
@@ -168,7 +174,10 @@ function CaloriesCalculatore() {
 
                   <div className="calculaField mb-3">
                     <label>Activity Level:</label>
-                    <Form.Select value={activityLevel} onChange={e => setActivityLevel(e.target.value)}>
+                    <Form.Select
+                      value={activityLevel}
+                      onChange={(e) => setActivityLevel(e.target.value)}
+                    >
                       <option value="sedentary">Sedentary</option>
                       <option value="moderate">Moderate</option>
                       <option value="active">Active</option>
@@ -179,23 +188,24 @@ function CaloriesCalculatore() {
 
                   <div className="calculaField mb-3">
                     <label>Goal:</label>
-                    <Form.Select value={goal} onChange={e => setGoal(e.target.value)}>
+                    <Form.Select
+                      value={goal}
+                      onChange={(e) => setGoal(e.target.value)}
+                    >
                       <option value="maintain">Maintain Weight</option>
                       <option value="lose">Lose Weight</option>
                       <option value="gain">Gain Weight</option>
                     </Form.Select>
                   </div>
-
-               
                 </div>
-                   <div className="calculateButton text-center mt-3">
-                    <button
-                      className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
-                      onClick={calculateCalories}
-                    >
-                      Calculate Your Calories
-                    </button>
-                  </div>
+                <div className="calculateButton text-center mt-3">
+                  <button
+                    className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
+                    onClick={calculateCalories}
+                  >
+                    Calculate Your Calories
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -205,10 +215,16 @@ function CaloriesCalculatore() {
                 <div className="ResultBox">
                   <div className="ResultBox-left">
                     <p>
-                      Based on your details and chosen goal, you should consume around
+                      Based on your details and chosen goal, you should consume
+                      around
                     </p>
                     <span className="day-text">
-                      {calories ? `${calories} ` : <div className="dash-class">--</div>}<sub>Calories/day</sub>
+                      {calories ? (
+                        `${calories.toLocaleString("en-IN")} `
+                      ) : (
+                        <div className="dash-class">--</div>
+                      )}
+                      <sub>Calories/day</sub>
                     </span>
                   </div>
                   <div className="ResultBox-right">
@@ -219,7 +235,6 @@ function CaloriesCalculatore() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>

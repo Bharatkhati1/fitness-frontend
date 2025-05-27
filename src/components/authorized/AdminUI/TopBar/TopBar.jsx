@@ -17,7 +17,7 @@ const TopBar = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutUser(navigate));
+    dispatch(logoutUser(false));
   };
   return (
     <header className="topbar">

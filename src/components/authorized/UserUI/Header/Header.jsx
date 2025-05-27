@@ -9,14 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 
 const Header = () => {
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { userAccessToken } = useSelector((state) => state.auth);
   const {pathname } = useLocation()
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutUser(navigate));
+    dispatch(logoutUser(true));
   };
-  console.log(pathname)
   return (
     <header id="fixed-header" className="sticky">
       <div className="container">
@@ -59,12 +57,12 @@ const Header = () => {
               <a className="carticon">
                 <img src={CartIcon} />
               </a>
-              {isLoggedIn ? (
+              {userAccessToken.length>0 ? (
                 <button onClick={() => handleLogout()} className="header-btn ">
                   Logout
                 </button>
               ) : (
-                <Link to="/LoginUser" className="header-btn ">
+                <Link to="/login-user" className="header-btn ">
                   Login / Register
                 </Link>
               )}
