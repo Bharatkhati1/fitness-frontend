@@ -35,6 +35,10 @@ const PackageManagement = () => {
     { name: "", duration: 0, price: "", description: "", image: null },
   ]);
 
+
+  console.log(packageInclusions, "packageInclusions");
+
+
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
 
@@ -145,11 +149,11 @@ const PackageManagement = () => {
 
       const response = isEdit
         ? await adminAxios.put(url, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          })
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         : await adminAxios.post(url, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-          });
+          headers: { "Content-Type": "multipart/form-data" },
+        });
 
       if (response.status === 200) {
         fetchAllPackage();
@@ -161,8 +165,7 @@ const PackageManagement = () => {
     } catch (error) {
       console.error("Something went wrong:", error);
       toast.error(
-        `Failed to ${isEdit ? "update" : "create"} package. ${
-          error?.response?.data?.message
+        `Failed to ${isEdit ? "update" : "create"} package. ${error?.response?.data?.message
         }`
       );
     }
@@ -206,7 +209,7 @@ const PackageManagement = () => {
         item.name.trim() !== "" &&
         item.description.trim() !== "" &&
         item.image &&
-        item.status !== undefined
+        item.is_active !== undefined
     );
 
     if (!isValid) {
@@ -216,7 +219,7 @@ const PackageManagement = () => {
 
     setPackageInclusions([
       ...packageInclusions,
-      { name: "", description: "", image: null, status: true },
+      { name: "", description: "", image: null, is_active: true },
     ]);
   };
 
@@ -256,7 +259,7 @@ const PackageManagement = () => {
   const onRemoveEmail = (index) => {
     setEmailNotification((prev) => prev.filter((_, i) => i !== index));
   };
-  
+
   useEffect(() => {
     fetchAllPackage();
     fetchAllServices();
@@ -275,13 +278,13 @@ const PackageManagement = () => {
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
               )}
             </div>
-            <div className="card-body">
+            <div className="card-body border-bottom">
               <div className="row">
                 {/* Package Type */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
-                      Service type
+                      Service Name
                     </label>
                     <select
                       id="package-type"
@@ -298,7 +301,7 @@ const PackageManagement = () => {
                 </div>
 
                 {/* Package Name */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
                       Package Name
@@ -315,7 +318,7 @@ const PackageManagement = () => {
                 </div>
 
                 {/* Package Banner Image */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
                       Package Banner Image {isEdit && ` : ${selectedFileName2}`}
@@ -348,31 +351,6 @@ const PackageManagement = () => {
                   </div>
                 </div>
 
-                {/* Package desciption */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter description"
-                      value={packageDesc}
-                      onChange={(e) => {
-                        const text = e.target.value;
-                        if (text.length <= 100) {
-                          setPackageDesc(text);
-                        }
-                      }}
-                    />
-                    <small className="text-muted">
-                      {packageDesc.length}/100 characters
-                    </small>
-                  </div>
-                </div>
-
                 {/* Medical consultants */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -397,71 +375,81 @@ const PackageManagement = () => {
                   </div>
                 </div>
 
+                {/* Package desciption */}
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Description
+                    </label>
+                    <textarea
+                      id="service-des"
+                      style={{ resize: "vertical", minHeight: "100px" }}
+                      className="form-control"
+                      placeholder="Enter description"
+                      value={packageDesc}
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        if (text.length <= 100) {
+                          setPackageDesc(text);
+                        }
+                      }}
+                    />
+                    <small className="text-muted">
+                      {packageDesc.length}/100 characters
+                    </small>
+                  </div>
+                </div>
+
+
+
                 {/* CTA button */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">CTA Button</label>
-                    <div className="d-flex flex-wrap gap-3">
+                    <div className="">
                       {ctaOptions.map((option, index) => (
-                        <div className="form-check" key={index}>
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`cta-${index}`}
-                            checked={ctaButtons.includes(option)}
-                            onChange={(e) => {
-                              const selected = ctaButtons.includes(option);
-                              setCtaButtons(
-                                selected
-                                  ? ctaButtons.filter((item) => item !== option)
-                                  : [...ctaButtons, option]
-                              );
-                            }}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`cta-${index}`}
-                          >
-                            {option}
-                          </label>
+                        <div className="row align-items-center my-1" key={index}>
+                          <div className="col-4">
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`cta-${index}`}
+                                checked={ctaButtons.includes(option)}
+                                onChange={(e) => {
+                                  const selected = ctaButtons.includes(option);
+                                  setCtaButtons(
+                                    selected
+                                      ? ctaButtons.filter((item) => item !== option)
+                                      : [...ctaButtons, option]
+                                  );
+                                }}
+                              />
+                              <label
+                                className="form-check-label m-0"
+                                htmlFor={`cta-${index}`}
+                              >
+                                {option}
+                              </label>
+                            </div>
+                          </div>
+                          <div className="col-lg-6">
+                            <div className="email-new">
+                              {/* <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter email"
+                              /> */}
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-
-                {/* Email notification */}
-                <div className="col-lg-6">
-                  <p>Email notification</p>
-                  <div className="d-flex flex-column gap-2 align-items-start">
-                    <div
-                      className="form-check email-notif"
-                    >
-                      <input
-                        type="text"
-                        id="service-name"
-                        value={emailInput}
-                        className="form-control"
-                        placeholder="Enter email"
-                        onChange={(e) => setEmailInput(e.target.value)}
-                      />
-                      <p className="title" style={{ marginTop: "7px" }}>
-                        <button onClick={() => addEmailForNotification()}>
-                          +
-                        </button>
-                      </p>
-                    </div>
-                    <div className="input-emails">
-                    {emailNotification.map((email, index) => (
-                      <p>{email} <span className="remove-icon" onClick={()=> onRemoveEmail(index)}>X</span></p>
-                    ))}
-                    </div>
-                  </div>
-                </div>
-
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Package Status</p>
+                  <label className="form-label">Package Status</label>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
@@ -499,17 +487,49 @@ const PackageManagement = () => {
                     </div>
                   </div>
                 </div>
+                {/* Email notification */}
+                <div className="col-lg-6">
+                  <label className="form-label">Email notification</label>
+                  <div className="d-flex flex-column gap-2 align-items-start">
+                    <div
+                      className="form-check email-notif"
+                    >
+                      <input
+                        type="text"
+                        id="service-name"
+                        value={emailInput}
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={(e) => setEmailInput(e.target.value)}
+                      />
+                      <p className="title" style={{ marginTop: "7px" }}>
+                        <button onClick={() => addEmailForNotification()}>
+                          +
+                        </button>
+                      </p>
+                    </div>
+                    <div className="input-emails">
+                      {emailNotification.map((email, index) => (
+                        <p>{email} <span className="remove-icon" onClick={() => onRemoveEmail(index)}>X</span></p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
             </div>
-            <div className="card-body">
+            <div className="card-body border-bottom">
               <p className="title">
                 Package Inclusion{" "}
                 <button onClick={() => onAddInclusion()}>+</button>
               </p>
-              <Inclusions
-                packageInclusions={packageInclusions}
-                setPackageInclusions={setPackageInclusions}
-              />
+              <div className="row g-2">
+                <Inclusions
+                  packageInclusions={packageInclusions}
+                  setPackageInclusions={setPackageInclusions}
+                />
+              </div>
             </div>
 
             <div className="card-body">
@@ -552,7 +572,7 @@ const PackageManagement = () => {
                       <th>Image</th>
                       <th>Name</th>
                       <th>Short Description</th>
-                      <th>Service Type</th>
+                      <th>Service Name</th>
                       <th>Package Type</th>
                       <th>Price</th>
                       <th>Status</th>
@@ -593,9 +613,8 @@ const PackageManagement = () => {
                           <td>{item.price}</td>
                           <td>
                             <span
-                              className={`badge ${
-                                item.isActive ? "bg-success" : "bg-danger"
-                              }`}
+                              className={`badge ${item.isActive ? "bg-success" : "bg-danger"
+                                }`}
                             >
                               {item.isActive ? "Active" : "Inactive"}
                             </span>
