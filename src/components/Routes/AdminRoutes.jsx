@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import PageLoader from "../PageLoader";
 import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement";
 import Consultants from "../authorized/AdminUI/Consultants/Consultants";
+import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateUpdatePackage";
 
 
 
@@ -22,6 +23,7 @@ export default function AdminRoutes() {
           <Route path="slider-management" element={<SliderManagement />} />
           <Route path="service-management/services" element={<ServiceManagement />} />
           <Route path="service-management/packages" element={<PackageManagement />} />
+          <Route path="service-management/create-update-package" element={<CreateUpdatePackage />} />
           <Route path="success-stories" element={<SuccessStories />} />
           <Route path="team-management" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
