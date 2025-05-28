@@ -116,7 +116,7 @@ const PackageManagement = () => {
     formData.append("is_active", packageStatus);
     formData.append("package_plans", JSON.stringify(packageVariants));
     formData.append("package_inclusions", JSON.stringify(packageInclusions));
-    formData.append("longDescription", longDescription);
+    formData.append("longDescription", "s");
     formData.append("notification_emails", emailNotification)
     formData.append("service_id", selectedServiceTypeId);
     formData.append("action", ctaButtons);
@@ -184,11 +184,9 @@ const PackageManagement = () => {
     setSelectedPackageId(null);
     setPackageName("");
     setPackageBannerImage(null);
-    setPackageType(null);
     setSelectedServiecTypeId("");
     setPackageDesc("");
     setPackageStatus("1");
-    setPackagePrice(0);
     setPakageImage(null);
     setLongDescription("");
     setSelectedFileName(null);
