@@ -15,6 +15,9 @@ import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import AboutUs from "./components/pages/AboutUs.jsx";
 import Blogs from "./components/pages/Blogs.jsx";
+import BlogDeatils from "./components/pages/BlogDeatils.jsx";
+import ContactUs from "./components/pages/ContactUs.jsx";
+import ServiceDetails from "./components/pages/ServiceDetails.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -67,6 +70,9 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
           <Route path="AboutUs" element={<AboutUs />} />
           <Route path="Blogs" element={<Blogs />} />
+          <Route path="BlogDeatils" element={<BlogDeatils />} />
+          <Route path="ContactUs" element={<ContactUs />} />
+          <Route path="ServiceDetails" element={<ServiceDetails />} />
         </Routes>
       </Suspense>
     );

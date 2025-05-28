@@ -37,6 +37,8 @@ import MeetsTeamsImG6 from "../../../public/assets/img/MeetsTeamsImG6.png";
 import CofoundersIMG from "../../../public/assets/img/CofoundersIMG.png";
 import CofoundersIMG2 from "../../../public/assets/img/CofoundersIMG2.png";
 
+import trustedImg from "../../../public/assets/img/trustedImg.svg";
+
 function AboutUs() {
   return (
     <>
@@ -414,7 +416,11 @@ function AboutUs() {
       <section className="MoreProfessional">
         <div className="container">
           <p>
-            and 150+ more <span>Trusted </span>professionals.
+            and 150+ more 
+            <span>
+              <img src={trustedImg} />
+            </span>
+            professionals.
           </p>
         </div>
       </section>
