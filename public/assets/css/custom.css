@@ -2,8 +2,14 @@
     background: #f9f7f7;
 }
 
+.admin-pages .form-label {
+    color: #000;
+}
+
 .admin-pages header {
     padding: 0px 0;
 }
 
-.btn-soft-primary {}
+.admin-pages .card-body {
+    border-top: 0;
+}

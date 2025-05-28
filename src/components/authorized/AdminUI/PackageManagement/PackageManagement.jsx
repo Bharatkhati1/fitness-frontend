@@ -15,11 +15,13 @@ const PackageManagement = () => {
   const [packageDesc, setPackageDesc] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [packageStatus, setPackageStatus] = useState(true);
-  const [packageType, setPackageType] = useState("");
-  const [packagePrice, setPackagePrice] = useState(0);
+  const [emailNotification, setEmailNotification] = useState([]);
+  const [emailInput, setEmailInput] = useState("");
+  const [packageBannerImage, setPackageBannerImage] = useState(null);
   const [selectedServiceTypeId, setSelectedServiecTypeId] = useState(null);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [selectedFileName2, setSelectedFileName2] = useState("");
   const [packageImage, setPakageImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [ctaButtons, setCtaButtons] = useState([]);
@@ -27,13 +29,14 @@ const PackageManagement = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [allServices, setAllServices] = useState([]);
   const [packageInclusions, setPackageInclusions] = useState([
-    { name: "", description: "", image: null, status: true },
+    { name: "", description: "", image: null, is_active: true },
   ]);
   const [packageVariants, setPackageVariants] = useState([
     { name: "", duration: 0, price: "", description: "", image: null },
   ]);
-  
+
   const fileInputRef = useRef(null);
+  const fileInputRef2 = useRef(null);
 
   const ctaOptions = [
     "Join",
@@ -73,56 +76,101 @@ const PackageManagement = () => {
   };
 
   const handleSubmit = async () => {
-    if (!packageImage && !isEdit) {
+    // Validate images if not editing
+    if ((!packageImage || !packageBannerImage) && !isEdit) {
       toast.warning("Please select an image.");
       return;
     }
+
+    // Validate package inclusions
+    for (let i = 0; i < packageInclusions.length; i++) {
+      const inclusion = packageInclusions[i];
+      if (
+        !inclusion.name ||
+        !inclusion.description ||
+        (!inclusion.image && !isEdit)
+      ) {
+        toast.warning(`Please fill all fields for Inclusion #${i + 1}`);
+        return;
+      }
+    }
+
+    // Validate package variants
+    for (let i = 0; i < packageVariants.length; i++) {
+      const variant = packageVariants[i];
+      if (
+        !variant.name ||
+        !variant.duration ||
+        !variant.price ||
+        !variant.description ||
+        (!variant.image && !isEdit)
+      ) {
+        toast.warning(`Please fill all fields for Variant #${i + 1}`);
+        return;
+      }
+    }
+
     const formData = new FormData();
     formData.append("name", packageName);
-    formData.append("shortDescription", packageDesc);
+    formData.append("description", packageDesc);
     formData.append("is_active", packageStatus);
+    formData.append("package_plans", JSON.stringify(packageVariants));
+    formData.append("package_inclusions", JSON.stringify(packageInclusions));
     formData.append("longDescription", longDescription);
+    formData.append("notification_emails", emailNotification)
     formData.append("service_id", selectedServiceTypeId);
-    formData.append("type", packageType);
-    formData.append("price", packagePrice);
-    packageImage && formData.append("package_image", packageImage);
+    formData.append("action", ctaButtons);
+    if (packageImage) formData.append("package_image", packageImage);
+    if (packageBannerImage)
+      formData.append("package_banner", packageBannerImage);
+
+    // Append images for inclusions
+    for (let i = 0; i < packageInclusions.length; i++) {
+      if (packageInclusions[i].image) {
+        formData.append(`package_inclusion_${i}`, packageInclusions[i].image);
+      }
+    }
+
+    // Append images for variants
+    for (let i = 0; i < packageVariants.length; i++) {
+      if (packageVariants[i].image) {
+        formData.append(`package_plan_${i}`, packageVariants[i].image);
+      }
+    }
 
     try {
-      let url = isEdit
+      const url = isEdit
         ? adminApiRoutes.update_package(selectedPackageId)
         : adminApiRoutes.create_package;
 
-      let response;
-      if (isEdit) {
-        response = await adminAxios.put(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      } else {
-        response = await adminAxios.post(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      }
+      const response = isEdit
+        ? await adminAxios.put(url, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+        : await adminAxios.post(url, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         fetchAllPackage();
         onCancelEdit();
         toast.success(response.data.message);
-        return;
+      } else {
+        toast.error(response.data.message);
       }
-      toast.error(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create slider.${error.response.data.message}`);
+      toast.error(
+        `Failed to ${isEdit ? "update" : "create"} package. ${
+          error?.response?.data?.message
+        }`
+      );
     }
   };
 
-  const deletePackage = async (id) => {
+  const deletePackage = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_package(id));
+      await adminAxios.delete(adminApiRoutes.delete_package(selectedPackageId));
       toast.success("Deleted Successfully");
       fetchAllPackage();
     } catch (error) {
@@ -135,6 +183,7 @@ const PackageManagement = () => {
     setIsEdit(false);
     setSelectedPackageId(null);
     setPackageName("");
+    setPackageBannerImage(null);
     setPackageType(null);
     setSelectedServiecTypeId("");
     setPackageDesc("");
@@ -145,6 +194,9 @@ const PackageManagement = () => {
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+    if (fileInputRef2.current) {
+      fileInputRef2.current.value = "";
     }
   };
 
@@ -189,6 +241,22 @@ const PackageManagement = () => {
     ]);
   };
 
+  const addEmailForNotification = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailInput || !emailRegex.test(emailInput)) {
+      toast.warning("Please enter a valid email address.");
+      return;
+    }
+
+    setEmailNotification((prev) => [...prev, emailInput]);
+    setEmailInput("");
+  };
+
+  const onRemoveEmail = (index) => {
+    setEmailNotification((prev) => prev.filter((_, i) => i !== index));
+  };
+  
   useEffect(() => {
     fetchAllPackage();
     fetchAllServices();
@@ -250,15 +318,15 @@ const PackageManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Package Banner Image {isEdit && ` : ${selectedFileName}`}
+                      Package Banner Image {isEdit && ` : ${selectedFileName2}`}
                     </label>
                     <input
                       type="file"
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
                       id="service-image"
-                      ref={fileInputRef}
+                      ref={fileInputRef2}
                       className="form-control"
-                      onChange={(e) => setPakageImage(e.target.files[0])}
+                      onChange={(e) => setPackageBannerImage(e.target.files[0])}
                     />
                   </div>
                 </div>
@@ -290,17 +358,17 @@ const PackageManagement = () => {
                       id="service-des"
                       style={{ resize: "vertical", minHeight: "100px" }}
                       className="form-control"
-                      placeholder="Enter short description"
+                      placeholder="Enter description"
                       value={packageDesc}
                       onChange={(e) => {
                         const text = e.target.value;
-                        if (text.length <= 200) {
+                        if (text.length <= 100) {
                           setPackageDesc(text);
                         }
                       }}
                     />
                     <small className="text-muted">
-                      {packageDesc.length}/200 characters
+                      {packageDesc.length}/100 characters
                     </small>
                   </div>
                 </div>
@@ -308,24 +376,24 @@ const PackageManagement = () => {
                 {/* Medical consultants */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                      <label htmlFor="consultants" className="form-label">
-                        Medical Consultants
-                      </label>
-                      <Select
-                        mode="multiple"
-                        allowClear
-                        size="large"
-                        style={{ width: "100%" }}
-                        placeholder="Select medical consultants"
-                        value={selectedConsultantsId}
-                        onChange={(value) => setSelectedConsultantsId(value)}
-                      >
-                        {allConsultants.map((consultant) => (
-                          <Option key={consultant.id} value={consultant.id}>
-                            {consultant.name}
-                          </Option>
-                        ))}
-                      </Select>
+                    <label htmlFor="consultants" className="form-label">
+                      Medical Consultants
+                    </label>
+                    <Select
+                      mode="multiple"
+                      allowClear
+                      size="large"
+                      style={{ width: "100%" }}
+                      placeholder="Select medical consultants"
+                      value={selectedConsultantsId}
+                      onChange={(value) => setSelectedConsultantsId(value)}
+                    >
+                      {allConsultants.map((consultant) => (
+                        <Option key={consultant.id} value={consultant.id}>
+                          {consultant.name}
+                        </Option>
+                      ))}
+                    </Select>
                   </div>
                 </div>
 
@@ -358,6 +426,35 @@ const PackageManagement = () => {
                           </label>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Email notification */}
+                <div className="col-lg-6">
+                  <p>Email notification</p>
+                  <div className="d-flex flex-column gap-2 align-items-start">
+                    <div
+                      className="form-check email-notif"
+                    >
+                      <input
+                        type="text"
+                        id="service-name"
+                        value={emailInput}
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={(e) => setEmailInput(e.target.value)}
+                      />
+                      <p className="title" style={{ marginTop: "7px" }}>
+                        <button onClick={() => addEmailForNotification()}>
+                          +
+                        </button>
+                      </p>
+                    </div>
+                    <div className="input-emails">
+                    {emailNotification.map((email, index) => (
+                      <p>{email} <span className="remove-icon" onClick={()=> onRemoveEmail(index)}>X</span></p>
+                    ))}
                     </div>
                   </div>
                 </div>
@@ -510,6 +607,7 @@ const PackageManagement = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedPackageId(item.id);
+                                  setSelectedFileName2(item.package_banner);
                                   setPackageName(item.name);
                                   setPackageType(item.type);
                                   setSelectedServiecTypeId(item.serviceId);
@@ -529,11 +627,14 @@ const PackageManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this Package ?"
                                 title="Delete Package"
-                                onOk={() => deletePackage(item.id)}
+                                onOk={() => deletePackage()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
+                                    onClick={() =>
+                                      setSelectedPackageId(item.id)
+                                    }
                                   ></iconify-icon>
                                 }
                               />
@@ -544,7 +645,7 @@ const PackageManagement = () => {
                     ) : (
                       <tr>
                         <td colSpan="6" className="text-center">
-                          No sliders found.
+                          No packages found.
                         </td>
                       </tr>
                     )}

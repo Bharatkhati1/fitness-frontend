@@ -46,6 +46,7 @@ import circleShapeRight from "../../../../../../public/assets/img/circleShapeRig
 function Home() {
   const [sliders, setSliders] = useState([]);
   const [services, setServices] = useState([]);
+  const [allServices, setAllServices] = useState([])
   const [blogs, setBlogs] = useState([]);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
@@ -74,7 +75,7 @@ function Home() {
     try {
       const response = await userAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
-
+      setAllServices(servicesData);
       const chunkSize = 6;
       const chunkedServices = [];
 
@@ -361,6 +362,7 @@ function Home() {
         <div className="VideBox bg-black" ref={videoContainerRef}>
           <video
             ref={videoRef}
+            style={{objectFit:"fill"}}
             src="assets/video/01.mp4"
             width="100%"
             loop
@@ -757,82 +759,20 @@ function Home() {
                 </div>
                 <div className="col-md-12 checklistBox mb-3">
                   <label className="mb-3">You want to consult for :</label>
-
                   <ul className="form-checkList d-flex">
-                    <li>
+                  { allServices.map((service)=><li>
                       <div class="form-check">
                         <input
                           class="form-check-input"
                           type="checkbox"
                           value=""
                           id="flexCheckChecked"
-                          checked
                         />
                         <label class="form-check-label" for="flexCheckChecked">
-                          Weight Gain
+                         {service.name}
                         </label>
                       </div>
-                    </li>
-
-                    <li>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Disease Management
-                        </label>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Fat Loss
-                        </label>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Injury Rehab
-                        </label>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Doctor Consultation
-                        </label>
-                      </div>
-                    </li>
+                    </li>) }
                   </ul>
                 </div>
 

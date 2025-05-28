@@ -84,10 +84,10 @@ const Inclusions = ({ packageInclusions, setPackageInclusions }) => {
                   name={`service-status-${index}`}
                   id={`status-active-${index}`}
                   value={true}
-                  checked={inclusion.status === true}
+                  checked={inclusion.is_active === true}
                   onChange={() => {
                     const newInclusions = [...packageInclusions];
-                    newInclusions[index].status = true;
+                    newInclusions[index].is_active = true;
                     setPackageInclusions(newInclusions);
                   }}
                 />
@@ -105,10 +105,10 @@ const Inclusions = ({ packageInclusions, setPackageInclusions }) => {
                   name={`service-status-${index}`}
                   id={`status-inactive-${index}`}
                   value={false}
-                  checked={inclusion.status === false}
+                  checked={inclusion.is_active === false}
                   onChange={() => {
                     const newInclusions = [...packageInclusions];
-                    newInclusions[index].status = false;
+                    newInclusions[index].is_active = false;
                     setPackageInclusions(newInclusions);
                   }}
                 />
