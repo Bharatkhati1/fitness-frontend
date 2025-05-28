@@ -134,7 +134,7 @@ const BlogsManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
-                      Blog title
+                      Blog Title
                     </label>
                     <input
                       type="text"

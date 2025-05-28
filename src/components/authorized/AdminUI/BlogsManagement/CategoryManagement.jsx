@@ -83,7 +83,6 @@ const CategoryManagement = () => {
     fetchAllCategories();
   }, []);
 
-  console.log(status)
   return (
     <>
       <div className="row">
@@ -91,7 +90,7 @@ const CategoryManagement = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Blog` : `Create Blog`}
+                {isEdit ? `Edit Selected Category` : `Create Category`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
@@ -103,7 +102,7 @@ const CategoryManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="category-name" className="form-label">
-                      Category title
+                      Category Title
                     </label>
                     <input
                       type="text"

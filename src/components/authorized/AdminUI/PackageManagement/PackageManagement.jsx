@@ -269,7 +269,7 @@ const PackageManagement = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Package` : `Create Package`}
+                {isEdit ? `Edit Selected Package` : `Add Package`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>

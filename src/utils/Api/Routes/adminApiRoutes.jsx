@@ -36,6 +36,12 @@ const adminApiRoutes = {
     update_blog: (blogId) => `/blog/${blogId}`,
     delete_blog: (blogId) => `/blog/${blogId}`,
 
+    //TEAM ROUTES
+    get_team_members: "/teams",
+    create_team_member: "/teams",
+    update_team_member: (id) => `/teams/${id}`,
+    delete_team_member: (id) => `/teams/${id}`,
+
   };
   
   export default adminApiRoutes;

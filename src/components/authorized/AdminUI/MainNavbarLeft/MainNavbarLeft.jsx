@@ -23,6 +23,7 @@ const NavItems = [
     ],
   },
   { id: 5, name: "Success Story", path: "success-stories" },
+  { id: 6, name: "Team Management", path: "team-management" },
 ];
 
 const MainNavbarLeft = () => {

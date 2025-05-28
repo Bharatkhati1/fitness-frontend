@@ -223,13 +223,13 @@ const ServiceManagement = () => {
                       value={serviceShortDescription}
                       onChange={(e) => {
                         const text = e.target.value;
-                        if (text.length <= 200) {
+                        if (text.length <= 100) {
                           setServiceShortDescription(text);
                         }
                       }}
                     />
                     <small className="text-muted">
-                      {serviceShortDescription.length}/200 characters
+                      {serviceShortDescription.length}/100 characters
                     </small>
                   </div>
                 </div>

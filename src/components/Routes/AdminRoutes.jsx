@@ -8,6 +8,7 @@ import SuccessStories from "../authorized/AdminUI/SuccessStories/SuccessStories"
 import Blogs from "../authorized/AdminUI/BlogsManagement/index";
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
+import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement";
 
 export default function AdminRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AdminRoutes() {
           <Route path="service-management/services" element={<ServiceManagement />} />
           <Route path="service-management/packages" element={<PackageManagement />} />
           <Route path="success-stories" element={<SuccessStories />} />
+          <Route path="team-management" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
           <Route path="*" element={<Navigate replace to="/admin/slider-management" />} />
