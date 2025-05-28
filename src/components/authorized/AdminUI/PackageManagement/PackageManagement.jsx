@@ -563,7 +563,7 @@ const PackageManagement = () => {
                     {packages.length > 0 ? (
                       packages.map((item, index) => (
                         <tr key={index}>
-                          <td>{item.id}</td>
+                          <td>{index+1}</td>
                           <td>
                             <Link target="_blank" to={item.image_url}>
                               {" "}

@@ -409,7 +409,7 @@ const ServiceManagement = () => {
                                       display: 'table-row',
                                     }}
                                   >
-                                    <td>{service.id}</td>
+                                    <td>{index+1}</td>
                                     <td>
                                       <Link
                                         target="_blank"

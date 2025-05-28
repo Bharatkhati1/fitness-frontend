@@ -296,7 +296,7 @@ const BlogsManagement = () => {
                     {blogs.length > 0 ? (
                       blogs.map((item, index) => (
                         <tr key={index}>
-                          <td>{item.id}</td>
+                          <td>{index+1}</td>
                           <td>
                             <Link target="_blank" to={item.image_url}>
                               {" "}

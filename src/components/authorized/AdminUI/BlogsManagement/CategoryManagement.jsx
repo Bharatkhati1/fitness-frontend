@@ -194,7 +194,7 @@ const CategoryManagement = () => {
                     {categories.length > 0 ? (
                       categories.map((item, index) => (
                         <tr key={index}>
-                          <td>{item.id}</td>
+                          <td>{index+1}</td>
                           <td>{item?.name}</td>
                           <td>
                             <span

@@ -260,7 +260,7 @@ const SliderManagement = () => {
                     {sliders.length > 0 ? (
                       sliders.map((slider, index) => (
                         <tr key={index}>
-                          <td>{slider.id}</td>
+                          <td>{index+1}</td>
                           <td>
                             <Link target="_blank" to={slider.image_url}>
                               {" "}
