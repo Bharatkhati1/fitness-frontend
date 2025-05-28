@@ -6,7 +6,7 @@ import ConfirmationPopup from "../Popups/ConfirmationPopup";
 
 const CategoryManagement = () => {
   const [name, setName] = useState("");
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(1);
   const [isEdit, setIsEdit] = useState(false);
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -83,6 +83,7 @@ const CategoryManagement = () => {
     fetchAllCategories();
   }, []);
 
+  console.log(status)
   return (
     <>
       <div className="row">
@@ -124,14 +125,14 @@ const CategoryManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value={true}
-                        checked={status}
-                        onChange={() => setStatus(true)}
-                        id="status-active"
+                        value={1}
+                        checked={status == 1}
+                        onChange={() => setStatus(1)}
+                        id="status-sactive"
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="status-active"
+                        htmlFor="status-sactive"
                       >
                         Active
                       </label>
@@ -141,14 +142,14 @@ const CategoryManagement = () => {
                         className="form-check-input"
                         type="radio"
                         name="service-status"
-                        value={false}
-                        checked={!status}
-                        onChange={() => setStatus(false)}
-                        id="status-inactive"
+                        value={0}
+                        checked={status == 0}
+                        onChange={() => setStatus(0)}
+                        id="status-sinactive"
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="status-inactive"
+                        htmlFor="status-sinactive"
                       >
                         Inactive
                       </label>
@@ -198,10 +199,10 @@ const CategoryManagement = () => {
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive ? "bg-success" : "bg-danger"
+                                item.isActive == "1" ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {item.isActive ? "Active" : "Inactive"}
+                              {item.isActive == "1" ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -240,7 +241,7 @@ const CategoryManagement = () => {
                     ) : (
                       <tr>
                         <td colSpan="6" className="text-center">
-                          No sliders found.
+                          No categories found.
                         </td>
                       </tr>
                     )}
