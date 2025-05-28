@@ -69,8 +69,6 @@ const App = () => {
           <Route path="AboutUs" element={<AboutUs />} />
           <Route path="Blogs" element={<Blogs />} />
         </Routes>
-
-       
       </Suspense>
     );
   }

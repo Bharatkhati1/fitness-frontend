@@ -19,16 +19,14 @@ const SuccessStories = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [successStories, setSuccessStories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   const fileInputRefAfter = useRef(null);
   const fileInputRefBefore = useRef(null);
 
-  const fetchAllSuccessStories = async (page = 1) => {
+  const fetchAllSuccessStories = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_success_stories);
-      setSliders(res.data.data);
-      setTotalPages(res.data.pagination.totalPages);
+      setSuccessStories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -75,16 +73,10 @@ const SuccessStories = () => {
     }
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
   const deleteSuccessStory = async () => {
     try {
       await adminAxios.delete(
-        adminApiRoutes.delete_service(selectedSuccesStoryId)
+        adminApiRoutes.delete_success_story(selectedSuccesStoryId)
       );
       toast.success("Deleted Successfully");
       fetchAllSuccessStories();
@@ -141,6 +133,8 @@ const SuccessStories = () => {
             </div>
             <div className="card-body">
               <div className="row">
+
+                {/* Description */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
@@ -158,10 +152,13 @@ const SuccessStories = () => {
                   </div>
                 </div>
 
+                {/* Images */}
                 <div className="col-lg-6">
+
+                  {/*Before image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Before Image {isEdit && ` : ${beforeImage}`}
+                      Before Image {isEdit && `: ${beforeImage}`}
                     </label>
                     <input
                       type="file"
@@ -172,9 +169,11 @@ const SuccessStories = () => {
                       onChange={(e) => setBeforeImage(e.target.files[0])}
                     />
                   </div>
+
+                  {/* After image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      After Image {isEdit && ` : ${beforeImage}`}
+                      After Image {isEdit && `: ${beforeImage}`}
                     </label>
                     <input
                       type="file"
@@ -187,7 +186,7 @@ const SuccessStories = () => {
                   </div>
                 </div>
 
-                {/* Status */}
+                {/* Status
                 <div className="col-lg-6">
                   <p>Status</p>
                   <div className="d-flex gap-2 align-items-center">
@@ -226,7 +225,7 @@ const SuccessStories = () => {
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -259,7 +258,7 @@ const SuccessStories = () => {
                       <th>Before Image</th>
                       <th>After Image</th>
                       <th>Description</th>
-                      <th>Status</th>
+                      {/* <th>Status</th> */}
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -267,13 +266,13 @@ const SuccessStories = () => {
                     {successStories.length > 0 ? (
                       successStories.map((story, index) => (
                         <tr key={index}>
-                          <td>{story.id}</td>
+                          <td>{index +1}</td>
                           <td>
-                            <Link target="_blank" to={story.before_img}>
+                            <Link target="_blank" to={story.before_image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={story.before_img}
+                                src={story.before_image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -291,11 +290,11 @@ const SuccessStories = () => {
                             </Link>
                           </td>
                           <td>
-                            <Link target="_blank" to={story.before_img}>
+                            <Link target="_blank" to={story.after_image_url}>
                               {" "}
                               <img
                                 crossorigin="anonymous"
-                                src={story.after_img}
+                                src={story.after_image_url}
                                 alt="Slider"
                                 style={{
                                   width: "50px",
@@ -313,7 +312,7 @@ const SuccessStories = () => {
                             </Link>
                           </td>
                           <td>{getShortText(story.description)}</td>
-                          <td>
+                          {/* <td>
                             <span
                               className={`badge ${
                                 story.is_active === 1
@@ -323,7 +322,7 @@ const SuccessStories = () => {
                             >
                               {story.is_active === 1 ? "Active" : "Inactive"}
                             </span>
-                          </td>
+                          </td> */}
                           <td>
                             <div class="d-flex gap-2">
                               <button
@@ -351,9 +350,9 @@ const SuccessStories = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => {
-                                      setSelectedSuccesStoryId(story.id);
-                                    }}
+                                    onClick={() => 
+                                      setSelectedSuccesStoryId(story.id)
+                                    }
                                   ></iconify-icon>
                                 }
                               />
@@ -371,51 +370,6 @@ const SuccessStories = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div className="card-footer border-top">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-end mb-0">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <li
-                      key={i}
-                      className={`page-item ${
-                        currentPage === i + 1 ? "active" : ""
-                      }`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => handlePageChange(i + 1)}
-                      >
-                        {i + 1}
-                      </button>
-                    </li>
-                  ))}
-                  <li
-                    className={`page-item ${
-                      currentPage === totalPages ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>

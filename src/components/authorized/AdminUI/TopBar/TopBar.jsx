@@ -41,7 +41,7 @@ const TopBar = () => {
           </div>
 
           <div className="d-flex align-items-center gap-1">
-            <div className="topbar-item">
+            {/* <div className="topbar-item">
               <button
                 type="button"
                 className="topbar-button"
@@ -236,7 +236,7 @@ const TopBar = () => {
                   className="fs-24 align-middle"
                 ></iconify-icon>
               </button>
-            </div>
+            </div> */}
 
             <div className="dropdown topbar-item">
               <a
