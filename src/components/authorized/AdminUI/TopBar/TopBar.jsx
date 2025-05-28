@@ -257,31 +257,7 @@ const TopBar = () => {
                 </span>
               </a>
               <div className="dropdown-menu dropdown-menu-end">
-                <h6 className="dropdown-header">Welcome Gaston!</h6>
-                <a className="dropdown-item" href="pages-profile.html">
-                  <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
-                  <span className="align-middle">Profile</span>
-                </a>
-                <a className="dropdown-item" href="apps-chat.html">
-                  <i className="bx bx-message-dots text-muted fs-18 align-middle me-1"></i>
-                  <span className="align-middle">Messages</span>
-                </a>
-
-                <a className="dropdown-item" href="pages-pricing.html">
-                  <i className="bx bx-wallet text-muted fs-18 align-middle me-1"></i>
-                  <span className="align-middle">Pricing</span>
-                </a>
-                <a className="dropdown-item" href="pages-faqs.html">
-                  <i className="bx bx-help-circle text-muted fs-18 align-middle me-1"></i>
-                  <span className="align-middle">Help</span>
-                </a>
-                <a className="dropdown-item" href="auth-lock-screen.html">
-                  <i className="bx bx-lock text-muted fs-18 align-middle me-1"></i>
-                  <span className="align-middle">Lock screen</span>
-                </a>
-
-                <div className="dropdown-divider my-1"></div>
-
+                <h6 className="dropdown-header">Welcome Admin!</h6>
                 <button
                   className="dropdown-item text-danger"
                   onClick={() => handleLogout()}

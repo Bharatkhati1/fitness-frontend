@@ -443,7 +443,7 @@ function Home() {
       <section className="PosterSec empoweringhealth">
         <div className="container">
           <div className="PosterContent">
-            <h2>Empowering Your Health and Fitness Journey</h2>
+            <h2 className="text-uppercase">Empowering Your Health and Fitness Journey</h2>
             <p>
               At The Daily Fitness, we prioritize your health with personalized
               plans, expert guidance, and valuable resources, making wellness

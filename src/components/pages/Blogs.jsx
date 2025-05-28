@@ -21,12 +21,9 @@ import leftp from "../../../public/assets/img/leftp.png";
 
 import leftR from "../../../public/assets/img/rightp.png";
 
-
-
 function Blogs() {
   return (
     <>
-       <Header />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={HealthBg} />
@@ -61,10 +58,42 @@ function Blogs() {
                 items={1}
                 autoplaySpeed={500}
                 autoplayTimeout={3000}
-                loop={false}
+                loop={true}
                 margin={0}
-                nav={false}
+                nav={true}
               >
+                <div class="item">
+                  <ul className="taginfolist d-flex">
+                    <li className="active">
+                      <span className="tag-info">All</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Health</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Fitness</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Disease</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Mental Health</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Medicine</span>
+                    </li>
+
+                    <li>
+                      <span className="tag-info">Injury</span>
+                    </li>
+                  </ul>
+                </div>
+
                 <div class="item">
                   <ul className="taginfolist d-flex">
                     <li className="active">
@@ -260,7 +289,7 @@ function Blogs() {
             <ul class="pagination">
               <li class="page-item ">
                 <a class="page-link" href="#">
-                 <img src={leftp}></img>
+                  <img src={leftp}></img>
                 </a>
               </li>
               <li class="page-item active">
@@ -280,17 +309,13 @@ function Blogs() {
               </li>
               <li class="page-item">
                 <a class="page-link" href="#">
-                   <img src={leftR}></img>
+                  <img src={leftR}></img>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-
-      <Footer/>
-
-    
     </>
   );
 }

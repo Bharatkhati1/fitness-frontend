@@ -10,7 +10,14 @@
 figure {
   margin-bottom: 0 !important;
 }
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans", sans-serif !important;
+}
 body {
   margin: 0;
   padding: 0;
@@ -1136,6 +1143,7 @@ header.sticky {
   z-index: 999;
   background: #fff;
   transition: 0.3s;
+  box-shadow: 0 4px 4px hsl(0deg 0% 0% / 7.84%);
 }
 
 .trailofferList li:last-child {
@@ -1739,7 +1747,7 @@ ul.optinallyList {
   height: 53px;
 }
 
-.ToolsPageMain.sectionSpace {
+.sectionSpace {
   padding-top: 45px;
   padding-bottom: 50px;
 }
@@ -2299,8 +2307,7 @@ section.OurTEAM {
   font-weight: 700;
   color: #000;
   text-transform: capitalize;
-  padding: 20px 0;
-  height: 103px;
+  padding: 35px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2562,4 +2569,283 @@ ul.pagination {
 
 .OurHealthBlogContent a {
   cursor: pointer;
+}
+
+button.owl-prev span {
+  color: transparent;
+  background: url(../img//owlleft.png);
+  width: 14px;
+  height: 23px;
+  position: absolute;
+  left: 0;
+  top: 45px;
+}
+
+button.owl-next span {
+  color: transparent;
+  background: url(../img//owlright.png);
+  width: 14px;
+  height: 23px;
+  position: absolute;
+  right: 0;
+  top: 45px;
+}
+
+.contentbox h4 {
+  font-size: 24px;
+  color: #800030;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.contentbox p {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+}
+
+.contentbox {
+  margin-bottom: 46px;
+}
+
+.heighlighttext {
+  font-size: 38px;
+  color: #1e1e1e59;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 45px;
+}
+
+.Joinourhealth {
+  background: url(../img/JoinHealthBg.png);
+  height: 562px;
+  object-fit: cover;
+  position: relative;
+  border-radius: 10px;
+}
+
+.JoinourhealthContent {
+  position: absolute;
+  right: 30px;
+  bottom: 0;
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  top: 0;
+  padding: 0 13px;
+}
+
+.JoinourhealthContent h3 {
+  font-size: 60px;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  line-height: 1.4;
+}
+
+.JoinourhealthContent p {
+  font-size: 17px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.JoinourhealthContent .btn.btn-primary {
+  min-width: 416px;
+  height: 70px;
+  font-size: 22px;
+  margin-top: 25px;
+}
+
+.BlogDeatils {
+  position: relative;
+}
+section.BlogDeatils:after {
+  background: linear-gradient(
+    to bottom,
+    hsl(0deg 0% 100% / 0%) 0%,
+    rgba(29, 29, 29, 0.8) 98%,
+    rgba(29, 29, 29, 0.81) 100%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 109px;
+  width: 100%;
+}
+
+.BlogDeatils .innerbannerContent {
+  bottom: 4px;
+
+  left: 0;
+  right: 0;
+}
+
+.BlogDeatils .innerbannerContent h2 {
+  text-align: center;
+  font-size: 40px;
+}
+
+.InnerpageSpace {
+  padding-top: 140px;
+}
+
+.contactinfobox {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+  border-radius: 25px;
+  padding: 25px 20px;
+  text-align: center;
+  height: 100%;
+  background: #fff;
+}
+
+.contactinfobox figure {
+  width: 68px;
+  height: 68px;
+  margin: auto;
+  background: #0079461c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 15px !important;
+}
+
+.contactinfobox figcaption h5 {
+  font-size: 14px;
+  color: #007946;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.contactinfobox a {
+  font-size: 18px;
+  color: #007946;
+  font-weight: 700;
+}
+
+ul.userslink li a {
+  margin: 0 8px;
+}
+
+.getintouchinner {
+  box-shadow: 0 4px 17px rgb(0 0 0 / 10%);
+  padding: 25px 40px;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.row.GetIntouchinnerright {
+  border-left: 1px solid rgb(0 0 0 / 19%);
+  padding-left: 20px;
+}
+
+.getintouchinnerleft h4 {
+  font-size: 32px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.getintouchinnerleft p {
+  font-size: 17px;
+  color: rgb(0 0 0 / 90%);
+  font-weight: 400;
+}
+
+.getintouchinnerleft figure {
+  margin-top: 20px !important;
+}
+
+.GetIntouchinnerright .form-checkList li {
+  width: auto;
+  margin-right: 16px;
+}
+
+.GetIntouchinnerright .form-checkList {
+  margin-bottom: 0;
+}
+
+.greyin {
+  background: #f1f1f1 !important;
+}
+.userslink {
+  margin-bottom: 0;
+}
+
+.InnerpageSpace.bgpettern::before {
+  background: url(../img/Contactusbg.png);
+  content: "";
+
+  width: 100%;
+  height: 355px;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.userslink li a:hover {
+  cursor: pointer;
+}
+
+.textlink a:hover {
+  text-decoration: underline;
+}
+
+.servicedetail p {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+}
+
+.servicedetaillisting figcaption h3 {
+  font-size: 38px;
+  color: #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.servicedetaillisting figcaption p {
+  font-size: 16px;
+  color: #2a2a2a;
+}
+
+.btn-group-box {
+  text-align: center;
+  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+.btn-group-box .btn {
+  width: 49%;
+}
+
+.btn-group-box .btn {
+  width: 49%;
+}
+
+.servicedetaillisting figcaption {
+  background: url(../img/servicepetternImg.png);
+  padding: 20px 18px 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.btn-group-box .btn {
+  font-size: 18px;
+}
+
+.row.servicedetaillisting {
+    margin-top: 50px;
+}
+
+.row.servicedetaillisting .col-md-6 {
+    margin-bottom: 30px;
 }
