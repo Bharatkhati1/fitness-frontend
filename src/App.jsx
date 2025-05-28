@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { getAccessToken } from "./store/auth/AuthExtraReducers.jsx";
 
 import "../public/assets/css/app.min.css";
+import "../public/assets/css/custom.css";
 import "../public/assets/css/icons.min.css";
 import "../public/assets/css/vendor.min.css";
 import "../public/assets/js/vendor.js";
@@ -38,9 +39,9 @@ const App = () => {
     userAccessToken,
     adminAccessToken
   } = useSelector((state) => state.auth);
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const isAdmin = pathname.includes("/admin");
-  
+
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
   );

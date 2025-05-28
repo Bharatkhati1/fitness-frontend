@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import Ckeditor from "../CkEditor/Ckeditor.jsx";
 
 const BlogsManagement = () => {
   const [name, setName] = useState("");
@@ -112,6 +114,12 @@ const BlogsManagement = () => {
     }
   }
 
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+
   useEffect(() => {
     fetchAllBlogs();
     fetchAllCategories();
@@ -131,6 +139,7 @@ const BlogsManagement = () => {
             <div className="card-body">
               <div className="row">
 
+                {/* Blog title  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
@@ -146,7 +155,8 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-
+                 
+                 {/* Blog Image  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -162,41 +172,34 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-
+  
+                 {/* Short Description  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                     Short Desciption
                     </label>
-                    <textarea
-                      type="text"
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter short description"
-                      value={shortDesc}
-                      onChange={(e) => setShortDesc(e.target.value)}
+                    <Ckeditor
+                      text={shortDesc}
+                      setText={setShortDesc}
                     />
                   </div>
                 </div>
-
+                 
+                 {/* Long Description  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                      Long Desciption
                     </label>
-                    <textarea
-                      type="text"
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter long description"
-                      value={longDescription}
-                      onChange={(e) => setLongDescription(e.target.value)}
+                    <Ckeditor
+                      text={longDescription}
+                      setText={setLongDescription}
                     />
                   </div>
                 </div>
-
+                 
+                 {/* Category  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
@@ -215,6 +218,7 @@ const BlogsManagement = () => {
                     </select>
                   </div>
                 </div>
+
                 {/* Status */}
                 <div className="col-lg-6">
                   <p>Blog Status</p>
@@ -320,7 +324,7 @@ const BlogsManagement = () => {
                             </Link>
                           </td>
                           <td>{item?.title}</td>
-                          <td>{item.shortDescription}</td>
+                          <td>{stripHtml(item.shortDescription)}</td>
                           <td>{item?.categoryId}</td>
                           <td>
                             <span

@@ -10,6 +10,8 @@ import { Suspense } from "react";
 import PageLoader from "../PageLoader";
 import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement";
 
+
+
 export default function AdminRoutes() {
   return (
     <Suspense fallback={<PageLoader />}>

@@ -8,6 +8,7 @@ const adminApiRoutes = {
 
     //PACKAGE ROUTES
     get_package:"/package",
+    get_package_details:(id)=>`/package/${id}`,
     create_package:"/package",
     update_package:(packageId)=>`/package/${packageId}`,
     delete_package:(packageId)=>`/package/${packageId}`,

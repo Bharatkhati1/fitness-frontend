@@ -8,6 +8,9 @@ import Inclusions from "./Inclusions.jsx";
 import Variants from "./Variants.jsx";
 import "./package.scss";
 import { Select } from "antd";
+import DOMPurify from "dompurify";
+import Ckeditor from "../CkEditor/Ckeditor.jsx";
+
 const { Option } = Select;
 
 const PackageManagement = () => {
@@ -27,10 +30,13 @@ const PackageManagement = () => {
   const [ctaButtons, setCtaButtons] = useState([]);
   const [packages, setPackage] = useState([]);
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
+  const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
+
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
   ]);
+
   const [packageVariants, setPackageVariants] = useState([
     { name: "", duration: 0, price: "", description: "", image: null },
   ]);
@@ -78,7 +84,7 @@ const PackageManagement = () => {
   const handleSubmit = async () => {
     // Validate images if not editing
     if ((!packageImage || !packageBannerImage) && !isEdit) {
-      toast.warning("Please select an image.");
+      toast.warning("Please select package banner and package image.");
       return;
     }
 
@@ -117,7 +123,7 @@ const PackageManagement = () => {
     formData.append("package_plans", JSON.stringify(packageVariants));
     formData.append("package_inclusions", JSON.stringify(packageInclusions));
     formData.append("longDescription", "s");
-    formData.append("notification_emails", emailNotification)
+    formData.append("notification_emails", emailNotification);
     formData.append("service_id", selectedServiceTypeId);
     formData.append("action", ctaButtons);
     if (packageImage) formData.append("package_image", packageImage);
@@ -186,10 +192,17 @@ const PackageManagement = () => {
     setPackageBannerImage(null);
     setSelectedServiecTypeId("");
     setPackageDesc("");
+    setCtaButtons([]);
     setPackageStatus("1");
     setPakageImage(null);
     setLongDescription("");
     setSelectedFileName(null);
+    setPackageInclusions([
+      { name: "", description: "", image: null, is_active: true },
+    ]);
+    setPackageVariants([
+      { name: "", duration: 0, price: "", description: "", image: null },
+    ]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -204,7 +217,7 @@ const PackageManagement = () => {
         item.name.trim() !== "" &&
         item.description.trim() !== "" &&
         item.image &&
-        item.status !== undefined
+        item.is_active !== undefined
     );
 
     if (!isValid) {
@@ -214,7 +227,7 @@ const PackageManagement = () => {
 
     setPackageInclusions([
       ...packageInclusions,
-      { name: "", description: "", image: null, status: true },
+      { name: "", description: "", image: null, is_active: true },
     ]);
   };
 
@@ -254,7 +267,67 @@ const PackageManagement = () => {
   const onRemoveEmail = (index) => {
     setEmailNotification((prev) => prev.filter((_, i) => i !== index));
   };
-  
+
+  const initPackageEditForm = (data) => {
+    if (!data) return;
+    setSelectedPackageDetails(data);
+    setPackageName(data.name || "");
+    setPackageDesc(data.description || "");
+    setLongDescription(data.description || "");
+    setPackageStatus(data.isActive ?? true);
+    setSelectedServiecTypeId(data.serviceId || null);
+    setSelectedPackageId(data.id || null);
+
+    // Image URLs and filenames
+    setPackageBannerImage(data.banner_url || null);
+    setSelectedFileName2(data.banner || "");
+    setPakageImage(data.image_url || null);
+    setSelectedFileName(data.image || "");
+
+    // Package Inclusions
+    const inclusions = Array.isArray(data.PackageInclusions)
+      ? data.PackageInclusions.map((inc) => ({
+          name: inc.name || "",
+          description: inc.description || "",
+          image: inc.image || null,
+          is_active: inc.isActive ?? true,
+        }))
+      : [{ name: "", description: "", image: null, is_active: true }];
+    setPackageInclusions(inclusions);
+
+    // Package Variants / Plans
+    const variants = Array.isArray(data.PackagePlans)
+      ? data.PackagePlans.map((plan) => ({
+          name: plan.name || "",
+          duration: plan.duration || 0,
+          price: plan.price || "",
+          description: plan.description || "",
+          image: plan.image || null,
+        }))
+      : [{ name: "", duration: 0, price: "", description: "", image: null }];
+    setPackageVariants(variants);
+
+    // Optional: set edit mode
+    setIsEdit(true);
+  };
+
+  const fetchPackageDetailsById = async (id) => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_package_details(id));
+      const packageData = res.data.data;
+      initPackageEditForm(packageData);
+    } catch (error) {
+      console.error("Failed to fetch package:", error);
+      toast.error(error.response?.data?.message || "Something went wrong.");
+    }
+  };
+
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+
   useEffect(() => {
     fetchAllPackage();
     fetchAllServices();
@@ -262,6 +335,7 @@ const PackageManagement = () => {
 
   return (
     <>
+      {/* Create Package */}
       <div className="row">
         <div className="col-lg-12">
           <div className={`card ${isEdit && `editing`}`}>
@@ -273,13 +347,13 @@ const PackageManagement = () => {
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
               )}
             </div>
-            <div className="card-body">
+            <div className="card-body border-bottom">
               <div className="row">
                 {/* Package Type */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
-                      Service type
+                      Service Name
                     </label>
                     <select
                       id="package-type"
@@ -296,7 +370,7 @@ const PackageManagement = () => {
                 </div>
 
                 {/* Package Name */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-name" className="form-label">
                       Package Name
@@ -313,7 +387,7 @@ const PackageManagement = () => {
                 </div>
 
                 {/* Package Banner Image */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
                       Package Banner Image {isEdit && ` : ${selectedFileName2}`}
@@ -346,31 +420,6 @@ const PackageManagement = () => {
                   </div>
                 </div>
 
-                {/* Package desciption */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter description"
-                      value={packageDesc}
-                      onChange={(e) => {
-                        const text = e.target.value;
-                        if (text.length <= 100) {
-                          setPackageDesc(text);
-                        }
-                      }}
-                    />
-                    <small className="text-muted">
-                      {packageDesc.length}/100 characters
-                    </small>
-                  </div>
-                </div>
-
                 {/* Medical consultants */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -395,71 +444,82 @@ const PackageManagement = () => {
                   </div>
                 </div>
 
+                {/* Package desciption */}
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Description
+                    </label>
+                    <Ckeditor
+                      text={packageDesc}
+                      setText={(value) => {
+                        const text = value;
+                        if (text.length <= 100) {
+                          setPackageDesc(text);
+                        }
+                      }}
+                    />
+                    <small className="text-muted">
+                      {packageDesc?.length}/100 characters
+                    </small>
+                  </div>
+                </div>
+
                 {/* CTA button */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">CTA Button</label>
-                    <div className="d-flex flex-wrap gap-3">
+                    <div className="">
                       {ctaOptions.map((option, index) => (
-                        <div className="form-check" key={index}>
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`cta-${index}`}
-                            checked={ctaButtons.includes(option)}
-                            onChange={(e) => {
-                              const selected = ctaButtons.includes(option);
-                              setCtaButtons(
-                                selected
-                                  ? ctaButtons.filter((item) => item !== option)
-                                  : [...ctaButtons, option]
-                              );
-                            }}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`cta-${index}`}
-                          >
-                            {option}
-                          </label>
+                        <div
+                          className="row align-items-center my-1"
+                          key={index}
+                        >
+                          <div className="col-4">
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`cta-${index}`}
+                                checked={ctaButtons.includes(option)}
+                                onChange={(e) => {
+                                  const selected = ctaButtons.includes(option);
+                                  setCtaButtons(
+                                    selected
+                                      ? ctaButtons.filter(
+                                          (item) => item !== option
+                                        )
+                                      : [...ctaButtons, option]
+                                  );
+                                }}
+                              />
+                              <label
+                                className="form-check-label m-0"
+                                htmlFor={`cta-${index}`}
+                              >
+                                {option}
+                              </label>
+                            </div>
+                          </div>
+                          {ctaButtons.includes(option) && (
+                            <div className="col-lg-6">
+                              <div className="email-new">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Enter emails  ','  separated"
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
-
-                {/* Email notification */}
-                <div className="col-lg-6">
-                  <p>Email notification</p>
-                  <div className="d-flex flex-column gap-2 align-items-start">
-                    <div
-                      className="form-check email-notif"
-                    >
-                      <input
-                        type="text"
-                        id="service-name"
-                        value={emailInput}
-                        className="form-control"
-                        placeholder="Enter email"
-                        onChange={(e) => setEmailInput(e.target.value)}
-                      />
-                      <p className="title" style={{ marginTop: "7px" }}>
-                        <button onClick={() => addEmailForNotification()}>
-                          +
-                        </button>
-                      </p>
-                    </div>
-                    <div className="input-emails">
-                    {emailNotification.map((email, index) => (
-                      <p>{email} <span className="remove-icon" onClick={()=> onRemoveEmail(index)}>X</span></p>
-                    ))}
-                    </div>
-                  </div>
-                </div>
-
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Package Status</p>
+                  <label className="form-label">Package Status</label>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
@@ -497,17 +557,53 @@ const PackageManagement = () => {
                     </div>
                   </div>
                 </div>
+                {/* Email notification
+                <div className="col-lg-6">
+                  <label className="form-label">Email notification</label>
+                  <div className="d-flex flex-column gap-2 align-items-start">
+                    <div className="form-check email-notif">
+                      <input
+                        type="text"
+                        id="service-name"
+                        value={emailInput}
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={(e) => setEmailInput(e.target.value)}
+                      />
+                      <p className="title" style={{ marginTop: "7px" }}>
+                        <button onClick={() => addEmailForNotification()}>
+                          +
+                        </button>
+                      </p>
+                    </div>
+                    <div className="input-emails">
+                      {emailNotification.map((email, index) => (
+                        <p>
+                          {email}{" "}
+                          <span
+                            className="remove-icon"
+                            onClick={() => onRemoveEmail(index)}
+                          >
+                            X
+                          </span>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div> */}
               </div>
             </div>
-            <div className="card-body">
+            <div className="card-body border-bottom">
               <p className="title">
-                Package Inclusion{" "}
+                Package Inclusion
                 <button onClick={() => onAddInclusion()}>+</button>
               </p>
-              <Inclusions
-                packageInclusions={packageInclusions}
-                setPackageInclusions={setPackageInclusions}
-              />
+              <div className="row g-2">
+                <Inclusions
+                  packageInclusions={packageInclusions}
+                  setPackageInclusions={setPackageInclusions}
+                />
+              </div>
             </div>
 
             <div className="card-body">
@@ -535,6 +631,7 @@ const PackageManagement = () => {
         </div>
       </div>
 
+      {/* Packages Table */}
       <div className="row">
         <div className="col-xl-12">
           <div className="card">
@@ -550,7 +647,7 @@ const PackageManagement = () => {
                       <th>Image</th>
                       <th>Name</th>
                       <th>Short Description</th>
-                      <th>Service Type</th>
+                      <th>Service Name</th>
                       <th>Package Type</th>
                       <th>Price</th>
                       <th>Status</th>
@@ -561,7 +658,7 @@ const PackageManagement = () => {
                     {packages.length > 0 ? (
                       packages.map((item, index) => (
                         <tr key={index}>
-                          <td>{index+1}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <Link target="_blank" to={item.image_url}>
                               {" "}
@@ -585,7 +682,7 @@ const PackageManagement = () => {
                             </Link>
                           </td>
                           <td>{item?.name}</td>
-                          <td>{item.shortDescription}</td>
+                          <td>{stripHtml(item.shortDescription)}</td>
                           <td>{item?.Service?.name}</td>
                           <td>{item.type}</td>
                           <td>{item.price}</td>
@@ -605,15 +702,16 @@ const PackageManagement = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedPackageId(item.id);
-                                  setSelectedFileName2(item.package_banner);
+                                  setSelectedFileName2(item.banner);
                                   setPackageName(item.name);
-                                  setPackageType(item.type);
                                   setSelectedServiecTypeId(item.serviceId);
-                                  setPackageDesc(item.shortDescription);
+                                  setPackageDesc(item.description);
                                   setLongDescription(item.longDescription);
                                   setPackageStatus(item.isActive);
-                                  setPackagePrice(item.price);
                                   setSelectedFileName(item.image);
+
+                                  //fetchPackage details by id
+                                  fetchPackageDetailsById(item.id);
                                 }}
                               >
                                 <iconify-icon
