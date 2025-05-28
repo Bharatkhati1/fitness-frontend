@@ -324,7 +324,7 @@ const PackageManagement = () => {
 
   const stripHtml = (html) => {
     const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    tempDiv.innerHTML = DOMPurify.sanitize(html);
     return tempDiv.textContent || tempDiv.innerText || "";
   };
 
@@ -517,6 +517,7 @@ const PackageManagement = () => {
                     </div>
                   </div>
                 </div>
+
                 {/* Status */}
                 <div className="col-lg-6">
                   <label className="form-label">Package Status</label>
@@ -557,6 +558,7 @@ const PackageManagement = () => {
                     </div>
                   </div>
                 </div>
+
                 {/* Email notification
                 <div className="col-lg-6">
                   <label className="form-label">Email notification</label>
@@ -593,6 +595,7 @@ const PackageManagement = () => {
                 </div> */}
               </div>
             </div>
+            
             <div className="card-body border-bottom">
               <p className="title">
                 Package Inclusion
