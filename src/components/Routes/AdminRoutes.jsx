@@ -9,6 +9,8 @@ import Blogs from "../authorized/AdminUI/BlogsManagement/index";
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
 
+
+
 export default function AdminRoutes() {
   return (
     <Suspense fallback={<PageLoader />}>
