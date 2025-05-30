@@ -174,15 +174,7 @@ const SuccessStories = () => {
                     <label htmlFor="service-name" className="form-label">
                       Description
                     </label>
-                    <TextArea
-                      type="text"
-                      minLength={6}
-                      id="service-name"
-                      className="form-control"
-                      placeholder="Enter name"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
+                    <Ckeditor text={description} setText={(val)=> setDescription(val)}/>
                   </div>
                 </div>
                 {/* Status

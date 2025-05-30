@@ -1,7 +1,4 @@
 import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-
 import diabetesimg from "../../../public/assets/img/diabetesimg.png";
 
 import daishape from "../../../public/assets/img/daishape.png";
@@ -10,11 +7,9 @@ import daibetesimg1 from "../../../public/assets/img/daibetesimg1.png";
 import daibetesimg2 from "../../../public/assets/img/daibetesimg2.png";
 import daibetesimg3 from "../../../public/assets/img/daibetesimg3.png";
 
-function Diabetes() {
+function PackageDetails() {
   return (
     <>
-      <Header />
-
       <section className="Diabetespage InnerpageSpace">
         <span className="daishape">
           <img src={daishape}></img>
@@ -99,10 +94,8 @@ function Diabetes() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
 
-export default Diabetes;
+export default PackageDetails;

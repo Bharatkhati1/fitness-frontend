@@ -4,7 +4,7 @@ import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
+import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
@@ -20,7 +20,7 @@ import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
-import  { webAxios } from "../../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import OwlCarousel from "react-owl-carousel";
@@ -54,7 +54,9 @@ function Home() {
 
   const getBlogs = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_blogs({limit:4}));
+      const response = await webAxios.get(
+        userApiRoutes.get_blogs({ limit: 4 })
+      );
       setBlogs(response.data.data);
     } catch (error) {
       console.error(error);
@@ -283,9 +285,14 @@ function Home() {
                           <figcaption>
                             <h3>{srv.name}</h3>
                             <p>{stripHtml(srv.description)}</p>
-                            <a className="btn btn-primary hvr-shutter-out-horizontal">
+                            <Link
+                              to={`/service-details/${srv.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              className="btn btn-primary hvr-shutter-out-horizontal"
+                            >
                               Book a Free Consultation
-                            </a>
+                            </Link>
                           </figcaption>
                         </div>
                       </div>
@@ -352,7 +359,12 @@ function Home() {
               Smart Kitchen solutions help you plan, prep, and cook healthy
               meals effortlessly with ease and convenience
             </p>
-            <a className="btn btn-info hvr-shutter-out-horizontal">View More</a>
+            <Link
+              to={"/smart-kitchen"}
+              className="btn btn-info hvr-shutter-out-horizontal"
+            >
+              View More
+            </Link>
           </div>
           <div className="row">
             <div className="col-md-4 SmartKichinContent">
@@ -438,18 +450,26 @@ function Home() {
             </p>
           </div>
           <div className="row OurHealthBlogRows">
-            {blogs.map((blog)=> <div className="col-md-6 OurHealthBlogContent">
-              <figure>
-                <img  crossOrigin="anonymous" src={blog.image_url} />
-              </figure>
-              <figcaption>
-                <span>{new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2 min read</span>
-                <h3>{blog.title}</h3>
-              </figcaption>
-            </div>)}
+            {blogs.map((blog) => (
+              <div className="col-md-6 OurHealthBlogContent">
+                <figure>
+                  <img crossOrigin="anonymous" src={blog.image_url} />
+                </figure>
+                <figcaption>
+                  <span>
+                    {new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2
+                    min read
+                  </span>
+                  <h3>{blog.title}</h3>
+                </figcaption>
+              </div>
+            ))}
           </div>
           <div className="text-center btn-sec mt-4">
-            <Link to={"/blogs"} className="btn btn-primary s-btn hvr-shutter-out-horizontal">
+            <Link
+              to={"/blogs"}
+              className="btn btn-primary s-btn hvr-shutter-out-horizontal"
+            >
               view All
             </Link>
           </div>

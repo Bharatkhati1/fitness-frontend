@@ -6,7 +6,6 @@ import store from "./store/index.jsx";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import $ from "jquery";
 

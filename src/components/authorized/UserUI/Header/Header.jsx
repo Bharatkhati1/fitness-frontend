@@ -35,13 +35,13 @@ const Header = () => {
                   <Nav.Link as={Link} to={"/about-us"}  className={pathname.includes("/about-us")&&`active`}>
                     About Us
                   </Nav.Link>
-                  <Nav.Link as={Link}  className={pathname.includes("/packages")&&`active`}>
+                  <Nav.Link as={Link} to={"/all-packages"}  className={pathname.includes("/all-packages")&&`active`}>
                     Packages
                   </Nav.Link>
                   <Nav.Link as={Link} to="/tools" className={pathname.includes("/tools")&&`active`}>
                     Tools
                   </Nav.Link>
-                  <Nav.Link as={Link}  className={pathname.includes("/testimonials")&&`active`}>
+                  <Nav.Link as={Link} to={"/testimonials"} className={pathname.includes("/testimonials")&&`active`}>
                     Testimonials
                   </Nav.Link>
                   <Nav.Link as={Link} to={"/blogs"}  className={pathname.includes("/blogs")&&`active`}>
