@@ -3040,26 +3040,22 @@ body .owl-carousel .owl-item .product-list figure img {
   height: 672px;
   object-fit: cover;
   border-radius: 10px;
- 
 }
 
 .Diabetespageright h3 {
-    font-size: 38px;
-    color: rgb(128, 0, 48);
-    text-align: left;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+  font-size: 38px;
+  color: rgb(128, 0, 48);
+  text-align: left;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .Diabetespageright p {
-
-
-
   font-size: 16px;
   font-weight: 400;
   border-radius: 5px;
-  color: #2A2A2A;
+  color: #2a2a2a;
 }
 .Diabetespageleft figure {
   position: relative;
@@ -3262,7 +3258,7 @@ ul.Packagedescriptionlist {
 .adlistinfo li h4 {
   font-size: 20px;
   color: #1e1e1e;
-  text-transform: uppercase;                                                 
+  text-transform: uppercase;
   font-weight: 700;
   margin-bottom: 5px;
 }
@@ -3305,16 +3301,16 @@ ul.Packagedescriptionlist {
 }
 
 .slottimelist li {
-    font-size: 17px;
-    color: #1e1e1e82;
-    border: 1px solid rgb(0 0 0 / 17%);
-    display: inline-block;
-    padding: 7px 7px;
-    border-radius: 22px;
-    margin-bottom: 10px;
-    width: 27%;
-    text-align: center;
-    cursor: pointer;
+  font-size: 17px;
+  color: #1e1e1e82;
+  border: 1px solid rgb(0 0 0 / 17%);
+  display: inline-block;
+  padding: 7px 7px;
+  border-radius: 22px;
+  margin-bottom: 10px;
+  width: 27%;
+  text-align: center;
+  cursor: pointer;
 }
 
 .slottimelist {
@@ -3484,13 +3480,13 @@ section.clientfeedback {
 }
 
 .daishaperight {
-    position: absolute;
-    right: 0;
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+  position: absolute;
+  right: 0;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .Diabetespageright {
-    padding-left: 30px;
-    padding-right: 85px;
+  padding-left: 30px;
+  padding-right: 85px;
 }

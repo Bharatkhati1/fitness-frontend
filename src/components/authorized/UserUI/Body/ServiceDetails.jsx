@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import servicebanner from "../../../../../public/assets/img/servicebanner.png";
 import smIMG1 from "../../../../../public/assets/img/smIMG1.png";
+import { webAxios } from "../../../../utils/Api/userAxios";
+import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
+import { toast } from "react-toastify";
 
 function ServiceDetails() {
+  const {slug} = useParams()
+  const [details, setDetails] = useState({})
+
+  const fetchServiceDetails =async()=>{
+    try {
+      const response = await webAxios.get(userApiRoutes.get_service_details(slug))
+      setDetails(response.data.data)
+    } catch (error) {
+      toast.error(error.response.data.error)
+    }
+  }
+
+  useEffect(()=>{
+    fetchServiceDetails()
+  },[slug])
   return (
     <>
       <section className="innerbanner">
@@ -54,9 +73,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary" to={"/package-details"}>smart health package</Link>
+                  <Link className="btn btn-primary" to={"/experts"}>book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>
@@ -76,9 +95,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary">smart health package</Link>
+                  <Link className="btn btn-primary">book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>
@@ -97,9 +116,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary">smart health package</Link>
+                  <Link className="btn btn-primary">book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>
@@ -118,9 +137,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary">smart health package</Link>
+                  <Link className="btn btn-primary">book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>
@@ -139,9 +158,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary">smart health package</Link>
+                  <Link className="btn btn-primary">book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>
@@ -160,9 +179,9 @@ function ServiceDetails() {
                 </p>
 
                 <div className="btn-group-box">
-                  <a className="btn btn-primary">smart health package</a>
-                  <a className="btn btn-primary">book a consultation</a>
-                  <a className="btn btn-primary">talk to a fitness expert</a>
+                  <Link className="btn btn-primary">smart health package</Link>
+                  <Link className="btn btn-primary">book a consultation</Link>
+                  <Link className="btn btn-primary">talk to a fitness expert</Link>
                 </div>
               </figcaption>
             </div>

@@ -3,6 +3,8 @@ import FooterLogo from "../../../../../public/assets/img/footerLogo.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
 import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
+import CallIcon from "../../../../../public/assets/img/callIcon.png"
+import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png"
 import { Link } from "react-router-dom";
 import { getServicesForUser } from "../../../../store/auth/AuthExtraReducers";
 import { useDispatch } from "react-redux";
@@ -118,11 +120,11 @@ const Footer = () => {
 
                 <ul className="ContactInfoFooter">
                   <li>
-                    <img src="/public/assets/img/callIcon.png" />
+                    <img src={CallIcon} />
                     <a href="tel:8839036035">8839036035</a>
                   </li>
                   <li>
-                    <img src="/public/assets/img/Mesgeicon.png" />
+                    <img src={MesgIcon} />
                     <a href="mailto:info@thedailyfitness.in">
                       info@thedailyfitness.in
                     </a>

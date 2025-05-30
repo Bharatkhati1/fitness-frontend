@@ -12,7 +12,8 @@ const userApiRoutes = {
     const queryString = params.toString();
     return `/blogs${queryString ? '?' + queryString : ''}`;
   },
-  get_blog_categories:`/blogs-categories`
+  get_blog_categories:`/blogs-categories`,
+  get_service_details:(slug)=>`/package/${slug}`
 };
 
 export default userApiRoutes;
