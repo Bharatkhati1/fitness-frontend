@@ -222,9 +222,9 @@ const ServiceManagement = () => {
                       text={serviceShortDescription}
                       setText={setServiceShortDescription}
                     />
-                    <small className="text-muted">
+                    {/* <small className="text-muted">
                       {serviceShortDescription.length}/100 characters
-                    </small>
+                    </small> */}
                   </div>
                 </div>
 
@@ -439,6 +439,7 @@ const ServiceManagement = () => {
                                             setSliderHeading(
                                               service.description
                                             );
+                                            setServiceShortDescription(service.shortDescription)
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
                                           }}

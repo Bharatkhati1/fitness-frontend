@@ -1,5 +1,8 @@
 const adminApiRoutes = {
 
+    //UPLOAD IMAGE
+    upload_image:`/upload-image`,
+
     //SERVICE ROUTES
     get_services: "/service",
     create_service:"/service",
@@ -42,6 +45,32 @@ const adminApiRoutes = {
     create_team_member: "/teams",
     update_team_member: (id) => `/teams/${id}`,
     delete_team_member: (id) => `/teams/${id}`,
+
+    //CONTACT DETAILS ROUTES
+    get_contact_details:`/contact`,
+    update_contact_details:`/contact`,
+
+    //CONSULTANTS ROUTES
+    get_all_consultants:`/consultant`,
+    create_consultant:`/consultant`,
+    update_consultant:(id)=>`/consultant/${id}`,
+    delete_consultant:(id)=>`/consultant/${id}`,
+
+    //SMART KITCHEN CATEGORIES 
+    get_sk_categories:`/item-category`,
+    create_sk_category:`/item-category`,
+    update_sk_category:(id)=>`/item-category/${id}`,
+    delete_sk_category:(id)=>`/item-category/${id}`,
+
+    //RECIPE ITEM ROUTES
+    get_all_recipies:`/items`,
+    create_recipe:`/items`,
+    update_recipe:(id)=>`/items/${id}`,
+    delete_recipe:(id)=>`/items/${id}`,
+
+    //POLICIES ROUTES
+    get_policy_details:(slug)=>`/cms/${slug}`,
+    update_policy:(id)=>`/cms/${id}`
 
   };
   

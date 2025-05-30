@@ -1,6 +1,6 @@
 import React from "react";
 
-const Variants = ({ packageVariants, setPackageVariants }) => {
+const Variants = ({isEdit, packageVariants, setPackageVariants }) => {
   const allValues = [
     { value: 3, name: "3 Months" },
     { value: 6, name: "6 Months" },
@@ -49,7 +49,7 @@ const Variants = ({ packageVariants, setPackageVariants }) => {
               <div className="col-lg-6">
                 <div className="">
                   <label htmlFor={`variants-image-${index}`} className="form-label">
-                    Image
+                    Image {isEdit && ` : ${inclusion.image}`}
                   </label>
                   <input
                     type="file"

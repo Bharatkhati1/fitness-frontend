@@ -5,36 +5,43 @@ import { Link } from "react-router-dom";
 import { Select } from "antd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import Ckeditor from "../CkEditor/Ckeditor.jsx";
 
-const Consultants = () => {
+const Recepies = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    type: "",
     name: "",
-    email: "",
-    phone: "",
-    expertise: "",
-    experience: "",
     description: "",
-    fees: "",
-    duration: "",
+    recipe: "",
     image: null,
-    status: true,
+    type: null,
+    categoryId: null,
+    isActive: true,
   });
 
-  const [allConsultants, setAllConsultants] = useState([]);
+  const [allReceipes, setAllReceipes] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedConsultantID, setSelectedConsultantID] = useState(null);
+  const [selectedReciepeID, setSelectedReciepeID] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [allCategories, setAllCategories] = useState([]);
   const fileInputRef = useRef(null);
 
-  const fetchAllConsultants = async () => {
+  const fetchAllReciepe = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_all_consultants);
-      setAllConsultants(res.data.data);
+      const res = await adminAxios.get(adminApiRoutes.get_all_recipies);
+      setAllReceipes(res.data.data);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch data");
+    }
+  };
+
+  const fetchAllCategories = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_sk_categories);
+      setAllCategories(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -63,33 +70,37 @@ const Consultants = () => {
     });
 
     try {
+      const toastId = toast.loading("Submitting...");
       const url = isEdit
-        ? adminApiRoutes.update_consultant(selectedConsultantID)
-        : adminApiRoutes.create_consultant;
+        ? adminApiRoutes.update_recipe(selectedReciepeID)
+        : adminApiRoutes.create_recipe;
       const method = isEdit ? adminAxios.put : adminAxios.post;
 
       const response = await method(url, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success(response.data.message);
-      fetchAllConsultants();
+      toast.update(toastId, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      fetchAllReciepe();
       onCancelEdit();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(`Failed to submit: ${error.response?.data?.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  const deleteConsultant = async () => {
+  const deleteReceipe = async () => {
     try {
-      await adminAxios.delete(
-        adminApiRoutes.delete_consultant(selectedConsultantID)
-      );
+      await adminAxios.delete(adminApiRoutes.delete_recipe(selectedReciepeID));
       toast.success("Deleted successfully");
-      fetchAllConsultants();
+      fetchAllReciepe();
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
@@ -97,27 +108,22 @@ const Consultants = () => {
 
   const onCancelEdit = () => {
     setIsEdit(false);
-    setSelectedConsultantID(null);
+    setSelectedReciepeID(null);
     setSelectedFileName("");
     setFormData({
-      title: "",
-      type: "",
       name: "",
-      email: "",
-      phone: "",
-      expertise: "",
-      experience: "",
       description: "",
-      fees: "",
-      duration: "",
+      recipe: "",
       image: null,
       isActive: true,
+      categoryId: null,
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   useEffect(() => {
-    fetchAllConsultants();
+    fetchAllReciepe();
+    fetchAllCategories();
   }, []);
   return (
     <>
@@ -127,77 +133,23 @@ const Consultants = () => {
           <div className={`card ${isEdit ? "editing" : ""}`}>
             <div className="card-header d-flex justify-content-between">
               <h4 className="card-title">
-                {isEdit ? "Edit Consultant" : "Add Consultant"}
+                {isEdit ? "Edit Recepie" : "Add Recepie"}
               </h4>
               {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
             </div>
             <div className="card-body">
               <div className="row">
-                {/* Title Dropdown */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Title</label>
-                    <Select
-                      value={formData.title || undefined}
-                      size="large"
-                      onChange={(value) =>
-                        setFormData((prev) => ({ ...prev, title: value }))
-                      }
-                      placeholder="Select Title"
-                      className="w-100"
-                      options={[
-                        { value: "Mr.", label: "Mr." },
-                        { value: "Mrs.", label: "Mrs." },
-                        { value: "Dr.", label: "Dr." },
-                      ]}
-                    />
-                  </div>
-                </div>
-
-                {/* Type Dropdown */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Type</label>
-                    <Select
-                      value={formData.type || undefined}
-                      size="large"
-                      onChange={(value) =>
-                        setFormData((prev) => ({ ...prev, type: value }))
-                      }
-                      placeholder="Select Type"
-                      className="w-100"
-                      options={[
-                        { value: "Doctor", label: "Doctor" },
-                        { value: "Consultant", label: "Consultant" },
-                      ]}
-                    />
-                  </div>
-                </div>
-
                 {[
                   { label: "Name", name: "name", type: "text" },
-                  { label: "Email", name: "email", type: "email" },
-                  { label: "Phone", name: "phone", type: "numbers" },
-                  { label: "Specialization", name: "expertise", type: "text" },
-                  {
-                    label: "Experience (Years)",
-                    name: "experience",
-                    type: "number",
-                  },
-                  { label: "Price", name: "fees", type: "number" },
-                  { label: "Time (minutes)", name: "duration", type: "number" },
-                  { label: "Overview", name: "description", type: "text" },
+                  { label: "Description", name: "description", type: "text" },
                 ].map(({ label, name, type }) => (
-                  <div className="col-lg-6" key={name}>
+                  <div className="col-lg-4" key={name}>
                     <div className="mb-3">
-                      <label
-                        htmlFor={`consultant-${name}`}
-                        className="form-label"
-                      >
+                      <label htmlFor={`receipe-${name}`} className="form-label">
                         {label}
                       </label>
                       <input
-                        id={`consultant-${name}`}
+                        id={`receipe-${name}`}
                         name={name}
                         type={type}
                         className="form-control"
@@ -210,13 +162,13 @@ const Consultants = () => {
                 ))}
 
                 {/* Image Upload */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <div className="mb-3">
-                    <label htmlFor="consultant-image" className="form-label">
+                    <label htmlFor="receipe-image" className="form-label">
                       Image {isEdit && `: ${selectedFileName}`}
                     </label>
                     <input
-                      id="consultant-image"
+                      id="receipe-image"
                       name="image"
                       type="file"
                       ref={fileInputRef}
@@ -227,13 +179,55 @@ const Consultants = () => {
                   </div>
                 </div>
 
+                {/* Category */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label className="form-label">Category</label>
+                    <Select
+                      allowClear
+                      size="large"
+                      style={{ width: "100%" }}
+                      placeholder="Select Category"
+                      value={formData.categoryId}
+                      onChange={(value) =>
+                        setFormData((prev) => ({ ...prev, categoryId: value }))
+                      }
+                    >
+                      {allCategories.map((category) => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+
+                {/* type  */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label className="form-label">Recipe Type</label>
+                    <Select
+                      allowClear
+                      size="large"
+                      style={{ width: "100%" }}
+                      placeholder="Select type"
+                      value={formData.type}
+                      onChange={(value) =>
+                        setFormData((prev) => ({ ...prev, type: value }))
+                      }
+                    >
+                      <Option value="veg">Veg</Option>
+                      <Option value="non-veg">Non veg</Option>
+                    </Select>
+                  </div>
+                </div>
                 {/* Status */}
-                <div className="col-lg-6">
+                <div className="col-lg-4">
                   <label className="form-label d-block">Status</label>
                   <div className="d-flex gap-3">
                     <div className="form-check">
                       <input
-                        id="consultant-status-active"
+                        id="receipe-status-active"
                         className="form-check-input"
                         type="radio"
                         name="isActive"
@@ -243,14 +237,14 @@ const Consultants = () => {
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="consultant-status-active"
+                        htmlFor="receipe-status-active"
                       >
                         Active
                       </label>
                     </div>
                     <div className="form-check">
                       <input
-                        id="consultant-status-inactive"
+                        id="receipe-status-inactive"
                         className="form-check-input"
                         type="radio"
                         name="isActive"
@@ -260,11 +254,26 @@ const Consultants = () => {
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="consultant-status-inactive"
+                        htmlFor="receipe-status-inactive"
                       >
                         Inactive
                       </label>
                     </div>
+                  </div>
+                </div>
+
+                {/* Recipe  */}
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="receipe-image" className="form-label">
+                      Recipe
+                    </label>
+                    <Ckeditor
+                      text={formData.recipe}
+                      setText={(val) =>
+                        setFormData((prev) => ({ ...prev, recipe: val }))
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -279,8 +288,8 @@ const Consultants = () => {
                 {loading
                   ? "Saving..."
                   : isEdit
-                  ? "Update Consultant"
-                  : "Save Consultant"}
+                  ? "Update Recipe"
+                  : "Save Recipe"}
               </button>
             </div>
           </div>
@@ -292,37 +301,34 @@ const Consultants = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header">
-              <h4 className="card-title">All Consultants</h4>
+              <h4 className="card-title">All Recipies</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
                 <table className="table align-middle mb-0 table-hover">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>ID</th>
                       <th>Image</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Expertise</th>
-                      <th>Experience</th>
-                      <th>Fees</th>
-                      <th>Time (In minutes)</th>
+                      <th>Recipe type</th>
+                      <th>Category</th>
+                      <th>Description</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {allConsultants.length ? (
-                      allConsultants.map((consultant, index) => (
-                        <tr key={consultant.id}>
+                    {allReceipes.length ? (
+                      allReceipes.map((recipe, index) => (
+                        <tr key={recipe.id}>
                           <td>{index + 1}</td>
                           <td>
-                            <Link to={consultant.image_url} target="_blank">
+                            <Link to={recipe.image_url} target="_blank">
                               <img
-                                src={consultant.image_url}
-                                  crossorigin="anonymous"
-                                alt="Consultant"
+                                src={recipe.image_url}
+                                crossorigin="anonymous"
+                                alt="recipe"
                                 style={{
                                   width: 50,
                                   height: 50,
@@ -335,20 +341,17 @@ const Consultants = () => {
                               />
                             </Link>
                           </td>
-                          <td>{consultant.name}</td>
-                          <td>{consultant.email}</td>
-                          <td>{consultant.phone}</td>
-                          <td>{consultant.expertise}</td>
-                          <td>{consultant.experience}</td>
-                          <td>{consultant.fees}</td>
-                          <td>{consultant.duration}</td>
+                          <td>{recipe.name}</td>
+                          <td>{recipe.type}</td>
+                          <td>{recipe.ItemCategory.name}</td>
+                          <td>{recipe.description}</td>
                           <td>
                             <span
                               className={`badge ${
-                                consultant.isActive ? "bg-success" : "bg-danger"
+                                recipe.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {consultant.isActive ? "Active" : "Inactive"}
+                              {recipe.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -357,22 +360,17 @@ const Consultants = () => {
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
-                                  setSelectedConsultantID(consultant.id);
+                                  setSelectedReciepeID(recipe.id);
                                   setFormData({
-                                    title:consultant.title,
-                                    type:consultant.type,
-                                    name: consultant.name,
-                                    email: consultant.email,
-                                    phone: consultant.phone,
-                                    expertise: consultant.expertise,
-                                    experience: consultant.experience,
-                                    description: consultant.description,
-                                    fees: consultant.fees,
-                                    duration: consultant.duration,
+                                    name: recipe.name,
+                                    description: recipe.description,
                                     image: null,
-                                    isActive: consultant.isActive,
+                                    type:recipe.type,
+                                    categoryId:recipe.categoryId,
+                                    recipe: recipe.recipe,
+                                    isActive: recipe.isActive,
                                   });
-                                  setSelectedFileName(consultant.image);
+                                  setSelectedFileName(recipe.image);
                                 }}
                               >
                                 <iconify-icon
@@ -383,13 +381,13 @@ const Consultants = () => {
                               <ConfirmationPopup
                                 title="Delete Consultant"
                                 bodyText="Are you sure you want to delete this consultant?"
-                                onOk={deleteConsultant}
+                                onOk={deleteReceipe}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
                                     onClick={() =>
-                                      setSelectedConsultantID(consultant.id)
+                                      setSelectedReciepeID(recipe.id)
                                     }
                                   />
                                 }
@@ -401,7 +399,7 @@ const Consultants = () => {
                     ) : (
                       <tr>
                         <td colSpan="11" className="text-center">
-                          No consultants found.
+                          No recipe found.
                         </td>
                       </tr>
                     )}
@@ -416,4 +414,4 @@ const Consultants = () => {
   );
 };
 
-export default Consultants;
+export default Recepies;

@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import FooterLogo from "../../../../../public/assets/img/footerLogo.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
 import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
 import { Link } from "react-router-dom";
-import userAxios from "../../../../utils/Api/userAxios";
-import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
-import { toast } from "react-toastify";
+import { getServicesForUser } from "../../../../store/auth/AuthExtraReducers";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const Footer = () => {
-  const [allServices, setAllServices] = useState([]);
-
-  const getServices = async () => {
-    try {
-      const response = await userAxios.get(userApiRoutes.get_services);
-      const servicesData = response.data.data;
-      setAllServices(servicesData);
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response.data.message);
-    }
-  };
+ const dispatch = useDispatch();
+ const { allServices=[] } = useSelector((state)=> state.auth)
 
   useEffect(() => {
-    getServices();
+    dispatch(getServicesForUser())
   }, []);
   return (
     <footer className="">
@@ -66,7 +56,7 @@ const Footer = () => {
                 <h3>Services</h3>
 
                 <ul className="userlinks">
-                  {allServices.map((service) => (
+                  {allServices.slice(0,8).map((service) => (
                     <li>
                       <a>{service.name}</a>
                     </li>

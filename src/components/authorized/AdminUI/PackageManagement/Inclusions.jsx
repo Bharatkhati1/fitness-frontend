@@ -1,6 +1,6 @@
 import React from "react";
 
-const Inclusions = ({ packageInclusions, setPackageInclusions }) => {
+const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
   return (
     <>
       {packageInclusions.map((inclusion, index) => (
@@ -48,7 +48,7 @@ const Inclusions = ({ packageInclusions, setPackageInclusions }) => {
                       htmlFor={`inclusion-image-${index}`}
                       className="form-label"
                     >
-                      Inclusion image
+                      Inclusion image {isEdit && ` : ${inclusion.image}`}
                     </label>
                     <input
                       type="file"

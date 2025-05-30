@@ -7,12 +7,13 @@ import Variants from "./Variants.jsx";
 import "./package.scss";
 import { Select } from "antd";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
 const CreateUpdatePackage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
   const [longDescription, setLongDescription] = useState("");
@@ -27,7 +28,8 @@ const CreateUpdatePackage = () => {
   const [packageImage, setPakageImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [ctaButtons, setCtaButtons] = useState([]);
-
+  const [id, setId] = useState(null);
+  const [emailInputs, setEmailInputs] = useState({});
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
@@ -59,7 +61,6 @@ const CreateUpdatePackage = () => {
     { id: "5", name: "Dr. Nivedita Sharma" },
     { id: "6", name: "Dr. Anil Kapoor" },
   ];
-
 
   const fetchAllServices = async () => {
     try {
@@ -115,7 +116,7 @@ const CreateUpdatePackage = () => {
     formData.append("longDescription", "s");
     formData.append("notification_emails", emailNotification);
     formData.append("service_id", selectedServiceTypeId);
-    formData.append("action", ctaButtons);
+    formData.append("actions", JSON.stringify(ctaButtons));
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)
       formData.append("package_banner", packageBannerImage);
@@ -134,6 +135,10 @@ const CreateUpdatePackage = () => {
       }
     }
 
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} package...`
+    );
+
     try {
       const url = isEdit
         ? adminApiRoutes.update_package(selectedPackageId)
@@ -149,8 +154,13 @@ const CreateUpdatePackage = () => {
 
       if (response.status === 200) {
         onCancelEdit();
-        toast.success(response.data.message);
-        navigate("/admin/service-management/packages")
+        toast.update(loadingToastId, {
+          render: response.data.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+        navigate("/admin/service-management/packages");
       } else {
         toast.error(response.data.message);
       }
@@ -163,8 +173,6 @@ const CreateUpdatePackage = () => {
       );
     }
   };
-
-
 
   const onCancelEdit = () => {
     setIsEdit(false);
@@ -258,7 +266,7 @@ const CreateUpdatePackage = () => {
     setPackageStatus(data.isActive ?? true);
     setSelectedServiecTypeId(data.serviceId || null);
     setSelectedPackageId(data.id || null);
-
+    setCtaButtons(JSON.parse(data.actions) || []);
     // Image URLs and filenames
     setPackageBannerImage(data.banner_url || null);
     setSelectedFileName2(data.banner || "");
@@ -287,8 +295,6 @@ const CreateUpdatePackage = () => {
         }))
       : [{ name: "", duration: 0, price: "", description: "", image: null }];
     setPackageVariants(variants);
-
-    // Optional: set edit mode
     setIsEdit(true);
   };
 
@@ -302,311 +308,329 @@ const CreateUpdatePackage = () => {
       toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const idParam = queryParams.get("id");
+    const isEditParam = queryParams.get("isEdit");
+    if (isEditParam === "true") {
+      console.log("inside");
+      fetchPackageDetailsById(idParam);
+    }
+    setId(idParam);
+    setIsEdit(isEditParam === "true");
+  }, [location.search]);
 
   useEffect(() => {
     fetchAllServices();
   }, []);
-
- 
   return (
+    <>  <div className="add-package-btn">
+    <Link to="/admin/service-management/packages">
+      View Package
+    </Link>
+  </div>
     <div className="row">
-    <div className="col-lg-12">
-      <div className={`card ${isEdit && `editing`}`}>
-        <div className="card-header">
-          <h4 className="card-title">
-            {isEdit ? `Edit Selected Package` : `Add Package`}
-          </h4>
-          {isEdit && (
-            <button onClick={() => onCancelEdit()}>Cancel Edit</button>
-          )}
-        </div>
-        <div className="card-body border-bottom">
-          <div className="row">
-            {/* Package Type */}
-            <div className="col-lg-4">
-              <div className="mb-3">
-                <label htmlFor="package-type" className="form-label">
-                  Service Name
-                </label>
-                <select
-                  id="package-type"
-                  className="form-select"
-                  value={selectedServiceTypeId}
-                  onChange={(e) => setSelectedServiecTypeId(e.target.value)}
-                >
-                  <option value="">Select type</option>
-                  {allServices?.map((service) => (
-                    <option value={service.id}>{service.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Package Name */}
-            <div className="col-lg-4">
-              <div className="mb-3">
-                <label htmlFor="service-name" className="form-label">
-                  Package Name
-                </label>
-                <input
-                  type="text"
-                  id="service-name"
-                  className="form-control"
-                  placeholder="Enter name"
-                  value={packageName}
-                  onChange={(e) => setPackageName(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Package Banner Image */}
-            <div className="col-lg-4">
-              <div className="mb-3">
-                <label htmlFor="service-image" className="form-label">
-                  Package Banner Image {isEdit && ` : ${selectedFileName2}`}
-                </label>
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                  id="service-image"
-                  ref={fileInputRef2}
-                  className="form-control"
-                  onChange={(e) => setPackageBannerImage(e.target.files[0])}
-                />
-              </div>
-            </div>
-
-            {/* Package Image */}
-            <div className="col-lg-6">
-              <div className="mb-3">
-                <label htmlFor="service-image" className="form-label">
-                  Package Image {isEdit && ` : ${selectedFileName}`}
-                </label>
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                  id="service-image"
-                  ref={fileInputRef}
-                  className="form-control"
-                  onChange={(e) => setPakageImage(e.target.files[0])}
-                />
-              </div>
-            </div>
-
-            {/* Medical consultants */}
-            <div className="col-lg-6">
-              <div className="mb-3">
-                <label htmlFor="consultants" className="form-label">
-                  Medical Consultants
-                </label>
-                <Select
-                  mode="multiple"
-                  allowClear
-                  size="large"
-                  style={{ width: "100%" }}
-                  placeholder="Select medical consultants"
-                  value={selectedConsultantsId}
-                  onChange={(value) => setSelectedConsultantsId(value)}
-                >
-                  {allConsultants.map((consultant) => (
-                    <Option key={consultant.id} value={consultant.id}>
-                      {consultant.name}
-                    </Option>
-                  ))}
-                </Select>
-              </div>
-            </div>
-
-            {/* Package desciption */}
-            <div className="col-lg-12">
-              <div className="mb-3">
-                <label htmlFor="service-des" className="form-label">
-                  Description
-                </label>
-                <Ckeditor
-                  text={packageDesc}
-                  setText={(value) => {
-                    const text = value;
-                    if (text.length <= 100) {
-                      setPackageDesc(text);
-                    }
-                  }}
-                />
-                <small className="text-muted">
-                  {packageDesc?.length}/100 characters
-                </small>
-              </div>
-            </div>
-
-            {/* CTA button */}
-            <div className="col-lg-6">
-              <div className="mb-3">
-                <label className="form-label">CTA Button</label>
-                <div className="">
-                  {ctaOptions.map((option, index) => (
-                    <div
-                      className="row align-items-center my-1"
-                      key={index}
-                    >
-                      <div className="col-4">
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`cta-${index}`}
-                            checked={ctaButtons.includes(option)}
-                            onChange={(e) => {
-                              const selected = ctaButtons.includes(option);
-                              setCtaButtons(
-                                selected
-                                  ? ctaButtons.filter(
-                                      (item) => item !== option
-                                    )
-                                  : [...ctaButtons, option]
-                              );
-                            }}
-                          />
-                          <label
-                            className="form-check-label m-0"
-                            htmlFor={`cta-${index}`}
-                          >
-                            {option}
-                          </label>
-                        </div>
-                      </div>
-                      {ctaButtons.includes(option) && (
-                        <div className="col-lg-6">
-                          <div className="email-new">
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Enter emails  ','  separated"
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Status */}
-            <div className="col-lg-6">
-              <label className="form-label">Package Status</label>
-              <div className="d-flex gap-2 align-items-center">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="service-status"
-                    value={true}
-                    checked={packageStatus}
-                    onChange={() => setPackageStatus(true)}
-                    id="status-active"
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor="status-active"
-                  >
-                    Active
+      <div className="col-lg-12">
+        <div className={`card ${isEdit && `editing`}`}>
+          <div className="card-header">
+            <h4 className="card-title">
+              {isEdit ? `Edit Selected Package` : `Add Package`}
+            </h4>
+            {isEdit && (
+              <button onClick={() => onCancelEdit()}>Cancel Edit</button>
+            )}
+          </div>
+          <div className="card-body border-bottom">
+            <div className="row">
+              {/* Package Type */}
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="package-type" className="form-label">
+                    Service Name
                   </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="service-status"
-                    value={false}
-                    checked={!packageStatus}
-                    onChange={() => setPackageStatus(false)}
-                    id="status-inactive"
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor="status-inactive"
+                  <select
+                    id="package-type"
+                    className="form-select"
+                    value={selectedServiceTypeId}
+                    onChange={(e) => setSelectedServiecTypeId(e.target.value)}
                   >
-                    Inactive
-                  </label>
+                    <option value="">Select type</option>
+                    {allServices?.map((service) => (
+                      <option value={service.id}>{service.name}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
-            </div>
 
-            {/* Email notification
-            <div className="col-lg-6">
-              <label className="form-label">Email notification</label>
-              <div className="d-flex flex-column gap-2 align-items-start">
-                <div className="form-check email-notif">
+              {/* Package Name */}
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="service-name" className="form-label">
+                    Package Name
+                  </label>
                   <input
                     type="text"
                     id="service-name"
-                    value={emailInput}
                     className="form-control"
-                    placeholder="Enter email"
-                    onChange={(e) => setEmailInput(e.target.value)}
+                    placeholder="Enter name"
+                    value={packageName}
+                    onChange={(e) => setPackageName(e.target.value)}
                   />
-                  <p className="title" style={{ marginTop: "7px" }}>
-                    <button onClick={() => addEmailForNotification()}>
-                      +
-                    </button>
-                  </p>
-                </div>
-                <div className="input-emails">
-                  {emailNotification.map((email, index) => (
-                    <p>
-                      {email}{" "}
-                      <span
-                        className="remove-icon"
-                        onClick={() => onRemoveEmail(index)}
-                      >
-                        X
-                      </span>
-                    </p>
-                  ))}
                 </div>
               </div>
-            </div> */}
+
+              {/* Package Banner Image */}
+              <div className="col-lg-4">
+                <div className="mb-3">
+                  <label htmlFor="service-image" className="form-label">
+                    Package Banner Image {isEdit && ` : ${selectedFileName2}`}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                    id="service-image"
+                    ref={fileInputRef2}
+                    className="form-control"
+                    onChange={(e) => setPackageBannerImage(e.target.files[0])}
+                  />
+                </div>
+              </div>
+
+              {/* Package Image */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="service-image" className="form-label">
+                    Package Image {isEdit && ` : ${selectedFileName}`}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                    id="service-image"
+                    ref={fileInputRef}
+                    className="form-control"
+                    onChange={(e) => setPakageImage(e.target.files[0])}
+                  />
+                </div>
+              </div>
+
+              {/* Medical consultants */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label htmlFor="consultants" className="form-label">
+                    Medical Consultants
+                  </label>
+                  <Select
+                    mode="multiple"
+                    allowClear
+                    size="large"
+                    style={{ width: "100%" }}
+                    placeholder="Select medical consultants"
+                    value={selectedConsultantsId}
+                    onChange={(value) => setSelectedConsultantsId(value)}
+                  >
+                    {allConsultants.map((consultant) => (
+                      <Option key={consultant.id} value={consultant.id}>
+                        {consultant.name}
+                      </Option>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+
+              {/* Package desciption */}
+              <div className="col-lg-12">
+                <div className="mb-3">
+                  <label htmlFor="service-des" className="form-label">
+                    Description
+                  </label>
+                  <Ckeditor
+                    text={packageDesc}
+                    setText={(value) => setPackageDesc(value)}
+                  />
+                  <small className="text-muted">
+                    {packageDesc?.length}/100 characters
+                  </small>
+                </div>
+              </div>
+
+              {/* CTA button */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">CTA Button</label>
+                  <div className="">
+                    {ctaOptions.map((option, index) => {
+                      const matchedButton = ctaButtons.find(
+                        (btn) => btn.name === option
+                      );
+                      const inputValue =
+                        emailInputs[option] ??
+                        matchedButton?.emails.join(", ") ??
+                        "";
+                      return (
+                        <div
+                          className="row align-items-center my-1"
+                          key={index}
+                        >
+                          <div className="col-4">
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`cta-${index}`}
+                                checked={!!matchedButton}
+                                onChange={() => {
+                                  if (matchedButton) {
+                                    setCtaButtons((prev) =>
+                                      prev.filter(
+                                        (item) => item.name !== option
+                                      )
+                                    );
+                                    setEmailInputs((prev) => {
+                                      const updated = { ...prev };
+                                      delete updated[option];
+                                      return updated;
+                                    });
+                                  } else {
+                                    setCtaButtons((prev) => [
+                                      ...prev,
+                                      { name: option, emails: [] },
+                                    ]);
+                                    setEmailInputs((prev) => ({
+                                      ...prev,
+                                      [option]: "",
+                                    }));
+                                  }
+                                }}
+                              />
+                              <label
+                                className="form-check-label m-0"
+                                htmlFor={`cta-${index}`}
+                              >
+                                {option}
+                              </label>
+                            </div>
+                          </div>
+
+                          {matchedButton && (
+                            <div className="col-lg-6">
+                              <div className="email-new">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Enter emails ',' separated"
+                                  value={inputValue}
+                                  onChange={(e) => {
+                                    const input = e.target.value;
+                                    setEmailInputs((prev) => ({
+                                      ...prev,
+                                      [option]: input,
+                                    }));
+                                  }}
+                                  onBlur={() => {
+                                    const emailArray = inputValue
+                                      .split(",")
+                                      .map((email) => email.trim())
+                                      .filter((email) => email.length > 0);
+
+                                    setCtaButtons((prev) =>
+                                      prev.map((btn) =>
+                                        btn.name === option
+                                          ? { ...btn, emails: emailArray }
+                                          : btn
+                                      )
+                                    );
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Status */}
+              <div className="col-lg-6">
+                <label className="form-label">Package Status</label>
+                <div className="d-flex gap-2 align-items-center">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="service-status"
+                      value={true}
+                      checked={packageStatus}
+                      onChange={() => setPackageStatus(true)}
+                      id="status-active"
+                    />
+                    <label className="form-check-label" htmlFor="status-active">
+                      Active
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="service-status"
+                      value={false}
+                      checked={!packageStatus}
+                      onChange={() => setPackageStatus(false)}
+                      id="status-inactive"
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="status-inactive"
+                    >
+                      Inactive
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <div className="card-body border-bottom">
-          <p className="title">
-            Package Inclusion
-            <button onClick={() => onAddInclusion()}>+</button>
-          </p>
-          <div className="row g-2">
-            <Inclusions
-              packageInclusions={packageInclusions}
-              setPackageInclusions={setPackageInclusions}
+
+          <div className="card-body border-bottom">
+            <p className="title">
+              Package Inclusion
+              <button onClick={() => onAddInclusion()}>+</button>
+            </p>
+            <div className="row g-2">
+              <Inclusions
+                isEdit={isEdit}
+                packageInclusions={packageInclusions}
+                setPackageInclusions={setPackageInclusions}
+              />
+            </div>
+          </div>
+
+          <div className="card-body">
+            <p className="title">
+              Package Variants
+              <button onClick={() => onAddVariant()}>+</button>
+            </p>
+            <Variants
+              isEdit={isEdit}
+              packageVariants={packageVariants}
+              setPackageVariants={setPackageVariants}
             />
           </div>
-        </div>
 
-        <div className="card-body">
-          <p className="title">
-            Package Variants
-            <button onClick={() => onAddVariant()}>+</button>
-          </p>
-          <Variants
-            packageVariants={packageVariants}
-            setPackageVariants={setPackageVariants}
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="card-footer border-top">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleSubmit}
-          >
-            {isEdit ? `Update Changes` : `Save Change`}
-          </button>
+          {/* Submit Button */}
+          <div className="card-footer border-top">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSubmit}
+            >
+              {isEdit ? `Update Changes` : `Save Change`}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  )
-}
+    </div></>
+  );
+};
 
-export default CreateUpdatePackage
+export default CreateUpdatePackage;

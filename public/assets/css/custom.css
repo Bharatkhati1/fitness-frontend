@@ -43,6 +43,14 @@
     border-radius: 8px;
 }
 
+.admin-pages .note-editor .note-btn-group button{
+color: #333 !important;
+padding: 6px 10px;
+height: auto;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;
+}
 .admin-pages select,
 .admin-pages input {
     padding: 9px 12px;

@@ -2,8 +2,9 @@ import axios from "axios";
 import { GATEWAY_URL } from "../../utils/constants";
 import { authActions } from "./index";
 import { toast } from "react-toastify";
-import userAxios from "../../utils/Api/userAxios";
+import userAxios, { webAxios } from "../../utils/Api/userAxios";
 import store from "..";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
 export const Login = (userData, navigate, isAdmin = false) => {
   return async (dispatch) => {
@@ -139,6 +140,28 @@ export const logoutUser = (isUser) => {
       toast.error(error?.response?.data?.message);
     } finally {
       dispatch(authActions.setLoginButtonDisable(false));
+    }
+  };
+};
+
+export const getServicesForUser  = () => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(userApiRoutes.get_services);
+      const servicesData = response.data.data;
+      const chunkSize = 6;
+      const chunkedServices = [];
+      for (let i = 0; i < servicesData.length; i += chunkSize) {
+        chunkedServices.push(servicesData.slice(i, i + chunkSize));
+      }
+      dispatch(
+        authActions.setServices({
+          services: chunkedServices,
+          allServices: servicesData,
+        })
+      );
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
     }
   };
 };

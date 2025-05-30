@@ -3,6 +3,10 @@ export const reducers = {
     state.isLoggedIn = action.payload.isLoggedIn;
     state.isAdmin = action.payload.isAdmin;
   },
+  setServices(state, action) {
+    state.services = action.payload.services;
+    state.allServices = action.payload.allServices;
+  },
   setAdminDetails(state, action) {
     state.adminDetails = action.payload;
   },

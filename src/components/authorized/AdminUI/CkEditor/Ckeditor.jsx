@@ -1,78 +1,56 @@
 import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {
-  ClassicEditor,
-  Essentials,
-  Paragraph,
-  Bold,
-  Italic,
-  Underline,
-  Strikethrough,
-  Code,
-  CodeBlock,
-  Heading,
-  BlockQuote,
-  List,
-  Table,
-  TableToolbar,
-  MediaEmbed,
-} from "ckeditor5";
+import ReactSummernote from "react-summernote";
+import "react-summernote/dist/react-summernote.css";
 
-import "ckeditor5/ckeditor5.css";
-const Ckeditor = ({text, setText}) => {
-    console.log({text, setText})
+import "bootstrap/js/dist/modal";
+import "bootstrap/js/dist/dropdown";
+import "bootstrap/js/dist/tooltip";
+import adminAxios from "../../../../utils/Api/adminAxios";
+import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
+
+const Ckeditor = ({ text, setText }) => {
+  const onChange = (content) => {
+    setText(content);
+  };
+  const handleImageUpload = async (files) => {
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await adminAxios.post(adminApiRoutes.upload_image, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const imageUrl = response.data.url; 
+      ReactSummernote.insertImage(imageUrl, file.name);
+    } catch (error) {
+      toast.error("Image upload failed");
+      console.error("Upload error:", error);
+    }
+  };
   return (
-    <div>
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          licenseKey:
-            "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDg0NzY3OTksImp0aSI6IjJmM2YzYzQ0LTdkZDktNGNjMy05YTI0LTEzNmE2NjUwMTk1YSIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6ImJlM2MxZDg5In0.5MQ_HUdZu43w0fmLj9-MYPqijOSfi6UxImUEFsUCZI9FhuNpQLkoYLBJnXm9oOtV-B8AqMFWRwzCBdTBXNzsFw",
-          plugins: [
-            Essentials,
-            Paragraph,
-            Bold,
-            Italic,
-            Underline,
-            Strikethrough,
-            Code,
-            CodeBlock,
-            Heading,
-            BlockQuote,
-            List,
-            Table,
-            TableToolbar,
-            MediaEmbed,
-          ],
-          toolbar: [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "underline",
-            "strikethrough",
-            "code",
-            "codeBlock",
-            "|",
-            "link",
-            "blockQuote",
-            "bulletedList",
-            "numberedList",
-            "|",
-            "insertTable",
-            "mediaEmbed",
-            "|",
-            "undo",
-            "redo",
-          ],
-        }}
-        data={text}
-        onChange={(event, editor) => {
-            const data = editor.getData();
-            setText(data);
-          }}
-      />
-    </div>
+    <ReactSummernote
+      options={{
+        disableDragAndDrop: true,
+        height: 200,
+        toolbar: [
+          ["style", ["style"]],
+          ["font", ["bold", "underline", "clear"]],
+          ["fontname", ["fontname"]],
+          ["para", ["ul", "ol", "paragraph"]],
+          ["table", ["table"]],
+          ["insert", ["link", "picture", "video"]],
+          ["view", ["fullscreen", "codeview"]],
+        ],
+      }}
+      value={text}
+      defaultValue={text} 
+      onChange={onChange}
+      onImageUpload={handleImageUpload}
+    />
   );
 };
 

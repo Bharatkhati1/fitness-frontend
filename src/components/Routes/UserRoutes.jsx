@@ -5,13 +5,11 @@ import PageLoader from "../PageLoader";
 import Home from "../authorized/UserUI/Body/home/Home";
 import AppLayout from "../authorized/UserUI/AppLayout";
 import Tools from "../authorized/UserUI/Body/tools/Tools";
-import Blogs from "../pages/Blogs";
-import BlogDeatils from "../pages/BlogDeatils";
-import ContactUs from "../pages/ContactUs";
-import ServiceDetails from "../pages/ServiceDetails";
-import AboutUs from "../pages/AboutUs";
-
-
+import Blogs from "../authorized/UserUI/Body/Blogs";
+import BlogsDetails from "../authorized/UserUI/Body/BlogsDetails";
+import ContactUs from "../authorized/UserUI/Body/ContactUs";
+import ServiceDetails from "../authorized/UserUI/Body/ServiceDetails";
+import AboutUs from "../authorized/UserUI/Body/AboutUs";
 
 export default function UserRoutes() {
   return (
@@ -20,7 +18,7 @@ export default function UserRoutes() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blog-deatils" element={<BlogDeatils />} />
+          <Route path="/blog-deatils" element={<BlogsDetails />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/service-details" element={<ServiceDetails />} />
           <Route path="/about-us" element={<AboutUs />}  />

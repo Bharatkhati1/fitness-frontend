@@ -1,24 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import DOMPurify from "dompurify";
-import UserCoupleImg from "../../../../../../public/assets/img/bannerCouple.png";
 import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
 import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
-import ServiceImg1 from "../../../../../../public/assets/img/ServiceImg-1.png";
-import ServiceImg2 from "../../../../../../public/assets/img/ServiceImg-2.png";
-import ServiceImg3 from "../../../../../../public/assets/img/ServiceImg-3.png";
-import ServiceImg4 from "../../../../../../public/assets/img/ServiceImg-4.png";
-import ServiceImg5 from "../../../../../../public/assets/img/ServiceImg-5.png";
-import ServiceImg6 from "../../../../../../public/assets/img/ServiceImg-6.png";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
-import BlogImg1 from "../../../../../../public/assets/img/BlogImg1.png";
-import BlogImg2 from "../../../../../../public/assets/img/BlogImg2.png";
-import BlogImg3 from "../../../../../../public/assets/img/BlogImg3.png";
-import BlogImg4 from "../../../../../../public/assets/img/BlogImg4.png";
 import VectorImg from "../../../../../../public/assets/img/vectorimg1.png";
 import ContactUs from "../../../../../../public/assets/img/contactUs.png";
 import MeetExperts from "../../../../../../public/assets/img/OurMeetExpertsImg.png";
@@ -31,29 +20,31 @@ import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
-import userAxios from "../../../../../utils/Api/userAxios";
+import  { webAxios } from "../../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-
 import heartbeat from "../../../../../../public/assets/img/heartbeat.png";
-
 import circleShapeLeft from "../../../../../../public/assets/img/circleShapeLeft.png";
 import circleShapeRight from "../../../../../../public/assets/img/circleShapeRight.png";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Home() {
+  const { allServices = [], services = [] } = useSelector(
+    (state) => state.auth
+  );
+
   const [sliders, setSliders] = useState([]);
-  const [services, setServices] = useState([]);
-  const [allServices, setAllServices] = useState([])
   const [blogs, setBlogs] = useState([]);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
   const getSliders = async () => {
     try {
-      const response = await userAxios.get(userApiRoutes.get_sliders);
+      const response = await webAxios.get(userApiRoutes.get_sliders);
       setSliders(response.data.data);
     } catch (error) {
       console.error(error);
@@ -61,32 +52,13 @@ function Home() {
     }
   };
 
-  // const getBlogs = async () => {
-  //   try {
-  //     const response = await userAxios.get(userApiRoutes.get_blogs());
-  //     setBlogs(response.data.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error(error.response?.data?.message || "Failed to fetch sliders");
-  //   }
-  // };
-
-  const getServices = async () => {
+  const getBlogs = async () => {
     try {
-      const response = await userAxios.get(userApiRoutes.get_services);
-      const servicesData = response.data.data;
-      setAllServices(servicesData);
-      const chunkSize = 6;
-      const chunkedServices = [];
-
-      for (let i = 0; i < servicesData.length; i += chunkSize) {
-        chunkedServices.push(servicesData.slice(i, i + chunkSize));
-      }
-
-      setServices(chunkedServices);
+      const response = await webAxios.get(userApiRoutes.get_blogs({limit:4}));
+      setBlogs(response.data.data);
     } catch (error) {
       console.error(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
     }
   };
 
@@ -95,6 +67,18 @@ function Home() {
     tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
     return tempDiv.textContent || tempDiv.innerText || "";
   };
+
+  const prevArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
+
+  const nextArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -127,21 +111,8 @@ function Home() {
 
   useEffect(() => {
     getSliders();
-    getServices();
-    // getBlogs();
+    getBlogs();
   }, []);
-
-  const prevArrow = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
-  </svg>
-`;
-
-  const nextArrow = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
-  </svg>
-`;
 
   return (
     <>
@@ -362,7 +333,7 @@ function Home() {
         <div className="VideBox bg-black" ref={videoContainerRef}>
           <video
             ref={videoRef}
-            style={{objectFit:"fill"}}
+            style={{ objectFit: "fill" }}
             src="assets/video/01.mp4"
             width="100%"
             loop
@@ -443,7 +414,9 @@ function Home() {
       <section className="PosterSec empoweringhealth">
         <div className="container">
           <div className="PosterContent">
-            <h2 className="text-uppercase">Empowering Your Health and Fitness Journey</h2>
+            <h2 className="text-uppercase">
+              Empowering Your Health and Fitness Journey
+            </h2>
             <p>
               At The Daily Fitness, we prioritize your health with personalized
               plans, expert guidance, and valuable resources, making wellness
@@ -465,7 +438,7 @@ function Home() {
             </p>
           </div>
           <div className="row OurHealthBlogRows">
-            {/* {blogs.slice(0, 4).map((blog)=> <div className="col-md-6 OurHealthBlogContent">
+            {blogs.map((blog)=> <div className="col-md-6 OurHealthBlogContent">
               <figure>
                 <img  crossOrigin="anonymous" src={blog.image_url} />
               </figure>
@@ -473,48 +446,12 @@ function Home() {
                 <span>{new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2 min read</span>
                 <h3>{blog.title}</h3>
               </figcaption>
-            </div>)} */}
-            <div className="col-md-6 OurHealthBlogContent">
-              <figure>
-                <img src={BlogImg2} />
-              </figure>
-              <figcaption>
-                <span>4/21/2025 . 2 min read</span>
-                <h3>Understanding Glutathione : Benefits and Myths</h3>
-              </figcaption>
-            </div>
-            <div className="col-md-6 OurHealthBlogContent">
-              <figure>
-                <img src={BlogImg2} />
-              </figure>
-              <figcaption>
-                <span>4/21/2025 . 2 min read</span>
-                <h3>Understanding Glutathione : Benefits and Myths</h3>
-              </figcaption>
-            </div>
-            <div className="col-md-6 OurHealthBlogContent mb-0">
-              <figure>
-                <img src={BlogImg3} />
-              </figure>
-              <figcaption>
-                <span>4/21/2025 . 2 min read</span>
-                <h3>Understanding Glutathione : Benefits and Myths</h3>
-              </figcaption>
-            </div>
-            <div className="col-md-6 OurHealthBlogContent mb-0">
-              <figure>
-                <img src={BlogImg4} />
-              </figure>
-              <figcaption>
-                <span>4/21/2025 . 2 min read</span>
-                <h3>Understanding Glutathione : Benefits and Myths</h3>
-              </figcaption>
-            </div>
+            </div>)}
           </div>
           <div className="text-center btn-sec mt-4">
-            <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
+            <Link to={"/blogs"} className="btn btn-primary s-btn hvr-shutter-out-horizontal">
               view All
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -760,19 +697,24 @@ function Home() {
                 <div className="col-md-12 checklistBox mb-3">
                   <label className="mb-3">You want to consult for :</label>
                   <ul className="form-checkList d-flex">
-                  { allServices.map((service)=><li>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                        />
-                        <label class="form-check-label" for="flexCheckChecked">
-                         {service.name}
-                        </label>
-                      </div>
-                    </li>) }
+                    {allServices.map((service) => (
+                      <li>
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckChecked"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexCheckChecked"
+                          >
+                            {service.name}
+                          </label>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
