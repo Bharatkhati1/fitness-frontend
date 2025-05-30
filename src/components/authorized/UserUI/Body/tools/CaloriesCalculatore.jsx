@@ -209,7 +209,7 @@ function CaloriesCalculatore() {
               </div>
             </div>
 
-            <div className="col-md-6 ps-4">
+          {calories&&  <div className="col-md-6 ps-4">
               <div className="calulaterResult calulaterDiet">
                 <h4>Result</h4>
                 <div className="ResultBox">
@@ -234,7 +234,7 @@ function CaloriesCalculatore() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </section>

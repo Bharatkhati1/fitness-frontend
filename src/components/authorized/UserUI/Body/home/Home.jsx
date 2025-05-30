@@ -289,7 +289,7 @@ function Home() {
                             <figcaption>
                               <h3>{srv.name}</h3>
                               <p>{stripHtml(srv.description)}</p>
-                              <div className="gap-3 service-btn">
+                              <div className="gap-3 service-btn text-center">
                                 {showButton("Smart Health Packages") && (
                                   <Link
                                     to={`/service-details/${srv.name

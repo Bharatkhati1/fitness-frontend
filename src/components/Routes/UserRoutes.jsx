@@ -28,7 +28,7 @@ export default function UserRoutes() {
           <Route path="/service-details/:slug" element={<ServiceDetails />} />
           <Route path="/about-us" element={<AboutUs />}  />
           <Route path="/packages" element={<Home />} />
-          <Route path="/package" element={<PackageDetails />} />
+          <Route path="/package/:slug" element={<PackageDetails />} />
           <Route path="/experts" element={<BookAppoinment />} />
           <Route path="/all-packages" element={<AllPakages />} />
           <Route path="/smart-kitchen" element={<Smartkitchen />} />

@@ -58,7 +58,6 @@ function Blogs() {
                 items={1}
                 autoplaySpeed={500}
                 autoplayTimeout={3000}
-                loop={true}
                 margin={0}
                 nav={true}
               >

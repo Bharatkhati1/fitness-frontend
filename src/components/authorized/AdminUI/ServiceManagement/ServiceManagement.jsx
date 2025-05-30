@@ -500,10 +500,12 @@ const ServiceManagement = () => {
                                           onClick={() => {
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
+                                            setCtaButtons(JSON.parse(service.actions))
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
                                             );
+                                            console.log(service)
                                             setServiceShortDescription(
                                               service.shortDescription
                                             );

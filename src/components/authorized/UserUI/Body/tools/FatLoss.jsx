@@ -254,7 +254,7 @@ const FatLoass = () => {
               </div>
             </div>
 
-            <div className="col-md-6 ps-4">
+           {result&&<div className="col-md-6 ps-4">
               <div className="calulaterResult calulaterDiet">
                 <h4 className="mb-3">Result</h4>
                 <div className="ResultBox">
@@ -286,7 +286,7 @@ const FatLoass = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </section>

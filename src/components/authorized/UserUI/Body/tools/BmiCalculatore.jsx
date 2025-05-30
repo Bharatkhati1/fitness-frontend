@@ -151,7 +151,7 @@ function BmiCalculator() {
               </div>
             </div>
 
-            <div className="col-md-5 ms-auto">
+         {  bmi&& <div className="col-md-5 ms-auto">
               <div className="calulaterResult">
                 <div className="calulaterResultHead">
                   <h3>Result</h3>
@@ -197,7 +197,7 @@ function BmiCalculator() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </section>

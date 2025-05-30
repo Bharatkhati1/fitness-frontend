@@ -1,13 +1,40 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import diabetesimg from "../../../public/assets/img/diabetesimg.png";
 
 import daishape from "../../../public/assets/img/daishape.png";
-
+import DOMPurify from "DOMPurify"
 import daibetesimg1 from "../../../public/assets/img/daibetesimg1.png";
 import daibetesimg2 from "../../../public/assets/img/daibetesimg2.png";
 import daibetesimg3 from "../../../public/assets/img/daibetesimg3.png";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { useParams } from "react-router-dom";
+import { webAxios } from "../../utils/Api/userAxios";
+import { toast } from "react-toastify";
 
 function PackageDetails() {
+  const { slug } = useParams();
+  const [details, setDetails] = useState({});
+
+  const fetchPackageDetails = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_package_details(slug)
+      );
+      setDetails(response.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+  console.log(details);
+
+  useEffect(() => {
+    fetchPackageDetails();
+  }, [slug]);
   return (
     <>
       <section className="Diabetespage InnerpageSpace">
