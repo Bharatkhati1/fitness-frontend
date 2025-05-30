@@ -12,6 +12,7 @@ const userApiRoutes = {
     const queryString = params.toString();
     return `/blogs${queryString ? '?' + queryString : ''}`;
   },
+  get_blog_details:(slug)=>`/blogs/${slug}`,
   get_blog_categories:`/blogs-categories`,
   get_service_details:(slug)=>`/package/${slug}`,
   get_package_details:(slug)=>`/package/${slug}/details`

@@ -248,115 +248,74 @@ function Home() {
               pal
             </p>
           </div>
-          <div className="row OurServicesRow">
-            {Array.isArray(services) &&
-            services.length > 0 &&
-            Array.isArray(services[0]) ? (
-              <OwlCarousel
-                className="owl-theme"
-                autoplay={true}
-                dots={true}
-                items={1}
-                loop={true}
-                margin={10}
-                nav={true}
-                navText={[prevArrow, nextArrow]}
-                autoplaySpeed={1000}
-                autoplayTimeout={5000}
-              >
-                {services.map((group, index) => (
-                  <div className="row" key={index}>
-                    {group.map((srv, idx) => {
-                      // Parse the JSON actions string
-                      const parsedActions = JSON.parse(srv.actions || "[]");
-                      const actionNames = parsedActions.map(
-                        (action) => action.name
-                      );
+          {services?.map((group, index) => (
+            <div className="row" key={index}>
+              {group.map((srv, idx) => {
+                let parsedActions = [];
+                try {
+                  const rawActions =
+                    typeof srv?.actions === "string" ? srv.actions : "[]";
+                  const parsed = JSON.parse(rawActions);
+                  parsedActions = Array.isArray(parsed) ? parsed : [];
+                } catch (error) {
+                  console.warn("Invalid actions JSON:", srv?.actions);
+                  parsedActions = [];
+                }
 
-                      // Utility function
-                      const showButton = (label) => actionNames.includes(label);
+                const actionNames = parsedActions.map((action) => action.name);
 
-                      return (
-                        <div className="col-md-4" key={idx}>
-                          <div className="OurServicesContent">
-                            <figure>
-                              <img
-                                crossOrigin="anonymous"
-                                src={srv.image_url}
-                                alt={srv.name}
-                              />
-                            </figure>
-                            <figcaption>
-                              <h3>{srv.name}</h3>
-                              <p>{stripHtml(srv.description)}</p>
-                              <div className="gap-3 service-btn text-center">
-                                {showButton("Smart Health Packages") && (
-                                  <Link
-                                    to={`/service-details/${srv.name
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-")}`}
-                                    className="btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Smart Health Package
-                                  </Link>
-                                )}
+                const showButton = (label) => actionNames.includes(label);
 
-                                {showButton("Contact our Helpline") && (
-                                  <a
-                                    href="#GetInTouch"
-                                    className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Contact our Helpline
-                                  </a>
-                                )}
-
-                                {showButton("Talk a Fitness Expert") && (
-                                  <a
-                                    href="#GetInTouch"
-                                    className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Talk a Fitness Expert
-                                  </a>
-                                )}
-                              </div>
-                            </figcaption>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ))}
-
-                {/* {JSON.parse(srv.actions)?.map((btn)=><a
-                              href=""
-                              className="d-inline-block my-1 align-middle btn btn-primary hvr-shutter-out-horizontal"
+                return (
+                  <div className="col-md-4" key={idx}>
+                    <div className="OurServicesContent">
+                      <figure>
+                        <img
+                          crossOrigin="anonymous"
+                          src={srv.image_url}
+                          alt={srv.name}
+                        />
+                      </figure>
+                      <figcaption>
+                        <h3>{srv.name}</h3>
+                        <p>{stripHtml(srv.description)}</p>
+                        <div className="gap-3 service-btn text-center">
+                          {showButton("Smart Health Packages") && (
+                            <Link
+                              to={`/service-details/${srv.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              className="btn btn-primary hvr-shutter-out-horizontal"
                             >
-                             {btn.name}
-                            </a>)} */}
-              </OwlCarousel>
-            ) : (
-              <div className="text-center py-5">
-                <h5>No services found.</h5>
-              </div>
-            )}
+                              Smart Health Package
+                            </Link>
+                          )}
 
-            {/* {services.map((service) => (
-              <div className="col-md-4">
-                <div className="OurServicesContent">
-                  <figure>
-                    <img crossOrigin="annoymous" src={service.image_url} />
-                  </figure>
-                  <figcaption>
-                    <h3>{service.name}</h3>
-                    <p>{stripHtml(service.description)}</p>
-                    <a className="btn btn-primary hvr-shutter-out-horizontal">
-                      book a free consultation
-                    </a>
-                  </figcaption>
-                </div>
-              </div>
-            ))} */}
-          </div>
+                          {showButton("Contact our Helpline") && (
+                            <a
+                              href="#GetInTouch"
+                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                              Contact our Helpline
+                            </a>
+                          )}
+
+                          {showButton("Talk a Fitness Expert") && (
+                            <a
+                              href="#GetInTouch"
+                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                              Talk a Fitness Expert
+                            </a>
+                          )}
+                        </div>
+                      </figcaption>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </section>
       <section className="WhyChoose">

@@ -177,7 +177,9 @@ function Blogs() {
                   </div>
                   <p>
                     {blog.shortDescription}
-                    <Link to={"/blog-deatils"}>
+                    <Link to={`/blog/${blog.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}>
                       Read More <img src={readMoreimg} />
                     </Link>
                   </p>

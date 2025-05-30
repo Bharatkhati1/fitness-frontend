@@ -23,13 +23,13 @@ export default function UserRoutes() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blog-deatils" element={<BlogsDetails />} />
+          <Route path="/blog/:slug" element={<BlogsDetails />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/service-details/:slug" element={<ServiceDetails />} />
           <Route path="/about-us" element={<AboutUs />}  />
           <Route path="/packages" element={<Home />} />
           <Route path="/package/:slug" element={<PackageDetails />} />
-          <Route path="/experts" element={<BookAppoinment />} />
+          <Route path="/experts/:slug" element={<BookAppoinment />} />
           <Route path="/all-packages" element={<AllPakages />} />
           <Route path="/smart-kitchen" element={<Smartkitchen />} />
           <Route path="/testimonials" element={<Testimonial />} />

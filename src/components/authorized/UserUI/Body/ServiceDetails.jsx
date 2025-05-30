@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
-import smIMG1 from "../../../../../public/assets/img/smIMG1.png";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
@@ -36,7 +35,7 @@ function ServiceDetails() {
         </figure>
         <div className="container">
           <div className="innerbannerContent">
-            <h2>{details.name}</h2>
+            <h2>{details?.name}</h2>
             <p>{stripHtml(details?.shortDescription)}</p>
           </div>
         </div>
@@ -65,7 +64,9 @@ function ServiceDetails() {
 
                     <div className="btn-group-box">
                       {showButton("Talk To A Fitness Expert") && (
-                        <Link to={"/experts"} className="btn btn-primary hvr-shutter-out-horizontal">
+                        <Link to={`/experts/${pkg.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`} className="btn btn-primary hvr-shutter-out-horizontal">
                           Talk To A Fitness Expert
                         </Link>
                       )}
