@@ -1209,6 +1209,7 @@ header.sticky {
 .btn.max-width {
   min-width: 353px;
   margin: auto;
+  font-size: 18px;
 }
 .RegisterPage .SocialUsers {
   gap: 10px;
@@ -1279,6 +1280,7 @@ ul.BottomFooterList,
 .innerbannerContent p {
   font-size: 19px;
   color: #ffffff;
+  margin-bottom: 0;
 }
 
 .innerbanner figure {
@@ -2076,7 +2078,7 @@ section.OurTEAM {
 
 .OurTEAMhead {
   background: #f5f5f5;
-  padding: 20px 20px;
+  padding: 25px 20px 25px;
   margin-bottom: 30px;
 }
 
@@ -2287,8 +2289,14 @@ button.SearchBtn {
 .SearchBox {
   width: 827px;
   position: relative;
+  margin-top: 20px;
 }
-
+.searcwithbtn .SearchBox {
+  margin-top: 0;
+}
+.searcwithbtn {
+  margin-top: 20px;
+}
 .Bytext span:after {
   position: absolute;
   left: 0;
@@ -2574,7 +2582,8 @@ section.BlogDeatils:after {
 }
 
 .InnerpageSpace {
-  padding-top: 140px;
+  padding-top: 130px;
+  padding-bottom: 40px;
 }
 
 .contactinfobox {
@@ -2696,6 +2705,7 @@ ul.userslink li a {
 .servicedetaillisting figcaption p {
   font-size: 16px;
   color: #2a2a2a;
+  min-height: 122px;
 }
 
 .btn-group-box {
@@ -2726,9 +2736,577 @@ ul.userslink li a {
 }
 
 .row.servicedetaillisting {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .row.servicedetaillisting .col-md-6 {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.servicelist p {
+  margin-bottom: 0;
+  font-size: 16px;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+.servicelist {
+  box-shadow: 0 4px 14px rgb(0 0 0 / 10%);
+  background: #f6edf094;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 2px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+.servicelist figure {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px !important;
+}
+
+.producttitle {
+  font-size: 27px;
+  color: #007946;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.product-list {
+  background: #d9d9d933;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+body .owl-carousel .owl-item .product-list figure img {
+  height: 419px;
+  width: 100% !important;
+  object-fit: cover;
+}
+
+.product-list figcaption {
+  padding: 20px 30px 30px;
+}
+
+.product-list figcaption h3 {
+  font-size: 24px;
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.price span {
+  font-size: 27px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.price del {
+  font-size: 17px;
+  font-weight: 400;
+  color: #ad0000;
+  margin-right: 10px;
+}
+
+.btn.sm-btn {
+  min-width: 200px;
+}
+
+.Browseservice {
+  margin-bottom: 45px;
+}
+
+.btnserch .btn {
+  height: 58px;
+  background: #ffffff;
+  color: #000 !important;
+  margin-left: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 0 20px;
+}
+
+.btn.VegBtn {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.14) 95%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.SmartKichinlist .col {
+  margin-bottom: 30px;
+}
+
+.row.row-cols-5.SmartKichinlistrow figcaption h4 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 47px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SmartKichinlistrow figcaption {
+  text-align: center;
+  padding: 15px 10px;
+}
+
+.SmartKichinlistrow figcaption p {
+  height: 60px;
+}
+
+.SmartKichinbox {
+  text-align: center;
+}
+
+.SmartKichinbox p {
+  font-size: 18px;
+  color: #800030;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.SmartKichinbox figure img {
+  width: 100% !important;
+  height: 119px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.SmartKichinbox figure {
+  width: 119px;
+  height: 119px;
+  margin: auto;
+}
+
+.btn.btn-primary.xm-btn {
+  min-width: 160px;
+  font-size: 18px;
+}
+
+.btn.Nonvegbtn {
+  background: #fff !important;
+}
+
+.daishape {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Diabetespageleft figure img {
+  width: 555px;
+  height: 555px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.Diabetespageright h3 {
+  font-size: 50px;
+  color: #800030;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.Diabetespageright p {
+  background: #d9d9d933;
+  padding: 50px 30px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 5px;
+}
+.Diabetespageleft figure {
+  position: relative;
+}
+.Diabetespageleft figure:after {
+  width: 72px;
+  height: 72px;
+  background: #800030;
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+  left: 0;
+  bottom: 100px;
+}
+
+.pn-title {
+  font-size: 45px;
+  color: #007946;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.Packagecontent figcaption h4 {
+  font-size: 24px;
+  color: #000000;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.Packagecontent figcaption p {
+  font-size: 16px;
+  color: #2a2a2a;
+  font-weight: 400;
+}
+
+.Packagecontent figcaption {
+  padding-top: 20px;
+}
+
+.PackageINclusion {
+  background: url(../img/daibetespettern.png);
+  background-size: cover;
+}
+
+.Packagecontent figure img {
+  height: 311px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.DiabetesHealthcontent figcaption {
+  box-shadow: 0 4px 9px rgb(0 0 0 / 25%);
+  border: 1px solid rgb(0 0 0 / 23%);
+  padding: 12px 10px 25px;
+}
+
+.DiabetesHealthcontent figcaption h3 {
+  font-size: 22px;
+  color: #1e1e1e;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.DiabetesHealthcontent figcaption span {
+  font-size: 16px;
+  color: #800030;
+  font-weight: 700;
+  text-align: center;
+  display: block;
+}
+
+.Packagedescriptionlist li {
+  font-size: 14px;
+  color: #2a2a2a;
+  font-weight: 400;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  position: relative;
+}
+
+ul.Packagedescriptionlist {
+  padding-top: 22px;
+  padding-bottom: 10px;
+}
+.Packagedescriptionlist li:after {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #000;
+  content: "";
+  left: 0;
+  top: 8px;
+  position: absolute;
+}
+
+.DiabetesHealthcontent figure img {
+  height: 234px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.blogbannertitle {
+  position: absolute;
+  left: 15px;
+  top: 100px;
+  font-size: 40px;
+  color: #ffffff94;
+  text-transform: uppercase;
+  z-index: 9;
+}
+
+.fixspace {
+  padding-top: 78px;
+}
+
+.bookappoinmentinner {
+  box-shadow: 0 4px 23px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #00000026;
+  margin: 20px 0 45px;
+}
+
+.bookappoinmentr {
+  padding: 30px 40px 50px;
+}
+
+.bpheadleft h4 {
+  font-size: 34px;
+  color: #800030;
+  font-weight: 700;
+}
+
+.bpheadleft p {
+  font-size: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.pricetime {
+  font-size: 25px;
+  color: #000000;
+  font-weight: 600;
+}
+
+.bookappoinmentbody h5 {
+  font-size: 22px;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+
+.bookappoinmentbody p {
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+}
+
+.bookappoinmentinner .col-md-7 {
+  padding-left: 0;
+}
+
+.bookappoinmentinner .col-md-5 {
+  padding-right: 0;
+}
+
+.bookappoinmentl figure img {
+  width: 100%;
+  height: 419px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.baheadtitle h3 {
+  font-size: 45px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.baheadtitle p {
+  font-size: 20px;
+  color: #00000075;
+  font-weight: 400;
+  margin-bottom: 1px;
+}
+
+.baheadtitle {
+  margin-bottom: 20px;
+}
+
+.appoinmentsdetails h5 {
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+.adlistinfo li h4 {
+  font-size: 20px;
+  color: #1e1e1e;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.adlistinfo li span {
+  font-size: 20px;
+  color: #007946;
+  font-weight: 700;
+}
+
+.adlistinfo li {
+  margin-right: 20px;
+}
+
+.adlistinfo {
+  margin-bottom: 0;
+}
+
+.slotdatebox {
+  border-top: 1px solid #d9d9d9;
+  margin-top: 20px;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.slottitle {
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 25px;
+  color: #1e1e1e;
+}
+
+.slotdateboxright {
+  border-left: 1px solid #d9d9d9;
+  padding: 20px 30px;
+}
+
+.slotdateboxleft {
+  padding: 20px 30px;
+}
+
+.slottimelist li {
+  font-size: 17px;
+  color: #1e1e1e82;
+  border: 1px solid rgb(0 0 0 / 17%);
+  display: inline-block;
+  padding: 7px 7px;
+  border-radius: 22px;
+  margin-bottom: 10px;
+  width: 27%;
+  text-align: center;
+}
+
+.slottimelist {
+  gap: 5px 35px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.slottimelist .slottimeactive {
+  background: #800030;
+  color: #fff;
+}
+
+.apdinfo {
+  margin-bottom: 20px;
+}
+
+.badetailright .pricetime {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.slotdateboxleft {
+  padding-bottom: 30px;
+  padding-right: 20px;
+}
+
+.clienttrusted {
+  font-size: 30px;
+  color: #2a2a2a;
+  font-weight: 700;
+  line-height: 0.1;
+  padding-right: 100px;
+}
+
+.clientcontentbg {
+  background: #f6edf0;
+  padding: 24px 20px 25px;
+  border-radius: 16px;
+}
+
+.clientfeedback {
+  padding-top: 55px;
+  padding-bottom: 50px;
+}
+
+.clientfeedbackslider {
+  margin-left: -210px;
+  margin-top: 55px;
+  position: relative;
+}
+
+.testiuser {
+  display: flex;
+  align-items: center;
+}
+
+.clientcontentbg > p {
+  font-size: 15px;
+  color: #2a2a2a;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 25px;
+  min-height: 67px;
+}
+
+section.clientfeedback {
+  position: relative;
+}
+
+.ratinglist li {
+  margin-right: 3px;
+}
+
+.testiuser figure img {
+  width: 67px;
+  height: 67px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testiuser figcaption h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #2a2a2a;
+}
+.testiuser figcaption {
+  padding-left: 10px;
+}
+.testiuser figcaption p {
+  font-size: 11px;
+  font-weight: 400;
+  color: #2a2a2a;
+  margin-bottom: 0;
+}
+
+.clienttrusted img {
+  width: 160px;
+}
+
+.clientfeedbackright {
+  padding-top: 20px;
+}
+
+.clientfeedbackslider .owl-carousel:after {
+  background: linear-gradient(
+    to right,
+    rgb(246 237 240 / 48%) 0%,
+    rgb(255 255 255) 100%
+  );
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 217px;
+}
+
+.ratinglist {
+  margin-bottom: 30px;
+}
+
+.CleintSuccess {
+  background: #168765cf;
+  padding-top: 55px;
+  padding-bottom: 40px;
 }

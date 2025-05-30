@@ -18,6 +18,13 @@ import Blogs from "./components/pages/Blogs.jsx";
 import BlogDeatils from "./components/pages/BlogDeatils.jsx";
 import ContactUs from "./components/pages/ContactUs.jsx";
 import ServiceDetails from "./components/pages/ServiceDetails.jsx";
+import AllPakages from "./components/pages/AllPakages.jsx";
+import Smartkitchen from "./components/pages/Smartkitchen.jsx";
+import Diabetes from "./components/pages/Diabetes.jsx";
+import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
+import BookAppoinment from "./components/pages/BookAppoinment.jsx";
+import BookAppoinmentdate from "./components/pages/BookAppoinmentdate.jsx";
+import Testimonial from "./components/pages/Testimonial.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -73,6 +80,13 @@ const App = () => {
           <Route path="BlogDeatils" element={<BlogDeatils />} />
           <Route path="ContactUs" element={<ContactUs />} />
           <Route path="ServiceDetails" element={<ServiceDetails />} />
+          <Route path="AllPakages" element={<AllPakages />} />
+          <Route path="Smartkitchen" element={<Smartkitchen />} />
+          <Route path="Diabetes" element={<Diabetes />} />
+          <Route path="DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
+          <Route path="BookAppoinment" element={<BookAppoinment />} />
+          <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
+          <Route path="Testimonial" element={<Testimonial />} />
         </Routes>
       </Suspense>
     );
