@@ -48,7 +48,7 @@ function Blogs() {
       for (let i = 0; i < categoriesData.length; i += chunkSize) {
         chunked.push(categoriesData.slice(i, i + chunkSize));
       }
-      setBlogCategories(chunked);
+      setBlogCategories(categoriesData);
     } catch (error) {
       console.error(error);
       toast.error(
@@ -74,7 +74,7 @@ function Blogs() {
 
   const handleSelectCategory = (id) => {
     setSelectedCategory(id);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -116,39 +116,33 @@ function Blogs() {
         <div className="container">
           <div className="filtersBoxInner d-flex">
             <div className="filterOwl">
-              <OwlCarousel
-                className="owl-theme"
-                autoplay={false}
-                dots={false}
-                items={1}
-                loop
-                nav
-              >
-                {categories.map((chunk, i) => (
-                  <div className="item" key={i}>
-                    <ul className="taginfolist d-flex">
-                      <li
-                        // data-item="all"
-                        className={selectedCategory === "all" ? "active" : ""}
-                        onClick={()=>handleSelectCategory("all")}
-                      >
-                        <span className="tag-info">All</span>
-                      </li>
-                      {chunk.map((cat) => (
-                        <li
-                          // data-item={cat.id}
-                          className={
-                            selectedCategory === cat.id ? "active" : ""
-                          }
-                          onClick={()=>handleSelectCategory(cat.id)}
-                        >
-                          <span className="tag-info">{cat.name}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </OwlCarousel>
+              <ul className="taginfolist d-flex">
+                <li
+                  // data-item="all"
+                  className={selectedCategory === "all" ? "active" : ""}
+                  onClick={() => handleSelectCategory("all")}
+                >
+                  <span className="tag-info">All</span>
+                </li>
+                <OwlCarousel
+                  className="owl-theme"
+                  autoplay={false}
+                  dots={false}
+                  items={7}
+                  loop={true}
+                  nav
+                >
+                  {categories.map((cat) => (
+                    <li
+                      // data-item={cat.id}
+                      className={selectedCategory === cat.id ? "active" : ""}
+                      onClick={() => handleSelectCategory(cat.id)}
+                    >
+                      <span className="tag-info">{cat.name}</span>
+                    </li>
+                  ))}
+                </OwlCarousel>
+              </ul>
             </div>
 
             <select className="form-select">

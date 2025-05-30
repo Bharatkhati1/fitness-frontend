@@ -143,19 +143,22 @@ const ServiceManagement = () => {
     const [movedItem] = reordered.splice(result.source.index, 1);
     reordered.splice(result.destination.index, 0, movedItem);
     setSliders(reordered);
-
-    // try {
-    //   // Send the new order to the backend
-    //   await adminAxios.post(adminApiRoutes.update_service_order, {
-    //     orderedIds: reordered.map((item) => item.id),
-    //   });
-    //   toast.success("Service order updated successfully");
-    // } catch (error) {
-    //   console.error("Failed to update order:", error);
-    //   toast.error("Failed to update service order");
-    //   // Revert to the original order if the API call fails
-    //   fetchAllServices(currentPage);
-    // }
+    const reordeObj = reordered.map((order, index) => ({
+      id: order.id,
+      order: index + 1,
+    }));
+    try {
+      // Send the new order to the backend
+      await adminAxios.put(adminApiRoutes.update_service_order, {
+        sequences: reordeObj,
+      });
+      toast.success("Service order updated successfully");
+    } catch (error) {
+      console.error("Failed to update order:", error);
+      toast.error("Failed to update service order");
+      // Revert to the original order if the API call fails
+      fetchAllServices(currentPage);
+    }
   };
 
   useEffect(() => {
@@ -439,7 +442,9 @@ const ServiceManagement = () => {
                                             setSliderHeading(
                                               service.description
                                             );
-                                            setServiceShortDescription(service.shortDescription)
+                                            setServiceShortDescription(
+                                              service.shortDescription
+                                            );
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
                                           }}

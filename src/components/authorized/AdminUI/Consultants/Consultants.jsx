@@ -9,7 +9,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 const Consultants = () => {
   const [formData, setFormData] = useState({
     title: "",
-    type: "",
+    type: [],
     name: "",
     email: "",
     phone: "",
@@ -101,7 +101,7 @@ const Consultants = () => {
     setSelectedFileName("");
     setFormData({
       title: "",
-      type: "",
+      type: [],
       name: "",
       email: "",
       phone: "",
@@ -119,6 +119,7 @@ const Consultants = () => {
   useEffect(() => {
     fetchAllConsultants();
   }, []);
+
   return (
     <>
       {/* Form Section */}
@@ -159,6 +160,7 @@ const Consultants = () => {
                   <div className="mb-3">
                     <label className="form-label">Type</label>
                     <Select
+                      mode="multiple"
                       value={formData.type || undefined}
                       size="large"
                       onChange={(value) =>
@@ -360,7 +362,7 @@ const Consultants = () => {
                                   setSelectedConsultantID(consultant.id);
                                   setFormData({
                                     title:consultant.title,
-                                    type:consultant.type,
+                                    type:consultant.ConsultantRoles,
                                     name: consultant.name,
                                     email: consultant.email,
                                     phone: consultant.phone,
