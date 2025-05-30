@@ -364,7 +364,7 @@ const Consultants = () => {
                                   console.log(consultant)
                                   setFormData({
                                     title:consultant.title,
-                                    type:consultant.ConsultantRoles.map((cn)=> cn.role),
+                                    type:consultant?.ConsultantRoles?.map((cn)=> cn.role)||[],
                                     name: consultant.name,
                                     email: consultant.email,
                                     phone: consultant.phone,

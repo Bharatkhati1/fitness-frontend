@@ -29,14 +29,9 @@ import smproductimg10 from "../../../public/assets/img/smproductimg10.png";
 import leftp from "../../../public/assets/img/leftp.png";
 
 import leftR from "../../../public/assets/img/rightp.png";
-
-
-
-
 function Smartkitchen() {
   return (
     <>
-      <Header />
       <section className="innerbanner blogbanner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>
@@ -399,8 +394,6 @@ function Smartkitchen() {
           </ul>
         </div>
       </section>
-
-      <Footer/>
     </>
   );
 }

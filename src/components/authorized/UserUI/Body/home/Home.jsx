@@ -164,25 +164,13 @@ function Home() {
                         </li>
                       </ul>
                       <div className="BannerBtn d-flex">
-                        <a className="hvr-shutter-out-horizontal">Join Now</a>
-                        <a className="hvr-shutter-out-horizontal">
+                        <Link className="hvr-shutter-out-horizontal" to={"/all-packages"}>Join Now</Link>
+                        <Link className="hvr-shutter-out-horizontal">
                           book a trial
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-                      {/* <div className="bannerSectionInner">
-                <div className="circletagShapeBox">
-                  <img className="heartBeatImg" src={heartbeat} alt="" />
-                  <span className="circletagShape">
-                    {" "}
-                    <img src={Tagcircle} />
-                  </span>
-                </div>
-                <figure>
-                  <img src={UserCoupleImg} />
-                </figure>
-              </div> */}
                       <div className="bannerSectionInner">
                         <div className="circletagShapeBox">
                           <img
@@ -285,14 +273,29 @@ function Home() {
                           <figcaption>
                             <h3>{srv.name}</h3>
                             <p>{stripHtml(srv.description)}</p>
+                            <div className="gap-3 service-btn">
                             <Link
                               to={`/service-details/${srv.name
                                 .toLowerCase()
                                 .replace(/\s+/g, "-")}`}
                               className="btn btn-primary hvr-shutter-out-horizontal"
                             >
-                              Book a Free Consultation
+                               Smart Health Package  
                             </Link>
+                            <a
+                              href="#GetInTouch"
+                              className="d-inline-block my-1 align-middle btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                              Contact our Helpline
+                            </a>
+                            <a
+                              href="#GetInTouch"
+                              className="btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                             Talk a Fitness Expert
+                            </a>
+                            </div>
+                            
                           </figcaption>
                         </div>
                       </div>
@@ -359,12 +362,7 @@ function Home() {
               Smart Kitchen solutions help you plan, prep, and cook healthy
               meals effortlessly with ease and convenience
             </p>
-            <Link
-              to={"/smart-kitchen"}
-              className="btn btn-info hvr-shutter-out-horizontal"
-            >
-              View More
-            </Link>
+         
           </div>
           <div className="row">
             <div className="col-md-4 SmartKichinContent">
@@ -406,6 +404,13 @@ function Home() {
               </figcaption>
             </div>
           </div>
+          <div className="text-center">    <Link
+              to={"/smart-kitchen"}
+              className="btn btn-info hvr-shutter-out-horizontal"
+            >
+              View More
+            </Link></div>
+       
         </div>
       </section>
       <section className="PosterSec transformationsuccess">
@@ -417,9 +422,9 @@ function Home() {
               on the hard days. The scale changed, yes — but so did my mindset,
               my energy, and my confidence.
             </p>
-            <a className="btn btn-primary hvr-shutter-out-horizontal">
+            <Link to={"/testimonials"} className="btn btn-primary hvr-shutter-out-horizontal">
               read now
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -434,9 +439,9 @@ function Home() {
               plans, expert guidance, and valuable resources, making wellness
               accessible from the comfort of your home. Join us today!
             </p>
-            <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
+            <Link to={"/all-packages"} className="btn btn-primary s-btn hvr-shutter-out-horizontal">
               join
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -484,9 +489,9 @@ function Home() {
               instructors, and strength training coaches committed to your
               health and wellness journey.
             </p>
-            <a className="btn btn-primary mt-4 hvr-shutter-out-horizontal">
+            <Link to={"/all-packages"} className="btn btn-primary mt-4 hvr-shutter-out-horizontal">
               meet our family
-            </a>
+            </Link>
           </div>
           <div className="meetOurExpertscontentg">
             <span className="shape1">
@@ -627,7 +632,7 @@ function Home() {
           </div>
         </div>
       </section> */}
-      <section className="GetIntouch">
+      <section className="GetIntouch" id="GetInTouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />
         </span>
@@ -654,8 +659,8 @@ function Home() {
                   </li>
                   <li>
                     <img src={MsgeIcon}></img>
-                    <a href="mailto:info@thedailyfitness.in">
-                      info@thedailyfitness.in
+                    <a href="mailto:info@dailyfitness.ai">
+                      info@dailyfitness.ai
                     </a>
                   </li>
                 </ul>

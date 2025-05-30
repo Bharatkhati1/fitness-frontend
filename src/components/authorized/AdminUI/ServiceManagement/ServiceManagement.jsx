@@ -14,6 +14,7 @@ const ServiceManagement = () => {
   const [sliderHeading, setSliderHeading] = useState("");
   const [sliderStatus, setSliderStatus] = useState(true);
   const [serviceBannerImage, setServiceBannerImage] = useState(null);
+  const [emailInputs, setEmailInputs] = useState({});
   const [selectedSliderId, setSelectedSliderId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedBannerFileName, setSelectedBannerFileName] = useState("");
@@ -29,21 +30,15 @@ const ServiceManagement = () => {
   const fileInputBannerRef = useRef(null);
 
   const ctaOptions = [
-    "Join",
-    "Book A Consultation",
-    "Smart Health Package",
-    "Talk To A Fitness Expert",
-    "Talk To A Therapist",
+    "Contact our Helpline",
+    "Smart Health Packages",
+    "Talk a Fitness Expert",
   ];
 
-  const fetchAllServices = async (page = 1) => {
+  const fetchAllServices = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_services, {
-        page,
-        limit,
-      });
+      const res = await adminAxios.get(adminApiRoutes.get_services);
       setSliders(res.data.data);
-      setTotalPages(res.data.pagination.totalPages);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -58,10 +53,13 @@ const ServiceManagement = () => {
 
     const formData = new FormData();
     formData.append("name", sliderName);
+    formData.append("actions", JSON.stringify(ctaButtons));
+    formData.append("description", sliderHeading);
     formData.append("description", sliderHeading);
     formData.append("shortDescription", serviceShortDescription);
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
+    serviceBannerImage && formData.append("banner_image", serviceBannerImage);
 
     try {
       let url = isEdit
@@ -157,13 +155,13 @@ const ServiceManagement = () => {
       console.error("Failed to update order:", error);
       toast.error("Failed to update service order");
       // Revert to the original order if the API call fails
-      fetchAllServices(currentPage);
+      fetchAllServices();
     }
   };
 
   useEffect(() => {
-    fetchAllServices(currentPage);
-  }, [currentPage]);
+    fetchAllServices();
+  }, []);
 
   return (
     <>
@@ -300,34 +298,99 @@ const ServiceManagement = () => {
                 </div>
 
                 {/* CTA button */}
-                <div className="col-lg-6">
+                <div className="col-xxl-6 col-lg-8">
                   <div className="mb-3">
                     <label className="form-label">CTA Button</label>
-                    <div className="d-flex flex-wrap gap-3">
-                      {ctaOptions.map((option, index) => (
-                        <div className="form-check" key={index}>
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`cta-${index}`}
-                            checked={ctaButtons.includes(option)}
-                            onChange={(e) => {
-                              const selected = ctaButtons.includes(option);
-                              setCtaButtons(
-                                selected
-                                  ? ctaButtons.filter((item) => item !== option)
-                                  : [...ctaButtons, option]
-                              );
-                            }}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`cta-${index}`}
+                    <div className="">
+                      {ctaOptions.map((option, index) => {
+                        const matchedButton = ctaButtons.find(
+                          (btn) => btn.name === option
+                        );
+                        const inputValue =
+                          emailInputs[option] ??
+                          matchedButton?.emails.join(", ") ??
+                          "";
+                        return (
+                          <div
+                            className="row align-items-center my-1"
+                            key={index}
                           >
-                            {option}
-                          </label>
-                        </div>
-                      ))}
+                            <div className="col-6">
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id={`cta-${index}`}
+                                  checked={!!matchedButton}
+                                  onChange={() => {
+                                    if (matchedButton) {
+                                      setCtaButtons((prev) =>
+                                        prev.filter(
+                                          (item) => item.name !== option
+                                        )
+                                      );
+                                      setEmailInputs((prev) => {
+                                        const updated = { ...prev };
+                                        delete updated[option];
+                                        return updated;
+                                      });
+                                    } else {
+                                      setCtaButtons((prev) => [
+                                        ...prev,
+                                        { name: option, emails: [] },
+                                      ]);
+                                      setEmailInputs((prev) => ({
+                                        ...prev,
+                                        [option]: "",
+                                      }));
+                                    }
+                                  }}
+                                />
+                                <label
+                                  className="form-check-label m-0"
+                                  htmlFor={`cta-${index}`}
+                                >
+                                  {option}
+                                </label>
+                              </div>
+                            </div>
+
+                            {matchedButton && (
+                              <div className="col-lg-6">
+                                <div className="email-new">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter emails ',' separated"
+                                    value={inputValue}
+                                    onChange={(e) => {
+                                      const input = e.target.value;
+                                      setEmailInputs((prev) => ({
+                                        ...prev,
+                                        [option]: input,
+                                      }));
+                                    }}
+                                    onBlur={() => {
+                                      const emailArray = inputValue
+                                        .split(",")
+                                        .map((email) => email.trim())
+                                        .filter((email) => email.length > 0);
+
+                                      setCtaButtons((prev) =>
+                                        prev.map((btn) =>
+                                          btn.name === option
+                                            ? { ...btn, emails: emailArray }
+                                            : btn
+                                        )
+                                      );
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -484,7 +547,7 @@ const ServiceManagement = () => {
                 </table>
               </div>
             </div>
-            <div className="card-footer border-top">
+            {/* <div className="card-footer border-top">
               <nav aria-label="Page navigation example">
                 <ul className="pagination justify-content-end mb-0">
                   <li
@@ -528,7 +591,7 @@ const ServiceManagement = () => {
                   </li>
                 </ul>
               </nav>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

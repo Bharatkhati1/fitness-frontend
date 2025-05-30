@@ -22,8 +22,6 @@ function Testimonial() {
 
   return (
     <>
-      <Header />
-
       <section className="innerbanner blogbanner">
         <figure>
           <img src={testimonialsbanner} />
@@ -314,7 +312,6 @@ function Testimonial() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

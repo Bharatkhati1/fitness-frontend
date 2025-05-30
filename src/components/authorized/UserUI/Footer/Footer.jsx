@@ -151,7 +151,7 @@ const Footer = () => {
       </div>
 
       <div className="BottomFooter d-flex align-items-center  justify-content-center">
-        <p>© 2024. All rights reserved</p>
+        <p>© {new Date().getFullYear()}. All rights reserved</p>
         <ul className="BottomFooterList d-flex">
           <li>
             <a>Privacy Policy</a>

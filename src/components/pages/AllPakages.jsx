@@ -21,7 +21,6 @@ import productimg3 from "../../../public/assets/img/productimg3.png";
 function AllPakages() {
   return (
     <>
-      <Header />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={allpakagesbg} />
@@ -304,8 +303,6 @@ function AllPakages() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
