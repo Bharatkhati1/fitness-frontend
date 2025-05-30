@@ -1,6 +1,11 @@
 import React from "react";
 
 const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
+  const removeInclusion=(index)=>{
+    const updatedInclusions = packageInclusions.filter((_, idx) => idx !== index);
+    setPackageInclusions(updatedInclusions)
+  }
+
   return (
     <>
       {packageInclusions.map((inclusion, index) => (
@@ -14,7 +19,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
 
                   </div>
                   <div className="col-auto">
-                    {packageInclusions.length > 1 && index !== 0 && <button className="remove-btn-inclusion">-</button>}
+                    {packageInclusions.length > 1 && index !== 0 && <button className="remove-btn-inclusion" onClick={()=>removeInclusion(index)}>-</button>}
 
                   </div>
                 </div>

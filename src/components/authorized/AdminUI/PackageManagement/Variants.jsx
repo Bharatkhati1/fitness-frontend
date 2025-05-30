@@ -7,7 +7,10 @@ const Variants = ({isEdit, packageVariants, setPackageVariants }) => {
     { value: 9, name: "9 Months" },
     { value: 12, name: "12 Months" },
   ];
-
+  const removeVariants=(index)=>{
+    const updatedInclusions = packageVariants.filter((_, idx) => idx !== index);
+    setPackageVariants(updatedInclusions)
+  }
   return (
     <>
       {packageVariants.map((inclusion, index) => (
@@ -19,7 +22,7 @@ const Variants = ({isEdit, packageVariants, setPackageVariants }) => {
                   <h4 className="mb-0">Package Variants {index + 1}</h4>
                 </div>
                 <div className="col-auto">
-                  {packageVariants.length > 1 && index !== 0 && <button className="remove-btn-inclusion">-</button>}
+                  {packageVariants.length > 1 && index !== 0 && <button className="remove-btn-inclusion" onClick={()=>removeVariants(index)}>-</button>}
                 </div>
               </div>
             </div>
