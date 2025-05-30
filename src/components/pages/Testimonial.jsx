@@ -19,7 +19,6 @@ import userimg3 from "../../../public/assets/img/userimg3.png";
 import usertouch from "../../../public/assets/img/usertouch.png";
 
 function Testimonial() {
-
   return (
     <>
       <Header />
@@ -206,57 +205,55 @@ function Testimonial() {
           </div>
 
           <div>
+            <div>
+              {/* Left to Right Carousel */}
+              <OwlCarousel
+                className="owl-theme"
+                items={8}
+                loop={true}
+                margin={20}
+                autoplay={true}
+                slideTransition="linear"
+                autoplayTimeout={800}
+                autoplaySpeed={1000}
+                autoplayHoverPause={false}
+                dots={false}
+                nav={false}
+              >
+                <div className="item">Item 1</div>
+                <div className="item">Item 2</div>
+                <div className="item">Item 3</div>
+                <div className="item">Item 4</div>
+                <div className="item">Item 5</div>
+                <div className="item">Item 6</div>
+                <div className="item">Item 7</div>
+                <div className="item">Item 8</div>
+              </OwlCarousel>
 
- <div>
-      {/* Left to Right Carousel */}
-      <OwlCarousel
-        className="owl-theme"
-        items={8}
-        loop={true}
-        margin={20}
-        autoplay={true}
-        slideTransition="linear"
-        autoplayTimeout={1000}
-        autoplaySpeed={3000}
-        autoplayHoverPause={false}
-        dots={false}
-        nav={false}
-      >
-        <div className="item">Item 1</div>
-        <div className="item">Item 2</div>
-        <div className="item">Item 3</div>
-        <div className="item">Item 4</div>
-        <div className="item">Item 5</div>
-        <div className="item">Item 6</div>
-        <div className="item">Item 7</div>
-        <div className="item">Item 8</div>
-      </OwlCarousel>
-
-      {/* Right to Left Carousel */}
-      <OwlCarousel
-        className="owl-theme"
-        items={8}
-        loop={true}
-        margin={20}
-        autoplay={true}
-        slideTransition="linear"
-        autoplayTimeout={1000}
-        autoplaySpeed={3000}
-        autoplayHoverPause={false}
-        dots={false}
-        nav={false}
-        rtl={false}
-      >
-        <div className="item">Item A</div>
-        <div className="item">Item B</div>
-        <div className="item">Item C</div>
-        <div className="item">Item D</div>
-        <div className="item">Item E</div>
-        <div className="item">Item F</div>
-        <div className="item">Item G</div>
-        <div className="item">Item H</div>
-      </OwlCarousel>
-    </div>
+              {/* Right to Left Carousel */}
+              <OwlCarousel
+                className="owl-theme"
+                items={8}
+                loop={true}
+                margin={20}
+                autoplay={true}
+                autoplayTimeout={5000}
+                autoplaySpeed={5000}
+                autoplayHoverPause={true}
+                dots={false}
+                nav={false}
+                rtl={true}
+              >
+                <div className="item">Item A</div>
+                <div className="item">Item B</div>
+                <div className="item">Item C</div>
+                <div className="item">Item D</div>
+                <div className="item">Item E</div>
+                <div className="item">Item F</div>
+                <div className="item">Item G</div>
+                <div className="item">Item H</div>
+              </OwlCarousel>
+            </div>
           </div>
         </div>
       </section>
