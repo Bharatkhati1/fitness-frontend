@@ -55,7 +55,6 @@ const ServiceManagement = () => {
     formData.append("name", sliderName);
     formData.append("actions", JSON.stringify(ctaButtons));
     formData.append("description", sliderHeading);
-    formData.append("description", sliderHeading);
     formData.append("shortDescription", serviceShortDescription);
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);

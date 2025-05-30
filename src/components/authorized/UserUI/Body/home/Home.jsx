@@ -116,6 +116,7 @@ function Home() {
     getBlogs();
   }, []);
 
+  console.log(services);
   return (
     <>
       <section className="bannerSection">
@@ -164,7 +165,12 @@ function Home() {
                         </li>
                       </ul>
                       <div className="BannerBtn d-flex">
-                        <Link className="hvr-shutter-out-horizontal" to={"/all-packages"}>Join Now</Link>
+                        <Link
+                          className="hvr-shutter-out-horizontal"
+                          to={"/all-packages"}
+                        >
+                          Join Now
+                        </Link>
                         <Link className="hvr-shutter-out-horizontal">
                           book a trial
                         </Link>
@@ -260,48 +266,73 @@ function Home() {
               >
                 {services.map((group, index) => (
                   <div className="row" key={index}>
-                    {group.map((srv, idx) => (
-                      <div className="col-md-4" key={idx}>
-                        <div className="OurServicesContent">
-                          <figure>
-                            <img
-                              crossOrigin="anonymous"
-                              src={srv.image_url}
-                              alt={srv.name}
-                            />
-                          </figure>
-                          <figcaption>
-                            <h3>{srv.name}</h3>
-                            <p>{stripHtml(srv.description)}</p>
-                            <div className="gap-3 service-btn">
-                            <Link
-                              to={`/service-details/${srv.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              className="btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                               Smart Health Package  
-                            </Link>
-                            <a
-                              href="#GetInTouch"
-                              className="d-inline-block my-1 align-middle btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Contact our Helpline
-                            </a>
-                            <a
-                              href="#GetInTouch"
-                              className="btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                             Talk a Fitness Expert
-                            </a>
-                            </div>
-                            
-                          </figcaption>
+                    {group.map((srv, idx) => {
+                      // Parse the JSON actions string
+                      const parsedActions = JSON.parse(srv.actions || "[]");
+                      const actionNames = parsedActions.map(
+                        (action) => action.name
+                      );
+
+                      // Utility function
+                      const showButton = (label) => actionNames.includes(label);
+
+                      return (
+                        <div className="col-md-4" key={idx}>
+                          <div className="OurServicesContent">
+                            <figure>
+                              <img
+                                crossOrigin="anonymous"
+                                src={srv.image_url}
+                                alt={srv.name}
+                              />
+                            </figure>
+                            <figcaption>
+                              <h3>{srv.name}</h3>
+                              <p>{stripHtml(srv.description)}</p>
+                              <div className="gap-3 service-btn">
+                                {showButton("Smart Health Packages") && (
+                                  <Link
+                                    to={`/service-details/${srv.name
+                                      .toLowerCase()
+                                      .replace(/\s+/g, "-")}`}
+                                    className="btn btn-primary hvr-shutter-out-horizontal"
+                                  >
+                                    Smart Health Package
+                                  </Link>
+                                )}
+
+                                {showButton("Contact our Helpline") && (
+                                  <a
+                                    href="#GetInTouch"
+                                    className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                                  >
+                                    Contact our Helpline
+                                  </a>
+                                )}
+
+                                {showButton("Talk a Fitness Expert") && (
+                                  <a
+                                    href="#GetInTouch"
+                                    className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                                  >
+                                    Talk a Fitness Expert
+                                  </a>
+                                )}
+                              </div>
+                            </figcaption>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ))}
+
+                {/* {JSON.parse(srv.actions)?.map((btn)=><a
+                              href=""
+                              className="d-inline-block my-1 align-middle btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                             {btn.name}
+                            </a>)} */}
               </OwlCarousel>
             ) : (
               <div className="text-center py-5">
@@ -362,7 +393,6 @@ function Home() {
               Smart Kitchen solutions help you plan, prep, and cook healthy
               meals effortlessly with ease and convenience
             </p>
-         
           </div>
           <div className="row">
             <div className="col-md-4 SmartKichinContent">
@@ -404,13 +434,15 @@ function Home() {
               </figcaption>
             </div>
           </div>
-          <div className="text-center">    <Link
+          <div className="text-center">
+            {" "}
+            <Link
               to={"/smart-kitchen"}
               className="btn btn-info hvr-shutter-out-horizontal"
             >
               View More
-            </Link></div>
-       
+            </Link>
+          </div>
         </div>
       </section>
       <section className="PosterSec transformationsuccess">
@@ -422,7 +454,10 @@ function Home() {
               on the hard days. The scale changed, yes — but so did my mindset,
               my energy, and my confidence.
             </p>
-            <Link to={"/testimonials"} className="btn btn-primary hvr-shutter-out-horizontal">
+            <Link
+              to={"/testimonials"}
+              className="btn btn-primary hvr-shutter-out-horizontal"
+            >
               read now
             </Link>
           </div>
@@ -439,7 +474,10 @@ function Home() {
               plans, expert guidance, and valuable resources, making wellness
               accessible from the comfort of your home. Join us today!
             </p>
-            <Link to={"/all-packages"} className="btn btn-primary s-btn hvr-shutter-out-horizontal">
+            <Link
+              to={"/all-packages"}
+              className="btn btn-primary s-btn hvr-shutter-out-horizontal"
+            >
               join
             </Link>
           </div>
@@ -489,7 +527,10 @@ function Home() {
               instructors, and strength training coaches committed to your
               health and wellness journey.
             </p>
-            <Link to={"/all-packages"} className="btn btn-primary mt-4 hvr-shutter-out-horizontal">
+            <Link
+              to={"/all-packages"}
+              className="btn btn-primary mt-4 hvr-shutter-out-horizontal"
+            >
               meet our family
             </Link>
           </div>
