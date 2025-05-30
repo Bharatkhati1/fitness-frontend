@@ -168,16 +168,55 @@
   }
 
   .col-md-6.OurHealthBlogContent p {
-    font-size: 16px;}
+    font-size: 16px;
+  }
 
-    .OurHealthBlogContent figcaption h3 {
-    font-size: 22px;}
+  .OurHealthBlogContent figcaption h3 {
+    font-size: 22px;
+  }
 
-    .OurBlogs .OurHealthBlogContent figure img {
+  .OurBlogs .OurHealthBlogContent figure img {
     height: 395px;
-}
+  }
 
-.SearchBox input{ height: 48px;font-size: 16px;}
+  .SearchBox input {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .DiabetesHealthcontent figcaption h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  .pn-title {
+    font-size: 32px;
+  }
+  .Packagecontent figcaption h4 {
+    font-size: 20px;
+  }
+  ul.whoareList li figcaption h3 {
+    font-size: 22px;
+  }
+  .Packagecontent figcaption p {
+    font-size: 14px;
+  }
+
+  .Diabetespageleft figure img {
+    width: 600px;
+    height: 485px;
+  }
+
+  .Diabetespageright h3 {
+    font-size: 32px;
+  }
+
+  .filterOwl {
+    width: 81%;
+  }
+
+  .servicelist p {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -1003,8 +1042,5 @@
   }
   .calculateHead {
     padding: 20px 20px;
-  }
-  ul.whoareList li figcaption h3 {
-    font-size: 22px;
   }
 }

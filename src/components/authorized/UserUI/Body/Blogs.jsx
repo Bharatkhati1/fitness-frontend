@@ -123,6 +123,7 @@ function Blogs() {
                 items={1}
                 loop
                 nav
+
               >
                 {categories.map((chunk, i) => (
                   <div className="item" key={i}>

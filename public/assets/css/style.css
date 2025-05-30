@@ -2520,7 +2520,8 @@ button.SearchBtn {
   color: #007946;
   font-weight: 600;
   white-space: nowrap;
-  margin-right: 20px;
+  overflow: hidden;
+ 
 }
 
 .filtersBoxInner select.form-select {
@@ -3489,4 +3490,7 @@ section.clientfeedback {
 .Diabetespageright {
   padding-left: 30px;
   padding-right: 85px;
+}
+.taginfolist {
+    gap: 10px;
 }
