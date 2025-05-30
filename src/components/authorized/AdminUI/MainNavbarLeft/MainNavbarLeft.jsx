@@ -23,6 +23,21 @@ const NavItems = [
     ],
   },
   { id: 5, name: "Success Story", path: "success-stories" },
+  { id: 6, name: "Team Management", path: "team-management" },
+  { id: 7, name: "Consultant", path: "consultants" },
+  {
+    id: 8,
+    name: "Smart Kitchen",
+    path: "smart-kitchen",
+    subMenu: [
+      { name: "Recepies", path: "recepies" },
+      { name: "Category", path: "category" },
+    ],
+  },
+  { id: 9, name: "Contact Details", path: "contact-details" },
+  { id: 10, name: "Privacy Policy", path: "privacy-policy" },
+  { id: 11, name: "Return Policy", path: "return-policy" },
+  { id: 11, name: "Inquiries", path: "inquiry" },
 ];
 
 const MainNavbarLeft = () => {

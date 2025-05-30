@@ -125,7 +125,9 @@ const SuccessStories = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Slider` : `Create Slider`}
+                {isEdit
+                  ? `Edit Selected Success Story`
+                  : `Create Success Story`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
@@ -133,28 +135,8 @@ const SuccessStories = () => {
             </div>
             <div className="card-body">
               <div className="row">
-
-                {/* Description */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-name" className="form-label">
-                      Description
-                    </label>
-                    <TextArea
-                      type="text"
-                      minLength={6}
-                      id="service-name"
-                      className="form-control"
-                      placeholder="Enter name"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </div>
-                </div>
-
                 {/* Images */}
                 <div className="col-lg-6">
-
                   {/*Before image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -169,7 +151,8 @@ const SuccessStories = () => {
                       onChange={(e) => setBeforeImage(e.target.files[0])}
                     />
                   </div>
-
+                  </div>
+                  <div className="col-lg-6">
                   {/* After image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -185,7 +168,23 @@ const SuccessStories = () => {
                     />
                   </div>
                 </div>
-
+                {/* Description */}
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="service-name" className="form-label">
+                      Description
+                    </label>
+                    <TextArea
+                      type="text"
+                      minLength={6}
+                      id="service-name"
+                      className="form-control"
+                      placeholder="Enter name"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                </div>
                 {/* Status
                 <div className="col-lg-6">
                   <p>Status</p>
@@ -247,7 +246,7 @@ const SuccessStories = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Sliders</h4>
+              <h4 className="card-title">All Success Stories</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -266,7 +265,7 @@ const SuccessStories = () => {
                     {successStories.length > 0 ? (
                       successStories.map((story, index) => (
                         <tr key={index}>
-                          <td>{index +1}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <Link target="_blank" to={story.before_image_url}>
                               {" "}
@@ -350,7 +349,7 @@ const SuccessStories = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => 
+                                    onClick={() =>
                                       setSelectedSuccesStoryId(story.id)
                                     }
                                   ></iconify-icon>

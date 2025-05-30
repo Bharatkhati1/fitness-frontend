@@ -1,69 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
+import { Link } from "react-router-dom";
 
-const CategoryManagement = () => {
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState(1);
+const Categories = () => {
+  const [formData, setFormData] = useState({name:"", image:null, isActive:true})
   const [isEdit, setIsEdit] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState("")
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+  const fileInputRef = useRef()
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      const res = await adminAxios.get(adminApiRoutes.get_sk_categories);
       setcategories(res.data.data);
     } catch (error) {
-      console.error("Failed to fetch blog categories:", error);
+      console.error("Failed to fetch categories:", error);
       toast.error(error.response.data.message);
     }
   };
 
   const handleSubmit = async () => {
-    const body ={name:"", isActive: true};
-    body.name = name;
-    body.isActive = status;
-
+    if (!formData.name) {
+      toast.warning("Please enter a name.");
+      return;
+    }
+  
+    const formPayload = new FormData();
+    formPayload.append("name", formData.name);
+    formPayload.append("isActive", formData.isActive);
+    if (formData.image) {
+      formPayload.append("image", formData.image);
+    }
+    const toastId = toast.loading("Submitting...");
     try {
-      let url = isEdit
-        ? adminApiRoutes.update_category(selectedId)
-        : adminApiRoutes.create_category;
-
-      let response;
-      if (isEdit) {
-        response = await adminAxios.put(url, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } else {
-        response = await adminAxios.post(url, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      }
-
-      if (response.status == 200) {
+      const url = isEdit
+        ? adminApiRoutes.update_sk_category(selectedId)
+        : adminApiRoutes.create_sk_category;
+  
+      const method = isEdit ? adminAxios.put : adminAxios.post;
+  
+      const response = await method(url, formPayload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      if (response.status === 200) {
         fetchAllCategories();
         onCancelEdit();
-        toast.success(response.data.message);
-        return;
+        toast.update(toastId, {
+          render: response.data.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+        
+      } else {
+        toast.update(toastId, {
+          render: error.response?.data?.message || "Submission failed.",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+        
       }
-      toast.error(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(
-        `Failed to create blog category.${error.response.data.message}`
-      );
+      toast.error(`Failed to submit. ${error.response?.data?.message || ""}`);
     }
   };
+  
 
   const deleteCategory = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_category(selectedId));
+      await adminAxios.delete(adminApiRoutes.delete_sk_category(selectedId));
       toast.success("Deleted Successfully");
       fetchAllCategories();
     } catch (error) {
@@ -75,8 +89,18 @@ const CategoryManagement = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
-    setName("");
-    setStatus(true);
+    setFormData({name:"", image:null, isActive:true})
+  };
+
+  const handleFormDataChange = (e) => {
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setFormData((prev) => ({ ...prev, image: files[0] }));
+    } else if (type === "radio") {
+      setFormData((prev) => ({ ...prev, [name]: value === "true" }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   useEffect(() => {
@@ -96,9 +120,11 @@ const CategoryManagement = () => {
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
               )}
             </div>
-            {/* Category title */}
+            
             <div className="card-body">
               <div className="row">
+
+                {/* Title  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="category-name" className="form-label">
@@ -108,47 +134,66 @@ const CategoryManagement = () => {
                       type="text"
                       id="category-name"
                       className="form-control"
+                      name="name"
                       placeholder="Enter title"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      value={formData.name}
+                      onChange={handleFormDataChange}
                     />
                   </div>
                 </div>
 
-                {/* Category Status */}
+                {/* image  */}
                 <div className="col-lg-6">
-                  <p>Category Status</p>
-                  <div className="d-flex gap-2 align-items-center">
+                  <div className="mb-3">
+                    <label htmlFor="consultant-image" className="form-label">
+                     Category Image {isEdit && `: ${selectedFileName}`}
+                    </label>
+                    <input
+                      id="consultant-image"
+                      name="image"
+                      type="file"
+                      ref={fileInputRef}
+                      className="form-control"
+                      accept="image/*"
+                      onChange={handleFormDataChange}
+                    />
+                  </div>
+                </div>
+
+                {/* Status */}
+                <div className="col-lg-6">
+                  <label className="form-label d-block">Status</label>
+                  <div className="d-flex gap-3">
                     <div className="form-check">
                       <input
+                        id="consultant-status-active"
                         className="form-check-input"
                         type="radio"
-                        name="service-status"
-                        value={1}
-                        checked={status == 1}
-                        onChange={() => setStatus(1)}
-                        id="status-sactive"
+                        name="isActive"
+                        value={true}
+                        checked={formData.isActive == true}
+                        onChange={handleFormDataChange}
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="status-sactive"
+                        htmlFor="consultant-status-active"
                       >
                         Active
                       </label>
                     </div>
                     <div className="form-check">
                       <input
+                        id="consultant-status-inactive"
                         className="form-check-input"
                         type="radio"
-                        name="service-status"
-                        value={0}
-                        checked={status == 0}
-                        onChange={() => setStatus(0)}
-                        id="status-sinactive"
+                        name="isActive"
+                        value={false}
+                        checked={formData.isActive == false}
+                        onChange={handleFormDataChange}
                       />
                       <label
                         className="form-check-label"
-                        htmlFor="status-sinactive"
+                        htmlFor="consultant-status-inactive"
                       >
                         Inactive
                       </label>
@@ -184,6 +229,7 @@ const CategoryManagement = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>ID</th>
+                      <th>Image</th>
                       <th>Name</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -194,6 +240,24 @@ const CategoryManagement = () => {
                       categories.map((item, index) => (
                         <tr key={index}>
                           <td>{index+1}</td>
+                          <td>
+                            <Link to={item.image_url} target="_blank">
+                              <img
+                                src={item.image_url}
+                                  crossorigin="anonymous"
+                                alt="Consultant"
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                  objectFit: "contain",
+                                  border: "1px solid #ccc",
+                                }}
+                                onError={() =>
+                                  console.error("Image load failed")
+                                }
+                              />
+                            </Link>
+                          </td>
                           <td>{item?.name}</td>
                           <td>
                             <span
@@ -211,8 +275,12 @@ const CategoryManagement = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
-                                  setName(item.name);
-                                  setStatus(item.isActive);
+                                  setFormData({
+                                    name:item.name,
+                                    image:null,
+                                    isActive:item.isActive,
+                                  })
+                                  setSelectedFileName(item.image)
                                 }}
                               >
                                 <iconify-icon
@@ -255,4 +323,4 @@ const CategoryManagement = () => {
   );
 };
 
-export default CategoryManagement;
+export default Categories;

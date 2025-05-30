@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import DOMPurify from "dompurify";
-import "./services.scss"
+import "./services.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
@@ -18,7 +18,6 @@ const ServiceManagement = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedBannerFileName, setSelectedBannerFileName] = useState("");
   const [serviceShortDescription, setServiceShortDescription] = useState("");
-  const [longDescription, setLongDescription] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
@@ -60,6 +59,7 @@ const ServiceManagement = () => {
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("description", sliderHeading);
+    formData.append("shortDescription", serviceShortDescription);
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
 
@@ -126,6 +126,7 @@ const ServiceManagement = () => {
     setIsEdit(false);
     setSelectedSliderId(null);
     setSliderName("");
+    setServiceShortDescription("");
     setSliderHeading("");
     setSliderStatus(true);
     setSliderImage(null);
@@ -134,6 +135,7 @@ const ServiceManagement = () => {
       fileInputRef.current.value = "";
     }
   };
+
   const handleDragEnd = async (result) => {
     if (!result.destination) return;
 
@@ -160,7 +162,6 @@ const ServiceManagement = () => {
     fetchAllServices(currentPage);
   }, [currentPage]);
 
-  
   return (
     <>
       <div className="row">
@@ -193,6 +194,7 @@ const ServiceManagement = () => {
                   </div>
                 </div>
 
+                {/* Banner Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -210,46 +212,33 @@ const ServiceManagement = () => {
                   </div>
                 </div>
 
+                {/* Short Description */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Short Description
                     </label>
-                    <textarea
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter short description"
-                      value={serviceShortDescription}
-                      onChange={(e) => {
-                        const text = e.target.value;
-                        if (text.length <= 200) {
-                          setServiceShortDescription(text);
-                        }
-                      }}
+                    <Ckeditor
+                      text={serviceShortDescription}
+                      setText={setServiceShortDescription}
                     />
-                    <small className="text-muted">
-                      {serviceShortDescription.length}/200 characters
-                    </small>
+                    {/* <small className="text-muted">
+                      {serviceShortDescription.length}/100 characters
+                    </small> */}
                   </div>
                 </div>
 
+                {/* Long Description */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Long Desciption
                     </label>
-                    <textarea
-                      type="text"
-                      id="service-des"
-                      style={{ resize: "vertical", minHeight: "100px" }}
-                      className="form-control"
-                      placeholder="Enter long description"
-                      value={longDescription}
-                      onChange={(e) => setLongDescription(e.target.value)}
-                    />
+                    <Ckeditor text={sliderHeading} setText={setSliderHeading} />
                   </div>
                 </div>
+
+                {/* Service Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -263,49 +252,6 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
                     />
-                  </div>
-                </div>
-
-                {/* CTA button */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">CTA Button</label>
-                    <div className="d-flex flex-wrap gap-3">
-                      {ctaOptions.map((option, index) => (
-                        <div className="form-check" key={index}>
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`cta-${index}`}
-                            checked={ctaButtons.includes(option)}
-                            onChange={(e) => {
-                              const selected = ctaButtons.includes(option);
-                              setCtaButtons(
-                                selected
-                                  ? ctaButtons.filter((item) => item !== option)
-                                  : [...ctaButtons, option]
-                              );
-                            }}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`cta-${index}`}
-                          >
-                            {option}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Heading */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Service Desciption
-                    </label>
-                    <Ckeditor text={sliderHeading} setText={setSliderHeading} />
                   </div>
                 </div>
 
@@ -346,6 +292,39 @@ const ServiceManagement = () => {
                       >
                         Inactive
                       </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA button */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">CTA Button</label>
+                    <div className="d-flex flex-wrap gap-3">
+                      {ctaOptions.map((option, index) => (
+                        <div className="form-check" key={index}>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`cta-${index}`}
+                            checked={ctaButtons.includes(option)}
+                            onChange={(e) => {
+                              const selected = ctaButtons.includes(option);
+                              setCtaButtons(
+                                selected
+                                  ? ctaButtons.filter((item) => item !== option)
+                                  : [...ctaButtons, option]
+                              );
+                            }}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`cta-${index}`}
+                          >
+                            {option}
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -406,10 +385,10 @@ const ServiceManagement = () => {
                                     {...provided.dragHandleProps}
                                     style={{
                                       ...provided.draggableProps.style,
-                                      display: 'table-row',
+                                      display: "table-row",
                                     }}
                                   >
-                                    <td>{service.id}</td>
+                                    <td>{index + 1}</td>
                                     <td>
                                       <Link
                                         target="_blank"
@@ -460,6 +439,7 @@ const ServiceManagement = () => {
                                             setSliderHeading(
                                               service.description
                                             );
+                                            setServiceShortDescription(service.shortDescription)
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
                                           }}

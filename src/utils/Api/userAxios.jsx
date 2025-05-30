@@ -25,6 +25,10 @@ const jwtVerify = () => {
   return Date.now() <= exp * 1000;
 };
 
+export const webAxios= axios.create({
+  baseURL: `${GATEWAY_URL}/web`
+});
+
 const userAxios = axios.create({
   baseURL: `${GATEWAY_URL}/web`,
   headers: {

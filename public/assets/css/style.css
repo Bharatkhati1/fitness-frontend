@@ -6,6 +6,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 figure {
   margin-bottom: 0 !important;
 }
@@ -77,11 +78,11 @@ section:before {
   content: "";
 }
 
-@media (min-width: 1730px) {
+/* @media (min-width: 1730px) {
   .container {
     max-width: 1680px;
   }
-}
+} */
 
 a:focus {
   border: 0;
@@ -157,9 +158,11 @@ button:focus:not(:focus-visible) {
   color: #2a2a2a;
   margin-bottom: 0;
 }
+
 .PageTitle {
   margin-bottom: 45px;
 }
+
 .PageTitle h2 {
   font-size: 24px;
   color: var(--primary-color);
@@ -167,6 +170,7 @@ button:focus:not(:focus-visible) {
   margin-bottom: 15px;
   text-transform: uppercase;
 }
+
 .btn {
   font-size: 14px;
   font-weight: 700;
@@ -182,27 +186,34 @@ button:focus:not(:focus-visible) {
   border: 0;
   cursor: pointer;
 }
+
 body .btn.btn-primary {
   background: var(--secondary-color);
 }
+
 .bg-solid {
   background: #f6edf0;
 }
+
 .btn.max-btn {
   min-width: 235px;
 }
+
 .PageTitle span {
   color: #007946;
   text-transform: capitalize;
 }
+
 .SmartKichin .btn-info {
   position: absolute;
   right: 15px;
   top: 33px;
 }
+
 .PageTitle {
   position: relative;
 }
+
 .btn-info {
   background: #1976d2 !important;
 }
@@ -237,18 +248,21 @@ input.form-control:focus {
   background: #fff;
   border: 1px solid #e6e6e6;
 }
+
 /*--------------------------------------------------------------------------------------*/
 /*Home-Css-Here
 /*--------------------------------------------------------------------------------------*/
 header {
   padding: 15px 0;
 }
+
 header .navbar-nav .nav-link {
   font-size: 16px;
   font-weight: 400;
   color: #000000ba;
   padding: 0 15px !important;
 }
+
 .header-btn {
   font-size: 14px;
   font-weight: 500;
@@ -268,17 +282,21 @@ header .navbar-nav .nav-link {
 header .navbar-collapse .nav-link.active {
   color: var(--primary-color);
 }
+
 .GetIntouchRight {
   padding-bottom: 50px;
 }
+
 .bannerSection {
   background: #f5f5f5 url(../img/slider-bg.png);
   background-repeat: no-repeat;
   padding-top: 85px;
 }
+
 .Login-info {
   padding-left: 95px;
 }
+
 .BestTag {
   max-width: 210px;
   background: #fff;
@@ -292,9 +310,11 @@ header .navbar-collapse .nav-link.active {
   margin-bottom: 25px;
   color: #000;
 }
+
 .BestTag img {
   margin-right: 10px;
 }
+
 .bannerSectionLeft h1 {
   font-size: 40px;
   font-weight: 700;
@@ -302,6 +322,7 @@ header .navbar-collapse .nav-link.active {
   color: var(--primary-color);
   margin-bottom: 48px;
 }
+
 .bannerSection .BannerBtn a {
   font-size: 18px;
   color: #fff !important;
@@ -315,33 +336,41 @@ header .navbar-collapse .nav-link.active {
   text-transform: uppercase;
   cursor: pointer;
 }
+
 .bannerSection {
   position: relative;
 }
+
 .bannerSectionInner {
   margin-bottom: -10px;
 }
+
 .ClientInfo b {
   font-size: 30px;
   color: var(--secondary-color);
   font-weight: 700;
 }
+
 .ClientInfo p {
   font-size: 18px;
   font-weight: 600;
   color: #000;
 }
+
 .ClientListinfo {
   margin-bottom: 45px;
 }
+
 .ClientListinfo li {
   border-right: 1px solid #00000080;
   padding-right: 30px;
   margin-right: 30px;
 }
+
 .ClientListinfo li:last-child {
   border-right: 0;
 }
+
 .circletagShapeBox {
   position: absolute;
   right: 70px;
@@ -360,16 +389,19 @@ header .navbar-collapse .nav-link.active {
 .carticon img {
   transition: 0.3s;
 }
+
 .shapeImgLeft {
   position: absolute;
   left: -78px;
   top: 20px;
 }
+
 .shapeImgRight {
   position: absolute;
   right: -78px;
   bottom: 20px;
 }
+
 body .heartBeatImg {
   position: absolute;
   left: 0;
@@ -380,55 +412,69 @@ body .heartBeatImg {
   max-width: 27px !important;
   margin: auto;
 }
+
 .bannerSection .owl-item,
 .bannerSection .owl-stage-outer,
 .bannerSection .owl-carousel {
   height: 100%;
 }
+
 .owl-nav button:hover,
 .owl-nav button {
   background: transparent !important;
 }
+
 .bannerSection .owl-nav button.owl-next {
   right: 10px;
 }
+
 .bannerSection .owl-nav button.owl-prev {
   left: 10px;
 }
+
 .owl-nav button.owl-next {
   right: -25px;
 }
+
 .owl-nav button.owl-prev {
   left: -25px;
 }
+
 .bannerSection .owl-nav button {
   top: calc(50%);
 }
+
 .owl-nav button {
   position: absolute;
   top: calc(50% + -62px);
   transform: translateY(-50%);
 }
+
 .owl-p {
   font-size: 16px;
 }
+
 .owl-dots .owl-dot.active span {
   background: var(--primary-color) !important;
 }
+
 .AboutInfo h2 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 27px;
   color: var(--primary-color);
 }
+
 .AboutInfo h2 span {
   color: var(--secondary-color);
 }
+
 .AboutInfoLeft p {
   font-size: 20px;
   color: #2a2a2a;
   font-weight: 400;
 }
+
 .AboutInfo {
   padding-top: 35px;
   padding-bottom: 65px;
@@ -438,27 +484,32 @@ body .heartBeatImg {
   padding-top: 60px;
   padding-bottom: 70px;
 }
+
 .OurServicesContent {
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
   border-radius: 8px;
   overflow: hidden;
 }
+
 .OurServicesContent figcaption {
   padding: 15px 15px 19px;
   background: #fff;
 }
+
 .OurServicesContent figcaption h3 {
   font-size: 21px;
   color: var(--primary-color);
   font-weight: 700;
   margin-bottom: 10px;
 }
+
 .OurServicesContent figure img {
   display: block;
-  width: 100% !important  ;
+  width: 100% !important;
   object-fit: cover;
   height: 203px;
 }
+
 .OurServicesContent figcaption p {
   font-size: 14px;
   color: #2a2a2a;
@@ -466,26 +517,35 @@ body .heartBeatImg {
   min-height: 89px;
   margin-bottom: 20px;
 
-  display: -webkit-box; /* Creates a flexible box layout */
-  -webkit-box-orient: vertical; /* Vertical orientation */
-  -webkit-line-clamp: 4; /* Limit to 4 lines */
-  overflow: hidden; /* Hide overflowing text */
-  text-overflow: ellipsis; /* Show "..." at the end */
+  display: -webkit-box;
+  /* Creates a flexible box layout */
+  -webkit-box-orient: vertical;
+  /* Vertical orientation */
+  -webkit-line-clamp: 4;
+  /* Limit to 4 lines */
+  overflow: hidden;
+  /* Hide overflowing text */
+  text-overflow: ellipsis;
+  /* Show "..." at the end */
   /* Optional: fix word breaking */
   word-break: break-word;
 }
+
 .OurServicesRow .col-md-4 {
   margin-bottom: 80px;
   padding: 0 40px;
 }
+
 .OurServices .OurServicesRow {
   width: 96%;
   margin: auto;
 }
+
 .VideBox {
   object-fit: fill;
   background: rgb(0 0 0 / 12%);
 }
+
 .VideBox iframe {
   display: block;
   margin: auto;
@@ -495,9 +555,11 @@ body .heartBeatImg {
   padding-top: 60px;
   padding-bottom: 70px;
 }
+
 .WhyChoose {
   position: relative;
 }
+
 .WhyChoose:after {
   background: url(../img/whychoosePettern.png);
   position: absolute;
@@ -516,6 +578,7 @@ body .heartBeatImg {
   padding-top: 60px;
   padding-bottom: 70px;
 }
+
 .SmartKichinContent figcaption {
   width: 320px;
   margin: auto;
@@ -539,10 +602,12 @@ body .heartBeatImg {
   display: flex;
   justify-content: center;
 }
+
 .SmartKichinContent figcaption p {
   color: #000000e5;
   margin-bottom: 15px;
 }
+
 .SmartKichin .row .col-md-4 {
   padding: 0 25px;
 }
@@ -561,19 +626,19 @@ body .heartBeatImg {
 .PosterContent {
   max-width: 840px;
   margin: auto;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.5) 0,
-    rgba(255, 255, 255, 0.5) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.5) 0,
+      rgba(255, 255, 255, 0.5) 100%);
   padding: 35px 25px;
 }
+
 .PosterContent h2 {
   font-size: 33px;
   font-weight: 700;
   color: #fff;
   margin-bottom: 20px;
 }
+
 .PosterContent p {
   font-size: 19px;
   color: #fff;
@@ -591,33 +656,39 @@ body .heartBeatImg {
   padding-top: 60px;
   padding-bottom: 70px;
 }
+
 .OurHealthBlogContent figure img {
   width: 100%;
   height: 310px;
   object-fit: cover;
   display: block;
 }
+
 .OurHealthBlogContent figcaption {
   text-align: center;
   margin-top: 15px;
   padding: 0 20px;
 }
+
 .OurHealthBlogContent figcaption span {
   font-size: 14px;
   color: #800030;
   margin-bottom: 12px;
   display: block;
 }
+
 .OurHealthBlogContent figcaption h3 {
   font-size: 24px;
   font-weight: 600;
   color: #2a2a2a;
   line-height: 1.3;
 }
+
 .row.OurHealthBlogRows {
   width: 84%;
   margin: auto;
 }
+
 .col-md-6.OurHealthBlogContent {
   margin-bottom: 55px;
   padding: 0 40px;
@@ -644,6 +715,7 @@ body .heartBeatImg {
   justify-content: center;
   max-width: 220px;
 }
+
 .infobox h4 {
   font-size: 28px;
   color: #800030;
@@ -817,6 +889,7 @@ textarea.form-control {
 .GetIntouch {
   position: relative;
 }
+
 .GetIntouchRight {
   padding-top: 30px;
   padding-left: 30px;
@@ -825,10 +898,12 @@ textarea.form-control {
 .GetIntouch .PageTitle {
   margin-bottom: 30px;
 }
+
 .col-md-6.GetIntouchRight {
   position: relative;
   top: 25px;
 }
+
 .form-checkList {
   flex-wrap: wrap;
 }
@@ -840,11 +915,9 @@ textarea.form-control {
 }
 
 .ContactUs {
-  background: linear-gradient(
-    to bottom,
-    rgba(167, 167, 167, 1) 0%,
-    rgba(255, 255, 255, 0.5) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(167, 167, 167, 1) 0%,
+      rgba(255, 255, 255, 0.5) 100%);
   padding: 20px 20px;
   position: absolute;
   width: 290px;
@@ -867,9 +940,11 @@ textarea.form-control {
   color: #2a2a2a;
   font-weight: 600;
 }
+
 .ContactInfoList {
   margin-top: 20px;
 }
+
 .ContactInfoList li {
   display: flex;
   align-items: center;
@@ -946,14 +1021,15 @@ footer {
   font-weight: 400;
   margin-left: 10px;
 }
+
 .ContactInfoFooter li {
   display: flex;
   align-items: center;
   margin-bottom: 14px;
 }
+
 .ContactInfoFooter li img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%)
-    hue-rotate(112deg) brightness(102%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%) hue-rotate(112deg) brightness(102%) contrast(97%);
 }
 
 .FooterSubscribe h2 {
@@ -981,9 +1057,11 @@ textarea.form-control:focus {
   background: rgb(255, 255, 255);
   border: 1px solid #e6e6e6;
 }
+
 .GetIntouch {
   position: relative;
 }
+
 .GetIntouchShape1 {
   position: absolute;
   left: 0;
@@ -1007,6 +1085,7 @@ header .navbar-nav .nav-link.active {
 header .navbar-nav .nav-link {
   position: relative;
 }
+
 header .navbar-nav .nav-link.active:after {
   content: "";
   background: #800030;
@@ -1025,21 +1104,23 @@ header .navbar-nav .nav-link.active:after {
   height: 17px;
   border-radius: 4px;
 }
+
 .bannerSection {
   position: relative;
 }
+
 .bannerSectionInner figure {
   position: relative;
 }
+
 .bannerSectionInner figure:after {
   width: 470px;
   height: 470px;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#efefef+0,ffffff+100 */
-  background: linear-gradient(
-    to bottom,
-    rgba(239, 239, 239, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(to bottom,
+      rgba(239, 239, 239, 1) 0%,
+      rgba(255, 255, 255, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
   position: absolute;
   content: "";
@@ -1053,6 +1134,7 @@ header .navbar-nav .nav-link.active:after {
   z-index: 99;
   position: relative;
 }
+
 header.sticky {
   position: fixed;
   left: 0;
@@ -1096,16 +1178,16 @@ header.sticky {
   padding-top: 50px;
   background-position: 100% 15%;
 }
+
 .RegisterPage .col-md-7.me-auto,
 .col-md-4.me-auto {
   margin: 20px 0;
 }
+
 .formBox {
-  background: linear-gradient(
-    to bottom,
-    rgb(237 237 237 / 64%) 0%,
-    rgb(219 219 219 / 58%) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgb(237 237 237 / 64%) 0%,
+      rgb(219 219 219 / 58%) 100%);
   box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
   border-radius: 8px;
   padding: 30px 45px 35px;
@@ -1211,6 +1293,7 @@ header.sticky {
   margin: auto;
   font-size: 18px;
 }
+
 .RegisterPage .SocialUsers {
   gap: 10px;
 }
@@ -1242,6 +1325,7 @@ header.sticky {
   color: #2795d9;
   cursor: pointer;
 }
+
 ul.BottomFooterList,
 .BottomFooter p {
   margin-bottom: 0;
@@ -1270,6 +1354,7 @@ ul.BottomFooterList,
   width: 100%;
   height: 100%;
 }
+
 .innerbannerContent h2 {
   font-size: 48px;
   color: #ffffff;
@@ -1290,9 +1375,11 @@ ul.BottomFooterList,
 .InnerSpace {
   padding: 45px 0;
 }
+
 .InnerPageTitle {
   margin-bottom: 40px;
 }
+
 .InnerPageTitle h4 {
   font-size: 30px;
   color: var(--primary-color);
@@ -1314,11 +1401,13 @@ ul.BottomFooterList,
   margin-top: 30px;
   padding-bottom: 40px;
 }
+
 .calculateHead h4 {
   font-size: 18px;
   margin-bottom: 0;
   color: #1e1e1e;
 }
+
 .calculateHead {
   padding: 28px 20px;
   border-bottom: 1px solid rgb(0 0 0 / 15%);
@@ -1343,6 +1432,7 @@ ul.BottomFooterList,
   display: flex;
   position: relative;
 }
+
 .calculaField {
   display: flex;
   align-items: center;
@@ -1362,6 +1452,7 @@ ul.BottomFooterList,
   background-size: 16px;
   background-position: right 10px center;
 }
+
 .calculainSelect input.form-control {
   font-size: 20px;
   height: 61px;
@@ -1425,6 +1516,7 @@ ul.wightList figure {
 .btn.sm-btn {
   min-width: 304px;
 }
+
 .yourBmi {
   font-size: 28px;
   color: #000;
@@ -1453,10 +1545,12 @@ ul.wightList figure {
   object-fit: cover;
   width: 100%;
 }
+
 .calculatebody .btn.btn-primary {
   font-size: 18px;
   height: 53px;
 }
+
 /**/
 
 .FieldIn {
@@ -1477,8 +1571,9 @@ ul.wightList figure {
   position: absolute;
   left: -9999px;
 }
-.radioList [type="radio"]:checked + label,
-.radioList [type="radio"]:not(:checked) + label {
+
+.radioList [type="radio"]:checked+label,
+.radioList [type="radio"]:not(:checked)+label {
   position: relative;
   padding-left: 41px;
   cursor: pointer;
@@ -1487,8 +1582,9 @@ ul.wightList figure {
   font-size: 24px;
   font-weight: 400;
 }
-.radioList [type="radio"]:checked + label:before,
-.radioList [type="radio"]:not(:checked) + label:before {
+
+.radioList [type="radio"]:checked+label:before,
+.radioList [type="radio"]:not(:checked)+label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1499,8 +1595,9 @@ ul.wightList figure {
   border-radius: 100%;
   background: #fff;
 }
-.radioList [type="radio"]:checked + label:after,
-.radioList [type="radio"]:not(:checked) + label:after {
+
+.radioList [type="radio"]:checked+label:after,
+.radioList [type="radio"]:not(:checked)+label:after {
   content: "";
   width: 13px;
   height: 13px;
@@ -1513,18 +1610,20 @@ ul.wightList figure {
   transition: all 0.2s ease;
   right: 0;
 }
-.radioList [type="radio"]:not(:checked) + label:after {
+
+.radioList [type="radio"]:not(:checked)+label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
-.radioList [type="radio"]:checked + label:after {
+
+.radioList [type="radio"]:checked+label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-.radioList [type="radio"]:checked + label:before {
+.radioList [type="radio"]:checked+label:before {
   border: 1px solid #800030;
 }
 
@@ -1553,17 +1652,20 @@ ul.radioList {
   color: #1e1e1e;
   font-weight: 600;
 }
+
 body .dash-class {
   font-size: 60px;
   color: #007946;
   font-weight: 700;
   line-height: 0.2;
 }
+
 body .ResultBoxinner-left .dash-class {
   font-size: 60px;
   color: #007946;
   font-weight: 700;
 }
+
 .day-text {
   display: flex;
   font-size: 60px;
@@ -1617,10 +1719,12 @@ span.text-primary {
   color: #1e1e1e;
   font-weight: 600;
 }
+
 ul.optinallyList {
   padding: 20px 0 60px;
   padding-right: 138px;
 }
+
 .smallNote {
   font-size: 14px !important;
   color: #1e1e1e;
@@ -1629,6 +1733,7 @@ ul.optinallyList {
   padding-right: 212px;
   text-transform: capitalize;
 }
+
 .taginfo {
   position: absolute;
   right: -122px;
@@ -1682,6 +1787,7 @@ ul.optinallyList {
   font-weight: 700;
   margin-bottom: 15px;
 }
+
 .ToolsPageBox:nth-child(odd) .row .col-md-8 {
   padding-left: 125px !important;
 }
@@ -1689,15 +1795,18 @@ ul.optinallyList {
 .ToolsPageBox:last-child {
   margin-bottom: 0;
 }
+
 .ToolsPageBox p {
   font-size: 14px;
   font-weight: 400;
   color: #1e1e1e;
   line-height: 1.8;
 }
+
 .ToolsPageBox figure {
   margin-bottom: 0;
 }
+
 .ToolsPageBox figure img {
   width: 372px;
   height: 209px;
@@ -1763,12 +1872,14 @@ ul.BottomFooterList li a:hover {
 .bannerSectionRight .owl-carousel .owl-item img {
   width: auto;
 }
+
 .owl-carousel .owl-item img {
   width: auto !important;
 }
-body .OurServicesContent figure img {
+
+body .owl-item .OurServicesContent figure img {
   height: 210px;
-  width: 100%;
+  width: 100% !important;
   background: #fff;
 }
 
@@ -1850,6 +1961,7 @@ body .OurServicesContent figure img {
   padding-right: 100px;
   display: flex;
 }
+
 .whoareList {
   display: flex;
   margin-bottom: 0;
@@ -1982,9 +2094,11 @@ ul.whoareList figcaption {
   font-weight: 400;
   margin-bottom: 0;
 }
+
 .OurMVBox {
   position: relative;
 }
+
 .OurMVBox figure img {
   width: 100%;
   height: 342px;
@@ -2013,6 +2127,7 @@ ul.whoareList figcaption {
   margin-bottom: 0;
   padding-top: 130px;
 }
+
 .VisionMissionList li {
   display: flex;
 }
@@ -2023,9 +2138,11 @@ ul.VisionMissionList li {
   margin-bottom: 15px;
   padding-left: 5px;
 }
+
 .VisionMissioTitle {
   position: relative;
 }
+
 .VisionMissioTitle:after {
   background: #000;
   position: absolute;
@@ -2104,11 +2221,9 @@ section.OurTEAM {
 }
 
 .OurTeamsrowsL figure:after {
-  background: linear-gradient(
-    to right,
-    rgba(0, 121, 70, 0.49) 0%,
-    rgba(226, 226, 226, 0.17) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 121, 70, 0.49) 0%,
+      rgba(226, 226, 226, 0.17) 100%);
   content: "";
   position: absolute;
   left: 0;
@@ -2173,18 +2288,18 @@ section.OurTEAM {
 .row.OurTeamsrows {
   padding-bottom: 10px;
 }
+
 .OurTeamsrows:nth-child(even) {
   flex-direction: row-reverse;
 }
 
 .OurTeamsrows:nth-child(even) figure:after {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e2e2e2+0,007946+99&0.17+0,0.49+100 */
-  background: linear-gradient(
-    to right,
-    rgba(226, 226, 226, 0.17) 0%,
-    rgba(0, 121, 70, 0.49) 99%,
-    rgba(0, 121, 70, 0.49) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(to right,
+      rgba(226, 226, 226, 0.17) 0%,
+      rgba(0, 121, 70, 0.49) 99%,
+      rgba(0, 121, 70, 0.49) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .MoreProfessional {
@@ -2200,6 +2315,7 @@ section.OurTEAM {
   justify-content: center;
   margin-top: 30px;
 }
+
 .MoreProfessional p {
   margin-bottom: 0;
 }
@@ -2286,6 +2402,7 @@ button.SearchBtn {
 .blogbanner .innerbannerContent {
   bottom: 30px;
 }
+
 .SearchBox {
   width: 827px;
   position: relative;

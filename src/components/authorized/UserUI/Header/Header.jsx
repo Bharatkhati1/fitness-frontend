@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../../../../../public/assets/img/logo.png";
 import CartIcon from "../../../../../public/assets/img/carticon.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 
@@ -32,8 +32,8 @@ const Header = () => {
                   <Nav.Link as={Link} to="/" className={pathname.length==1&&`active`}>
                     Home
                   </Nav.Link>
-                  <Nav.Link as={Link}  className={pathname.includes("/about")&&`active`}>
-                    About
+                  <Nav.Link as={Link} to={"/about-us"}  className={pathname.includes("/about-us")&&`active`}>
+                    About Us
                   </Nav.Link>
                   <Nav.Link as={Link}  className={pathname.includes("/packages")&&`active`}>
                     Packages
@@ -44,10 +44,10 @@ const Header = () => {
                   <Nav.Link as={Link}  className={pathname.includes("/testimonials")&&`active`}>
                     Testimonials
                   </Nav.Link>
-                  <Nav.Link as={Link}  className={pathname.includes("/blogs")&&`active`}>
+                  <Nav.Link as={Link} to={"/blogs"}  className={pathname.includes("/blogs")&&`active`}>
                     Blogs
                   </Nav.Link>
-                  <Nav.Link as={Link} className={pathname.includes("/contact-us")&&`active`}>
+                  <Nav.Link as={Link} to={"/contact-us"} className={pathname.includes("/contact-us")&&`active`}>
                     Contact Us
                   </Nav.Link>
                 </Nav>

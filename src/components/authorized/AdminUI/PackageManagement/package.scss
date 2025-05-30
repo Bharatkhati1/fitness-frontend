@@ -1,11 +1,13 @@
-.card-body{
+.card-body {
     border-top: 1px solid gray;
-    .title{
+
+    .title {
         font-size: 1rem;
-        color:  rgb(104, 27, 27);
+        color: rgb(104, 27, 27);
         font-weight: bold;
         margin-bottom: 10px;
-        button{
+
+        button {
             margin-left: 10px;
             border-radius: 50%;
             color: white;
@@ -15,37 +17,23 @@
             background-color: rgb(104, 27, 27);
         }
     }
-    .row{
-        position: relative;
-        .remove-btn-inclusion{
-            position: absolute;
-            margin-left: 10px;
-            bottom: 0;
-            right: 0;
-            width: auto;
-            border-radius: 4px;
-            color: white;
-            font-size: 15px;
-            border: none;
-            padding: 5px 12px;
-            background-color: rgb(104, 27, 27, 0.5);
-            &:hover{
-                background-color: rgb(104, 27, 27);
-            }
-        }
-    }
-    .email-notif{
+
+
+    .email-notif {
         display: flex;
         padding-left: 0;
     }
-    .input-emails{
+
+    .input-emails {
         display: flex;
         flex-direction: column;
-        p{
+
+        p {
             display: flex;
             gap: 15px;
             justify-content: space-between;
-            .remove-icon{
+
+            .remove-icon {
                 border-radius: 50%;
                 border: none;
                 color: white;
@@ -56,5 +44,24 @@
                 background-color: rgb(173, 173, 173);
             }
         }
+    }
+}
+
+.ck.ck-editor__main > .ck-editor__editable{
+    height: 120px;
+}
+.add-package-btn{
+    display: flex;
+    justify-content: end;
+    a{
+        padding: 6px 12px;
+        border: 1px solid rgba(132, 134, 167) ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        border-radius: 10px;
+        background-color: white;
+        margin-bottom: 15px;
     }
 }

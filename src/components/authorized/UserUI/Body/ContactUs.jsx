@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-import gIcon1 from "../../../public/assets/img/gIcon1.svg";
-import gIcon2 from "../../../public/assets/img/gIcon2.svg";
-import gIcon3 from "../../../public/assets/img/gIcon3.svg";
-import Ginstaicon from "../../../public/assets/img/Ginstaicon.png";
-import Gtweeter from "../../../public/assets/img/Gtweeter.png";
-import cyoutubeIcon from "../../../public/assets/img/cyoutubeIcon.png";
-import gettouch from "../../../public/assets/img/gettouch.png";
-import userAxios from "../../utils/Api/userAxios.jsx";
-import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
+import React from "react";
+import gIcon1 from "../../../../../public/assets/img/gIcon1.svg";
+import gIcon2 from "../../../../../public/assets/img/gIcon2.svg";
+import gIcon3 from "../../../../../public/assets/img/gIcon3.svg";
+import Ginstaicon from "../../../../../public/assets/img/Ginstaicon.png";
+import Gtweeter from "../../../../../public/assets/img/Gtweeter.png";
+import cyoutubeIcon from "../../../../../public/assets/img/cyoutubeIcon.png";
+import gettouch from "../../../../../public/assets/img/gettouch.png";
+import { useSelector } from "react-redux";
 function ContactUs() {
-  const [allServices, setAllServices] = useState([]);
-
-  const getServices = async () => {
-    try {
-      const response = await userAxios.get(userApiRoutes.get_services);
-      const servicesData = response.data.data;
-      setAllServices(servicesData);
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response.data.message);
-    }
-  };
-
-  useEffect(() => {
-    getServices();
-  }, []);
+  const {allServices=[]} = useSelector((state)=> state.auth)
   return (
     <>
       <section className="InnerpageSpace bgpettern">

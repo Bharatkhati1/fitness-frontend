@@ -7,4 +7,6 @@ export const initialState = {
   userDetails: {},
   adminDetails: {},
   permissions: {},
+  allServices:[],
+  services:[]
 };

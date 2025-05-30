@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 
@@ -103,7 +102,7 @@ const SliderManagement = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Slider` : `Create Slider`}
+                {isEdit ? `Edit Selected Slider` : `Add Slider`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
@@ -260,7 +259,7 @@ const SliderManagement = () => {
                     {sliders.length > 0 ? (
                       sliders.map((slider, index) => (
                         <tr key={index}>
-                          <td>{slider.id}</td>
+                          <td>{index+1}</td>
                           <td>
                             <Link target="_blank" to={slider.image_url}>
                               {" "}

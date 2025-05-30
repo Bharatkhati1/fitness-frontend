@@ -1,9 +1,7 @@
-import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-import blogDeatils from "../../../public/assets/img/blogDeatils.png";
-function BlogDeatils() {
-return (
+import React from 'react'
+import blogDeatils from "../../../../../public/assets/img/blogDeatils.png";
+const BlogsDetails = () => {
+  return (
 <>
 <section className=" BlogDeatils">
    <figure>
@@ -126,6 +124,7 @@ return (
    </div>
 </div>
 </>
-);
+  )
 }
-export default BlogDeatils;
+
+export default BlogsDetails

@@ -12,7 +12,6 @@ import smIMG6 from "../../../public/assets/img/smIMG6.png";
 function ServiceDetails() {
   return (
     <>
-      <Header />
       <section className="innerbanner">
         <figure>
           <img src={servicebanner} />
@@ -217,7 +216,6 @@ function ServiceDetails() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

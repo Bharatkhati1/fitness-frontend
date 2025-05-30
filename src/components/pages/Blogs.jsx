@@ -24,7 +24,6 @@ import leftR from "../../../public/assets/img/rightp.png";
 function Blogs() {
   return (
     <>
-      <Header />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={HealthBg} />
@@ -317,8 +316,6 @@ function Blogs() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

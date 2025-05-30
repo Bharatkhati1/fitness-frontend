@@ -1,43 +1,29 @@
 import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-
-import FitIcon from "../../../public/assets/img/FitIcon.png";
-
-import valueIcon from "../../../public/assets/img/valueIcon.png";
-
-import shapeabout from "../../../public/assets/img/shapeabout.png";
-
-import JoinBg from "../../../public/assets/img/JoinBg.png";
-
-import ourVisionIMG from "../../../public/assets/img/ourVisionIMG.png";
-
-import OurMissionimg from "../../../public/assets/img/OurMissionimg.png";
-
-import vIcon1 from "../../../public/assets/img/v-Icon-1.png";
-
-import vIcon2 from "../../../public/assets/img/v-Icon-2.png";
-import vIcon3 from "../../../public/assets/img/v-Icon-3.png";
-import vIcon4 from "../../../public/assets/img/v-Icon-4.png";
-import vIcon5 from "../../../public/assets/img/v-Icon-5.png";
-import vIcon6 from "../../../public/assets/img/v-Icon-6.png";
-
-import MIcon1 from "../../../public/assets/img/m-Icon-1.png";
-import MIcon2 from "../../../public/assets/img/m-Icon-2.png";
-import MIcon3 from "../../../public/assets/img/m-Icon-3.png";
-import MIcon4 from "../../../public/assets/img/m-Icon-4.png";
-
-import MeetsTeamsImG1 from "../../../public/assets/img/MeetsTeamsImG1.png";
-import MeetsTeamsImG2 from "../../../public/assets/img/MeetsTeamsImG2.png";
-import MeetsTeamsImG3 from "../../../public/assets/img/MeetsTeamsImG3.png";
-import MeetsTeamsImG4 from "../../../public/assets/img/MeetsTeamsImG4.png";
-import MeetsTeamsImG5 from "../../../public/assets/img/MeetsTeamsImG5.png";
-import MeetsTeamsImG6 from "../../../public/assets/img/MeetsTeamsImG6.png";
-
-import CofoundersIMG from "../../../public/assets/img/CofoundersIMG.png";
-import CofoundersIMG2 from "../../../public/assets/img/CofoundersIMG2.png";
-
-import trustedImg from "../../../public/assets/img/trustedImg.svg";
+import FitIcon from "../../../../../public/assets/img/FitIcon.png";
+import valueIcon from "../../../../../public/assets/img/valueIcon.png";
+import shapeabout from "../../../../../public/assets/img/shapeabout.png";
+import JoinBg from "../../../../../public/assets/img/JoinBg.png";
+import ourVisionIMG from "../../../../../public/assets/img/ourVisionIMG.png";
+import OurMissionimg from "../../../../../public/assets/img/OurMissionimg.png";
+import vIcon1 from "../../../../../public/assets/img/v-Icon-1.png";
+import vIcon2 from "../../../../../public/assets/img/v-Icon-2.png";
+import vIcon3 from "../../../../../public/assets/img/v-Icon-3.png";
+import vIcon4 from "../../../../../public/assets/img/v-Icon-4.png";
+import vIcon5 from "../../../../../public/assets/img/v-Icon-5.png";
+import vIcon6 from "../../../../../public/assets/img/v-Icon-6.png";
+import MIcon1 from "../../../../../public/assets/img/m-Icon-1.png";
+import MIcon2 from "../../../../../public/assets/img/m-Icon-2.png";
+import MIcon3 from "../../../../../public/assets/img/m-Icon-3.png";
+import MIcon4 from "../../../../../public/assets/img/m-Icon-4.png";
+import MeetsTeamsImG1 from "../../../../../public/assets/img/MeetsTeamsImG1.png";
+import MeetsTeamsImG2 from "../../../../../public/assets/img/MeetsTeamsImG2.png";
+import MeetsTeamsImG3 from "../../../../../public/assets/img/MeetsTeamsImG3.png";
+import MeetsTeamsImG4 from "../../../../../public/assets/img/MeetsTeamsImG4.png";
+import MeetsTeamsImG5 from "../../../../../public/assets/img/MeetsTeamsImG5.png";
+import MeetsTeamsImG6 from "../../../../../public/assets/img/MeetsTeamsImG6.png";
+import CofoundersIMG from "../../../../../public/assets/img/CofoundersIMG.png";
+import CofoundersIMG2 from "../../../../../public/assets/img/CofoundersIMG2.png";
+import trustedImg from "../../../../../public/assets/img/trustedImg.svg";
 
 function AboutUs() {
   return (

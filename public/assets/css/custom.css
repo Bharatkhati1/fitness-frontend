@@ -1,0 +1,77 @@
+.admin-pages .page-content {
+    background: #f9f7f7;
+}
+
+.admin-pages .form-label {
+    color: #000;
+}
+
+.admin-pages header {
+    padding: 0px 0;
+}
+
+.admin-pages .card-body {
+    border-top: 0;
+}
+
+.admin-pages .form-check-input[type=radio] {
+    border-radius: 50px !important;
+}
+
+.admin-pages .form-check-input[type=radio],
+.admin-pages .form-check-input[type=checkbox] {
+    height: 20px;
+    width: 20px;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.admin-pages .ant-select-selector {
+    border: 1px solid #e6e6e6 !important;
+    border-radius: 5px !important;
+
+}
+
+.admin-pages .email-new input {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.admin-pages .gray-box {
+    background: #D9D9D936;
+    padding: 5px 15px 15px;
+    border-radius: 8px;
+}
+
+.admin-pages .note-editor .note-btn-group button{
+color: #333 !important;
+padding: 6px 10px;
+height: auto;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;
+}
+.admin-pages select,
+.admin-pages input {
+    padding: 9px 12px;
+    height: auto;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px !important;
+}
+
+.remove-btn-inclusion {
+    line-height: 30px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    height: 30px;
+    border: none;
+    width: 30px;
+    padding: 0px 0px;
+    border: none;
+    background-color: rgb(104, 27, 27);
+}
+
+.gray-box h4 {
+    line-height: 30px;
+}
