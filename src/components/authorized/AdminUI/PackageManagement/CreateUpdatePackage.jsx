@@ -454,7 +454,7 @@ const CreateUpdatePackage = () => {
               </div>
 
               {/* CTA button */}
-              <div className="col-lg-6">
+              <div className="col-xxl-6 col-lg-8">
                 <div className="mb-3">
                   <label className="form-label">CTA Button</label>
                   <div className="">
@@ -471,7 +471,7 @@ const CreateUpdatePackage = () => {
                           className="row align-items-center my-1"
                           key={index}
                         >
-                          <div className="col-4">
+                          <div className="col-6">
                             <div className="form-check">
                               <input
                                 className="form-check-input"
@@ -552,7 +552,7 @@ const CreateUpdatePackage = () => {
               </div>
 
               {/* Status */}
-              <div className="col-lg-6">
+              <div className="col-xxl-6 col-lg-4">
                 <label className="form-label">Package Status</label>
                 <div className="d-flex gap-2 align-items-center">
                   <div className="form-check">

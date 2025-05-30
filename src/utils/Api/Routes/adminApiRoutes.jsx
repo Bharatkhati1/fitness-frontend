@@ -6,8 +6,9 @@ const adminApiRoutes = {
     //SERVICE ROUTES
     get_services: "/service",
     create_service:"/service",
-    update_service:(selectedSliderId)=>`/service/${selectedSliderId}`,
-    delete_service:(selectedSliderId)=>`/service/${selectedSliderId}`,
+    update_service:(id)=>`/service/${id}`,
+    delete_service:(id)=>`/service/${id}`,
+    update_service_order:`/service-sequence`,
 
     //PACKAGE ROUTES
     get_package:"/package",

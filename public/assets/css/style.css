@@ -2521,7 +2521,6 @@ button.SearchBtn {
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
- 
 }
 
 .filtersBoxInner select.form-select {
@@ -2535,8 +2534,8 @@ button.SearchBtn {
   font-size: 18px;
 }
 
-.filterOwl {
-  width: 85%;
+.col-xxl-auto.col-sm-auto.taginfoleft {
+  padding-right: 0;
 }
 
 .filtersBoxInner {
@@ -3491,6 +3490,12 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
-.taginfolist {
-    gap: 10px;
+.col-xxl.taginforight {
+  width: calc(100% - 171px);
+}
+
+.sortbyright {
+  text-align: revert;
+  display: flex;
+  justify-content: flex-end;
 }

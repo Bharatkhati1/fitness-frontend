@@ -64,6 +64,23 @@ function AllPakages() {
               loop={true}
               margin={10}
               nav={true}
+              responsive={{
+                0: {
+                  items: 1, // 0px and up
+                },
+                481: {
+                  items: 2, // 0px and up
+                },
+                768: {
+                  items: 3, // 600px and up
+                },
+                992: {
+                  items: 4, // 600px and up
+                },
+                1200: {
+                  items: 6, // 1000px and up
+                },
+              }}
             >
               <div class="item">
                 <div className="servicelist">
@@ -184,6 +201,23 @@ function AllPakages() {
               loop={true}
               margin={20}
               nav={true}
+              responsive={{
+                0: {
+                  items: 1, // 0px and up
+                },
+                481: {
+                  items: 2, // 0px and up
+                },
+                768: {
+                  items: 2, // 600px and up
+                },
+                992: {
+                  items: 3, // 600px and up
+                },
+                1200: {
+                  items: 3, // 1000px and up
+                },
+              }}
             >
               <div class="item">
                 <div className="product-list">

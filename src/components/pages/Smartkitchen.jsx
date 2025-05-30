@@ -80,6 +80,24 @@ function Smartkitchen() {
               loop={true}
               margin={10}
               nav={true}
+
+                  responsive={{
+                            0: {
+                              items: 2, // 0px and up
+                            },
+                              481: {
+                              items: 3, // 0px and up
+                            },
+                            768: {
+                              items: 5, // 600px and up
+                            },
+                            992: {
+                              items: 7, // 600px and up
+                            },
+                            1200: {
+                              items: 9, // 1000px and up
+                            },
+                          }}
             >
               <div class="item">
                 <div className="SmartKichinbox">

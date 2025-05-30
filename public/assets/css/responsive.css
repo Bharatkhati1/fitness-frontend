@@ -49,7 +49,7 @@
   }
 
   .innerbannerContent h2 {
-    font-size: 38px;
+    font-size: 28px;
   }
   .innerbannerContent p {
     font-size: 16px;
@@ -210,12 +210,92 @@
     font-size: 32px;
   }
 
-  .filterOwl {
-    width: 81%;
-  }
-
   .servicelist p {
     font-size: 13px;
+  }
+  .product-list figcaption h3 {
+    font-size: 18px;
+  }
+
+  .price span {
+    font-size: 24px;
+  }
+  body .owl-carousel .owl-item .product-list figure img {
+    height: 350px;
+  }
+  .bpheadleft h4 {
+    font-size: 28px;
+  }
+
+  .bpheadleft p {
+    font-size: 18px;
+  }
+
+  .pricetime {
+    font-size: 22px;
+  }
+
+  .bookappoinmentbody p {
+    font-size: 16px;
+  }
+
+  .baheadtitle h3 {
+    font-size: 32px;
+  }
+
+  .baheadtitle p {
+    font-size: 18px;
+  }
+
+  .badetailright .pricetime {
+    font-size: 26px;
+  }
+  .slottitle {
+    font-size: 18px;
+  }
+  .baheadtitle {
+    margin-bottom: 10px;
+  }
+
+  .slottimelist li {
+    width: 26%;
+  }
+
+  .slottimelist li {
+    font-size: 14px;
+  }
+
+  .btn-group-box {
+    gap: 9px;
+  }
+
+  .btn-group-box .btn {
+    font-size: 15px;
+  }
+
+  .servicedetaillisting figcaption h3 {
+    font-size: 28px;
+  }
+
+  .servicedetaillisting figcaption p {
+    font-size: 14px;
+    min-height: auto;
+  }
+
+  .servicedetail p {
+    font-size: 14px;
+  }
+
+  .JoinourhealthContent h3 {
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .blogbannertitle {
+    font-size: 14px;
+  }
+  .SmartKichinbox p {
+    font-size: 16px;
   }
 }
 
@@ -440,6 +520,131 @@
   .col-md-6.ps-4 {
     padding-left: 15px !important;
   }
+
+  .SearchBox input {
+    height: 48px;
+    font-size: 16px;
+  }
+  .baheadtitle h3 {
+    font-size: 32px;
+  }
+
+  .baheadtitle p {
+    font-size: 18px;
+  }
+  .badetailright .pricetime {
+    font-size: 28px;
+  }
+
+  .adlistinfo li h4 {
+    font-size: 18px;
+  }
+
+  .adlistinfo li span {
+    font-size: 18px;
+  }
+
+  .slottimelist li {
+    width: 33%;
+  }
+
+  .slottimelist {
+    gap: 5px 15px;
+  }
+
+  .slottimelist li {
+    font-size: 14px;
+  }
+
+  .slottimelist li {
+    width: 29%;
+  }
+  .slottitle {
+    font-size: 18px;
+  }
+
+  .adlistinfo li h4 {
+    font-size: 16px;
+  }
+  .adlistinfo li span {
+    font-size: 16px;
+  }
+  .AboutBanner {
+    background-size: cover;
+    height: 465px;
+    background-position: right 56px;
+  }
+
+  ul.whoareList li {
+    width: 31%;
+    padding-right: 20px;
+  }
+  .AboutBannerContent h3 {
+    font-size: 32px;
+  }
+  .OurTEAMhead h2 {
+    font-size: 32px;
+  }
+  .OurTEAMhead span {
+    font-size: 18px;
+  }
+  .OurTEAMhead p br {
+    display: none;
+  }
+  .bpheadleft h4 {
+    font-size: 28px;
+  }
+
+  .bpheadleft p {
+    font-size: 18px;
+  }
+
+  .pricetime {
+    font-size: 20px;
+  }
+  .bookappoinmentbody p {
+    font-size: 16px;
+  }
+  .product-list figcaption {
+    padding: 20px 22px 30px;
+  }
+
+  .btn-group-box {
+    gap: 7px;
+  }
+
+  .btn-group-box {
+    margin-top: 20px;
+  }
+
+  .servicedetaillisting figcaption h3 {
+    font-size: 28px;
+  }
+  .textlink a {
+    font-size: 14px;
+  }
+
+  .JoinourhealthContent h3 {
+    font-size: 42px;
+  }
+
+  .JoinourhealthContent p {
+    font-size: 16px;
+  }
+  .row.row-cols-5.SmartKichinlistrow .col {
+    width: 25%;
+  }
+  .row.row-cols-5.SmartKichinlistrow {
+    justify-content: center;
+  }
+  .SearchBox {
+    width: 600px;
+  }
+
+  .btnserch .btn {
+    height: 48px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -625,6 +830,138 @@
   .bmiCalculatorBg {
     margin-top: 0;
   }
+  .SearchBox {
+    width: 500px;
+  }
+
+  .col-xxl-2.col-sm-3.sortbyright select.form-select {
+    font-size: 16px;
+  }
+  .OurBlogs .OurHealthBlogContent figcaption {
+    padding: 0 15px;
+  }
+  .col-md-6.OurHealthBlogContent p {
+    font-size: 16px;
+  }
+  .row.slotdatebox {
+    flex-wrap: wrap;
+  }
+
+  .col-md-6.slotdateboxleft {
+    width: 100%;
+  }
+  .col-md-6.slotdateboxright {
+    width: 100%;
+    border-left: 0;
+  }
+  .col-md-4.badetailleft {
+    width: 40%;
+  }
+  .col-md-8.badetailright {
+    width: 60%;
+  }
+  .badetailright .pricetime {
+    font-size: 22px;
+  }
+
+  .slottimelist {
+    margin-bottom: 0;
+  }
+  .InnerpageSpace {
+    padding-top: 100px;
+  }
+  ul.whoareList li {
+    width: 50%;
+  }
+
+  .AboutBanner {
+    background-position: left;
+  }
+  .bpheadleft h4 {
+    font-size: 23px;
+  }
+
+  .bpheadleft {
+    width: 100%;
+  }
+  .bookappoinmenthead {
+    flex-wrap: wrap;
+  }
+  .pricetime {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .bookappoinmentbody p {
+    font-size: 14px;
+  }
+  .bookappoinmentbody h5 {
+    font-size: 20px;
+  }
+  .fixspace {
+    padding-top: 64px;
+  }
+
+  .servicelist p {
+    font-size: 14px;
+  }
+
+  .InnerPageTitle {
+    margin-bottom: 30px;
+  }
+
+  .btn-group-box .btn {
+    width: 100%;
+  }
+  .textlink {
+    flex-wrap: wrap;
+    line-height: 0.7;
+  }
+
+  .getintouchinner .row.align-items-center {
+    flex-direction: column;
+  }
+  .getintouchinner .col-md-6 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .row.GetIntouchinnerright {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .row.GetIntouchinnerright .col-md-6:nth-child(even) {
+    display: none;
+  }
+  .col-md-6.getintouchinnerleft figure img {
+    width: 100%;
+  }
+  .JoinourhealthContent {
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .Joinourhealth {
+    height: 400px;
+  }
+  section.InnerpageSpace.bgpettern {
+    padding-bottom: 0;
+  }
+
+  .blogbannertitle{ font-size: 18px;top: 88px;}
+
+  .row.row-cols-5.SmartKichinlistrow .col {
+        width: 50%;
+    }
+
+    .row.row-cols-5.SmartKichinlistrow figure img {
+    width: 100%;
+}
+.row.row-cols-5.SmartKichinlistrow figcaption h4{    height: auto;}
+
+.SmartKichinlistrow figcaption p {
+    height: 53px;
+}
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -812,6 +1149,93 @@
   ul.radioList li {
     margin-right: 0;
   }
+
+  .SearchBox {
+    width: 100%;
+  }
+  .filtersBoxInner select.form-select {
+    width: 115px;
+  }
+
+  .col-xxl-2.col-sm-3.sortbyright select.form-select {
+    font-size: 14px;
+  }
+  .col-md-4.badetailleft {
+    width: 100%;
+  }
+  .col-md-8.badetailright {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .badetailleft figure img {
+    width: 100%;
+    height: 636px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
+  }
+  .OurTEAMhead h2 {
+    font-size: 24px;
+  }
+  .OurTEAMhead p {
+    font-size: 14px;
+  }
+
+  .OurTEAMhead {
+    margin-bottom: 15px;
+  }
+
+  .price span {
+    font-size: 22px;
+  }
+  .product-list figcaption h3 {
+    margin-bottom: 12px;
+  }
+
+  body .owl-carousel .owl-item .product-list figure img {
+    height: 300px;
+  }
+  .Browseservice button.owl-prev span,
+  .Browseservice button.owl-next span {
+    width: 14px;
+    height: 23px;
+  }
+
+  .producttitle {
+    margin-bottom: 25px;
+  }
+  .btn-group-box .btn {
+    width: 49%;
+  }
+
+  .contactinfo .col-md-4 {
+    margin-bottom: 20px;
+  }
+  .getintouchinnerleft h4 {
+    font-size: 26px;
+  }
+
+  .JoinourhealthContent h3 {
+    font-size: 28px;
+  }
+  .JoinourhealthContent .btn.btn-primary {
+    min-width: 335px;
+    height: 59px;
+    font-size: 16px;
+    margin-top: 15px;
+  }
+      .row.row-cols-5.SmartKichinlistrow figcaption h4 {
+        height: 50PX;
+    }
+        .blogbannertitle {
+        font-size: 14px;
+        top: 88px;
+        margin-bottom: 0;
+    }
+        .innerbannerContent h2 {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
 }
 
 @media (max-width: 575px) {
@@ -935,6 +1359,57 @@
   .innerbannerContent h2 {
     font-size: 24px;
   }
+
+  .col-xxl-auto.col-sm-auto.taginfoleft {
+    width: auto;
+  }
+  .col-xxl.taginforight {
+    width: calc(100% - 115px);
+  }
+  .filtersBoxInner select.form-select {
+    width: 25%;
+    margin-left: auto;
+  }
+  .taginfolist li {
+    height: 43px;
+    padding: 18px 40px;
+  }
+
+  .sortbyright {
+    margin-top: 20px;
+  }
+  .baheadtitle h3 {
+    font-size: 26px;
+  }
+  .baheadtitle {
+    margin-bottom: 0;
+  }
+  .OurTEAMhead h2 {
+    font-size: 22px;
+  }
+  .OurTEAMhead span {
+    font-size: 16px;
+    margin-bottom: 8px !important;
+    display: block;
+  }
+  button.owl-prev span {
+    left: 14px;
+    top: 45px;
+  }
+
+  .Browseservice {
+    width: 90%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  .servicedetaillisting figcaption h3 {
+    font-size: 26px;
+  }
+  .btn-group-box .btn {
+    width: 49%;
+    height: auto;
+    padding: 12px 0;
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -1013,7 +1488,7 @@
   }
 
   .innerbanner figure img {
-    height: 235px;
+    height: 255px;
   }
 
   .ToolsPageBox h4 {
@@ -1042,5 +1517,60 @@
   }
   .calculateHead {
     padding: 20px 20px;
+  }
+
+  .filtersBoxInner select.form-select {
+    width: 40%;
+    margin-left: auto;
+  }
+  .SearchBox {
+    width: 88%;
+  }
+  .SearchBox input {
+    height: 45px;
+    font-size: 15px;
+  }
+  .apdinfo {
+    flex-wrap: wrap;
+  }
+  .appoinmentsdetails {
+    margin-top: 22px;
+  }
+  .apdinfo {
+    margin-top: 15px;
+  }
+  .InnerpageSpace {
+    padding-top: 70px;
+  }
+  .badetailleft figure img {
+    height: 354px;
+  }
+
+  .OurTEAMhead h2 {
+    font-size: 18px;
+  }
+  .btn.max-width {
+    font-size: 16px;
+  }
+
+  .bookappoinmentl figure img {
+    width: 97%;
+  }
+  .btn-group-box .btn {
+    width: 100%;
+  }
+
+  .JoinourhealthContent .btn.btn-primary {
+    min-width: 100%;
+    height: 55px;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .getintouchinner {
+    padding: 25px 20px;
+  }
+  .getintouchinnerleft h4 {
+    font-size: 22px;
   }
 }
