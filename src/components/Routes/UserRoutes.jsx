@@ -15,9 +15,12 @@ import Smartkitchen from "../pages/Smartkitchen";
 import Testimonial from "../pages/Testimonial";
 import PackageDetails from "../pages/Diabetes";
 import BookAppoinment from "../pages/BookAppoinment";
+import ScrollToTop from "../authorized/UserUI/ScrollToTop";
 
 export default function UserRoutes() {
   return (
+    <>
+    <ScrollToTop/>
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<AppLayout />}>
@@ -38,6 +41,6 @@ export default function UserRoutes() {
           <Route path="*" element={<Navigate replace to="/" />} />
         </Route>
       </Routes>
-    </Suspense>
+    </Suspense></>
   );
 }
