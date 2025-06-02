@@ -6,8 +6,6 @@ import { useParams } from "react-router-dom";
 import { webAxios } from "../../utils/Api/userAxios";
 import { toast } from "react-toastify";
 
-import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
-
 function PackageDetails() {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
@@ -63,7 +61,7 @@ function PackageDetails() {
             </div>
 
             <div className="row">
-             {details.PackagePlans.map((plan)=><div className="col-md-3">
+             {details?.PackagePlans?.map((plan)=><div className="col-md-3">
                 <div className="DiabetesHealthcontent">
                   <figure>
                     <img crossOrigin="anonymous" src={plan.image_url}></img>
@@ -127,12 +125,6 @@ function PackageDetails() {
                   </figcaption>
                 </div>
               ))}
-            </div>
-
-            <div className="btn-box text-center mt-4">
-              <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
-                join
-              </a>
             </div>
           </div>
         </div>

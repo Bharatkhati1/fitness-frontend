@@ -167,3 +167,35 @@ export const getServicesForUser  = () => {
     }
   };
 };
+
+export const getKitchenData = ({ search = '', page = 1, limit = 10, category, type } = {}) => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_kitchen_items({ search, page, limit, category, type })
+      );
+
+      const kitchenData = response.data.data;
+      dispatch(authActions.setKictchenData(kitchenData));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+    }
+  };
+};
+
+export const fetchKitchenCategories = () => {
+  return async (dispatch) => {
+    try {
+      console.log("categories")
+      const response = await webAxios.get(
+        userApiRoutes.get_kitchen_categories
+      );
+      const kitchenCategories = response.data.data;
+      console.log("caegoppries", kitchenCategories)
+      dispatch(authActions.setKictchenCategories(kitchenCategories));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+    }
+  };
+};
+

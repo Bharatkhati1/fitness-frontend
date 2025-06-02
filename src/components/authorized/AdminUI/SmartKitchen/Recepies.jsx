@@ -11,20 +11,22 @@ const Recepies = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    recipe: "",
+    recipe: null,
     image: null,
     type: null,
     categoryId: null,
     isActive: true,
   });
-
+ 
   const [allReceipes, setAllReceipes] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedReciepeID, setSelectedReciepeID] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [selectedPdfName, setSelectedPdfname] = useState("");
   const [allCategories, setAllCategories] = useState([]);
   const fileInputRef = useRef(null);
+  const pdfInputRef = useRef(null);
 
   const fetchAllReciepe = async () => {
     try {
@@ -47,15 +49,28 @@ const Recepies = () => {
 
   const handleFormDataChange = (e) => {
     const { name, value, type, files } = e.target;
+  
     if (type === "file") {
-      setFormData((prev) => ({ ...prev, image: files[0] }));
-      setSelectedFileName(files[0]?.name || "");
+      const file = files[0];
+      if (!file) return;
+  
+      // Check for PDF file if the input name is "recipe"
+      if (name === "recipe") {
+        if (file.type !== "application/pdf") {
+          e.target.value = ""; 
+          return;
+        }
+      }
+  
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      setSelectedFileName(file.name || "");
     } else if (type === "radio") {
       setFormData((prev) => ({ ...prev, [name]: value === "true" }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+  
 
   const handleSubmit = async () => {
     if (!formData.image && !isEdit) {
@@ -119,8 +134,10 @@ const Recepies = () => {
       categoryId: null,
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if(pdfInputRef.current ) pdfInputRef.current.value = "";
   };
 
+  console.log(formData)
   useEffect(() => {
     fetchAllReciepe();
     fetchAllCategories();
@@ -221,6 +238,25 @@ const Recepies = () => {
                     </Select>
                   </div>
                 </div>
+
+                {/* Recipe  */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label htmlFor="receipe-image" className="form-label">
+                      Recipe {isEdit && `: ${selectedPdfName}`}
+                    </label>
+                    <input
+                      id="receipe"
+                      name="recipe"
+                      type="file"
+                      ref={pdfInputRef}
+                      className="form-control"
+                      accept="application/pdf"
+                      onChange={handleFormDataChange}
+                    />
+                  </div>
+                </div>
+
                 {/* Status */}
                 <div className="col-lg-4">
                   <label className="form-label d-block">Status</label>
@@ -259,21 +295,6 @@ const Recepies = () => {
                         Inactive
                       </label>
                     </div>
-                  </div>
-                </div>
-
-                {/* Recipe  */}
-                <div className="col-lg-12">
-                  <div className="mb-3">
-                    <label htmlFor="receipe-image" className="form-label">
-                      Recipe
-                    </label>
-                    <Ckeditor
-                      text={formData.recipe}
-                      setText={(val) =>
-                        setFormData((prev) => ({ ...prev, recipe: val }))
-                      }
-                    />
                   </div>
                 </div>
               </div>
@@ -365,11 +386,12 @@ const Recepies = () => {
                                     name: recipe.name,
                                     description: recipe.description,
                                     image: null,
-                                    type:recipe.type,
-                                    categoryId:recipe.categoryId,
-                                    recipe: recipe.recipe,
+                                    type: recipe.type,
+                                    categoryId: recipe.categoryId,
+                                    recipe: null,
                                     isActive: recipe.isActive,
                                   });
+                                  setSelectedPdfname(recipe.recipe)
                                   setSelectedFileName(recipe.image);
                                 }}
                               >
