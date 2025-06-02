@@ -1,17 +1,17 @@
+import shapeangelleft from "../../../public/assets/img/shapeangelleft.png";
 import React, { useState, useEffect } from "react";
-import daishape from "../../../public/assets/img/daishape.png";
 import DOMPurify from "dompurify";
-import daibetesimg1 from "../../../public/assets/img/daibetesimg1.png";
-import daibetesimg2 from "../../../public/assets/img/daibetesimg2.png";
-import daibetesimg3 from "../../../public/assets/img/daibetesimg3.png";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { useParams } from "react-router-dom";
 import { webAxios } from "../../utils/Api/userAxios";
 import { toast } from "react-toastify";
 
-function PackageDetails() {
+import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
+
+function Diabetes() {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
+
 
   const fetchPackageDetails = async () => {
     try {
@@ -32,15 +32,21 @@ function PackageDetails() {
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
+
+
   return (
     <>
-      <section className="Diabetespage InnerpageSpace">
+      <section className="Diabetespage InnerpageSpace pb-0">
         <span className="daishape">
-          <img src={daishape}></img>
+          <img src={shapeangelleft}></img>
+        </span>
+
+        <span className="daishaperight">
+          <img src={shapeangelleft}></img>
         </span>
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-md-6 Diabetespageleft">
+            <div className="col-md-5 Diabetespageleft">
               <figure>
                 <img crossOrigin="anonymous" src={details.image_url} />
               </figure>
@@ -51,10 +57,171 @@ function PackageDetails() {
               <p>{stripHtml(details.description)}</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="PackageINclusion mt-5 pt-3 pb-5">
+          <div className="DiabetesHealthPakages mt-4 mb-0">
+            <div class="InnerPageTitle text-center">
+              <h4>DIABETES HEALTH PACKAGEs</h4>
+            </div>
+
+            <div className="row">
+              <div className="col-md-3">
+                <div className="DiabetesHealthcontent">
+                  <figure>
+                    <img src={healthpakgesimg1}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>₹11,999.00 | 3 months</h3>
+                    <span>Package description:</span>
+
+                    <ul className="Packagedescriptionlist">
+                      <li>Personalised Nutrition Plans. </li>
+
+                      <li>
+                        Personalised Workout Plans. Our user-friendly and
+                        detailed workout videos are here to make you enjoy the
+                        fitness journey.
+                      </li>
+
+                      <li>Consultations with health experts </li>
+
+                      <li>
+                        One expert consultation with doctor each month, as
+                        needed.
+                      </li>
+                    </ul>
+
+                    <div className="btnbox text-center">
+                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                        buy now
+                      </a>
+                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                        add to bag
+                      </a>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="DiabetesHealthcontent">
+                  <figure>
+                    <img src={healthpakgesimg1}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>₹11,999.00 | 3 months</h3>
+                    <span>Package description:</span>
+
+                    <ul className="Packagedescriptionlist">
+                      <li>Personalised Nutrition Plans. </li>
+
+                      <li>
+                        Personalised Workout Plans. Our user-friendly and
+                        detailed workout videos are here to make you enjoy the
+                        fitness journey.
+                      </li>
+
+                      <li>Consultations with health experts </li>
+
+                      <li>
+                        One expert consultation with doctor each month, as
+                        needed.
+                      </li>
+                    </ul>
+
+                    <div className="btnbox text-center">
+                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                        buy now
+                      </a>
+                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                        add to bag
+                      </a>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="DiabetesHealthcontent">
+                  <figure>
+                    <img src={healthpakgesimg1}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>₹11,999.00 | 3 months</h3>
+                    <span>Package description:</span>
+
+                    <ul className="Packagedescriptionlist">
+                      <li>Personalised Nutrition Plans. </li>
+
+                      <li>
+                        Personalised Workout Plans. Our user-friendly and
+                        detailed workout videos are here to make you enjoy the
+                        fitness journey.
+                      </li>
+
+                      <li>Consultations with health experts </li>
+
+                      <li>
+                        One expert consultation with doctor each month, as
+                        needed.
+                      </li>
+                    </ul>
+
+                    <div className="btnbox text-center">
+                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                        buy now
+                      </a>
+                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                        add to bag
+                      </a>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="DiabetesHealthcontent">
+                  <figure>
+                    <img src={healthpakgesimg1}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>₹11,999.00 | 3 months</h3>
+                    <span>Package description:</span>
+
+                    <ul className="Packagedescriptionlist">
+                      <li>Personalised Nutrition Plans. </li>
+
+                      <li>
+                        Personalised Workout Plans. Our user-friendly and
+                        detailed workout videos are here to make you enjoy the
+                        fitness journey.
+                      </li>
+
+                      <li>Consultations with health experts </li>
+
+                      <li>
+                        One expert consultation with doctor each month, as
+                        needed.
+                      </li>
+                    </ul>
+
+                    <div className="btnbox text-center">
+                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                        buy now
+                      </a>
+                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                        add to bag
+                      </a>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+
+      <div className="PackageINclusion mt-5 pt-3 pb-5">
         <div className="container">
           <h3 className="pn-title text-center">
             {details.name} Management Package inclusions
@@ -80,9 +247,11 @@ function PackageDetails() {
             </a>
           </div>
         </div>
-      </section>
+      </div>
+
+       </section>
     </>
   );
 }
 
-export default PackageDetails;
+export default Diabetes;

@@ -6,10 +6,12 @@ import docterImg3 from "../../../public/assets/img/docterImg3.png";
 import { toast } from "react-toastify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../utils/Api/userAxios";
+import BookAppoinmentdate from "./BookAppoinmentdate";
 
 function BookAppoinment() {
   const { encodedId } = useParams();
   const [details, setDetails] = useState([]);
+  const [selectedConsultant, setSelectedConsultant] = useState(null)
 
   useEffect(() => {
     if (!encodedId) return;
@@ -37,6 +39,11 @@ function BookAppoinment() {
     fetchProductConsultantDetails();
   }, [encodedId]);
 
+  if(selectedConsultant){
+    return(
+     <BookAppoinmentdate/>
+    )
+ }
   return (
     <>
       <section className="fixspace bookappoinment">
@@ -84,7 +91,7 @@ function BookAppoinment() {
                      {details?.description}
                     </p>
 
-                    <a className="btn btn-primary max-width mt-2 hvr-shutter-out-horizontal">
+                    <a onClick={()=> setSelectedConsultant("test")} className="btn btn-primary max-width mt-2 hvr-shutter-out-horizontal">
                       make an appointment
                     </a>
                   </div>

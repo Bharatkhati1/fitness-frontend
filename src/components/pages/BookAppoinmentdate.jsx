@@ -1,12 +1,10 @@
 import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-
 import fulldocterImg from "../../../public/assets/img/fulldocterImg.png";
-
 import dummyimg from "../../../public/assets/img/dummyimg.png";
+import Calender from "../authorized/UserUI/Calender";
 
 function BookAppoinmentdate() {
+
   return (
     <>
       <section className="InnerpageSpace bookappoinmentdetail">
@@ -47,9 +45,7 @@ function BookAppoinmentdate() {
                 <div className="col-md-6 slotdateboxleft">
                   <h4 className="slottitle">Please select a date:</h4>
 
-                  <figure className="dummyimg">
-                    <img src={dummyimg}></img>
-                  </figure>
+                    <Calender/>
 
                   <div className="provideContactinfo mt-4">
                     <h4 className="slottitle">

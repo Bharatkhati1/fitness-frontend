@@ -113,41 +113,73 @@ function Blogs() {
 
       <div className="filtersBox">
         <div className="container">
-          <div className="filtersBoxInner d-flex">
-            <div className="filterOwl">
-              <ul className="taginfolist d-flex">
-                <li
-                  // data-item="all"
-                  className={selectedCategory === "all" ? "active" : ""}
-                  onClick={() => handleSelectCategory("all")}
-                >
-                  <span className="tag-info">All</span>
-                </li>
-                <OwlCarousel
-                  className="owl-theme"
-                  autoplay={false}
-                  dots={false}
-                  items={7}
-                  nav
-                >
-                  {categories.map((cat) => (
-                    <li
-                      // data-item={cat.id}
-                      className={selectedCategory === cat.id ? "active" : ""}
-                      onClick={() => handleSelectCategory(cat.id)}
-                    >
-                      <span className="tag-info">{cat.name}</span>
-                    </li>
-                  ))}
-                </OwlCarousel>
-              </ul>
+          <div className="filtersBoxInner">
+            <div className="row">
+              <div className="col-xxl-10 col-md-9 col-xl-10 col-sm-9">
+                <div className="filterOwl">
+                  <ul className="taginfolist ">
+                    <div className="row">
+                      <div className="col-xxl-auto col-sm-auto taginfoleft">
+                        <li
+                          // data-item="all"
+                          className={selectedCategory === "all" ? "active" : ""}
+                          onClick={() => handleSelectCategory("all")}
+                        >
+                          <span className="tag-info">All</span>
+                        </li>
+                      </div>
+                      <div className="col-xxl col-sm  taginforight">
+                        <OwlCarousel
+                          className="owl-theme"
+                          autoplay={false}
+                          margin={10}
+                          dots={false}
+                          items={7}
+                          loop={true}
+                          nav
+                          responsive={{
+                            0: {
+                              items: 2, // 0px and up
+                            },
+                              481: {
+                              items: 3, // 0px and up
+                            },
+                            768: {
+                              items: 4, // 600px and up
+                            },
+                            992: {
+                              items: 5, // 600px and up
+                            },
+                            1200: {
+                              items: 7, // 1000px and up
+                            },
+                          }}
+                        >
+                          {categories.map((cat) => (
+                            <li
+                              // data-item={cat.id}
+                              className={
+                                selectedCategory === cat.id ? "active" : ""
+                              }
+                              onClick={() => handleSelectCategory(cat.id)}
+                            >
+                              <span className="tag-info">{cat.name}</span>
+                            </li>
+                          ))}
+                        </OwlCarousel>
+                      </div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-xxl-2 col-md-3 col-xl-2 col-sm-3 sortbyright">
+                <select className="form-select">
+                  <option selected>Sort By</option>
+                  <option value="1">Recent</option>
+                  <option value="2">Popular</option>
+                </select>
+              </div>
             </div>
-
-            <select className="form-select">
-              <option selected>Sort By</option>
-              <option value="1">Recent</option>
-              <option value="2">Popular</option>
-            </select>
           </div>
         </div>
       </div>
