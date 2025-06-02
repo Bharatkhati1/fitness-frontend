@@ -39,7 +39,16 @@ const userApiRoutes = {
 
   get_kitchen_categories:`/smart-kitchen-category`,
 
-  download_recipe:(id)=>`/smart-kitchen-category/${id}`
+  download_recipe:(id)=>`/smart-kitchen-category/${id}`,
+
+  get_all_packages:({ search = '', serviceId } = {}) => {
+    const params = new URLSearchParams();
+    if (search) params.append("search", search);
+    if (serviceId) params.append("serviceId", serviceId);
+
+    const queryString = params.toString();
+    return `/smart-kitchen-items${queryString ? '?' + queryString : ''}`;
+  }
 };
 
 export default userApiRoutes;

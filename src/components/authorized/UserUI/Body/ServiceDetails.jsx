@@ -63,29 +63,29 @@ function ServiceDetails() {
                     <p>{stripHtml(pkg.description)}</p>
 
                     <div className="btn-group-box">
-                      {showButton("Talk To A Fitness Expert") && (
+                      {showButton("Talk To An Expert") && (
                         <Link
                           to={`/experts/${pkg.name
                             .toLowerCase()
                             .replace(/\s+/g, "-")}/${btoa(pkg.id)}`}
                           className="btn btn-primary hvr-shutter-out-horizontal"
                         >
-                          Talk To A Fitness Expert
+                          Talk To An Expert
                         </Link>
                       )}
-                      {showButton("Smart Health Package") && (
+                      {showButton("Know More") && (
                         <Link
                           to={`/package/${pkg.name
                             .toLowerCase()
                             .replace(/\s+/g, "-")}`}
                           className="btn btn-primary hvr-shutter-out-horizontal"
                         >
-                          Smart Health Package
+                          Know More
                         </Link>
                       )}
-                      {showButton("Talk To A Therapist") && (
+                      {showButton("Consult a Doctor") && (
                         <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
-                          Talk To A Therapist
+                          Consult a Doctor
                         </a>
                       )}
 

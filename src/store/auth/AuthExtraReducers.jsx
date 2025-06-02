@@ -186,12 +186,10 @@ export const getKitchenData = ({ search = '', page = 1, limit = 10, category, ty
 export const fetchKitchenCategories = () => {
   return async (dispatch) => {
     try {
-      console.log("categories")
       const response = await webAxios.get(
         userApiRoutes.get_kitchen_categories
       );
       const kitchenCategories = response.data.data;
-      console.log("caegoppries", kitchenCategories)
       dispatch(authActions.setKictchenCategories(kitchenCategories));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
@@ -199,3 +197,16 @@ export const fetchKitchenCategories = () => {
   };
 };
 
+export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_all_packages(search , serviceId )
+      );
+      const allPAckages = response.data.data;
+      dispatch(authActions.setAllPackages(allPAckages));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+    }
+  };
+};

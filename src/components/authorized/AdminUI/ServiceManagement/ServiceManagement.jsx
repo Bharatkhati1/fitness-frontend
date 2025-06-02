@@ -30,9 +30,9 @@ const ServiceManagement = () => {
   const fileInputBannerRef = useRef(null);
 
   const ctaOptions = [
-    "Contact our Helpline",
-    "Smart Health Packages",
-    "Talk a Fitness Expert",
+    "Know More",
+    "Consult a Doctor",
+    "Talk To An Expert",
   ];
 
   const fetchAllServices = async () => {

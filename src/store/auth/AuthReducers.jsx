@@ -31,4 +31,7 @@ export const reducers = {
   setKictchenCategories(state, action) {
     state.kicthenCategories = action.payload;
   },
+  setAllPackages(state, action) {
+    state.allPackages = action.payload;
+  },
 };

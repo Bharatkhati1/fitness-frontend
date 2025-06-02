@@ -15,10 +15,11 @@ import Icon5 from "../../../public/assets/img/Icon5.svg";
 import Icon6 from "../../../public/assets/img/Icon6.svg";
 
 import productimg1 from "../../../public/assets/img/productimg1.png";
-import productimg2 from "../../../public/assets/img/productimg2.png";
-import productimg3 from "../../../public/assets/img/productimg3.png";
+import { useDispatch, useSelector } from "react-redux";
 
 function AllPakages() {
+  const dispatch = useDispatch()
+  const {allPackages =[]} = useSelector((state)=> state.auth)
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -197,7 +198,6 @@ function AllPakages() {
               items={3}
               autoplaySpeed={500}
               autoplayTimeout={3000}
-              loop={true}
               margin={20}
               nav={true}
               responsive={{
@@ -226,105 +226,6 @@ function AllPakages() {
 
                   <figcaption>
                     <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-
-                    <div className="price mb-3">
-                      <del> ₹7999.00</del>
-                      <span>₹3999.00</span>
-                    </div>
-
-                    <div className="btnbox text-center">
-                      {" "}
-                      <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
-                        know more
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="product-list">
-                  <figure>
-                    <img src={productimg2} />
-                  </figure>
-
-                  <figcaption>
-                    <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-
-                    <div className="price mb-3">
-                      <del> ₹7999.00</del>
-                      <span>₹3999.00</span>
-                    </div>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
-                        know more
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="product-list">
-                  <figure>
-                    <img src={productimg3} />
-                  </figure>
-
-                  <figcaption>
-                    <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-
-                    <div className="price mb-3">
-                      <del> ₹7999.00</del>
-                      <span>₹3999.00</span>
-                    </div>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
-                        know more
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="product-list">
-                  <figure>
-                    <img src={productimg1} />
-                  </figure>
-
-                  <figcaption>
-                    <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-
-                    <div className="price mb-3">
-                      <del> ₹7999.00</del>
-                      <span>₹3999.00</span>
-                    </div>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
-                        know more
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="product-list">
-                  <figure>
-                    <img src={productimg2} />
-                  </figure>
-
-                  <figcaption>
-                    <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-
-                    <div className="price mb-3">
-                      <del> ₹7999.00</del>
-                      <span>₹3999.00</span>
-                    </div>
-
                     <div className="btnbox text-center">
                       <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
                         know more

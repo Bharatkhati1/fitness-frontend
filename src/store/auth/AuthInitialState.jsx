@@ -10,5 +10,6 @@ export const initialState = {
   allServices:[],
   services:[],
   kitchenData:[],
-  kicthenCategories:[]
+  kicthenCategories:[],
+  allPackages:[]
 };
