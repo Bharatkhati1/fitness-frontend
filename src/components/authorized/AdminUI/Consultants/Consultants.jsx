@@ -120,6 +120,7 @@ const Consultants = () => {
     fetchAllConsultants();
   }, []);
 
+  console.log(formData)
   return (
     <>
       {/* Form Section */}
@@ -360,9 +361,10 @@ const Consultants = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
+                                  console.log(consultant)
                                   setFormData({
                                     title:consultant.title,
-                                    type:consultant.ConsultantRoles,
+                                    type:consultant?.ConsultantRoles?.map((cn)=> cn.role)||[],
                                     name: consultant.name,
                                     email: consultant.email,
                                     phone: consultant.phone,

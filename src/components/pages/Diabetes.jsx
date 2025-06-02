@@ -1,22 +1,38 @@
-import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-
-import daibetesbox from "../../../public/assets/img/daibetesbox.png";
-
+import React, { useState, useEffect } from "react";
 import shapeangelleft from "../../../public/assets/img/shapeangelleft.png";
-
-import daibetesimg1 from "../../../public/assets/img/daibetesimg1.png";
-import daibetesimg2 from "../../../public/assets/img/daibetesimg2.png";
-import daibetesimg3 from "../../../public/assets/img/daibetesimg3.png";
+import DOMPurify from "dompurify";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { useParams } from "react-router-dom";
+import { webAxios } from "../../utils/Api/userAxios";
+import { toast } from "react-toastify";
 
 import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
 
-function Diabetes() {
+function PackageDetails() {
+  const { slug } = useParams();
+  const [details, setDetails] = useState({});
+
+  const fetchPackageDetails = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_package_details(slug)
+      );
+      setDetails(response.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+
+  useEffect(() => {
+    fetchPackageDetails();
+  }, [slug]);
   return (
     <>
-      <Header />
-
       <section className="Diabetespage InnerpageSpace pb-0">
         <span className="daishape">
           <img src={shapeangelleft}></img>
@@ -29,19 +45,13 @@ function Diabetes() {
           <div className="row align-items-center">
             <div className="col-md-5 Diabetespageleft">
               <figure>
-                <img src={daibetesbox} />
+                <img crossOrigin="anonymous" src={details.image_url} />
               </figure>
             </div>
 
-            <div className="col-md-7 Diabetespageright">
-              <h3>DIABETES:smart health package </h3>
-              <p>
-                The package includes Personalised Nutrition Plans, Personalised
-                Workout Plans, Our user-friendly and detailed workout videos are
-                here to make you enjoy the fitness journey, Consultations with
-                health experts and One expert consultation with doctor each
-                month, as needed.
-              </p>
+            <div className="col-md-6 Diabetespageright">
+              <h3>{details.name} </h3>
+              <p>{stripHtml(details.description)}</p>
             </div>
           </div>
 
@@ -206,72 +216,40 @@ function Diabetes() {
             </div>
           </div>
         </div>
-     
 
-      <div className="PackageINclusion mt-5 pt-3 pb-5">
-        <div className="container">
-          <h3 className="pn-title text-center">
-            Diabetes Management Package inclusions
-          </h3>
-          <div className="row">
-            <div className="col-md-4 Packagecontent">
-              <figure>
-                <img src={daibetesimg1}></img>
-              </figure>
+        <div className="PackageINclusion mt-5 pt-3 pb-5">
+          <div className="container">
+            <h3 className="pn-title text-center">
+              {details.name} Management Package inclusions
+            </h3>
+            <div className="row">
+              {details?.PackageInclusions?.map((inclusion) => (
+                <div className="col-md-4 Packagecontent">
+                  <figure>
+                    <img
+                      crossOrigin="anonymous"
+                      src={inclusion.image_url}
+                    ></img>
+                  </figure>
 
-              <figcaption>
-                <h4>Nutrition Strategies</h4>
-                <p>
-                  Our expert nutritionists shall curate sustainable and healthy
-                  diet specially for you as per your needs.
-                </p>
-              </figcaption>
+                  <figcaption>
+                    <h4>{inclusion.name}</h4>
+                    <p>{stripHtml(inclusion.description)}</p>
+                  </figcaption>
+                </div>
+              ))}
             </div>
 
-            <div className="col-md-4 Packagecontent">
-              <figure>
-                <img src={daibetesimg2}></img>
-              </figure>
-
-              <figcaption>
-                <h4>Personalised Exercise Plans</h4>
-                <p>
-                  Get personalised plans tailored to your needs, focusing on
-                  exercises for diabetes management. Our user-friendly and
-                  detailed workout videos are here to make you enjoy the fitness
-                  journey.
-                </p>
-              </figcaption>
+            <div className="btn-box text-center mt-4">
+              <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                join
+              </a>
             </div>
-
-            <div className="col-md-4 Packagecontent">
-              <figure>
-                <img src={daibetesimg3}></img>
-              </figure>
-
-              <figcaption>
-                <h4>Medical Support</h4>
-                <p>
-                  Get consultations and expert medical advice from our team of
-                  experienced doctors.
-                </p>
-              </figcaption>
-            </div>
-          </div>
-
-          <div className="btn-box text-center mt-4">
-            <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
-              join
-            </a>
           </div>
         </div>
-      </div>
-
-       </section>
-
-      <Footer />
+      </section>
     </>
   );
 }
 
-export default Diabetes;
+export default PackageDetails;

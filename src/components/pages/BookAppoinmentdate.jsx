@@ -9,8 +9,6 @@ import dummyimg from "../../../public/assets/img/dummyimg.png";
 function BookAppoinmentdate() {
   return (
     <>
-      <Header />
-
       <section className="InnerpageSpace bookappoinmentdetail">
         <div className="container">
           <div className="row">
@@ -108,8 +106,6 @@ function BookAppoinmentdate() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }

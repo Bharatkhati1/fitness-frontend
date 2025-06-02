@@ -2,7 +2,7 @@ import React from "react";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Logo from "../../../../../public/assets/img/logo.png";
+import Logo from "../../../../../public/assets/img/footerLogo.png";
 import CartIcon from "../../../../../public/assets/img/carticon.png";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

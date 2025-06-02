@@ -116,6 +116,7 @@ function Home() {
     getBlogs();
   }, []);
 
+  console.log(services);
   return (
     <>
       <section className="bannerSection">
@@ -164,25 +165,18 @@ function Home() {
                         </li>
                       </ul>
                       <div className="BannerBtn d-flex">
-                        <a className="hvr-shutter-out-horizontal">Join Now</a>
-                        <a className="hvr-shutter-out-horizontal">
+                        <Link
+                          className="hvr-shutter-out-horizontal"
+                          to={"/all-packages"}
+                        >
+                          Join Now
+                        </Link>
+                        <Link className="hvr-shutter-out-horizontal">
                           book a trial
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-                      {/* <div className="bannerSectionInner">
-                <div className="circletagShapeBox">
-                  <img className="heartBeatImg" src={heartbeat} alt="" />
-                  <span className="circletagShape">
-                    {" "}
-                    <img src={Tagcircle} />
-                  </span>
-                </div>
-                <figure>
-                  <img src={UserCoupleImg} />
-                </figure>
-              </div> */}
                       <div className="bannerSectionInner">
                         <div className="circletagShapeBox">
                           <img
@@ -254,75 +248,74 @@ function Home() {
               pal
             </p>
           </div>
-          <div className="row OurServicesRow">
-            {Array.isArray(services) &&
-            services.length > 0 &&
-            Array.isArray(services[0]) ? (
-              <OwlCarousel
-                className="owl-theme"
-                autoplay={true}
-                dots={true}
-                items={1}
-                loop={true}
-                margin={10}
-                nav={true}
-                navText={[prevArrow, nextArrow]}
-                autoplaySpeed={1000}
-                autoplayTimeout={5000}
-              >
-                {services.map((group, index) => (
-                  <div className="row" key={index}>
-                    {group.map((srv, idx) => (
-                      <div className="col-md-4" key={idx}>
-                        <div className="OurServicesContent">
-                          <figure>
-                            <img
-                              crossOrigin="anonymous"
-                              src={srv.image_url}
-                              alt={srv.name}
-                            />
-                          </figure>
-                          <figcaption>
-                            <h3>{srv.name}</h3>
-                            <p>{stripHtml(srv.description)}</p>
+          {services?.map((group, index) => (
+            <div className="row" key={index}>
+              {group.map((srv, idx) => {
+                let parsedActions = [];
+                try {
+                  const rawActions =
+                    typeof srv?.actions === "string" ? srv.actions : "[]";
+                  const parsed = JSON.parse(rawActions);
+                  parsedActions = Array.isArray(parsed) ? parsed : [];
+                } catch (error) {
+                  console.warn("Invalid actions JSON:", srv?.actions);
+                  parsedActions = [];
+                }
+
+                const actionNames = parsedActions.map((action) => action.name);
+
+                const showButton = (label) => actionNames.includes(label);
+
+                return (
+                  <div className="col-md-4" key={idx}>
+                    <div className="OurServicesContent">
+                      <figure>
+                        <img
+                          crossOrigin="anonymous"
+                          src={srv.image_url}
+                          alt={srv.name}
+                        />
+                      </figure>
+                      <figcaption>
+                        <h3>{srv.name}</h3>
+                        <p>{stripHtml(srv.description)}</p>
+                        <div className="gap-3 service-btn text-center">
+                          {showButton("Smart Health Packages") && (
                             <Link
                               to={`/service-details/${srv.name
                                 .toLowerCase()
                                 .replace(/\s+/g, "-")}`}
                               className="btn btn-primary hvr-shutter-out-horizontal"
                             >
-                              Book a Free Consultation
+                              Smart Health Package
                             </Link>
-                          </figcaption>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </OwlCarousel>
-            ) : (
-              <div className="text-center py-5">
-                <h5>No services found.</h5>
-              </div>
-            )}
+                          )}
 
-            {/* {services.map((service) => (
-              <div className="col-md-4">
-                <div className="OurServicesContent">
-                  <figure>
-                    <img crossOrigin="annoymous" src={service.image_url} />
-                  </figure>
-                  <figcaption>
-                    <h3>{service.name}</h3>
-                    <p>{stripHtml(service.description)}</p>
-                    <a className="btn btn-primary hvr-shutter-out-horizontal">
-                      book a free consultation
-                    </a>
-                  </figcaption>
-                </div>
-              </div>
-            ))} */}
-          </div>
+                          {showButton("Contact our Helpline") && (
+                            <a
+                              href="#GetInTouch"
+                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                              Contact our Helpline
+                            </a>
+                          )}
+
+                          {showButton("Talk a Fitness Expert") && (
+                            <a
+                              href="#GetInTouch"
+                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
+                            >
+                              Talk a Fitness Expert
+                            </a>
+                          )}
+                        </div>
+                      </figcaption>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </section>
       <section className="WhyChoose">
@@ -359,12 +352,6 @@ function Home() {
               Smart Kitchen solutions help you plan, prep, and cook healthy
               meals effortlessly with ease and convenience
             </p>
-            <Link
-              to={"/smart-kitchen"}
-              className="btn btn-info hvr-shutter-out-horizontal"
-            >
-              View More
-            </Link>
           </div>
           <div className="row">
             <div className="col-md-4 SmartKichinContent">
@@ -406,6 +393,15 @@ function Home() {
               </figcaption>
             </div>
           </div>
+          <div className="text-center">
+            {" "}
+            <Link
+              to={"/smart-kitchen"}
+              className="btn btn-info hvr-shutter-out-horizontal"
+            >
+              View More
+            </Link>
+          </div>
         </div>
       </section>
       <section className="PosterSec transformationsuccess">
@@ -417,9 +413,12 @@ function Home() {
               on the hard days. The scale changed, yes — but so did my mindset,
               my energy, and my confidence.
             </p>
-            <a className="btn btn-primary hvr-shutter-out-horizontal">
+            <Link
+              to={"/testimonials"}
+              className="btn btn-primary hvr-shutter-out-horizontal"
+            >
               read now
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -434,9 +433,12 @@ function Home() {
               plans, expert guidance, and valuable resources, making wellness
               accessible from the comfort of your home. Join us today!
             </p>
-            <a className="btn btn-primary s-btn hvr-shutter-out-horizontal">
+            <Link
+              to={"/all-packages"}
+              className="btn btn-primary s-btn hvr-shutter-out-horizontal"
+            >
               join
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -484,9 +486,12 @@ function Home() {
               instructors, and strength training coaches committed to your
               health and wellness journey.
             </p>
-            <a className="btn btn-primary mt-4 hvr-shutter-out-horizontal">
+            <Link
+              to={"/all-packages"}
+              className="btn btn-primary mt-4 hvr-shutter-out-horizontal"
+            >
               meet our family
-            </a>
+            </Link>
           </div>
           <div className="meetOurExpertscontentg">
             <span className="shape1">
@@ -627,7 +632,7 @@ function Home() {
           </div>
         </div>
       </section> */}
-      <section className="GetIntouch">
+      <section className="GetIntouch" id="GetInTouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />
         </span>
@@ -654,8 +659,8 @@ function Home() {
                   </li>
                   <li>
                     <img src={MsgeIcon}></img>
-                    <a href="mailto:info@thedailyfitness.in">
-                      info@thedailyfitness.in
+                    <a href="mailto:info@dailyfitness.ai">
+                      info@dailyfitness.ai
                     </a>
                   </li>
                 </ul>

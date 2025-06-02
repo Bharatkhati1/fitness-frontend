@@ -84,7 +84,6 @@ function Blogs() {
   useEffect(() => {
     getBlogCategories();
   }, []);
-
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -188,7 +187,7 @@ function Blogs() {
       <div className="OurBlogs">
         <div className="container">
           <div className="row OurBlogsRows">
-            {blogs.map((blog) => (
+            {blogs.length>0?blogs.map((blog) => (
               <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
                 <figure>
                   <div className="OurBlogsTag">
@@ -210,13 +209,15 @@ function Blogs() {
                   </div>
                   <p>
                     {blog.shortDescription}
-                    <Link to={"/blog-deatils"}>
+                    <Link to={`/blog/${blog.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}>
                       Read More <img src={readMoreimg} />
                     </Link>
                   </p>
                 </figcaption>
               </div>
-            ))}
+            )):<h3 ><b>No blog found !</b></h3>}
           </div>
 
           <div className="paginationBox d-flex justify-content-center">

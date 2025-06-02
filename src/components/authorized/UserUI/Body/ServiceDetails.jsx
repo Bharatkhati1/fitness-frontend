@@ -1,190 +1,103 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import servicebanner from "../../../../../public/assets/img/servicebanner.png";
-import smIMG1 from "../../../../../public/assets/img/smIMG1.png";
+import DOMPurify from "dompurify";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 
 function ServiceDetails() {
-  const {slug} = useParams()
-  const [details, setDetails] = useState({})
+  const { slug } = useParams();
+  const [details, setDetails] = useState({});
 
-  const fetchServiceDetails =async()=>{
+  const fetchServiceDetails = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_service_details(slug))
-      setDetails(response.data.data)
+      const response = await webAxios.get(
+        userApiRoutes.get_service_details(slug)
+      );
+      setDetails(response.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
-  }
-
-  useEffect(()=>{
-    fetchServiceDetails()
-  },[slug])
+  };
+  const stripHtml = (html) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
+    return tempDiv.textContent || tempDiv.innerText || "";
+  };
+  useEffect(() => {
+    fetchServiceDetails();
+  }, [slug]);
   return (
     <>
       <section className="innerbanner">
         <figure>
-          <img src={servicebanner} />
+          <img crossOrigin="anonymous" src={details?.banner_url} />
         </figure>
         <div className="container">
           <div className="innerbannerContent">
-            <h2>disease management</h2>
-            <p>
-              Innovative and sustainable approach towards solution of metabolic
-              diseases
-            </p>
+            <h2>{details?.name}</h2>
+            <p>{stripHtml(details?.shortDescription)}</p>
           </div>
         </div>
       </section>
 
       <div className="sectionSpace servicedetail">
         <div className="container">
-          <p className="text-center">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled.Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text ever since the 1500s, when an unknown printer took a
-            galley of type and scrambled.Lorem Ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled.Lorem Ipsum is simply
-            dummy text of the printing and typesetting industry. Lorem Ipsum has
-            been the industry's standard dummy text ever since the 1500s, when
-            an unknown printer took a galley of type and scrambled.
-          </p>
+          <p className="text-center">{stripHtml(details.description)}</p>
 
           <div className="row servicedetaillisting">
-            <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
+            {details?.Packages?.map((pkg) => {
+              const parsedActions = JSON.parse(pkg.actions || "[]");
+              const actionNames = parsedActions.map((action) => action.name);
 
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
+              const showButton = (label) => actionNames.includes(label);
 
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary" to={"/package-details"}>smart health package</Link>
-                  <Link className="btn btn-primary" to={"/experts"}>book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
+              return (
+                <div className="col-md-6" key={pkg.id}>
+                  <figure>
+                    <img crossOrigin="anonymous" src={pkg.image_url} />
+                  </figure>
+
+                  <figcaption>
+                    <h3>{pkg.name}</h3>
+                    <p>{stripHtml(pkg.description)}</p>
+
+                    <div className="btn-group-box">
+                      {showButton("Talk To A Fitness Expert") && (
+                        <Link to={`/experts/${pkg.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`} className="btn btn-primary hvr-shutter-out-horizontal">
+                          Talk To A Fitness Expert
+                        </Link>
+                      )}
+                      {showButton("Smart Health Package") && (
+                        <Link to={`/package/${pkg.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`} className="btn btn-primary hvr-shutter-out-horizontal">
+                          Smart Health Package
+                        </Link>
+                      )}
+                      {showButton("Talk To A Therapist") && (
+                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
+                          Talk To A Therapist
+                        </a>
+                      )}
+
+                      {showButton("Join") && (
+                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
+                          Join
+                        </a>
+                      )}
+                      {showButton("Book A Consultation") && (
+                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
+                          Book A Consultation
+                        </a>
+                      )}
+                    </div>
+                  </figcaption>
                 </div>
-              </figcaption>
-            </div>
-
-              <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
-
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
-
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary">smart health package</Link>
-                  <Link className="btn btn-primary">book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
-                </div>
-              </figcaption>
-            </div>
-              <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
-
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
-
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary">smart health package</Link>
-                  <Link className="btn btn-primary">book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
-                </div>
-              </figcaption>
-            </div>
-              <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
-
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
-
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary">smart health package</Link>
-                  <Link className="btn btn-primary">book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
-                </div>
-              </figcaption>
-            </div>
-              <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
-
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
-
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary">smart health package</Link>
-                  <Link className="btn btn-primary">book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
-                </div>
-              </figcaption>
-            </div>
-              <div className="col-md-6">
-              <figure><img src={smIMG1}/></figure>
-
-              <figcaption>
-                <h3>Diabetes</h3>
-                <p>
-                  Type 2 diabetes is a condition that happens because of a
-                  problem in the way the body regulates and uses sugar as a
-                  fuel.This long-term condition results in too much sugar
-                  circulating in the blood. Eventually, high blood sugar levels
-                  can lead to disorders of the circulatory, nervous and immune
-                  systems.
-                </p>
-
-                <div className="btn-group-box">
-                  <Link className="btn btn-primary">smart health package</Link>
-                  <Link className="btn btn-primary">book a consultation</Link>
-                  <Link className="btn btn-primary">talk to a fitness expert</Link>
-                </div>
-              </figcaption>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

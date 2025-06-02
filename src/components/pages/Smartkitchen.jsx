@@ -29,14 +29,9 @@ import smproductimg10 from "../../../public/assets/img/smproductimg10.png";
 import leftp from "../../../public/assets/img/leftp.png";
 
 import leftR from "../../../public/assets/img/rightp.png";
-
-
-
-
 function Smartkitchen() {
   return (
     <>
-      <Header />
       <section className="innerbanner blogbanner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>
@@ -80,24 +75,23 @@ function Smartkitchen() {
               loop={true}
               margin={10}
               nav={true}
-
-                  responsive={{
-                            0: {
-                              items: 2, // 0px and up
-                            },
-                              481: {
-                              items: 3, // 0px and up
-                            },
-                            768: {
-                              items: 5, // 600px and up
-                            },
-                            992: {
-                              items: 7, // 600px and up
-                            },
-                            1200: {
-                              items: 9, // 1000px and up
-                            },
-                          }}
+              responsive={{
+                0: {
+                  items: 2, // 0px and up
+                },
+                481: {
+                  items: 3, // 0px and up
+                },
+                768: {
+                  items: 5, // 600px and up
+                },
+                992: {
+                  items: 7, // 600px and up
+                },
+                1200: {
+                  items: 9, // 1000px and up
+                },
+              }}
             >
               <div class="item">
                 <div className="SmartKichinbox">
@@ -180,7 +174,7 @@ function Smartkitchen() {
                 </div>
               </div>
 
-                <div class="item">
+              <div class="item">
                 <div className="SmartKichinbox">
                   <figure>
                     <img src={kichinimg5}></img>
@@ -216,7 +210,7 @@ function Smartkitchen() {
                 </div>
               </div>
 
-               <div class="item">
+              <div class="item">
                 <div className="SmartKichinbox">
                   <figure>
                     <img src={kichinimg2}></img>
@@ -224,7 +218,6 @@ function Smartkitchen() {
                   <p>Seafood</p>
                 </div>
               </div>
-
             </OwlCarousel>
           </div>
         </div>
@@ -417,8 +410,6 @@ function Smartkitchen() {
           </ul>
         </div>
       </section>
-
-      <Footer/>
     </>
   );
 }

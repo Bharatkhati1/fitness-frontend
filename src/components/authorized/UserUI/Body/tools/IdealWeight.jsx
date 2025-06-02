@@ -161,7 +161,7 @@ function Idealweight() {
               </div>
             </div>
 
-            <div className="col-md-6 ps-4">
+           { result &&  <div className="col-md-6 ps-4">
               <div className="calulaterResult calulaterDiet">
                 <h4>Result</h4>
                 <div className="ResultBox">
@@ -188,7 +188,7 @@ function Idealweight() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </section>

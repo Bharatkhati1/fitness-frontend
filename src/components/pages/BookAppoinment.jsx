@@ -9,8 +9,6 @@ import docterImg3 from "../../../public/assets/img/docterImg3.png";
 function BookAppoinment() {
   return (
     <>
-      <Header />
-
       <section className="fixspace bookappoinment">
         <div class="OurTEAMhead text-center">
           <span>health consultation</span>
@@ -153,7 +151,7 @@ function BookAppoinment() {
           </div>
         </div>
       </section>
-      <Footer />
+     
     </>
   );
 }

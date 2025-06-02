@@ -205,9 +205,8 @@ body .btn.btn-primary {
 }
 
 .SmartKichin .btn-info {
-  position: absolute;
-  right: 15px;
-  top: 33px;
+  margin-top: 30px;
+  width: 35%;
 }
 
 .PageTitle {
@@ -489,6 +488,8 @@ body .heartBeatImg {
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
   border-radius: 8px;
   overflow: hidden;
+      height: 100%;
+    background: #Fff;
 }
 
 .OurServicesContent figcaption {
@@ -501,8 +502,11 @@ body .heartBeatImg {
   color: var(--primary-color);
   font-weight: 700;
   margin-bottom: 10px;
+      min-height: 50px;
 }
-
+.OurServices .col-md-4 {
+    margin-bottom: 30px;
+}
 .OurServicesContent figure img {
   display: block;
   width: 100% !important;
@@ -2835,7 +2839,6 @@ ul.userslink li a {
 .servicedetaillisting figcaption p {
   font-size: 16px;
   color: #2a2a2a;
-  min-height: 122px;
 }
 
 .btn-group-box {
@@ -3499,3 +3502,4 @@ section.clientfeedback {
   display: flex;
   justify-content: flex-end;
 }
+.filterOwl .owl-nav button.owl-prev span{ left: -109px;}

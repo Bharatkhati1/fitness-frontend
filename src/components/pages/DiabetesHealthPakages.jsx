@@ -7,8 +7,6 @@ import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
 function DiabetesHealthPakages() {
   return (
     <>
-      <Header />
-
       <section className="InnerpageSpace DiabetesHealthPakages">
         <div className="container">
           <div class="InnerPageTitle ">
@@ -167,8 +165,6 @@ function DiabetesHealthPakages() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }

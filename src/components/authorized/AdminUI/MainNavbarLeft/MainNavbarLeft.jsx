@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../../../../public/assets/images/logo-light.png";
+import logo from "../../../../../public/assets/img/footerLogo.png";
 
 const NavItems = [
   { id: 1, name: "Slider Management", path: "slider-management" },
