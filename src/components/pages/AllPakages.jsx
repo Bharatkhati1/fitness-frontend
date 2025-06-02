@@ -1,25 +1,26 @@
-import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
+import React, { useEffect, useState } from "react";
 import searchIcon from "../../../public/assets/img/searchIcon.png";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import allpakagesbg from "../../../public/assets/img/allpakagesbg.png";
-
 import Icon1 from "../../../public/assets/img/Icon1.svg";
-import Icon2 from "../../../public/assets/img/Icon2.svg";
-import Icon3 from "../../../public/assets/img/Icon3.svg";
-import Icon4 from "../../../public/assets/img/Icon4.svg";
-import Icon5 from "../../../public/assets/img/Icon5.svg";
-import Icon6 from "../../../public/assets/img/Icon6.svg";
-
-import productimg1 from "../../../public/assets/img/productimg1.png";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../../store/auth/AuthExtraReducers.jsx";
+import { Link } from "react-router-dom";
 
 function AllPakages() {
-  const dispatch = useDispatch()
-  const {allPackages =[]} = useSelector((state)=> state.auth)
+  const dispatch = useDispatch();
+  const { allPackages = [], allServices = [] } = useSelector(
+    (state) => state.auth
+  );
+  const [search, setSearch] = useState("");
+  const [serviceId, setServiceId] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchAllProducts({ search, serviceId }));
+  }, [search, serviceId]);
+
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -39,9 +40,16 @@ function AllPakages() {
                 type="text"
                 placeholder="Search here"
                 className="form-control"
-              ></input>
-              <button className="SearchBtn">
-                <img src={searchIcon}></img>
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                className="SearchBtn"
+                onClick={() =>
+                  dispatch(fetchAllProducts({ search, serviceId }))
+                }
+              >
+                <img src={searchIcon} alt="search" />
               </button>
             </div>
           </div>
@@ -61,7 +69,6 @@ function AllPakages() {
               items={6}
               autoplaySpeed={500}
               autoplayTimeout={3000}
-              loop={true}
               margin={10}
               nav={true}
               responsive={{
@@ -82,115 +89,33 @@ function AllPakages() {
                 },
               }}
             >
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon1}></img>
-                  </figure>
-                  <p>All packages</p>
+              <>
+                <div class="item" onClick={() => setServiceId(null)}>
+                  <div className="servicelist package-image">
+                    <figure>
+                      <img crossOrigin="anonymous" src={Icon1}></img>
+                    </figure>
+                    <p>All</p>
+                  </div>
                 </div>
-              </div>
-
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon2}></img>
-                  </figure>
-                  <p>fitness</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon3}></img>
-                  </figure>
-                  <p>disease management</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon4}></img>
-                  </figure>
-                  <p>injury/pain management</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon5}></img>
-                  </figure>
-                  <p>medical consultation</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon6}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon6}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon4}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon2}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon2}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon2}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
-              <div class="item">
-                <div className="servicelist">
-                  <figure>
-                    <img src={Icon2}></img>
-                  </figure>
-                  <p>alternative medicine</p>
-                </div>
-              </div>
+                {allServices.map((srv) => (
+                  <div class="item" onClick={() => setServiceId(srv.id)}>
+                    <div className="servicelist package-image">
+                      <figure>
+                        <img crossOrigin="anonymous" src={srv.image_url}></img>
+                      </figure>
+                      <p>{srv.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </>
             </OwlCarousel>
           </div>
         </div>
 
         <div className="productslists">
           <div className="container">
-            <h4 className="producttitle">25 products</h4>
-
+            <h4 className="producttitle">{allPackages.length} products</h4>
             <OwlCarousel
               className="owl-theme"
               autoplay={false}
@@ -218,22 +143,29 @@ function AllPakages() {
                 },
               }}
             >
-              <div class="item">
-                <div className="product-list">
-                  <figure>
-                    <img src={productimg1} />
-                  </figure>
+              {allPackages.map((pkg) => (
+                <div class="item">
+                  <div className="product-list">
+                    <figure>
+                      <img crossOrigin="anonymous" src={pkg.image_url} />
+                    </figure>
 
-                  <figcaption>
-                    <h3>ANKLE n FOOT PAIN/INJURY REHABILITATION - 3 MONTHS</h3>
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal">
-                        know more
-                      </a>
-                    </div>
-                  </figcaption>
+                    <figcaption>
+                      <h3>{pkg.name}</h3>
+                      <div className="btnbox text-center">
+                        <Link
+                          to={`/package/${pkg.name
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                          className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal"
+                        >
+                          know more
+                        </Link>
+                      </div>
+                    </figcaption>
+                  </div>
                 </div>
-              </div>
+              ))}
             </OwlCarousel>
           </div>
         </div>

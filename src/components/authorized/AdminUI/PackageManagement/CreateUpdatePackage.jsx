@@ -33,6 +33,7 @@ const CreateUpdatePackage = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
+  const [allConsultants, setAllConsultants] = useState([]);
 
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
@@ -46,20 +47,9 @@ const CreateUpdatePackage = () => {
   const fileInputRef2 = useRef(null);
 
   const ctaOptions = [
-    "Join",
-    "Book A Consultation",
-    "Smart Health Package",
-    "Talk To A Fitness Expert",
-    "Talk To A Therapist",
-  ];
-
-  const allConsultants = [
-    { id: "1", name: "Dr. Ayesha Khan" },
-    { id: "2", name: "Dr. Rahul Mehra" },
-    { id: "3", name: "Dr. Sarah Gupta" },
-    { id: "4", name: "Dr. Vikram Desai" },
-    { id: "5", name: "Dr. Nivedita Sharma" },
-    { id: "6", name: "Dr. Anil Kapoor" },
+    "Talk to a Therapist",
+    "Consult a Doctor",
+    "Know more"
   ];
 
   const fetchAllServices = async () => {
@@ -74,8 +64,8 @@ const CreateUpdatePackage = () => {
 
   const handleSubmit = async () => {
     // Validate images if not editing
-    if ((!packageImage || !packageBannerImage) && !isEdit) {
-      toast.warning("Please select package banner and package image.");
+    if (!packageImage  && !isEdit) {
+      toast.warning("Please select package image.");
       return;
     }
 
@@ -117,6 +107,7 @@ const CreateUpdatePackage = () => {
     formData.append("notification_emails", emailNotification);
     formData.append("service_id", selectedServiceTypeId);
     formData.append("actions", JSON.stringify(ctaButtons));
+    formData.append("consultant",selectedConsultantsId)
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)
       formData.append("package_banner", packageBannerImage);
@@ -268,6 +259,7 @@ const CreateUpdatePackage = () => {
     setSelectedPackageId(data.id || null);
     setCtaButtons(JSON.parse(data.actions) || []);
     // Image URLs and filenames
+    setSelectedConsultantsId(data.PackageConsultants?.map((cons)=> cons.id))
     setPackageBannerImage(data.banner_url || null);
     setSelectedFileName2(data.banner || "");
     setPakageImage(data.image_url || null);
@@ -308,6 +300,17 @@ const CreateUpdatePackage = () => {
       toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
+
+    const fetchAllConsultants = async () => {
+      try {
+        const res = await adminAxios.get(adminApiRoutes.get_all_consultants);
+        setAllConsultants(res.data.data);
+        fetchAllServices()
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed to fetch data");
+      }
+    };
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const idParam = queryParams.get("id");
@@ -320,8 +323,10 @@ const CreateUpdatePackage = () => {
     setIsEdit(isEditParam === "true");
   }, [location.search]);
 
+  console.log(selectedConsultantsId)
   useEffect(() => {
-    fetchAllServices();
+  
+    fetchAllConsultants()
   }, []);
   return (
     <>  <div className="add-package-btn">
@@ -379,7 +384,7 @@ const CreateUpdatePackage = () => {
                 </div>
               </div>
 
-              {/* Package Banner Image */}
+              {/* Package Banner Image
               <div className="col-lg-4">
                 <div className="mb-3">
                   <label htmlFor="service-image" className="form-label">
@@ -394,7 +399,7 @@ const CreateUpdatePackage = () => {
                     onChange={(e) => setPackageBannerImage(e.target.files[0])}
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Package Image */}
               <div className="col-lg-6">

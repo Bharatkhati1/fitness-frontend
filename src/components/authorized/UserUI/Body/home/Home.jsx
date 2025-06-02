@@ -248,74 +248,97 @@ function Home() {
               pal
             </p>
           </div>
-          {services?.map((group, index) => (
-            <div className="row" key={index}>
-              {group.map((srv, idx) => {
-                let parsedActions = [];
-                try {
-                  const rawActions =
-                    typeof srv?.actions === "string" ? srv.actions : "[]";
-                  const parsed = JSON.parse(rawActions);
-                  parsedActions = Array.isArray(parsed) ? parsed : [];
-                } catch (error) {
-                  console.warn("Invalid actions JSON:", srv?.actions);
-                  parsedActions = [];
-                }
+          {Array.isArray(services) &&
+          services.length > 0 &&
+          Array.isArray(services[0]) ? (
+            <OwlCarousel
+              className="owl-theme"
+              autoplay={false}
+              dots={true}
+              items={1}
+              loop={true}
+              margin={10}
+              nav={true}
+              navText={[prevArrow, nextArrow]}
+              autoplaySpeed={3000}
+              autoplayTimeout={9000}
+            >
+              {services?.map((group, index) => (
+                <div className="row" key={index}>
+                  {group.map((srv, idx) => {
+                    let parsedActions = [];
+                    try {
+                      const rawActions =
+                        typeof srv?.actions === "string" ? srv.actions : "[]";
+                      const parsed = JSON.parse(rawActions);
+                      parsedActions = Array.isArray(parsed) ? parsed : [];
+                    } catch (error) {
+                      console.warn("Invalid actions JSON:", srv?.actions);
+                      parsedActions = [];
+                    }
 
-                const actionNames = parsedActions.map((action) => action.name);
+                    const actionNames = parsedActions.map(
+                      (action) => action.name
+                    );
 
-                const showButton = (label) => actionNames.includes(label);
+                    const showButton = (label) => actionNames.includes(label);
 
-                return (
-                  <div className="col-md-4" key={idx}>
-                    <div className="OurServicesContent">
-                      <figure>
-                        <img
-                          crossOrigin="anonymous"
-                          src={srv.image_url}
-                          alt={srv.name}
-                        />
-                      </figure>
-                      <figcaption>
-                        <h3>{srv.name}</h3>
-                        <p>{stripHtml(srv.description)}</p>
-                        <div className="gap-3 service-btn text-center">
-                          {showButton("Smart Health Packages") && (
-                            <Link
-                              to={`/service-details/${srv.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              className="btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Smart Health Package
-                            </Link>
-                          )}
+                    return (
+                      <div className="col-md-4" key={idx}>
+                        <div className="OurServicesContent">
+                          <figure>
+                            <img
+                              crossOrigin="anonymous"
+                              src={srv.image_url}
+                              alt={srv.name}
+                            />
+                          </figure>
+                          <figcaption>
+                            <h3>{srv.name}</h3>
+                            <p>{stripHtml(srv.description)}</p>
+                            <div className="gap-3 service-btn text-center">
+                              {showButton("Know more") && (
+                                <Link
+                                  to={`/service-details/${srv.name
+                                    .toLowerCase()
+                                    .replace(/\s+/g, "-")}`}
+                                  className="me-1 mb-1 btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Know more
+                                </Link>
+                              )}
 
-                          {showButton("Contact our Helpline") && (
-                            <a
-                              href="#GetInTouch"
-                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Contact our Helpline
-                            </a>
-                          )}
+                              {showButton("Talk to an Expert") && (
+                                <a
+                                  href="#GetInTouch"
+                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Talk to an Expert
+                                </a>
+                              )}
 
-                          {showButton("Talk a Fitness Expert") && (
-                            <a
-                              href="#GetInTouch"
-                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Talk a Fitness Expert
-                            </a>
-                          )}
+                              {showButton("Contact our Helpline") && (
+                                <a
+                                  href="#GetInTouch"
+                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Contact our Helpline
+                                </a>
+                              )}
+                            </div>
+                          </figcaption>
                         </div>
-                      </figcaption>
-                    </div>
-                  </div>
-                );
-              })}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}{" "}
+            </OwlCarousel>
+          ) : (
+            <div className="text-center py-5">
+              <h5>No services found.</h5>
             </div>
-          ))}
+          )}
         </div>
       </section>
       <section className="WhyChoose">
@@ -459,8 +482,7 @@ function Home() {
                 </figure>
                 <figcaption>
                   <span>
-                    {new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2
-                    min read
+                    {new Date(blog.createdAt).toLocaleDateString("en-GB")}
                   </span>
                   <h3>{blog.title}</h3>
                 </figcaption>
@@ -533,105 +555,6 @@ function Home() {
           </div>
         </div>
       </section>
-      {/* 
-      <section className="trailoffer">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 pe-5">
-              <div className="PageTitle ">
-                <h2>trial offer</h2>
-                <p>
-                  Experience our services with trial offer for 1 week. Sign up
-                  today and discover the benefits !
-                </p>
-              </div>
-
-              <ul className="trailofferList">
-                <li>
-                  Gain access to an exciting variety of workouts, including
-                  yoga, high-intensity interval training (HIIT), and strength
-                  training, all led by certified fitness instructors.
-                </li>
-
-                <li>
-                  Free one-to-one consultation with our fitness experts
-                  regarding all your queries and the roadmap towards your better
-                  fitness.
-                </li>
-
-                <li>
-                  Get a generalised diet plan aimed at meeting your goals.
-                </li>
-
-                <li>
-                  Our interactive platform allows you to join live sessions or
-                  choose from an extensive library of pre-recorded classes that
-                  fit your schedule.
-                </li>
-              </ul>
-            </div>
-
-            <div className="col-md-6">
-              <div className="trailofferform">
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label>First Name*</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your first name"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your last name"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Contact Number*</label>
-                    <div className="contactInput">
-                      <span>+91</span>
-                      <input
-                        type="text"
-                        placeholder="Enter your contact number"
-                        className="form-control"
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Email ID*</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your email id"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-12">
-                    <label>Message</label>
-                    <textarea
-                      className="form-control"
-                      placeholder="Type your message here"
-                    ></textarea>
-                  </div>
-
-                  <div className="col-md-12 text-center">
-                    <button className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal">
-                      submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       <section className="GetIntouch" id="GetInTouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />
@@ -646,7 +569,7 @@ function Home() {
                 <h3>Contact Us</h3>
                 <p>
                   Reach out to us for personalized health guidance and
-                  consultation with our expert team at TheDailyFitness.
+                  consultation with our expert team at DailyFitness.
                 </p>
 
                 <ul className="ContactInfoList">

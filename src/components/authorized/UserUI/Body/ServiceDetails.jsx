@@ -43,13 +43,12 @@ function ServiceDetails() {
 
       <div className="sectionSpace servicedetail">
         <div className="container">
-          <p className="text-center">{stripHtml(details.description)}</p>
+          <p className="text-center">{stripHtml(details?.description)}</p>
 
           <div className="row servicedetaillisting">
             {details?.Packages?.map((pkg) => {
               const parsedActions = JSON.parse(pkg.actions || "[]");
               const actionNames = parsedActions.map((action) => action.name);
-
               const showButton = (label) => actionNames.includes(label);
 
               return (
@@ -63,17 +62,7 @@ function ServiceDetails() {
                     <p>{stripHtml(pkg.description)}</p>
 
                     <div className="btn-group-box">
-                      {showButton("Talk To An Expert") && (
-                        <Link
-                          to={`/experts/${pkg.name
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}/${btoa(pkg.id)}`}
-                          className="btn btn-primary hvr-shutter-out-horizontal"
-                        >
-                          Talk To An Expert
-                        </Link>
-                      )}
-                      {showButton("Know More") && (
+                    {showButton("Know more") && (
                         <Link
                           to={`/package/${pkg.name
                             .toLowerCase()
@@ -84,21 +73,26 @@ function ServiceDetails() {
                         </Link>
                       )}
                       {showButton("Consult a Doctor") && (
-                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
+                       <Link
+                       to={`/experts/${pkg.name
+                         .toLowerCase()
+                         .replace(/\s+/g, "-")}/doctor/${btoa(pkg.id)}`}
+                       className="btn btn-primary hvr-shutter-out-horizontal"
+                     >
                           Consult a Doctor
-                        </a>
+                          </Link>
                       )}
-
-                      {showButton("Join") && (
-                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
-                          Join
-                        </a>
+                      {showButton("Talk to a Therapist") && (
+                        <Link
+                          to={`/experts/${pkg.name
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}/therapist/${btoa(pkg.id)}`}
+                          className="btn btn-primary hvr-shutter-out-horizontal"
+                        >
+                          Talk to a Therapist
+                        </Link>
                       )}
-                      {showButton("Book A Consultation") && (
-                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
-                          Book A Consultation
-                        </a>
-                      )}
+                     
                     </div>
                   </figcaption>
                 </div>

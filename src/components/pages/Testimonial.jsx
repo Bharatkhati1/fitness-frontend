@@ -5,22 +5,34 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import testimonialsbanner from "../../../public/assets/img/testimonialsbanner.png";
 import Header from "../../components/authorized/UserUI/Header/Header.jsx";
 import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-
 import trustedImg from "../../../public/assets/img/trustedImg.svg";
-
 import clinetfeedbacimg from "../../../public/assets/img/clinetfeedbacimg.png";
-
 import fillstar from "../../../public/assets/img/fillstar.png";
-
 import userimg from "../../../public/assets/img/userimg.png";
 import userimg2 from "../../../public/assets/img/userimg2.png";
 import userimg3 from "../../../public/assets/img/userimg3.png";
-
 import usertouch from "../../../public/assets/img/usertouch.png";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import beforeimg1 from "../../../public/assets/img/beforeimg1.png";
+import afterimg1 from "../../../public/assets/img/afterimg1.png";
 function Testimonial() {
+  //       const settings = {
+  //     autoplay: true,
+  //     autoplaySpeed: 0,
+  //     speed: 5000,
+  //     arrows: false,
+  //     swipe: false,
+  //     slidesToShow: 4,
+  //     cssEase: 'linear',
+  //     pauseOnFocus: false,
+  //     pauseOnHover: false,
+  //     rtl: true
+  //   };
   return (
     <>
+      <Header />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={testimonialsbanner} />
@@ -35,7 +47,6 @@ function Testimonial() {
           </div>
         </div>
       </section>
-
       <section className="clientfeedback">
         <div className="container">
           <div className="row">
@@ -44,7 +55,6 @@ function Testimonial() {
                 <img src={clinetfeedbacimg} />
               </figure>
             </div>
-
             <div className="col-md-8 clientfeedbackright">
               <div class="InnerPageTitle mb-3">
                 <h4>Client Feedback</h4>
@@ -52,15 +62,13 @@ function Testimonial() {
                   Read what our clients say about their fitness journey with us.
                 </p>
               </div>
-
               <div className="clienttrusted">
-                Loved by Clients And 
+                Loved by Clients And
                 <span>
                   <img src={trustedImg} />
                 </span>
-                 for Excellence Services.
+                for Excellence Services.
               </div>
-
               <div className="clientfeedbackslider">
                 <OwlCarousel
                   className="owl-theme"
@@ -92,13 +100,11 @@ function Testimonial() {
                           <img src={fillstar}></img>
                         </li>
                       </ul>
-
                       <p>
                         I lost 15 kgs of fat in 5 months under coach Rahul. Also
                         coach Shivam is such a sweet guy, pushed me often when I
                         felt low.
                       </p>
-
                       <div className="testiuser">
                         <figure>
                           <img src={userimg}></img>
@@ -110,7 +116,6 @@ function Testimonial() {
                       </div>
                     </div>
                   </div>
-
                   <div class="item">
                     <div className="clientcontentbg">
                       <ul className="ratinglist d-flex">
@@ -130,13 +135,11 @@ function Testimonial() {
                           <img src={fillstar}></img>
                         </li>
                       </ul>
-
                       <p>
                         I lost 15 kgs of fat in 5 months under coach Rahul. Also
                         coach Shivam is such a sweet guy, pushed me often when I
                         felt low.
                       </p>
-
                       <div className="testiuser">
                         <figure>
                           <img src={userimg2}></img>
@@ -148,7 +151,6 @@ function Testimonial() {
                       </div>
                     </div>
                   </div>
-
                   <div class="item">
                     <div className="clientcontentbg">
                       <ul className="ratinglist d-flex">
@@ -168,12 +170,10 @@ function Testimonial() {
                           <img src={fillstar}></img>
                         </li>
                       </ul>
-
                       <p>
                         This program transformed my life! I feel stronger and
                         more confident now.
                       </p>
-
                       <div className="testiuser">
                         <figure>
                           <img src={userimg3}></img>
@@ -191,7 +191,6 @@ function Testimonial() {
           </div>
         </div>
       </section>
-
       <section className="CleintSuccess">
         <div className="container">
           <div class="InnerPageTitle mb-3 text-center ">
@@ -201,60 +200,237 @@ function Testimonial() {
               on this page
             </p>
           </div>
-
-          <div>
+        </div>
+        <div>
+          <Slider
+            infinite={true}
+            autoplay={true}
+            autoplaySpeed={0}
+            speed={8000}
+            slidesToShow={4}
+            slidesToScroll={1}
+            cssEase="linear"
+            arrows={false}
+            swipe={false}
+            pauseOnHover={true}
+            pauseOnFocus={false}
+            loop={true}
+          >
             <div>
-              {/* Left to Right Carousel */}
-              <OwlCarousel
-                className="owl-theme"
-                items={8}
-                loop={true}
-                margin={20}
-                autoplay={true}
-                slideTransition="linear"
-                autoplayTimeout={800}
-                autoplaySpeed={1000}
-                autoplayHoverPause={false}
-                dots={false}
-                nav={false}
-              >
-                <div className="item">Item 1</div>
-                <div className="item">Item 2</div>
-                <div className="item">Item 3</div>
-                <div className="item">Item 4</div>
-                <div className="item">Item 5</div>
-                <div className="item">Item 6</div>
-                <div className="item">Item 7</div>
-                <div className="item">Item 8</div>
-              </OwlCarousel>
-
-              {/* Right to Left Carousel */}
-              <OwlCarousel
-                className="owl-theme"
-                items={8}
-                loop={true}
-                margin={20}
-                autoplay={true}
-                autoplayTimeout={5000}
-                autoplaySpeed={5000}
-                autoplayHoverPause={true}
-                dots={false}
-                nav={false}
-                rtl={true}
-              >
-                <div className="item">Item A</div>
-                <div className="item">Item B</div>
-                <div className="item">Item C</div>
-                <div className="item">Item D</div>
-                <div className="item">Item E</div>
-                <div className="item">Item F</div>
-                <div className="item">Item G</div>
-                <div className="item">Item H</div>
-              </OwlCarousel>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
             </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+          </Slider>
+          <Slider
+            infinite={true}
+            autoplay={true}
+            autoplaySpeed={0}
+            speed={8000}
+            slidesToShow={4}
+            slidesToScroll={1}
+            cssEase="linear"
+            arrows={false}
+            swipe={false}
+            pauseOnHover={true}
+            pauseOnFocus={true}
+            rtl={true}
+            loop={true}
+          >
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div className="clientafterbefore">
+                <div className="clientafterbeforeinner d-flex ">
+                  <div className="Clientbefore text-center">
+                    <h4>before</h4>
+                    <figure>
+                      <img src={beforeimg1} />
+                    </figure>
+                  </div>
+                  <div className="Clientbefore text-center">
+                    <h4>after</h4>
+                    <figure>
+                      <img src={afterimg1} />
+                    </figure>
+                  </div>
+                </div>
+                <h3 className="clientafterbeforetitle">
+                  12 months natural transformation
+                </h3>
+              </div>
+            </div>
+          </Slider>
+
+          <div className="JoinNow text-center">
+            <h4>"This could be your story. Start today."</h4>
+
+            <a className="btn btn-primary max-btn bg-white ">join now</a>
           </div>
         </div>
       </section>
+
 
       <div className="getintouchmain">
         <div className="container">
@@ -290,7 +466,6 @@ function Testimonial() {
                     />
                   </div>
                   <div className="col-md-6 mb-3"></div>
-
                   <div className="col-md-12">
                     <label>Message</label>
                     <textarea
@@ -309,8 +484,8 @@ function Testimonial() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
-
 export default Testimonial;

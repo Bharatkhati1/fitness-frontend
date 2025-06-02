@@ -71,23 +71,6 @@ function PackageDetails() {
                     <h3>₹{plan.price} | {plan.duration} months</h3>
                     <span>{plan.name}</span>
 
-                    <ul className="Packagedescriptionlist">
-                      {/* <li>{plan.name} </li>
-
-                      <li>
-                        Personalised Workout Plans. Our user-friendly and
-                        detailed workout videos are here to make you enjoy the
-                        fitness journey.
-                      </li>
-
-                      <li>Consultations with health experts </li>
-
-                      <li>
-                        One expert consultation with doctor each month, as
-                        needed.
-                      </li> */}
-                    </ul>
-
                     <div className="btnbox text-center">
                       <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
                         buy now

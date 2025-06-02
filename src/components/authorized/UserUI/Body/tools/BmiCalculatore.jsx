@@ -181,7 +181,7 @@ function BmiCalculator() {
                       <figure>
                         <img src={wightImg4} />
                       </figure>
-                      <h4>&ge; 30.0</h4>
+                      <h4>=&#62;30.0</h4>
                     </li>
                   </ul>
 

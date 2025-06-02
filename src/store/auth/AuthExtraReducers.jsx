@@ -199,14 +199,19 @@ export const fetchKitchenCategories = () => {
 
 export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
   return async (dispatch) => {
+    if (typeof search !== 'string') {
+      console.error("Invalid search parameter:", search);
+      return;
+    }
+
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_all_packages(search , serviceId )
+        userApiRoutes.get_all_packages({ search, serviceId })
       );
-      const allPAckages = response.data.data;
-      dispatch(authActions.setAllPackages(allPAckages));
+      dispatch(authActions.setAllPackages(response.data.data));
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+      toast.error(error?.response?.data?.message || "Failed to fetch packages");
     }
   };
 };
+

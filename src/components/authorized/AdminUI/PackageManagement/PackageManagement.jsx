@@ -11,6 +11,7 @@ const PackageManagement = () => {
   const [packages, setPackage] = useState([]);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
 
+
   const stripHtml = (html) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = DOMPurify.sanitize(html);
@@ -39,8 +40,12 @@ console.log(selectedPackageId)
     }
   };
 
+  
+
+
   useEffect(() => {
     fetchAllPackage();
+
   }, []);
   return (
     <>

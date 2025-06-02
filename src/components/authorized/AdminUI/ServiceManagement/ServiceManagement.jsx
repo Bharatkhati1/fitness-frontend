@@ -30,9 +30,9 @@ const ServiceManagement = () => {
   const fileInputBannerRef = useRef(null);
 
   const ctaOptions = [
-    "Know More",
-    "Consult a Doctor",
-    "Talk To An Expert",
+   "Contact our Helpline",
+    "Know more",
+    "Talk to an Expert"
   ];
 
   const fetchAllServices = async () => {
@@ -302,7 +302,7 @@ const ServiceManagement = () => {
                     <label className="form-label">CTA Button</label>
                     <div className="">
                       {ctaOptions.map((option, index) => {
-                        const matchedButton = ctaButtons.find(
+                        const matchedButton = ctaButtons?.find(
                           (btn) => btn.name === option
                         );
                         const inputValue =
@@ -324,7 +324,7 @@ const ServiceManagement = () => {
                                   onChange={() => {
                                     if (matchedButton) {
                                       setCtaButtons((prev) =>
-                                        prev.filter(
+                                        prev?.filter(
                                           (item) => item.name !== option
                                         )
                                       );
@@ -376,7 +376,7 @@ const ServiceManagement = () => {
                                         .filter((email) => email.length > 0);
 
                                       setCtaButtons((prev) =>
-                                        prev.map((btn) =>
+                                        prev?.map((btn) =>
                                           btn.name === option
                                             ? { ...btn, emails: emailArray }
                                             : btn
@@ -500,7 +500,7 @@ const ServiceManagement = () => {
                                           onClick={() => {
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
-                                            setCtaButtons(JSON.parse(service.actions))
+                                            setCtaButtons(JSON.parse(service.actions)||[])
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
