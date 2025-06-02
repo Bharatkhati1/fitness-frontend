@@ -647,7 +647,7 @@
   }
   span.tag-info {
     font-size: 13px;
-}
+  }
 }
 
 @media (max-width: 991px) {
@@ -1245,11 +1245,12 @@
     margin-bottom: 0;
   }
 
-  .filterOwl button.owl-next span, .filterOwl button.owl-prev span{    top: 50px;
+  .filterOwl button.owl-next span,
+  .filterOwl button.owl-prev span {
+    top: 50px;
     background-size: 10px;
-    background-repeat: no-repeat;}
-
-    
+    background-repeat: no-repeat;
+  }
 }
 
 @media (max-width: 575px) {

@@ -4,10 +4,26 @@ import DOMPurify from "dompurify";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
+// import JoinImg from "../../../../../public/assets/img/JoinImg.png";
+import ContactLeft from "../../../../../public/assets/img/ContactShAPe1.png";
+import ContactRight from "../../../../../public/assets/img/ContactShAPe2.png";
+
+import CallIcon from "../../../../../public/assets/img/callIcon.png";
+import MsgeIcon from "../../../../../public/assets/img/Mesgeicon.png";
+import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
+import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
+import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
+
+import ContactUs from "../../../../../public/assets/img/contactUs.png";
+
+
+import { Button, Modal } from "antd";
+import { useSelector } from "react-redux";
 
 function ServiceDetails() {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
+  const {allServices=[]} = useSelector((state)=>  state.auth)
 
   const fetchServiceDetails = async () => {
     try {
@@ -27,6 +43,28 @@ function ServiceDetails() {
   useEffect(() => {
     fetchServiceDetails();
   }, [slug]);
+
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+  
+    const showModal = () => {
+      setOpen(true);
+    };
+  
+    const handleOk = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setOpen(false);
+      }, 3000);
+    };
+  
+    const handleCancel = () => {
+      setOpen(false);
+    };
+  
+
+
   return (
     <>
       <section className="innerbanner">
@@ -84,7 +122,7 @@ function ServiceDetails() {
                         </Link>
                       )}
                       {showButton("Talk To A Therapist") && (
-                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal">
+                        <a className="mt-1 btn btn-primary hvr-shutter-out-horizontal" >
                           Talk To A Therapist
                         </a>
                       )}
@@ -99,6 +137,7 @@ function ServiceDetails() {
                           Book A Consultation
                         </a>
                       )}
+                      <a onClick={showModal}>Button</a>
                     </div>
                   </figcaption>
                 </div>
@@ -107,6 +146,150 @@ function ServiceDetails() {
           </div>
         </div>
       </div>
+
+      
+      <Modal
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className="custom-modal CustomXs"
+        footer={[
+          <>
+          
+
+            <div className="modalbody">
+
+                    <div className="GetIntouch" id="GetInTouch">
+                   
+                    
+                        <div className="row align-items-center">
+                          <div className="col-md-6 GetIntouchLeft">
+                            <div className="ContactUs">
+                              <h3>Contact Us</h3>
+                              <p>
+                                Reach out to us for personalized health guidance and
+                                consultation with our expert team at TheDailyFitness.
+                              </p>
+              
+                              <ul className="ContactInfoList">
+                                <li>
+                                  <img src={CallIcon}></img>
+                                  <span>
+                                    <a href="tel:918839036035">(+91) 8839036035</a> .{" "}
+                                    <a href="tel:919891775250">(+91) 9891775250</a>
+                                  </span>
+                                </li>
+                                <li>
+                                  <img src={MsgeIcon}></img>
+                                  <a href="mailto:info@dailyfitness.ai">
+                                    info@dailyfitness.ai
+                                  </a>
+                                </li>
+                              </ul>
+              
+                              <ul className="SoicalList">
+                                <li>
+                                  <a>
+                                    <img src={InstaIcon}></img>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a>
+                                    <img src={TwitterIcon}></img>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a>
+                                    <img src={YoutUbeIcon}></img>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                            <figure>
+                              <img src={ContactUs}></img>
+                            </figure>
+                          </div>
+                          <div className="col-md-6 GetIntouchRight">
+                            <div className="PageTitle">
+                              <h2>Get in touch</h2>
+                            </div>
+                            <div className="row GetIntouchRows">
+                              <div className="col-md-6 mb-3">
+                                <label>First Name*</label>
+                                <input
+                                  type="text"
+                                  placeholder="Enter your first name"
+                                  className="form-control"
+                                ></input>
+                              </div>
+                              <div className="col-md-6 mb-3">
+                                <label>Email ID*</label>
+                                <input
+                                  type="text"
+                                  placeholder="Enter your email id"
+                                  className="form-control"
+                                ></input>
+                              </div>
+                              <div className="col-md-6 mb-3">
+                                <label>Contact Number*</label>
+                                <div className="contactInput">
+                                  <span>+91</span>
+                                  <input
+                                    type="text"
+                                    placeholder="Enter your contact number"
+                                    className="form-control"
+                                  ></input>
+                                </div>
+                              </div>
+                              <div className="col-md-12 checklistBox ">
+                                <label className="mb-3">You want to consult for :</label>
+                                <ul className="form-checkList d-flex">
+                                  {allServices.map((service) => (
+                                    <li>
+                                      <div class="form-check">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          value=""
+                                          id="flexCheckChecked"
+                                        />
+                                        <label
+                                          class="form-check-label"
+                                          for="flexCheckChecked"
+                                        >
+                                          {service.name}
+                                        </label>
+                                      </div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+              
+                              <div className="col-md-12">
+                                <label>Message</label>
+                                <textarea
+                                  className="form-control"
+                                  placeholder="Type your message here"
+                                ></textarea>
+                              </div>
+              
+                              <div className="col-md-12 text-center">
+                                <button className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal">
+                                  submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                       
+                      </div>
+                    </div>
+            
+
+       
+            </div>
+          </>,
+        ]}
+      ></Modal>
     </>
   );
 }
