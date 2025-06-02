@@ -29,7 +29,7 @@ export default function UserRoutes() {
           <Route path="/about-us" element={<AboutUs />}  />
           <Route path="/packages" element={<Home />} />
           <Route path="/package/:slug" element={<PackageDetails />} />
-          <Route path="/experts/:slug" element={<BookAppoinment />} />
+          <Route path="/experts/:slug/:encodedId" element={<BookAppoinment />} />
           <Route path="/all-packages" element={<AllPakages />} />
           <Route path="/smart-kitchen" element={<Smartkitchen />} />
           <Route path="/testimonials" element={<Testimonial />} />

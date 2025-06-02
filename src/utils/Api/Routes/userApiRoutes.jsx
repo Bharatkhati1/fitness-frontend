@@ -15,7 +15,8 @@ const userApiRoutes = {
   get_blog_details:(slug)=>`/blogs/${slug}`,
   get_blog_categories:`/blogs-categories`,
   get_service_details:(slug)=>`/package/${slug}`,
-  get_package_details:(slug)=>`/package/${slug}/details`
+  get_package_details:(slug)=>`/package/${slug}/details`,
+  get_package_consultants:(id)=>`/package/${id}/consultants`
 };
 
 export default userApiRoutes;

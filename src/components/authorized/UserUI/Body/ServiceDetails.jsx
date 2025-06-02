@@ -64,16 +64,22 @@ function ServiceDetails() {
 
                     <div className="btn-group-box">
                       {showButton("Talk To A Fitness Expert") && (
-                        <Link to={`/experts/${pkg.name
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`} className="btn btn-primary hvr-shutter-out-horizontal">
+                        <Link
+                          to={`/experts/${pkg.name
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}/${btoa(pkg.id)}`}
+                          className="btn btn-primary hvr-shutter-out-horizontal"
+                        >
                           Talk To A Fitness Expert
                         </Link>
                       )}
                       {showButton("Smart Health Package") && (
-                        <Link to={`/package/${pkg.name
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`} className="btn btn-primary hvr-shutter-out-horizontal">
+                        <Link
+                          to={`/package/${pkg.name
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                          className="btn btn-primary hvr-shutter-out-horizontal"
+                        >
                           Smart Health Package
                         </Link>
                       )}
