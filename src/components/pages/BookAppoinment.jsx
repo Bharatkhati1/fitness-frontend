@@ -66,7 +66,7 @@ function BookAppoinment() {
               <div className="col-md-5 ">
                 <div className="bookappoinmentl">
                   <figure>
-                    <img src={details?.image_url} />
+                    <img crossOrigin="anonymous" src={details?.image_url} />
                   </figure>
                 </div>
               </div>

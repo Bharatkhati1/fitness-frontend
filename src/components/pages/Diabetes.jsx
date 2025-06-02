@@ -8,10 +8,9 @@ import { toast } from "react-toastify";
 
 import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
 
-function Diabetes() {
+function PackageDetails() {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
-
 
   const fetchPackageDetails = async () => {
     try {
@@ -23,6 +22,7 @@ function Diabetes() {
       toast.error(error.response.data.error);
     }
   };
+
   const stripHtml = (html) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
@@ -32,7 +32,6 @@ function Diabetes() {
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
-
 
   return (
     <>
@@ -64,18 +63,18 @@ function Diabetes() {
             </div>
 
             <div className="row">
-              <div className="col-md-3">
+             {details.PackagePlans.map((plan)=><div className="col-md-3">
                 <div className="DiabetesHealthcontent">
                   <figure>
-                    <img src={healthpakgesimg1}></img>
+                    <img crossOrigin="anonymous" src={plan.image_url}></img>
                   </figure>
 
                   <figcaption>
-                    <h3>₹11,999.00 | 3 months</h3>
-                    <span>Package description:</span>
+                    <h3>₹{plan.price} | {plan.duration} months</h3>
+                    <span>{plan.name}</span>
 
                     <ul className="Packagedescriptionlist">
-                      <li>Personalised Nutrition Plans. </li>
+                      {/* <li>{plan.name} </li>
 
                       <li>
                         Personalised Workout Plans. Our user-friendly and
@@ -88,7 +87,7 @@ function Diabetes() {
                       <li>
                         One expert consultation with doctor each month, as
                         needed.
-                      </li>
+                      </li> */}
                     </ul>
 
                     <div className="btnbox text-center">
@@ -101,157 +100,45 @@ function Diabetes() {
                     </div>
                   </figcaption>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="DiabetesHealthcontent">
-                  <figure>
-                    <img src={healthpakgesimg1}></img>
-                  </figure>
-
-                  <figcaption>
-                    <h3>₹11,999.00 | 3 months</h3>
-                    <span>Package description:</span>
-
-                    <ul className="Packagedescriptionlist">
-                      <li>Personalised Nutrition Plans. </li>
-
-                      <li>
-                        Personalised Workout Plans. Our user-friendly and
-                        detailed workout videos are here to make you enjoy the
-                        fitness journey.
-                      </li>
-
-                      <li>Consultations with health experts </li>
-
-                      <li>
-                        One expert consultation with doctor each month, as
-                        needed.
-                      </li>
-                    </ul>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
-                        buy now
-                      </a>
-                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
-                        add to bag
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="DiabetesHealthcontent">
-                  <figure>
-                    <img src={healthpakgesimg1}></img>
-                  </figure>
-
-                  <figcaption>
-                    <h3>₹11,999.00 | 3 months</h3>
-                    <span>Package description:</span>
-
-                    <ul className="Packagedescriptionlist">
-                      <li>Personalised Nutrition Plans. </li>
-
-                      <li>
-                        Personalised Workout Plans. Our user-friendly and
-                        detailed workout videos are here to make you enjoy the
-                        fitness journey.
-                      </li>
-
-                      <li>Consultations with health experts </li>
-
-                      <li>
-                        One expert consultation with doctor each month, as
-                        needed.
-                      </li>
-                    </ul>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
-                        buy now
-                      </a>
-                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
-                        add to bag
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="DiabetesHealthcontent">
-                  <figure>
-                    <img src={healthpakgesimg1}></img>
-                  </figure>
-
-                  <figcaption>
-                    <h3>₹11,999.00 | 3 months</h3>
-                    <span>Package description:</span>
-
-                    <ul className="Packagedescriptionlist">
-                      <li>Personalised Nutrition Plans. </li>
-
-                      <li>
-                        Personalised Workout Plans. Our user-friendly and
-                        detailed workout videos are here to make you enjoy the
-                        fitness journey.
-                      </li>
-
-                      <li>Consultations with health experts </li>
-
-                      <li>
-                        One expert consultation with doctor each month, as
-                        needed.
-                      </li>
-                    </ul>
-
-                    <div className="btnbox text-center">
-                      <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
-                        buy now
-                      </a>
-                      <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
-                        add to bag
-                      </a>
-                    </div>
-                  </figcaption>
-                </div>
-              </div>
+              </div>) }
+  
             </div>
           </div>
         </div>
-     
 
-      <div className="PackageINclusion mt-5 pt-3 pb-5">
-        <div className="container">
-          <h3 className="pn-title text-center">
-            {details.name} Management Package inclusions
-          </h3>
-          <div className="row">
-            {details?.PackageInclusions?.map((inclusion) => (
-              <div className="col-md-4 Packagecontent">
-                <figure>
-                  <img crossOrigin="anonymous" src={inclusion.image_url}></img>
-                </figure>
+        <div className="PackageINclusion mt-5 pt-3 pb-5">
+          <div className="container">
+            <h3 className="pn-title text-center">
+              {details.name} Management Package inclusions
+            </h3>
+            <div className="row">
+              {details?.PackageInclusions?.map((inclusion) => (
+                <div className="col-md-4 Packagecontent">
+                  <figure>
+                    <img
+                      crossOrigin="anonymous"
+                      src={inclusion.image_url}
+                    ></img>
+                  </figure>
 
-                <figcaption>
-                  <h4>{inclusion.name}</h4>
-                  <p>{stripHtml(inclusion.description)}</p>
-                </figcaption>
-              </div>
-            ))}
-          </div>
+                  <figcaption>
+                    <h4>{inclusion.name}</h4>
+                    <p>{stripHtml(inclusion.description)}</p>
+                  </figcaption>
+                </div>
+              ))}
+            </div>
 
-          <div className="btn-box text-center mt-4">
-            <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
-              join
-            </a>
+            <div className="btn-box text-center mt-4">
+              <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                join
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-
-       </section>
+      </section>
     </>
   );
 }
 
-export default Diabetes;
+export default PackageDetails;

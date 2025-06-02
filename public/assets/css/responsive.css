@@ -645,6 +645,9 @@
     height: 48px;
     font-size: 16px;
   }
+  span.tag-info {
+    font-size: 13px;
+}
 }
 
 @media (max-width: 991px) {
@@ -948,20 +951,25 @@
     padding-bottom: 0;
   }
 
-  .blogbannertitle{ font-size: 18px;top: 88px;}
+  .blogbannertitle {
+    font-size: 18px;
+    top: 88px;
+  }
 
   .row.row-cols-5.SmartKichinlistrow .col {
-        width: 50%;
-    }
+    width: 50%;
+  }
 
-    .row.row-cols-5.SmartKichinlistrow figure img {
+  .row.row-cols-5.SmartKichinlistrow figure img {
     width: 100%;
-}
-.row.row-cols-5.SmartKichinlistrow figcaption h4{    height: auto;}
+  }
+  .row.row-cols-5.SmartKichinlistrow figcaption h4 {
+    height: auto;
+  }
 
-.SmartKichinlistrow figcaption p {
+  .SmartKichinlistrow figcaption p {
     height: 53px;
-}
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1224,18 +1232,24 @@
     font-size: 16px;
     margin-top: 15px;
   }
-      .row.row-cols-5.SmartKichinlistrow figcaption h4 {
-        height: 50PX;
-    }
-        .blogbannertitle {
-        font-size: 14px;
-        top: 88px;
-        margin-bottom: 0;
-    }
-        .innerbannerContent h2 {
-        font-size: 24px;
-        margin-bottom: 0;
-    }
+  .row.row-cols-5.SmartKichinlistrow figcaption h4 {
+    height: 50px;
+  }
+  .blogbannertitle {
+    font-size: 14px;
+    top: 88px;
+    margin-bottom: 0;
+  }
+  .innerbannerContent h2 {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  .filterOwl button.owl-next span, .filterOwl button.owl-prev span{    top: 50px;
+    background-size: 10px;
+    background-repeat: no-repeat;}
+
+    
 }
 
 @media (max-width: 575px) {

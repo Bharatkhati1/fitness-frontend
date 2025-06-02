@@ -5,10 +5,10 @@ import { Calendar, Col, Radio, Row, Select, theme, Typography } from 'antd';
 import dayLocaleData from 'dayjs/plugin/localeData';
 dayjs.extend(dayLocaleData);
 
-const Calender = () => {
+const Calender = ({onDateSelect}) => {
   const { token } = theme.useToken();
   const onPanelChange = (value, mode) => {
-    console.log(value.format('YYYY-MM-DD'), mode);
+    onDateSelect(value.format('YYYY-MM-DD'), mode);
   };
   const wrapperStyle = {
     border: `1px solid ${token.colorBorderSecondary}`,
