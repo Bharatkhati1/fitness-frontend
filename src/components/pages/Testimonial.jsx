@@ -3,8 +3,6 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import testimonialsbanner from "../../../public/assets/img/testimonialsbanner.png";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
 import trustedImg from "../../../public/assets/img/trustedImg.svg";
 import clinetfeedbacimg from "../../../public/assets/img/clinetfeedbacimg.png";
 import fillstar from "../../../public/assets/img/fillstar.png";
@@ -15,29 +13,34 @@ import usertouch from "../../../public/assets/img/usertouch.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import beforeimg1 from "../../../public/assets/img/beforeimg1.png";
-import afterimg1 from "../../../public/assets/img/afterimg1.png";
 import { toast } from "react-toastify";
 import { webAxios } from "../../utils/Api/userAxios.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 function Testimonial() {
-  const [successStories, setSuccessStories] = useState([])
+  const [successStoriesTop, setSuccessStoriesTop] = useState([]);
+  const [successStoriesBottom, setSuccessStoriesBottom] = useState([]);
 
-  const fetchSuccessStories= async()=>{
+  const fetchSuccessStories = async () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_success_stories);
-      setSuccessStories(response.data.data)
+      const stories = response.data.data || [];
+
+      const mid = Math.ceil(stories.length / 2);
+      setSuccessStoriesTop(stories.slice(0, mid));
+      setSuccessStoriesBottom(stories.slice(mid));
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(
+        error?.response?.data?.error || "Failed to load success stories."
+      );
     }
-  }
-console.log(successStories)
-  useEffect(()=>{
-    fetchSuccessStories()
-  },[])
+  };
+
+  useEffect(() => {
+    fetchSuccessStories();
+  }, []);
+
   return (
     <>
-      <Header />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={testimonialsbanner} />
@@ -208,8 +211,8 @@ console.log(successStories)
         </div>
         <div>
           <Slider
-            infinite={true}
-            autoplay={true}
+            infinite
+            autoplay
             autoplaySpeed={0}
             speed={8000}
             slidesToShow={4}
@@ -217,119 +220,62 @@ console.log(successStories)
             cssEase="linear"
             arrows={false}
             swipe={false}
-            pauseOnHover={true}
+            pauseOnHover
             pauseOnFocus={false}
-            loop={true}
+            loop
           >
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
+            {successStoriesTop.map((successStory, i) => (
+              <div key={i}>
+                <div className="clientafterbefore">
+                  <div className="clientafterbeforeinner d-flex">
+                    <div className="Clientbefore text-center">
+                      <h4>before</h4>
+                      <figure>
+                        <img crossOrigin="anonymous" src={successStory.before_image_url} alt="before" />
+                      </figure>
+                    </div>
+                    <div className="Clientbefore text-center">
+                      <h4>after</h4>
+                      <figure>
+                        <img crossOrigin="anonymous"  src={successStory.after_image_url} alt="after" />
+                      </figure>
+                    </div>
                   </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
+                  <h3 className="clientafterbeforetitle">
+                    {successStory.title || "12 months natural transformation"}
+                  </h3>
                 </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
               </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
+            ))}
+            {/* Show 1 fallback slide if stories < 4 to avoid layout glitches */}
+            {successStoriesTop.length < 4 && (
+              <div>
+                <div className="clientafterbefore">
+                  <div className="clientafterbeforeinner d-flex">
+                    <div className="Clientbefore text-center">
+                      <h4>before</h4>
+                      <figure>
+                        <img src="/fallback-before.jpg" alt="before" />
+                      </figure>
+                    </div>
+                    <div className="Clientbefore text-center">
+                      <h4>after</h4>
+                      <figure>
+                        <img src="/fallback-after.jpg" alt="after" />
+                      </figure>
+                    </div>
                   </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
+                  <h3 className="clientafterbeforetitle">
+                    "12 months natural transformation"
+                  </h3>
                 </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
               </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
-                  </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
-                </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
-              </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
-                  </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
-                </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
-              </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
-                  </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
-                </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
-              </div>
-            </div>
+            )}
           </Slider>
+
           <Slider
-            infinite={true}
-            autoplay={true}
+            infinite
+            autoplay
             autoplaySpeed={0}
             speed={8000}
             slidesToShow={4}
@@ -337,95 +283,59 @@ console.log(successStories)
             cssEase="linear"
             arrows={false}
             swipe={false}
-            pauseOnHover={true}
-            pauseOnFocus={true}
-            rtl={true}
-            loop={true}
+            pauseOnHover
+            pauseOnFocus
+            rtl
+            loop
           >
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
+            {successStoriesBottom.map((successStory, i) => (
+              <div key={i}>
+                <div className="clientafterbefore">
+                  <div className="clientafterbeforeinner d-flex">
+                    <div className="Clientbefore text-center">
+                      <h4>before</h4>
+                      <figure>
+                        <img crossOrigin="anonymous"  src={successStory.before_image_url} alt="before" />
+                      </figure>
+                    </div>
+                    <div className="Clientbefore text-center">
+                      <h4>after</h4>
+                      <figure>
+                        <img crossOrigin="anonymous"  src={successStory.after_image_url} alt="after" />
+                      </figure>
+                    </div>
                   </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
+                  <h3 className="clientafterbeforetitle">
+                    {successStory.title || "12 months natural transformation"}
+                  </h3>
                 </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
               </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
+            ))}
+
+            {/* Show 1 fallback slide if stories < 4 to avoid layout glitches */}
+            {successStoriesBottom.length < 4 && (
+              <div>
+                <div className="clientafterbefore">
+                  <div className="clientafterbeforeinner d-flex">
+                    <div className="Clientbefore text-center">
+                      <h4>before</h4>
+                      <figure>
+                        <img src="/fallback-before.jpg" alt="before" />
+                      </figure>
+                    </div>
+                    <div className="Clientbefore text-center">
+                      <h4>after</h4>
+                      <figure>
+                        <img src="/fallback-after.jpg" alt="after" />
+                      </figure>
+                    </div>
                   </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
+                  <h3 className="clientafterbeforetitle">
+                    "12 months natural transformation"
+                  </h3>
                 </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
               </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
-                  </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
-                </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
-              </div>
-            </div>
-            <div>
-              <div className="clientafterbefore">
-                <div className="clientafterbeforeinner d-flex ">
-                  <div className="Clientbefore text-center">
-                    <h4>before</h4>
-                    <figure>
-                      <img src={beforeimg1} />
-                    </figure>
-                  </div>
-                  <div className="Clientbefore text-center">
-                    <h4>after</h4>
-                    <figure>
-                      <img src={afterimg1} />
-                    </figure>
-                  </div>
-                </div>
-                <h3 className="clientafterbeforetitle">
-                  12 months natural transformation
-                </h3>
-              </div>
-            </div>
+            )}
           </Slider>
 
           <div className="JoinNow text-center">
@@ -488,7 +398,6 @@ console.log(successStories)
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
