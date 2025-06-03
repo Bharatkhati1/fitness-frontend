@@ -1154,7 +1154,7 @@ header.sticky {
   z-index: 999;
   background: #fff;
   transition: 0.3s;
-  box-shadow: 0 4px 4px hsl(0deg 0% 0% / 7.84%);
+  box-shadow: 0 0px 5px hsl(0deg 0% 0% / 7.84%);
 }
 
 .trailofferList li:last-child {
@@ -3685,4 +3685,15 @@ button.ant-modal-close:hover {
   position: absolute;
   right: 360px;
   top: 235px;
+}
+
+.GetIntouch .form-checkList li {
+    margin-right: 30px;
+    width: auto;
+    margin-bottom: 8px;
+
+}
+
+.Browseservice .item {
+    overflow: hidden;
 }

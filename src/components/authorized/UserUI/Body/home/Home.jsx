@@ -4,7 +4,7 @@ import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
+import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
@@ -127,18 +127,13 @@ function Home() {
           <img src={ShapeRight} />
         </span>
 
-        
-                     <div className="circletagShapeBox">
-                          <img
-                            className="heartBeatImg"
-                            src={heartbeat}
-                            alt=""
-                          />
-                          <span className="circletagShape">
-                            {" "}
-                            <img src={Tagcircle} />
-                          </span>
-                        </div> 
+        <div className="circletagShapeBox">
+          <img className="heartBeatImg" src={heartbeat} alt="" />
+          <span className="circletagShape">
+            {" "}
+            <img src={Tagcircle} />
+          </span>
+        </div>
         {sliders.length > 0 && (
           <OwlCarousel
             autoplay={true}
@@ -190,10 +185,7 @@ function Home() {
                       </div>
                     </div>
                     <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-
                       <div className="bannerSectionInner">
-                       
-
                         <div class="item">
                           <figure>
                             <img
@@ -723,7 +715,7 @@ function Home() {
                     ></input>
                   </div>
                 </div>
-                <div className="col-md-12 checklistBox mb-3">
+                <div className="col-md-12 checklistBox ">
                   <label className="mb-3">You want to consult for :</label>
                   <ul className="form-checkList d-flex">
                     {allServices.map((service) => (
