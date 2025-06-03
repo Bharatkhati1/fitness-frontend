@@ -34,7 +34,6 @@ function AllPakages() {
               Discover all our fitness packages tailored to help you achieve
               your health and wellness goals.
             </p>
-
             <div className="SearchBox">
               <input
                 type="text"

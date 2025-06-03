@@ -505,6 +505,7 @@ body .heartBeatImg {
   font-weight: 700;
   margin-bottom:6px;
   min-height:47px;
+  text-transform: uppercase;
 }
 .OurServices .col-md-4 {
   margin-bottom: 30px;
@@ -520,7 +521,7 @@ body .heartBeatImg {
   font-size: 14px;
   color: #2a2a2a;
   line-height: 1.6;
-  min-height: 111px;
+  min-height: 130px;
   margin-bottom: 12px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -558,7 +559,9 @@ body .heartBeatImg {
 .WhyChoose {
   position: relative;
 }
-
+.note-btn-group .dropdown-toggle::after{
+display: none;
+}
 .WhyChoose:after {
   background: url(../img/whychoosePettern.png);
   position: absolute;
@@ -1878,7 +1881,7 @@ ul.BottomFooterList li a:hover {
 }
 
 body .owl-item .OurServicesContent figure img {
-  height: 210px;
+  height: 260px;
   width: 100% !important;
   background: #fff;
 }
@@ -2236,7 +2239,9 @@ section.OurTEAM {
   margin: auto;
   z-index: -1;
 }
-
+/* .main-packge .owl-nav button.owl-prev {
+  left: -35px;
+}x */
 .OurTeamsrowsL {
   text-align: center;
 }
@@ -2817,8 +2822,26 @@ ul.userslink li a {
   font-size: 16px;
   color: #1e1e1e;
   font-weight: 400;
-}
 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  margin-bottom: 12px;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  min-height: 108px;
+}
+.our-approach h2{
+ position: absolute;
+  color: #fff;
+  top:30px;
+  left: 0;
+  right: 0;
+}
+.our-approach img{
+  width: 100%;
+}
 .servicedetaillisting figcaption h3 {
   font-size: 38px;
   color: #000000;
@@ -2923,6 +2946,7 @@ body .owl-carousel .owl-item .product-list figure img {
   color: #000000;
   font-weight: 600;
   margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
 .price {
@@ -3683,7 +3707,13 @@ button.ant-modal-close:hover {
 .service-btn a{
   min-width:190px;
 }
-
+.note-btn-group.btn-group .note-dropdown-menu{
+  padding: 12px !important;
+  width: 250px;
+}
+.note-btn-group.btn-group.open .note-dropdown-menu{
+display: block !important;
+}
 @media (max-width:1400px) {
   .service-btn a {
     min-width: 160px !important;

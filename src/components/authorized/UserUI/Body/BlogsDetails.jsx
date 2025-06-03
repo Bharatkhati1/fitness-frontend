@@ -21,12 +21,6 @@ const BlogsDetails = () => {
       toast.error(error.response.data.error);
     }
   };
-  console.log(details);
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
   useEffect(() => {
     fetchServiceDetails();
   }, [slug]);

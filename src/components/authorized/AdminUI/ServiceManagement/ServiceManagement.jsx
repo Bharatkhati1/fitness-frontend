@@ -19,6 +19,8 @@ const ServiceManagement = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedBannerFileName, setSelectedBannerFileName] = useState("");
   const [serviceShortDescription, setServiceShortDescription] = useState("");
+  const [storyImageName, setStoryImageName] = useState(null);
+  const [storyImage, setStoryImage] = useState(null);
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
@@ -28,6 +30,7 @@ const ServiceManagement = () => {
   const [limit] = useState(1);
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
+  const storyImageRef = useRef(null);
 
   const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
@@ -55,6 +58,7 @@ const ServiceManagement = () => {
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
     serviceBannerImage && formData.append("banner_image", serviceBannerImage);
+    if (storyImage) formData.append("story_image", storyImage);
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} service...`
     );
@@ -140,6 +144,7 @@ const ServiceManagement = () => {
     setSelectedFileName(null);
     setSelectedBannerFileName("");
     setCtaButtons([]);
+    setStoryImage(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -174,7 +179,6 @@ const ServiceManagement = () => {
     fetchAllServices();
   }, []);
 
-  console.log(selectedBannerFileName);
   return (
     <>
       <div className="row">
@@ -225,6 +229,40 @@ const ServiceManagement = () => {
                   </div>
                 </div>
 
+                {/* Service Image */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Service Image {isEdit && ` : ${selectedFileName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={fileInputRef}
+                      className="form-control"
+                      onChange={(e) => setSliderImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
+                {/* Story Image */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Story Image {isEdit && ` : ${storyImageName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={storyImageRef}
+                      className="form-control"
+                      onChange={(e) => setStoryImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
                 {/* Short Description */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -248,23 +286,6 @@ const ServiceManagement = () => {
                       Long Desciption
                     </label>
                     <Ckeditor text={sliderHeading} setText={setSliderHeading} />
-                  </div>
-                </div>
-
-                {/* Service Image */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-image" className="form-label">
-                      Service Image {isEdit && ` : ${selectedFileName}`}
-                    </label>
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                      id="service-image"
-                      ref={fileInputRef}
-                      className="form-control"
-                      onChange={(e) => setSliderImage(e.target.files[0])}
-                    />
                   </div>
                 </div>
 
@@ -367,7 +388,7 @@ const ServiceManagement = () => {
                               </div>
                             </div>
 
-                            {matchedButton && (
+                            {matchedButton&&matchedButton.name!="Know more" && (
                               <div className="col-lg-6">
                                 <div className="email-new">
                                   <input
@@ -511,6 +532,7 @@ const ServiceManagement = () => {
                                         <button
                                           className="btn btn-soft-primary btn-sm"
                                           onClick={() => {
+                                            window.scrollTo(0,0)
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
                                             setCtaButtons(
@@ -526,8 +548,12 @@ const ServiceManagement = () => {
                                             setServiceShortDescription(
                                               service.shortDescription
                                             );
+                                            setStoryImageName(service?.story_image)
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
+                                            setStoryImageName(
+                                              data?.story_image
+                                            );
                                           }}
                                         >
                                           <iconify-icon

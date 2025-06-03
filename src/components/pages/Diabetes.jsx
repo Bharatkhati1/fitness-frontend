@@ -21,12 +21,6 @@ function PackageDetails() {
     }
   };
 
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
-
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
@@ -51,7 +45,11 @@ function PackageDetails() {
 
             <div className="col-md-6 Diabetespageright">
               <h3>{details.name} </h3>
-              <p>{stripHtml(details.description)}</p>
+              <p
+               dangerouslySetInnerHTML={{
+                __html: details?.description,
+              }}
+              ></p>
             </div>
           </div>
 
@@ -69,7 +67,12 @@ function PackageDetails() {
 
                   <figcaption>
                     <h3>₹{plan.price} | {plan.duration} months</h3>
-                    <span>{plan.name}</span>
+                    {plan.description && (
+    <>
+                    <span>Package description:</span>
+                    <p className="text-center">{plan.description}</p>
+                    </>
+                  )}
 
                     <div className="btnbox text-center">
                       <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
@@ -104,7 +107,11 @@ function PackageDetails() {
 
                   <figcaption>
                     <h4>{inclusion.name}</h4>
-                    <p>{stripHtml(inclusion.description)}</p>
+                    <p
+                    dangerouslySetInnerHTML={{
+                      __html: inclusion?.description,
+                    }}
+                    ></p>
                   </figcaption>
                 </div>
               ))}

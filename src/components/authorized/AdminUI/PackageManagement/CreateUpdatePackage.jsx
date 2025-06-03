@@ -33,9 +33,7 @@ const CreateUpdatePackage = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
-  const [allConsultants, setAllConsultants] = useState([]);
-  const [storyImage, setStoryImage] = useState(null)
-  const [storyImageName, setStoryImageName] = useState(null)
+  const [allConsultants, setAllConsultants] = useState([])
 
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
@@ -47,7 +45,7 @@ const CreateUpdatePackage = () => {
 
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
-  const storyImageRef = useRef(null);
+ 
 
   const ctaOptions = ["Talk to a Therapist", "Consult a Doctor", "Know more"];
 
@@ -114,8 +112,6 @@ const CreateUpdatePackage = () => {
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)
       formData.append("package_banner", packageBannerImage);
-    if (storyImage)
-      formData.append("story_image", storyImage);
 
     // Append images for inclusions
     for (let i = 0; i < packageInclusions.length; i++) {
@@ -185,7 +181,6 @@ const CreateUpdatePackage = () => {
     setPakageImage(null);
     setLongDescription("");
     setSelectedFileName(null);
-    setStoryImage(null)
     setPackageInclusions([
       { name: "", description: "", image: null, is_active: true },
     ]);
@@ -265,7 +260,6 @@ const CreateUpdatePackage = () => {
     setSelectedFileName2(data.banner || "");
     setPakageImage(data.image_url || null);
     setSelectedFileName(data.image || "");
-    setStoryImageName(data?.story_image)
     // Package Inclusions
     const inclusions = Array.isArray(data.PackageInclusions)
       ? data.PackageInclusions.map((inc) => ({
@@ -386,23 +380,6 @@ const CreateUpdatePackage = () => {
                   </div>
                 </div>
 
-                {/* Package Story Image */}
-              <div className="col-lg-4">
-                <div className="mb-3">
-                  <label htmlFor="service-image" className="form-label">
-                    Package Story Image {isEdit && ` : ${storyImageName}`}
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                    id="service-image"
-                    ref={storyImageRef}
-                    className="form-control"
-                    onChange={(e) => setStoryImage(e.target.files[0])}
-                  />
-                </div>
-              </div>
-
                 {/* Package Image */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -474,6 +451,7 @@ const CreateUpdatePackage = () => {
                         const matchedButton = ctaButtons.find(
                           (btn) => btn.name === option
                         );
+                        console.log(matchedButton)
                         const inputValue =
                           emailInputs[option] ??
                           matchedButton?.emails.join(", ") ??
@@ -523,7 +501,7 @@ const CreateUpdatePackage = () => {
                               </div>
                             </div>
 
-                            {matchedButton && (
+                            {matchedButton && matchedButton.name!="Know more" && (
                               <div className="col-lg-6">
                                 <div className="email-new">
                                   <input

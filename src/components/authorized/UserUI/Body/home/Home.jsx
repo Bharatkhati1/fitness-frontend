@@ -64,12 +64,6 @@ function Home() {
     }
   };
 
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
-
   const prevArrow = `
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
@@ -116,7 +110,6 @@ function Home() {
     getBlogs();
   }, []);
 
-  console.log(services);
   return (
     <>
       <section className="bannerSection">
@@ -127,18 +120,13 @@ function Home() {
           <img src={ShapeRight} />
         </span>
 
-        
-                     <div className="circletagShapeBox">
-                          <img
-                            className="heartBeatImg"
-                            src={heartbeat}
-                            alt=""
-                          />
-                          <span className="circletagShape">
-                            {" "}
-                            <img src={Tagcircle} />
-                          </span>
-                        </div> 
+        <div className="circletagShapeBox">
+          <img className="heartBeatImg" src={heartbeat} alt="" />
+          <span className="circletagShape">
+            {" "}
+            <img src={Tagcircle} />
+          </span>
+        </div>
         {sliders.length > 0 && (
           <OwlCarousel
             autoplay={true}
@@ -190,10 +178,7 @@ function Home() {
                       </div>
                     </div>
                     <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-
                       <div className="bannerSectionInner">
-                       
-
                         <div class="item">
                           <figure>
                             <img
@@ -299,7 +284,13 @@ function Home() {
                           </figure>
                           <figcaption>
                             <h3>{srv.name}</h3>
-                            <p>{stripHtml(srv.description)}</p>
+                            {srv.shortDescription && (
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: srv?.shortDescription,
+                                }}
+                              ></p>
+                            )}
                             <div className="gap-3 service-btn text-center">
                               {showButton("Know more") && (
                                 <Link

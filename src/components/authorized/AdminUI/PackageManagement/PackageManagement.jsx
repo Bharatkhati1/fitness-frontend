@@ -7,16 +7,9 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 
 const PackageManagement = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [packages, setPackage] = useState([]);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
-
-
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html);
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
 
   const fetchAllPackage = async () => {
     try {
@@ -27,10 +20,10 @@ const PackageManagement = () => {
       toast.error(error.response.data.message);
     }
   };
-console.log(selectedPackageId)
+  console.log(selectedPackageId);
   const deletePackage = async (id) => {
     try {
-      let Id = selectedPackageId ||id
+      let Id = selectedPackageId || id;
       await adminAxios.delete(adminApiRoutes.delete_package(Id));
       toast.success("Deleted Successfully");
       fetchAllPackage();
@@ -40,12 +33,8 @@ console.log(selectedPackageId)
     }
   };
 
-  
-
-
   useEffect(() => {
     fetchAllPackage();
-
   }, []);
   return (
     <>
@@ -104,7 +93,11 @@ console.log(selectedPackageId)
                             </Link>
                           </td>
                           <td>{item?.name}</td>
-                          <td>{stripHtml(item.shortDescription)}</td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: item?.shortDescription,
+                            }}
+                          ></td>
                           <td>{item?.Service?.name}</td>
                           <td>{item.type}</td>
                           <td>{item.price}</td>
@@ -121,7 +114,11 @@ console.log(selectedPackageId)
                             <div class="d-flex gap-2">
                               <button
                                 class="btn btn-soft-primary btn-sm"
-                                onClick={() => navigate(`/admin/service-management/create-update-package?id=${item.id}&isEdit=true`)}
+                                onClick={() =>
+                                  navigate(
+                                    `/admin/service-management/create-update-package?id=${item.id}&isEdit=true`
+                                  )
+                                }
                               >
                                 <iconify-icon
                                   icon="solar:pen-2-broken"

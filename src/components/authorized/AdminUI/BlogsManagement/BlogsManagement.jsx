@@ -113,13 +113,6 @@ const BlogsManagement = () => {
       fileInputRef.current.value = "";
     }
   }
-
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
-
   useEffect(() => {
     fetchAllBlogs();
     fetchAllCategories();
@@ -324,7 +317,9 @@ const BlogsManagement = () => {
                             </Link>
                           </td>
                           <td>{item?.title}</td>
-                          <td>{stripHtml(item.shortDescription)}</td>
+                          <td dangerouslySetInnerHTML={{
+                __html: item?.shortDescription,
+              }}></td>
                           <td>{item?.categoryId}</td>
                           <td>
                             <span

@@ -149,7 +149,6 @@ export const getServicesForUser  = () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
-      console.log(servicesData)
       const chunkSize = 6;
       const chunkedServices = [];
       for (let i = 0; i < servicesData.length; i += chunkSize) {
