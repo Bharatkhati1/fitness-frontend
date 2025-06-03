@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import DOMPurify from "dompurify";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
@@ -12,10 +11,8 @@ import MsgeIcon from "../../../../../public/assets/img/Mesgeicon.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
 import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
-
 import ContactUs from "../../../../../public/assets/img/contactUs.png";
-
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 import { useSelector } from "react-redux";
 
 function ServiceDetails() {
@@ -44,7 +41,6 @@ function ServiceDetails() {
       toast.error(error.response.data.error);
     }
   };
-
 
   useEffect(() => {
     fetchServiceDetails();
@@ -95,10 +91,10 @@ function ServiceDetails() {
         </div>
       </section>
 
-      <div className="sectionSpace servicedetail">
+      <div className="sectionSpace ">
         <div className="container">
           <p
-            className="text-center m-0"
+            className="m-0"
             style={{
               minHeight: "auto",
             }}
@@ -130,99 +126,99 @@ function ServiceDetails() {
             {Array.isArray(packages) && packages.length > 0 && (
               <h2>our packages</h2>
             )}
-            <div className="px-xxl-0 px-3">
-              <div className="row servicedetaillisting">
-                {Array.isArray(packages) &&
-                packages.length > 0 &&
-                Array.isArray(packages[0]) ? (
-                  <OwlCarousel
-                    className="owl-theme"
-                    autoplay={false}
-                    dots={true}
-                    items={1}
-                    margin={10}
-                    nav={true}
-                    navText={[prevArrow, nextArrow]}
-                    autoplaySpeed={3000}
-                    autoplayTimeout={9000}
-                  >
-                    {packages?.map((group, index) => (
-                      <div className="row" key={index}>
-                        {group.map((pkg, idx) => {
-                          const parsedActions = JSON.parse(pkg.actions || "[]");
-                          const actionNames = parsedActions.map(
-                            (action) => action.name
-                          );
-                          const showButton = (label) =>
-                            actionNames.includes(label);
-                          return (
-                            <div className="col-md-6" key={idx}>
-                              <div className="OurServicesContent">
-                                <figure>
-                                  <img
-                                    crossOrigin="anonymous"
-                                    src={pkg.image_url}
-                                  />
-                                </figure>
-                                <figcaption>
-                                  <h3>{pkg.name}</h3>
-                                  <p
-                                    dangerouslySetInnerHTML={{
-                                      __html: pkg?.description,
-                                    }}
-                                  />
+          </div>
 
-                                  <div className="btn-group-box">
-                                    {showButton("Know more") && (
-                                      <Link
-                                        to={`/package/${pkg.name
-                                          .toLowerCase()
-                                          .replace(/\s+/g, "-")}`}
-                                        className="btn btn-primary hvr-shutter-out-horizontal"
-                                      >
-                                        Know More
-                                      </Link>
-                                    )}
-                                    {showButton("Consult a Doctor") && (
-                                      <Link
-                                        to={`/experts/${pkg.name
-                                          .toLowerCase()
-                                          .replace(/\s+/g, "-")}/doctor/${btoa(
-                                          pkg.id
-                                        )}`}
-                                        className="btn btn-primary hvr-shutter-out-horizontal"
-                                      >
-                                        Consult a Doctor
-                                      </Link>
-                                    )}
-                                    {showButton("Talk to a Therapist") && (
-                                      <Link
-                                        to={`/experts/${pkg.name
-                                          .toLowerCase()
-                                          .replace(
-                                            /\s+/g,
-                                            "-"
-                                          )}/therapist/${btoa(pkg.id)}`}
-                                        className="btn btn-primary hvr-shutter-out-horizontal"
-                                      >
-                                        Talk to a Therapist
-                                      </Link>
-                                    )}
-                                  </div>
-                                </figcaption>
-                              </div>
+          <div className="px-xxl-0 px-3">
+            <div className="row servicedetaillisting">
+              {Array.isArray(packages) &&
+              packages.length > 0 &&
+              Array.isArray(packages[0]) ? (
+                <OwlCarousel
+                  className="owl-theme"
+                  autoplay={false}
+                  dots={true}
+                  items={1}
+                  margin={10}
+                  nav={true}
+                  navText={[prevArrow, nextArrow]}
+                  autoplaySpeed={3000}
+                  autoplayTimeout={9000}
+                >
+                  {packages?.map((group, index) => (
+                    <div className="row" key={index}>
+                      {group.map((pkg, idx) => {
+                        const parsedActions = JSON.parse(pkg.actions || "[]");
+                        const actionNames = parsedActions.map(
+                          (action) => action.name
+                        );
+                        const showButton = (label) =>
+                          actionNames.includes(label);
+                        return (
+                          <div className="col-md-6" key={idx}>
+                            <div className="OurServicesContent">
+                              <figure>
+                                <img
+                                  crossOrigin="anonymous"
+                                  src={pkg.image_url}
+                                />
+                              </figure>
+                              <figcaption>
+                                <h3>{pkg.name}</h3>
+                                <p
+                                  dangerouslySetInnerHTML={{
+                                    __html: pkg?.description,
+                                  }}
+                                />
+
+                                <div className="btn-group-box">
+                                  {showButton("Know more") && (
+                                    <Link
+                                      to={`/package/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Know More
+                                    </Link>
+                                  )}
+                                  {showButton("Consult a Doctor") && (
+                                    <Link
+                                      to={`/experts/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}/doctor/${btoa(
+                                        pkg.id
+                                      )}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Consult a Doctor
+                                    </Link>
+                                  )}
+                                  {showButton("Talk to a Therapist") && (
+                                    <Link
+                                      to={`/experts/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}/therapist/${btoa(
+                                        pkg.id
+                                      )}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Talk to a Therapist
+                                    </Link>
+                                  )}
+                                </div>
+                              </figcaption>
                             </div>
-                          );
-                        })}
-                      </div>
-                    ))}{" "}
-                  </OwlCarousel>
-                ) : (
-                  <div className="text-center py-5">
-                    <h5>No packages found.</h5>
-                  </div>
-                )}
-              </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}{" "}
+                </OwlCarousel>
+              ) : (
+                <div className="text-center py-5">
+                  <h5>No packages found.</h5>
+                </div>
+              )}
             </div>
           </div>
         </div>

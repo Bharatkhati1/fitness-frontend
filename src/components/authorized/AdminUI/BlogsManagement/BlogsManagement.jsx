@@ -10,10 +10,10 @@ import Ckeditor from "../CkEditor/Ckeditor.jsx";
 const BlogsManagement = () => {
   const [name, setName] = useState("");
   const [shortDesc, setShortDesc] = useState("");
-  const [longDescription, setLongDescription] = useState("")
+  const [longDescription, setLongDescription] = useState("");
   const [status, setStatus] = useState(true);
-  const [allCategories, setAllCategories] = useState([])
-  const [categoryId, setCategoryId] = useState(null)
+  const [allCategories, setAllCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [image, setImage] = useState(null);
@@ -27,7 +27,7 @@ const BlogsManagement = () => {
       setBlogs(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
-       toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -53,38 +53,52 @@ const BlogsManagement = () => {
     formData.append("categoryId", categoryId);
     formData.append("shortDescription", shortDesc);
     image && formData.append("blog_image", image);
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} blog...`
+    );
 
     try {
       let url = isEdit
         ? adminApiRoutes.update_blog(selectedId)
         : adminApiRoutes.create_blog;
 
-        let response;
-        if (isEdit) {
-          response = await adminAxios.put(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        } else {
-          response = await adminAxios.post(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        }
-  
+      let response;
+      if (isEdit) {
+        response = await adminAxios.put(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await adminAxios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
 
       if (response.status == 200) {
         fetchAllBlogs();
         onCancelEdit();
-        toast.success(response.data.message);
+        toast.update(loadingToastId, {
+          render: response.data.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
         return;
       }
       toast.error(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create slider.${error.response.data.message}`);
+      toast.update(loadingToastId, {
+        render: `Failed to ${isEdit ? "update" : "create"} blog. ${
+          error?.response?.data?.message
+        }`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -95,11 +109,11 @@ const BlogsManagement = () => {
       fetchAllBlogs();
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
   };
 
-  const onCancelEdit =()=>{
+  const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
     setName("");
@@ -107,12 +121,12 @@ const BlogsManagement = () => {
     setLongDescription("");
     setShortDesc("");
     setStatus("1");
-    setImage(null)
+    setImage(null);
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }
+  };
   useEffect(() => {
     fetchAllBlogs();
     fetchAllCategories();
@@ -122,16 +136,17 @@ const BlogsManagement = () => {
     <>
       <div className="row">
         <div className="col-lg-12">
-        <div className={`card ${isEdit && `editing`}`}>
+          <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
                 {isEdit ? `Edit Selected Blog` : `Create Blog`}
               </h4>
-              {isEdit && <button onClick={()=>onCancelEdit()}>Cancel Edit</button>}
+              {isEdit && (
+                <button onClick={() => onCancelEdit()}>Cancel Edit</button>
+              )}
             </div>
             <div className="card-body">
               <div className="row">
-
                 {/* Blog title  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -148,8 +163,8 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-                 
-                 {/* Blog Image  */}
+
+                {/* Blog Image  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -165,25 +180,22 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-  
-                 {/* Short Description  */}
+
+                {/* Short Description  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                    Short Desciption
+                      Short Desciption
                     </label>
-                    <Ckeditor
-                      text={shortDesc}
-                      setText={setShortDesc}
-                    />
+                    <Ckeditor text={shortDesc} setText={setShortDesc} />
                   </div>
                 </div>
-                 
-                 {/* Long Description  */}
+
+                {/* Long Description  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                     Long Desciption
+                      Long Desciption
                     </label>
                     <Ckeditor
                       text={longDescription}
@@ -191,8 +203,8 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-                 
-                 {/* Category  */}
+
+                {/* Category  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="package-type" className="form-label">
@@ -293,7 +305,7 @@ const BlogsManagement = () => {
                     {blogs.length > 0 ? (
                       blogs.map((item, index) => (
                         <tr key={index}>
-                          <td>{index+1}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <Link target="_blank" to={item.image_url}>
                               {" "}
@@ -317,19 +329,19 @@ const BlogsManagement = () => {
                             </Link>
                           </td>
                           <td>{item?.title}</td>
-                          <td dangerouslySetInnerHTML={{
-                __html: item?.shortDescription,
-              }}></td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: item?.shortDescription,
+                            }}
+                          ></td>
                           <td>{item?.categoryId}</td>
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive 
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                item.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {item.isActive  ? "Active" : "Inactive"}
+                              {item.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -337,6 +349,7 @@ const BlogsManagement = () => {
                               <button
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setName(item.title);
@@ -387,4 +400,4 @@ const BlogsManagement = () => {
   );
 };
 
-export default BlogsManagement
+export default BlogsManagement;

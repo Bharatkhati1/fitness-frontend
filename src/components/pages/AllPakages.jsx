@@ -17,6 +17,7 @@ function AllPakages() {
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 
+  console.log(allPackages);
   useEffect(() => {
     dispatch(fetchAllProducts({ search, serviceId }));
   }, [search, serviceId]);
@@ -40,7 +41,10 @@ function AllPakages() {
                 placeholder="Search here"
                 className="form-control"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setServiceId(null);
+                }}
               />
               <button
                 className="SearchBtn"
@@ -89,7 +93,12 @@ function AllPakages() {
               }}
             >
               <>
-                <div class="item" onClick={() => setServiceId(null)}>
+                <div
+                  className={`item ${
+                    serviceId == null ? `active-selected-service` : ``
+                  }`}
+                  onClick={() => setServiceId(null)}
+                >
                   <div className="servicelist package-image">
                     <figure>
                       <img crossOrigin="anonymous" src={Icon1}></img>
@@ -98,7 +107,12 @@ function AllPakages() {
                   </div>
                 </div>
                 {allServices.map((srv) => (
-                  <div class="item" onClick={() => setServiceId(srv.id)}>
+                  <div
+                    className={`item ${
+                      srv.id == serviceId ? `active-selected-service` : ``
+                    }`}
+                    onClick={() => setServiceId(srv.id)}
+                  >
                     <div className="servicelist package-image">
                       <figure>
                         <img crossOrigin="anonymous" src={srv.image_url}></img>
@@ -115,57 +129,59 @@ function AllPakages() {
         <div className="productslists">
           <div className="container">
             <h4 className="producttitle">{allPackages.length} products</h4>
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={false}
-              items={3}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-              margin={20}
-              nav={true}
-              responsive={{
-                0: {
-                  items: 1, // 0px and up
-                },
-                481: {
-                  items: 2, // 0px and up
-                },
-                768: {
-                  items: 2, // 600px and up
-                },
-                992: {
-                  items: 3, // 600px and up
-                },
-                1200: {
-                  items: 3, // 1000px and up
-                },
-              }}
-            >
-              {allPackages.map((pkg) => (
-                <div class="item">
-                  <div className="product-list">
-                    <figure>
-                      <img crossOrigin="anonymous" src={pkg.image_url} />
-                    </figure>
+            {Array.isArray(allPackages) && allPackages.length > 0 && (
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={false}
+                items={3}
+                autoplaySpeed={500}
+                autoplayTimeout={3000}
+                margin={20}
+                nav={true}
+                responsive={{
+                  0: {
+                    items: 1, // 0px and up
+                  },
+                  481: {
+                    items: 2, // 0px and up
+                  },
+                  768: {
+                    items: 2, // 600px and up
+                  },
+                  992: {
+                    items: 3, // 600px and up
+                  },
+                  1200: {
+                    items: 3, // 1000px and up
+                  },
+                }}
+              >
+                {allPackages.map((pkg) => (
+                  <div class="item">
+                    <div className="product-list">
+                      <figure>
+                        <img crossOrigin="anonymous" src={pkg.image_url} />
+                      </figure>
 
-                    <figcaption>
-                      <h3>{pkg.name}</h3>
-                      <div className="btnbox text-center">
-                        <Link
-                          to={`/package/${pkg.name
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
-                          className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal"
-                        >
-                          know more
-                        </Link>
-                      </div>
-                    </figcaption>
+                      <figcaption>
+                        <h3 className=" text-center">{pkg.name}</h3>
+                        <div className="btnbox text-center">
+                          <Link
+                            to={`/package/${pkg.name
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
+                            className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal"
+                          >
+                            know more
+                          </Link>
+                        </div>
+                      </figcaption>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
+                ))}
+              </OwlCarousel>
+            )}
           </div>
         </div>
       </section>

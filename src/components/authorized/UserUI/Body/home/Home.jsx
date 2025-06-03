@@ -245,7 +245,7 @@ function Home() {
               autoplay={false}
               dots={true}
               items={1}
-              loop={true}
+              loop={false}
               margin={10}
               nav={true}
               navText={[prevArrow, nextArrow]}
@@ -274,7 +274,9 @@ function Home() {
 
                     return (
                       <div className="col-md-4" key={idx}>
+                        
                         <div className="OurServicesContent">
+                        
                           <figure>
                             <img
                               crossOrigin="anonymous"

@@ -202,7 +202,6 @@ export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
       console.error("Invalid search parameter:", search);
       return;
     }
-
     try {
       const response = await webAxios.get(
         userApiRoutes.get_all_packages({ search, serviceId })

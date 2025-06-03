@@ -1347,11 +1347,15 @@ ul.BottomFooterList,
 .innerbanner {
   position: relative;
 }
-
+.innerbanner .container{
+  position: relative;
+}
 .innerbannerContent {
+  padding:  0 15px;
   position: absolute;
   bottom: 55px;
   z-index: 9;
+  left: 0;
 }
 
 .innerbanner:after {
@@ -2974,7 +2978,10 @@ body .owl-carousel .owl-item .product-list figure img {
 .Browseservice {
   margin-bottom: 45px;
 }
-
+.active-selected-service{
+  border: 2px solid saddlebrown;
+  border-radius: 8px;
+}
 .btnserch .btn {
   height: 58px;
   background: #ffffff;

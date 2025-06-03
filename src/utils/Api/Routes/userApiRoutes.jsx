@@ -3,11 +3,12 @@ const userApiRoutes = {
 
   get_services: `/services`,
 
-  get_blogs: ({ search = '', page = 1, limit = 10, category } = {}) => {
+  get_blogs: ({ search = '', page = 1, limit = 10, category, order } = {}) => {
     const params = new URLSearchParams();
 
     if (search) params.append("search", search);
     if (page) params.append("page", page);
+    if (order) params.append("order", order);
     if (limit) params.append("limit", limit);
     if (category) params.append("category", category);
 
@@ -46,7 +47,11 @@ const userApiRoutes = {
     if (search) params.append("search", search);
     if (serviceId) params.append("serviceId", serviceId);
     return `/package${params.toString() ? '?' + params.toString() : ''}`;
-  }
+  },
+
+  get_teams:`/teams`,
+
+  get_success_stories:`/success-stories`
   
 };
 
