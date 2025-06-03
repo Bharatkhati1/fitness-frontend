@@ -126,6 +126,19 @@ function Home() {
         <span className="shapeImgRight">
           <img src={ShapeRight} />
         </span>
+
+        
+                     <div className="circletagShapeBox">
+                          <img
+                            className="heartBeatImg"
+                            src={heartbeat}
+                            alt=""
+                          />
+                          <span className="circletagShape">
+                            {" "}
+                            <img src={Tagcircle} />
+                          </span>
+                        </div> 
         {sliders.length > 0 && (
           <OwlCarousel
             autoplay={true}
@@ -177,18 +190,9 @@ function Home() {
                       </div>
                     </div>
                     <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
+
                       <div className="bannerSectionInner">
-                        <div className="circletagShapeBox">
-                          <img
-                            className="heartBeatImg"
-                            src={heartbeat}
-                            alt=""
-                          />
-                          <span className="circletagShape">
-                            {" "}
-                            <img src={Tagcircle} />
-                          </span>
-                        </div>
+                       
 
                         <div class="item">
                           <figure>
