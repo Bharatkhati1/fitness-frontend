@@ -4,7 +4,7 @@ import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
+import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
@@ -31,14 +31,22 @@ import circleShapeLeft from "../../../../../../public/assets/img/circleShapeLeft
 import circleShapeRight from "../../../../../../public/assets/img/circleShapeRight.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getKitchenData } from "../../../../../store/auth/AuthExtraReducers";
+import { useDispatch } from "react-redux";
+import EmailRequiredPopup from "../../EmailRequiredpopup";
 
 function Home() {
-  const { allServices = [], services = [] } = useSelector(
-    (state) => state.auth
-  );
-
+  const dispatch = useDispatch();
+  const {
+    allServices = [],
+    services = [],
+    kitchenData = [],
+    isLoggedIn,
+  } = useSelector((state) => state.auth);
   const [sliders, setSliders] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
@@ -76,6 +84,59 @@ function Home() {
   </svg>
 `;
 
+  const downloadRecipe = async (id) => {
+    setSelectedRecipeId(id);
+    if (!isLoggedIn) {
+      setOpenEmailRequiredPopup(true);
+      return;
+    }
+
+    const promise = webAxios.post(userApiRoutes.download_recipe(id));
+
+    toast.promise(promise, {
+      pending: "Downloading recipe...",
+      success: "Recipe downloaded successfully!",
+      error: {
+        render({ data }) {
+          return (
+            data?.response?.data?.message || "Failed to download : Server Error"
+          );
+        },
+      },
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      // error is already handled by toast.promise
+    }
+  };
+
+  const onGetRecipe = async (email) => {
+    const promise = webAxios.post(
+      userApiRoutes.download_recipe(selectedRecipeId),
+      { email }
+    );
+
+    toast.promise(promise, {
+      pending: "Sending recipe to your email...",
+      success: "Recipe sent successfully!",
+      error: {
+        render({ data }) {
+          return (
+            data?.response?.data?.message || "Failed to send : Server Error"
+          );
+        },
+      },
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      // error is already handled by toast.promise
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -108,10 +169,16 @@ function Home() {
   useEffect(() => {
     getSliders();
     getBlogs();
+    dispatch(getKitchenData());
   }, []);
 
   return (
     <>
+      <EmailRequiredPopup
+        visible={openEmailRequiredPopup}
+        onClose={() => setOpenEmailRequiredPopup(false)}
+        onGetRecipe={onGetRecipe}
+      />
       <section className="bannerSection">
         <span className="shapeImgLeft">
           <img src={ShapeLeft} />
@@ -274,9 +341,7 @@ function Home() {
 
                     return (
                       <div className="col-md-4" key={idx}>
-                        
                         <div className="OurServicesContent">
-                        
                           <figure>
                             <img
                               crossOrigin="anonymous"
@@ -374,47 +439,29 @@ function Home() {
             </p>
           </div>
           <div className="row">
-            <div className="col-md-4 SmartKichinContent">
-              <figure>
-                <img src={SmartKichinImg1} />
-              </figure>
-              <figcaption>
-                <h3>Mango Mint Cooler</h3>
-                <p>"Refreshing Tropical Delight"</p>
-                <a className="btn btn-primary hvr-shutter-out-horizontal">
-                  download recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col-md-4 SmartKichinContent">
-              <figure>
-                <img src={SmartKichinImg2} />
-              </figure>
-              <figcaption>
-                <h3>Watermelon Berry Blast</h3>
-                <p>"Summer Hydration Hero"</p>
-                <a className="btn btn-primary hvr-shutter-out-horizontal">
-                  download recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col-md-4 SmartKichinContent">
-              <figure>
-                <img src={SmartKichinImg3} />
-              </figure>
-              <figcaption>
-                <h3>Peach Pineapple Smoothie</h3>
-                <p>"Tropical Satisfaction in a Glass"</p>
-                <div className="text-center m-auto text-center">
-                  <a className="btn btn-primary hvr-shutter-out-horizontal">
+            {kitchenData.slice(0, 3).map((data) => (
+              <div className="col-md-4 SmartKichinContent">
+                <figure>
+                  <img
+                    className="w-100"
+                    crossOrigin="anonymous"
+                    src={data.image_url}
+                  />
+                </figure>
+                <figcaption>
+                  <h3>{data.name}</h3>
+                  <p>{data.description}</p>
+                  <button
+                    onClick={() => downloadRecipe(data.id)}
+                    className="btn btn-primary hvr-shutter-out-horizontal"
+                  >
                     download recipe
-                  </a>
-                </div>
-              </figcaption>
-            </div>
+                  </button>
+                </figcaption>
+              </div>
+            ))}
           </div>
           <div className="text-center">
-            {" "}
             <Link
               to={"/smart-kitchen"}
               className="btn btn-info hvr-shutter-out-horizontal"
@@ -475,13 +522,25 @@ function Home() {
             {blogs.map((blog) => (
               <div className="col-md-6 OurHealthBlogContent">
                 <figure>
-                  <img crossOrigin="anonymous" src={blog.image_url} />
+                  <Link
+                    to={`/blog/${blog.title
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                  >
+                    <img crossOrigin="anonymous" src={blog.image_url} />
+                  </Link>
                 </figure>
                 <figcaption>
                   <span>
                     {new Date(blog.createdAt).toLocaleDateString("en-GB")}
                   </span>
+                  <Link
+                    to={`/blog/${blog.title
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")}`}
+                  >
                   <h3>{blog.title}</h3>
+                  </Link>
                 </figcaption>
               </div>
             ))}
@@ -639,7 +698,7 @@ function Home() {
                     ></input>
                   </div>
                 </div>
-                <div className="col-md-12 checklistBox mb-3">
+                <div className="col-md-12 checklistBox ">
                   <label className="mb-3">You want to consult for :</label>
                   <ul className="form-checkList d-flex">
                     {allServices.map((service) => (
