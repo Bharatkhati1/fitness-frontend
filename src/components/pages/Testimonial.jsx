@@ -214,7 +214,7 @@ function Testimonial() {
             infinite
             autoplay
             autoplaySpeed={0}
-            speed={8000}
+            speed={9000}
             slidesToShow={4}
             slidesToScroll={1}
             cssEase="linear"
@@ -277,7 +277,7 @@ function Testimonial() {
             infinite
             autoplay
             autoplaySpeed={0}
-            speed={8000}
+            speed={9000}
             slidesToShow={4}
             slidesToScroll={1}
             cssEase="linear"
