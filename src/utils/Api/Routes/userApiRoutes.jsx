@@ -23,7 +23,7 @@ const userApiRoutes = {
 
   get_package_details:(slug)=>`/package/${slug}/details`,
 
-  get_package_consultants:(id)=>`/package/${id}/consultants`,
+  get_package_consultants:(id,type)=>`/package/${id}/consultants/${type}`,
 
   get_kitchen_items: ({ search = '', page = 1, limit = 10, category, type } = {}) => {
     const params = new URLSearchParams();

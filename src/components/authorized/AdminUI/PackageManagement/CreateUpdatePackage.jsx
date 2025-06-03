@@ -34,6 +34,8 @@ const CreateUpdatePackage = () => {
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
   const [allConsultants, setAllConsultants] = useState([]);
+  const [storyImage, setStoryImage] = useState(null)
+  const [storyImageName, setStoryImageName] = useState(null)
 
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
@@ -45,6 +47,7 @@ const CreateUpdatePackage = () => {
 
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
+  const storyImageRef = useRef(null);
 
   const ctaOptions = ["Talk to a Therapist", "Consult a Doctor", "Know more"];
 
@@ -105,12 +108,14 @@ const CreateUpdatePackage = () => {
     formData.append("actions", JSON.stringify(ctaButtons));
     formData.append(
       "consultant",
-      selectedConsultantsId.map((c) => c.value)
+      selectedConsultantsId
     );
 
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)
       formData.append("package_banner", packageBannerImage);
+    if (storyImage)
+      formData.append("story_image", storyImage);
 
     // Append images for inclusions
     for (let i = 0; i < packageInclusions.length; i++) {
@@ -180,6 +185,7 @@ const CreateUpdatePackage = () => {
     setPakageImage(null);
     setLongDescription("");
     setSelectedFileName(null);
+    setStoryImage(null)
     setPackageInclusions([
       { name: "", description: "", image: null, is_active: true },
     ]);
@@ -235,24 +241,9 @@ const CreateUpdatePackage = () => {
     ]);
   };
 
-  const addEmailForNotification = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailInput || !emailRegex.test(emailInput)) {
-      toast.warning("Please enter a valid email address.");
-      return;
-    }
-
-    setEmailNotification((prev) => [...prev, emailInput]);
-    setEmailInput("");
-  };
-
-  const onRemoveEmail = (index) => {
-    setEmailNotification((prev) => prev.filter((_, i) => i !== index));
-  };
-
   const initPackageEditForm = (data, conss) => {
     if (!data) return;
+  
     setSelectedPackageDetails(data);
     setPackageName(data.name || "");
     setPackageDesc(data.description || "");
@@ -261,28 +252,20 @@ const CreateUpdatePackage = () => {
     setSelectedServiecTypeId(data.serviceId || null);
     setSelectedPackageId(data.id || null);
     setCtaButtons(JSON.parse(data.actions) || []);
-    // Image URLs and filenames
     setSelectedConsultantsId(
       data.PackageConsultants?.map((cons) => {
         const matchedConsultant = conss.find((c) => c.id === cons.consultantId);
-        console.log(
-          cons,
-          matchedConsultant,
-          data.PackageConsultants,
-          allConsultants
-        );
         return {
           value: cons.id,
           label: matchedConsultant?.name || "Unknown",
         };
       })
     );
-
     setPackageBannerImage(data.banner_url || null);
     setSelectedFileName2(data.banner || "");
     setPakageImage(data.image_url || null);
     setSelectedFileName(data.image || "");
-
+    setStoryImageName(data?.story_image)
     // Package Inclusions
     const inclusions = Array.isArray(data.PackageInclusions)
       ? data.PackageInclusions.map((inc) => ({
@@ -323,7 +306,9 @@ const CreateUpdatePackage = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_consultants);
       setAllConsultants(res.data.data);
-      fetchPackageDetailsById(id, res.data.data);
+      if(id){
+        fetchPackageDetailsById(id, res.data.data);
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch data");
     }
@@ -335,15 +320,19 @@ const CreateUpdatePackage = () => {
     const isEditParam = queryParams.get("isEdit");
     if (isEditParam === "true") {
       fetchAllConsultants(idParam);
+    }else{
+      fetchAllConsultants(null)
     }
     setId(idParam);
     setIsEdit(isEditParam === "true");
   }, [location.search]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchAllServices()
+  }, []);
+
   return (
     <>
-      {" "}
       <div className="add-package-btn">
         <Link to="/admin/service-management/packages">View Package</Link>
       </div>
@@ -397,22 +386,22 @@ const CreateUpdatePackage = () => {
                   </div>
                 </div>
 
-                {/* Package Banner Image
+                {/* Package Story Image */}
               <div className="col-lg-4">
                 <div className="mb-3">
                   <label htmlFor="service-image" className="form-label">
-                    Package Banner Image {isEdit && ` : ${selectedFileName2}`}
+                    Package Story Image {isEdit && ` : ${storyImageName}`}
                   </label>
                   <input
                     type="file"
                     accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
                     id="service-image"
-                    ref={fileInputRef2}
+                    ref={storyImageRef}
                     className="form-control"
-                    onChange={(e) => setPackageBannerImage(e.target.files[0])}
+                    onChange={(e) => setStoryImage(e.target.files[0])}
                   />
                 </div>
-              </div> */}
+              </div>
 
                 {/* Package Image */}
                 <div className="col-lg-6">

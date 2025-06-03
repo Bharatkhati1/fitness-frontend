@@ -57,7 +57,7 @@ function PackageDetails() {
 
           <div className="DiabetesHealthPakages mt-4 mb-0">
             <div class="InnerPageTitle text-center">
-              <h4>DIABETES HEALTH PACKAGEs</h4>
+              <h4>{details.name} PACKAGEs</h4>
             </div>
 
             <div className="row">

@@ -29,11 +29,7 @@ const ServiceManagement = () => {
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
 
-  const ctaOptions = [
-   "Contact our Helpline",
-    "Know more",
-    "Talk to an Expert"
-  ];
+  const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
   const fetchAllServices = async () => {
     try {
@@ -59,7 +55,9 @@ const ServiceManagement = () => {
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
     serviceBannerImage && formData.append("banner_image", serviceBannerImage);
-
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} service...`
+    );
     try {
       let url = isEdit
         ? adminApiRoutes.update_service(selectedSliderId)
@@ -79,13 +77,25 @@ const ServiceManagement = () => {
           },
         });
       }
-
+      toast.update(loadingToastId, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       fetchAllServices();
       onCancelEdit();
       toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create - ${error.response.data.message}`);
+      toast.update(loadingToastId, {
+        render: `Failed to ${isEdit ? "update" : "create"} service. ${
+          error?.response?.data?.message
+        }`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -128,6 +138,8 @@ const ServiceManagement = () => {
     setSliderStatus(true);
     setSliderImage(null);
     setSelectedFileName(null);
+    setSelectedBannerFileName("");
+    setCtaButtons([]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -162,6 +174,7 @@ const ServiceManagement = () => {
     fetchAllServices();
   }, []);
 
+  console.log(selectedBannerFileName);
   return (
     <>
       <div className="row">
@@ -500,12 +513,16 @@ const ServiceManagement = () => {
                                           onClick={() => {
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
-                                            setCtaButtons(JSON.parse(service.actions)||[])
+                                            setCtaButtons(
+                                              JSON.parse(service.actions) || []
+                                            );
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
                                             );
-                                            console.log(service)
+                                            setSelectedBannerFileName(
+                                              service.banner
+                                            );
                                             setServiceShortDescription(
                                               service.shortDescription
                                             );

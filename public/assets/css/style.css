@@ -433,11 +433,11 @@ body .heartBeatImg {
 }
 
 .owl-nav button.owl-next {
-  right: -25px;
+  right: -45px;
 }
 
 .owl-nav button.owl-prev {
-  left: -25px;
+  left: -45px;
 }
 
 .bannerSection .owl-nav button {
@@ -446,6 +446,7 @@ body .heartBeatImg {
 
 .owl-nav button {
   position: absolute;
+  margin: 0;
   top: calc(50% + -62px);
   transform: translateY(-50%);
 }
@@ -502,8 +503,8 @@ body .heartBeatImg {
   font-size: 21px;
   color: var(--primary-color);
   font-weight: 700;
-  margin-bottom: 10px;
-  /* min-height: 50px; */
+  margin-bottom:6px;
+  min-height:47px;
 }
 .OurServices .col-md-4 {
   margin-bottom: 30px;
@@ -519,20 +520,13 @@ body .heartBeatImg {
   font-size: 14px;
   color: #2a2a2a;
   line-height: 1.6;
-  /* min-height: 89px; */
+  min-height: 111px;
   margin-bottom: 12px;
-
   display: -webkit-box;
-  /* Creates a flexible box layout */
   -webkit-box-orient: vertical;
-  /* Vertical orientation */
-  -webkit-line-clamp: 4;
-  /* Limit to 4 lines */
+  -webkit-line-clamp: 5;
   overflow: hidden;
-  /* Hide overflowing text */
   text-overflow: ellipsis;
-  /* Show "..." at the end */
-  /* Optional: fix word breaking */
   word-break: break-word;
 }
 
@@ -2678,6 +2672,9 @@ button.owl-next span {
   margin-top: 25px;
 }
 
+.BlogDeatils img{
+  width: 100%;
+}
 .BlogDeatils {
   position: relative;
 }
