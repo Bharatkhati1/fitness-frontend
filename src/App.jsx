@@ -27,6 +27,7 @@ import BookAppoinmentdate from "./components/pages/BookAppoinmentdate.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import PackageDetails from "./components/pages/Diabetes.jsx";
 import Diabetes from "./components/pages/Diabetes.jsx";
+import AddToBag from "./components/pages/AddToBag.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -89,6 +90,8 @@ const App = () => {
           <Route path="BookAppoinment" element={<BookAppoinment />} />
           <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
           <Route path="Testimonial" element={<Testimonial />} />
+          <Route path="AddToBag" element={<AddToBag />} />
+        
         </Routes>
       </Suspense>
     );

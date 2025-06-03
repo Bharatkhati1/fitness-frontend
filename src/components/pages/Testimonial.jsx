@@ -211,7 +211,7 @@ console.log(successStories)
             infinite={true}
             autoplay={true}
             autoplaySpeed={0}
-            speed={8000}
+            speed={9000}
             slidesToShow={4}
             slidesToScroll={1}
             cssEase="linear"
@@ -331,14 +331,14 @@ console.log(successStories)
             infinite={true}
             autoplay={true}
             autoplaySpeed={0}
-            speed={8000}
+            speed={9000}
             slidesToShow={4}
             slidesToScroll={1}
             cssEase="linear"
             arrows={false}
             swipe={false}
             pauseOnHover={true}
-            pauseOnFocus={true}
+            pauseOnFocus={false}
             rtl={true}
             loop={true}
           >
