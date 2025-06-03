@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import userAxios from "../../utils/Api/userAxios";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
+import Header from "../authorized/UserUI/Header/Header";
+import Footer from "../authorized/UserUI/Footer/Footer";
 
 function SignUpUser() {
   const [step, setStep] = useState(1); // 1: email/password, 2: OTP input, 3: success
@@ -21,6 +23,8 @@ function SignUpUser() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [nameError, setNameError] = useState("");
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,29 +33,35 @@ function SignUpUser() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    setNameError("")
   };
 
   const handleSendOTP = async (e) => {
     e.preventDefault();
-  
+
     if (step === 1) {
       const { name, email, password, phoneNumber, acceptedTerms } = formData;
-  
+
+      const nameRegex = /^[A-Za-z\s]+$/;
+      if (!nameRegex.test(name)) {
+        setNameError("Only letters and spaces are allowed.");
+        return;
+      }
       if (!name || !email || !password || !phoneNumber) {
         setMessage("Please fill in all fields.");
         return;
       }
-  
+
       if (!acceptedTerms) {
         setMessage("You must accept Terms and Conditions.");
         return;
       }
-  
+
       const toastId = toast.loading("Sending OTP...");
       try {
         setLoading(true);
         setMessage("");
-  
+
         await axios.post(
           `${GATEWAY_URL}/web/signup`,
           {
@@ -63,19 +73,20 @@ function SignUpUser() {
           },
           { withCredentials: true }
         );
-  
+
         toast.update(toastId, {
           render: "OTP sent to your email!",
           type: "success",
           isLoading: false,
           autoClose: 3000,
         });
-  
+
         setStep(2);
       } catch (err) {
         toast.update(toastId, {
           render:
-            err.response?.data?.message || "Failed to send OTP. Please try again.",
+            err.response?.data?.message ||
+            "Failed to send OTP. Please try again.",
           type: "error",
           isLoading: false,
           autoClose: 3000,
@@ -88,25 +99,26 @@ function SignUpUser() {
       try {
         setLoading(true);
         setMessage("");
-  
+
         await axios.post(`${GATEWAY_URL}/web/otp-verify`, {
           email: formData.email,
           otp: formData.otp,
         });
-  
+
         toast.update(toastId, {
           render: "Verification successful! Redirecting...",
           type: "success",
           isLoading: false,
           autoClose: 3000,
         });
-  
+
         setMessage("Verification successful! Redirecting...");
         setTimeout(() => navigate("/login-user"), 2000);
       } catch (err) {
         toast.update(toastId, {
           render:
-            err.response?.data?.message || "Failed to verify OTP. Please try again.",
+            err.response?.data?.message ||
+            "Failed to verify OTP. Please try again.",
           type: "error",
           isLoading: false,
           autoClose: 3000,
@@ -122,11 +134,11 @@ function SignUpUser() {
       <div className="formBoxHead">
         <h3>Register Now</h3>
       </div>
-  
+
       <div className="row">
         <div className="col-md-6">
           <div className="fieldbox mb-3">
-            <label>Your Name*</label>
+            <label>What’s Your Name ?*</label>
             <input
               name="name"
               type="text"
@@ -136,9 +148,10 @@ function SignUpUser() {
               onChange={handleChange}
               required
             />
+            {nameError && <small className="text-danger">{nameError}</small>}
           </div>
         </div>
-  
+
         <div className="col-md-6">
           <div className="fieldbox mb-3">
             <label>Your Email*</label>
@@ -153,10 +166,25 @@ function SignUpUser() {
             />
           </div>
         </div>
-  
+
         <div className="col-md-6">
           <div className="fieldbox mb-3">
-            <label>Password*</label>
+            <label>Your Whatsapp Number*</label>
+            <input
+              name="phoneNumber"
+              type="number"
+              className="form-control"
+              placeholder="Enter your number"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="fieldbox mb-3">
+            <label>Create a Password**</label>
             <div className="withIcon">
               <input
                 name="password"
@@ -177,22 +205,7 @@ function SignUpUser() {
             </div>
           </div>
         </div>
-  
-        <div className="col-md-6">
-          <div className="fieldbox mb-3">
-            <label>Phone Number*</label>
-            <input
-              name="phoneNumber"
-              type="tel"
-              className="form-control"
-              placeholder="Enter your phone number"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-  
+
         <div className="col-md-12 termscheck">
           <div className="form-check">
             <input
@@ -210,7 +223,7 @@ function SignUpUser() {
           </div>
         </div>
       </div>
-  
+
       <button
         type="submit"
         className="btn btn-primary d-block max-width hvr-shutter-out-horizontal mt-3"
@@ -218,7 +231,7 @@ function SignUpUser() {
       >
         {loading ? "Sending OTP..." : "Continue"}
       </button>
-  
+
       {/* Already have an account button */}
       <div className="text-center mt-3 ">
         <span></span>
@@ -233,7 +246,7 @@ function SignUpUser() {
       </div>
     </>
   );
-  
+
   const renderStep2 = () => (
     <>
       <div className="formBoxHead">
@@ -271,37 +284,41 @@ function SignUpUser() {
   );
 
   return (
-    <section className="LoginPage RegisterPage">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-7 me-auto">
-            <form className="formBox" onSubmit={handleSendOTP}>
-              {step === 1 ? renderStep1() : renderStep2()}
-              {message && (
-                <div className="alert alert-info mt-2" role="alert">
-                  {message}
-                </div>
-              )}
-              {step === 1 && (
-                <>
-                  <span className="or-text">Or</span>
-                  <div className="SocialUsers d-flex">
-                    <a className="mb-0" href="#">
-                      <img src={GoogleIcon} alt="Google" />
-                      login using google
-                    </a>
-                    <a className="mb-0" href="#">
-                      <img src={AppleIcon} alt="Apple" />
-                      login using apple
-                    </a>
+    <>
+      <Header />
+      <section className="LoginPage RegisterPage">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-7 me-auto">
+              <form className="formBox" onSubmit={handleSendOTP}>
+                {step === 1 ? renderStep1() : renderStep2()}
+                {message && (
+                  <div className="alert alert-info mt-2" role="alert">
+                    {message}
                   </div>
-                </>
-              )}
-            </form>
+                )}
+                {step === 1 && (
+                  <>
+                    <span className="or-text">Or</span>
+                    <div className="SocialUsers d-flex">
+                      <a className="mb-0" href="#">
+                        <img src={GoogleIcon} alt="Google" />
+                        login using google
+                      </a>
+                      <a className="mb-0" href="#">
+                        <img src={AppleIcon} alt="Apple" />
+                        login using apple
+                      </a>
+                    </div>
+                  </>
+                )}
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }
 

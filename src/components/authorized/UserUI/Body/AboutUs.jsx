@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FitIcon from "../../../../../public/assets/img/FitIcon.png";
 import valueIcon from "../../../../../public/assets/img/valueIcon.png";
 import shapeabout from "../../../../../public/assets/img/shapeabout.png";
@@ -24,8 +24,24 @@ import MeetsTeamsImG6 from "../../../../../public/assets/img/MeetsTeamsImG6.png"
 import CofoundersIMG from "../../../../../public/assets/img/CofoundersIMG.png";
 import CofoundersIMG2 from "../../../../../public/assets/img/CofoundersIMG2.png";
 import trustedImg from "../../../../../public/assets/img/trustedImg.svg";
-
+import { toast } from "react-toastify";
+import { webAxios } from "../../../../utils/Api/userAxios";
+import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 function AboutUs() {
+  const [team, setTeam] = useState([]);
+
+  const fetchAllTeam = async () => {
+    try {
+      const response = await webAxios.get(userApiRoutes.get_teams);
+      setTeam(response.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+  console.log(team);
+  useEffect(() => {
+    fetchAllTeam();
+  }, []);
   return (
     <>
       <div className="AboutBanner innerSpace">
@@ -265,7 +281,7 @@ function AboutUs() {
         </div>
       </div>
 
-      <section className="OurTEAM">
+     {team?.length>0&& <section className="OurTEAM">
         <div className="OurTEAMhead text-center">
           <span>our team</span>
           <h2>meet our dedicated team</h2>
@@ -276,126 +292,23 @@ function AboutUs() {
           </p>
         </div>
         <div className="container">
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG1} />
-              </figure>
-            </div>
+          {team?.map((member) => (
+            <div className="row OurTeamsrows">
+              <div className="col-md-4 OurTeamsrowsL">
+                <figure>
+                  <img crossOrigin="anonymous" src={member.image_url} />
+                </figure>
+              </div>
 
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>RAHUL ARORA</h4>
-              <span>Co-founder</span>
-              <p>
-                Rahul specialises in strength and conditioning. With more than
-                ten years of experience in the field of health and fitness, he
-                enjoys helping the clients achieve their dream shape and health.
-                From strength training to HIIT to what not, he’s there to make
-                you enjoy the process.
-              </p>
+              <div className="col-md-8 OurTeamsrowsR">
+                <h4>{member.name}</h4>
+                <span>{member.position}</span>
+                <p>{member.description}</p>
+              </div>
             </div>
-          </div>
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG2} />
-              </figure>
-            </div>
-
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>Dr Aakriti Chawla</h4>
-              <span>Mental Health</span>
-              <p>
-                Rahul specialises in strength and conditioning. With more than
-                ten years of experience in the field of health and fitness, he
-                enjoys helping the clients achieve their dream shape and health.
-                From strength training to HIIT to what not, he’s there to make
-                you enjoy the process.
-              </p>
-            </div>
-          </div>
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG3} />
-              </figure>
-            </div>
-
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>Dr. Ashish Kumar Shah</h4>
-              <span>Psychiatrist</span>
-              <p>
-                Dr. Ashish Kumar Shah is a compassionate and skilled
-                psychiatrist with over 7 years of experience in diagnosing and
-                managing a wide range of mental and behavioural health issues
-                across all age groups. With an MBBS, DPM (Psychiatry), and MIPS,
-                Dr. Shah is dedicated to helping individuals achieve mental
-                wellness through evidence-based treatments and empathetic care.
-              </p>
-            </div>
-          </div>
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG4} />
-              </figure>
-            </div>
-
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>Dr Pragya Maheshwari</h4>
-              <span>Gynecologist</span>
-              <p>
-                Dr. Pragya Maheshwari is one of the most esteemed
-                Gynecologist/Obstetrician in India. She holds an experience of
-                21 years in medical field. She has completed her MBBS from
-                Bundelkhand University, Jhansi in 2003 and DGO from Deen Dayal
-                Upadhyay Gorakhpur University in 2008. She carries her medicinal
-                practice at Manipal Hospital (formerly Columbia Asia Hospital)
-                and across the NCR.
-              </p>
-            </div>
-          </div>
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG5} />
-              </figure>
-            </div>
-
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>Dr Aparna Mishra</h4>
-              <span>Clinical Nutritionist</span>
-              <p>
-                Dr. Anamika Mishra is an experienced clinical nutritionist, who
-                holds PhD in Food and Nutrition. She has served as senior
-                Nutritionist for about 10 years at MAX Hospital, Vaishali
-                (Ghaziabad). She has helped people overcome complications like
-                Fatty Liver Disease, Hyperthyroidism, Diabetes and has also
-                handled the clinical nutrition of Cancer patients. She is with
-                you at thedailyfitness.in to help you achieve your goals with
-                personalised and effective nutritional guidance.
-              </p>
-            </div>
-          </div>
-          <div className="row OurTeamsrows">
-            <div className="col-md-4 OurTeamsrowsL">
-              <figure>
-                <img src={MeetsTeamsImG6} />
-              </figure>
-            </div>
-
-            <div className="col-md-8 OurTeamsrowsR">
-              <h4>Neetu thapa</h4>
-              <span>Yoga instructor</span>
-              <p>
-                Neetu is a certified Yoga instructor who holds her MASTERS in
-                Yoga. She shall accompany you to be physically and mentally
-                stronger, mastering the skills of Yoga.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </section>}
 
       <section className="MoreProfessional">
         <div className="container">

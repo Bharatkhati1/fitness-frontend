@@ -6,8 +6,6 @@ import { useParams } from "react-router-dom";
 import { webAxios } from "../../utils/Api/userAxios";
 import { toast } from "react-toastify";
 
-import healthpakgesimg1 from "../../../public/assets/img/healthpakgesimg1.png";
-
 function PackageDetails() {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
@@ -21,12 +19,6 @@ function PackageDetails() {
     } catch (error) {
       toast.error(error.response.data.error);
     }
-  };
-
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
   };
 
   useEffect(() => {
@@ -53,17 +45,21 @@ function PackageDetails() {
 
             <div className="col-md-6 Diabetespageright">
               <h3>{details.name} </h3>
-              <p>{stripHtml(details.description)}</p>
+              <p
+               dangerouslySetInnerHTML={{
+                __html: details?.description,
+              }}
+              ></p>
             </div>
           </div>
 
           <div className="DiabetesHealthPakages mt-4 mb-0">
             <div class="InnerPageTitle text-center">
-              <h4>DIABETES HEALTH PACKAGEs</h4>
+              <h4>{details.name} PACKAGEs</h4>
             </div>
 
             <div className="row">
-             {details.PackagePlans.map((plan)=><div className="col-md-3">
+             {details?.PackagePlans?.map((plan)=><div className="col-md-3">
                 <div className="DiabetesHealthcontent">
                   <figure>
                     <img crossOrigin="anonymous" src={plan.image_url}></img>
@@ -71,24 +67,12 @@ function PackageDetails() {
 
                   <figcaption>
                     <h3>₹{plan.price} | {plan.duration} months</h3>
-                    <span>{plan.name}</span>
-
-                    <ul className="Packagedescriptionlist">
-                      {/* <li>{plan.name} </li>
-
-                      <li>
-                        Personalised Workout Plans. Our user-friendly and
-                        detailed workout videos are here to make you enjoy the
-                        fitness journey.
-                      </li>
-
-                      <li>Consultations with health experts </li>
-
-                      <li>
-                        One expert consultation with doctor each month, as
-                        needed.
-                      </li> */}
-                    </ul>
+                    {plan.description && (
+    <>
+                    <span>Package description:</span>
+                    <p className="text-center">{plan.description}</p>
+                    </>
+                  )}
 
                     <div className="btnbox text-center">
                       <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
@@ -123,16 +107,14 @@ function PackageDetails() {
 
                   <figcaption>
                     <h4>{inclusion.name}</h4>
-                    <p>{stripHtml(inclusion.description)}</p>
+                    <p
+                    dangerouslySetInnerHTML={{
+                      __html: inclusion?.description,
+                    }}
+                    ></p>
                   </figcaption>
                 </div>
               ))}
-            </div>
-
-            <div className="btn-box text-center mt-4">
-              <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
-                join
-              </a>
             </div>
           </div>
         </div>

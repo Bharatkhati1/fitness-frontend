@@ -8,5 +8,8 @@ export const initialState = {
   adminDetails: {},
   permissions: {},
   allServices:[],
-  services:[]
+  services:[],
+  kitchenData:[],
+  kicthenCategories:[],
+  allPackages:[]
 };

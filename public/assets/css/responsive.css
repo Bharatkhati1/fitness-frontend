@@ -40,7 +40,7 @@
   }
 
   .innerbanner figure img {
-    height: 330px;
+    height:380px;
   }
 
   .innerbannerContent h2 {
@@ -274,7 +274,6 @@
 
   .servicedetaillisting figcaption p {
     font-size: 14px;
-    min-height: auto;
   }
 
   .servicedetail p {

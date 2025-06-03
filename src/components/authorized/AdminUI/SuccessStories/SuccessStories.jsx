@@ -44,6 +44,9 @@ const SuccessStories = () => {
     beforeImage && formData.append("before_image", beforeImage);
     afterImage && formData.append("after_image", afterImage);
 
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} story...`
+    );
     try {
       let url = isEdit
         ? adminApiRoutes.update_success_story(selectedSliderId)
@@ -63,13 +66,24 @@ const SuccessStories = () => {
           },
         });
       }
-
+      toast.update(loadingToastId, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       fetchAllSuccessStories();
       onCancelEdit();
-      toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create slider.${error.response.data.message}`);
+      toast.update(loadingToastId, {
+        render: `Failed to ${isEdit ? "update" : "create"} Story. ${
+          error?.response?.data?.message
+        }`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -151,8 +165,8 @@ const SuccessStories = () => {
                       onChange={(e) => setBeforeImage(e.target.files[0])}
                     />
                   </div>
-                  </div>
-                  <div className="col-lg-6">
+                </div>
+                <div className="col-lg-6">
                   {/* After image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
@@ -174,7 +188,10 @@ const SuccessStories = () => {
                     <label htmlFor="service-name" className="form-label">
                       Description
                     </label>
-                    <Ckeditor text={description} setText={(val)=> setDescription(val)}/>
+                    <Ckeditor
+                      text={description}
+                      setText={(val) => setDescription(val)}
+                    />
                   </div>
                 </div>
                 {/* Status
@@ -320,10 +337,11 @@ const SuccessStories = () => {
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
                                   setIsEdit(true);
+                                  window.scrollTo(0, 0);
                                   setSelectedSuccesStoryId(story.id);
                                   setDescription(story.description);
-                                  setAfterImage(story.after_img);
-                                  setBeforeImage(story.before_img);
+                                  setAfterImage(story.afterImage);
+                                  setBeforeImage(story.beforeImage);
                                   setSliderStatus(story.isActive);
                                 }}
                               >

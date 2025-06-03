@@ -64,12 +64,6 @@ function Home() {
     }
   };
 
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = DOMPurify.sanitize(html); // optional sanitization
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
-
   const prevArrow = `
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
@@ -116,7 +110,6 @@ function Home() {
     getBlogs();
   }, []);
 
-  console.log(services);
   return (
     <>
       <section className="bannerSection">
@@ -244,74 +237,105 @@ function Home() {
               pal
             </p>
           </div>
-          {services?.map((group, index) => (
-            <div className="row" key={index}>
-              {group.map((srv, idx) => {
-                let parsedActions = [];
-                try {
-                  const rawActions =
-                    typeof srv?.actions === "string" ? srv.actions : "[]";
-                  const parsed = JSON.parse(rawActions);
-                  parsedActions = Array.isArray(parsed) ? parsed : [];
-                } catch (error) {
-                  console.warn("Invalid actions JSON:", srv?.actions);
-                  parsedActions = [];
-                }
+          {Array.isArray(services) &&
+          services.length > 0 &&
+          Array.isArray(services[0]) ? (
+            <OwlCarousel
+              className="owl-theme"
+              autoplay={false}
+              dots={true}
+              items={1}
+              loop={false}
+              margin={10}
+              nav={true}
+              navText={[prevArrow, nextArrow]}
+              autoplaySpeed={3000}
+              autoplayTimeout={9000}
+            >
+              {services?.map((group, index) => (
+                <div className="row" key={index}>
+                  {group.map((srv, idx) => {
+                    let parsedActions = [];
+                    try {
+                      const rawActions =
+                        typeof srv?.actions === "string" ? srv.actions : "[]";
+                      const parsed = JSON.parse(rawActions);
+                      parsedActions = Array.isArray(parsed) ? parsed : [];
+                    } catch (error) {
+                      console.warn("Invalid actions JSON:", srv?.actions);
+                      parsedActions = [];
+                    }
 
-                const actionNames = parsedActions.map((action) => action.name);
+                    const actionNames = parsedActions.map(
+                      (action) => action.name
+                    );
 
-                const showButton = (label) => actionNames.includes(label);
+                    const showButton = (label) => actionNames.includes(label);
 
-                return (
-                  <div className="col-md-4" key={idx}>
-                    <div className="OurServicesContent">
-                      <figure>
-                        <img
-                          crossOrigin="anonymous"
-                          src={srv.image_url}
-                          alt={srv.name}
-                        />
-                      </figure>
-                      <figcaption>
-                        <h3>{srv.name}</h3>
-                        <p>{stripHtml(srv.description)}</p>
-                        <div className="gap-3 service-btn text-center">
-                          {showButton("Smart Health Packages") && (
-                            <Link
-                              to={`/service-details/${srv.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              className="btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Smart Health Package
-                            </Link>
-                          )}
+                    return (
+                      <div className="col-md-4" key={idx}>
+                        
+                        <div className="OurServicesContent">
+                        
+                          <figure>
+                            <img
+                              crossOrigin="anonymous"
+                              src={srv.image_url}
+                              alt={srv.name}
+                            />
+                          </figure>
+                          <figcaption>
+                            <h3>{srv.name}</h3>
+                            {srv.shortDescription && (
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: srv?.shortDescription,
+                                }}
+                              ></p>
+                            )}
+                            <div className="gap-3 service-btn text-center">
+                              {showButton("Know more") && (
+                                <Link
+                                  to={`/service-details/${srv.name
+                                    .toLowerCase()
+                                    .replace(/\s+/g, "-")}`}
+                                  className="me-1 mb-1 btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Know more
+                                </Link>
+                              )}
 
-                          {showButton("Contact our Helpline") && (
-                            <a
-                              href="#GetInTouch"
-                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Contact our Helpline
-                            </a>
-                          )}
+                              {showButton("Talk to an Expert") && (
+                                <a
+                                  href="#GetInTouch"
+                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Talk to an Expert
+                                </a>
+                              )}
 
-                          {showButton("Talk a Fitness Expert") && (
-                            <a
-                              href="#GetInTouch"
-                              className="mt-1 btn btn-primary hvr-shutter-out-horizontal"
-                            >
-                              Talk a Fitness Expert
-                            </a>
-                          )}
+                              {showButton("Contact our Helpline") && (
+                                <a
+                                  href="#GetInTouch"
+                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                >
+                                  Contact our Helpline
+                                </a>
+                              )}
+                            </div>
+                          </figcaption>
                         </div>
-                      </figcaption>
-                    </div>
-                  </div>
-                );
-              })}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}{" "}
+            </OwlCarousel>
+          ) : (
+            <div className="text-center py-5">
+              <h5>No services found.</h5>
             </div>
-          ))}
+          )}
         </div>
       </section>
       <section className="WhyChoose">
@@ -455,8 +479,7 @@ function Home() {
                 </figure>
                 <figcaption>
                   <span>
-                    {new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2
-                    min read
+                    {new Date(blog.createdAt).toLocaleDateString("en-GB")}
                   </span>
                   <h3>{blog.title}</h3>
                 </figcaption>
@@ -529,105 +552,6 @@ function Home() {
           </div>
         </div>
       </section>
-      {/* 
-      <section className="trailoffer">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 pe-5">
-              <div className="PageTitle ">
-                <h2>trial offer</h2>
-                <p>
-                  Experience our services with trial offer for 1 week. Sign up
-                  today and discover the benefits !
-                </p>
-              </div>
-
-              <ul className="trailofferList">
-                <li>
-                  Gain access to an exciting variety of workouts, including
-                  yoga, high-intensity interval training (HIIT), and strength
-                  training, all led by certified fitness instructors.
-                </li>
-
-                <li>
-                  Free one-to-one consultation with our fitness experts
-                  regarding all your queries and the roadmap towards your better
-                  fitness.
-                </li>
-
-                <li>
-                  Get a generalised diet plan aimed at meeting your goals.
-                </li>
-
-                <li>
-                  Our interactive platform allows you to join live sessions or
-                  choose from an extensive library of pre-recorded classes that
-                  fit your schedule.
-                </li>
-              </ul>
-            </div>
-
-            <div className="col-md-6">
-              <div className="trailofferform">
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label>First Name*</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your first name"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your last name"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Contact Number*</label>
-                    <div className="contactInput">
-                      <span>+91</span>
-                      <input
-                        type="text"
-                        placeholder="Enter your contact number"
-                        className="form-control"
-                      ></input>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6 mb-3">
-                    <label>Email ID*</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your email id"
-                      className="form-control"
-                    ></input>
-                  </div>
-
-                  <div className="col-md-12">
-                    <label>Message</label>
-                    <textarea
-                      className="form-control"
-                      placeholder="Type your message here"
-                    ></textarea>
-                  </div>
-
-                  <div className="col-md-12 text-center">
-                    <button className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal">
-                      submit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       <section className="GetIntouch" id="GetInTouch">
         <span className="GetIntouchShape1">
           <img src={ContactLeft} />
@@ -642,7 +566,7 @@ function Home() {
                 <h3>Contact Us</h3>
                 <p>
                   Reach out to us for personalized health guidance and
-                  consultation with our expert team at TheDailyFitness.
+                  consultation with our expert team at DailyFitness.
                 </p>
 
                 <ul className="ContactInfoList">

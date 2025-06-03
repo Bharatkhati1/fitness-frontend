@@ -149,7 +149,6 @@ export const getServicesForUser  = () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
-      console.log(servicesData)
       const chunkSize = 6;
       const chunkedServices = [];
       for (let i = 0; i < servicesData.length; i += chunkSize) {
@@ -167,3 +166,50 @@ export const getServicesForUser  = () => {
     }
   };
 };
+
+export const getKitchenData = ({ search = '', page = 1, limit = 10, category, type } = {}) => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_kitchen_items({ search, page, limit, category, type })
+      );
+
+      const kitchenData = response.data.data;
+      dispatch(authActions.setKictchenData(kitchenData));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+    }
+  };
+};
+
+export const fetchKitchenCategories = () => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_kitchen_categories
+      );
+      const kitchenCategories = response.data.data;
+      dispatch(authActions.setKictchenCategories(kitchenCategories));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+    }
+  };
+};
+
+export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
+  return async (dispatch) => {
+    if (typeof search !== 'string') {
+      console.error("Invalid search parameter:", search);
+      return;
+    }
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_all_packages({ search, serviceId })
+      );
+      dispatch(authActions.setAllPackages(response.data.data));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch packages");
+    }
+  };
+};
+

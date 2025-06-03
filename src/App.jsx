@@ -88,7 +88,7 @@ const App = () => {
           <Route path="DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
           <Route path="BookAppoinment" element={<BookAppoinment />} />
           <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
-          {/* <Route path="Testimonial" element={<Testimonial />} /> */}
+          <Route path="Testimonial" element={<Testimonial />} />
         </Routes>
       </Suspense>
     );

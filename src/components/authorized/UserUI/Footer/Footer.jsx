@@ -60,7 +60,9 @@ const Footer = () => {
                 <ul className="userlinks">
                   {allServices.slice(0,8).map((service) => (
                     <li>
-                      <a>{service.name}</a>
+                      <Link to={`/service-details/${service.name
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}>{service.name}</Link>
                     </li>
                   ))}
                 </ul>
@@ -69,24 +71,12 @@ const Footer = () => {
                 <h3>company</h3>
 
                 <ul className="userlinks">
-                  {/* <li>
-                    <a>Events</a>
-                  </li> */}
                   <li>
                     <Link to={"/blogs"}>News & Media</Link>
                   </li>
                   <li>
                     <Link to={"/about-us"}>Who We Are</Link>
                   </li>
-                  {/* <li>
-                    <a>Innovation</a>
-                  </li>
-                  <li>
-                    <a>Careers</a>
-                  </li>
-                  <li>
-                    <a>Business Partners</a>
-                  </li> */}
                 </ul>
               </div>
 
@@ -125,8 +115,8 @@ const Footer = () => {
                   </li>
                   <li>
                     <img src={MesgIcon} />
-                    <a href="mailto:info@thedailyfitness.in">
-                      info@thedailyfitness.in
+                    <a href="mailto:info@dailyfitness.ai">
+                      info@dailyfitness.ai
                     </a>
                   </li>
                 </ul>

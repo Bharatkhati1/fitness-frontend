@@ -1,414 +1,210 @@
-import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
-import searchIcon from "../../../public/assets/img/searchIcon.png";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchKitchenCategories,
+  getKitchenData,
+} from "../../store/auth/AuthExtraReducers";
+
 import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import searchIcon from "../../../public/assets/img/searchIcon.png";
 import kichinbanner from "../../../public/assets/img/kichinbanner.png";
-
-import kichinimg1 from "../../../public/assets/img/smkichin1.png";
-import kichinimg2 from "../../../public/assets/img/smkichin2.png";
-import kichinimg3 from "../../../public/assets/img/smkichin3.png";
-import kichinimg4 from "../../../public/assets/img/smkichin4.png";
-import kichinimg5 from "../../../public/assets/img/smkichin5.png";
-import kichinimg6 from "../../../public/assets/img/smkichin6.png";
-import kichinimg7 from "../../../public/assets/img/smkichin7.png";
-
-import smproductimg1 from "../../../public/assets/img/smproductimg1.png";
-import smproductimg2 from "../../../public/assets/img/smproductimg2.png";
-import smproductimg3 from "../../../public/assets/img/smproductimg3.png";
-import smproductimg4 from "../../../public/assets/img/smproductimg4.png";
-import smproductimg5 from "../../../public/assets/img/smproductimg5.png";
-import smproductimg6 from "../../../public/assets/img/smproductimg6.png";
-import smproductimg7 from "../../../public/assets/img/smproductimg7.png";
-import smproductimg8 from "../../../public/assets/img/smproductimg8.png";
-import smproductimg9 from "../../../public/assets/img/smproductimg9.png";
-import smproductimg10 from "../../../public/assets/img/smproductimg10.png";
-
 import leftp from "../../../public/assets/img/leftp.png";
-
 import leftR from "../../../public/assets/img/rightp.png";
+import { webAxios } from "../../utils/Api/userAxios";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { toast } from "react-toastify";
+
 function Smartkitchen() {
+  const dispatch = useDispatch();
+  const { kitchenData = { items: [], totalPages: 1 }, kicthenCategories = [] , isLoggedIn} =
+    useSelector((state) => state.auth);
+
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState(null);
+  const [type, setType] = useState(""); // "Veg" or "Nonveg"
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    dispatch(getKitchenData({ search, page, category, type }));
+  }, [search, page, category, type]);
+
+  useEffect(() => {
+    dispatch(fetchKitchenCategories());
+  }, []);
+
+  const handleCategoryClick = (catId) => {
+    setCategory(catId);
+    setPage(1);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    setPage(1);
+  };
+
+  const handleTypeClick = (t) => {
+    setType(t === type ? "" : t); // toggle
+    setPage(1);
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= kitchenData.totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  const downloadRecipe = async(id)=>{
+    if(!isLoggedIn){
+      toast.error("Login first to download");
+      return
+    }
+    try {
+      await webAxios.get(userApiRoutes.download_recipe(id))
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to download : Server Error");
+    }
+  }
+
   return (
     <>
+      {/* Banner */}
       <section className="innerbanner blogbanner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>
-          <img src={kichinbanner} />
+          <img src={kichinbanner} alt="Smart Kitchen Banner" />
         </figure>
         <div className="container">
           <div className="innerbannerContent">
             <h2>smart kitchen</h2>
             <p>Cook Smart. Eat Right. Live Well.</p>
-
             <div className="searcwithbtn d-flex">
               <div className="SearchBox">
                 <input
                   type="text"
                   placeholder="Search here"
                   className="form-control"
-                ></input>
+                  value={search}
+                  onChange={handleSearchChange}
+                />
                 <button className="SearchBtn">
-                  <img src={searchIcon}></img>
+                  <img src={searchIcon} />
                 </button>
               </div>
-
               <div className="btnserch d-flex align-items-center">
-                <a className="btn VegBtn">Veg</a>
-                <a className="btn Nonvegbtn">non Veg</a>
+                <a
+                  className={`btn VegBtn ${type === "veg" ? "active" : ""}`}
+                  onClick={() => handleTypeClick("veg")}
+                >
+                  Veg
+                </a>
+                <a
+                  className={`btn Nonvegbtn ${
+                    type === "non-veg" ? "active" : ""
+                  }`}
+                  onClick={() => handleTypeClick("non-veg")}
+                >
+                  non Veg
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Category Slider */}
       <section className="SmartKichin">
         <div className="container">
           <div className="SmartKichinslider">
             <OwlCarousel
               className="owl-theme"
-              autoplay={false}
               dots={false}
-              items={9}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-              loop={true}
+              items={7}
+              nav
               margin={10}
-              nav={true}
-              responsive={{
-                0: {
-                  items: 2, // 0px and up
-                },
-                481: {
-                  items: 3, // 0px and up
-                },
-                768: {
-                  items: 5, // 600px and up
-                },
-                992: {
-                  items: 7, // 600px and up
-                },
-                1200: {
-                  items: 9, // 1000px and up
-                },
-              }}
             >
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg1}></img>
-                  </figure>
-                  <p>Smoothies</p>
+              {kicthenCategories?.map((cat) => (
+                <div className="item" key={cat.id}>
+                  <div
+                    className={`SmartKichinbox ${
+                      category === cat.id ? "active" : ""
+                    }`}
+                    onClick={() => handleCategoryClick(cat.id)}
+                  >
+                    <figure>
+                      <img crossOrigin="anonymous" src={cat.image_url} alt={cat.name} />
+                    </figure>
+                    <p>{cat.name}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg2}></img>
-                  </figure>
-                  <p>Eggs</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg3}></img>
-                  </figure>
-                  <p>Paneer</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg4}></img>
-                  </figure>
-                  <p>Chicken</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg5}></img>
-                  </figure>
-                  <p>Desserts</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg6}></img>
-                  </figure>
-                  <p>Bakes</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg7}></img>
-                  </figure>
-                  <p>Salads</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg2}></img>
-                  </figure>
-                  <p>Seafood</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg2}></img>
-                  </figure>
-                  <p>Soups</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg5}></img>
-                  </figure>
-                  <p>Desserts</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg6}></img>
-                  </figure>
-                  <p>Bakes</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg7}></img>
-                  </figure>
-                  <p>Salads</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg2}></img>
-                  </figure>
-                  <p>Seafood</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div className="SmartKichinbox">
-                  <figure>
-                    <img src={kichinimg2}></img>
-                  </figure>
-                  <p>Seafood</p>
-                </div>
-              </div>
+              ))}
             </OwlCarousel>
           </div>
         </div>
       </section>
 
+      {/* Recipe Cards */}
       <section className="SmartKichinlist">
         <div className="container">
           <div className="row row-cols-5 SmartKichinlistrow">
-            <div className="col">
-              <figure>
-                <img src={smproductimg1} />
-              </figure>
-
-              <figcaption>
-                <h4>Strawberry Banana Smoothie</h4>
-                <p>A refreshing blend of strawberries, banana, and yogurt.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col">
-              <figure>
-                <img src={smproductimg2} />
-              </figure>
-
-              <figcaption>
-                <h4>Deviled Eggs</h4>
-                <p>Hard-boiled eggs with a creamy, tangy filling.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col">
-              <figure>
-                <img src={smproductimg3} />
-              </figure>
-
-              <figcaption>
-                <h4>Grilled Paneer Skewers</h4>
-                <p>Spiced paneer cubes grilled with veggies on skewers.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col">
-              <figure>
-                <img src={smproductimg4} />
-              </figure>
-
-              <figcaption>
-                <h4>Roast Chicken with Herbs</h4>
-                <p>Whole chicken roasted with garlic, rosemary, and lemon.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col">
-              <figure>
-                <img src={smproductimg5} />
-              </figure>
-
-              <figcaption>
-                <h4>Classic Tiramisu</h4>
-                <p>
-                  Italian no-bake dessert layered with mascarpone and
-                  coffee-soaked biscuits.
-                </p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-            <div className="col">
-              <figure>
-                <img src={smproductimg6} />
-              </figure>
-
-              <figcaption>
-                <h4>Chocolate Muffins</h4>
-                <p>Soft, moist muffins packed with rich cocoa flavor.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-
-            <div className="col">
-              <figure>
-                <img src={smproductimg7} />
-              </figure>
-
-              <figcaption>
-                <h4>Greek Salad</h4>
-                <p>
-                  A crisp mix of cucumbers, tomatoes, olives, and feta cheese.
-                </p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-
-            <div className="col">
-              <figure>
-                <img src={smproductimg8} />
-              </figure>
-
-              <figcaption>
-                <h4>Garlic Butter Prawns</h4>
-                <p>Juicy prawns tossed in garlic, butter, and fresh herbs.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-
-            <div className="col">
-              <figure>
-                <img src={smproductimg9} />
-              </figure>
-
-              <figcaption>
-                <h4>Creamy Tomato Basil Soup</h4>
-                <p>Smooth tomato soup simmered with fresh basil and cream.</p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
-
-            <div className="col">
-              <figure>
-                <img src={smproductimg10} />
-              </figure>
-
-              <figcaption>
-                <h4>Mango Lassi Smoothie</h4>
-                <p>
-                  A chilled yogurt-based mango drink with a hint of cardamom.
-                </p>
-
-                <a className="btn btn-primary xm-btn  hvr-shutter-out-horizontal">
-                  get recipe
-                </a>
-              </figcaption>
-            </div>
+            {kitchenData?.length > 0 ? (
+              kitchenData?.map((item) => (
+                <div className="col" key={item.id}>
+                  <figure>
+                    <img crossOrigin="anonymous" src={item.image_url} alt={item.name} />
+                  </figure>
+                  <figcaption>
+                    <h4>{item.name}</h4>
+                    <p>{item.description}</p>
+                    <a onClick={()=>downloadRecipe(item.id)} className="btn btn-primary xm-btn hvr-shutter-out-horizontal">
+                      get recipe
+                    </a>
+                  </figcaption>
+                </div>
+              ))
+            ) : (
+              <h2>No item found</h2>
+            )}
           </div>
         </div>
 
+        {/* Pagination
         <div className="paginationBox d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item ">
-              <a class="page-link" href="#">
-                <img src={leftp}></img>
+          <ul className="pagination">
+            <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+              <a
+                className="page-link"
+                onClick={() => handlePageChange(page - 1)}
+              >
+                <img src={leftp} />
               </a>
             </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <img src={leftR}></img>
+            {[...Array(kitchenData.totalPages)].map((_, idx) => (
+              <li
+                key={idx}
+                className={`page-item ${page === idx + 1 ? "active" : ""}`}
+              >
+                <a
+                  className="page-link"
+                  onClick={() => handlePageChange(idx + 1)}
+                >
+                  {idx + 1}
+                </a>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                page === kitchenData.totalPages ? "disabled" : ""
+              }`}
+            >
+              <a
+                className="page-link"
+                onClick={() => handlePageChange(page + 1)}
+              >
+                <img src={leftR} />
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
       </section>
     </>
   );

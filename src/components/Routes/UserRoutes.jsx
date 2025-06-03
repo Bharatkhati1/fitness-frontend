@@ -15,9 +15,12 @@ import Smartkitchen from "../pages/Smartkitchen";
 import Testimonial from "../pages/Testimonial";
 import PackageDetails from "../pages/Diabetes";
 import BookAppoinment from "../pages/BookAppoinment";
+import ScrollToTop from "../authorized/UserUI/ScrollToTop";
 
 export default function UserRoutes() {
   return (
+    <>
+    <ScrollToTop/>
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<AppLayout />}>
@@ -29,7 +32,7 @@ export default function UserRoutes() {
           <Route path="/about-us" element={<AboutUs />}  />
           <Route path="/packages" element={<Home />} />
           <Route path="/package/:slug" element={<PackageDetails />} />
-          <Route path="/experts/:slug/:encodedId" element={<BookAppoinment />} />
+          <Route path="/experts/:slug/:type/:encodedId" element={<BookAppoinment />} />
           <Route path="/all-packages" element={<AllPakages />} />
           <Route path="/smart-kitchen" element={<Smartkitchen />} />
           <Route path="/testimonials" element={<Testimonial />} />
@@ -38,6 +41,6 @@ export default function UserRoutes() {
           <Route path="*" element={<Navigate replace to="/" />} />
         </Route>
       </Routes>
-    </Suspense>
+    </Suspense></>
   );
 }

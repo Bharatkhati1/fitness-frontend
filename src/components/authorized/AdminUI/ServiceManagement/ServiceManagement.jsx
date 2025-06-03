@@ -19,6 +19,8 @@ const ServiceManagement = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedBannerFileName, setSelectedBannerFileName] = useState("");
   const [serviceShortDescription, setServiceShortDescription] = useState("");
+  const [storyImageName, setStoryImageName] = useState(null);
+  const [storyImage, setStoryImage] = useState(null);
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
@@ -28,12 +30,9 @@ const ServiceManagement = () => {
   const [limit] = useState(1);
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
+  const storyImageRef = useRef(null);
 
-  const ctaOptions = [
-    "Contact our Helpline",
-    "Smart Health Packages",
-    "Talk a Fitness Expert",
-  ];
+  const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
   const fetchAllServices = async () => {
     try {
@@ -59,7 +58,10 @@ const ServiceManagement = () => {
     formData.append("isActive", sliderStatus);
     sliderImage && formData.append("service_image", sliderImage);
     serviceBannerImage && formData.append("banner_image", serviceBannerImage);
-
+    if (storyImage) formData.append("story_image", storyImage);
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} service...`
+    );
     try {
       let url = isEdit
         ? adminApiRoutes.update_service(selectedSliderId)
@@ -79,13 +81,25 @@ const ServiceManagement = () => {
           },
         });
       }
-
+      toast.update(loadingToastId, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
       fetchAllServices();
       onCancelEdit();
       toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
-      toast.error(`Failed to create - ${error.response.data.message}`);
+      toast.update(loadingToastId, {
+        render: `Failed to ${isEdit ? "update" : "create"} service. ${
+          error?.response?.data?.message
+        }`,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -128,6 +142,9 @@ const ServiceManagement = () => {
     setSliderStatus(true);
     setSliderImage(null);
     setSelectedFileName(null);
+    setSelectedBannerFileName("");
+    setCtaButtons([]);
+    setStoryImage(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -212,6 +229,40 @@ const ServiceManagement = () => {
                   </div>
                 </div>
 
+                {/* Service Image */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Service Image {isEdit && ` : ${selectedFileName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={fileInputRef}
+                      className="form-control"
+                      onChange={(e) => setSliderImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
+                {/* Story Image */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Story Image {isEdit && ` : ${storyImageName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      id="service-image"
+                      ref={storyImageRef}
+                      className="form-control"
+                      onChange={(e) => setStoryImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
                 {/* Short Description */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -235,23 +286,6 @@ const ServiceManagement = () => {
                       Long Desciption
                     </label>
                     <Ckeditor text={sliderHeading} setText={setSliderHeading} />
-                  </div>
-                </div>
-
-                {/* Service Image */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-image" className="form-label">
-                      Service Image {isEdit && ` : ${selectedFileName}`}
-                    </label>
-                    <input
-                      type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
-                      id="service-image"
-                      ref={fileInputRef}
-                      className="form-control"
-                      onChange={(e) => setSliderImage(e.target.files[0])}
-                    />
                   </div>
                 </div>
 
@@ -302,7 +336,7 @@ const ServiceManagement = () => {
                     <label className="form-label">CTA Button</label>
                     <div className="">
                       {ctaOptions.map((option, index) => {
-                        const matchedButton = ctaButtons.find(
+                        const matchedButton = ctaButtons?.find(
                           (btn) => btn.name === option
                         );
                         const inputValue =
@@ -324,7 +358,7 @@ const ServiceManagement = () => {
                                   onChange={() => {
                                     if (matchedButton) {
                                       setCtaButtons((prev) =>
-                                        prev.filter(
+                                        prev?.filter(
                                           (item) => item.name !== option
                                         )
                                       );
@@ -354,7 +388,7 @@ const ServiceManagement = () => {
                               </div>
                             </div>
 
-                            {matchedButton && (
+                            {matchedButton&&matchedButton.name!="Know more" && (
                               <div className="col-lg-6">
                                 <div className="email-new">
                                   <input
@@ -376,7 +410,7 @@ const ServiceManagement = () => {
                                         .filter((email) => email.length > 0);
 
                                       setCtaButtons((prev) =>
-                                        prev.map((btn) =>
+                                        prev?.map((btn) =>
                                           btn.name === option
                                             ? { ...btn, emails: emailArray }
                                             : btn
@@ -498,19 +532,28 @@ const ServiceManagement = () => {
                                         <button
                                           className="btn btn-soft-primary btn-sm"
                                           onClick={() => {
+                                            window.scrollTo(0,0)
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
-                                            setCtaButtons(JSON.parse(service.actions))
+                                            setCtaButtons(
+                                              JSON.parse(service.actions) || []
+                                            );
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
                                             );
-                                            console.log(service)
+                                            setSelectedBannerFileName(
+                                              service.banner
+                                            );
                                             setServiceShortDescription(
                                               service.shortDescription
                                             );
+                                            setStoryImageName(service?.story_image)
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
+                                            setStoryImageName(
+                                              data?.story_image
+                                            );
                                           }}
                                         >
                                           <iconify-icon

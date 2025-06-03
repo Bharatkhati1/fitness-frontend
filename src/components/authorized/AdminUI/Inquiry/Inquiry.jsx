@@ -35,7 +35,7 @@ const Inquiry = () => {
                 ) : (
                   <tr>
                     <td colSpan="9" className="text-center">
-                      No packages found.
+                      No Inquiry found.
                     </td>
                   </tr>
                 )}

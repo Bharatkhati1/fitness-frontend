@@ -19,13 +19,20 @@ function Blogs() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("ASC");
   const limit = 10;
 
-  const getBlogs = async (page = 1, category = "all", search = "") => {
+  const getBlogs = async (
+    page = 1,
+    category = "all",
+    search = "",
+    sortBy = "ASC"
+  ) => {
     try {
       const query = {
         page,
         limit,
+        order: sortBy,
         ...(category !== "all" && { category }),
         ...(search && { search }),
       };
@@ -59,7 +66,7 @@ function Blogs() {
 
   const handleSearch = () => {
     setCurrentPage(1);
-    getBlogs(1, selectedCategory, searchTerm);
+    getBlogs(1, selectedCategory, searchTerm, sortBy);
   };
 
   const handleKeyDown = (e) => {
@@ -78,9 +85,10 @@ function Blogs() {
   };
 
   useEffect(() => {
-    getBlogs(currentPage, selectedCategory, searchTerm);
-  }, [currentPage, selectedCategory]);
+    getBlogs(currentPage, selectedCategory, searchTerm, sortBy);
+  }, [currentPage, selectedCategory, sortBy]);
 
+  console.log(sortBy);
   useEffect(() => {
     getBlogCategories();
   }, []);
@@ -121,7 +129,6 @@ function Blogs() {
                     <div className="row">
                       <div className="col-xxl-auto col-sm-auto taginfoleft">
                         <li
-                          // data-item="all"
                           className={selectedCategory === "all" ? "active" : ""}
                           onClick={() => handleSelectCategory("all")}
                         >
@@ -129,54 +136,67 @@ function Blogs() {
                         </li>
                       </div>
                       <div className="col-xxl col-sm  taginforight">
-                        <OwlCarousel
-                          className="owl-theme"
-                          autoplay={false}
-                          margin={10}
-                          dots={false}
-                          items={7}
-                          loop={true}
-                          nav
-                          responsive={{
-                            0: {
-                              items: 2, // 0px and up
-                            },
+                        {categories.length > 0 && (
+                          <OwlCarousel
+                            className="owl-theme"
+                            autoplay={false}
+                            margin={10}
+                            dots={false}
+                            items={7}
+                            nav
+                            responsive={{
+                              0: {
+                                items: 2, // 0px and up
+                              },
                               481: {
-                              items: 3, // 0px and up
-                            },
-                            768: {
-                              items: 4, // 600px and up
-                            },
-                            992: {
-                              items: 5, // 600px and up
-                            },
-                            1200: {
-                              items: 7, // 1000px and up
-                            },
-                          }}
-                        >
-                          {categories.map((cat) => (
-                            <li
-                              // data-item={cat.id}
-                              className={
-                                selectedCategory === cat.id ? "active" : ""
-                              }
-                              onClick={() => handleSelectCategory(cat.id)}
-                            >
-                              <span className="tag-info">{cat.name}</span>
-                            </li>
-                          ))}
-                        </OwlCarousel>
+                                items: 3, // 0px and up
+                              },
+                              768: {
+                                items: 4, // 600px and up
+                              },
+                              992: {
+                                items: 5, // 600px and up
+                              },
+                              1200: {
+                                items: 7, // 1000px and up
+                              },
+                            }}
+                          >
+                            {categories.map((cat) => (
+                              <li
+                                // data-item={cat.id}
+                                className={
+                                  selectedCategory === cat.id ? "active" : ""
+                                }
+                                onClick={() => handleSelectCategory(cat.id)}
+                              >
+                                <span className="tag-info">{cat.name}</span>
+                              </li>
+                            ))}
+                          </OwlCarousel>
+                        )}
                       </div>
                     </div>
                   </ul>
                 </div>
               </div>
               <div className="col-xxl-2 col-md-3 col-xl-2 col-sm-3 sortbyright">
-                <select className="form-select">
-                  <option selected>Sort By</option>
+                <select
+                  className="form-select"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "1") {
+                      setSortBy("ASC");
+                    } else if (value === "2") {
+                      setSortBy("DESC");
+                    }
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Sort By
+                  </option>
                   <option value="1">Recent</option>
-                  <option value="2">Popular</option>
+                  <option value="2">Oldest</option>
                 </select>
               </div>
             </div>
@@ -187,37 +207,44 @@ function Blogs() {
       <div className="OurBlogs">
         <div className="container">
           <div className="row OurBlogsRows">
-            {blogs.length>0?blogs.map((blog) => (
-              <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
-                <figure>
-                  <div className="OurBlogsTag">
-                    {blog.categoryName || "Health"}
-                  </div>
-                  <img
-                    crossOrigin="anonymous"
-                    src={blog.image_url}
-                    alt={blog.title}
-                  />
-                </figure>
-                <figcaption>
-                  <h3>{blog.title}</h3>
-                  <div className="Bytext">
-                    <span>
-                      {new Date(blog.createdAt).toLocaleDateString("en-GB")} . 2
-                      min read
-                    </span>
-                  </div>
-                  <p>
-                    {blog.shortDescription}
-                    <Link to={`/blog/${blog.title
+            {blogs.length > 0 ? (
+              blogs.map((blog) => (
+                <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
+                  <figure>
+                    <div className="OurBlogsTag">
+                      {blog.categoryName || "Health"}
+                    </div>
+                    <img
+                      crossOrigin="anonymous"
+                      src={blog.image_url}
+                      alt={blog.title}
+                    />
+                  </figure>
+                  <figcaption>
+                    <h3>{blog.title}</h3>
+                    <div className="Bytext">
+                      <span>
+                        {new Date(blog.createdAt).toLocaleDateString("en-GB")}
+                      </span>
+                    </div>
+                    <p>
+                      {blog.shortDescription}
+                      <Link
+                        to={`/blog/${blog.title
                           .toLowerCase()
-                          .replace(/\s+/g, "-")}`}>
-                      Read More <img src={readMoreimg} />
-                    </Link>
-                  </p>
-                </figcaption>
-              </div>
-            )):<h3 ><b>No blog found !</b></h3>}
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        Read More <img src={readMoreimg} />
+                      </Link>
+                    </p>
+                  </figcaption>
+                </div>
+              ))
+            ) : (
+              <h3>
+                <b>No blog found !</b>
+              </h3>
+            )}
           </div>
 
           <div className="paginationBox d-flex justify-content-center">

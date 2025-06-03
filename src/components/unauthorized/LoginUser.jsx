@@ -9,6 +9,8 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
+import Header from "../authorized/UserUI/Header/Header";
+import Footer from "../authorized/UserUI/Footer/Footer";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const LoginUser = () => {
   const disableLoginButton = useSelector(
     (state) => state.auth.disableLoginButton
   );
- 
+
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [resetStep, setResetStep] = useState(1);
   const [resetEmail, setResetEmail] = useState("");
@@ -63,7 +65,8 @@ const LoginUser = () => {
       dispatch(
         Login(
           { username: formData.username, password: formData.password },
-          navigate, false
+          navigate,
+          false
         )
       );
     }
@@ -219,107 +222,111 @@ const LoginUser = () => {
   );
 
   return (
-    <section className="LoginPage">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4 me-auto">
-            {isForgotPassword ? (
-              renderForgotPassword()
-            ) : (
-              <form className="formBox" onSubmit={onLoginFormSubmit}>
-                <div className="formBoxHead">
-                  <h3>login</h3>
-                </div>
+    <>
+      <Header />
+      <section className="LoginPage">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4 me-auto">
+              {isForgotPassword ? (
+                renderForgotPassword()
+              ) : (
+                <form className="formBox" onSubmit={onLoginFormSubmit}>
+                  <div className="formBoxHead">
+                    <h3>login</h3>
+                  </div>
 
-                <div className="fieldbox mb-3">
-                  <label>Your Registered Email ID*</label>
-                  <input
-                    name="username"
-                    type="email"
-                    className="form-control"
-                    placeholder="Enter your email"
-                    value={formData.username}
-                    onChange={handleChange}
-                  />
-                  {errors.username && (
-                    <div className="text-danger">{errors.username}</div>
-                  )}
-                </div>
-
-                <div className="fieldbox mb-3">
-                  <label>Enter Password*</label>
-                  <div className="withIcon">
+                  <div className="fieldbox mb-3">
+                    <label>Your Registered Email ID*</label>
                     <input
-                      name="password"
-                      type={showPassword ? "text" : "password"}
+                      name="username"
+                      type="email"
                       className="form-control"
-                      placeholder="Enter password"
-                      value={formData.password}
+                      placeholder="Enter your email"
+                      value={formData.username}
                       onChange={handleChange}
                     />
-                    <span
-                      className="EyeIcon"
-                      onClick={() => setShowPassword((prev) => !prev)}
+                    {errors.username && (
+                      <div className="text-danger">{errors.username}</div>
+                    )}
+                  </div>
+
+                  <div className="fieldbox mb-3">
+                    <label>Enter Password*</label>
+                    <div className="withIcon">
+                      <input
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        className="form-control"
+                        placeholder="Enter password"
+                        value={formData.password}
+                        onChange={handleChange}
+                      />
+                      <span
+                        className="EyeIcon"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <img src={EyeIcon} alt="Toggle password visibility" />
+                      </span>
+                    </div>
+                    {errors.password && (
+                      <div className="text-danger">{errors.password}</div>
+                    )}
+                    <Link
+                      className="TextLink text-end d-block mt-2"
+                      onClick={() => setIsForgotPassword(true)}
                       style={{ cursor: "pointer" }}
                     >
-                      <img src={EyeIcon} alt="Toggle password visibility" />
-                    </span>
+                      Forgot Password?
+                    </Link>
                   </div>
-                  {errors.password && (
-                    <div className="text-danger">{errors.password}</div>
-                  )}
-                  <Link
-                    className="TextLink text-end d-block mt-2"
-                    onClick={() => setIsForgotPassword(true)}
-                    style={{ cursor: "pointer" }}
+
+                  <button
+                    className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                    type="submit"
+                    disabled={disableLoginButton}
                   >
-                    Forgot Password?
-                  </Link>
-                </div>
+                    {disableLoginButton ? "Logging in..." : "Login"}
+                  </button>
 
-                <button
-                  className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                  type="submit"
-                  disabled={disableLoginButton}
-                >
-                  {disableLoginButton ? "Logging in..." : "Login"}
-                </button>
+                  <div className="DotHave mt-3">
+                    <span>Don’t have an account?</span>
+                    <Link to="/SignUpUser" className="TextLink">
+                      &nbsp;Register Now
+                    </Link>
+                  </div>
 
-                <div className="DotHave mt-3">
-                  <span>Don’t have an account?</span>
-                  <Link to="/SignUpUser" className="TextLink">
-                    &nbsp;Register Now
-                  </Link>
-                </div>
+                  <span className="or-text">Or</span>
 
-                <span className="or-text">Or</span>
-
-                <div className="SocialUsers">
-                  <a className="GoogleUser">
-                    {" "}
-                    <GoogleLogin
-                      onSuccess={(credentialResponse) => {
-                        const decoded = jwtDecode(
-                          credentialResponse.credential
-                        );
-                        console.log("Decoded User:", decoded);
-                      }}
-                      onError={() => {
-                        console.log("Login Failed");
-                      }}
-                    />
-                  </a>
-                  <a href="#">
-                    <img src={AppleIcon} alt="Apple icon" />
-                    login using apple
-                  </a>
-                </div>
-              </form>
-            )}
+                  <div className="SocialUsers">
+                    <a className="GoogleUser">
+                      {" "}
+                      <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                          const decoded = jwtDecode(
+                            credentialResponse.credential
+                          );
+                          console.log("Decoded User:", decoded);
+                        }}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    </a>
+                    <a href="#">
+                      <img src={AppleIcon} alt="Apple icon" />
+                      login using apple
+                    </a>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 };
 

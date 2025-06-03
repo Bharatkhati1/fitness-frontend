@@ -25,4 +25,13 @@ export const reducers = {
   setLoginButtonDisable(state, action) {
     state.disableLoginButton = action.payload;
   },
+  setKictchenData(state, action) {
+    state.kitchenData = action.payload;
+  },
+  setKictchenCategories(state, action) {
+    state.kicthenCategories = action.payload;
+  },
+  setAllPackages(state, action) {
+    state.allPackages = action.payload;
+  },
 };

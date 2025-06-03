@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -17,19 +17,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import beforeimg1 from "../../../public/assets/img/beforeimg1.png";
 import afterimg1 from "../../../public/assets/img/afterimg1.png";
+import { toast } from "react-toastify";
+import { webAxios } from "../../utils/Api/userAxios.jsx";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 function Testimonial() {
-  //       const settings = {
-  //     autoplay: true,
-  //     autoplaySpeed: 0,
-  //     speed: 5000,
-  //     arrows: false,
-  //     swipe: false,
-  //     slidesToShow: 4,
-  //     cssEase: 'linear',
-  //     pauseOnFocus: false,
-  //     pauseOnHover: false,
-  //     rtl: true
-  //   };
+  const [successStories, setSuccessStories] = useState([])
+
+  const fetchSuccessStories= async()=>{
+    try {
+      const response = await webAxios.get(userApiRoutes.get_success_stories);
+      setSuccessStories(response.data.data)
+    } catch (error) {
+      toast.error(error.response.data.error)
+    }
+  }
+console.log(successStories)
+  useEffect(()=>{
+    fetchSuccessStories()
+  },[])
   return (
     <>
       <Header />

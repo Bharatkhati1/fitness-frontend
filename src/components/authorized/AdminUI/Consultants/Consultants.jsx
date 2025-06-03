@@ -120,7 +120,6 @@ const Consultants = () => {
     fetchAllConsultants();
   }, []);
 
-  console.log(formData)
   return (
     <>
       {/* Form Section */}
@@ -171,7 +170,7 @@ const Consultants = () => {
                       className="w-100"
                       options={[
                         { value: "Doctor", label: "Doctor" },
-                        { value: "Consultant", label: "Consultant" },
+                        { value: "therapist", label: "Therapist" },
                       ]}
                     />
                   </div>
