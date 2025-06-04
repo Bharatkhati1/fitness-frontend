@@ -87,8 +87,12 @@ function Blogs() {
   useEffect(() => {
     getBlogs(currentPage, selectedCategory, searchTerm, sortBy);
   }, [currentPage, selectedCategory, sortBy]);
-
-  console.log(sortBy);
+  
+  useEffect(() => {
+    setCurrentPage(1);
+    getBlogs(1, selectedCategory, searchTerm, sortBy);
+  }, [searchTerm]);
+  
   useEffect(() => {
     getBlogCategories();
   }, []);
@@ -212,7 +216,7 @@ function Blogs() {
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
                   <figure>
                     <div className="OurBlogsTag">
-                      {blog.categoryName || "Health"}
+                      {blog?.BlogCategory?.name || "Health"}
                     </div>
                     <img
                       crossOrigin="anonymous"
@@ -228,7 +232,7 @@ function Blogs() {
                       </span>
                     </div>
                     <p>
-                      {blog.shortDescription}
+                      {blog.shortDescription}{"  "}
                       <Link
                         to={`/blog/${blog.title
                           .toLowerCase()
@@ -242,52 +246,54 @@ function Blogs() {
               ))
             ) : (
               <h3>
-                <b>No blog found !</b>
+                <b style={{ marginBottom: "20px" }}>No blog found !</b>
               </h3>
             )}
           </div>
 
-          <div className="paginationBox d-flex justify-content-center">
-            <ul className="pagination">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                >
-                  <img src={leftp} />
-                </button>
-              </li>
-              {Array.from({ length: totalPages }, (_, i) => (
+          {blogs.length > 0 && (
+            <div className="paginationBox d-flex justify-content-center">
+              <ul className="pagination">
                 <li
-                  className={`page-item ${
-                    currentPage === i + 1 ? "active" : ""
-                  }`}
-                  key={i + 1}
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
                 >
                   <button
                     className="page-link"
-                    onClick={() => handlePageChange(i + 1)}
+                    onClick={() => handlePageChange(currentPage - 1)}
                   >
-                    {i + 1}
+                    <img src={leftp} />
                   </button>
                 </li>
-              ))}
-              <li
-                className={`page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => handlePageChange(currentPage + 1)}
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <li
+                    className={`page-item ${
+                      currentPage === i + 1 ? "active" : ""
+                    }`}
+                    key={i + 1}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(i + 1)}
+                    >
+                      {i + 1}
+                    </button>
+                  </li>
+                ))}
+                <li
+                  className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                  }`}
                 >
-                  <img src={leftR} />
-                </button>
-              </li>
-            </ul>
-          </div>
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    <img src={leftR} />
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>

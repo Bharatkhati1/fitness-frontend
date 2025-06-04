@@ -40,7 +40,7 @@ const userApiRoutes = {
 
   get_kitchen_categories:`/smart-kitchen-category`,
 
-  download_recipe:(id)=>`/smart-kitchen-category/${id}`,
+  download_recipe:(id)=>`/smart-kitchen-recipe/${id}`,
 
   get_all_packages: ({ search = '', serviceId } = {}) => {
     const params = new URLSearchParams();
@@ -51,7 +51,7 @@ const userApiRoutes = {
 
   get_teams:`/teams`,
 
-  get_success_stories:`/success-stories`
+  get_success_stories:`/user/success-stories`
   
 };
 
