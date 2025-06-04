@@ -31,7 +31,7 @@ const Ckeditor = ({ text, setText }) => {
       const imageUrl = response.data.data.url; 
       ReactSummernote.insertImage(imageUrl, function ($image) {
         $image.attr("alt", file.name);
-        $image.attr("crossorigin", "anonymous"); 
+        $image.attr("crossOrigin", "anonymous"); 
       });
       
     } catch (error) {

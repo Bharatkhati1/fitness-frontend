@@ -27,7 +27,9 @@ import trustedImg from "../../../../../public/assets/img/trustedImg.svg";
 import { toast } from "react-toastify";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
+import { useLocation } from "react-router-dom";
 function AboutUs() {
+  const location = useLocation();
   const [team, setTeam] = useState([]);
 
   const fetchAllTeam = async () => {
@@ -38,7 +40,18 @@ function AboutUs() {
       toast.error(error.response.data.error);
     }
   };
-  console.log(team);
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   useEffect(() => {
     fetchAllTeam();
   }, []);
@@ -207,7 +220,7 @@ function AboutUs() {
         </div>
       </div>
 
-      <div className="OurVisionMission OurVisionMissionOdd">
+      <div className="OurVisionMission OurVisionMissionOdd" >
         <div className="container">
           <div className="row">
             <div className="col-md-6">
@@ -282,7 +295,7 @@ function AboutUs() {
       </div>
 
      {team?.length>0&& <section className="OurTEAM">
-        <div className="OurTEAMhead text-center">
+        <div className="OurTEAMhead text-center" id="MeetOurFamily">
           <span>our team</span>
           <h2>meet our dedicated team</h2>
           <p>

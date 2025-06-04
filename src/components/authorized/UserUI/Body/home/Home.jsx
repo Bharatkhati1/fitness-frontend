@@ -4,7 +4,7 @@ import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
+import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
@@ -565,7 +565,7 @@ function Home() {
               health and wellness journey.
             </p>
             <Link
-              to={"/all-packages"}
+              to={"/about-us#MeetOurFamily"}
               className="btn btn-primary mt-4 hvr-shutter-out-horizontal"
             >
               meet our family
