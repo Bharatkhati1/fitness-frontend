@@ -539,7 +539,7 @@ function Home() {
                       .toLowerCase()
                       .replace(/\s+/g, "-")}`}
                   >
-                  <h3>{blog.title}</h3>
+                    <h3>{blog.title}</h3>
                   </Link>
                 </figcaption>
               </div>

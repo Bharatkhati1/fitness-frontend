@@ -78,20 +78,13 @@ const App = () => {
           <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
-          {/* <Route path="AboutUs" element={<AboutUs />} />
-          <Route path="Blogs" element={<Blogs />} />
-          <Route path="BlogDeatils" element={<BlogDeatils />} />
-          <Route path="ContactUs" element={<ContactUs />} />
-          <Route path="ServiceDetails" element={<ServiceDetails />} />
-          <Route path="AllPakages" element={<AllPakages />} /> 
-          <Route path="Smartkitchen" element={<Smartkitchen />} /> */}
+
           <Route path="packageDetails" element={<Diabetes />} />
           <Route path="DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
           <Route path="BookAppoinment" element={<BookAppoinment />} />
           <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
           <Route path="Testimonial" element={<Testimonial />} />
           <Route path="AddToBag" element={<AddToBag />} />
-        
         </Routes>
       </Suspense>
     );

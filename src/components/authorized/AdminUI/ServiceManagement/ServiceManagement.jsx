@@ -149,6 +149,9 @@ const ServiceManagement = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    if(storyImageRef){
+      storyImageRef.current.value = ""
+    }
   };
 
   const handleDragEnd = async (result) => {
