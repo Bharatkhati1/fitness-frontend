@@ -21,20 +21,20 @@ import { toast } from "react-toastify";
 import { webAxios } from "../../utils/Api/userAxios.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 function Testimonial() {
-  const [successStories, setSuccessStories] = useState([])
+  const [successStories, setSuccessStories] = useState([]);
 
-  const fetchSuccessStories= async()=>{
+  const fetchSuccessStories = async () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_success_stories);
-      setSuccessStories(response.data.data)
+      setSuccessStories(response.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
-  }
-console.log(successStories)
-  useEffect(()=>{
-    fetchSuccessStories()
-  },[])
+  };
+  console.log(successStories);
+  useEffect(() => {
+    fetchSuccessStories();
+  }, []);
   return (
     <>
       <Header />
