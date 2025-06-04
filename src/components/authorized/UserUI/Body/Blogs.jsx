@@ -227,9 +227,9 @@ function Blogs() {
                 </div>
               ))
             ) : (
-              <h3>
-                <b style={{ marginBottom: "20px" }}>No blog found !</b>
-              </h3>
+               <div className="col-12 text-center py-5">
+                <h5>No blog found.</h5>
+              </div>
             )}
           </div>
 

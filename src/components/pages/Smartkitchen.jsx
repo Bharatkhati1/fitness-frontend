@@ -14,6 +14,7 @@ import { webAxios } from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import EmailRequiredPopup from "../authorized/UserUI/EmailRequiredpopup";
+import useDebounce from "../Hooks/useDebounce";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -26,9 +27,11 @@ function Smartkitchen() {
   const [type, setType] = useState(""); 
   const [page, setPage] = useState(1);
 
+  const debouncedSearch = useDebounce(search, 400); 
+
   useEffect(() => {
-    dispatch(getKitchenData({ search, page, category, type }));
-  }, [search, page, category, type]);
+    dispatch(getKitchenData({ search: debouncedSearch, page, category, type }));
+  }, [debouncedSearch, page, category, type]);
 
   useEffect(() => {
     dispatch(fetchKitchenCategories());
@@ -139,14 +142,14 @@ function Smartkitchen() {
               </div>
               <div className="btnserch d-flex align-items-center">
                 <a
-                  className={`btn VegBtn ${type === "veg" ? "active" : ""}`}
+                  className={`btn  ${type === "veg" ? "VegBtn" : ""}`}
                   onClick={() => handleTypeClick("veg")}
                 >
                   Veg
                 </a>
                 <a
-                  className={`btn Nonvegbtn ${
-                    type === "non-veg" ? "active" : ""
+                  className={`btn  ${
+                    type === "non-veg" ? "VegBtn" : ""
                   }`}
                   onClick={() => handleTypeClick("non-veg")}
                 >
@@ -209,7 +212,9 @@ function Smartkitchen() {
                 </div>
               ))
             ) : (
-              <h2>No item found</h2>
+              <div className="col-12 text-center py-5">
+              <h5>No item found.</h5>
+            </div>
             )}
           </div>
         </div>

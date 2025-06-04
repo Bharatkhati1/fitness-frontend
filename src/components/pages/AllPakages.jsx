@@ -24,22 +24,26 @@ function AllPakages() {
   const debouncedServiceId = useDebounce(serviceId, 400);
 
   useEffect(() => {
-    dispatch(fetchAllProducts({ search: debouncedSearch, serviceId: debouncedServiceId }));
+    dispatch(
+      fetchAllProducts({
+        search: debouncedSearch,
+        serviceId: debouncedServiceId,
+      })
+    );
   }, [debouncedSearch, debouncedServiceId, dispatch]);
 
   const formatName = (str) => {
-    if (!str) return '';
+    if (!str) return "";
     if (str === str.toUpperCase()) {
       return str
         .toLowerCase()
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     }
     return str;
   };
-  
-  
+
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -83,14 +87,11 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            {Array.isArray(allServices) && (
+            {Array.isArray(allServices) && allServices.length > 0  && (
               <OwlCarousel
                 className="owl-theme"
-                autoplay={false}
                 dots={false}
                 items={6}
-                autoplaySpeed={500}
-                autoplayTimeout={3000}
                 margin={10}
                 nav={true}
                 responsive={{
@@ -127,6 +128,7 @@ function AllPakages() {
                   </div>
                   {allServices.map((srv) => (
                     <div
+                      key={srv.id}
                       className={`item ${
                         srv.id == serviceId ? `active-selected-service` : ``
                       }`}
@@ -205,6 +207,9 @@ function AllPakages() {
                 ))}
               </OwlCarousel>
             )}
+            {allPackages?.length==0 &&    <div className="col-12 text-center py-5">
+              <h5>No product found.</h5>
+            </div>}
           </div>
         </div>
       </section>

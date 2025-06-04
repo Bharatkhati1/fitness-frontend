@@ -298,6 +298,8 @@
   .bannerSection .owl-nav svg {
     width: 16px;
   }
+
+  .Clientbefore figure img{ height: 170px;}
 }
 @media (min-width: 1366px) and (max-width: 1641px) {
   .circletagShapeBox {

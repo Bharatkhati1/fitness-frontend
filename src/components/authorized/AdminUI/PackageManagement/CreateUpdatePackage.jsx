@@ -40,7 +40,7 @@ const CreateUpdatePackage = () => {
   ]);
 
   const [packageVariants, setPackageVariants] = useState([
-    { name: "name", duration: 0, price: "", description: "", image: null },
+    {duration: 0, price: "", description: "", image: null },
   ]);
 
   const fileInputRef = useRef(null);
@@ -58,7 +58,6 @@ const CreateUpdatePackage = () => {
     }
   };
 
-  console.log(selectedConsultantsId);
   const handleSubmit = async () => {
     // Validate images if not editing
     if (!packageImage && !isEdit) {
@@ -83,7 +82,6 @@ const CreateUpdatePackage = () => {
     for (let i = 0; i < packageVariants.length; i++) {
       const variant = packageVariants[i];
       if (
-        !variant.name ||
         !variant.duration ||
         !variant.price ||
         !variant.description ||
@@ -220,7 +218,6 @@ const CreateUpdatePackage = () => {
   const onAddVariant = () => {
     const isValid = packageVariants.every(
       (item) =>
-        item.name.trim() !== "" &&
         item.duration > 0 &&
         item.price.toString().trim() !== "" &&
         item.description.trim() !== "" &&
@@ -234,7 +231,7 @@ const CreateUpdatePackage = () => {
 
     setPackageVariants([
       ...packageVariants,
-      { name: "", duration: 0, price: "", description: "", image: null },
+      { duration: 0, price: "", description: "", image: null },
     ]);
   };
 
@@ -328,6 +325,7 @@ const CreateUpdatePackage = () => {
     fetchAllServices();
   }, []);
 
+  console.log(packageVariants)
   return (
     <>
       <div className="add-package-btn">

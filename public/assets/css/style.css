@@ -3931,10 +3931,24 @@ ul.ourapproachlist li:after {
 .our-approachmain .PageTitle h2 {
     font-size: 32px;
 }
+
+.Clientbefore figure img {
+  height: 239px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 10px;
+}
+.Clientbefore {
+  width: 50%;
+}
 @media (max-width: 1400px) {
   .service-btn a {
     min-width: 160px !important;
     font-size: 11px;
     padding: 0 4px;
   }
+}
+
+.note-editor .note-editing-area{
+  height: 200px;
 }

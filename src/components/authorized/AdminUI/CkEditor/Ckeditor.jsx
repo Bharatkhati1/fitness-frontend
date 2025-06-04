@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactSummernote from "react-summernote";
-
 
 import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/dropdown";
@@ -9,15 +8,25 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 
 import "react-summernote/dist/react-summernote.css";
 
-
 import adminAxios from "../../../../utils/Api/adminAxios";
-import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
 
 const Ckeditor = ({ text, setText }) => {
+  const editorRef = useRef(null);
+  const [hasInitialized, setHasInitialized] = useState(false);
+
+  // Set initial value only once
+  useEffect(() => {
+    if (!hasInitialized && editorRef.current && window.$) {
+      window.$(editorRef.current.editor).summernote("code", text || "");
+      setHasInitialized(true);
+    }
+  }, [text, hasInitialized]);
+
   const onChange = (content) => {
     setText(content);
   };
+
   const handleImageUpload = async (files) => {
     const file = files[0];
     const formData = new FormData();
@@ -28,38 +37,38 @@ const Ckeditor = ({ text, setText }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      const imageUrl = response.data.data.url; 
-      ReactSummernote.insertImage(imageUrl, function ($image) {
-        $image.attr("alt", file.name);
-        $image.attr("crossOrigin", "anonymous"); 
-      });
-      
+      const imageUrl = response.data.data.url;
+      window
+        .$(editorRef.current.editor)
+        .summernote("insertImage", imageUrl, function ($image) {
+          $image.attr("alt", file.name);
+          $image.attr("crossOrigin", "anonymous");
+        });
     } catch (error) {
       toast.error("Image upload failed");
       console.error("Upload error:", error);
     }
   };
 
-  
   return (
     <ReactSummernote
-    options={{
-      height: 200,
-      dialogsInBody: true,
-      toolbar: [
-        ["style", ["style"]],
-        ["font", ["bold", "italic", "underline", "clear"]],
-        ["fontname", ["fontname"]],
-        ["fontsize", ["fontsize"]], // add this for font size
-        ["color", ["color"]],
-        ["para", ["ul", "ol", "paragraph"]],
-        ["table", ["table"]], // ensure this is here
-        ["insert", ["link", "picture", "video"]],
-        ["view", ["fullscreen", "codeview", "help"]],
-      ],
-    }}
+      ref={editorRef}
+      options={{
+        height: 400,
+        dialogsInBody: true,
+        toolbar: [
+          ["style", ["style"]],
+          ["font", ["bold", "italic", "underline", "clear"]],
+          ["fontname", ["fontname"]],
+          ["fontsize", ["fontsize"]],
+          ["color", ["color"]],
+          ["para", ["ul", "ol", "paragraph"]],
+          ["table", ["table"]],
+          ["insert", ["link", "picture", "video"]],
+          ["view", ["fullscreen", "codeview", "help"]],
+        ],
+      }}
       value={text}
-      defaultValue={text} 
       onChange={onChange}
       onImageUpload={handleImageUpload}
     />
