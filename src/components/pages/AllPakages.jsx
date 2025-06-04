@@ -8,19 +8,38 @@ import Icon1 from "../../../public/assets/img/Icon1.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../store/auth/AuthExtraReducers.jsx";
 import { Link } from "react-router-dom";
+import useDebounce from "../Hooks/useDebounce.jsx";
 
 function AllPakages() {
   const dispatch = useDispatch();
   const { allPackages = [], allServices = [] } = useSelector(
     (state) => state.auth
   );
+
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 
-  useEffect(() => {
-    dispatch(fetchAllProducts({ search, serviceId }));
-  }, [search, serviceId]);
+  // Use debounce hook
+  const debouncedSearch = useDebounce(search, 400);
+  const debouncedServiceId = useDebounce(serviceId, 400);
 
+  useEffect(() => {
+    dispatch(fetchAllProducts({ search: debouncedSearch, serviceId: debouncedServiceId }));
+  }, [debouncedSearch, debouncedServiceId, dispatch]);
+
+  const formatName = (str) => {
+    if (!str) return '';
+    if (str === str.toUpperCase()) {
+      return str
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+    return str;
+  };
+  
+  
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -37,7 +56,7 @@ function AllPakages() {
             <div className="SearchBox">
               <input
                 type="text"
-                placeholder="Search here"
+                placeholder="Search package name here..."
                 className="form-control"
                 value={search}
                 onChange={(e) => {
@@ -64,7 +83,7 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            {Array.isArray(allServices) && allServices.length > 0 && (
+            {Array.isArray(allServices) && (
               <OwlCarousel
                 className="owl-theme"
                 autoplay={false}
@@ -120,7 +139,7 @@ function AllPakages() {
                             src={srv.image_url}
                           ></img>
                         </figure>
-                        <p>{srv.name}</p>
+                        <p>{formatName(srv.name)}</p>
                       </div>
                     </div>
                   ))}

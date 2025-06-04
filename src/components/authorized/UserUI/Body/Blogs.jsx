@@ -11,6 +11,7 @@ import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import useDebounce from "../../../Hooks/useDebounce";
 
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -21,6 +22,8 @@ function Blogs() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("ASC");
   const limit = 10;
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 400);
 
   const getBlogs = async (
     page = 1,
@@ -49,28 +52,12 @@ function Blogs() {
   const getBlogCategories = async () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_blog_categories);
-      const chunkSize = 6;
       const categoriesData = response.data.data;
-      const chunked = [];
-      for (let i = 0; i < categoriesData.length; i += chunkSize) {
-        chunked.push(categoriesData.slice(i, i + chunkSize));
-      }
       setBlogCategories(categoriesData);
     } catch (error) {
       console.error(error);
-      toast.error(
-        error.response?.data?.message || "Failed to fetch categories"
-      );
+      toast.error(error.response?.data?.message || "Failed to fetch categories");
     }
-  };
-
-  const handleSearch = () => {
-    setCurrentPage(1);
-    getBlogs(1, selectedCategory, searchTerm, sortBy);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSearch();
   };
 
   const handlePageChange = (page) => {
@@ -85,17 +72,13 @@ function Blogs() {
   };
 
   useEffect(() => {
-    getBlogs(currentPage, selectedCategory, searchTerm, sortBy);
-  }, [currentPage, selectedCategory, sortBy]);
-  
-  useEffect(() => {
-    setCurrentPage(1);
-    getBlogs(1, selectedCategory, searchTerm, sortBy);
-  }, [searchTerm]);
-  
+    getBlogs(currentPage, selectedCategory, debouncedSearchTerm, sortBy);
+  }, [currentPage, selectedCategory, sortBy, debouncedSearchTerm]);
+
   useEffect(() => {
     getBlogCategories();
   }, []);
+
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -113,9 +96,8 @@ function Blogs() {
                 className="form-control"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleKeyDown}
               />
-              <button className="SearchBtn" onClick={handleSearch}>
+              <button className="SearchBtn">
                 <img src={searchIcon} alt="Search" />
               </button>
             </div>
