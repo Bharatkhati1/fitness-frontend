@@ -706,6 +706,42 @@
   .content {
     padding: 0px 10px;
   }
+  .PackageINclusion .pn-title {
+    font-size: 28px;
+  }
+
+  .Diabetespageleft figure img {
+    height: 445px;
+  }
+  .DiabetesHealthcontent figcaption h3 {
+    font-size: 18px;
+  }
+
+  .DiabetesHealthPakages .col-md-3 {
+    width: 33%;
+  }
+  .Packagecontent figcaption h4 {
+    font-size: 18px;
+  }
+
+  .Diabetespageright h3 {
+    font-size: 28px;
+  }
+  .PackageINclusion .pn-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .Packagecontent figcaption p {
+    font-size: 14px;
+  }
+  .owl-carousel.owl-theme {
+    width: 90%;
+    margin: auto;
+  }
+
+  .OurHealthBlog .text-center.btn-sec.mt-4 {
+    margin-top: 0 !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1123,7 +1159,20 @@
     font-size: 12px;
   }
 
-  ul.ourapproachlist li::after{    top: 35px;}
+  ul.ourapproachlist li::after {
+    top: 35px;
+  }
+  .DiabetesHealthPakages .col-md-3 {
+    width: 50%;
+  }
+
+  .SmartKichin .PageTitle p {
+    padding: 0 120px;
+  }
+
+  .PosterContent p {
+    font-size: 16px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1459,17 +1508,34 @@
 
   .our-approachmain {
     padding-top: 35px !important;
-    padding-bottom: 20px ! important;
-}
+    padding-bottom: 20px !important;
+  }
 
-    ul.ourapproachlist span {
-        width: 55px;
-        height: 55px;
-        font-size: 21px;
-    }
-    ul.ourapproachlist li::after {
-        top: 29px;
-    }
+  ul.ourapproachlist span {
+    width: 55px;
+    height: 55px;
+    font-size: 21px;
+  }
+  ul.ourapproachlist li::after {
+    top: 29px;
+  }
+
+  .col-md-6.Diabetespageright {
+    margin-top: 30px;
+  }
+  .PackageINclusion .pn-title {
+    font-size: 24px;
+  }
+  .col-md-4.Packagecontent {
+    width: 50%;
+  }
+  .Diabetespageleft figure img {
+    height: 300px;
+  }
+  .Diabetespageright h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -1696,14 +1762,20 @@
     font-size: 16px;
   }
 
-  ul.ourapproachlist li{    width: 70%;
+  ul.ourapproachlist li {
+    width: 70%;
     flex: 0;
-    margin: auto;}
+    margin: auto;
+  }
 
-  ul.ourapproachlist{    flex-wrap: wrap;
-    flex-direction: column;}
+  ul.ourapproachlist {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 
-   .ourapproachlist .content p{font-size: 16px;}
+  .ourapproachlist .content p {
+    font-size: 16px;
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2016,5 +2088,17 @@
   }
   .row.row-cols-5.SmartKichinlistrow .col {
     width: 100%;
+  }
+
+  .DiabetesHealthPakages .col-md-3 {
+    width: 100%;
+  }
+
+  .col-md-4.Packagecontent {
+    width: 100%;
+  }
+  .OurServices .owl-carousel.owl-theme {
+    width: 75%;
+    margin: auto;
   }
 }

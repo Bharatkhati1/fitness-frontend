@@ -3084,16 +3084,7 @@ body .owl-carousel .owl-item .product-list figure img {
 .Diabetespageleft figure {
   position: relative;
 }
-.Diabetespageleft figure:after {
-  width: 72px;
-  height: 72px;
-  background: #800030;
-  position: absolute;
-  border-radius: 50%;
-  content: "";
-  left: 0;
-  bottom: 100px;
-}
+
 
 .pn-title {
   font-size: 45px;
