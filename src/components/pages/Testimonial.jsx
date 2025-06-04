@@ -231,13 +231,21 @@ function Testimonial() {
                     <div className="Clientbefore text-center">
                       <h4>before</h4>
                       <figure>
-                        <img crossOrigin="anonymous" src={successStory.before_image_url} alt="before" />
+                        <img
+                          crossOrigin="anonymous"
+                          src={successStory.before_image_url}
+                          alt="before"
+                        />
                       </figure>
                     </div>
                     <div className="Clientbefore text-center">
                       <h4>after</h4>
                       <figure>
-                        <img crossOrigin="anonymous"  src={successStory.after_image_url} alt="after" />
+                        <img
+                          crossOrigin="anonymous"
+                          src={successStory.after_image_url}
+                          alt="after"
+                        />
                       </figure>
                     </div>
                   </div>
@@ -295,13 +303,21 @@ function Testimonial() {
                     <div className="Clientbefore text-center">
                       <h4>before</h4>
                       <figure>
-                        <img crossOrigin="anonymous"  src={successStory.before_image_url} alt="before" />
+                        <img
+                          crossOrigin="anonymous"
+                          src={successStory.before_image_url}
+                          alt="before"
+                        />
                       </figure>
                     </div>
                     <div className="Clientbefore text-center">
                       <h4>after</h4>
                       <figure>
-                        <img crossOrigin="anonymous"  src={successStory.after_image_url} alt="after" />
+                        <img
+                          crossOrigin="anonymous"
+                          src={successStory.after_image_url}
+                          alt="after"
+                        />
                       </figure>
                     </div>
                   </div>

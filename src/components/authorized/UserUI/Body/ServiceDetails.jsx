@@ -120,6 +120,52 @@ function ServiceDetails() {
         </section>
       )}
 
+      <div className="our-approachmain pt-4 pb-4">
+        <div className="container">
+          <div className="PageTitle text-center pb-3">
+            <h2 className="text-white">our approach</h2>
+          </div>
+
+          <ul className="ourapproachlist">
+            <li>
+              <span>1</span>
+              <div className="content">
+                <p>Root Cause Analysis of your issues by the experts</p>
+              </div>
+            </li>
+
+            <li>
+              <span>2</span>
+              <div className="content">
+                <p>
+                  Providing you with best customised services and consultations
+                  with sustainable solutions
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <span>3</span>
+              <div className="content">
+                <p>Regular follow ups and updates</p>
+              </div>
+            </li>
+            <li>
+              <span>4</span>
+              <div className="content">
+                <p>Thorough and proactive customer service</p>
+              </div>
+            </li>
+            <li>
+              <span>5</span>
+              <div className="content">
+                <p>Respecting your privacy</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <section className="sectionSpace servicedetail main-packge">
         <div className="container">
           <div className="PageTitle text-center">
