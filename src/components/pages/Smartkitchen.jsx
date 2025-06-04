@@ -13,15 +13,17 @@ import leftR from "../../../public/assets/img/rightp.png";
 import { webAxios } from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
+import EmailRequiredPopup from "../authorized/UserUI/EmailRequiredpopup";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
   const { kitchenData = { items: [], totalPages: 1 }, kicthenCategories = [] , isLoggedIn} =
     useSelector((state) => state.auth);
-
+  const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(null);
-  const [type, setType] = useState(""); // "Veg" or "Nonveg"
+  const [type, setType] = useState(""); 
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -53,21 +55,66 @@ function Smartkitchen() {
     }
   };
 
-  const downloadRecipe = async(id)=>{
-    if(!isLoggedIn){
-      toast.error("Login first to download");
-      return
+  const downloadRecipe = async (id) => {
+    setSelectedRecipeId(id);
+    if (!isLoggedIn) {
+      setOpenEmailRequiredPopup(true);
+      return;
     }
+
+    const promise = webAxios.post(userApiRoutes.download_recipe(id));
+
+    toast.promise(promise, {
+      pending: "Downloading recipe...",
+      success: "Recipe downloaded successfully!",
+      error: {
+        render({ data }) {
+          return (
+            data?.response?.data?.message || "Failed to download : Server Error"
+          );
+        },
+      },
+    });
+
     try {
-      await webAxios.get(userApiRoutes.download_recipe(id))
+      await promise;
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to download : Server Error");
+      // error is already handled by toast.promise
     }
-  }
+  };
+
+  const onGetRecipe = async (email) => {
+    const promise = webAxios.post(
+      userApiRoutes.download_recipe(selectedRecipeId),
+      { email }
+    );
+
+    toast.promise(promise, {
+      pending: "Sending recipe to your email...",
+      success: "Recipe sent successfully!",
+      error: {
+        render({ data }) {
+          return (
+            data?.response?.data?.message || "Failed to send : Server Error"
+          );
+        },
+      },
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      // error is already handled by toast.promise
+    }
+  };
 
   return (
     <>
-      {/* Banner */}
+       <EmailRequiredPopup
+        visible={openEmailRequiredPopup}
+        onClose={() => setOpenEmailRequiredPopup(false)}
+        onGetRecipe={onGetRecipe}
+      />
       <section className="innerbanner blogbanner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>

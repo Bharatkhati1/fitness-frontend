@@ -3713,7 +3713,6 @@ button.ant-modal-close:hover {
   margin-bottom: 8px;
 }
 
-
 .service-btn a {
   min-width: 190px;
 }
@@ -3868,6 +3867,17 @@ button.applybtn {
   top: 33px;
 }
 
+.SmartKichinContent figure img {
+    height: 295px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.SmartKichinlistrow figure img {
+  height: 165px;
+  object-fit: cover;
+  width: 100%;
+}
 @media (max-width: 1400px) {
   .service-btn a {
     min-width: 160px !important;

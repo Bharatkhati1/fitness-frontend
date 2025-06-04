@@ -10,17 +10,19 @@ const PackageManagement = () => {
   const navigate = useNavigate();
   const [packages, setPackage] = useState([]);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
+    const [filterPackages, setFilterPackages] = useState([]);
 
   const fetchAllPackage = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_package);
       setPackage(res.data.data);
+      setFilterPackages(res.data.data)
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
     }
   };
-  console.log(selectedPackageId);
+  
   const deletePackage = async (id) => {
     try {
       let Id = selectedPackageId || id;
@@ -30,6 +32,17 @@ const PackageManagement = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    }
+  };
+
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = packages.filter((val) =>
+        val.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilterPackages(filterValue);
+    } else {
+      setFilterPackages(packages);
     }
   };
 
@@ -43,6 +56,14 @@ const PackageManagement = () => {
           + Add Package
         </Link>
       </div>
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50" 
+            placeholder="Search package..."
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
       <div className="row">
         <div className="col-xl-12">
           <div className="card">
@@ -59,15 +80,13 @@ const PackageManagement = () => {
                       <th>Name</th>
                       <th>Short Description</th>
                       <th>Service Name</th>
-                      <th>Package Type</th>
-                      <th>Price</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {packages.length > 0 ? (
-                      packages.map((item, index) => (
+                    {filterPackages.length > 0 ? (
+                      filterPackages.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>
@@ -99,8 +118,6 @@ const PackageManagement = () => {
                             }}
                           ></td>
                           <td>{item?.Service?.name}</td>
-                          <td>{item.type}</td>
-                          <td>{item.price}</td>
                           <td>
                             <span
                               className={`badge ${

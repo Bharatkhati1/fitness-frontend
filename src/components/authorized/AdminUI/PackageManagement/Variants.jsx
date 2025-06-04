@@ -27,7 +27,7 @@ const Variants = ({isEdit, packageVariants, setPackageVariants }) => {
               </div>
             </div>
             <div className="row g-2" key={index}>
-              {/* Variant Name */}
+              {/* Variant Name
               <div className="col-lg-6">
                 <div className="">
                   <label htmlFor={`variants-name-${index}`} className="form-label">
@@ -46,7 +46,7 @@ const Variants = ({isEdit, packageVariants, setPackageVariants }) => {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Variant Image */}
               <div className="col-lg-6">

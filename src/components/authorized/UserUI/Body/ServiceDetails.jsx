@@ -166,7 +166,7 @@ function ServiceDetails() {
                                 <h3>{pkg.name}</h3>
                                 <p
                                   dangerouslySetInnerHTML={{
-                                    __html: pkg?.description,
+                                    __html: pkg?.shortDescription,
                                   }}
                                 />
 

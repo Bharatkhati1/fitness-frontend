@@ -17,7 +17,6 @@ function AllPakages() {
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 
-  console.log(allPackages);
   useEffect(() => {
     dispatch(fetchAllProducts({ search, serviceId }));
   }, [search, serviceId]);
@@ -65,64 +64,69 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={false}
-              items={6}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-              margin={10}
-              nav={true}
-              responsive={{
-                0: {
-                  items: 1, // 0px and up
-                },
-                481: {
-                  items: 2, // 0px and up
-                },
-                768: {
-                  items: 3, // 600px and up
-                },
-                992: {
-                  items: 4, // 600px and up
-                },
-                1200: {
-                  items: 6, // 1000px and up
-                },
-              }}
-            >
-              <>
-                <div
-                  className={`item ${
-                    serviceId == null ? `active-selected-service` : ``
-                  }`}
-                  onClick={() => setServiceId(null)}
-                >
-                  <div className="servicelist package-image">
-                    <figure>
-                      <img crossOrigin="anonymous" src={Icon1}></img>
-                    </figure>
-                    <p>All</p>
-                  </div>
-                </div>
-                {allServices.map((srv) => (
+            {Array.isArray(allServices) && allServices.length > 0 && (
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={false}
+                items={6}
+                autoplaySpeed={500}
+                autoplayTimeout={3000}
+                margin={10}
+                nav={true}
+                responsive={{
+                  0: {
+                    items: 1, // 0px and up
+                  },
+                  481: {
+                    items: 2, // 0px and up
+                  },
+                  768: {
+                    items: 3, // 600px and up
+                  },
+                  992: {
+                    items: 4, // 600px and up
+                  },
+                  1200: {
+                    items: 6, // 1000px and up
+                  },
+                }}
+              >
+                <>
                   <div
                     className={`item ${
-                      srv.id == serviceId ? `active-selected-service` : ``
+                      serviceId == null ? `active-selected-service` : ``
                     }`}
-                    onClick={() => setServiceId(srv.id)}
+                    onClick={() => setServiceId(null)}
                   >
                     <div className="servicelist package-image">
                       <figure>
-                        <img crossOrigin="anonymous" src={srv.image_url}></img>
+                        <img crossOrigin="anonymous" src={Icon1}></img>
                       </figure>
-                      <p>{srv.name}</p>
+                      <p>All</p>
                     </div>
                   </div>
-                ))}
-              </>
-            </OwlCarousel>
+                  {allServices.map((srv) => (
+                    <div
+                      className={`item ${
+                        srv.id == serviceId ? `active-selected-service` : ``
+                      }`}
+                      onClick={() => setServiceId(srv.id)}
+                    >
+                      <div className="servicelist package-image">
+                        <figure>
+                          <img
+                            crossOrigin="anonymous"
+                            src={srv.image_url}
+                          ></img>
+                        </figure>
+                        <p>{srv.name}</p>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              </OwlCarousel>
+            )}
           </div>
         </div>
 
