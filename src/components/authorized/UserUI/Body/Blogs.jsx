@@ -87,8 +87,12 @@ function Blogs() {
   useEffect(() => {
     getBlogs(currentPage, selectedCategory, searchTerm, sortBy);
   }, [currentPage, selectedCategory, sortBy]);
-
-  console.log(sortBy);
+  
+  useEffect(() => {
+    setCurrentPage(1);
+    getBlogs(1, selectedCategory, searchTerm, sortBy);
+  }, [searchTerm]);
+  
   useEffect(() => {
     getBlogCategories();
   }, []);
