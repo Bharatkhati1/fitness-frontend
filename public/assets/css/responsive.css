@@ -179,6 +179,10 @@
     font-size: 16px;
   }
 
+  .btnserch .btn {
+    height: 48px;
+  }
+
   .DiabetesHealthcontent figcaption h3 {
     font-size: 18px;
     margin-bottom: 15px;
@@ -741,6 +745,14 @@
 
   .OurHealthBlog .text-center.btn-sec.mt-4 {
     margin-top: 0 !important;
+  }
+
+  .Browseservice button.owl-next span,
+  .Browseservice button.owl-prev span {
+    top: 40px;
+  }
+  body .owl-carousel .owl-item .product-list figure img {
+    height: 200px;
   }
 }
 
@@ -1409,9 +1421,7 @@
     font-size: 14px;
   }
 
-  body .owl-carousel .owl-item .product-list figure img {
-    height: 300px;
-  }
+
   .Browseservice button.owl-prev span,
   .Browseservice button.owl-next span {
     width: 14px;

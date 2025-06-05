@@ -8,19 +8,41 @@ import Icon1 from "../../../public/assets/img/Icon1.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../store/auth/AuthExtraReducers.jsx";
 import { Link } from "react-router-dom";
+import useDebounce from "../Hooks/useDebounce.jsx";
 
 function AllPakages() {
   const dispatch = useDispatch();
   const { allPackages = [], allServices = [] } = useSelector(
     (state) => state.auth
   );
+
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 
-  console.log(allPackages);
+  // Use debounce hook
+  const debouncedSearch = useDebounce(search, 400);
+  const debouncedServiceId = useDebounce(serviceId, 400);
+
   useEffect(() => {
-    dispatch(fetchAllProducts({ search, serviceId }));
-  }, [search, serviceId]);
+    dispatch(
+      fetchAllProducts({
+        search: debouncedSearch,
+        serviceId: debouncedServiceId,
+      })
+    );
+  }, [debouncedSearch, debouncedServiceId, dispatch]);
+
+  const formatName = (str) => {
+    if (!str) return "";
+    if (str === str.toUpperCase()) {
+      return str
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+    return str;
+  };
 
   return (
     <>
@@ -38,7 +60,7 @@ function AllPakages() {
             <div className="SearchBox">
               <input
                 type="text"
-                placeholder="Search here"
+                placeholder="Search package name here..."
                 className="form-control"
                 value={search}
                 onChange={(e) => {
@@ -65,64 +87,69 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={false}
-              items={6}
-              autoplaySpeed={500}
-              autoplayTimeout={3000}
-              margin={10}
-              nav={true}
-              responsive={{
-                0: {
-                  items: 1, // 0px and up
-                },
-                481: {
-                  items: 2, // 0px and up
-                },
-                768: {
-                  items: 3, // 600px and up
-                },
-                992: {
-                  items: 4, // 600px and up
-                },
-                1200: {
-                  items: 6, // 1000px and up
-                },
-              }}
-            >
-              <>
-                <div
-                  className={`item ${
-                    serviceId == null ? `active-selected-service` : ``
-                  }`}
-                  onClick={() => setServiceId(null)}
-                >
-                  <div className="servicelist package-image">
-                    <figure>
-                      <img crossOrigin="anonymous" src={Icon1}></img>
-                    </figure>
-                    <p>All</p>
-                  </div>
-                </div>
-                {allServices.map((srv) => (
+            {Array.isArray(allServices) && (
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={false}
+                items={6}
+                autoplaySpeed={500}
+                autoplayTimeout={3000}
+                margin={10}
+                nav={true}
+                responsive={{
+                  0: {
+                    items: 1, // 0px and up
+                  },
+                  481: {
+                    items: 2, // 0px and up
+                  },
+                  768: {
+                    items: 3, // 600px and up
+                  },
+                  992: {
+                    items: 4, // 600px and up
+                  },
+                  1200: {
+                    items: 6, // 1000px and up
+                  },
+                }}
+              >
+                <>
                   <div
                     className={`item ${
-                      srv.id == serviceId ? `active-selected-service` : ``
+                      serviceId == null ? `active-selected-service` : ``
                     }`}
-                    onClick={() => setServiceId(srv.id)}
+                    onClick={() => setServiceId(null)}
                   >
                     <div className="servicelist package-image">
                       <figure>
-                        <img crossOrigin="anonymous" src={srv.image_url}></img>
+                        <img crossOrigin="anonymous" src={Icon1}></img>
                       </figure>
-                      <p>{srv.name}</p>
+                      <p>All</p>
                     </div>
                   </div>
-                ))}
-              </>
-            </OwlCarousel>
+                  {allServices.map((srv) => (
+                    <div
+                      className={`item ${
+                        srv.id == serviceId ? `active-selected-service` : ``
+                      }`}
+                      onClick={() => setServiceId(srv.id)}
+                    >
+                      <div className="servicelist package-image">
+                        <figure>
+                          <img
+                            crossOrigin="anonymous"
+                            src={srv.image_url}
+                          ></img>
+                        </figure>
+                        <p>{formatName(srv.name)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              </OwlCarousel>
+            )}
           </div>
         </div>
 

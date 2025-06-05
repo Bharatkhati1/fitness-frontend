@@ -231,7 +231,7 @@ animation-timing-function: linear;
 }
 
 
-/* .shape-4,ul.info-list{
+.butterflyshape{
     animation-name: float_up_down;
     animation-duration: 5s;
     animation-iteration-count: infinite;
@@ -252,7 +252,38 @@ animation-timing-function: linear;
     -o-animation-duration: 5s;
     -o-animation-iteration-count: infinite;
     -o-animation-timing-function: linear;
-} */
+} 
+
+span.butterflyone {
+    right: 335px;
+    position: absolute;
+       top: 160px;
+}
+span.butterflytwo {
+    right: 265px;
+    position: absolute;
+    top: 135px;
+}
+span.butterflythree{
+    right: 165px;
+    position: absolute;
+    top: 110px;
+
+}
+
+span.butterflyfour{
+ right:  65px;
+    position: absolute;
+    top: 70px;
+
+}
+
+span.butterflyfive{
+   right:  -25px;
+    position: absolute;
+    top: 30px;
+
+}
 
 .circletagShape img {
 

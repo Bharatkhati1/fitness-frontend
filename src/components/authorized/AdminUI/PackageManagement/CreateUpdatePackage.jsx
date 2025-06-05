@@ -16,7 +16,7 @@ const CreateUpdatePackage = () => {
   const location = useLocation();
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
-  const [longDescription, setLongDescription] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
   const [packageStatus, setPackageStatus] = useState(true);
   const [emailNotification, setEmailNotification] = useState([]);
   const [emailInput, setEmailInput] = useState("");
@@ -33,19 +33,18 @@ const CreateUpdatePackage = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
-  const [allConsultants, setAllConsultants] = useState([])
+  const [allConsultants, setAllConsultants] = useState([]);
 
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
   ]);
 
   const [packageVariants, setPackageVariants] = useState([
-    { name: "", duration: 0, price: "", description: "", image: null },
+    { name: "name", duration: 0, price: "", description: "", image: null },
   ]);
 
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
- 
 
   const ctaOptions = ["Talk to a Therapist", "Consult a Doctor", "Know more"];
 
@@ -59,6 +58,7 @@ const CreateUpdatePackage = () => {
     }
   };
 
+  console.log(selectedConsultantsId);
   const handleSubmit = async () => {
     // Validate images if not editing
     if (!packageImage && !isEdit) {
@@ -100,13 +100,13 @@ const CreateUpdatePackage = () => {
     formData.append("is_active", packageStatus);
     formData.append("package_plans", JSON.stringify(packageVariants));
     formData.append("package_inclusions", JSON.stringify(packageInclusions));
-    formData.append("longDescription", "s");
+    formData.append("shortDescription", shortDescription);
     formData.append("notification_emails", emailNotification);
     formData.append("service_id", selectedServiceTypeId);
     formData.append("actions", JSON.stringify(ctaButtons));
     formData.append(
       "consultant",
-      selectedConsultantsId
+      selectedConsultantsId.map((val) => val.value)
     );
 
     if (packageImage) formData.append("package_image", packageImage);
@@ -179,8 +179,10 @@ const CreateUpdatePackage = () => {
     setCtaButtons([]);
     setPackageStatus("1");
     setPakageImage(null);
-    setLongDescription("");
+    setShortDescription("");
     setSelectedFileName(null);
+    setSelectedConsultantsId([]);
+
     setPackageInclusions([
       { name: "", description: "", image: null, is_active: true },
     ]);
@@ -238,11 +240,11 @@ const CreateUpdatePackage = () => {
 
   const initPackageEditForm = (data, conss) => {
     if (!data) return;
-  
+
     setSelectedPackageDetails(data);
     setPackageName(data.name || "");
     setPackageDesc(data.description || "");
-    setLongDescription(data.description || "");
+    setShortDescription(data?.shortDescription || "");
     setPackageStatus(data.isActive ?? true);
     setSelectedServiecTypeId(data.serviceId || null);
     setSelectedPackageId(data.id || null);
@@ -250,8 +252,9 @@ const CreateUpdatePackage = () => {
     setSelectedConsultantsId(
       data.PackageConsultants?.map((cons) => {
         const matchedConsultant = conss.find((c) => c.id === cons.consultantId);
+        console.log(matchedConsultant,"matched")
         return {
-          value: cons.id,
+          value: matchedConsultant?.id,
           label: matchedConsultant?.name || "Unknown",
         };
       })
@@ -300,7 +303,7 @@ const CreateUpdatePackage = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_consultants);
       setAllConsultants(res.data.data);
-      if(id){
+      if (id) {
         fetchPackageDetailsById(id, res.data.data);
       }
     } catch (error) {
@@ -314,15 +317,15 @@ const CreateUpdatePackage = () => {
     const isEditParam = queryParams.get("isEdit");
     if (isEditParam === "true") {
       fetchAllConsultants(idParam);
-    }else{
-      fetchAllConsultants(null)
+    } else {
+      fetchAllConsultants(null);
     }
     setId(idParam);
     setIsEdit(isEditParam === "true");
   }, [location.search]);
 
   useEffect(() => {
-    fetchAllServices()
+    fetchAllServices();
   }, []);
 
   return (
@@ -410,11 +413,7 @@ const CreateUpdatePackage = () => {
                       style={{ width: "100%" }}
                       placeholder="Select medical consultants"
                       value={selectedConsultantsId}
-                      onChange={(value) =>
-                        setSelectedConsultantsId(
-                          value.map((item) => item.value)
-                        )
-                      }
+                      onChange={(value) => setSelectedConsultantsId(value)}
                       labelInValue
                     >
                       {allConsultants.map((consultant) => (
@@ -427,18 +426,28 @@ const CreateUpdatePackage = () => {
                 </div>
 
                 {/* Package desciption */}
-                <div className="col-lg-12">
+                <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Description
+                      Long Description
                     </label>
                     <Ckeditor
                       text={packageDesc}
                       setText={(value) => setPackageDesc(value)}
                     />
-                    <small className="text-muted">
-                      {packageDesc?.length}/100 characters
-                    </small>
+                  </div>
+                </div>
+
+                {/* Package desciption */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Short Description
+                    </label>
+                    <Ckeditor
+                      text={shortDescription}
+                      setText={(value) => setShortDescription(value)}
+                    />
                   </div>
                 </div>
 
@@ -451,7 +460,7 @@ const CreateUpdatePackage = () => {
                         const matchedButton = ctaButtons.find(
                           (btn) => btn.name === option
                         );
-                        console.log(matchedButton)
+                        console.log(matchedButton);
                         const inputValue =
                           emailInputs[option] ??
                           matchedButton?.emails.join(", ") ??
@@ -501,39 +510,40 @@ const CreateUpdatePackage = () => {
                               </div>
                             </div>
 
-                            {matchedButton && matchedButton.name!="Know more" && (
-                              <div className="col-lg-6">
-                                <div className="email-new">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter emails ',' separated"
-                                    value={inputValue}
-                                    onChange={(e) => {
-                                      const input = e.target.value;
-                                      setEmailInputs((prev) => ({
-                                        ...prev,
-                                        [option]: input,
-                                      }));
-                                    }}
-                                    onBlur={() => {
-                                      const emailArray = inputValue
-                                        .split(",")
-                                        .map((email) => email.trim())
-                                        .filter((email) => email.length > 0);
+                            {matchedButton &&
+                              matchedButton.name != "Know more" && (
+                                <div className="col-lg-6">
+                                  <div className="email-new">
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="Enter emails ',' separated"
+                                      value={inputValue}
+                                      onChange={(e) => {
+                                        const input = e.target.value;
+                                        setEmailInputs((prev) => ({
+                                          ...prev,
+                                          [option]: input,
+                                        }));
+                                      }}
+                                      onBlur={() => {
+                                        const emailArray = inputValue
+                                          .split(",")
+                                          .map((email) => email.trim())
+                                          .filter((email) => email.length > 0);
 
-                                      setCtaButtons((prev) =>
-                                        prev.map((btn) =>
-                                          btn.name === option
-                                            ? { ...btn, emails: emailArray }
-                                            : btn
-                                        )
-                                      );
-                                    }}
-                                  />
+                                        setCtaButtons((prev) =>
+                                          prev.map((btn) =>
+                                            btn.name === option
+                                              ? { ...btn, emails: emailArray }
+                                              : btn
+                                          )
+                                        );
+                                      }}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
                           </div>
                         );
                       })}

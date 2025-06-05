@@ -340,9 +340,6 @@ header .navbar-collapse .nav-link.active {
   position: relative;
 }
 
-.bannerSectionInner {
-  margin-bottom: -10px;
-}
 
 .ClientInfo b {
   font-size: 30px;
@@ -1120,16 +1117,14 @@ header .navbar-nav .nav-link.active:after {
   position: relative;
 }
 
-.bannerSectionInner figure:after {
+/* .bannerSectionInner figure:after {
   width: 470px;
   height: 470px;
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#efefef+0,ffffff+100 */
   background: linear-gradient(
     to bottom,
     rgba(239, 239, 239, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
   position: absolute;
   content: "";
@@ -1137,11 +1132,15 @@ header .navbar-nav .nav-link.active:after {
   left: 0px;
   z-index: 9;
   bottom: 85px;
-}
+} */
 
-.bannerSectionInner figure img {
+body .owl-carousel .owl-item .bannerSectionInner figure img {
   z-index: 99;
   position: relative;
+  margin:100px 0 30px;
+  height:670px;
+  width: 400px !important;
+  object-fit: cover;
 }
 
 header.sticky {
@@ -3085,7 +3084,6 @@ body .owl-carousel .owl-item .product-list figure img {
   position: relative;
 }
 
-
 .pn-title {
   font-size: 45px;
   color: #007946;
@@ -3859,62 +3857,116 @@ button.applybtn {
 }
 
 .SmartKichinContent figure img {
-    height: 295px;
-    object-fit: cover;
-    width: 100%;
+  height: 295px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.SmartKichinlistrow figure img {
+  height: 165px;
+  object-fit: cover;
+  width: 100%;
 }
 
 ul.ourapproachlist span {
-    width: 80px;
-    height: 80px;
-    background:#a2a29b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 38px;
-    font-weight: 700;
-    color: #1E1E1E;
-    margin: auto;
-        z-index: 9;
-    position: relative;
+  width: 80px;
+  height: 80px;
+  background: #a2a29b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 38px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin: auto;
+  z-index: 9;
+  position: relative;
 }
 .content {
-    padding: 0 25px;
-    text-transform: capitalize;
-    font-size: 14px;
-    margin-top: 18px;
+  padding: 0 25px;
+  text-transform: capitalize;
+  font-size: 14px;
+  margin-top: 18px;
 }
 
 ul.ourapproachlist li {
-    flex: 1;
-    text-align: center;
-    position: relative;
+  flex: 1;
+  text-align: center;
+  position: relative;
 }
 
 ul.ourapproachlist {
-    display: flex;
-    margin-bottom: 0;
+  display: flex;
+  margin-bottom: 0;
 }
 
 ul.ourapproachlist li:after {
-    border-bottom: 5px dashed #fff;
-    position: absolute;
-    right: 0;
-    content: "";
-    top: 41px;
-    width: 100%;
+  border-bottom: 5px dashed #fff;
+  position: absolute;
+  right: 0;
+  content: "";
+  top: 41px;
+  width: 100%;
 }
-.our-approachmain {
+/* .our-approachmain {
     background: url(../img//our-approach-bg.png);
-}
+} */
 .content p {
-    color: #fff;
-    font-weight: 700;
+  color: #fff;
+  font-weight: 700;
 }
 
 .our-approachmain .PageTitle h2 {
-    font-size: 32px;
+  font-size: 32px;
+}
+
+.MuktiBox {
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.MuktiBoxRight {
+  padding: 48px 0 40px;
+  text-align: center;
+}
+.MuktiBoxLeft {
+  position: absolute !important;
+  left: -38px;
+  top: -1px;
+  width: 50% !important;
+}
+.butterflyshape {
+  position: absolute;
+  right: 60px;
+  top: 8px;
+}
+
+.MuktiBoxRight h3 {
+  font-size: 33px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.MuktiBoxRight figure {
+  margin-bottom: 25px !important;
+}
+
+.MuktiBoxRight h4 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-family: "Voltaire", sans-serif !important;
+  font-weight: 400;
+}
+
+.MuktiBoxRight p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffffb5;
 }
 @media (max-width: 1400px) {
   .service-btn a {

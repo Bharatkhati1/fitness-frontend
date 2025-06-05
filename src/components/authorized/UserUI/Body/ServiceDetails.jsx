@@ -73,6 +73,8 @@ function ServiceDetails() {
     <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
   </svg>
 `;
+
+console.log(packages)
   return (
     <>
       <section className="innerbanner">
@@ -104,67 +106,61 @@ function ServiceDetails() {
           ></p>
         </div>
       </div>
-
+      
       {details?.story_image_url && (
-        <section className="position-relative">
-          <div className="our-approach">
-            {/* <div className="PageTitle text-center m-0">
-            <h2>our approach</h2>
-          </div> */}
-            <img
-              crossOrigin="anonymous"
-              src={details?.story_image_url}
-              alt="our approach"
-            />
-          </div>
-        </section>
-      )}
-
-      <div className="our-approachmain pt-4 pb-4">
-        <div className="container">
-          <div className="PageTitle text-center pb-3">
-            <h2 className="text-white">our approach</h2>
-          </div>
-
-          <ul className="ourapproachlist">
-            <li>
-              <span>1</span>
-              <div className="content">
-                <p>Root Cause Analysis of your issues by the experts</p>
-              </div>
-            </li>
-
-            <li>
-              <span>2</span>
-              <div className="content">
-                <p>
-                  Providing you with best customised services and consultations
-                  with sustainable solutions
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <span>3</span>
-              <div className="content">
-                <p>Regular follow ups and updates</p>
-              </div>
-            </li>
-            <li>
-              <span>4</span>
-              <div className="content">
-                <p>Thorough and proactive customer service</p>
-              </div>
-            </li>
-            <li>
-              <span>5</span>
-              <div className="content">
-                <p>Respecting your privacy</p>
-              </div>
-            </li>
-          </ul>
+        <div
+        className="our-approachmain position-relative pt-4 pb-4"
+      >
+        <div className="">
+            <img crossOrigin="anonymous" className="approach-image" src={details.story_image_url} alt="Approach Image" />
         </div>
-      </div>
+          <div className="container">
+            <div className="app-middle-content">
+            <div className="PageTitle text-center pb-3">
+              <h2 className="text-white">our approach</h2>
+            </div>
+
+            <ul className="ourapproachlist">
+              <li>
+                <span>1</span>
+                <div className="content">
+                  <p>Root Cause Analysis of your issues by the experts</p>
+                </div>
+              </li>
+
+              <li>
+                <span>2</span>
+                <div className="content">
+                  <p>
+                    Providing you with best customised services and
+                    consultations with sustainable solutions
+                  </p>
+                </div>
+              </li>
+
+              <li>
+                <span>3</span>
+                <div className="content">
+                  <p>Regular follow ups and updates</p>
+                </div>
+              </li>
+              <li>
+                <span>4</span>
+                <div className="content">
+                  <p>Thorough and proactive customer service</p>
+                </div>
+              </li>
+              <li>
+                <span>5</span>
+                <div className="content">
+                  <p>Respecting your privacy</p>
+                </div>
+              </li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="sectionSpace servicedetail main-packge">
         <div className="container">
@@ -212,7 +208,7 @@ function ServiceDetails() {
                                 <h3>{pkg.name}</h3>
                                 <p
                                   dangerouslySetInnerHTML={{
-                                    __html: pkg?.description,
+                                    __html: pkg?.shortDescription,
                                   }}
                                 />
 

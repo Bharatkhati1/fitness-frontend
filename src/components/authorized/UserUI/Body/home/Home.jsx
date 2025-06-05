@@ -4,7 +4,7 @@ import TagCheckIcon from "../../../../../../public/assets/img/tagCheck.png";
 import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
-import wightLosssChart from "../../../../../../public/assets/img/wightLosssChart.png";
+import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
 import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
 import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
 import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
@@ -34,6 +34,16 @@ import { Link } from "react-router-dom";
 import { getKitchenData } from "../../../../../store/auth/AuthExtraReducers";
 import { useDispatch } from "react-redux";
 import EmailRequiredPopup from "../../EmailRequiredpopup";
+
+import MUKTEEImg from "../../../../../../public/assets/img/MUKTEEImg.png";
+import pixabayimg from "../../../../../../public/assets/img/pixabayimg.png";
+// import butterflyimg from "../../../../../../public/assets/img/butterflyimg.png";
+import butterfly1 from "../../../../../../public/assets/img/butterfly1.png";
+import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
+import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
+import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
+import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
+
 
 function Home() {
   const dispatch = useDispatch();
@@ -263,6 +273,7 @@ function Home() {
           </OwlCarousel>
         )}
       </section>
+
       <section className="AboutInfo">
         <div className="container">
           <div className="row align-items-center">
@@ -429,6 +440,7 @@ function Home() {
           />
         </div>
       </section>
+
       <section className="SmartKichin">
         <div className="container">
           <div className="PageTitle text-center">
@@ -471,6 +483,67 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <section className="MuktiBox">
+        <div className="container">
+          {/* <span className="butterflyshape">
+            <img src={butterflyimg}></img>
+          </span> */}
+
+        
+
+            <span className="butterflyone">
+              <img src={butterfly1}></img>
+            </span>
+             <span className="butterflytwo">
+              <img src={butterfly2}></img>
+            </span>
+             <span className="butterflythree">
+              <img src={butterfly3}></img>
+            </span>
+             <span className="butterflyfour">
+              <img src={butterfly4}></img>
+            </span>
+             <span className="butterflyfive">
+              <img src={butterfly5}></img>
+            </span>
+         
+
+          <div className="row">
+            <div className="MuktiBoxLeft">
+              <img src={pixabayimg}></img>
+            </div>
+
+            <div className="col-md-6 ms-auto">
+              <div className="MuktiBoxRight">
+                <h3>introducing</h3>
+
+                <figure>
+                  <img src={MUKTEEImg}></img>
+                </figure>
+
+                <h4>~ A Deaddiction Program ~</h4>
+
+                <p>
+                  MUKTEE is the DEADDICTION program by dailyfitness.ai wherein
+                  with physiological and psychological assistance, we add a new
+                  dimension to your life, helping you win over the addictions.
+                </p>
+
+                <p>
+                  Be it deaddiction from alcoholism or smoking or others, you’re
+                  just one step away from availing the best solution.
+                </p>
+
+                <a className="btn btn-primary max-width mt-3 hvr-shutter-out-horizontal">
+                  know more
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="PosterSec transformationsuccess">
         <div className="container">
           <div className="PosterContent">
@@ -565,7 +638,7 @@ function Home() {
               health and wellness journey.
             </p>
             <Link
-              to={"/all-packages"}
+              to={"/about-us#MeetOurFamily"}
               className="btn btn-primary mt-4 hvr-shutter-out-horizontal"
             >
               meet our family
@@ -632,7 +705,7 @@ function Home() {
                   <li>
                     <img src={CallIcon}></img>
                     <span>
-                      <a href="tel:918839036035">(+91) 8839036035</a> .{" "}
+                      <a href="tel:918839036035">(+91) 8839036035</a>
                       <a href="tel:919891775250">(+91) 9891775250</a>
                     </span>
                   </li>

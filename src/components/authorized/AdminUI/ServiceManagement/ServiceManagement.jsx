@@ -28,6 +28,7 @@ const ServiceManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [ctaButtons, setCtaButtons] = useState([]);
   const [limit] = useState(1);
+  const [filterService, setFilterServices] = useState([]);
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
   const storyImageRef = useRef(null);
@@ -38,6 +39,7 @@ const ServiceManagement = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_services);
       setSliders(res.data.data);
+      setFilterServices(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -89,7 +91,6 @@ const ServiceManagement = () => {
       });
       fetchAllServices();
       onCancelEdit();
-      toast.success(response.data.message);
     } catch (error) {
       console.error("Something went wrong:", error);
       toast.update(loadingToastId, {
@@ -148,6 +149,9 @@ const ServiceManagement = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+    if(storyImageRef){
+      storyImageRef.current.value = ""
+    }
   };
 
   const handleDragEnd = async (result) => {
@@ -172,6 +176,17 @@ const ServiceManagement = () => {
       toast.error("Failed to update service order");
       // Revert to the original order if the API call fails
       fetchAllServices();
+    }
+  };
+
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = sliders.filter((val) =>
+        val.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilterServices(filterValue);
+    } else {
+      setFilterServices(sliders);
     }
   };
 
@@ -388,39 +403,40 @@ const ServiceManagement = () => {
                               </div>
                             </div>
 
-                            {matchedButton&&matchedButton.name!="Know more" && (
-                              <div className="col-lg-6">
-                                <div className="email-new">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter emails ',' separated"
-                                    value={inputValue}
-                                    onChange={(e) => {
-                                      const input = e.target.value;
-                                      setEmailInputs((prev) => ({
-                                        ...prev,
-                                        [option]: input,
-                                      }));
-                                    }}
-                                    onBlur={() => {
-                                      const emailArray = inputValue
-                                        .split(",")
-                                        .map((email) => email.trim())
-                                        .filter((email) => email.length > 0);
+                            {matchedButton &&
+                              matchedButton.name != "Know more" && (
+                                <div className="col-lg-6">
+                                  <div className="email-new">
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="Enter emails ',' separated"
+                                      value={inputValue}
+                                      onChange={(e) => {
+                                        const input = e.target.value;
+                                        setEmailInputs((prev) => ({
+                                          ...prev,
+                                          [option]: input,
+                                        }));
+                                      }}
+                                      onBlur={() => {
+                                        const emailArray = inputValue
+                                          .split(",")
+                                          .map((email) => email.trim())
+                                          .filter((email) => email.length > 0);
 
-                                      setCtaButtons((prev) =>
-                                        prev?.map((btn) =>
-                                          btn.name === option
-                                            ? { ...btn, emails: emailArray }
-                                            : btn
-                                        )
-                                      );
-                                    }}
-                                  />
+                                        setCtaButtons((prev) =>
+                                          prev?.map((btn) =>
+                                            btn.name === option
+                                              ? { ...btn, emails: emailArray }
+                                              : btn
+                                          )
+                                        );
+                                      }}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
                           </div>
                         );
                       })}
@@ -445,11 +461,21 @@ const ServiceManagement = () => {
       </div>
 
       <div className="row">
+        <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50" 
+            placeholder="Search services..."
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
+
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
               <h4 className="card-title">All Services</h4>
             </div>
+
             <div className="card-body p-0">
               <div className="table-responsive">
                 <table className="table align-middle mb-0 table-hover table-centered">
@@ -464,14 +490,14 @@ const ServiceManagement = () => {
                     </tr>
                   </thead>
                   <DragDropContext onDragEnd={handleDragEnd}>
-                    {sliders.length > 0 && (
+                    {filterService.length > 0 && (
                       <Droppable droppableId={"droppable"} direction="vertical">
                         {(provided) => (
                           <tbody
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                           >
-                            {sliders.map((service, index) => (
+                            {filterService.map((service, index) => (
                               <Draggable
                                 key={service.id.toString()}
                                 draggableId={service.id.toString()}
@@ -532,7 +558,7 @@ const ServiceManagement = () => {
                                         <button
                                           className="btn btn-soft-primary btn-sm"
                                           onClick={() => {
-                                            window.scrollTo(0,0)
+                                            window.scrollTo(0, 0);
                                             setIsEdit(true);
                                             setSelectedSliderId(service.id);
                                             setCtaButtons(
@@ -548,7 +574,9 @@ const ServiceManagement = () => {
                                             setServiceShortDescription(
                                               service.shortDescription
                                             );
-                                            setStoryImageName(service?.story_image)
+                                            setStoryImageName(
+                                              service?.story_image
+                                            );
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
                                             setStoryImageName(
