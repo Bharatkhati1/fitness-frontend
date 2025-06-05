@@ -4,11 +4,16 @@ import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import GoogleIcon from "../../../public/assets/img/GoogleIcon.png";
 import AppleIcon from "../../../public/assets/img/AppleIcon.png";
 import { useNavigate } from "react-router-dom";
-import userAxios from "../../utils/Api/userAxios";
+import userAxios, { webAxios } from "../../utils/Api/userAxios";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 import Header from "../authorized/UserUI/Header/Header";
 import Footer from "../authorized/UserUI/Footer/Footer";
+import { GoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { jwtDecode } from "jwt-decode";
 
 function SignUpUser() {
   const [step, setStep] = useState(1); // 1: email/password, 2: OTP input, 3: success
@@ -24,7 +29,7 @@ function SignUpUser() {
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [nameError, setNameError] = useState("");
-
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -283,6 +288,37 @@ function SignUpUser() {
     </>
   );
 
+  const handleSocialLoginGoogle = async (dataGoogle) => {
+    try {
+      dispatch(authActions.checkingUserToken(true));
+      dispatch(authActions.setLoginButtonDisable(true));
+      const payload = {
+        ...dataGoogle,
+        profilePicture: dataGoogle?.picture,
+      };
+      const { data } = await webAxios.post(userApiRoutes.social_login, payload, {
+        withCredentials: true,
+      });
+
+      dispatch(
+        authActions.loginUser({
+          isLoggedIn: true,
+          isAdmin: false,
+        })
+      );
+      dispatch(authActions.setUserDetails({ ...data?.user }));
+      dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+      localStorage.setItem("isAdmin", false);
+      dispatch(authActions.checkingUserToken(false));
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate("/", {
+        replace: true,
+      });
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.error);
+    }
+  };
   return (
     <>
       <Header />
@@ -301,9 +337,18 @@ function SignUpUser() {
                   <>
                     <span className="or-text">Or</span>
                     <div className="SocialUsers d-flex">
-                      <a className="mb-0" href="#">
-                        <img src={GoogleIcon} alt="Google" />
-                        login using google
+                      <a className="mb-0" >
+                      <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                          const decoded = jwtDecode(
+                            credentialResponse.credential
+                          );
+                          handleSocialLoginGoogle(decoded);
+                        }}
+                        onError={() => {
+                          toast.error("Login Failed: Server Error");
+                        }}
+                      />
                       </a>
                       <a className="mb-0" href="#">
                         <img src={AppleIcon} alt="Apple" />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 import userImage from "../../../../../public/assets/images/users/avatar-1.jpg"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ const TopBar = () => {
   const handleLogout = () => {
     dispatch(logoutUser(false));
   };
-
   return (
     <header className="topbar">
       <div className="container-fluid">

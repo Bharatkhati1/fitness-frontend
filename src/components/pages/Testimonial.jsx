@@ -21,7 +21,7 @@ import JoinCommunity from "../authorized/UserUI/Body/Modals/JoinCommunity.jsx";
 function Testimonial() {
   const [successStoriesTop, setSuccessStoriesTop] = useState([]);
   const [successStoriesBottom, setSuccessStoriesBottom] = useState([]);
-   const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,6 +40,11 @@ function Testimonial() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
     await sendInquiry(formData);
     setFormData({
       name: "",
@@ -69,7 +74,7 @@ function Testimonial() {
 
   return (
     <>
-    <JoinCommunity open={open} setOpen={setOpen}/>
+      <JoinCommunity open={open} setOpen={setOpen} />
       <section className="innerbanner blogbanner">
         <figure>
           <img src={testimonialsbanner} />
@@ -386,7 +391,12 @@ function Testimonial() {
           <div className="JoinNow text-center">
             <h4>"This could be your story. Start today."</h4>
 
-            <a onClick={()=> setOpen(true)} className="btn btn-primary max-btn bg-white ">join now</a>
+            <a
+              onClick={() => setOpen(true)}
+              className="btn btn-primary max-btn bg-white "
+            >
+              join now
+            </a>
           </div>
         </div>
       </section>

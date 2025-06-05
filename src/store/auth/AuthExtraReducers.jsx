@@ -67,9 +67,13 @@ export const getAccessToken = (isAdmin) => {
     try {
       dispatch(authActions.checkingUserToken(true));
       const type = isAdmin ? "adminRefreshToken" : "userRefreshToken";
-      const { data } = await axios.post(`${GATEWAY_URL}/web/refresh`, { type }, {
-        withCredentials: true,
-      });
+      const { data } = await axios.post(
+        `${GATEWAY_URL}/web/refresh`,
+        { type },
+        {
+          withCredentials: true,
+        }
+      );
 
       if (isAdmin) {
         dispatch(
@@ -104,7 +108,9 @@ export const logoutUser = (isUser) => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
-  const accessToken = isUser? store.getState().auth.userAccessToken : store.getState().auth.adminAccessToken;
+  const accessToken = isUser
+    ? store.getState().auth.userAccessToken
+    : store.getState().auth.adminAccessToken;
   window.sessionStorage.clear();
   window.localStorage.clear();
   window.indexedDB.deleteDatabase("");
@@ -113,12 +119,16 @@ export const logoutUser = (isUser) => {
     dispatch(authActions.setLoginButtonDisable(true));
     const fetchData = async () => {
       await userAxios
-        .post(`/logout`, { type }, {
-          withCredentials: true,
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
-        })
+        .post(
+          `/logout`,
+          { type },
+          {
+            withCredentials: true,
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
         .then(() => {
           if (window.performance && window.performance.clearResourceTimings) {
             window.performance.clearResourceTimings();
@@ -130,9 +140,9 @@ export const logoutUser = (isUser) => {
     };
     try {
       await fetchData();
-      if(isUser){
+      if (isUser) {
         window.open("/login-user", "_self", false);
-      } else{
+      } else {
         localStorage.removeItem("isAdmin");
         window.open("/admin-login", "_self", false);
       }
@@ -144,7 +154,7 @@ export const logoutUser = (isUser) => {
   };
 };
 
-export const getServicesForUser  = () => {
+export const getServicesForUser = () => {
   return async (dispatch) => {
     try {
       const response = await webAxios.get(userApiRoutes.get_services);
@@ -154,7 +164,7 @@ export const getServicesForUser  = () => {
       for (let i = 0; i < servicesData.length; i += chunkSize) {
         chunkedServices.push(servicesData.slice(i, i + chunkSize));
       }
-      console.log(chunkedServices)
+      console.log(chunkedServices);
       dispatch(
         authActions.setServices({
           services: chunkedServices,
@@ -167,7 +177,13 @@ export const getServicesForUser  = () => {
   };
 };
 
-export const getKitchenData = ({ search = '', page = 1, limit = 10, category, type } = {}) => {
+export const getKitchenData = ({
+  search = "",
+  page = 1,
+  limit = 10,
+  category,
+  type,
+} = {}) => {
   return async (dispatch) => {
     try {
       const response = await webAxios.get(
@@ -177,7 +193,9 @@ export const getKitchenData = ({ search = '', page = 1, limit = 10, category, ty
       const kitchenData = response.data.data;
       dispatch(authActions.setKictchenData(kitchenData));
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch kitchen data"
+      );
     }
   };
 };
@@ -185,20 +203,20 @@ export const getKitchenData = ({ search = '', page = 1, limit = 10, category, ty
 export const fetchKitchenCategories = () => {
   return async (dispatch) => {
     try {
-      const response = await webAxios.get(
-        userApiRoutes.get_kitchen_categories
-      );
+      const response = await webAxios.get(userApiRoutes.get_kitchen_categories);
       const kitchenCategories = response.data.data;
       dispatch(authActions.setKictchenCategories(kitchenCategories));
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to fetch kitchen data");
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch kitchen data"
+      );
     }
   };
 };
 
-export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
+export const fetchAllProducts = ({ search = "", serviceId } = {}) => {
   return async (dispatch) => {
-    if (typeof search !== 'string') {
+    if (typeof search !== "string") {
       console.error("Invalid search parameter:", search);
       return;
     }
@@ -213,26 +231,64 @@ export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
   };
 };
 
-export const sendInquiry = async(data) => {
-    try {
-      const response = await webAxios.post(
-        userApiRoutes.send_inquiry, data
-      );
-      toast.success(response.data.message)
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to fetch packages");
-    }
+export const sendInquiry = async (data) => {
+  try {
+    const response = await webAxios.post(userApiRoutes.send_inquiry, data);
+    toast.success(response.data.message);
+  } catch (error) {
+    toast.error(error?.response?.data?.message || "Failed to fetch packages");
+  }
 };
 
-export const getContactusDetails  = () => {
+export const getContactusDetails = () => {
   return async (dispatch) => {
     try {
       const response = await webAxios.get(userApiRoutes.get_contact_us_details);
-      dispatch(
-        authActions.setcontactusDetails(response.data.data)
-      );
+      dispatch(authActions.setcontactusDetails(response.data.data));
     } catch (error) {
       toast.error(error?.response?.data?.message);
+    }
+  };
+};
+
+export const handleSocialLoginGoogle = async (
+  dataGoogle,
+  navigate,
+  isAdmin = false
+) => {
+  return async (dispatch) => {
+    console.log("inside")
+    try {
+      if (!navigator.onLine) {
+        toast.error("Please check your Internet Connection");
+        return;
+      }
+      // dispatch(authActions.checkingUserToken(true));
+      // dispatch(authActions.setLoginButtonDisable(true));
+
+      const payload = {
+        ...dataGoogle,
+        profilePicture: dataGoogle?.picture,
+      };
+      const { data } = await webAxios.post(userApiRoutes.social_login, payload);
+
+      console.log(data)
+      dispatch(
+        authActions.loginUser({
+          isLoggedIn: true,
+          isAdmin: isAdmin,
+        })
+      );
+      dispatch(authActions.setUserDetails({ ...data?.user }));
+      dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+      localStorage.setItem("isAdmin", isAdmin);
+      dispatch(authActions.checkingUserToken(false));
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate("/", {
+        replace: true,
+      });
+    } catch (error) {
+      toast.error(error.response.data.error);
     }
   };
 };

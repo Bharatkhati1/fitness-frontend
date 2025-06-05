@@ -8,15 +8,15 @@ import cyoutubeIcon from "../../../../../public/assets/img/cyoutubeIcon.png";
 import gettouch from "../../../../../public/assets/img/gettouch.png";
 import { useSelector } from "react-redux";
 import JoinCommunity from "./Modals/JoinCommunity";
+import { sendInquiry } from "../../../../store/auth/AuthExtraReducers";
+import { toast } from "react-toastify";
 
-// Dummy function for demonstration — replace with actual API call
-const sendInquiry = async (data) => {
-  console.log("Form submitted:", data);
-};
 
 function ContactUs() {
-  const { allServices = [], contactUsDetails={} } = useSelector((state) => state.auth);
-  const [open, setOpen] = useState(false)
+  const { allServices = [], contactUsDetails = {} } = useSelector(
+    (state) => state.auth
+  );
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,6 +49,11 @@ function ContactUs() {
       ...formData,
       contactFor: formData.contactFor.join(", "),
     };
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -61,7 +66,7 @@ function ContactUs() {
 
   return (
     <>
-    <JoinCommunity open={open} setOpen={setOpen}/>
+      <JoinCommunity open={open} setOpen={setOpen} />
       <section className="InnerpageSpace bgpettern">
         <div className="container">
           <div className="InnerPageTitle">
@@ -75,44 +80,63 @@ function ContactUs() {
             <div className="row">
               <div className="col-md-4">
                 <div className="contactinfobox">
-                  <figure><img src={gIcon1} /></figure>
+                  <figure>
+                    <img src={gIcon1} />
+                  </figure>
                   <figcaption>
                     <h5>PHONE</h5>
                     <div className="textlink d-flex justify-content-center">
-                    {contactUsDetails?.phone &&
-                      contactUsDetails.phone.split(",").map((num, idx) => (
-                        <span key={idx} className="me-2">
-                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
-                          {idx < contactUsDetails.phone.split(",").length - 1 &&
-                            " . "}
-                        </span>
-                      ))}
+                      {contactUsDetails?.phone &&
+                        contactUsDetails.phone.split(",").map((num, idx) => (
+                          <span key={idx} className="me-2">
+                            <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                            {idx <
+                              contactUsDetails.phone.split(",").length - 1 &&
+                              " . "}
+                          </span>
+                        ))}
                     </div>
                   </figcaption>
                 </div>
               </div>
               <div className="col-md-4">
                 <div className="contactinfobox">
-                  <figure><img src={gIcon2} /></figure>
+                  <figure>
+                    <img src={gIcon2} />
+                  </figure>
                   <figcaption>
                     <h5>EMAIL ADDRESS</h5>
                     <div className="textlink d-flex justify-content-center">
-                    <a href={`mailto:${contactUsDetails?.email}`}>
-                      {contactUsDetails?.email}
-                    </a>
+                      <a href={`mailto:${contactUsDetails?.email}`}>
+                        {contactUsDetails?.email}
+                      </a>
                     </div>
                   </figcaption>
                 </div>
               </div>
               <div className="col-md-4">
                 <div className="contactinfobox">
-                  <figure><img src={gIcon3} /></figure>
+                  <figure>
+                    <img src={gIcon3} />
+                  </figure>
                   <figcaption>
                     <h5>SOCIAL MEDIA</h5>
                     <ul className="userslink d-flex justify-content-center">
-                      <li><a href={`${contactUsDetails?.instagram}`}><img src={Ginstaicon} /></a></li>
-                      <li><a href={`${contactUsDetails?.twitter}`}><img src={Gtweeter} /></a></li>
-                      <li><a href={`${contactUsDetails?.youtube}`}><img src={cyoutubeIcon} /></a></li>
+                      <li>
+                        <a href={`${contactUsDetails?.instagram}`}>
+                          <img src={Ginstaicon} />
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`${contactUsDetails?.twitter}`}>
+                          <img src={Gtweeter} />
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`${contactUsDetails?.youtube}`}>
+                          <img src={cyoutubeIcon} />
+                        </a>
+                      </li>
                     </ul>
                   </figcaption>
                 </div>
@@ -125,7 +149,9 @@ function ContactUs() {
               <div className="col-md-6 getintouchinnerleft">
                 <h4>Get in Touch with Us</h4>
                 <p>We'd love to hear from you! Contact us anytime.</p>
-                <figure><img src={gettouch} /></figure>
+                <figure>
+                  <img src={gettouch} />
+                </figure>
               </div>
               <div className="col-md-6">
                 <div className="row GetIntouchinnerright">
@@ -223,10 +249,14 @@ function ContactUs() {
             <div className="JoinourhealthContent">
               <h3>join our health community</h3>
               <p>
-                Join our WhatsApp health community today! Connect with like-minded
-                individuals and get valuable health insights and support, free of cost.
+                Join our WhatsApp health community today! Connect with
+                like-minded individuals and get valuable health insights and
+                support, free of cost.
               </p>
-              <a onClick={()=>setOpen(true)}  className="btn btn-primary hvr-shutter-out-horizontal">
+              <a
+                onClick={() => setOpen(true)}
+                className="btn btn-primary hvr-shutter-out-horizontal"
+              >
                 join our free community
               </a>
             </div>

@@ -13,6 +13,7 @@ import Header from "../authorized/UserUI/Header/Header";
 import Footer from "../authorized/UserUI/Footer/Footer";
 import { webAxios } from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { authActions } from "../../store/auth";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
@@ -223,19 +224,37 @@ const LoginUser = () => {
     </form>
   );
 
-  const handleSocialLoginGoogle =async(data)=>{
+  const handleSocialLoginGoogle = async (dataGoogle) => {
     try {
-      const payload ={
-        ...data,
-        profilePicture:data?.picture,
-        phoneNumber:"19283746509"
-      }
-      const res = await webAxios.post(userApiRoutes.social_login,  payload );
-      console.log(res.data.data)
+      dispatch(authActions.checkingUserToken(true));
+      dispatch(authActions.setLoginButtonDisable(true));
+      const payload = {
+        ...dataGoogle,
+        profilePicture: dataGoogle?.picture,
+      };
+      const { data } = await webAxios.post(userApiRoutes.social_login, payload, {
+        withCredentials: true,
+      });
+      console.log("data", data)
+      dispatch(
+        authActions.loginUser({
+          isLoggedIn: true,
+          isAdmin: false,
+        })
+      );
+      dispatch(authActions.setUserDetails({ ...data?.user }));
+      dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+      localStorage.setItem("isAdmin", false);
+      dispatch(authActions.checkingUserToken(false));
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate("/", {
+        replace: true,
+      });
     } catch (error) {
-      toast.error(error.response.data.error)
+      console.log(error)
+      toast.error(error.response.data.error);
     }
-  }
+  };
   return (
     <>
       <Header />
@@ -322,8 +341,7 @@ const LoginUser = () => {
                           const decoded = jwtDecode(
                             credentialResponse.credential
                           );
-                          handleSocialLoginGoogle(decoded)
-                          console.log("Decoded User:", decoded);
+                          handleSocialLoginGoogle(decoded);
                         }}
                         onError={() => {
                           toast.error("Login Failed: Server Error");
