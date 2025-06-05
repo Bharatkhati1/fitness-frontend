@@ -322,13 +322,13 @@ header .navbar-collapse .nav-link.active {
   margin-bottom: 48px;
 }
 
-.bannerSectionLeft ul li {
+.owl-p ul li {
   position: relative;
   padding-left: 24px; /* Leave space for the icon */
   margin-bottom: 10px;
 }
 
-.bannerSectionLeft ul li::before {
+.owl-p ul li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -339,7 +339,6 @@ header .navbar-collapse .nav-link.active {
   background-size: contain;
   background-repeat: no-repeat;
 }
-
 
 .bannerSection .BannerBtn a {
   font-size: 18px;
@@ -3887,9 +3886,9 @@ button.applybtn {
 }
 
 .SmartKichinContent figure img {
-    height: 295px;
-    object-fit: cover;
-    width: 100%;
+  height: 295px;
+  object-fit: cover;
+  width: 100%;
 }
 
 .SmartKichinlistrow figure img {
@@ -3899,56 +3898,56 @@ button.applybtn {
 }
 
 ul.ourapproachlist span {
-    width: 80px;
-    height: 80px;
-    background:#a2a29b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 38px;
-    font-weight: 700;
-    color: #1E1E1E;
-    margin: auto;
-        z-index: 9;
-    position: relative;
+  width: 80px;
+  height: 80px;
+  background: #a2a29b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 38px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin: auto;
+  z-index: 9;
+  position: relative;
 }
 .content {
-    padding: 0 25px;
-    text-transform: capitalize;
-    font-size: 14px;
-    margin-top: 18px;
+  padding: 0 25px;
+  text-transform: capitalize;
+  font-size: 14px;
+  margin-top: 18px;
 }
 
 ul.ourapproachlist li {
-    flex: 1;
-    text-align: center;
-    position: relative;
+  flex: 1;
+  text-align: center;
+  position: relative;
 }
 
 ul.ourapproachlist {
-    display: flex;
-    margin-bottom: 0;
+  display: flex;
+  margin-bottom: 0;
 }
 
 ul.ourapproachlist li:after {
-    border-bottom: 5px dashed #fff;
-    position: absolute;
-    right: 0;
-    content: "";
-    top: 41px;
-    width: 100%;
+  border-bottom: 5px dashed #fff;
+  position: absolute;
+  right: 0;
+  content: "";
+  top: 41px;
+  width: 100%;
 }
 /* .our-approachmain {
     background: url(../img//our-approach-bg.png);
 } */
 .content p {
-    color: #fff;
-    font-weight: 700;
+  color: #fff;
+  font-weight: 700;
 }
 
 .our-approachmain .PageTitle h2 {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .Clientbefore figure img {
@@ -3968,6 +3967,6 @@ ul.ourapproachlist li:after {
   }
 }
 
-.note-editor .note-editing-area{
+.note-editor .note-editing-area {
   height: 200px;
 }

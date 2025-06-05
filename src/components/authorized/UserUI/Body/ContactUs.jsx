@@ -15,14 +15,14 @@ const sendInquiry = async (data) => {
 };
 
 function ContactUs() {
-  const { allServices = [] } = useSelector((state) => state.auth);
+  const { allServices = [], contactUsDetails={} } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-    selectedServices: [],
+    contactFor: [],
   });
 
   const handleChange = (e) => {
@@ -35,23 +35,27 @@ function ContactUs() {
 
   const handleCheckboxChange = (serviceName) => {
     setFormData((prev) => {
-      const exists = prev.selectedServices.includes(serviceName);
+      const exists = prev.contactFor.includes(serviceName);
       const updatedServices = exists
-        ? prev.selectedServices.filter((s) => s !== serviceName)
-        : [...prev.selectedServices, serviceName];
-      return { ...prev, selectedServices: updatedServices };
+        ? prev.contactFor.filter((s) => s !== serviceName)
+        : [...prev.contactFor, serviceName];
+      return { ...prev, contactFor: updatedServices };
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await sendInquiry(formData);
+    const payload = {
+      ...formData,
+      contactFor: formData.contactFor.join(", "),
+    };
+    await sendInquiry(payload);
     setFormData({
       name: "",
       email: "",
       phone: "",
       message: "",
-      selectedServices: [],
+      contactFor: [],
     });
   };
 
@@ -75,8 +79,13 @@ function ContactUs() {
                   <figcaption>
                     <h5>PHONE</h5>
                     <div className="textlink d-flex justify-content-center">
-                      <a href="tel:918839036035">(+91) 8839036035</a>&nbsp;.
-                      <a href="tel:919891775250">(+91) 9891775250</a>
+                    <a href={`tel:${contactUsDetails?.phone}`}>
+                        {contactUsDetails?.phone}
+                      </a>{" "}
+                      .{" "}
+                      <a href={`tel:${contactUsDetails?.phone}`}>
+                        9891775250
+                      </a>
                     </div>
                   </figcaption>
                 </div>
@@ -87,7 +96,9 @@ function ContactUs() {
                   <figcaption>
                     <h5>EMAIL ADDRESS</h5>
                     <div className="textlink d-flex justify-content-center">
-                      <a href="mailto:info@dailyfitness.ai">info@dailyfitness.ai</a>
+                    <a href={`mailto:${contactUsDetails?.email}`}>
+                      {contactUsDetails?.email}
+                    </a>
                     </div>
                   </figcaption>
                 </div>
@@ -98,9 +109,9 @@ function ContactUs() {
                   <figcaption>
                     <h5>SOCIAL MEDIA</h5>
                     <ul className="userslink d-flex justify-content-center">
-                      <li><a><img src={Ginstaicon} /></a></li>
-                      <li><a><img src={Gtweeter} /></a></li>
-                      <li><a><img src={cyoutubeIcon} /></a></li>
+                      <li><a href={`${contactUsDetails?.instagram}`}><img src={Ginstaicon} /></a></li>
+                      <li><a href={`${contactUsDetails?.twitter}`}><img src={Gtweeter} /></a></li>
+                      <li><a href={`${contactUsDetails?.youtube}`}><img src={cyoutubeIcon} /></a></li>
                     </ul>
                   </figcaption>
                 </div>
@@ -166,8 +177,8 @@ function ContactUs() {
                               className="form-check-input"
                               type="checkbox"
                               id={`check-${service.id}`}
-                              checked={formData.selectedServices.includes(service.name)}
-                              onChange={() => handleCheckboxChange(service.name)}
+                              checked={formData.contactFor.includes(service.id)}
+                              onChange={() => handleCheckboxChange(service.id)}
                             />
                             <label
                               className="form-check-label"

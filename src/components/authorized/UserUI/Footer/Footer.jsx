@@ -121,12 +121,14 @@ const Footer = () => {
                 <ul className="ContactInfoFooter">
                   <li>
                     <img src={CallIcon} />
-                    <a href="tel:8839036035">8839036035</a>
+                    <a href={`tel:${contactUsDetails?.phone}`}>
+                        {contactUsDetails?.phone}
+                      </a>{" "}
                   </li>
                   <li>
                     <img src={MesgIcon} />
-                    <a href="mailto:info@dailyfitness.ai">
-                      info@dailyfitness.ai
+                    <a href={`mailto:${contactUsDetails?.email}`}>
+                      {contactUsDetails?.email}
                     </a>
                   </li>
                 </ul>
