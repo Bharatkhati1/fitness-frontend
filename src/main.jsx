@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <ToastContainer position="top-right" autoClose={3000} />
         <Suspense fallback="Loading...">
-          <GoogleOAuthProvider clientId="your-client-id">
+          <GoogleOAuthProvider clientId="790862085191-jofh2icrpk1gp8e38dlutd6l59uf10pb.apps.googleusercontent.com">
             <App />
           </GoogleOAuthProvider>
         </Suspense>

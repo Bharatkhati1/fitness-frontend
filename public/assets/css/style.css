@@ -332,9 +332,9 @@ header .navbar-collapse .nav-link.active {
   content: "";
   position: absolute;
   left: 0;
-  top: 5px;
-  width: 10px;
-  height: 10px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
   background-image: url("/assets/img/Vector.png");
   background-size: contain;
   background-repeat: no-repeat;

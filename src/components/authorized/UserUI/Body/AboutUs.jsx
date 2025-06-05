@@ -297,7 +297,7 @@ function AboutUs() {
         </div>
       </div>
 
-     {team?.length>0&& <section className="OurTEAM">
+    <section className="OurTEAM">
         <div className="OurTEAMhead text-center" id="MeetOurFamily">
           <span>our team</span>
           <h2>meet our dedicated team</h2>
@@ -324,7 +324,7 @@ function AboutUs() {
             </div>
           ))}
         </div>
-      </section>}
+      </section>
 
       <section className="MoreProfessional">
         <div className="container">

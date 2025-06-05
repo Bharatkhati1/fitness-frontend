@@ -46,13 +46,10 @@ function BookAppoinment() {
     <>
       <section className="fixspace bookappoinment">
         <div class="OurTEAMhead text-center">
-          <span>health consultation</span>
-          <h2>meet our diabetes health experts</h2>
+          <span>HEALTH CONSULTATION</span>
+          <h2>MEET OUR HEALTH EXPERTS</h2>
           <p>
-            Your trusted guide in managing and understanding diabetes. With
-            expert knowledge in nutrition, lifestyle planning, and blood sugar
-            management, <br></br>they’re here to help you take control of your
-            health—one step at a time.
+          Your trusted guide in navigating your health journey. With expert support in lifestyle, nutrition, and personalized care, <br></br>we’re here to help you take control of your well-being—one step at a time.
           </p>
         </div>
       </section>

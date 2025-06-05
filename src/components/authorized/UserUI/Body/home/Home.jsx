@@ -241,7 +241,7 @@ function Home() {
         </div>
         {sliders.length > 0 && (
           <OwlCarousel
-            autoplay={true}
+            autoplay={false}
             dots={true}
             items={1}
             className="owl-theme"
@@ -262,12 +262,13 @@ function Home() {
                         The Best in Town
                       </span>
                       <h1 className="mb-1">{slider.heading}</h1>
-                      <p
-                        className="owl-p"
-                        dangerouslySetInnerHTML={{
-                          __html: slider.subHeading,
-                        }}
-                      ></p>
+                      <div className="owl-p">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: slider.subHeading,
+                          }}
+                        ></div>
+                      </div>
                       <ul className="ClientListinfo d-flex">
                         <li>
                           <div className="ClientInfo">
@@ -681,15 +682,14 @@ function Home() {
                 <ul className="ContactInfoList">
                   <li>
                     <img src={CallIcon}></img>
-                    <span>
-                      <a href={`tel:${contactUsDetails?.phone}`}>
-                        {contactUsDetails?.phone}
-                      </a>{" "}
-                      .{" "}
-                      <a href={`tel:${contactUsDetails?.phone}`}>
-                        9891775250
-                      </a>
-                    </span>
+                    {contactUsDetails?.phone &&
+                      contactUsDetails.phone.split(",").map((num, idx) => (
+                        <span key={idx} className="me-2">
+                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                          {idx < contactUsDetails.phone.split(",").length - 1 &&
+                            " . "}
+                        </span>
+                      ))}
                   </li>
                   <li>
                     <img src={MsgeIcon}></img>
