@@ -300,6 +300,7 @@ const SliderManagement = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedSliderId(slider.id);
                                   setSliderName(slider.name);
