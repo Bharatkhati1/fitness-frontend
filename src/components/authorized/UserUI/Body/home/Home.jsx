@@ -44,7 +44,6 @@ import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
 
-
 function Home() {
   const dispatch = useDispatch();
   const {
@@ -245,13 +244,13 @@ function Home() {
         <div className="circletagShapeBox">
           <img className="heartBeatImg" src={heartbeat} alt="" />
           <span className="circletagShape">
-            {" "}
+            
             <img src={Tagcircle} />
           </span>
         </div>
         {sliders.length > 0 && (
           <OwlCarousel
-            autoplay={true}
+            autoplay={false}
             dots={true}
             items={1}
             className="owl-theme"
@@ -540,24 +539,21 @@ function Home() {
             <img src={butterflyimg}></img>
           </span> */}
 
-        
-
-            <span className="butterflyone">
-              <img src={butterfly1}></img>
-            </span>
-             <span className="butterflytwo">
-              <img src={butterfly2}></img>
-            </span>
-             <span className="butterflythree">
-              <img src={butterfly3}></img>
-            </span>
-             <span className="butterflyfour">
-              <img src={butterfly4}></img>
-            </span>
-             <span className="butterflyfive">
-              <img src={butterfly5}></img>
-            </span>
-         
+          <span className="butterflyone">
+            <img src={butterfly1}></img>
+          </span>
+          <span className="butterflytwo">
+            <img src={butterfly2}></img>
+          </span>
+          <span className="butterflythree">
+            <img src={butterfly3}></img>
+          </span>
+          <span className="butterflyfour">
+            <img src={butterfly4}></img>
+          </span>
+          <span className="butterflyfive">
+            <img src={butterfly5}></img>
+          </span>
 
           <div className="row">
             <div className="MuktiBoxLeft">
@@ -759,9 +755,7 @@ function Home() {
                         {contactUsDetails?.phone}
                       </a>{" "}
                       .{" "}
-                      <a href={`tel:${contactUsDetails?.phone}`}>
-                        9891775250
-                      </a>
+                      <a href={`tel:${contactUsDetails?.phone}`}>9891775250</a>
                     </span>
                   </li>
                   <li>

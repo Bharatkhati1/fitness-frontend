@@ -300,7 +300,9 @@
     width: 16px;
   }
 
-  .Clientbefore figure img{ height: 170px;}
+  .Clientbefore figure img {
+    height: 170px;
+  }
 }
 @media (min-width: 1366px) and (max-width: 1641px) {
   .circletagShapeBox {
@@ -756,6 +758,13 @@
   body .owl-carousel .owl-item .product-list figure img {
     height: 200px;
   }
+
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    margin: 45px 0 30px;
+    height: 535px;
+    width: 315px !important;
+    object-fit: fill;
+  }
 }
 
 @media (max-width: 991px) {
@@ -797,7 +806,7 @@
     flex-direction: row-reverse;
   }
   .bannerSectionLeft h1 {
-    font-size: 24px;
+    font-size: 20px;
   }
   .ClientListinfo li {
     padding-right: 20px;
@@ -846,6 +855,7 @@
   }
   .ClientInfo p {
     font-size: 14px;
+    margin-bottom: 0;
   }
 
   .bannerSection .BannerBtn a {
@@ -1187,6 +1197,23 @@
   .PosterContent p {
     font-size: 16px;
   }
+
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    margin: 45px 0 30px;
+    height: 420px;
+    width: 227px !important;
+  }
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    margin: 45px 0 30px;
+    height: 390px;
+    width: 227px !important;
+    object-fit: fill;
+  }
+
+  .owl-p ul li {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1423,7 +1450,6 @@
     font-size: 14px;
   }
 
-
   .Browseservice button.owl-prev span,
   .Browseservice button.owl-next span {
     width: 14px;
@@ -1548,6 +1574,26 @@
     font-size: 26px;
     margin-bottom: 12px;
   }
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    margin: 45px 0 30px;
+    height: 330px;
+    width: 199px !important;
+    object-fit: fill;
+  }
+  .col-md-6.bannerSectionLeft.pe-0 {
+    padding-right: 20px !important;
+  }
+  .bannerSection .BannerBtn a {
+    font-size: 12px;
+    height: 40px;
+  }
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    margin: 0;
+    height: auto;
+    width: 60% !important;
+    object-fit: fill;
+    margin-left: auto;
+  }
 }
 
 @media (max-width: 575px) {
@@ -1580,7 +1626,7 @@
   .col-md-6.bannerSectionLeft.pe-0 {
     margin-top: 10px;
     margin-bottom: 38px;
-    padding-right: 150px !important;
+    padding-right: 60px !important;
     width: 100%;
   }
   .circletagShape {
@@ -1788,6 +1834,48 @@
   .ourapproachlist .content p {
     font-size: 16px;
   }
+
+  .OurServices .owl-nav button.owl-prev {
+    left: -24px;
+  }
+
+  .OurServices .owl-nav button.owl-next {
+    right: -24px;
+  }
+
+  span.shapeImgRight,
+  span.shapeImgLeft {
+    display: none;
+  }
+
+  span.circleshape {
+    display: none;
+  }
+
+  button.owl-next svg {
+    width: 16px;
+  }
+  button.owl-prev svg {
+    width: 16px;
+  }
+
+  .infobox.infoboxLeft {
+    top: -6px;
+  }
+  .infobox h4 {
+    font-size: 20px;
+  }
+  .infobox span {
+    font-size: 14px;
+  }
+
+  .col-md-6.GetIntouchRight {
+    margin-top: 0;
+  }
+
+  .row.GetIntouchRows {
+    padding-bottom: 30px;
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -1800,11 +1888,6 @@
     height: 30px;
     margin-left: 5px;
   }
-
-  .col-md-6.bannerSectionLeft.pe-0 {
-    padding-right: 75px !important;
-  }
-
   span.shapeImgLeft img {
     width: 116px;
   }
@@ -1829,7 +1912,7 @@
   }
 
   .AboutInfo .col-md-5.text-left figure img {
-    width: auto;
+    width: 250;
     margin-left: 0;
   }
 
@@ -2110,7 +2193,41 @@
     width: 100%;
   }
   .OurServices .owl-carousel.owl-theme {
-    width: 75%;
+    width: 85%;
     margin: auto;
+  }
+
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    width: 95% !important;
+  }
+
+  .OurServicesContent figcaption p {
+    min-height: auto;
+  }
+
+  .OurServicesContent {
+    height: auto;
+  }
+
+  .VideBox video {
+    height: 300px;
+  }
+
+  .WhyChoose {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .SmartKichin {
+    padding-top: 35px;
+    padding-bottom: 50px;
+  }
+  .SmartKichinContent figcaption h3 {
+    margin-bottom: 15px;
+  }
+  .OurHealthBlogContent figcaption h3 {
+    font-size: 16px;
+  }
+  .col-md-6.OurHealthBlogContent {
+    margin-bottom: 25px;
   }
 }

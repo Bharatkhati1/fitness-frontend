@@ -467,6 +467,11 @@ body .heartBeatImg {
 
 .owl-p {
   font-size: 16px;
+  color: #1E1E1E;
+}
+
+.bannerSectionLeft ul li {
+   color: #1E1E1E;
 }
 
 .owl-dots .owl-dot.active span {
@@ -4008,3 +4013,4 @@ ul.ourapproachlist li:after {
 .note-editor .note-editing-area {
   height: 200px;
 }
+
