@@ -51,7 +51,11 @@ const userApiRoutes = {
 
   get_teams:`/teams`,
 
-  get_success_stories:`/user/success-stories`
+  get_success_stories:`/user/success-stories`,
+
+  send_inquiry:`/inquiry`,
+
+  get_contact_us_details:`/contact-us`
   
 };
 

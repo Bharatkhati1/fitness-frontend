@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import searchIcon from "../../../public/assets/img/searchIcon.png";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -12,25 +12,14 @@ import useDebounce from "../Hooks/useDebounce.jsx";
 
 function AllPakages() {
   const dispatch = useDispatch();
-  const { allPackages = [], allServices = [] } = useSelector(
-    (state) => state.auth
-  );
+  const { allPackages = [], allServices = [] } = useSelector((state) => state.auth);
 
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
+  const serviceCarouselRef = useRef();
 
-  // Use debounce hook
   const debouncedSearch = useDebounce(search, 400);
   const debouncedServiceId = useDebounce(serviceId, 400);
-
-  useEffect(() => {
-    dispatch(
-      fetchAllProducts({
-        search: debouncedSearch,
-        serviceId: debouncedServiceId,
-      })
-    );
-  }, [debouncedSearch, debouncedServiceId, dispatch]);
 
   const formatName = (str) => {
     if (!str) return "";
@@ -43,6 +32,16 @@ function AllPakages() {
     }
     return str;
   };
+
+  const scrollToServiceIndex = (index) => {
+    if (serviceCarouselRef.current) {
+      serviceCarouselRef.current.to(index, 300); 
+    }
+  };
+
+  useEffect(() => {
+    dispatch(fetchAllProducts({ search: debouncedSearch, serviceId: debouncedServiceId }));
+  }, [debouncedSearch, debouncedServiceId, dispatch]);
 
   return (
     <>
@@ -87,67 +86,57 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            {Array.isArray(allServices) && allServices.length > 0  && (
+            {/* {Array.isArray(allServices) && allServices.length > 0 && ( */}
               <OwlCarousel
+                ref={serviceCarouselRef}
                 className="owl-theme"
                 dots={false}
                 items={6}
                 margin={10}
                 nav={true}
                 responsive={{
-                  0: {
-                    items: 1, // 0px and up
-                  },
-                  481: {
-                    items: 2, // 0px and up
-                  },
-                  768: {
-                    items: 3, // 600px and up
-                  },
-                  992: {
-                    items: 4, // 600px and up
-                  },
-                  1200: {
-                    items: 6, // 1000px and up
-                  },
+                  0: { items: 1 },
+                  481: { items: 2 },
+                  768: { items: 3 },
+                  992: { items: 4 },
+                  1200: { items: 6 },
                 }}
               >
-                <>
+                <div
+                  className={`item ${serviceId == null ? `active-selected-service` : ``}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setServiceId(null);
+                    scrollToServiceIndex(0);
+                  }}
+                >
+                  <div className="servicelist package-image">
+                    <figure>
+                      <img crossOrigin="anonymous" src={Icon1} alt="All" />
+                    </figure>
+                    <p>All</p>
+                  </div>
+                </div>
+                {allServices.map((srv, index) => (
                   <div
-                    className={`item ${
-                      serviceId == null ? `active-selected-service` : ``
-                    }`}
-                    onClick={() => setServiceId(null)}
+                    key={srv.id}
+                    className={`item ${srv.id === serviceId ? `active-selected-service` : ``}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setServiceId(srv.id);
+                      scrollToServiceIndex(index + 1); // +1 because "All" is at index 0
+                    }}
                   >
                     <div className="servicelist package-image">
                       <figure>
-                        <img crossOrigin="anonymous" src={Icon1}></img>
+                        <img crossOrigin="anonymous" src={srv.image_url} alt={srv.name} />
                       </figure>
-                      <p>All</p>
+                      <p>{formatName(srv.name)}</p>
                     </div>
                   </div>
-                  {allServices.map((srv) => (
-                    <div
-                      key={srv.id}
-                      className={`item ${
-                        srv.id == serviceId ? `active-selected-service` : ``
-                      }`}
-                      onClick={() => setServiceId(srv.id)}
-                    >
-                      <div className="servicelist package-image">
-                        <figure>
-                          <img
-                            crossOrigin="anonymous"
-                            src={srv.image_url}
-                          ></img>
-                        </figure>
-                        <p>{formatName(srv.name)}</p>
-                      </div>
-                    </div>
-                  ))}
-                </>
+                ))}
               </OwlCarousel>
-            )}
+            {/* )} */}
           </div>
         </div>
 
@@ -207,9 +196,11 @@ function AllPakages() {
                 ))}
               </OwlCarousel>
             )}
-            {allPackages?.length==0 &&    <div className="col-12 text-center py-5">
-              <h5>No product found.</h5>
-            </div>}
+            {allPackages?.length == 0 && (
+              <div className="col-12 text-center py-5">
+                <h5>No product found.</h5>
+              </div>
+            )}
           </div>
         </div>
       </section>

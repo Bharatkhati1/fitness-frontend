@@ -107,3 +107,28 @@ border-radius: 3px;
     list-style: disc;
     text-align: start;
 }
+
+/* Add this to your CSS */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+  }
+  
+  .scroll-item {
+    flex: 0 0 auto;
+    width: 150px;
+    margin: 0 10px;
+    scroll-snap-align: center;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  
+  .scroll-item.active {
+    border-color: #4DC7A0;
+  }
+  

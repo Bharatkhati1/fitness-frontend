@@ -5,9 +5,6 @@ import Tagcircle from "../../../../../../public/assets/img/BannerCircle.svg";
 import ShapeLeft from "../../../../../../public/assets/img/bannerShapeLeft.png";
 import ShapeRight from "../../../../../../public/assets/img/bannerShapeRight.png";
 import wightLosssChart from "../../../../../../public/assets/img/about-us.svg";
-import SmartKichinImg1 from "../../../../../../public/assets/img/SmartKichinImg1.png";
-import SmartKichinImg2 from "../../../../../../public/assets/img/SmartKichinImg2.png";
-import SmartKichinImg3 from "../../../../../../public/assets/img/SmartKichinImg3.png";
 import VectorImg from "../../../../../../public/assets/img/vectorimg1.png";
 import ContactUs from "../../../../../../public/assets/img/contactUs.png";
 import MeetExperts from "../../../../../../public/assets/img/OurMeetExpertsImg.png";
@@ -31,7 +28,10 @@ import circleShapeLeft from "../../../../../../public/assets/img/circleShapeLeft
 import circleShapeRight from "../../../../../../public/assets/img/circleShapeRight.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getKitchenData } from "../../../../../store/auth/AuthExtraReducers";
+import {
+  getKitchenData,
+  sendInquiry,
+} from "../../../../../store/auth/AuthExtraReducers";
 import { useDispatch } from "react-redux";
 import EmailRequiredPopup from "../../EmailRequiredpopup";
 
@@ -42,13 +42,57 @@ function Home() {
     services = [],
     kitchenData = [],
     isLoggedIn,
+    contactUsDetails = {},
   } = useSelector((state) => state.auth);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    contactFor: [],
+  });
   const [sliders, setSliders] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleServiceToggle = (serviceName) => {
+    setFormData((prev) => {
+      const exists = prev.contactFor.includes(serviceName);
+      const updatedServices = exists
+        ? prev.contactFor.filter((s) => s !== serviceName)
+        : [...prev.contactFor, serviceName];
+      return { ...prev, contactFor: updatedServices };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      ...formData,
+      contactFor: formData.contactFor.join(", "),
+    };
+
+    await sendInquiry(payload);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      contactFor: [],
+    });
+  };
 
   const getSliders = async () => {
     try {
@@ -172,6 +216,7 @@ function Home() {
     dispatch(getKitchenData());
   }, []);
 
+  console.log(contactUsDetails);
   return (
     <>
       <EmailRequiredPopup
@@ -217,7 +262,12 @@ function Home() {
                         The Best in Town
                       </span>
                       <h1 className="mb-1">{slider.heading}</h1>
-                      <p className="owl-p">{slider.subHeading}</p>
+                      <p
+                        className="owl-p"
+                        dangerouslySetInnerHTML={{
+                          __html: slider.subHeading,
+                        }}
+                      ></p>
                       <ul className="ClientListinfo d-flex">
                         <li>
                           <div className="ClientInfo">
@@ -632,31 +682,36 @@ function Home() {
                   <li>
                     <img src={CallIcon}></img>
                     <span>
-                      <a href="tel:918839036035">(+91) 8839036035</a> .{" "}
-                      <a href="tel:919891775250">(+91) 9891775250</a>
+                      <a href={`tel:${contactUsDetails?.phone}`}>
+                        {contactUsDetails?.phone}
+                      </a>{" "}
+                      .{" "}
+                      <a href={`tel:${contactUsDetails?.phone}`}>
+                        9891775250
+                      </a>
                     </span>
                   </li>
                   <li>
                     <img src={MsgeIcon}></img>
-                    <a href="mailto:info@dailyfitness.ai">
-                      info@dailyfitness.ai
+                    <a href={`mailto:${contactUsDetails?.email}`}>
+                      {contactUsDetails?.email}
                     </a>
                   </li>
                 </ul>
 
                 <ul className="SoicalList">
                   <li>
-                    <a>
+                    <a href={`${contactUsDetails?.instagram}`}>
                       <img src={InstaIcon}></img>
                     </a>
                   </li>
                   <li>
-                    <a>
+                    <a href={`${contactUsDetails?.twitter}`}>
                       <img src={TwitterIcon}></img>
                     </a>
                   </li>
                   <li>
-                    <a>
+                    <a href={`${contactUsDetails?.youtube}`}>
                       <img src={YoutUbeIcon}></img>
                     </a>
                   </li>
@@ -667,75 +722,95 @@ function Home() {
               </figure>
             </div>
             <div className="col-md-6 GetIntouchRight">
-              <div className="PageTitle">
-                <h2>Get in touch</h2>
-              </div>
-              <div className="row GetIntouchRows">
-                <div className="col-md-6 mb-3">
-                  <label>First Name*</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your first name"
-                    className="form-control"
-                  ></input>
+              <form onSubmit={handleSubmit}>
+                <div className="PageTitle">
+                  <h2>Get in touch</h2>
                 </div>
-                <div className="col-md-6 mb-3">
-                  <label>Email ID*</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your email id"
-                    className="form-control"
-                  ></input>
-                </div>
-                <div className="col-md-6 mb-3">
-                  <label>Contact Number*</label>
-                  <div className="contactInput">
-                    <span>+91</span>
+                <div className="row GetIntouchRows">
+                  <div className="col-md-6 mb-3">
+                    <label>Name*</label>
                     <input
                       type="text"
-                      placeholder="Enter your contact number"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name"
                       className="form-control"
-                    ></input>
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label>Email ID*</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter your email id"
+                      className="form-control"
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label>Contact Number*</label>
+                    <div className="contactInput">
+                      <span>+91</span>
+                      <input
+                        type="number"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Enter your contact number"
+                        className="form-control"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-12 checklistBox">
+                    <label className="mb-3">You want to consult for :</label>
+                    <ul className="form-checkList d-flex flex-wrap">
+                      {allServices.map((service) => (
+                        <li key={service.id}>
+                          <div className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={`service-${service.id}`}
+                              checked={formData.contactFor.includes(service.id)}
+                              onChange={() => handleServiceToggle(service.id)}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={`service-${service.id}`}
+                            >
+                              {service.name}
+                            </label>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="col-md-12">
+                    <label>Message</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="form-control"
+                      placeholder="Type your message here"
+                      required
+                    />
+                  </div>
+                  <div className="col-md-12 text-center">
+                    <button
+                      type="submit"
+                      className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
-                <div className="col-md-12 checklistBox ">
-                  <label className="mb-3">You want to consult for :</label>
-                  <ul className="form-checkList d-flex">
-                    {allServices.map((service) => (
-                      <li>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckChecked"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="flexCheckChecked"
-                          >
-                            {service.name}
-                          </label>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="col-md-12">
-                  <label>Message</label>
-                  <textarea
-                    className="form-control"
-                    placeholder="Type your message here"
-                  ></textarea>
-                </div>
-
-                <div className="col-md-12 text-center">
-                  <button className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal">
-                    submit
-                  </button>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

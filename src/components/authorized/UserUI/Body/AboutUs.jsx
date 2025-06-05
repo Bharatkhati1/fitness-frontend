@@ -28,9 +28,11 @@ import { toast } from "react-toastify";
 import { webAxios } from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { useLocation } from "react-router-dom";
+import JoinCommunity from "./Modals/JoinCommunity";
 function AboutUs() {
   const location = useLocation();
   const [team, setTeam] = useState([]);
+  const [open, setOpen] = useState(false)
 
   const fetchAllTeam = async () => {
     try {
@@ -57,6 +59,7 @@ function AboutUs() {
   }, []);
   return (
     <>
+    <JoinCommunity setOpen={setOpen} open={open}/>
       <div className="AboutBanner innerSpace">
         <span className="BannerShape">
           <img src={shapeabout} />
@@ -110,7 +113,7 @@ function AboutUs() {
             <figcaption className="FitnessJourneyContent">
               <h4>empower your fitness journey with us</h4>
 
-              <a className="btn btn-primary hvr-shutter-out-horizontal">
+              <a onClick={()=> setOpen(true)} className="btn btn-primary hvr-shutter-out-horizontal">
                 join now
               </a>
 

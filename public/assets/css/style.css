@@ -322,6 +322,25 @@ header .navbar-collapse .nav-link.active {
   margin-bottom: 48px;
 }
 
+.bannerSectionLeft ul li {
+  position: relative;
+  padding-left: 24px; /* Leave space for the icon */
+  margin-bottom: 10px;
+}
+
+.bannerSectionLeft ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background-image: url("/assets/img/Vector.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
 .bannerSection .BannerBtn a {
   font-size: 18px;
   color: #fff !important;

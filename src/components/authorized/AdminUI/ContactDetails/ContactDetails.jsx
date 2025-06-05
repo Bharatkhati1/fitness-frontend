@@ -13,18 +13,20 @@ const ContactDetails = () => {
     facebook: '',
     linkedin: '',
     twitter: '',
+    youtube:"",
   });
 
   const onCancelEdit = () => {
     setIsEdit(false);
     setFormData({
-      email: 'example@gmail.com',
-      phone: '1234567890',
-      address: 'jaipur update',
-      instagram: 'insta',
-      facebook: 'facebook',
-      linkedin: 'linkedin',
-      twitter: 'twitter',
+      email: '',
+      phone: '',
+      address: '',
+      instagram: '',
+      facebook: '',
+      linkedin: '',
+      twitter: '',
+      youtube:"",
     });
   };
 
@@ -75,6 +77,7 @@ const ContactDetails = () => {
 
           <div className="card-body">
             <div className="row">
+
               {/* Email */}
               <div className="col-lg-6">
                 <div className="mb-3">
@@ -123,7 +126,7 @@ const ContactDetails = () => {
               </div>
 
               {/* Social Media */}
-              {['instagram', 'facebook', 'linkedin', 'twitter'].map((platform) => (
+              {['instagram', 'facebook', 'linkedin', 'twitter', 'youtube'].map((platform) => (
                 <div className="col-lg-6" key={platform}>
                   <div className="mb-3">
                     <label htmlFor={platform} className="form-label">
@@ -141,6 +144,7 @@ const ContactDetails = () => {
                   </div>
                 </div>
               ))}
+              
             </div>
           </div>
 

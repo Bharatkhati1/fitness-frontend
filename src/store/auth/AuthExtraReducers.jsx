@@ -213,3 +213,26 @@ export const fetchAllProducts = ({ search = '', serviceId } = {}) => {
   };
 };
 
+export const sendInquiry = async(data) => {
+    try {
+      const response = await webAxios.post(
+        userApiRoutes.send_inquiry, data
+      );
+      toast.success(response.data.message)
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to fetch packages");
+    }
+};
+
+export const getContactusDetails  = () => {
+  return async (dispatch) => {
+    try {
+      const response = await webAxios.get(userApiRoutes.get_contact_us_details);
+      dispatch(
+        authActions.setcontactusDetails(response.data.data)
+      );
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+};

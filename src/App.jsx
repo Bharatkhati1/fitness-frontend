@@ -14,18 +14,10 @@ import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
-import AboutUs from "./components/pages/AboutUs.jsx";
-import Blogs from "./components/pages/Blogs.jsx";
-import BlogDeatils from "./components/pages/BlogDeatils.jsx";
-import ContactUs from "./components/pages/ContactUs.jsx";
-import ServiceDetails from "./components/pages/ServiceDetails.jsx";
-import AllPakages from "./components/pages/AllPakages.jsx";
-import Smartkitchen from "./components/pages/Smartkitchen.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import BookAppoinment from "./components/pages/BookAppoinment.jsx";
 import BookAppoinmentdate from "./components/pages/BookAppoinmentdate.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
-import PackageDetails from "./components/pages/Diabetes.jsx";
 import Diabetes from "./components/pages/Diabetes.jsx";
 import AddToBag from "./components/pages/AddToBag.jsx";
 
@@ -45,12 +37,8 @@ const ProtectedRoute = ({
 
 const App = () => {
   const dispatch = useDispatch();
-  const {
-    isCheckingToken,
-    isLoggedIn,
-    userAccessToken,
-    adminAccessToken
-  } = useSelector((state) => state.auth);
+  const { isCheckingToken, isLoggedIn, userAccessToken, adminAccessToken } =
+    useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const isAdmin = pathname.includes("/admin");
 
@@ -80,7 +68,10 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="packageDetails" element={<Diabetes />} />
-          <Route path="DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
+          <Route
+            path="DiabetesHealthPakages"
+            element={<DiabetesHealthPakages />}
+          />
           <Route path="BookAppoinment" element={<BookAppoinment />} />
           <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
           <Route path="Testimonial" element={<Testimonial />} />
@@ -102,20 +93,14 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            <ProtectedRoute
-              condition={isAdminLogined}
-              redirectTo="/"
-            >
+            <ProtectedRoute condition={isAdminLogined} redirectTo="/">
               <AdminRoutes />
             </ProtectedRoute>
           }
         />
         <Route path="/*" element={<UserRoutes />} />
-        
       </Routes>
     </Suspense>
-
-    
   );
 };
 

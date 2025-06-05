@@ -16,10 +16,38 @@ import "slick-carousel/slick/slick-theme.css";
 import { toast } from "react-toastify";
 import { webAxios } from "../../utils/Api/userAxios.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
+import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
+import JoinCommunity from "../authorized/UserUI/Body/Modals/JoinCommunity.jsx";
 function Testimonial() {
   const [successStoriesTop, setSuccessStoriesTop] = useState([]);
   const [successStoriesBottom, setSuccessStoriesBottom] = useState([]);
+   const [open, setOpen] = useState(false)
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await sendInquiry(formData);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
   const fetchSuccessStories = async () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_success_stories);
@@ -41,6 +69,7 @@ function Testimonial() {
 
   return (
     <>
+    <JoinCommunity open={open} setOpen={setOpen}/>
       <section className="innerbanner blogbanner">
         <figure>
           <img src={testimonialsbanner} />
@@ -357,7 +386,7 @@ function Testimonial() {
           <div className="JoinNow text-center">
             <h4>"This could be your story. Start today."</h4>
 
-            <a className="btn btn-primary max-btn bg-white ">join now</a>
+            <a onClick={()=> setOpen(true)} className="btn btn-primary max-btn bg-white ">join now</a>
           </div>
         </div>
       </section>
@@ -373,42 +402,72 @@ function Testimonial() {
                   fitness.
                 </p>
                 <figure>
-                  <img src={usertouch}></img>
+                  <img src={usertouch} alt="user touch" />
                 </figure>
               </div>
               <div className="col-md-6">
-                <div className="row GetIntouchinnerright">
-                  <div className="col-md-6 mb-3">
-                    <label>First Name*</label>
-                    <input
-                      placeholder="Enter your first name "
-                      className="form-control greyin"
-                      type="text"
-                    />
+                <form onSubmit={handleSubmit}>
+                  <div className="row GetIntouchinnerright">
+                    <div className="col-md-6 mb-3">
+                      <label>Full Name*</label>
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter your full name"
+                        className="form-control greyin"
+                        type="text"
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <label>Phone Number*</label>
+                      <input
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Enter your phone number"
+                        className="form-control greyin"
+                        type="text"
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-12 mb-3">
+                      <label>Email ID*</label>
+                      <input
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
+                        className="form-control greyin"
+                        type="email"
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-12">
+                      <label>Message</label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="form-control greyin"
+                        placeholder="Type your message here"
+                      />
+                    </div>
+
+                    <div className="col-md-12 text-center">
+                      <button
+                        type="submit"
+                        className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
+                      >
+                        Submit your message
+                      </button>
+                    </div>
                   </div>
-                  <div className="col-md-6 mb-3"></div>
-                  <div className="col-md-6 mb-3">
-                    <label>Email ID*</label>
-                    <input
-                      placeholder="Enter your email id"
-                      className="form-control greyin"
-                      type="text"
-                    />
-                  </div>
-                  <div className="col-md-6 mb-3"></div>
-                  <div className="col-md-12">
-                    <label>Message</label>
-                    <textarea
-                      className="form-control greyin"
-                      placeholder="Type your message here"
-                    ></textarea>
-                  </div>
-                  <div className="col-md-12 text-center">
-                    <button class="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal">
-                      submit your message
-                    </button>
-                  </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
