@@ -358,9 +358,6 @@ header .navbar-collapse .nav-link.active {
   position: relative;
 }
 
-.bannerSectionInner {
-  margin-bottom: -10px;
-}
 
 .ClientInfo b {
   font-size: 30px;
@@ -470,6 +467,11 @@ body .heartBeatImg {
 
 .owl-p {
   font-size: 16px;
+  color: #1E1E1E;
+}
+
+.bannerSectionLeft ul li {
+   color: #1E1E1E;
 }
 
 .owl-dots .owl-dot.active span {
@@ -1138,16 +1140,14 @@ header .navbar-nav .nav-link.active:after {
   position: relative;
 }
 
-.bannerSectionInner figure:after {
+/* .bannerSectionInner figure:after {
   width: 470px;
   height: 470px;
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#efefef+0,ffffff+100 */
   background: linear-gradient(
     to bottom,
     rgba(239, 239, 239, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
   position: absolute;
   content: "";
@@ -1155,11 +1155,15 @@ header .navbar-nav .nav-link.active:after {
   left: 0px;
   z-index: 9;
   bottom: 85px;
-}
+} */
 
-.bannerSectionInner figure img {
+body .owl-carousel .owl-item .bannerSectionInner figure img {
   z-index: 99;
   position: relative;
+  margin:100px 0 30px;
+  height:670px;
+  width: 400px !important;
+  object-fit: cover;
 }
 
 header.sticky {
@@ -3102,16 +3106,6 @@ body .owl-carousel .owl-item .product-list figure img {
 .Diabetespageleft figure {
   position: relative;
 }
-.Diabetespageleft figure:after {
-  width: 72px;
-  height: 72px;
-  background: #800030;
-  position: absolute;
-  border-radius: 50%;
-  content: "";
-  left: 0;
-  bottom: 100px;
-}
 
 .pn-title {
   font-size: 45px;
@@ -3950,6 +3944,55 @@ ul.ourapproachlist li:after {
   font-size: 32px;
 }
 
+.MuktiBox {
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.MuktiBoxRight {
+  padding: 48px 0 40px;
+  text-align: center;
+}
+.MuktiBoxLeft {
+  position: absolute !important;
+  left: -38px;
+  top: -1px;
+  width: 50% !important;
+}
+.butterflyshape {
+  position: absolute;
+  right: 60px;
+  top: 8px;
+}
+
+.MuktiBoxRight h3 {
+  font-size: 33px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.MuktiBoxRight figure {
+  margin-bottom: 25px !important;
+}
+
+.MuktiBoxRight h4 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-family: "Voltaire", sans-serif !important;
+  font-weight: 400;
+}
+
+.MuktiBoxRight p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffffb5;
+}
+
+
 .Clientbefore figure img {
   height: 239px;
   object-fit: cover;
@@ -3970,3 +4013,4 @@ ul.ourapproachlist li:after {
 .note-editor .note-editing-area {
   height: 200px;
 }
+

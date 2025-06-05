@@ -49,7 +49,7 @@ const SuccessStories = () => {
     );
     try {
       let url = isEdit
-        ? adminApiRoutes.update_success_story(selectedSliderId)
+        ? adminApiRoutes.update_success_story(selectedSuccesStoryId)
         : adminApiRoutes.create_success_story;
 
       let response;
@@ -154,7 +154,7 @@ const SuccessStories = () => {
                   {/*Before image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Before Image {isEdit && `: ${beforeImage}`}
+                      Before Image {isEdit && `: ${succesStoryImage2}`}
                     </label>
                     <input
                       type="file"
@@ -170,7 +170,7 @@ const SuccessStories = () => {
                   {/* After image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      After Image {isEdit && `: ${beforeImage}`}
+                      After Image {isEdit && `: ${succesStoryImage1}`}
                     </label>
                     <input
                       type="file"
@@ -340,9 +340,9 @@ const SuccessStories = () => {
                                   window.scrollTo(0, 0);
                                   setSelectedSuccesStoryId(story.id);
                                   setDescription(story.description);
-                                  setAfterImage(story.afterImage);
-                                  setBeforeImage(story.beforeImage);
-                                  setSliderStatus(story.isActive);
+                                  setSuccesStoryImage1(story.afterImage);
+                                  setSuccesStoryImage2(story.beforeImage);
+                                  setsSuccesStoryStatus(story.isActive);
                                 }}
                               >
                                 <iconify-icon

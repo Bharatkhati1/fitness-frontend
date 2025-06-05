@@ -18,6 +18,7 @@ const TeamManagement = () => {
     const [isEdit, setIsEdit] = useState(false);
     const [allMembers, setAllMembers] = useState([]);
     const fileInputRef = useRef(null);
+    const selectedMemberIdRef = useRef(null);
   
     const fetchAllMembers = async () => {
       try {
@@ -70,9 +71,12 @@ const TeamManagement = () => {
   
     const deleteTeamMember = async () => {
       try {
-        await adminAxios.delete(adminApiRoutes.delete_team_member(selectedteamId));
+        const idToDelete = selectedMemberIdRef.current;
+        if (idToDelete) {
+        await adminAxios.delete(adminApiRoutes.delete_team_member(idToDelete));
         toast.success("Deleted Successfully");
         fetchAllMembers();
+        }
       } catch (error) {
         console.log(error);
         toast.error(error.response.data.message);
@@ -301,6 +305,7 @@ const TeamManagement = () => {
                                 <button
                                   className="btn btn-soft-primary btn-sm"
                                   onClick={() => {
+                                    window.scrollTo(0, 0);
                                     setIsEdit(true);
                                     setSelectedMemberId(team.id);
                                     setMemberName(team.name);
@@ -326,6 +331,7 @@ const TeamManagement = () => {
                                       icon="solar:trash-bin-minimalistic-2-broken"
                                       class="align-middle fs-18"
                                       onClick={() => {
+                                        selectedMemberIdRef.current = team.id;
                                         setSelectedMemberId(team.id);
                                       }}
                                     ></iconify-icon>
