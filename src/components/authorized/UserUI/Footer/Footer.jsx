@@ -3,18 +3,24 @@ import FooterLogo from "../../../../../public/assets/img/footerLogo.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
 import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
-import CallIcon from "../../../../../public/assets/img/callIcon.png"
-import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png"
+import CallIcon from "../../../../../public/assets/img/callIcon.png";
+import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png";
 import { Link } from "react-router-dom";
-import { getServicesForUser } from "../../../../store/auth/AuthExtraReducers";
+import {
+  getContactusDetails,
+  getServicesForUser,
+} from "../../../../store/auth/AuthExtraReducers";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 const Footer = () => {
- const dispatch = useDispatch();
- const { allServices=[] } = useSelector((state)=> state.auth)
+  const dispatch = useDispatch();
+  const { allServices = [], contactUsDetails = {} } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
-    dispatch(getServicesForUser())
+    dispatch(getServicesForUser());
+    dispatch(getContactusDetails());
   }, []);
   return (
     <footer className="">
@@ -35,17 +41,17 @@ const Footer = () => {
 
               <ul className="SoicalList mt-3">
                 <li>
-                  <a>
+                  <a href={`${contactUsDetails?.instagram}`}>
                     <img src={InstaIcon}></img>
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href={`${contactUsDetails?.twitter}`}>
                     <img src={TwitterIcon}></img>
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href={`${contactUsDetails?.youtube}`}>
                     <img src={YoutUbeIcon}></img>
                   </a>
                 </li>
@@ -58,11 +64,15 @@ const Footer = () => {
                 <h3>Services</h3>
 
                 <ul className="userlinks">
-                  {allServices.slice(0,8).map((service) => (
+                  {allServices.slice(0, 8).map((service) => (
                     <li>
-                      <Link to={`/service-details/${service.name
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}>{service.name}</Link>
+                      <Link
+                        to={`/service-details/${service.name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        {service.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -111,12 +121,14 @@ const Footer = () => {
                 <ul className="ContactInfoFooter">
                   <li>
                     <img src={CallIcon} />
-                    <a href="tel:8839036035">8839036035</a>
+                    <a href={`tel:${contactUsDetails?.phone}`}>
+                        {contactUsDetails?.phone}
+                      </a>{" "}
                   </li>
                   <li>
                     <img src={MesgIcon} />
-                    <a href="mailto:info@dailyfitness.ai">
-                      info@dailyfitness.ai
+                    <a href={`mailto:${contactUsDetails?.email}`}>
+                      {contactUsDetails?.email}
                     </a>
                   </li>
                 </ul>

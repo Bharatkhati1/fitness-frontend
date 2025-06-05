@@ -70,7 +70,11 @@ function PackageDetails() {
                     {plan.description && (
     <>
                     <span>Package description:</span>
-                    <p className="text-center">{plan.description}</p>
+                    <p className="text-center"
+                      dangerouslySetInnerHTML={{
+                        __html: plan?.description,
+                      }}
+                    ></p>
                     </>
                   )}
 

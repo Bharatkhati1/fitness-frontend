@@ -11,5 +11,6 @@ export const initialState = {
   services:[],
   kitchenData:[],
   kicthenCategories:[],
-  allPackages:[]
+  allPackages:[],
+  contactUsDetails:{},
 };

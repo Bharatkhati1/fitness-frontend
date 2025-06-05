@@ -34,4 +34,7 @@ export const reducers = {
   setAllPackages(state, action) {
     state.allPackages = action.payload;
   },
+  setcontactusDetails(state, action) {
+    state.contactUsDetails = action.payload;
+  },
 };

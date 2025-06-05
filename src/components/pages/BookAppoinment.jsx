@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
-import docterImg1 from "../../../public/assets/img/docterImg1.png";
-import docterImg2 from "../../../public/assets/img/docterImg2.png";
-import docterImg3 from "../../../public/assets/img/docterImg3.png";
 import { toast } from "react-toastify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../utils/Api/userAxios";

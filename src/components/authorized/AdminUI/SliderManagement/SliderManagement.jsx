@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import Ckeditor from "../CkEditor/Ckeditor.jsx";
 
 const SliderManagement = () => {
   const [sliderName, setSliderName] = useState("");
@@ -162,18 +163,14 @@ const SliderManagement = () => {
                 </div>
 
                 {/* Subheading */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="slider-subheading" className="form-label">
                       Slider SubHeading
                     </label>
-                    <input
-                      type="text"
-                      id="slider-subheading"
-                      className="form-control"
-                      placeholder="Enter subheading"
-                      value={sliderSubheading}
-                      onChange={(e) => setSliderSubheading(e.target.value)}
+                    <Ckeditor
+                      text={sliderSubheading}
+                      setText={(val) => setSliderSubheading(val)}
                     />
                   </div>
                 </div>
@@ -259,7 +256,7 @@ const SliderManagement = () => {
                     {sliders.length > 0 ? (
                       sliders.map((slider, index) => (
                         <tr key={index}>
-                          <td>{index+1}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <Link target="_blank" to={slider.image_url}>
                               {" "}
@@ -284,7 +281,11 @@ const SliderManagement = () => {
                           </td>
                           <td>{slider.name}</td>
                           <td>{slider.heading}</td>
-                          <td>{slider.subHeading}</td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: slider.subHeading,
+                            }}
+                          ></td>
                           <td>
                             <span
                               className={`badge ${
@@ -299,6 +300,7 @@ const SliderManagement = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedSliderId(slider.id);
                                   setSliderName(slider.name);
