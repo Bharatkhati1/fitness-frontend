@@ -353,6 +353,12 @@ header .navbar-collapse .nav-link.active {
   text-transform: uppercase;
   cursor: pointer;
 }
+.bookappoinmentl{
+  height: 100%;
+}
+.bookappoinmentl figure {
+  height: 100%;
+}
 
 .bannerSection {
   position: relative;
@@ -3262,7 +3268,7 @@ ul.Packagedescriptionlist {
 
 .bookappoinmentl figure img {
   width: 100%;
-  height: 419px;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
 }
