@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import searchIcon from "../../../public/assets/img/searchIcon.png";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -9,17 +9,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../store/auth/AuthExtraReducers.jsx";
 import { Link } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.jsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 function AllPakages() {
   const dispatch = useDispatch();
-  const { allPackages = [], allServices = [] } = useSelector((state) => state.auth);
+  const { allPackages = [], allServices = [] } = useSelector(
+    (state) => state.auth
+  );
 
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
-  const serviceCarouselRef = useRef();
 
   const debouncedSearch = useDebounce(search, 400);
   const debouncedServiceId = useDebounce(serviceId, 400);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 6 } },
+      { breakpoint: 992, settings: { slidesToShow: 4 } },
+      { breakpoint: 768, settings: { slidesToShow: 3 } },
+      { breakpoint: 481, settings: { slidesToShow: 2 } },
+      { breakpoint: 0, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   const formatName = (str) => {
     if (!str) return "";
@@ -31,12 +51,6 @@ function AllPakages() {
         .join(" ");
     }
     return str;
-  };
-
-  const scrollToServiceIndex = (index) => {
-    if (serviceCarouselRef.current) {
-      serviceCarouselRef.current.to(index, 300); 
-    }
   };
 
   useEffect(() => {
@@ -91,57 +105,49 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-            {/* {Array.isArray(allServices) && allServices.length > 0 && ( */}
-              <OwlCarousel
-                ref={serviceCarouselRef}
-                className="owl-theme"
-                dots={false}
-                items={6}
-                margin={10}
-                nav={true}
-                responsive={{
-                  0: { items: 1 },
-                  481: { items: 2 },
-                  768: { items: 3 },
-                  992: { items: 4 },
-                  1200: { items: 6 },
-                }}
-              >
-                <div
-                  className={`item ${serviceId == null ? `active-selected-service` : ``}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setServiceId(null);
-                    scrollToServiceIndex(0);
-                  }}
-                >
-                  <div className="servicelist package-image">
-                    <figure>
-                      <img crossOrigin="anonymous" src={Icon1} alt="All" />
-                    </figure>
-                    <p>All</p>
-                  </div>
-                </div>
+          <div
+              className={`item ${
+                serviceId == null ? "active-selected-service" : ""
+              }`}
+              style={{width:"175px", height:"fit-content"}}
+              onClick={(e) => {
+                setServiceId(null);
+              }}
+            >
+              <div className="servicelist package-image">
+                <figure>
+                  <img crossOrigin="anonymous" src={Icon1} alt="All" />
+                </figure>
+                <p>All</p>
+              </div>
+            </div>
+            {Array.isArray(allServices) && allServices.length > 0 && (
+              <Slider {...settings}  style={{width:"calc(100% - 175px)"}}>
                 {allServices.map((srv, index) => (
                   <div
                     key={srv.id}
-                    className={`item ${srv.id === serviceId ? `active-selected-service` : ``}`}
+                    className={`item ${
+                      srv.id === serviceId ? "active-selected-service" : ""
+                    }`}
+                   
                     onClick={(e) => {
-                      e.preventDefault();
                       setServiceId(srv.id);
-                      scrollToServiceIndex(index + 1); // +1 because "All" is at index 0
                     }}
                   >
                     <div className="servicelist package-image">
                       <figure>
-                        <img crossOrigin="anonymous" src={srv.image_url} alt={srv.name} />
+                        <img
+                          crossOrigin="anonymous"
+                          src={srv.image_url}
+                          alt={srv.name}
+                        />
                       </figure>
                       <p>{formatName(srv.name)}</p>
                     </div>
                   </div>
                 ))}
-              </OwlCarousel>
-            {/* )} */}
+              </Slider>
+            )}
           </div>
         </div>
 

@@ -55,7 +55,9 @@ const userApiRoutes = {
 
   send_inquiry:`/inquiry`,
 
-  get_contact_us_details:`/contact-us`
+  get_contact_us_details:`/contact-us`,
+
+  social_login:`/social-login`
   
 };
 

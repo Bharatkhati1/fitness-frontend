@@ -11,6 +11,8 @@ import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 import Header from "../authorized/UserUI/Header/Header";
 import Footer from "../authorized/UserUI/Footer/Footer";
+import { webAxios } from "../../utils/Api/userAxios";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
@@ -221,6 +223,19 @@ const LoginUser = () => {
     </form>
   );
 
+  const handleSocialLoginGoogle =async(data)=>{
+    try {
+      const payload ={
+        ...data,
+        profilePicture:data?.picture,
+        phoneNumber:"19283746509"
+      }
+      const res = await webAxios.post(userApiRoutes.social_login,  payload );
+      console.log(res.data.data)
+    } catch (error) {
+      toast.error(error.response.data.error)
+    }
+  }
   return (
     <>
       <Header />
@@ -307,10 +322,11 @@ const LoginUser = () => {
                           const decoded = jwtDecode(
                             credentialResponse.credential
                           );
+                          handleSocialLoginGoogle(decoded)
                           console.log("Decoded User:", decoded);
                         }}
                         onError={() => {
-                          console.log("Login Failed");
+                          toast.error("Login Failed: Server Error");
                         }}
                       />
                     </a>

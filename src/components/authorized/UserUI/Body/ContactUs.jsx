@@ -79,13 +79,14 @@ function ContactUs() {
                   <figcaption>
                     <h5>PHONE</h5>
                     <div className="textlink d-flex justify-content-center">
-                    <a href={`tel:${contactUsDetails?.phone}`}>
-                        {contactUsDetails?.phone}
-                      </a>{" "}
-                      .{" "}
-                      <a href={`tel:${contactUsDetails?.phone}`}>
-                        9891775250
-                      </a>
+                    {contactUsDetails?.phone &&
+                      contactUsDetails.phone.split(",").map((num, idx) => (
+                        <span key={idx} className="me-2">
+                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                          {idx < contactUsDetails.phone.split(",").length - 1 &&
+                            " . "}
+                        </span>
+                      ))}
                     </div>
                   </figcaption>
                 </div>

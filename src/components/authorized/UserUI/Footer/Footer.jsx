@@ -121,9 +121,12 @@ const Footer = () => {
                 <ul className="ContactInfoFooter">
                   <li>
                     <img src={CallIcon} />
-                    <a href={`tel:${contactUsDetails?.phone}`}>
-                        {contactUsDetails?.phone}
-                      </a>{" "}
+                    {contactUsDetails?.phone &&
+                      contactUsDetails.phone.split(",").map((num, idx) => (
+                        <span key={idx} className="me-1">
+                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                        </span>
+                      ))}
                   </li>
                   <li>
                     <img src={MesgIcon} />
@@ -156,13 +159,13 @@ const Footer = () => {
         <p>© {new Date().getFullYear()}. All rights reserved</p>
         <ul className="BottomFooterList d-flex">
           <li>
-            <a>Privacy Policy</a>
+            <Link to={"/privacy-policy"}>Privacy Policy</Link>
           </li>
           <li>
-            <a> Refund Policy</a>
+            <Link to={"/refund-policy"}> Refund Policy</Link>
           </li>
           <li>
-            <a> Cookie Settings</a>
+            <Link> Cookie Settings</Link>
           </li>
         </ul>
       </div>
