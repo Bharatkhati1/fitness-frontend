@@ -182,7 +182,7 @@ button:focus:not(:focus-visible) {
   height: 47px;
   border-radius: 0;
   color: #fff !important;
-  padding: 0 8px;
+  padding: 0 14px;
   border: 0;
   cursor: pointer;
 }
@@ -205,8 +205,8 @@ body .btn.btn-primary {
 }
 
 .SmartKichin .btn-info {
-  margin-top: 30px;
-  width: 35%;
+    margin-top: 50px;
+    width: 31%;
 }
 
 .PageTitle {
@@ -2909,26 +2909,29 @@ ul.userslink li a {
 .row.servicedetaillisting .col-md-6 {
   margin-bottom: 30px;
 }
-
+.allpakages .item{
+  padding:15px 0;
+}
 .servicelist p {
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: #1e1e1e;
   font-weight: 600;
       min-height: 48px;
-    display: flex
-;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 .servicelist {
+  cursor: pointer;
+      border: 2px solid transparent;
   box-shadow: 0 4px 14px rgb(0 0 0 / 10%);
   background: #f6edf094;
   text-align: center;
   justify-content: center;
   align-items: center;
   padding: 10px 2px;
-  margin-right: 10px;
+  margin:0 8px;
   border-radius: 10px;
 }
 
@@ -3491,8 +3494,10 @@ section.clientfeedback {
   display: inline-flex;
   text-align: center;
   flex-direction: column;
-  margin: 0 15px;
+ width: 100%;
 }
+
+.CleintSuccess .slick-slide{       padding: 0 15px;} 
 
 .CleintSuccess .slick-list {
   margin-bottom: 30px;
@@ -4008,6 +4013,42 @@ ul.ourapproachlist li:after {
 }
 .Clientbefore {
   width: 50%;
+}
+
+.getintouchinnerleft figure img {
+    width: 423px;
+    height: 282px;
+    border-radius: 33px;
+    object-fit: cover;
+}
+
+.WhyUs {
+    padding-top: 60px;
+    padding-bottom: 70px;
+}
+
+.WhyUsinner {
+    border-radius: 14px;
+    box-shadow: 0 4px 23px #00794652;
+    padding: 40px 20px 20px;
+}
+
+.WhyUsinner figure {
+    margin-bottom: 25px !important;
+}
+
+.WhyUsinner h4 {
+    font-size: 24px;
+    color: #007946;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.WhyUsinner p {
+    font-size: 16px;
+    color: rgb(0 0 0 / 90%);
+    font-weight: 400;
 }
 @media (max-width: 1400px) {
   .service-btn a {

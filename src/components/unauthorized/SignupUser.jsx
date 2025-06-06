@@ -33,7 +33,7 @@ function SignUpUser() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setNameError("")
+    setNameError("");
   };
 
   const handleSendOTP = async (e) => {
@@ -170,27 +170,30 @@ function SignUpUser() {
         <div className="col-md-6">
           <div className="fieldbox mb-3">
             <label>Your Whatsapp Number*</label>
-            <input
-              name="phoneNumber"
-              type="number"
-              className="form-control"
-              placeholder="Enter your number"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-            />
+            <div className="contactInput">
+              <span>+91</span>
+              <input
+                name="phoneNumber"
+                type="number"
+                className="form-control"
+                placeholder="Enter your number"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
         </div>
 
         <div className="col-md-6">
           <div className="fieldbox mb-3">
-            <label>Create a Password**</label>
+            <label>Create a Password*</label>
             <div className="withIcon">
               <input
                 name="password"
                 className="form-control"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="Atleast 8 characters"
                 value={formData.password}
                 onChange={handleChange}
                 required

@@ -44,6 +44,12 @@ import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
 
+import wuIcon1 from "../../../../../../public/assets/img/wuIcon-1.png";
+import wuIcon2 from "../../../../../../public/assets/img/wuIcon-2.png";
+import wuIcon3 from "../../../../../../public/assets/img/wuIcon-3.png";
+import wuIcon4 from "../../../../../../public/assets/img/wuIcon-4.png";
+import wuIcon5 from "../../../../../../public/assets/img/wuIcon-5.png";
+
 function Home() {
   const dispatch = useDispatch();
   const {
@@ -244,14 +250,12 @@ function Home() {
         <div className="circletagShapeBox">
           <img className="heartBeatImg" src={heartbeat} alt="" />
           <span className="circletagShape">
-            
             <img src={Tagcircle} />
           </span>
         </div>
         {sliders.length > 0 && (
           <OwlCarousel
             autoplay={false}
-           
             dots={true}
             items={1}
             className="owl-theme"
@@ -426,7 +430,7 @@ function Home() {
                                   to={`/service-details/${srv.name
                                     .toLowerCase()
                                     .replace(/\s+/g, "-")}`}
-                                  className="me-1 mb-1 btn btn-primary hvr-shutter-out-horizontal"
+                                  className=" mb-1 btn btn-primary hvr-shutter-out-horizontal"
                                 >
                                   Know more
                                 </Link>
@@ -469,7 +473,7 @@ function Home() {
         <div className="container">
           <div className="PageTitle text-center">
             <h2>
-              WHY CHOOSE US :<span>Empower Your Health</span>
+              What we Offer :<span>Empower Your Health</span>
             </h2>
             <p>
               Transform your wellness journey with expert guidance and
@@ -489,6 +493,80 @@ function Home() {
             muted
             playsInline
           />
+        </div>
+      </section>
+
+      <section className="WhyUs">
+        <div className="container">
+          <div className="PageTitle text-center">
+            <h2>why us ?</h2>
+            <p>
+              Transform your wellness journey with expert guidance and
+              personalized plans tailored just for you.
+            </p>
+          </div>
+          <div className="row justify-content-center g-4">
+            <div className="col-md-4 ">
+              <div className="WhyUsinner">
+                <figure>
+                  <img src={wuIcon1} />
+                </figure>
+                <h4>Personalized Care:</h4>
+                <p>
+                  Tailored solutions powered by AI and human expertise, designed
+                  to fit  your unique needs and lifestyle.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="WhyUsinner">
+                <figure>
+                  <img src={wuIcon2} />
+                </figure>
+                <h4>Accessibility:</h4>
+                <p>
+                  Tailored solutions powered by AI and human expertise, designed
+                  to fit  your unique needs and lifestyle.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="WhyUsinner">
+                <figure>
+                  <img src={wuIcon3} />
+                </figure>
+                <h4>Holistic Approach:</h4>
+                <p>
+                  Tailored solutions powered by AI and human expertise, designed
+                  to fit  your unique needs and lifestyle.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="WhyUsinner">
+                <figure>
+                  <img src={wuIcon4} />
+                </figure>
+                <h4>Empowering Community:</h4>
+                <p>
+                  Tailored solutions powered by AI and human expertise, designed
+                  to fit  your unique needs and lifestyle.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="WhyUsinner">
+                <figure>
+                  <img src={wuIcon5} />
+                </figure>
+                <h4>Proven Results:</h4>
+                <p>
+                  Tailored solutions powered by AI and human expertise, designed
+                  to fit  your unique needs and lifestyle.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

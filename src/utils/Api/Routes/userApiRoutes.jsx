@@ -57,7 +57,11 @@ const userApiRoutes = {
 
   get_contact_us_details:`/contact-us`,
 
-  social_login:`/social-login`
+  social_login:`/social-login`,
+
+  get_privacy_policy_details:`/cms-pages/privacy-policy`,
+
+  get_refund_policy_details:`/cms-pages/return-policy`
   
 };
 
