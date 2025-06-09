@@ -43,12 +43,7 @@ import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
 import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
-
-import wuIcon1 from "../../../../../../public/assets/img/wuIcon-1.png";
-import wuIcon2 from "../../../../../../public/assets/img/wuIcon-2.png";
-import wuIcon3 from "../../../../../../public/assets/img/wuIcon-3.png";
-import wuIcon4 from "../../../../../../public/assets/img/wuIcon-4.png";
-import wuIcon5 from "../../../../../../public/assets/img/wuIcon-5.png";
+import Whyus from "../Whyus";
 
 function Home() {
   const dispatch = useDispatch();
@@ -98,17 +93,16 @@ function Home() {
     const payload = {
       ...formData,
       contactFor: formData.contactFor.join(", "),
-      type:"inquiry"
+      type: "inquiry",
     };
 
     const phoneRegex = /^[6-9]\d{9}$/;
-    if (formData?.phone?.length!=0)
-      {
-        if(!phoneRegex.test(formData?.phone)){
-          toast.error("Please enter a valid 10-digit phone number");
+    if (formData?.phone?.length != 0) {
+      if (!phoneRegex.test(formData?.phone)) {
+        toast.error("Please enter a valid 10-digit phone number");
         return;
-        }
       }
+    }
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -506,81 +500,7 @@ function Home() {
           />
         </div>
       </section>
-
-      <section className="WhyUs">
-        <div className="container">
-          <div className="PageTitle text-center">
-            <h2>why us ?</h2>
-            <p>
-              Transform your wellness journey with expert guidance and
-              personalized plans tailored just for you.
-            </p>
-          </div>
-          <div className="row justify-content-center g-4">
-            <div className="col-md-4 ">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon1} />
-                </figure>
-                <h4>Personalized Care:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon2} />
-                </figure>
-                <h4>Accessibility:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon3} />
-                </figure>
-                <h4>Holistic Approach:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon4} />
-                </figure>
-                <h4>Empowering Community:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon5} />
-                </figure>
-                <h4>Proven Results:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <Whyus />
       <section className="SmartKichin">
         <div className="container">
           <div className="PageTitle text-center">
@@ -979,4 +899,3 @@ function Home() {
   );
 }
 export default Home;
-``;

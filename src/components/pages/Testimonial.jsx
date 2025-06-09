@@ -18,6 +18,7 @@ import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
 import JoinCommunity from "../authorized/UserUI/Body/Modals/JoinCommunity.jsx";
+import Whyus from "../authorized/UserUI/Body/Whyus.jsx";
 function Testimonial() {
   const [successStoriesTop, setSuccessStoriesTop] = useState([]);
   const [successStoriesBottom, setSuccessStoriesBottom] = useState([]);
@@ -431,7 +432,7 @@ function Testimonial() {
           </div>
         </div>
       </section>
-
+      <Whyus/>
       <div className="getintouchmain">
         <div className="container">
           <div className="getintouchinner">

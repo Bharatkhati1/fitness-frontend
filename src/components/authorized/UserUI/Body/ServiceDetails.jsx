@@ -14,6 +14,7 @@ import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
 import ContactUs from "../../../../../public/assets/img/contactUs.png";
 import { Modal } from "antd";
 import { useSelector } from "react-redux";
+import Whyus from "./Whyus";
 
 function ServiceDetails() {
   const { slug } = useParams();
@@ -263,6 +264,7 @@ console.log(packages)
               )}
             </div>
           </div>
+          <Whyus/>
         </div>
       </section>
 
