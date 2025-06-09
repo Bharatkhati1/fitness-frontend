@@ -35,8 +35,8 @@ function AllPakages() {
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 6 } },
       { breakpoint: 992, settings: { slidesToShow: 4 } },
-      { breakpoint: 768, settings: { slidesToShow: 3 } },
-      { breakpoint: 481, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 481, settings: { slidesToShow: 1 } },
       { breakpoint: 0, settings: { slidesToShow: 1 } },
     ],
   };
@@ -105,16 +105,20 @@ function AllPakages() {
             <h4 className="mb-0">Browse By services</h4>
           </div>
           <div className="Browseservice">
-          <div
-              className={`item ${
-                serviceId == null ? "active-selected-service" : ""
-              }`}
-              style={{width:"175px", height:"fit-content"}}
+            <div
+              className={`item`}
+              style={{ width: "175px", height: "fit-content" }}
               onClick={(e) => {
                 setServiceId(null);
               }}
             >
-              <div className="servicelist package-image">
+              <div
+                className={`servicelist ${
+                  serviceId == null
+                    ? "servicelist  active-selected-service"
+                    : ""
+                }`}
+              >
                 <figure>
                   <img crossOrigin="anonymous" src={Icon1} alt="All" />
                 </figure>
@@ -122,19 +126,22 @@ function AllPakages() {
               </div>
             </div>
             {Array.isArray(allServices) && allServices.length > 0 && (
-              <Slider {...settings}  style={{width:"calc(100% - 175px)"}}>
+              <Slider {...settings} style={{ width: "calc(100% - 175px)" }}>
                 {allServices.map((srv, index) => (
                   <div
                     key={srv.id}
-                    className={`item ${
-                      srv.id === serviceId ? "active-selected-service" : ""
-                    }`}
-                   
+                    className={`item`}
                     onClick={(e) => {
                       setServiceId(srv.id);
                     }}
                   >
-                    <div className="servicelist package-image">
+                    <div
+                      className={`${
+                        srv.id === serviceId
+                          ? "active-selected-service servicelist package-image"
+                          : "servicelist package-image"
+                      }`}
+                    >
                       <figure>
                         <img
                           crossOrigin="anonymous"
@@ -209,7 +216,7 @@ function AllPakages() {
             )}
             {allPackages?.length == 0 && (
               <div className="col-12 text-center py-5">
-                <h5>No product found.</h5>
+                <h5>No product found.</h5> 
               </div>
             )}
           </div>

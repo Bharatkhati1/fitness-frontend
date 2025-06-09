@@ -124,6 +124,23 @@ function Testimonial() {
                   loop={true}
                   margin={20}
                   nav={true}
+                  responsive={{
+                    0: {
+                      items: 1, // 0px and up
+                    },
+                    481: {
+                      items: 1, // 0px and up
+                    },
+                    768: {
+                      items: 2, // 600px and up
+                    },
+                    992: {
+                      items: 3, // 600px and up
+                    },
+                    1200: {
+                      items: 3, // 1000px and up
+                    },
+                  }}
                 >
                   <div class="item">
                     <div className="clientcontentbg">
@@ -259,6 +276,36 @@ function Testimonial() {
             pauseOnHover
             pauseOnFocus={false}
             loop
+            responsive={[
+              {
+                breakpoint: 1199,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 991,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+               {
+                breakpoint: 575,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+            ]}
           >
             {successStoriesTop.map((successStory, i) => (
               <div key={i}>
@@ -294,7 +341,7 @@ function Testimonial() {
           </Slider>
 
           <Slider
-            infinite
+            infinites={true}
             autoplay
             autoplaySpeed={0}
             speed={9000}
@@ -307,6 +354,36 @@ function Testimonial() {
             pauseOnFocus
             rtl
             loop
+            responsive={[
+              {
+                breakpoint: 1199,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 991,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+                {
+                breakpoint: 575,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+            ]}
           >
             {successStoriesBottom.map((successStory, i) => (
               <div key={i}>

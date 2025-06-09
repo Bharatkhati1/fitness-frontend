@@ -765,9 +765,82 @@
     width: 315px !important;
     object-fit: fill;
   }
+
+  .addtobag .col-md-6 {
+    width: 50%;
+  }
+  .addtobag .col-md-5.ms-auto {
+    width: 47%;
+  }
+  .ordersummarylist .price-text {
+    font-size: 20px;
+  }
+
+  .ordersummarylist figure img {
+    width: 100px;
+    height: 100px;
+  }
+  .discoutBox input.form-control {
+    font-size: 15px;
+  }
+
+  .Pricebrnkdownlist li span {
+    font-size: 14px;
+  }
+
+  .Pricebrnkdownlist li b {
+    font-size: 14px;
+  }
+
+  .addtobaghead h4 {
+    font-size: 18px;
+  }
+  .testiuser figcaption h4 {
+    font-size: 16px;
+  }
+  .clientcontentbg > p {
+    min-height: 80px;
+  }
+
+  .clientcontentbg > p {
+    font-size: 12px;
+  }
+
+  .testiuser figure img {
+    height: 50px;
+  }
+
+  .clientcontentbg > p {
+    min-height: 75px;
+  }
+
+  .Browseservice .slick-prev {
+    left: -195px !important;
+  }
+
+  .WhyUsinner h4 {
+    font-size: 18px;
+  }
+
+  .WhyUsinner p {
+    font-size: 14px;
+  }
+
+  .WhyUsinner {
+    height: 100%;
+  }
 }
 
 @media (max-width: 991px) {
+  .clienttrusted {
+    padding-right: 0;
+    line-height: 0.1;
+  }
+
+  .clientcontentbg > p {
+    font-size: 13px;
+  }
+
   .ToolsPageBox:nth-child(odd) .row .col-md-8 {
     padding-left: 40px !important;
   }
@@ -1214,6 +1287,41 @@
     font-size: 14px;
     margin-bottom: 6px;
   }
+  .addtobag .col-md-6 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .addtobag .col-md-5.ms-auto {
+    width: 100%;
+  }
+
+  .clienttrusted {
+    font-size: 24px;
+  }
+
+  .clienttrusted {
+    padding-right: 20px;
+  }
+
+  .clienttrusted img {
+    width: 112px;
+  }
+  .JoinNow h4 {
+    font-size: 32px;
+  }
+
+  .clientafterbefore {
+    padding: 22px 20px 15px;
+  }
+  .CleintSuccess:after {
+    width: 400px;
+    height: 400px;
+  }
+
+  section.WhyUs .col-md-4 {
+    width: 50%;
+}
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1594,6 +1702,47 @@
     object-fit: fill;
     margin-left: auto;
   }
+
+  .Clientbefore figure img {
+    height: 150px;
+  }
+
+  .clientafterbefore {
+    padding: 15px 10px 15px;
+  }
+
+  .Clientbefore h4 {
+    font-size: 14px;
+  }
+
+  .clientafterbeforetitle {
+    font-size: 14px;
+  }
+  .JoinNow h4 {
+    font-size: 24px;
+  }
+
+  .clientfeedbackslider {
+    margin-left: 0;
+  }
+
+  .col-md-4.clientfeedbackleft {
+    text-align: center;
+  }
+
+  .col-md-4.clientfeedbackleft figure img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .clienttrusted {
+    padding-right: 0;
+    margin-top: -10px;
+  }
+
+  .InnerPageTitle.mb-xxl-4.col-xl-3.col-2 {
+    width: 100%;
+  }
 }
 
 @media (max-width: 575px) {
@@ -1876,6 +2025,27 @@
   .row.GetIntouchRows {
     padding-bottom: 30px;
   }
+
+  .ordersummarylist figcaption h4 {
+    font-size: 16px;
+  }
+
+  .clientfeedbackslider .owl-carousel:after {
+    display: none;
+  }
+
+  .clientfeedbackslider .owl-carousel.owl-theme {
+    width: 75%;
+  }
+
+  .productslists .owl-carousel.owl-theme {
+    width: 85%;
+  }
+
+  section.WhyUs .col-md-4 {
+    width: 90%;
+    margin: 20px auto;
+}
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2229,5 +2399,71 @@
   }
   .col-md-6.OurHealthBlogContent {
     margin-bottom: 25px;
+  }
+  .ordersummarylist figcaption h4 {
+    font-size: 14px;
+  }
+
+  .ordersummarylist .price-text {
+    font-size: 18px;
+  }
+
+  .ordersummarylist figure img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .Deleteicon img {
+    width: 11px;
+  }
+
+  .addtobabody {
+    padding: 30px 20px;
+  }
+
+  .discoutBox {
+    flex-wrap: wrap;
+  }
+
+  .discoutBox input.form-control {
+    margin-right: 0;
+    flex: inherit;
+    margin-bottom: 10px;
+  }
+  button.applybtn {
+    font-size: 14px;
+    height: 44px;
+  }
+
+  button.applybtn {
+    width: 100%;
+  }
+
+  .CleintSuccess:after {
+    width: 250px;
+    height: 250px;
+  }
+
+  .clienttrusted {
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .clientfeedback .InnerPageTitle {
+    text-align: center;
+  }
+  .JoinNow {
+    margin-top: 35px;
+    padding: 0 20px;
+  }
+
+  .JoinNow h4 {
+    font-size: 22px;
+  }
+
+  .col-md-4.clientfeedbackleft figure img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
   }
 }
