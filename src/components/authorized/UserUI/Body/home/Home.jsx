@@ -17,7 +17,7 @@ import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
-import { webAxios } from "../../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../../utils/constants";
 import userApiRoutes from "../../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import OwlCarousel from "react-owl-carousel";
@@ -51,6 +51,7 @@ function Home() {
     services = [],
     kitchenData = [],
     isLoggedIn,
+    user,
     contactUsDetails = {},
   } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
@@ -91,13 +92,17 @@ function Home() {
     const payload = {
       ...formData,
       contactFor: formData.contactFor.join(", "),
+      type:"inquiry"
     };
-    
+
     const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      toast.error("Please enter a valid 10-digit phone number");
-      return;
-    }
+    if (formData?.phone?.length!=0)
+      {
+        if(!phoneRegex.test(formData?.phone)){
+          toast.error("Please enter a valid 10-digit phone number");
+        return;
+        }
+      }
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -149,15 +154,17 @@ function Home() {
       return;
     }
 
-    const promise = webAxios.post(userApiRoutes.download_recipe(id));
+    const promise = webAxios.post(userApiRoutes.download_recipe(id), {
+      email: user?.email,
+    });
 
     toast.promise(promise, {
-      pending: "Downloading recipe...",
-      success: "Recipe downloaded successfully!",
+      pending: "Sending recipe to your email...",
+      success: "Recipe sent successfully!",
       error: {
         render({ data }) {
           return (
-            data?.response?.data?.message || "Failed to download : Server Error"
+            data?.response?.data?.message || "Failed to sent : Server Error"
           );
         },
       },
@@ -230,7 +237,6 @@ function Home() {
     dispatch(getKitchenData());
   }, []);
 
-
   return (
     <>
       <EmailRequiredPopup
@@ -249,7 +255,6 @@ function Home() {
         <div className="circletagShapeBox">
           <img className="heartBeatImg" src={heartbeat} alt="" />
           <span className="circletagShape">
-            
             <img src={Tagcircle} />
           </span>
         </div>
@@ -523,7 +528,7 @@ function Home() {
                     onClick={() => downloadRecipe(data.id)}
                     className="btn btn-primary hvr-shutter-out-horizontal"
                   >
-                    download recipe
+                    Get recipe
                   </button>
                 </figcaption>
               </div>
@@ -658,7 +663,8 @@ function Home() {
                 </figure>
                 <figcaption>
                   <span>
-                    {new Date(blog.createdAt).toLocaleDateString("en-GB")}
+                    {new Date(blog.createdAt).toLocaleDateString("en-GB")} .{" "}
+                    {blog.readTime || "2 min read"}
                   </span>
                   <Link
                     to={`/blog/${blog.title
@@ -671,12 +677,13 @@ function Home() {
               </div>
             ))}
           </div>
-          <div className="text-center btn-sec mt-4">
+          <div className="text-center ">
             <Link
               to={"/blogs"}
-              className="btn btn-primary s-btn hvr-shutter-out-horizontal"
+              style={{ width: "33%" }}
+              className="btn btn-info hvr-shutter-out-horizontal w-33"
             >
-              view All
+              view more
             </Link>
           </div>
         </div>
@@ -837,7 +844,6 @@ function Home() {
                         onChange={handleChange}
                         placeholder="Enter your contact number"
                         className="form-control"
-                        required
                       />
                     </div>
                   </div>

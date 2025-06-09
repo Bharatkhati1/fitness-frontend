@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import fulldocterImg from "../../../public/assets/img/fulldocterImg.png";
 import Calender from "../authorized/UserUI/Calender";
-import { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
 function BookAppoinmentdate() {

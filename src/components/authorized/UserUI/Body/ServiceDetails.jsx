@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { webAxios } from "../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import OwlCarousel from "react-owl-carousel";

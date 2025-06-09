@@ -4,7 +4,7 @@ import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import GoogleIcon from "../../../public/assets/img/GoogleIcon.png";
 import AppleIcon from "../../../public/assets/img/AppleIcon.png";
 import { useNavigate } from "react-router-dom";
-import userAxios, { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 import Header from "../authorized/UserUI/Header/Header";
@@ -29,7 +29,7 @@ function SignUpUser() {
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [nameError, setNameError] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,7 +38,7 @@ function SignUpUser() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setNameError("")
+    setNameError("");
   };
 
   const handleSendOTP = async (e) => {
@@ -150,9 +150,15 @@ function SignUpUser() {
               className="form-control"
               placeholder="Enter your full name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
               required
             />
+
             {nameError && <small className="text-danger">{nameError}</small>}
           </div>
         </div>
@@ -177,11 +183,16 @@ function SignUpUser() {
             <label>Your Whatsapp Number*</label>
             <input
               name="phoneNumber"
-              type="number"
+              type="text"
               className="form-control"
               placeholder="Enter your number"
               value={formData.phoneNumber}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
               required
             />
           </div>
@@ -296,9 +307,13 @@ function SignUpUser() {
         ...dataGoogle,
         profilePicture: dataGoogle?.picture,
       };
-      const { data } = await webAxios.post(userApiRoutes.social_login, payload, {
-        withCredentials: true,
-      });
+      const { data } = await webAxios.post(
+        userApiRoutes.social_login,
+        payload,
+        {
+          withCredentials: true,
+        }
+      );
 
       dispatch(
         authActions.loginUser({
@@ -315,7 +330,7 @@ function SignUpUser() {
         replace: true,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response.data.error);
     }
   };
@@ -337,18 +352,18 @@ function SignUpUser() {
                   <>
                     <span className="or-text">Or</span>
                     <div className="SocialUsers d-flex">
-                      <a className="mb-0" >
-                      <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                          const decoded = jwtDecode(
-                            credentialResponse.credential
-                          );
-                          handleSocialLoginGoogle(decoded);
-                        }}
-                        onError={() => {
-                          toast.error("Login Failed: Server Error");
-                        }}
-                      />
+                      <a className="mb-0">
+                        <GoogleLogin
+                          onSuccess={(credentialResponse) => {
+                            const decoded = jwtDecode(
+                              credentialResponse.credential
+                            );
+                            handleSocialLoginGoogle(decoded);
+                          }}
+                          onError={() => {
+                            toast.error("Login Failed: Server Error");
+                          }}
+                        />
                       </a>
                       <a className="mb-0" href="#">
                         <img src={AppleIcon} alt="Apple" />

@@ -14,7 +14,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { toast } from "react-toastify";
-import { webAxios } from "../../utils/Api/userAxios.jsx";
+import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
 import JoinCommunity from "../authorized/UserUI/Body/Modals/JoinCommunity.jsx";
@@ -28,6 +28,7 @@ function Testimonial() {
     email: "",
     phone: "",
     message: "",
+    type:"inquiry"
   });
 
   const handleChange = (e) => {
@@ -51,6 +52,7 @@ function Testimonial() {
       email: "",
       phone: "",
       message: "",
+      type:"inquiry"
     });
   };
   const fetchSuccessStories = async () => {
@@ -289,30 +291,6 @@ function Testimonial() {
                 </div>
               </div>
             ))}
-            {/* Show 1 fallback slide if stories < 4 to avoid layout glitches */}
-            {successStoriesTop.length < 4 && (
-              <div>
-                <div className="clientafterbefore">
-                  <div className="clientafterbeforeinner d-flex">
-                    <div className="Clientbefore text-center">
-                      <h4>before</h4>
-                      <figure>
-                        <img src="/fallback-before.jpg" alt="before" />
-                      </figure>
-                    </div>
-                    <div className="Clientbefore text-center">
-                      <h4>after</h4>
-                      <figure>
-                        <img src="/fallback-after.jpg" alt="after" />
-                      </figure>
-                    </div>
-                  </div>
-                  <h3 className="clientafterbeforetitle">
-                    "12 months natural transformation"
-                  </h3>
-                </div>
-              </div>
-            )}
           </Slider>
 
           <Slider
@@ -362,30 +340,6 @@ function Testimonial() {
               </div>
             ))}
 
-            {/* Show 1 fallback slide if stories < 4 to avoid layout glitches */}
-            {successStoriesBottom.length < 4 && (
-              <div>
-                <div className="clientafterbefore">
-                  <div className="clientafterbeforeinner d-flex">
-                    <div className="Clientbefore text-center">
-                      <h4>before</h4>
-                      <figure>
-                        <img src="/fallback-before.jpg" alt="before" />
-                      </figure>
-                    </div>
-                    <div className="Clientbefore text-center">
-                      <h4>after</h4>
-                      <figure>
-                        <img src="/fallback-after.jpg" alt="after" />
-                      </figure>
-                    </div>
-                  </div>
-                  <h3 className="clientafterbeforetitle">
-                    "12 months natural transformation"
-                  </h3>
-                </div>
-              </div>
-            )}
           </Slider>
 
           <div className="JoinNow text-center">
@@ -440,7 +394,6 @@ function Testimonial() {
                         placeholder="Enter your phone number"
                         className="form-control greyin"
                         type="text"
-                        required
                       />
                     </div>
 

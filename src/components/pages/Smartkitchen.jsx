@@ -10,7 +10,7 @@ import searchIcon from "../../../public/assets/img/searchIcon.png";
 import kichinbanner from "../../../public/assets/img/kichinbanner.png";
 import leftp from "../../../public/assets/img/leftp.png";
 import leftR from "../../../public/assets/img/rightp.png";
-import { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import EmailRequiredPopup from "../authorized/UserUI/EmailRequiredpopup";

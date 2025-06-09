@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { webAxios } from "../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 

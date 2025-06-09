@@ -48,6 +48,7 @@ function ContactUs() {
     const payload = {
       ...formData,
       contactFor: formData.contactFor.join(", "),
+      type:"inquiry"
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formData.phone)) {
@@ -190,7 +191,6 @@ function ContactUs() {
                         placeholder="Enter your contact number"
                         className="form-control greyin"
                         type="tel"
-                        required
                       />
                     </div>
                   </div>

@@ -61,7 +61,15 @@ const userApiRoutes = {
 
   get_privacy_policy_details:`/cms-pages/privacy-policy`,
 
-  get_refund_policy_details:`/cms-pages/return-policy`
+  get_refund_policy_details:`/cms-pages/return-policy`,
+
+  get_cart_item:`/cart-items`,
+
+  add_to_cart:`/add-to-cart`,
+
+  remove_from_cart:(id)=>`/remove-cart-items/${id}`,
+
+  apply_coupon:`/apply-coupon`
   
 };
 

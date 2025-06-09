@@ -2,6 +2,7 @@ export const reducers = {
   loginUser(state, action) {
     state.isLoggedIn = action.payload.isLoggedIn;
     state.isAdmin = action.payload.isAdmin;
+    state.user = action.payload.user
   },
   setServices(state, action) {
     state.services = action.payload.services;
@@ -36,5 +37,8 @@ export const reducers = {
   },
   setcontactusDetails(state, action) {
     state.contactUsDetails = action.payload;
+  },
+  setCartItems(state, action) {
+    state.cartItems = action.payload;
   },
 };

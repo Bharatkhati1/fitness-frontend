@@ -3,6 +3,7 @@ export const initialState = {
   disableLoginButton: false,
   adminAccessToken: "",
   userAccessToken: "",
+  user:{},
   isCheckingToken: true,
   userDetails: {},
   adminDetails: {},
@@ -13,4 +14,5 @@ export const initialState = {
   kicthenCategories:[],
   allPackages:[],
   contactUsDetails:{},
+  cartItems:[],
 };

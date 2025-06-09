@@ -1,8 +1,8 @@
 import axios from "axios";
-import { GATEWAY_URL } from "../../utils/constants";
+import { GATEWAY_URL, webAxios } from "../../utils/constants";
 import { authActions } from "./index";
 import { toast } from "react-toastify";
-import userAxios, { webAxios } from "../../utils/Api/userAxios";
+import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
@@ -74,12 +74,12 @@ export const getAccessToken = (isAdmin) => {
           withCredentials: true,
         }
       );
-
       if (isAdmin) {
         dispatch(
           authActions.loginUser({
             isLoggedIn: true,
             isAdmin: isAdmin,
+            user: { ...data?.user },
           })
         );
         localStorage.setItem("isAdmin", isAdmin);
@@ -91,8 +91,10 @@ export const getAccessToken = (isAdmin) => {
           authActions.loginUser({
             isLoggedIn: true,
             isAdmin: isAdmin,
+            user: { ...data?.user },
           })
         );
+        dispatch(authActions.checkingUserToken(false));
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
@@ -144,7 +146,7 @@ export const logoutUser = (isUser) => {
         window.open("/login-user", "_self", false);
       } else {
         localStorage.removeItem("isAdmin");
-        window.open("/admin-login", "_self", false);
+        window.open("/admin", "_self", false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -159,7 +161,7 @@ export const getServicesForUser = () => {
     try {
       const response = await webAxios.get(userApiRoutes.get_services);
       const servicesData = response.data.data;
-      const chunkSize = 6;
+      const chunkSize = 9;
       const chunkedServices = [];
       for (let i = 0; i < servicesData.length; i += chunkSize) {
         chunkedServices.push(servicesData.slice(i, i + chunkSize));
@@ -257,7 +259,7 @@ export const handleSocialLoginGoogle = async (
   isAdmin = false
 ) => {
   return async (dispatch) => {
-    console.log("inside")
+    console.log("inside");
     try {
       if (!navigator.onLine) {
         toast.error("Please check your Internet Connection");
@@ -272,7 +274,7 @@ export const handleSocialLoginGoogle = async (
       };
       const { data } = await webAxios.post(userApiRoutes.social_login, payload);
 
-      console.log(data)
+      console.log(data);
       dispatch(
         authActions.loginUser({
           isLoggedIn: true,
@@ -287,6 +289,44 @@ export const handleSocialLoginGoogle = async (
       navigate("/", {
         replace: true,
       });
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+};
+
+export const AddToCart = (plainId) => {
+  return async (dispatch) => {
+    const toastId = toast.loading("Adding to cart...");
+    try {
+      const response = await userAxios.post(userApiRoutes.add_to_cart, {
+        subscriptionPlanId: plainId,
+        quantity: 1,
+      });
+
+      toast.update(toastId, {
+        render: "Added to cart successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.update(toastId, {
+        render: error?.response?.data?.message || "Failed to add to cart",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
+  };
+};
+
+export const fetchCartitems = async () => {
+  return async (dispatch) => {
+    try {
+      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      console.log(res.data.data)
+      dispatch(authActions.setCartItems(res.data.data||[]));
     } catch (error) {
       toast.error(error.response.data.error);
     }

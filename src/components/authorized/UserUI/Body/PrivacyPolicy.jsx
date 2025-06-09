@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { webAxios } from "../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 
 const PrivacyPolicy = () => {
