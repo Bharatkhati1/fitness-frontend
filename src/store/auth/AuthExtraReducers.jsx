@@ -33,6 +33,7 @@ export const Login = (userData, navigate, isAdmin = false) => {
           authActions.loginUser({
             isLoggedIn: true,
             isAdmin: isAdmin,
+            user: { ...data?.user },
           })
         );
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
@@ -42,6 +43,7 @@ export const Login = (userData, navigate, isAdmin = false) => {
           authActions.loginUser({
             isLoggedIn: true,
             isAdmin: isAdmin,
+            user: { ...data?.user },
           })
         );
         dispatch(authActions.setUserDetails({ ...data?.user }));
