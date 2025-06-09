@@ -39,7 +39,6 @@ function SignUpUser() {
       [name]: type === "checkbox" ? checked : value,
     }));
     setNameError("");
-    setNameError("");
   };
 
   const handleSendOTP = async (e) => {
