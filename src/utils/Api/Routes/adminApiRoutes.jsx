@@ -71,7 +71,10 @@ const adminApiRoutes = {
 
     //POLICIES ROUTES
     get_policy_details:(slug)=>`/cms/${slug}`,
-    update_policy:(id)=>`/cms/${id}`
+    update_policy:(id)=>`/cms/${id}`,
+
+    //INQUIRIES ROUTES
+    get_all_inquiry:(type)=>`/inquiries/${type}`
 
   };
   

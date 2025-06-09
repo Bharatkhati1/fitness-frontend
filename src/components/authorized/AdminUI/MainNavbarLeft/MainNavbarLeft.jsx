@@ -37,7 +37,15 @@ const NavItems = [
   { id: 9, name: "Contact Details", path: "contact-details" },
   { id: 10, name: "Privacy Policy", path: "privacy-policy" },
   { id: 11, name: "Return Policy", path: "return-policy" },
-  { id: 11, name: "Inquiries", path: "inquiry" },
+  {
+    id: 12,
+    name: "Inquiries",
+    path: "inquiries",
+    subMenu: [
+      { name: "Community", path: "community" },
+      { name: "Inquiry", path: "inquiry" },
+    ],
+  },
 ];
 
 const MainNavbarLeft = () => {

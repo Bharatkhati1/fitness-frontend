@@ -15,7 +15,7 @@ import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateU
 import ContactDetails from "../authorized/AdminUI/ContactDetails/ContactDetails";
 import PrivacyPolicy from "../authorized/AdminUI/Policies/PrivacyPolicy";
 import ReturnPolicy from "../authorized/AdminUI/Policies/ReturnPolicy";
-import Inquiry from "../authorized/AdminUI/Inquiry/Inquiry";
+import InquiresMain from "../authorized/AdminUI/Inquiry";
 
 export default function AdminRoutes() {
   return (
@@ -34,7 +34,7 @@ export default function AdminRoutes() {
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="return-policy" element={<ReturnPolicy />} />
           <Route path="consultants" element={<Consultants />} />
-          <Route path="inquiry" element={<Inquiry />} />
+          <Route path="inquiries/*" element={<InquiresMain/>} />
           <Route path="contact-details" element={<ContactDetails />} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
           <Route path="*" element={<Navigate replace to="/admin/slider-management" />} />
