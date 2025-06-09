@@ -40,6 +40,11 @@ function Testimonial() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
     await sendInquiry(formData);
     setFormData({
       name: "",

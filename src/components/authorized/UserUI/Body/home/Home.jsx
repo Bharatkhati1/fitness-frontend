@@ -99,6 +99,11 @@ function Home() {
       contactFor: formData.contactFor.join(", "),
     };
 
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -231,7 +236,6 @@ function Home() {
     dispatch(getKitchenData());
   }, []);
 
-  console.log(contactUsDetails);
   return (
     <>
       <EmailRequiredPopup
@@ -967,3 +971,4 @@ function Home() {
   );
 }
 export default Home;
+``;

@@ -24,6 +24,11 @@ const JoinCommunity = ({ open, setOpen }) => {
     e.preventDefault();
     try {
       setLoading(true);
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(formData.phone)) {
+        toast.error("Please enter a valid 10-digit phone number");
+        return;
+      }
       await sendInquiry(formData);
       setFormData({ name: "", email: "", phone: "" });
       setOpen(false);
@@ -43,7 +48,7 @@ const JoinCommunity = ({ open, setOpen }) => {
     <Modal
       open={open}
       onCancel={handleCancel}
-      footer={null}  // Remove default footer buttons
+      footer={null} // Remove default footer buttons
       className="custom-modal"
       centered
     >
@@ -54,10 +59,12 @@ const JoinCommunity = ({ open, setOpen }) => {
       <div className="modalbody">
         <p>
           Make fitness a way of life by availing yourself of free access to
-          regular health and fitness updates through newsletters and our
-          vibrant social media health community.
+          regular health and fitness updates through newsletters and our vibrant
+          social media health community.
           <br />
-          <span>Staying informed helps you stay fitter in your day-to-day life.</span>
+          <span>
+            Staying informed helps you stay fitter in your day-to-day life.
+          </span>
         </p>
 
         <form onSubmit={handleSubmit}>
