@@ -13,9 +13,12 @@ import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement"
 import Consultants from "../authorized/AdminUI/Consultants/Consultants";
 import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateUpdatePackage";
 import CompanySetting from "../authorized/AdminUI/CompanySettings/index"
+import Innovation from "../authorized/AdminUI/Innovation/index"
+import NewsAndMedia from "../authorized/AdminUI/NewsAndMedia/index"
 import InquiresMain from "../authorized/AdminUI/Inquiry";
 import PartnersManagement from "../authorized/AdminUI/Partners";
 import Careers from "../authorized/AdminUI/Careers/Careers";
+import EventManagement from "../authorized/AdminUI/Events/index"
 
 export default function AdminRoutes() {
   return (
@@ -32,7 +35,10 @@ export default function AdminRoutes() {
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="smart-kitchen/*" element={<SmartKitchen />} />
           <Route path="consultants" element={<Consultants />} />
+          <Route path="innovation/*" element={<Innovation />} />
           <Route path="company-settings/*" element={<CompanySetting />} />
+          <Route path="news-media/*" element={<NewsAndMedia />} />
+          <Route path="event-management/*" element={<EventManagement />} />
           <Route path="partner-management/*" element={<PartnersManagement />} />
           <Route path="careers" element={<Careers />} />
           <Route path="inquiries/*" element={<InquiresMain/>} />

@@ -20,6 +20,9 @@ import AddToBag from "../pages/AddToBag";
 import { useSelector } from "react-redux";
 import PrivacyPolicy from "../authorized/UserUI/Body/PrivacyPolicy";
 import RefundPolicy from "../authorized/UserUI/Body/RefundPolicy";
+import NewsAndMedia from "../authorized/UserUI/Body/NewsMedia/NewsAndMedia";
+import NewsAndMediaDetails from "../authorized/UserUI/Body/NewsMedia/NewsAndMediaDetails";
+import BusinessParthner from "../pages/BusinessParthner";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -37,6 +40,9 @@ export default function UserRoutes() {
             <Route path="/" element={<Home />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blog/:slug" element={<BlogsDetails />} />
+            <Route path="/news-media" element={<NewsAndMedia />} />
+            <Route path="/news-media/:slug" element={<NewsAndMediaDetails />} />
+            <Route path="/bussiness-partners" element={<BusinessParthner />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/service-details/:slug" element={<ServiceDetails />} />
             <Route path="/about-us" element={<AboutUs />} />

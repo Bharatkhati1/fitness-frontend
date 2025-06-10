@@ -21,7 +21,7 @@ export default function AddToBag() {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
     } catch (error) {
-      toast.error(error.response?.data?.error || "Server Error");
+      console.log(error)
     }
   };
 
@@ -48,13 +48,12 @@ export default function AddToBag() {
 
   const handlePayment = async () => {
     try {
-      // 1. Create Razorpay order
-      const res = await userAxios.post(userApiRoutes.create_order, {
-        amount: total * 100,
+      const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
+        amount: total,
       });
 
-      const { order_id, amount, currency } = res.data;
-
+      const { orderId, amount, currency } = res.data.data;
+      console.log("orde details",orderId, amount, currency)
       const options = {
         key: "rzp_test_ENoX7bkuXjQBZc",
         amount,
@@ -62,10 +61,11 @@ export default function AddToBag() {
         name: "Smart Health",
         description: "Service Purchase",
         image: "/assets/img/logo.png",
-        order_id,
+        order_id:orderId,
         handler: async function (response) {
           try {
-            const verifyRes = await userAxios.post(userApiRoutes.verify_payment, {
+            console.log("after payment response:",response)
+            const verifyRes = await userAxios.post(userApiRoutes.cart_checkout, {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
@@ -89,6 +89,7 @@ export default function AddToBag() {
       const razor = new window.Razorpay(options);
       razor.open();
     } catch (error) {
+      console.log(error)
       toast.error(error.response?.data?.error || "Payment initiation failed!");
     }
   };

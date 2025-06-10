@@ -69,7 +69,11 @@ const userApiRoutes = {
 
   remove_from_cart:(id)=>`/remove-cart-items/${id}`,
 
-  apply_coupon:`/apply-coupon`
+  apply_coupon:`/apply-coupon`,
+
+  create_order_razorpay:`/payment-order`,
+
+  cart_checkout:`/checkout`
   
 };
 

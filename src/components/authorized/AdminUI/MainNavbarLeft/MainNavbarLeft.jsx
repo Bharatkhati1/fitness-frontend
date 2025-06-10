@@ -52,15 +52,43 @@ const NavItems = [
       { name: "Category", path: "category" },
     ],
   },
-  { id: 11, name: "Careers", path: "careers" },
   {
-    id: 12,
+    id: 11,
+    name: "Event management",
+    path: "event-management",
+    subMenu: [
+      { name: "Event", path: "event" },
+      { name: "Event Type", path: "type" },
+      { name: "Event Header", path: "header" },
+    ],
+  },
+  { id: 12, name: "Careers", path: "careers" },
+  {
+    id: 13,
+    name: "News and Media",
+    path: "news-media",
+    subMenu: [
+      { name: "Manage", path: "manage" },
+      { name: "Category", path: "category" },
+    ],
+  },
+  {
+    id: 14,
     name: "Company Settings",
     path: "company-settings",
     subMenu: [
       { name: "Contact Details", path: "contact-details" },
       { name: "Privacy Policy", path: "privacy-policy" },
       { name: "Return Policy", path: "return-policy" },
+    ],
+  },
+  {
+    id: 14,
+    name: "Innovation",
+    path: "innovation",
+    subMenu: [
+      { name: "Manage", path: "manage" },
+      { name: "Category", path: "category" },
     ],
   },
 ];
