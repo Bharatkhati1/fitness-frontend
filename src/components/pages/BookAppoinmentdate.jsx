@@ -6,9 +6,8 @@ import Calender from "../authorized/UserUI/Calender";
 import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-function BookAppoinmentdate() {
-  const { slug, encodedId } = useParams();
-  const [consultant, setConsultant] = useState(null);
+function BookAppoinmentdate({consultant}) {
+  const { encodedId } = useParams();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -21,23 +20,7 @@ function BookAppoinmentdate() {
     toast.error("Invalid consultant ID");
   }
 
-  useEffect(() => {
-    if (id) {
-      fetchConsultantDetails();
-    }
-  }, [id]);
-
-  const fetchConsultantDetails = async () => {
-    try {
-      const response = await webAxios.get(
-        userApiRoutes.get_package_consultants(id)
-      );
-      setConsultant(response.data.data);
-    } catch (error) {
-      toast.error(error?.response?.data?.error || "Failed to load consultant");
-    }
-  };
-
+  console.log("consultant",consultant)
   const handleAppointment = () => {
     if (!selectedDate || !selectedTime || !contactNumber) {
       toast.error("Please fill all required fields");
@@ -52,7 +35,6 @@ function BookAppoinmentdate() {
       time: selectedTime,
       contact: contactNumber,
     });
-
     toast.success("Appointment Confirmed!");
   };
 
@@ -62,7 +44,7 @@ function BookAppoinmentdate() {
         <div className="row">
           <div className="col-md-4 badetailleft">
             <figure>
-              <img src={consultant?.image || fulldocterImg} alt="consultant" />
+              <img crossOrigin="anonymous" src={consultant?.image_url || fulldocterImg} alt="consultant" />
             </figure>
           </div>
 

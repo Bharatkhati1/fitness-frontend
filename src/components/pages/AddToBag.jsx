@@ -56,7 +56,7 @@ export default function AddToBag() {
       const { order_id, amount, currency } = res.data;
 
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID",
+        key: "rzp_test_ENoX7bkuXjQBZc",
         amount,
         currency,
         name: "Smart Health",
@@ -71,7 +71,6 @@ export default function AddToBag() {
               razorpay_signature: response.razorpay_signature,
             });
             toast.success("Payment successful!");
-            // Optional: Clear cart, redirect, etc.
             fetchCartitems();
           } catch (err) {
             toast.error("Payment verification failed!");

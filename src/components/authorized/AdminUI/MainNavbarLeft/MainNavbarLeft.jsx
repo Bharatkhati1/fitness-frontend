@@ -46,6 +46,16 @@ const NavItems = [
       { name: "Inquiry", path: "inquiry" },
     ],
   },
+  {
+    id: 13,
+    name: "Partner Management",
+    path: "partner-management",
+    subMenu: [
+      { name: "Partners", path: "partners" },
+      { name: "Category", path: "category" },
+    ],
+  },
+  { id: 14, name: "Careers", path: "careers" },
 ];
 
 const MainNavbarLeft = () => {

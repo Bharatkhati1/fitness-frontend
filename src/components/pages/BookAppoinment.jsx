@@ -40,7 +40,7 @@ function BookAppoinment() {
   }, [encodedId]);
 
   if (selectedConsultant) {
-    return <BookAppoinmentdate />;
+    return <BookAppoinmentdate consultant={selectedConsultant} />;
   }
   return (
     <>
@@ -92,7 +92,7 @@ function BookAppoinment() {
                       <p>{cons?.description}</p>
 
                       <a
-                        onClick={() => setSelectedConsultant("test")}
+                        onClick={() => setSelectedConsultant(cons)}
                         className="btn btn-primary max-width mt-2 hvr-shutter-out-horizontal"
                       >
                         make an appointment
