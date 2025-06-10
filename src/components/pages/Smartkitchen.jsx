@@ -206,7 +206,7 @@ function Smartkitchen() {
                     <h4>{item.name}</h4>
                     <p>{item.description}</p>
                     <a onClick={()=>downloadRecipe(item.id)} className="btn btn-primary xm-btn hvr-shutter-out-horizontal">
-                      get recipe
+                       Get to Download
                     </a>
                   </figcaption>
                 </div>

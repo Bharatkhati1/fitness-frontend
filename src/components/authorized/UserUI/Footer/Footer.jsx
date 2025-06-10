@@ -122,7 +122,7 @@ const Footer = () => {
                   <li>
                     <img src={CallIcon} />
                     {contactUsDetails?.phone &&
-                      contactUsDetails.phone.split(",").map((num, idx) => (
+                      contactUsDetails.phone.split(",").slice(0,1).map((num, idx) => (
                         <span key={idx} className="me-1">
                           <a href={`tel:${num.trim()}`}>{num.trim()}</a>
                         </span>

@@ -527,7 +527,7 @@ function Home() {
                     onClick={() => downloadRecipe(data.id)}
                     className="btn btn-primary hvr-shutter-out-horizontal"
                   >
-                    Get recipe
+                    Get to Download
                   </button>
                 </figcaption>
               </div>

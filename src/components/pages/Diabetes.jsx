@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AddToCart } from "../../store/auth/AuthExtraReducers";
 import { useSelector } from "react-redux";
+import userAxios from "../../utils/Api/userAxios";
+import { authActions } from "../../store/auth";
 
 function PackageDetails() {
   const { slug } = useParams();
@@ -15,8 +17,8 @@ function PackageDetails() {
   const dispatch = useDispatch();
   const [details, setDetails] = useState({});
   const {cartItems =[], isLoggedIn} = useSelector((state)=> state.auth)
-  
  const cartItemIds = cartItems?.map((item)=> item.subscriptionPlanId)
+
   const fetchPackageDetails = async () => {
     try {
       const response = await webAxios.get(
@@ -29,6 +31,16 @@ function PackageDetails() {
     }
   };
 
+  const fetchCartitems = async () => {
+    try {
+      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      dispatch(authActions.setCartItems(res?.data?.data));
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.error);
+    }
+  };
+
   useEffect(() => {
     fetchPackageDetails();
   }, [slug])
@@ -38,7 +50,8 @@ function PackageDetails() {
       toast.info("Please login first.")
       return;
     }
-    dispatch(AddToCart(plainId));
+    dispatch(AddToCart(plainId))
+    fetchCartitems()
   };
   return (
     <>
@@ -50,7 +63,7 @@ function PackageDetails() {
         <span className="daishaperight">
           <img src={shapeangelleft}></img>
         </span>
-      { details?  <div className="container">
+        {details?<div className="container">
           <div className="row align-items-center">
             <div className="col-md-5 Diabetespageleft">
               <figure>

@@ -28,8 +28,8 @@ export default function AddToBag() {
   const removeFromCart = async (id) => {
     try {
       const res = await userAxios.delete(userApiRoutes.remove_from_cart(id));
-      toast.success(res.data.message);
       fetchCartitems();
+      toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.error || "Server Error");
     }
@@ -47,6 +47,10 @@ export default function AddToBag() {
   };
 
   const handlePayment = async () => {
+    if(cartItems.length==0){
+      toast.error("No item in the cart !")
+      return;
+    }
     try {
       const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
         amount: total,
@@ -220,7 +224,7 @@ export default function AddToBag() {
                           </span>
                           <a
                             onClick={() => removeFromCart(item.id)}
-                            className="Deleteicon"
+                            className="Deleteicon cursor-pointer"
                           >
                             <img src={deleteicon} />
                           </a>
