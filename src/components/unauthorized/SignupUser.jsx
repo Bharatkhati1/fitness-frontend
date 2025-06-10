@@ -4,7 +4,7 @@ import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import GoogleIcon from "../../../public/assets/img/GoogleIcon.png";
 import AppleIcon from "../../../public/assets/img/AppleIcon.png";
 import { useNavigate } from "react-router-dom";
-import userAxios, { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 import Header from "../authorized/UserUI/Header/Header";
@@ -150,9 +150,15 @@ function SignUpUser() {
               className="form-control"
               placeholder="Enter your full name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
               required
             />
+
             {nameError && <small className="text-danger">{nameError}</small>}
           </div>
         </div>
@@ -176,16 +182,21 @@ function SignUpUser() {
           <div className="fieldbox mb-3">
             <label>Your Whatsapp Number*</label>
             <div className="contactInput">
-              <span>+91</span>
-              <input
-                name="phoneNumber"
-                type="number"
-                className="form-control"
-                placeholder="Enter your number"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-              />
+            <span>+91</span>
+            <input
+              name="phoneNumber"
+              type="text"
+              className="form-control"
+              placeholder="Enter your number"
+              value={formData.phoneNumber}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d{0,10}$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
+              required
+            />
             </div>
           </div>
         </div>

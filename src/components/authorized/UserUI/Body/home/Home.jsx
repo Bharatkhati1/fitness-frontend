@@ -17,7 +17,7 @@ import YoutUbeIcon from "../../../../../../public/assets/img/YoutubeIcon.png";
 
 import ContactLeft from "../../../../../../public/assets/img/ContactShAPe1.png";
 import ContactRight from "../../../../../../public/assets/img/ContactShAPe2.png";
-import { webAxios } from "../../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../../utils/constants";
 import userApiRoutes from "../../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import OwlCarousel from "react-owl-carousel";
@@ -43,12 +43,7 @@ import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
 import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
-
-import wuIcon1 from "../../../../../../public/assets/img/wuIcon-1.png";
-import wuIcon2 from "../../../../../../public/assets/img/wuIcon-2.png";
-import wuIcon3 from "../../../../../../public/assets/img/wuIcon-3.png";
-import wuIcon4 from "../../../../../../public/assets/img/wuIcon-4.png";
-import wuIcon5 from "../../../../../../public/assets/img/wuIcon-5.png";
+import Whyus from "../Whyus";
 
 function Home() {
   const dispatch = useDispatch();
@@ -57,6 +52,7 @@ function Home() {
     services = [],
     kitchenData = [],
     isLoggedIn,
+    user,
     contactUsDetails = {},
   } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
@@ -97,12 +93,15 @@ function Home() {
     const payload = {
       ...formData,
       contactFor: formData.contactFor.join(", "),
+      type: "inquiry",
     };
 
     const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      toast.error("Please enter a valid 10-digit phone number");
-      return;
+    if (formData?.phone?.length != 0) {
+      if (!phoneRegex.test(formData?.phone)) {
+        toast.error("Please enter a valid 10-digit phone number");
+        return;
+      }
     }
     await sendInquiry(payload);
     setFormData({
@@ -155,15 +154,17 @@ function Home() {
       return;
     }
 
-    const promise = webAxios.post(userApiRoutes.download_recipe(id));
+    const promise = webAxios.post(userApiRoutes.download_recipe(id), {
+      email: user?.email,
+    });
 
     toast.promise(promise, {
-      pending: "Downloading recipe...",
-      success: "Recipe downloaded successfully!",
+      pending: "Sending recipe to your email...",
+      success: "Recipe sent successfully!",
       error: {
         render({ data }) {
           return (
-            data?.response?.data?.message || "Failed to download : Server Error"
+            data?.response?.data?.message || "Failed to sent : Server Error"
           );
         },
       },
@@ -499,81 +500,7 @@ function Home() {
           />
         </div>
       </section>
-
-      <section className="WhyUs">
-        <div className="container">
-          <div className="PageTitle text-center">
-            <h2>why us ?</h2>
-            <p>
-              Transform your wellness journey with expert guidance and
-              personalized plans tailored just for you.
-            </p>
-          </div>
-          <div className="row justify-content-center g-4">
-            <div className="col-md-4 ">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon1} />
-                </figure>
-                <h4>Personalized Care:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon2} />
-                </figure>
-                <h4>Accessibility:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon3} />
-                </figure>
-                <h4>Holistic Approach:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon4} />
-                </figure>
-                <h4>Empowering Community:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="WhyUsinner">
-                <figure>
-                  <img src={wuIcon5} />
-                </figure>
-                <h4>Proven Results:</h4>
-                <p>
-                  Tailored solutions powered by AI and human expertise, designed
-                  to fit  your unique needs and lifestyle.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <Whyus />
       <section className="SmartKichin">
         <div className="container">
           <div className="PageTitle text-center">
@@ -600,7 +527,7 @@ function Home() {
                     onClick={() => downloadRecipe(data.id)}
                     className="btn btn-primary hvr-shutter-out-horizontal"
                   >
-                    download recipe
+                    Get recipe
                   </button>
                 </figcaption>
               </div>
@@ -735,7 +662,8 @@ function Home() {
                 </figure>
                 <figcaption>
                   <span>
-                    {new Date(blog.createdAt).toLocaleDateString("en-GB")}
+                    {new Date(blog.createdAt).toLocaleDateString("en-GB")} .{" "}
+                    {blog.readTime || "2 min read"}
                   </span>
                   <Link
                     to={`/blog/${blog.title
@@ -748,12 +676,13 @@ function Home() {
               </div>
             ))}
           </div>
-          <div className="text-center btn-sec mt-4">
+          <div className="text-center ">
             <Link
               to={"/blogs"}
-              className="btn btn-primary s-btn hvr-shutter-out-horizontal"
+              style={{ width: "33%" }}
+              className="btn btn-info hvr-shutter-out-horizontal w-33"
             >
-              view All
+              view more
             </Link>
           </div>
         </div>
@@ -914,7 +843,6 @@ function Home() {
                         onChange={handleChange}
                         placeholder="Enter your contact number"
                         className="form-control"
-                        required
                       />
                     </div>
                   </div>
@@ -971,4 +899,3 @@ function Home() {
   );
 }
 export default Home;
-``;

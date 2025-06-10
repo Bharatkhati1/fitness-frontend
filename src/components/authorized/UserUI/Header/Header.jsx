@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,14 +7,35 @@ import CartIcon from "../../../../../public/assets/img/carticon.png";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
+import { authActions } from "../../../../store/auth";
+import { toast } from "react-toastify";
+import userAxios from "../../../../utils/Api/userAxios";
+import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 
 const Header = () => {
-  const { userAccessToken } = useSelector((state) => state.auth);
+  const { userAccessToken,isLoggedIn} = useSelector((state) => state.auth);
   const {pathname } = useLocation()
   const dispatch = useDispatch();
+
+  const fetchCartitems = async () => {
+    try {
+      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      dispatch(authActions.setCartItems(res?.data?.data));
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.error);
+    }
+  };
+
   const handleLogout = () => {
     dispatch(logoutUser(true));
   };
+  useEffect(()=>{
+    if(isLoggedIn){
+      fetchCartitems()
+    }
+
+  },[])
   return (
     <header id="fixed-header" className="sticky">
       <div className="container">
@@ -54,9 +75,9 @@ const Header = () => {
               </Navbar.Collapse>
             </Navbar>
             <div className="Login-info d-flex align-items-center">
-              <a className="carticon">
+              <Link to={"/cart"} className="carticon">
                 <img src={CartIcon} />
-              </a>
+              </Link>
               {userAccessToken.length>0 ? (
                 <button onClick={() => handleLogout()} className="header-btn ">
                   Logout

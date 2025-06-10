@@ -9,6 +9,7 @@ const JoinCommunity = ({ open, setOpen }) => {
     name: "",
     email: "",
     phone: "",
+    type:"community"
   });
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +31,7 @@ const JoinCommunity = ({ open, setOpen }) => {
         return;
       }
       await sendInquiry(formData);
-      setFormData({ name: "", email: "", phone: "" });
+      setFormData({ name: "", email: "", phone: "", type:"community" });
       setOpen(false);
     } catch (error) {
       console.error(error);

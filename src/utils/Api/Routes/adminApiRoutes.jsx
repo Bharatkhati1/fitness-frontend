@@ -47,6 +47,12 @@ const adminApiRoutes = {
     update_team_member: (id) => `/teams/${id}`,
     delete_team_member: (id) => `/teams/${id}`,
 
+    //CAREER ROUTES
+    get_careers: "/jobs",
+    create_career: "/jobs",
+    update_career: (id) => `/jobs/${id}`,
+    delete_career: (id) => `/jobs/${id}`,
+
     //CONTACT DETAILS ROUTES
     get_contact_details:`/contact`,
     update_contact_details:`/contact`,
@@ -71,7 +77,10 @@ const adminApiRoutes = {
 
     //POLICIES ROUTES
     get_policy_details:(slug)=>`/cms/${slug}`,
-    update_policy:(id)=>`/cms/${id}`
+    update_policy:(id)=>`/cms/${id}`,
+
+    //INQUIRIES ROUTES
+    get_all_inquiry:(type)=>`/inquiries/${type}`
 
   };
   

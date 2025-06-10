@@ -11,7 +11,7 @@ import { GATEWAY_URL } from "../../utils/constants";
 import { toast } from "react-toastify";
 import Header from "../authorized/UserUI/Header/Header";
 import Footer from "../authorized/UserUI/Footer/Footer";
-import { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { authActions } from "../../store/auth";
 

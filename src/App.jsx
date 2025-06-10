@@ -22,6 +22,7 @@ import Diabetes from "./components/pages/Diabetes.jsx";
 import AddToBag from "./components/pages/AddToBag.jsx";
 import Careers from "./components/pages/Careers.jsx";
 import BusinessParthner from "./components/pages/BusinessParthner.jsx";
+import userAxios from "./utils/Api/userAxios.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -54,6 +55,7 @@ const App = () => {
 
   useEffect(() => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
+    // userAxios
   }, [isCheckingToken]);
 
   if (isCheckingToken) return <PageLoader />;
@@ -62,7 +64,7 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLogin />} />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/login-user" element={<LoginUser />} />
           <Route path="/SignUpUser" element={<SignUpUser />} />
@@ -80,7 +82,7 @@ const App = () => {
           <Route path="BookAppoinment" element={<BookAppoinment />} />
           <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
           <Route path="Testimonial" element={<Testimonial />} />
-          <Route path="AddToBag" element={<AddToBag />} />
+          {/* <Route path="AddToBag" element={<AddToBag />} /> */}
         </Routes>
       </Suspense>
     );
@@ -89,9 +91,6 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        {adminAccessToken.length == 0 && (
-          <Route path="/admin-login" element={<AdminLogin />} />
-        )}
         {userAccessToken.length == 0 && (
           <Route path="/login-user" element={<LoginUser />} />
         )}

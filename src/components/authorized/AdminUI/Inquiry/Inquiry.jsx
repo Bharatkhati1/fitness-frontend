@@ -1,7 +1,27 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
+import adminAxios from '../../../../utils/Api/adminAxios'
+import adminApiRoutes from '../../../../utils/Api/Routes/adminApiRoutes'
+import { toast } from 'react-toastify'
+import { useLocation } from 'react-router-dom'
 
 const Inquiry = () => {
-    const [Inquiries, setInquiries] = useState([])
+  const [inquiries, setInquiries] = useState([]);
+  const location = useLocation();
+
+  const type = location.pathname.split("/").pop();
+
+  const fetchInquiries = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_all_inquiry(type));
+      setInquiries(res.data.data);
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Server Error!");
+    }
+  };
+
+  useEffect(() => {
+    fetchInquiries();
+  }, [type]);
   return (
     <div className="row">
     <div className="col-xl-12">
@@ -22,20 +42,20 @@ const Inquiry = () => {
                 </tr>
               </thead>
               <tbody>
-                {Inquiries.length > 0 ? (
-                  Inquiries.map((item, index) => (
+                {inquiries.length > 0 ? (
+                  inquiries.map((item, index) => (
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td>{item?.name}</td>
                       <td>{item.email}</td>
-                      <td>{item?.phone}</td>
+                      <td>{item?.phome}</td>
                       <td>{item.message}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
                     <td colSpan="9" className="text-center">
-                      No Inquiry found.
+                      No data found.
                     </td>
                   </tr>
                 )}

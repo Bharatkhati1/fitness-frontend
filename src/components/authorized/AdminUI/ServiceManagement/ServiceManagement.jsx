@@ -170,6 +170,7 @@ const ServiceManagement = () => {
       await adminAxios.put(adminApiRoutes.update_service_order, {
         sequences: reordeObj,
       });
+      fetchAllServices();
       toast.success("Service order updated successfully");
     } catch (error) {
       console.error("Failed to update order:", error);

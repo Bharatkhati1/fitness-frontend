@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
-import { webAxios } from "../../utils/Api/userAxios";
+import { webAxios } from "../../utils/constants";
 import BookAppoinmentdate from "./BookAppoinmentdate";
 
 function BookAppoinment() {
@@ -40,7 +40,7 @@ function BookAppoinment() {
   }, [encodedId]);
 
   if (selectedConsultant) {
-    return <BookAppoinmentdate />;
+    return <BookAppoinmentdate consultant={selectedConsultant} />;
   }
   return (
     <>
@@ -92,7 +92,7 @@ function BookAppoinment() {
                       <p>{cons?.description}</p>
 
                       <a
-                        onClick={() => setSelectedConsultant("test")}
+                        onClick={() => setSelectedConsultant(cons)}
                         className="btn btn-primary max-width mt-2 hvr-shutter-out-horizontal"
                       >
                         make an appointment

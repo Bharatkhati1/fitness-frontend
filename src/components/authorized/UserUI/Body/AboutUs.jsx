@@ -25,7 +25,7 @@ import CofoundersIMG from "../../../../../public/assets/img/CofoundersIMG.png";
 import CofoundersIMG2 from "../../../../../public/assets/img/CofoundersIMG2.png";
 import trustedImg from "../../../../../public/assets/img/trustedImg.svg";
 import { toast } from "react-toastify";
-import { webAxios } from "../../../../utils/Api/userAxios";
+import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { useLocation } from "react-router-dom";
 import JoinCommunity from "./Modals/JoinCommunity";

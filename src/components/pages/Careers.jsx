@@ -57,7 +57,7 @@ function Careers() {
                   the right place.
                 </p>
 
-                <a className="btn btn-primary max-btn">Shape Lives With Us</a>
+                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">Shape Lives With Us</a>
               </div>
             </div>
 
