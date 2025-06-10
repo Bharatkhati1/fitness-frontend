@@ -4705,3 +4705,17 @@ ul.whyparthnerlist li {
     padding: 0;
     padding-right: 6px;
 }
+
+.userprofile  button#dropdown-basic {
+  background: transparent;
+}
+
+.userprofile .dropdown-toggle::after{ color: #000;}
+
+.userprofile .dropdown-menu a {
+  color: #000;
+}
+
+.userprofile .service-btn a {
+  min-width: auto !important;
+}
