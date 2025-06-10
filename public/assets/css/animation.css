@@ -204,7 +204,7 @@
 }
 
 .shapeImgLeft,
-.shapeImgRight,.heartBeatImg {
+.shapeImgRight,.heartBeatImg,.CarrerShape4 {
   animation-name: zoom-fade;
   animation-duration: 5s;
   animation-iteration-count: infinite;
@@ -227,7 +227,7 @@
   -o-animation-timing-function: linear;
 }
 
-.butterflyshape {
+.butterflyshape,.CarrerShape2,.CarrerShape3 {
   animation-name: float_up_down;
   animation-duration: 5s;
   animation-iteration-count: infinite;

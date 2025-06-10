@@ -20,6 +20,8 @@ import BookAppoinmentdate from "./components/pages/BookAppoinmentdate.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import Diabetes from "./components/pages/Diabetes.jsx";
 import AddToBag from "./components/pages/AddToBag.jsx";
+import Careers from "./components/pages/Careers.jsx";
+import BusinessParthner from "./components/pages/BusinessParthner.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -68,6 +70,9 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="packageDetails" element={<Diabetes />} />
+          <Route path="Careers" element={<Careers />} />
+          <Route path="BusinessParthner" element={<BusinessParthner />} />
+
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
