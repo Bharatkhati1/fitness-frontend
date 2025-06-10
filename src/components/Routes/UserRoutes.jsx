@@ -23,6 +23,7 @@ import RefundPolicy from "../authorized/UserUI/Body/RefundPolicy";
 import NewsAndMedia from "../authorized/UserUI/Body/NewsMedia/NewsAndMedia";
 import NewsAndMediaDetails from "../authorized/UserUI/Body/NewsMedia/NewsAndMediaDetails";
 import BusinessParthner from "../pages/BusinessParthner";
+import NotFound from "../authorized/NotFound";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -59,7 +60,8 @@ export default function UserRoutes() {
             <Route path="/testimonials" element={<Testimonial />} />
             <Route path="/tools/*" element={<Tools />} />
             <Route path="" element={<Home />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+            <Route path="/not-found" element={<NotFound/>}/>
+            <Route path="*" element={<Navigate replace to="/not-found" />} />
 
              {/* Protect routes  */}
             <Route

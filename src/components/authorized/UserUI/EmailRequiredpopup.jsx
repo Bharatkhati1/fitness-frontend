@@ -35,7 +35,7 @@ const EmailRequiredPopup = ({ visible, onClose, onGetRecipe }) => {
           />
         </Form.Item>
         <Button type="primary" block onClick={handleGetRecipe}>
-          Get Recipe
+          Get to Download
         </Button>
       </Form>
     </Modal>

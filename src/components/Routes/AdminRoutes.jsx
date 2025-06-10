@@ -19,6 +19,7 @@ import InquiresMain from "../authorized/AdminUI/Inquiry";
 import PartnersManagement from "../authorized/AdminUI/Partners";
 import Careers from "../authorized/AdminUI/Careers/Careers";
 import EventManagement from "../authorized/AdminUI/Events/index"
+import Coupon from "../authorized/AdminUI/Coupons/Coupon";
 
 export default function AdminRoutes() {
   return (
@@ -41,6 +42,7 @@ export default function AdminRoutes() {
           <Route path="event-management/*" element={<EventManagement />} />
           <Route path="partner-management/*" element={<PartnersManagement />} />
           <Route path="careers" element={<Careers />} />
+          <Route path="coupon" element={<Coupon />} />
           <Route path="inquiries/*" element={<InquiresMain/>} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
           <Route path="*" element={<Navigate replace to="/admin/slider-management" />} />
