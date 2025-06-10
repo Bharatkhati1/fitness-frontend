@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { toast } from "react-toastify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
-import { Placeholder } from "react-bootstrap";
+import ConfirmationPopup from "../../../Common/ConfirmationPopup.jsx"; // Assuming you have this
 
 const Manage = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,25 @@ const Manage = () => {
   const [image, setImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+
   const fileInputRef = useRef(null);
+  const selectedIdRef = useRef(null);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_all_categories);
+      setAllCategories(res.data.categories || []);
+      setCategories(res.data.categories || []);
+    } catch (error) {
+      toast.error("Failed to fetch categories.");
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,9 +53,7 @@ const Manage = () => {
     });
     if (image) data.append("image", image);
 
-    const toastId = toast.loading(
-      `${isEdit ? "Updating" : "Creating"} item...`
-    );
+    const toastId = toast.loading(`${isEdit ? "Updating" : "Creating"} item...`);
     try {
       const url = isEdit
         ? adminApiRoutes.update_manage_item(selectedId)
@@ -56,11 +72,10 @@ const Manage = () => {
       });
 
       onCancelEdit();
+      fetchCategories();
     } catch (error) {
       toast.update(toastId, {
-        render: `Failed to ${isEdit ? "update" : "create"} item. ${
-          error?.response?.data?.message
-        }`,
+        render: `Failed to ${isEdit ? "update" : "create"} item. ${error?.response?.data?.message || ""}`,
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -82,32 +97,35 @@ const Manage = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const deleteCategory = async () => {
+    try {
+      const res = await adminAxios.delete(
+        adminApiRoutes.delete_category(selectedIdRef.current)
+      );
+      toast.success(res.data.message);
+      fetchCategories();
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Delete failed");
+    }
+  };
+
   return (
     <>
+      {/* Form Section */}
       <div className="row">
         <div className="col-lg-12">
           <div className={`card ${isEdit ? "editing" : ""}`}>
             <div className="card-header d-flex justify-content-between">
-              <h4 className="card-title">
-                {isEdit ? "Edit Item" : "Create Item"}
-              </h4>
+              <h4 className="card-title">{isEdit ? "Edit Item" : "Create Item"}</h4>
               {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
             </div>
             <div className="card-body">
               <div className="row">
                 {[
-                  { label: "Title", name: "title", Placeholder: "Enter title" },
-                  {
-                    label: "Author",
-                    name: "author",
-                    Placeholder: "Enter author name",
-                  },
-                  {
-                    label: "Short Description",
-                    name: "shortDescription",
-                    Placeholder: "Enter short description",
-                  },
-                ].map(({ label, name, Placeholder }) => (
+                  { label: "Title", name: "title", placeholder: "Enter title" },
+                  { label: "Author", name: "author", placeholder: "Enter author name" },
+                  { label: "Short Description", name: "shortDescription", placeholder: "Enter short description" },
+                ].map(({ label, name, placeholder }) => (
                   <div className="col-lg-6" key={name}>
                     <div className="mb-3">
                       <label className="form-label">{label}</label>
@@ -115,7 +133,7 @@ const Manage = () => {
                         type="text"
                         className="form-control"
                         name={name}
-                        placeholder={Placeholder}
+                        placeholder={placeholder}
                         value={formData[name]}
                         onChange={handleInputChange}
                       />
@@ -123,7 +141,7 @@ const Manage = () => {
                   </div>
                 ))}
 
-                {/* Image  */}
+                {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Image</label>
@@ -137,16 +155,15 @@ const Manage = () => {
                   </div>
                 </div>
 
-                {/* Category */}
+                {/* Category Select */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Select Category</label>
                     <select
                       className="form-select"
+                      name="categoryId"
                       value={formData.categoryId}
-                      onChange={(e) =>
-                        handleChange("categoryId", e.target.value)
-                      }
+                      onChange={handleInputChange}
                     >
                       <option value="">Select category</option>
                       {allCategories.map((cat) => (
@@ -157,6 +174,8 @@ const Manage = () => {
                     </select>
                   </div>
                 </div>
+
+                {/* CKEditor */}
                 <div className="col-lg-12">
                   <div className="mb-3">
                     <label className="form-label">Long Description</label>
@@ -182,8 +201,9 @@ const Manage = () => {
           </div>
         </div>
       </div>
-            {/* Table */}
-            <div className="row mt-4">
+
+      {/* Table Section */}
+      <div className="row mt-4">
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -209,12 +229,10 @@ const Manage = () => {
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive == "1"
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                item.isActive === "1" ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {item.isActive == "1" ? "Active" : "Inactive"}
+                              {item.isActive === "1" ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
@@ -224,16 +242,14 @@ const Manage = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
-                                  setFormData({
-                                    name: item.name,
-                                    isActive: Number(item.isActive),
-                                  });
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    title: item.name,
+                                    categoryId: item.id,
+                                  }));
                                 }}
                               >
-                                <iconify-icon
-                                  icon="solar:pen-2-broken"
-                                  class="align-middle fs-18"
-                                ></iconify-icon>
+                                <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18" />
                               </button>
 
                               <ConfirmationPopup
@@ -244,10 +260,8 @@ const Manage = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() =>
-                                      (selectedIdRef.current = item.id)
-                                    }
-                                  ></iconify-icon>
+                                    onClick={() => (selectedIdRef.current = item.id)}
+                                  />
                                 }
                               />
                             </div>
