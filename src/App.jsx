@@ -23,6 +23,7 @@ import AddToBag from "./components/pages/AddToBag.jsx";
 import Careers from "./components/pages/Careers.jsx";
 import BusinessParthner from "./components/pages/BusinessParthner.jsx";
 import userAxios from "./utils/Api/userAxios.jsx";
+import Events from "./components/pages/Events.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -74,6 +75,7 @@ const App = () => {
           <Route path="packageDetails" element={<Diabetes />} />
           <Route path="Careers" element={<Careers />} />
           <Route path="BusinessParthner" element={<BusinessParthner />} />
+          <Route path="Events" element={<Events/>} />
 
           <Route
             path="DiabetesHealthPakages"

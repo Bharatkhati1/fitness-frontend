@@ -57,7 +57,9 @@ function Careers() {
                   the right place.
                 </p>
 
-                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">Shape Lives With Us</a>
+                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                  Shape Lives With Us
+                </a>
               </div>
             </div>
 
@@ -249,6 +251,7 @@ function Careers() {
               nav={true}
               margin={10}
               loop={true}
+             
             >
               <div className="item">
                 <div>
