@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Select } from "antd";
+import { Select, TimePicker } from "antd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import dayjs from "dayjs";
 
 const Consultants = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,8 @@ const Consultants = () => {
     description: "",
     fees: "",
     duration: "",
+    dailyStart: "",
+    dailyEnd: "",
     image: null,
     status: true,
   });
@@ -49,6 +52,13 @@ const Consultants = () => {
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleTimeChange = (name, time) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: time ? time.format("HH:mm:ss") : "",
+    }));
   };
 
   const handleSubmit = async () => {
@@ -110,6 +120,8 @@ const Consultants = () => {
       description: "",
       fees: "",
       duration: "",
+      dailyStart: "",
+      dailyEnd: "",
       image: null,
       isActive: true,
     });
@@ -211,6 +223,52 @@ const Consultants = () => {
                   </div>
                 ))}
 
+                {/* Daily Start Time */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Daily Start Time</label>
+                    <TimePicker
+                      className="w-100"
+                      format="HH:mm"
+                      size="large"
+                      value={
+                        formData.dailyStart
+                          ? dayjs(formData.dailyStart, "HH:mm:ss")
+                          : null
+                      }
+                      onChange={(time) => handleTimeChange("dailyStart", time)}
+                      placeholder="Select start time"
+                      minuteStep={15}
+                      hourStep={1}
+                      secondStep={60} // Disable seconds selection
+                      showNow={false}
+                    />
+                  </div>
+                </div>
+
+                {/* Daily End Time */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Daily End Time</label>
+                    <TimePicker
+                      className="w-100"
+                      size="large"
+                      format="HH:mm"
+                      value={
+                        formData.dailyEnd
+                          ? dayjs(formData.dailyEnd, "HH:mm:ss")
+                          : null
+                      }
+                      onChange={(time) => handleTimeChange("dailyEnd", time)}
+                      placeholder="Select end time"
+                      minuteStep={15}
+                      hourStep={1}
+                      secondStep={60} // Disable seconds selection
+                      showNow={false}
+                    />
+                  </div>
+                </div>
+
                 {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -301,7 +359,7 @@ const Consultants = () => {
                 <table className="table align-middle mb-0 table-hover">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>Id</th>
                       <th>Image</th>
                       <th>Name</th>
                       <th>Email</th>
@@ -310,6 +368,7 @@ const Consultants = () => {
                       <th>Experience</th>
                       <th>Fees</th>
                       <th>Time (In minutes)</th>
+                      <th>Working Hours</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -345,6 +404,11 @@ const Consultants = () => {
                           <td>{consultant.fees}</td>
                           <td>{consultant.duration}</td>
                           <td>
+                            {consultant.dailyStart && consultant.dailyEnd
+                              ? `${consultant.dailyStart} - ${consultant.dailyEnd}`
+                              : "-"}
+                          </td>
+                          <td>
                             <span
                               className={`badge ${
                                 consultant.isActive ? "bg-success" : "bg-danger"
@@ -360,7 +424,6 @@ const Consultants = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
-                                  console.log(consultant);
                                   setFormData({
                                     title: consultant.title,
                                     type:
@@ -375,10 +438,11 @@ const Consultants = () => {
                                     description: consultant.description,
                                     fees: consultant.fees,
                                     duration: consultant.duration,
+                                    dailyStart: consultant.dailyStart,
+                                    dailyEnd: consultant.dailyEnd,
                                     image: null,
                                     isActive: consultant.isActive,
                                   });
-
                                   setSelectedFileName(consultant.image);
                                 }}
                               >
@@ -407,7 +471,7 @@ const Consultants = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="11" className="text-center">
+                        <td colSpan="12" className="text-center">
                           No consultants found.
                         </td>
                       </tr>

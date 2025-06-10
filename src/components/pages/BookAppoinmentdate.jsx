@@ -3,16 +3,21 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import fulldocterImg from "../../../public/assets/img/fulldocterImg.png";
 import Calender from "../authorized/UserUI/Calender";
-import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import userAxios from "../../utils/Api/userAxios";
+import { useSelector } from "react-redux";
 
-function BookAppoinmentdate({consultant}) {
+function BookAppoinmentdate({ consultant }) {
   const { encodedId } = useParams();
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
+  const { user } = useSelector((state) => state.auth);
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
+  });
+  const [selectedSlot, setSelectedSlot] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [slots, setSlots] = useState([]);
 
-  // Decode the encoded ID
   let id = "";
   try {
     id = atob(encodedId);
@@ -20,23 +25,80 @@ function BookAppoinmentdate({consultant}) {
     toast.error("Invalid consultant ID");
   }
 
-  console.log("consultant",consultant)
-  const handleAppointment = () => {
-    if (!selectedDate || !selectedTime || !contactNumber) {
+  const handleAppointment = async () => {
+    if (!selectedDate || !selectedSlot || !contactNumber) {
       toast.error("Please fill all required fields");
       return;
     }
+    try {
+      const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
+        amount: consultant?.fees,
+      });
 
-    // Submit or log the appointment info
-    console.log({
-      consultantId: id,
-      consultantName: consultant?.name,
-      date: selectedDate,
-      time: selectedTime,
-      contact: contactNumber,
-    });
-    toast.success("Appointment Confirmed!");
+      const { orderId, amount, currency } = res.data.data;
+      const options = {
+        key: "rzp_test_ENoX7bkuXjQBZc",
+        amount,
+        currency,
+        name: "Consultant booking",
+        description: "",
+        image: "/assets/img/logo.png",
+        order_id: orderId,
+        handler: async function (response) {
+          try {
+            const payload = {
+              consultantId: consultant.id,
+              consultantName: consultant?.name,
+              date: selectedDate,
+              startTime: selectedSlot?.start,
+              endTime: selectedSlot?.end,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            };
+            await userAxios.post(userApiRoutes.appointment_booking, payload);
+            toast.success("Booking successful!");
+            fetchAvailibilitySlots(consultant?.id)
+          } catch (err) {
+            console.log("verification err", err);
+            toast.error("Payment verification failed!");
+          }
+        },
+        prefill: {
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          contact: user.phone,
+        },
+        theme: {
+          color: "#528FF0",
+        },
+      };
+
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      console.log("last error", error);
+      toast.error(error.response?.data?.error || "Payment initiation failed!");
+    }
   };
+
+  const fetchAvailibilitySlots = async (id) => {
+    try {
+      const res = await userAxios.get(
+        userApiRoutes.consultant_availibility_slots(id, selectedDate)
+      );
+      setSlots(res.data.data);
+    } catch (error) {
+      console.error(error.response.data.error);
+    }
+  };
+
+  useEffect(() => {
+    setSelectedSlot("");
+    if (consultant) {
+      fetchAvailibilitySlots(consultant?.id);
+    }
+  }, [consultant, selectedDate]);
 
   return (
     <section className="InnerpageSpace bookappoinmentdetail">
@@ -44,7 +106,11 @@ function BookAppoinmentdate({consultant}) {
         <div className="row">
           <div className="col-md-4 badetailleft">
             <figure>
-              <img crossOrigin="anonymous" src={consultant?.image_url || fulldocterImg} alt="consultant" />
+              <img
+                crossOrigin="anonymous"
+                src={consultant?.image_url || fulldocterImg}
+                alt="consultant"
+              />
             </figure>
           </div>
 
@@ -69,7 +135,7 @@ function BookAppoinmentdate({consultant}) {
                   </li>
                   <li>
                     <h4>time:</h4>
-                    <span>{selectedTime || "--"}</span>
+                    <span>{selectedSlot?.start || "--"}</span>
                   </li>
                 </ul>
               </div>
@@ -102,18 +168,23 @@ function BookAppoinmentdate({consultant}) {
                 <h4 className="slottitle">Available Time Slots:</h4>
 
                 <ul className="slottimelist">
-                  {[
-                    "10:00 AM", "10:15 AM", "11:45 AM", "12:15 PM",
-                    "1:00 PM", "2:00 PM", "2:30 PM", "3:00 PM",
-                    "4:00 PM", "4:45 PM", "5:00 PM",
-                  ].map((time) => (
+                  {slots.map((slot) => (
                     <li
-                      key={time}
-                      className={selectedTime === time ? "slottimeactive" : ""}
-                      onClick={() => setSelectedTime(time)}
-                      style={{ cursor: "pointer" }}
+                      key={slot.start}
+                      className={`
+                         ${selectedSlot?.start === slot.start ? "slottimeactive" : ""}
+                         ${slot.status === "booked" ? "booked-slot" : ""}
+                       `}
+                      onClick={() =>
+                        slot.status !== "booked" && setSelectedSlot(slot)
+                      }
+                      style={{
+                        cursor:
+                          slot.status === "booked" ? "not-allowed" : "pointer",
+                        opacity: slot.status === "booked" ? 0.6 : 1,
+                      }}
                     >
-                      {time}
+                      {slot.start}
                     </li>
                   ))}
                 </ul>

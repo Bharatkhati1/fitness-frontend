@@ -59,21 +59,21 @@ const userApiRoutes = {
 
   social_login:`/social-login`,
 
-  get_privacy_policy_details:`/cms-pages/privacy-policy`,
 
+  get_privacy_policy_details:`/cms-pages/privacy-policy`,
   get_refund_policy_details:`/cms-pages/return-policy`,
 
+
   get_cart_item:`/cart-items`,
-
   add_to_cart:`/add-to-cart`,
-
   remove_from_cart:(id)=>`/remove-cart-items/${id}`,
-
   apply_coupon:`/apply-coupon`,
-
   create_order_razorpay:`/payment-order`,
+  cart_checkout:`/checkout`,
+ 
 
-  cart_checkout:`/checkout`
+  consultant_availibility_slots:(id, selectedDate)=>`/consultant-available-slots/${id}?startDate=${selectedDate}&endDate=${selectedDate}`,
+  appointment_booking:`/appointment-booking`,
   
 };
 

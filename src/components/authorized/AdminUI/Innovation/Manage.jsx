@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { toast } from "react-toastify";
-import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
-import ConfirmationPopup from "../../../Common/ConfirmationPopup.jsx"; // Assuming you have this
+import adminAxios from "../../../../utils/Api/adminAxios.jsx";
+import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 
 const Manage = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +22,7 @@ const Manage = () => {
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+
 
   const fetchCategories = async () => {
     try {
@@ -109,6 +107,9 @@ const Manage = () => {
     }
   };
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   return (
     <>
       {/* Form Section */}

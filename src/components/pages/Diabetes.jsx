@@ -24,7 +24,8 @@ function PackageDetails() {
       );
       setDetails(response.data.data);
     } catch (error) {
-      toast.error(error.response.data.error);
+      setDetails(null)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -49,16 +50,16 @@ function PackageDetails() {
         <span className="daishaperight">
           <img src={shapeangelleft}></img>
         </span>
-        <div className="container">
+      { details?  <div className="container">
           <div className="row align-items-center">
             <div className="col-md-5 Diabetespageleft">
               <figure>
-                <img crossOrigin="anonymous" src={details.image_url} />
+                <img crossOrigin="anonymous" src={details?.image_url} />
               </figure>
             </div>
 
             <div className="col-md-6 Diabetespageright">
-              <h3>{details.name} </h3>
+              <h3>{details?.name} </h3>
               <p
                 dangerouslySetInnerHTML={{
                   __html: details?.description,
@@ -113,12 +114,14 @@ function PackageDetails() {
               ))}
             </div>
           </div>
-        </div>
+        </div>: <div className="col-12 text-center py-5">
+                <h5>No Details found.</h5>
+              </div>}
 
-        <div className="PackageINclusion mt-5 pt-3 pb-5">
+        { details&&<div className="PackageINclusion mt-5 pt-3 pb-5">
           <div className="container">
             <h3 className="pn-title text-center">
-              {details.name} Management Package inclusions
+              {details?.name} Management Package inclusions
             </h3>
             <div className="row">
               {details?.PackageInclusions?.map((inclusion) => (
@@ -142,7 +145,7 @@ function PackageDetails() {
               ))}
             </div>
           </div>
-        </div>
+        </div>}
       </section>
     </>
   );

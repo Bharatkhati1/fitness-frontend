@@ -77,6 +77,7 @@ const NavItems = [
     name: "Company Settings",
     path: "company-settings",
     subMenu: [
+      {name:"All Users", path:"users"},
       { name: "Contact Details", path: "contact-details" },
       { name: "Privacy Policy", path: "privacy-policy" },
       { name: "Return Policy", path: "return-policy" },
@@ -90,6 +91,11 @@ const NavItems = [
       { name: "Manage", path: "manage" },
       { name: "Category", path: "category" },
     ],
+  },
+  {
+    id: 15,
+    name: "Coupons",
+    path: "coupon",
   },
 ];
 

@@ -117,3 +117,31 @@ border-radius: 3px;
 .slick-prev{
     left: -205px !important;
 }
+
+  
+  .booked-slot {
+    background-color: #f0f0f0;
+    color: #999;
+    pointer-events: none;
+  }
+
+  .booked-label {
+    margin-left: 8px;
+    font-size: 0.8em;
+    color: #ff0000;
+  }
+  .status-user-btn{
+    border: none;
+    width: 100px;
+    padding: 3px 8px;
+    background-color: #2f3944;
+    color: white;
+    border-radius: 4px;
+  }
+  .not-found-page{
+    margin: 120px 0px 50px 0px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 24px; 
+  }

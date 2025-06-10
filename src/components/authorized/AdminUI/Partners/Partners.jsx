@@ -10,6 +10,7 @@ const Partners = () => {
     name: "",
     image: null,
     categoryId: "",
+    email:""
   });
   const [allCategories, setAllCategories] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -21,7 +22,7 @@ const Partners = () => {
   
   const fetchAllPartners = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_partners);
+      const res = await adminAxios.get(adminApiRoutes.get_all_partners);
       setPartners(res.data.data);
     } catch (error) {
       toast.error("Failed to fetch partners");
@@ -42,14 +43,10 @@ const Partners = () => {
   };
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.categoryId || (!formData.image && !isEdit)) {
-      toast.warning("All fields are required");
-      return;
-    }
-
     const submitData = new FormData();
     submitData.append("name", formData.name);
     submitData.append("categoryId", formData.categoryId);
+    submitData.append("email", formData.email);
     formData.image && submitData.append("image", formData.image);
 
     const loadingToastId = toast.loading(isEdit ? "Updating partner..." : "Creating partner...");
@@ -95,7 +92,7 @@ const Partners = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: "", image: null, categoryId: "" });
+    setFormData({ name: "", image: null, categoryId: "", email:"" });
     setIsEdit(false);
     setSelectedId(null);
     setSelectedFileName("");
@@ -150,6 +147,20 @@ const Partners = () => {
                   </div>
                 </div>
 
+                  {/* Partner Email */}
+                  <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Partner Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      placeholder="Enter name"
+                    />
+                  </div>
+                </div>
+
                 {/* Partner Category */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -196,6 +207,7 @@ const Partners = () => {
                       <th>Id</th>
                       <th>Image</th>
                       <th>Name</th>
+                      <th>Email</th>
                       <th>Category</th>
                       <th>Action</th>
                     </tr>
@@ -221,6 +233,7 @@ const Partners = () => {
                             </Link>
                           </td>
                           <td>{partner.name}</td>
+                          <td>{partner.email}</td>
                           <td>{partner.categoryName || partner.categoryId}</td>
                           <td>
                             <div className="d-flex gap-2">

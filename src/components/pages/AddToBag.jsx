@@ -53,7 +53,6 @@ export default function AddToBag() {
       });
 
       const { orderId, amount, currency } = res.data.data;
-      console.log("orde details",orderId, amount, currency)
       const options = {
         key: "rzp_test_ENoX7bkuXjQBZc",
         amount,
