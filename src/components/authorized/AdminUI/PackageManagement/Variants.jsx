@@ -44,7 +44,7 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
               </label>
               <input
                 type="file"
-                accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                 id={`variants-image-${index}`}
                 className="form-control"
                 onChange={(e) => {

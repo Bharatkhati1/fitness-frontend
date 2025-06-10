@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import adminAxios from '../../../../utils/Api/adminAxios';
-import adminApiRoutes from '../../../../utils/Api/Routes/adminApiRoutes';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import adminApiRoutes from "../../../../../utils/Api/Routes/adminApiRoutes";
+import adminAxios from "../../../../../utils/Api/adminAxios";
+import { toast } from "react-toastify";
 
 const ContactDetails = () => {
   const [isEdit, setIsEdit] = useState(false);

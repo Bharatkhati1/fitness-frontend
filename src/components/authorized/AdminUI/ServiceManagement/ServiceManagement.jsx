@@ -32,6 +32,7 @@ const ServiceManagement = () => {
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
   const storyImageRef = useRef(null);
+  const selectedIdref = useRef(null)
 
   const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
@@ -112,7 +113,8 @@ const ServiceManagement = () => {
 
   const deleteService = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_service(selectedSliderId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_service(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllServices();
     } catch (error) {
@@ -236,7 +238,7 @@ const ServiceManagement = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputBannerRef}
                       className="form-control"
@@ -253,7 +255,7 @@ const ServiceManagement = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputRef}
                       className="form-control"
@@ -270,7 +272,7 @@ const ServiceManagement = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={storyImageRef}
                       className="form-control"
@@ -600,7 +602,7 @@ const ServiceManagement = () => {
                                               icon="solar:trash-bin-minimalistic-2-broken"
                                               class="align-middle fs-18"
                                               onClick={() =>
-                                                setSelectedSliderId(service.id)
+                                                (selectedIdref.current = service.id)
                                               }
                                             ></iconify-icon>
                                           }

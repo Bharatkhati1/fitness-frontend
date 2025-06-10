@@ -1,0 +1,411 @@
+import React from "react";
+
+import Header from "../../components/authorized/UserUI/Header/Header.jsx";
+import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+
+import CarrerImG from "../../../public/assets/img/CarrerRight.png";
+import CarrerShape1 from "../../../public/assets/img/CarrerShape1.png";
+import CarrerShape2 from "../../../public/assets/img/CarrerShape2.png";
+import CarrerShape3 from "../../../public/assets/img/CarrerShape3.png";
+import CarrerShape4 from "../../../public/assets/img/CarrerShape4.png";
+
+import transformicon1 from "../../../public/assets/img/transformicon1.png";
+import transformicon2 from "../../../public/assets/img/transformicon2.png";
+import transformicon3 from "../../../public/assets/img/transformicon3.png";
+import transformicon4 from "../../../public/assets/img/transformicon4.png";
+
+import transformiconshape1 from "../../../public/assets/img/transformiconshape1.png";
+import transformiconshape2 from "../../../public/assets/img/transformiconshape2.png";
+import transformiconshape3 from "../../../public/assets/img/transformiconshap3.png";
+import transformiconshape4 from "../../../public/assets/img/transformiconshap4.png";
+
+import yogaimg1 from "../../../public/assets/img/yogaimg1.png";
+import yogaimg2 from "../../../public/assets/img/yogaimg2.png";
+import yogaimg3 from "../../../public/assets/img/yogaimg3.png";
+
+import culturesliderimg1 from "../../../public/assets/img/culturesliderimg1.png";
+import culturesliderimg2 from "../../../public/assets/img/culturesliderimg2.png";
+import culturesliderimg3 from "../../../public/assets/img/culturesliderimg3.png";
+
+import bagicon from "../../../public/assets/img/bagicon.png";
+
+function Careers() {
+  return (
+    <>
+      <Header />
+
+      <div className="Carrerbanner innerSpace mt-3">
+        <span className="CarrerShape1">
+          <img src={CarrerShape1}></img>
+        </span>
+
+        <span className="CarrerShape4">
+          <img src={CarrerShape4}></img>
+        </span>
+
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-6 pe-1 pb-4">
+              <div className="Carrerbannerleft">
+                <h3>Where fitness meets innovation and Empathy meets Care</h3>
+                <p>
+                  We’re not just building programs—we’re building a healthier
+                  world. If wellness drives you and purpose fuels you, you’re at
+                  the right place.
+                </p>
+
+                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">Shape Lives With Us</a>
+              </div>
+            </div>
+
+            <div className="col-md-6 text-end">
+              <div className="Carrerbannerright">
+                <span className="CarrerShape2">
+                  <img src={CarrerShape2}></img>
+                </span>
+                <span className="CarrerShape3">
+                  <img src={CarrerShape3}></img>
+                </span>
+                <img src={CarrerImG}></img>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="Trasnform">
+        <div className="container">
+          <div class="PageTitle text-center">
+            <h2>
+              Careers at DailyFitness.ai –
+              <span className="uppercase-text">Care. Empower. Transform.</span>
+            </h2>
+          </div>
+
+          <div className="Trasnformbox">
+            <div className="row">
+              <div className="col-md-3">
+                <div className="Trasnformboxbox text-center">
+                  <span className="transicon">
+                    <img src={transformiconshape1}></img>
+                  </span>
+                  <figure>
+                    <img src={transformicon1}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>Health & Wellness</h3>
+                    <p>
+                      Comprehensive health insurance, mental health support, and
+                      free access to all our fitness programs.
+                    </p>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="Trasnformboxbox text-center">
+                  <span className="transicon">
+                    <img src={transformiconshape2}></img>
+                  </span>
+                  <figure>
+                    <img src={transformicon2}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>Collaborative Culture</h3>
+                    <p>
+                      Work with a team of passionate fitness enthusiasts who
+                      support and inspire each other.
+                    </p>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="Trasnformboxbox text-center">
+                  <span className="transicon">
+                    <img src={transformiconshape3}></img>
+                  </span>
+                  <figure>
+                    <img src={transformicon3}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>Growth Opportunities</h3>
+                    <p>
+                      Continuous learning and development programs to advance
+                      your career in the fitness industry.
+                    </p>
+                  </figcaption>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="Trasnformboxbox text-center">
+                  <span className="transicon">
+                    <img src={transformiconshape4}></img>
+                  </span>
+                  <figure>
+                    <img src={transformicon4}></img>
+                  </figure>
+
+                  <figcaption>
+                    <h3>Work-Life Balance</h3>
+                    <p>
+                      Flexible work hours, remote work options, and generous
+                      vacation policy.
+                    </p>
+                  </figcaption>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="wearehiring mb-5">
+        <div className="container">
+          <div className="wearehiringInner">
+            <div className="row align-items-center">
+              <span className="col">
+                <img src={yogaimg1}></img>
+              </span>
+
+              <div className="col col-4 g-0">
+                <div className="wearecontent">
+                  <h3>We are Hiring !</h3>
+                  <p>Wellness Begins at Work. Join Us.</p>
+                  <a className="btn btn-primary max-width hvr-shutter-out-horizontal">
+                    join us
+                  </a>
+                </div>
+              </div>
+
+              <span className="col g-0 col-md-2">
+                <img src={yogaimg2}></img>
+              </span>
+
+              <span className="col">
+                <img src={yogaimg3}></img>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="ourvalue">
+        <div class="PageTitle text-center">
+          <h2>our values</h2>
+        </div>
+        <div className="ourvalueinner">
+          <div className="container">
+            <div className="row justify-content-center g-5">
+              <div className="col-md-6 ">
+                <div className="ourvaluebox  ">
+                  <p>Innovation in fitness solutions</p>
+                </div>
+
+                <div className="ourvaluebox">
+                  <p>Inclusivity and accessibility for all fitness levels</p>
+                </div>
+
+                <div className="ourvaluebox">
+                  <p>Continuous learning and growth</p>
+                </div>
+              </div>
+
+              <div className="col-md-6 ">
+                <div className="ourvaluebox mt-5">
+                  <p>Evidence-based approach to health and wellness</p>
+                </div>
+
+                <div className="ourvaluebox">
+                  <p>Community and support in fitness journey</p>
+                </div>
+
+                <div className="ourvaluebox mb-4">
+                  <p>Transparency and Integrity in processes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="ourcluture">
+        <div className="container">
+          <div class="PageTitle text-center">
+            <h2>What our culture is really like</h2>
+            <p>Where every day is a step toward a healthier, happier world.</p>
+          </div>
+
+          <div>
+            <OwlCarousel
+              className="owl-theme"
+              dots={false}
+              items={4}
+              merge={true}
+              nav={true}
+              margin={10}
+              loop={true}
+            >
+              <div className="item">
+                <div>
+                  <img src={culturesliderimg1}></img>
+                </div>
+              </div>
+
+              <div className="item" data-merge="2">
+                <div>
+                  <img src={culturesliderimg2}></img>
+                </div>
+              </div>
+
+              <div className="item">
+                <div>
+                  <img src={culturesliderimg1}></img>
+                </div>
+              </div>
+              <div className="item" data-merge="2">
+                <div>
+                  <img src={culturesliderimg2}></img>
+                </div>
+              </div>
+              <div className="item">
+                <div>
+                  <img src={culturesliderimg3}></img>
+                </div>
+              </div>
+            </OwlCarousel>
+          </div>
+
+          <p className="text-center pt-4">
+            At DailyFitness, we believe wellness isn't just our mission—it's our
+            lifestyle. From mindful mornings to purpose-driven projects, every
+            day here is a blend of passion, progress, and positivity. Our team
+            thrives in a culture that values collaboration, celebrates personal
+            growth, and prioritizes mental and physical well-being. Whether
+            you're coaching clients, creating content, or building digital
+            tools, you're contributing to something bigger: a healthier, happier
+            world—starting with yourself.
+          </p>
+        </div>
+      </div>
+
+      <div className="findYourfit pb-5">
+        <div className="container">
+          <div class="PageTitle text-center">
+            <h2>find your fit with us !</h2>
+            <p>Fresh Roles, Real Impact</p>
+          </div>
+
+          <div className="findYourfitrow">
+            <div className="row g-3">
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="findYourfitinner">
+                  <img className="findYourIcon" src={bagicon}></img>
+                  <h4>Fitness Trainer</h4>
+                  <span>Work From Home Full-Time</span>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled.
+                  </p>
+                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    apply now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
+}
+
+export default Careers;

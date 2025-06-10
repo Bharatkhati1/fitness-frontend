@@ -12,6 +12,7 @@ const Categories = () => {
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const fileInputRef = useRef()
+    const selectedIdref = useRef(null)
 
   const fetchAllCategories = async () => {
     try {
@@ -77,7 +78,8 @@ const Categories = () => {
 
   const deleteCategory = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_sk_category(selectedId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_sk_category(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllCategories();
     } catch (error) {
@@ -154,7 +156,7 @@ const Categories = () => {
                       type="file"
                       ref={fileInputRef}
                       className="form-control"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
                   </div>
@@ -297,7 +299,9 @@ const Categories = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => setSelectedId(item.id)}
+                                    onClick={() =>
+                                      (selectedIdref.current = item.id)
+                                    }
                                   ></iconify-icon>
                                 }
                               />

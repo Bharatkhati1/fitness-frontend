@@ -9,6 +9,8 @@ import Ckeditor from "../CkEditor/Ckeditor.jsx";
 
 const BlogsManagement = () => {
   const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [readTime, setReadTime] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [status, setStatus] = useState(true);
@@ -20,6 +22,7 @@ const BlogsManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const fileInputRef = useRef(null);
+  const selectedIdref = useRef(null);
 
   const fetchAllBlogs = async () => {
     try {
@@ -50,6 +53,8 @@ const BlogsManagement = () => {
     formData.append("title", name);
     formData.append("description", longDescription);
     formData.append("isActive", status);
+    formData.append("author", author);
+    formData.append("readTime", readTime);
     formData.append("categoryId", categoryId);
     formData.append("shortDescription", shortDesc);
     image && formData.append("blog_image", image);
@@ -104,7 +109,8 @@ const BlogsManagement = () => {
 
   const deleteBlog = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_blog(selectedId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_blog(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllBlogs();
     } catch (error) {
@@ -122,6 +128,8 @@ const BlogsManagement = () => {
     setShortDesc("");
     setStatus("1");
     setImage(null);
+    setReadTime("")
+    setAuthor("")
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -172,11 +180,45 @@ const BlogsManagement = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputRef}
                       className="form-control"
                       onChange={(e) => setImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
+                 {/* Author  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-author" className="form-label">
+                      Author Name
+                    </label>
+                    <input
+                      type="text"
+                      id="service-author"
+                      className="form-control"
+                      placeholder="Enter author name"
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                       {/* Read Time  */}
+                       <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-time" className="form-label">
+                      Read Time
+                    </label>
+                    <input
+                      type="number"
+                      id="service-time"
+                      className="form-control"
+                      placeholder="Enter read time"
+                      value={readTime}
+                      onChange={(e) => setReadTime(e.target.value)}
                     />
                   </div>
                 </div>
@@ -357,6 +399,8 @@ const BlogsManagement = () => {
                                   setShortDesc(item.shortDescription);
                                   setLongDescription(item.description);
                                   setStatus(item.isActive);
+                                  setReadTime(item.readTime);
+                                  setAuthor(item?.author)
                                   setSelectedFileName(item.image);
                                 }}
                               >
@@ -374,7 +418,9 @@ const BlogsManagement = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => setSelectedId(item.id)}
+                                    onClick={() =>{ 
+                                       selectedIdref.current = item.id;
+                                       setSelectedId(item.id)}}
                                   ></iconify-icon>
                                 }
                               />

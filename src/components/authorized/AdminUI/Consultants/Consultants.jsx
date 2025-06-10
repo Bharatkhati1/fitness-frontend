@@ -28,6 +28,7 @@ const Consultants = () => {
   const [selectedConsultantID, setSelectedConsultantID] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
+  const selectedIdref = useRef(null);
 
   const fetchAllConsultants = async () => {
     try {
@@ -76,7 +77,7 @@ const Consultants = () => {
       fetchAllConsultants();
       onCancelEdit();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(`Failed to submit: ${error.response?.data?.message}`);
     } finally {
       setLoading(false);
@@ -85,9 +86,8 @@ const Consultants = () => {
 
   const deleteConsultant = async () => {
     try {
-      await adminAxios.delete(
-        adminApiRoutes.delete_consultant(selectedConsultantID)
-      );
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_consultant(idToDelete));
       toast.success("Deleted successfully");
       fetchAllConsultants();
     } catch (error) {
@@ -223,7 +223,7 @@ const Consultants = () => {
                       type="file"
                       ref={fileInputRef}
                       className="form-control"
-                      accept="image/*"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
                   </div>
@@ -323,7 +323,7 @@ const Consultants = () => {
                             <Link to={consultant.image_url} target="_blank">
                               <img
                                 src={consultant.image_url}
-                                  crossorigin="anonymous"
+                                crossorigin="anonymous"
                                 alt="Consultant"
                                 style={{
                                   width: 50,
@@ -360,10 +360,13 @@ const Consultants = () => {
                                 onClick={() => {
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
-                                  console.log(consultant)
+                                  console.log(consultant);
                                   setFormData({
-                                    title:consultant.title,
-                                    type:consultant?.ConsultantRoles?.map((cn)=> cn.role)||[],
+                                    title: consultant.title,
+                                    type:
+                                      consultant?.ConsultantRoles?.map(
+                                        (cn) => cn.role
+                                      ) || [],
                                     name: consultant.name,
                                     email: consultant.email,
                                     phone: consultant.phone,
@@ -375,6 +378,7 @@ const Consultants = () => {
                                     image: null,
                                     isActive: consultant.isActive,
                                   });
+
                                   setSelectedFileName(consultant.image);
                                 }}
                               >
@@ -392,7 +396,7 @@ const Consultants = () => {
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
                                     onClick={() =>
-                                      setSelectedConsultantID(consultant.id)
+                                      (selectedIdref.current = consultant.id)
                                     }
                                   />
                                 }

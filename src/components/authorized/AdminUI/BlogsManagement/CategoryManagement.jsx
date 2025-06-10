@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
@@ -10,7 +10,7 @@ const CategoryManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-
+  const selectedIdref = useRef()
   const fetchAllCategories = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_categories);
@@ -63,7 +63,8 @@ const CategoryManagement = () => {
 
   const deleteCategory = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_category(selectedId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_category(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllCategories();
     } catch (error) {
@@ -229,7 +230,9 @@ const CategoryManagement = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => setSelectedId(item.id)}
+                                    onClick={() =>
+                                      (selectedIdref.current = item.id)
+                                    }
                                   ></iconify-icon>
                                 }
                               />

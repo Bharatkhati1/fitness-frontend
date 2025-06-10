@@ -15,6 +15,7 @@ const Careers = () => {
   const [careers, setCareers] = useState([]);
   const [selectedCareerId, setSelectedCareerId] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const selectedIdref = useRef(null);
 
   const fetchCareers = async () => {
     try {
@@ -80,7 +81,8 @@ const Careers = () => {
 
   const handleDelete = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_career(selectedCareerId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_career(idToDelete));
       toast.success("Deleted successfully");
       fetchCareers();
     } catch (error) {
@@ -207,7 +209,9 @@ const Careers = () => {
                             buttonText={
                               <iconify-icon
                                 icon="solar:trash-bin-minimalistic-2-broken"
-                                onClick={() => setSelectedCareerId(career.id)}
+                                onClick={() =>
+                                  (selectedIdref.current = career.id)
+                                }
                               />
                             }
                           />

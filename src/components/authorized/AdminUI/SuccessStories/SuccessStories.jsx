@@ -19,7 +19,7 @@ const SuccessStories = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [successStories, setSuccessStories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const selectedIdref = useRef(null)
   const fileInputRefAfter = useRef(null);
   const fileInputRefBefore = useRef(null);
 
@@ -89,8 +89,9 @@ const SuccessStories = () => {
 
   const deleteSuccessStory = async () => {
     try {
+      const idToDelete = selectedIdref.current;
       await adminAxios.delete(
-        adminApiRoutes.delete_success_story(selectedSuccesStoryId)
+        adminApiRoutes.delete_success_story(idToDelete)
       );
       toast.success("Deleted Successfully");
       fetchAllSuccessStories();
@@ -158,7 +159,7 @@ const SuccessStories = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputRefBefore}
                       className="form-control"
@@ -174,7 +175,7 @@ const SuccessStories = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputRefAfter}
                       className="form-control"
@@ -360,7 +361,7 @@ const SuccessStories = () => {
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
                                     onClick={() =>
-                                      setSelectedSuccesStoryId(story.id)
+                                      (selectedIdref.current = story.id)
                                     }
                                   ></iconify-icon>
                                 }

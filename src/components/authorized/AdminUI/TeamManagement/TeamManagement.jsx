@@ -141,7 +141,7 @@ const TeamManagement = () => {
                       </label>
                       <input
                         type="file"
-                        accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                         accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                         id="team-image"
                         ref={fileInputRef}
                         className="form-control"

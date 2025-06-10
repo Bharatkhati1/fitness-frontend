@@ -56,7 +56,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
                 </label>
                 <input
                   type="file"
-                  accept="image/*"
+                   accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                   className="form-control"
                   onChange={(e) => {
                     setPackageInclusions((prev) =>

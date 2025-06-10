@@ -34,11 +34,8 @@ const NavItems = [
       { name: "Category", path: "category" },
     ],
   },
-  { id: 9, name: "Contact Details", path: "contact-details" },
-  { id: 10, name: "Privacy Policy", path: "privacy-policy" },
-  { id: 11, name: "Return Policy", path: "return-policy" },
   {
-    id: 12,
+    id: 9,
     name: "Inquiries",
     path: "inquiries",
     subMenu: [
@@ -47,7 +44,7 @@ const NavItems = [
     ],
   },
   {
-    id: 13,
+    id: 10,
     name: "Partner Management",
     path: "partner-management",
     subMenu: [
@@ -55,7 +52,17 @@ const NavItems = [
       { name: "Category", path: "category" },
     ],
   },
-  { id: 14, name: "Careers", path: "careers" },
+  { id: 11, name: "Careers", path: "careers" },
+  {
+    id: 12,
+    name: "Company Settings",
+    path: "company-settings",
+    subMenu: [
+      { name: "Contact Details", path: "contact-details" },
+      { name: "Privacy Policy", path: "privacy-policy" },
+      { name: "Return Policy", path: "return-policy" },
+    ],
+  },
 ];
 
 const MainNavbarLeft = () => {

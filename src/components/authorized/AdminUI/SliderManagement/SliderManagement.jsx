@@ -17,6 +17,7 @@ const SliderManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
   const fileInputRef = useRef(null);
+    const selectedIdref = useRef(null)
 
   const fetchAllSliders = async () => {
     try {
@@ -69,7 +70,8 @@ const SliderManagement = () => {
 
   const deleteSlider = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_slider(selectedSliderId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_slider(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllSliders();
     } catch (error) {
@@ -136,7 +138,7 @@ const SliderManagement = () => {
                     </label>
                     <input
                       type="file"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="slider-image"
                       ref={fileInputRef}
                       className="form-control"
@@ -324,9 +326,9 @@ const SliderManagement = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => {
-                                      setSelectedSliderId(slider.id);
-                                    }}
+                                    onClick={() =>
+                                      (selectedIdref.current = slider.id)
+                                    }
                                   ></iconify-icon>
                                 }
                               />

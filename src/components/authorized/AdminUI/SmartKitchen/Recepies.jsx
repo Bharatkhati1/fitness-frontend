@@ -27,6 +27,7 @@ const Recepies = () => {
   const [allCategories, setAllCategories] = useState([]);
   const fileInputRef = useRef(null);
   const pdfInputRef = useRef(null);
+  const selectedIdref = useRef(null)
 
   const fetchAllReciepe = async () => {
     try {
@@ -113,7 +114,8 @@ const Recepies = () => {
 
   const deleteReceipe = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_recipe(selectedReciepeID));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_recipe(idToDelete));
       toast.success("Deleted successfully");
       fetchAllReciepe();
     } catch (error) {
@@ -137,7 +139,6 @@ const Recepies = () => {
     if(pdfInputRef.current ) pdfInputRef.current.value = "";
   };
 
-  console.log(formData)
   useEffect(() => {
     fetchAllReciepe();
     fetchAllCategories();
@@ -190,7 +191,7 @@ const Recepies = () => {
                       type="file"
                       ref={fileInputRef}
                       className="form-control"
-                      accept="image/*"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
                   </div>
@@ -409,7 +410,7 @@ const Recepies = () => {
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
                                     onClick={() =>
-                                      setSelectedReciepeID(recipe.id)
+                                      (selectedIdref.current = recipe.id)
                                     }
                                   />
                                 }

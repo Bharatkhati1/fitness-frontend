@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
-import adminAxios from "../../../../utils/Api/adminAxios";
+import adminApiRoutes from "../../../../../utils/Api/Routes/adminApiRoutes";
+import adminAxios from "../../../../../utils/Api/adminAxios";
 import { toast } from "react-toastify";
-import Ckeditor from "../CkEditor/Ckeditor";
+import Ckeditor from "../../CkEditor/Ckeditor";
 
-const ReturnPolicy = () => {
+const PrivacyPolicy = () => {
   const [formData, setFormData] = useState({
     title: "",
     banner: null,
@@ -69,26 +69,31 @@ const ReturnPolicy = () => {
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
-  
-  const fetchPPDetails =async()=>{
+
+  const fetchPPDetails = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_policy_details("return-policy"))
-     setFormData(res.data.data)
+      const res = await adminAxios.get(
+        adminApiRoutes.get_policy_details("privacy-policy")
+      );
+      setFormData(res.data.data);
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data.error)
+      console.log(error);
+      toast.error(error.response.data.error);
     }
-  }
-  useEffect(()=>{
-    fetchPPDetails()
-  },[])
+  };
+
+  useEffect(() => {
+    fetchPPDetails();
+  }, []);
+
+  console.log(formData)
   return (
     <div className="row">
       <div className="col-lg-12">
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between">
             <h4 className="card-title">
-              {isEdit ? "Edit Return Policy" : "Return Policy"}
+              {isEdit ? "Edit Privacy Policy" : "Privacy Policy"}
             </h4>
             {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
           </div>
@@ -122,7 +127,7 @@ const ReturnPolicy = () => {
                     type="file"
                     ref={fileInputRef}
                     className="form-control"
-                    accept="image/*"
+                     accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                     onChange={handleFormDataChange}
                   />
                 </div>
@@ -160,20 +165,19 @@ const ReturnPolicy = () => {
             </div>
           </div>
 
-
           <div className="card-footer border-top">
             <button
               className="btn btn-primary"
               onClick={handleSubmit}
               disabled={loading}
             >
-              {loading ? "Saving..." : "Update Policy" }
+             {loading ? "Saving..." : "Update Policy" }
             </button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default ReturnPolicy
+export default PrivacyPolicy;

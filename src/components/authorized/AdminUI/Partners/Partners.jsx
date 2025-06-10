@@ -17,7 +17,8 @@ const Partners = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
-
+  const selectedIdref = useRef(null);
+  
   const fetchAllPartners = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_partners);
@@ -84,7 +85,8 @@ const Partners = () => {
 
   const handleDelete = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_partner(selectedId));
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(adminApiRoutes.delete_partner(idToDelete));
       toast.success("Partner deleted successfully");
       fetchAllPartners();
     } catch (error) {
@@ -139,7 +141,7 @@ const Partners = () => {
                     <input
                       type="file"
                       className="form-control"
-                      accept="image/*"
+                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       ref={fileInputRef}
                       onChange={(e) => {
                         handleChange("image", e.target.files[0]);
@@ -247,7 +249,9 @@ const Partners = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
-                                    onClick={() => setSelectedId(partner.id)}
+                                    onClick={() =>
+                                      (selectedIdref.current = partner.id)
+                                    }
                                   />
                                 }
                               />
