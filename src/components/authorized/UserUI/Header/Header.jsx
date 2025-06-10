@@ -12,6 +12,11 @@ import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 
+import Dropdown from 'react-bootstrap/Dropdown';
+
+
+import userprofile from "../../../../../public/assets/img/user-profile.png"
+
 const Header = () => {
   const { userAccessToken,isLoggedIn} = useSelector((state) => state.auth);
   const {pathname } = useLocation()
@@ -75,6 +80,20 @@ const Header = () => {
               </Navbar.Collapse>
             </Navbar>
             <div className="Login-info d-flex align-items-center">
+
+                 <Dropdown className="userprofile">
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        
+        <span className="userprofileimg"><img src={userprofile}></img></span>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">profile</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Logout</Dropdown.Item>
+       
+      </Dropdown.Menu>
+    </Dropdown>
+
               <Link to={"/cart"} className="carticon">
                 <img src={CartIcon} />
               </Link>

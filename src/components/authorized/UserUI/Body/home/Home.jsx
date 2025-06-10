@@ -429,13 +429,13 @@ function Home() {
                                 }}
                               ></p>
                             )}
-                            <div className="gap-3 service-btn text-center">
+                            <div className="gap-3 service-btn text-center d-flex">
                               {showButton("Know more") && (
                                 <Link
                                   to={`/service-details/${srv.name
                                     .toLowerCase()
                                     .replace(/\s+/g, "-")}`}
-                                  className=" mb-1 btn btn-primary hvr-shutter-out-horizontal"
+                                  className=" mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
                                 >
                                   Know more
                                 </Link>
@@ -444,7 +444,7 @@ function Home() {
                               {showButton("Talk to an Expert") && (
                                 <a
                                   href="#GetInTouch"
-                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                  className="btn btn-primary hvr-shutter-out-horizontal w-100"
                                 >
                                   Talk to an Expert
                                 </a>
@@ -453,7 +453,7 @@ function Home() {
                               {showButton("Contact our Helpline") && (
                                 <a
                                   href="#GetInTouch"
-                                  className="btn btn-primary hvr-shutter-out-horizontal"
+                                  className="btn btn-primary  hvr-shutter-out-horizontal w-100"
                                 >
                                   Contact our Helpline
                                 </a>

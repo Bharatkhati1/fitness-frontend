@@ -251,7 +251,6 @@ function Careers() {
               nav={true}
               margin={10}
               loop={true}
-             
             >
               <div className="item">
                 <div>
