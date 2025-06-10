@@ -13,6 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 const Footer = () => {
+  
   const dispatch = useDispatch();
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth

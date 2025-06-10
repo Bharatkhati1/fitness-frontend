@@ -35,6 +35,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutUser(true));
   };
+  
   useEffect(()=>{
     if(isLoggedIn){
       fetchCartitems()
