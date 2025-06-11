@@ -81,6 +81,7 @@ const NavItems = [
       { name: "Contact Details", path: "contact-details" },
       { name: "Privacy Policy", path: "privacy-policy" },
       { name: "Return Policy", path: "return-policy" },
+      { name: "Careers", path: "career" },
     ],
   },
   {

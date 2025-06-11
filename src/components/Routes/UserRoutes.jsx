@@ -24,6 +24,7 @@ import NewsAndMedia from "../authorized/UserUI/Body/NewsMedia/NewsAndMedia";
 import NewsAndMediaDetails from "../authorized/UserUI/Body/NewsMedia/NewsAndMediaDetails";
 import BusinessParthner from "../pages/BusinessParthner";
 import NotFound from "../authorized/NotFound";
+import Careers from "../pages/Careers";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -48,6 +49,7 @@ export default function UserRoutes() {
             <Route path="/service-details/:slug" element={<ServiceDetails />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/packages" element={<Home />} />
+            <Route path="/careers" element={<Careers />} />
             <Route path="/package/:slug" element={<PackageDetails />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />

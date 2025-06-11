@@ -92,11 +92,11 @@ const adminApiRoutes = {
   update_partner: (id) => `/partners/${id}`,
   delete_partner: (id) => `/partners/${id}`,
   
-  //PARTNERS  CATEGORY ROUTES
-  create_partner_category: "/partners",
-  get_all_partners_category: "/partners",
-  update_partner_category: (id) => `/partners/${id}`,
-  delete_partner_category: (id) => `/partners/${id}`,
+  //MASTERS CATEGORY ROUTES
+  create_master_category: "/masters",
+  get_master_category:(slug)=> `/masters?slug=${slug}`,
+  update_master_category: (id) => `/masters/${id}`,
+  delete_master_category: (id) => `/masters/${id}`,
 
   //POLICIES ROUTES
   get_policy_details: (slug) => `/cms/${slug}`,

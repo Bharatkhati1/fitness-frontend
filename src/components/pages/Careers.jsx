@@ -1,7 +1,4 @@
-import React from "react";
-
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
+import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -31,12 +28,38 @@ import culturesliderimg2 from "../../../public/assets/img/culturesliderimg2.png"
 import culturesliderimg3 from "../../../public/assets/img/culturesliderimg3.png";
 
 import bagicon from "../../../public/assets/img/bagicon.png";
+import { webAxios } from "../../utils/constants.jsx";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
+import { toast } from "react-toastify";
 
 function Careers() {
+  const [allJobs, setAllJobs] = useState([]);
+  const [careersCms, setCareersCms] = useState({})
+
+  const fetchJobs = async () => {
+    try {
+      const res = await webAxios.get(userApiRoutes.get_careers);
+      setAllJobs(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+ 
+  const fetchCmsCareers =async()=>{
+    try {
+      const res = await webAxios.get(userApiRoutes.get_master_cms("careers"))
+      setCareersCms(res.data.data)
+    } catch (error) {
+      toast.error(error.response.data.error)
+    }
+  }
+
+  useEffect(() => {
+    fetchJobs();
+    fetchCmsCareers()
+  }, []);
   return (
     <>
-      <Header />
-
       <div className="Carrerbanner innerSpace mt-3">
         <span className="CarrerShape1">
           <img src={CarrerShape1}></img>
@@ -304,108 +327,29 @@ function Careers() {
 
           <div className="findYourfitrow">
             <div className="row g-3">
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
+              {allJobs.map((job) => (
+                <div className="col-md-6">
+                  <div className="findYourfitinner">
+                    <img
+                      className="findYourIcon"
+                      crossOrigin="anonymous"
+                      src={bagicon}
+                    ></img>
+                    <h4>{job.title}</h4>
+                    <span>
+                      {job.WorkPreference} - {job.employmentType}
+                    </span>
+                    <p>{job.description}</p>
+                    <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                      apply now
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="findYourfitinner">
-                  <img className="findYourIcon" src={bagicon}></img>
-                  <h4>Fitness Trainer</h4>
-                  <span>Work From Home Full-Time</span>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled.
-                  </p>
-                  <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
-                    apply now
-                  </a>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

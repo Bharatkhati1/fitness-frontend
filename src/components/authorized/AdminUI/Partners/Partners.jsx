@@ -10,7 +10,8 @@ const Partners = () => {
     name: "",
     image: null,
     categoryId: "",
-    email:""
+    email:"",
+    isActive:true,
   });
   const [allCategories, setAllCategories] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -31,7 +32,7 @@ const Partners = () => {
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      const res = await adminAxios.get(adminApiRoutes.get_master_category("partners"));
       setAllCategories(res.data.data);
     } catch (error) {
       toast.error("Failed to fetch categories");
@@ -47,6 +48,7 @@ const Partners = () => {
     submitData.append("name", formData.name);
     submitData.append("categoryId", formData.categoryId);
     submitData.append("email", formData.email);
+    submitData.append("isActive", formData.isActive);
     formData.image && submitData.append("image", formData.image);
 
     const loadingToastId = toast.loading(isEdit ? "Updating partner..." : "Creating partner...");
@@ -92,7 +94,7 @@ const Partners = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: "", image: null, categoryId: "", email:"" });
+    setFormData({ name: "", image: null, categoryId: "", email:"",isActive:true });
     setIsEdit(false);
     setSelectedId(null);
     setSelectedFileName("");
@@ -179,6 +181,29 @@ const Partners = () => {
                     </select>
                   </div>
                 </div>
+
+                      {/* Status */}
+                      <div className="col-lg-6 mb-3">
+                  <label className="form-label d-block">Status</label>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={formData.isActive}
+                      onChange={() => handleChange("isActive", true)}
+                    />
+                    <label className="form-check-label">Active</label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={!formData.isActive}
+                      onChange={() => handleChange("isActive", false)}
+                    />
+                    <label className="form-check-label">Inactive</label>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -247,7 +272,9 @@ const Partners = () => {
                                   setFormData({
                                     name: partner.name,
                                     image: null,
+                                    email:partner.email,
                                     categoryId: partner.categoryId,
+                                    isActive:partner.isActive
                                   });
                                   setSelectedFileName(partner.image);
                                 }}

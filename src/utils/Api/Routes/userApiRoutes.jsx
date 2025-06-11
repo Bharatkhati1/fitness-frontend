@@ -59,10 +59,11 @@ const userApiRoutes = {
 
   social_login:`/social-login`,
 
+  get_careers:`/careers`,
 
   get_privacy_policy_details:`/cms-pages/privacy-policy`,
   get_refund_policy_details:`/cms-pages/return-policy`,
-
+  get_master_cms:(slug)=>`/cms-pages/${slug}`,
 
   get_cart_item:`/cart-items`,
   add_to_cart:`/add-to-cart`,
