@@ -16,6 +16,8 @@ const BlogsManagement = () => {
   const [status, setStatus] = useState(true);
   const [allCategories, setAllCategories] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
+  const today = new Date().toISOString().split("T")[0];
+  const [date, setDate] = useState(today);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [image, setImage] = useState(null);
@@ -26,7 +28,7 @@ const BlogsManagement = () => {
 
   const fetchAllBlogs = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_blogs);
+      const res = await adminAxios.get(adminApiRoutes.get_blogs("blogs"));
       setBlogs(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
@@ -53,8 +55,10 @@ const BlogsManagement = () => {
     formData.append("title", name);
     formData.append("description", longDescription);
     formData.append("isActive", status);
-    formData.append("author", author);
+    formData.append("auther", author);
     formData.append("readTime", readTime);
+    formData.append("date", date);
+    formData.append("type", "blogs");
     formData.append("categoryId", categoryId);
     formData.append("shortDescription", shortDesc);
     image && formData.append("blog_image", image);
@@ -123,13 +127,14 @@ const BlogsManagement = () => {
     setIsEdit(false);
     setSelectedId(null);
     setName("");
+    setDate("")
     setCategoryId("");
     setLongDescription("");
     setShortDesc("");
     setStatus("1");
     setImage(null);
-    setReadTime("")
-    setAuthor("")
+    setReadTime("");
+    setAuthor("");
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -189,7 +194,7 @@ const BlogsManagement = () => {
                   </div>
                 </div>
 
-                 {/* Author  */}
+                {/* Author  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-author" className="form-label">
@@ -206,8 +211,8 @@ const BlogsManagement = () => {
                   </div>
                 </div>
 
-                       {/* Read Time  */}
-                       <div className="col-lg-6">
+                {/* Read Time  */}
+                <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-time" className="form-label">
                       Read Time
@@ -219,6 +224,42 @@ const BlogsManagement = () => {
                       placeholder="Enter read time"
                       value={readTime}
                       onChange={(e) => setReadTime(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Category  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="package-type" className="form-label">
+                      Select Category
+                    </label>
+                    <select
+                      id="package-type"
+                      className="form-select"
+                      value={categoryId}
+                      onChange={(e) => setCategoryId(e.target.value)}
+                    >
+                      <option value="">Select category</option>
+                      {allCategories?.map((category) => (
+                        <option value={category.id}>{category.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Select Date */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="select-date" className="form-label">
+                      Select Date
+                    </label>
+                    <input
+                      type="date"
+                      id="select-date"
+                      className="form-control"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
                     />
                   </div>
                 </div>
@@ -243,26 +284,6 @@ const BlogsManagement = () => {
                       text={longDescription}
                       setText={setLongDescription}
                     />
-                  </div>
-                </div>
-
-                {/* Category  */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="package-type" className="form-label">
-                      Select Category
-                    </label>
-                    <select
-                      id="package-type"
-                      className="form-select"
-                      value={categoryId}
-                      onChange={(e) => setCategoryId(e.target.value)}
-                    >
-                      <option value="">Select category</option>
-                      {allCategories?.map((category) => (
-                        <option value={category.id}>{category.name}</option>
-                      ))}
-                    </select>
                   </div>
                 </div>
 
@@ -399,8 +420,9 @@ const BlogsManagement = () => {
                                   setShortDesc(item.shortDescription);
                                   setLongDescription(item.description);
                                   setStatus(item.isActive);
+                                  setDate(item.date|| "")
                                   setReadTime(item.readTime);
-                                  setAuthor(item?.author)
+                                  setAuthor(item?.auther);
                                   setSelectedFileName(item.image);
                                 }}
                               >
@@ -418,9 +440,10 @@ const BlogsManagement = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() =>{ 
-                                       selectedIdref.current = item.id;
-                                       setSelectedId(item.id)}}
+                                    onClick={() => {
+                                      selectedIdref.current = item.id;
+                                      setSelectedId(item.id);
+                                    }}
                                   ></iconify-icon>
                                 }
                               />

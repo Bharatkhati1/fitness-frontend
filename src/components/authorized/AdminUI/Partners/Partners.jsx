@@ -10,8 +10,8 @@ const Partners = () => {
     name: "",
     image: null,
     categoryId: "",
-    email:"",
-    isActive:true,
+    email: "",
+    isActive: true,
   });
   const [allCategories, setAllCategories] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -20,7 +20,7 @@ const Partners = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
-  
+
   const fetchAllPartners = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_partners);
@@ -32,7 +32,9 @@ const Partners = () => {
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_master_category("partners"));
+      const res = await adminAxios.get(
+        adminApiRoutes.get_master_category("partners")
+      );
       setAllCategories(res.data.data);
     } catch (error) {
       toast.error("Failed to fetch categories");
@@ -51,7 +53,9 @@ const Partners = () => {
     submitData.append("isActive", formData.isActive);
     formData.image && submitData.append("image", formData.image);
 
-    const loadingToastId = toast.loading(isEdit ? "Updating partner..." : "Creating partner...");
+    const loadingToastId = toast.loading(
+      isEdit ? "Updating partner..." : "Creating partner..."
+    );
 
     try {
       const url = isEdit
@@ -74,7 +78,9 @@ const Partners = () => {
       resetForm();
     } catch (error) {
       toast.update(loadingToastId, {
-        render: `Failed to ${isEdit ? "update" : "create"} partner. ${error?.response?.data?.message}`,
+        render: `Failed to ${isEdit ? "update" : "create"} partner. ${
+          error?.response?.data?.message
+        }`,
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -94,7 +100,13 @@ const Partners = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: "", image: null, categoryId: "", email:"",isActive:true });
+    setFormData({
+      name: "",
+      image: null,
+      categoryId: "",
+      email: "",
+      isActive: true,
+    });
     setIsEdit(false);
     setSelectedId(null);
     setSelectedFileName("");
@@ -112,7 +124,9 @@ const Partners = () => {
         <div className="col-lg-12">
           <div className={`card ${isEdit && "editing"}`}>
             <div className="card-header d-flex justify-content-between">
-              <h4 className="card-title">{isEdit ? "Edit Partner" : "Create Partner"}</h4>
+              <h4 className="card-title">
+                {isEdit ? "Edit Partner" : "Create Partner"}
+              </h4>
               {isEdit && <button onClick={resetForm}>Cancel Edit</button>}
             </div>
             <div className="card-body">
@@ -140,7 +154,7 @@ const Partners = () => {
                     <input
                       type="file"
                       className="form-control"
-                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       ref={fileInputRef}
                       onChange={(e) => {
                         handleChange("image", e.target.files[0]);
@@ -149,8 +163,8 @@ const Partners = () => {
                   </div>
                 </div>
 
-                  {/* Partner Email */}
-                  <div className="col-lg-6">
+                {/* Partner Email */}
+                <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Partner Email</label>
                     <input
@@ -170,7 +184,9 @@ const Partners = () => {
                     <select
                       className="form-select"
                       value={formData.categoryId}
-                      onChange={(e) => handleChange("categoryId", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("categoryId", e.target.value)
+                      }
                     >
                       <option value="">Select category</option>
                       {allCategories.map((cat) => (
@@ -182,8 +198,8 @@ const Partners = () => {
                   </div>
                 </div>
 
-                      {/* Status */}
-                      <div className="col-lg-6 mb-3">
+                {/* Status */}
+                <div className="col-lg-6 mb-3">
                   <label className="form-label d-block">Status</label>
                   <div className="form-check form-check-inline">
                     <input
@@ -254,7 +270,9 @@ const Partners = () => {
                                   border: "1px solid #ccc",
                                 }}
                                 crossOrigin="anonymous"
-                                onError={(e) => console.error("Image failed to load")}
+                                onError={(e) =>
+                                  console.error("Image failed to load")
+                                }
                               />
                             </Link>
                           </td>
@@ -272,14 +290,17 @@ const Partners = () => {
                                   setFormData({
                                     name: partner.name,
                                     image: null,
-                                    email:partner.email,
+                                    email: partner.email,
                                     categoryId: partner.categoryId,
-                                    isActive:partner.isActive
+                                    isActive: partner.isActive,
                                   });
                                   setSelectedFileName(partner.image);
                                 }}
                               >
-                                <iconify-icon icon="solar:pen-2-broken" class="fs-18" />
+                                <iconify-icon
+                                  icon="solar:pen-2-broken"
+                                  class="fs-18"
+                                />
                               </button>
 
                               <ConfirmationPopup

@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Businesspartnersbg from "../../../public/assets/img/Businesspartnersbg.png";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -23,11 +21,27 @@ import restaurantimg from "../../../public/assets/img/restaurantimg.png";
 
 import bordersep from "../../../public/assets/img/border-sep.png";
 import gettouch from "../../../public/assets/img/gettouch.png";
+import { toast } from "react-toastify";
+import { webAxios } from "../../utils/constants";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
 function BusinessParthner() {
+  const [categorypartner, setcategorypartner] = useState([]);
+
+  const fetchPartners = async () => {
+    try {
+      const res = await webAxios.get(userApiRoutes.get_partners);
+      setcategorypartner(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPartners();
+  }, []);
   return (
     <>
-      <Header />
       <section className="innerbanner">
         <figure>
           <img src={Businesspartnersbg} />
@@ -165,344 +179,41 @@ function BusinessParthner() {
 
       <div className="partnerssec">
         <div className="container">
-          <div className="medicalpartners">
-            <div class="PageTitle text-center">
-              <h2>medical partners</h2>
+          {categorypartner.map((category) => (
+            <div className="medicalpartners">
+              <div class="PageTitle text-center">
+                <h2>{category.name}</h2>
+              </div>
+              {category?.Partners && category.Partners.length > 0 && (
+                <OwlCarousel
+                  className="owl-theme"
+                  dots={false}
+                  items={4}
+                  merge={true}
+                  nav={true}
+                  margin={30}
+                  loop={true}
+                >
+                  {category.Partners.map((ptr) => (
+                    <div className="item">
+                      <div>
+                        <div className="partnerssecbox">
+                          <figure>
+                            <img crossOrigin="anonymous" src={ptr.image_url}></img>
+                          </figure>
+
+                          <h3>{ptr.name}</h3>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </OwlCarousel>
+              )}
             </div>
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              merge={true}
-              nav={true}
-              margin={30}
-              loop={true}
-            >
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={medicalparthners}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-            </OwlCarousel>
-          </div>
+          ))}
 
           <div className="sepratebox mt-4 mb-4">
             <img src={bordersep}></img>
-          </div>
-
-          <div className="corporatepartners">
-            <div class="PageTitle text-center">
-              <h2>corporate partners</h2>
-            </div>
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              merge={true}
-              nav={true}
-              margin={30}
-              loop={true}
-            >
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={corporatepartnersimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-            </OwlCarousel>
-          </div>
-
-          <div className="sepratebox mt-4 mb-4">
-            <img src={bordersep}></img>
-          </div>
-
-          <div className="institutionalpartners">
-            <div class="PageTitle text-center">
-              <h2>institutional partners</h2>
-            </div>
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              merge={true}
-              nav={true}
-              margin={30}
-              loop={true}
-            >
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={instituteimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-            </OwlCarousel>
-          </div>
-
-          <div className="sepratebox mt-4 mb-4">
-            <img src={bordersep}></img>
-          </div>
-
-          <div className="institutionalpartners">
-            <div class="PageTitle text-center">
-              <h2>restaurant partners</h2>
-            </div>
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              merge={true}
-              nav={true}
-              margin={30}
-              loop={true}
-            >
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <div className="partnerssecbox">
-                    <figure>
-                      <img src={restaurantimg}></img>
-                    </figure>
-
-                    <h3>lorem ipsum</h3>
-                  </div>
-                </div>
-              </div>
-            </OwlCarousel>
           </div>
 
           <div className="getintouchinner">
@@ -591,8 +302,6 @@ function BusinessParthner() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

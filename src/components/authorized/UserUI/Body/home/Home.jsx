@@ -429,7 +429,7 @@ function Home() {
                                 }}
                               ></p>
                             )}
-                            <div className="gap-3 service-btn text-center d-flex">
+                            <div className="gap-1 service-btn text-center d-flex">
                               {showButton("Know more") && (
                                 <Link
                                   to={`/service-details/${srv.name

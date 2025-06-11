@@ -35,7 +35,7 @@ const adminApiRoutes = {
   delete_category: (categoryId) => `/blog-category/${categoryId}`,
 
   //BLOG ROUTES
-  get_blogs: "/blog",
+  get_blogs:(slug)=> `/blog?type=${slug}`,
   create_blog: "/blog",
   update_blog: (blogId) => `/blog/${blogId}`,
   delete_blog: (blogId) => `/blog/${blogId}`,

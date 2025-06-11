@@ -100,7 +100,7 @@ const Categories = () => {
     if (type === "file") {
       setFormData((prev) => ({ ...prev, image: files[0] }));
     } else if (type === "radio") {
-      setFormData((prev) => ({ ...prev, [name]: value === "true" }));
+      setFormData((prev) => ({ ...prev, isActive: value === "true" }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -109,6 +109,8 @@ const Categories = () => {
   useEffect(() => {
     fetchAllCategories();
   }, []);
+
+  console.log(formData)
 
   return (
     <>
@@ -247,7 +249,7 @@ const Categories = () => {
                             <Link to={item.image_url} target="_blank">
                               <img
                                 src={item.image_url}
-                                crossorigin="anonymous"
+                                crossOrigin="anonymous"
                                 alt="Consultant"
                                 style={{
                                   width: 50,

@@ -56,7 +56,9 @@ function Blogs() {
       setBlogCategories(categoriesData);
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Failed to fetch categories");
+      toast.error(
+        error.response?.data?.message || "Failed to fetch categories"
+      );
     }
   };
 
@@ -95,9 +97,9 @@ function Blogs() {
                 placeholder="Search blog name here..."
                 className="form-control"
                 value={searchTerm}
-                onChange={(e) =>{
-                  handleSelectCategory("all"); 
-                  setSearchTerm(e.target.value)
+                onChange={(e) => {
+                  handleSelectCategory("all");
+                  setSearchTerm(e.target.value);
                 }}
               />
               <button className="SearchBtn">
@@ -156,9 +158,9 @@ function Blogs() {
                                 className={
                                   selectedCategory === cat.id ? "active" : ""
                                 }
-                                onClick={() =>{
-                                  setSearchTerm("")
-                                  handleSelectCategory(cat.id)
+                                onClick={() => {
+                                  setSearchTerm("");
+                                  handleSelectCategory(cat.id);
                                 }}
                               >
                                 <span className="tag-info">{cat.name}</span>
@@ -215,24 +217,31 @@ function Blogs() {
                     <h3>{blog.title}</h3>
                     <div className="Bytext">
                       <span>
-                        {new Date(blog.createdAt).toLocaleDateString("en-GB")}
+                        {blog.auther} -{" "}
+                        {new Date(
+                          blog.date || blog.createdAt
+                        ).toLocaleDateString("en-GB")}
                       </span>
                     </div>
-                    <p>
-                      {blog.shortDescription}{"  "}
-                      <Link
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: blog.shortDescription,
+                      }}
+                    >
+                    </p>
+                    <Link
+                    style={{color:"green"}}
                         to={`/blog/${blog.title
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`}
                       >
                         Read More <img src={readMoreimg} />
                       </Link>
-                    </p>
                   </figcaption>
                 </div>
               ))
             ) : (
-               <div className="col-12 text-center py-5">
+              <div className="col-12 text-center py-5">
                 <h5>No blog found.</h5>
               </div>
             )}

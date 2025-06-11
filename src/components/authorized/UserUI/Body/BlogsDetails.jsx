@@ -4,6 +4,8 @@ import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../../../utils/constants";
 
 
+
+
 import { toast } from "react-toastify";
 import JoinCommunity from "./Modals/JoinCommunity";
 
@@ -44,7 +46,7 @@ const BlogsDetails = () => {
         <div className="container">
           <div class="Bytext text-center">
             <span>
-              By The Daily Fitness .{" "}
+              By The Daily Fitness .
               {new Date(details.updatedAt).toLocaleDateString("en-GB")}
             </span>
 

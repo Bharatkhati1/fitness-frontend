@@ -24,6 +24,8 @@ import Careers from "./components/pages/Careers.jsx";
 import BusinessParthner from "./components/pages/BusinessParthner.jsx";
 import userAxios from "./utils/Api/userAxios.jsx";
 import Events from "./components/pages/Events.jsx";
+import UpcomigDetails from "./components/pages/UpcomigDetails.jsx";
+import Innovation from "./components/pages/Innovation.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -73,6 +75,9 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
     
           <Route path="Events" element={<Events/>} />
+          <Route path="UpcomigDetails" element={<UpcomigDetails/>} />
+          <Route path="Innovation" element={<Innovation/>} />
+
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}

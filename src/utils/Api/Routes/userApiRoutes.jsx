@@ -71,10 +71,12 @@ const userApiRoutes = {
   apply_coupon:`/apply-coupon`,
   create_order_razorpay:`/payment-order`,
   cart_checkout:`/checkout`,
- 
 
   consultant_availibility_slots:(id, selectedDate)=>`/consultant-available-slots/${id}?startDate=${selectedDate}&endDate=${selectedDate}`,
   appointment_booking:`/appointment-booking`,
+
+  get_partners:`/partners?slug=partners`,
+  get_master_categories:(slug)=>`/categories?slug=${slug}`
   
 };
 

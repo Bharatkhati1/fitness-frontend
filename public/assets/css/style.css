@@ -377,7 +377,8 @@ header .navbar-collapse .nav-link.active {
 }
 
 .ClientListinfo {
-  margin-bottom: 45px;
+  margin-bottom: 25px;
+  margin-top: 45px;
 }
 
 .ClientListinfo li {
@@ -1207,12 +1208,13 @@ header.sticky {
   background: url("../img/loginBanner.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   overflow: auto;
-  padding-top: 50px;
+  padding-top: 200px;
   background-position: 100% 15%;
+  padding-bottom: 100px;
 }
 
 .RegisterPage .col-md-7.me-auto,
@@ -1959,9 +1961,11 @@ body .owl-item .OurServicesContent figure img {
   background-size: 17px;
   position: absolute;
   right: 0;
-  width: 67px;
+  width: auto;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  padding-right: 30px;
+  max-width: 67px;
 }
 
 .innerSpace {
@@ -4039,6 +4043,7 @@ ul.ourapproachlist li:after {
   border-radius: 14px;
   box-shadow: 0 4px 23px #00794652;
   padding: 40px 20px 20px;
+  height: 100%;
 }
 
 .WhyUsinner figure {
@@ -4057,13 +4062,6 @@ ul.ourapproachlist li:after {
   font-size: 16px;
   color: rgb(0 0 0 / 90%);
   font-weight: 400;
-}
-@media (max-width: 1400px) {
-  .service-btn a {
-    min-width: 160px !important;
-    font-size: 11px;
-    padding: 0 4px;
-  }
 }
 
 .note-editor .note-editing-area {
@@ -4387,330 +4385,356 @@ ul.whyparthnerlist li {
 }
 
 .whypartner {
-    padding-top: 60px;
-    padding-bottom: 70px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 
 .partnerssec {
-    background: #FAFAFA;
-    padding-top: 50px;
-    padding-bottom: 60px;
+  background: #fafafa;
+  padding-top: 50px;
+  padding-bottom: 60px;
 }
 
 .partnerssecbox {
-    background: #D9D9D975;
-    border-radius: 14px;
-    text-align: center;
-    padding: 15px 20px 15px;
-    box-shadow: 0 4px 11px rgb(0 0 0 / 25%);
-    overflow: hidden;
-    margin-bottom: 15px;}
+  background: #d9d9d975;
+  border-radius: 14px;
+  text-align: center;
+  padding: 15px 20px 15px;
+  box-shadow: 0 4px 11px rgb(0 0 0 / 25%);
+  overflow: hidden;
+  margin-bottom: 15px;
+}
 
 .partnerssecbox h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1E1E1E;
-    text-transform: uppercase;
-    padding-top: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e1e1e;
+  text-transform: uppercase;
+  padding-top: 10px;
 }
 
 .partnerssecbox figure img {
-    margin: auto;
+  margin: auto;
 }
 
 .centerImg img {
-    width: 345px;
-    height: 720px;
-    border-radius: 33px;
-    object-fit: cover;
-    margin: auto;
+  width: 345px;
+  height: 720px;
+  border-radius: 33px;
+  object-fit: cover;
+  margin: auto;
 }
 
 .EventsBanner.spacetop {
-    padding-top: 78px;
+  padding-top: 78px;
 }
 
 .EventsBanner {
-    background: url(../img/eventsbg.png);
-    height: 514px;
-    background-size: cover;
-    position: relative;
-
+  background: url(../img/eventsbg.png);
+  height: 514px;
+  background-size: cover;
+  position: relative;
 }
 
 .EventsBannercontent {
-    max-width: 1320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 78px;
-    bottom: 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 78px;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .EventsBannercontent h3 {
-    font-size: 51px;
-    color: #800030;
-    text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-shadow: 0 4px 4px hsl(0deg 0% 0% / 30.2%);
-    margin-bottom: 30px;
+  font-size: 51px;
+  color: #800030;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 0 4px 4px hsl(0deg 0% 0% / 30.2%);
+  margin-bottom: 30px;
 }
 
 .EventsBannercontent p {
-    font-size: 20px;
-    color: #1E1E1E;
-    text-align: center;
-    font-weight: 400;
+  font-size: 20px;
+  color: #1e1e1e;
+  text-align: center;
+  font-weight: 400;
 }
 
 .upcomingbox figcaption {
-    padding: 20px 20px;
-    text-align: center;
+  padding: 20px 20px;
+  text-align: center;
 }
 
 .eventinfolist li {
-    display: flex;
-    width: 50%;
-    padding: 5px 15px;
-    align-items: center;
-    color: #000;
+  display: flex;
+  width: 50%;
+  padding: 5px 15px;
+  align-items: center;
+  color: #000;
 }
 
 .eventinfolist li img {
-    margin-right: 10px;
-} 
+  margin-right: 10px;
+}
 
 .upcomingbox h4 {
-     font-size: 20px;
-    color: #800030;
-    text-transform: uppercase;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 20px;
+  font-size: 20px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 20px;
 }
 
 .eventinfolist {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90%;
-    margin: auto;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
-.upcomingbox figcaption p{ color: #1E1E1E; font-size: 13px;}
+.upcomingbox figcaption p {
+  color: #1e1e1e;
+  font-size: 13px;
+}
 
- .Pasteventsslider .owl-carousel .owl-item .upcomingbox figure img {
-    width: 100% !important;
+.Pasteventsslider .owl-carousel .owl-item .upcomingbox figure img {
+  width: 100% !important;
 }
 
 .upcomingbox {
-    padding: 20px 20px;
-    box-shadow: 0 4px 23px #00000040;
+  padding: 20px 20px;
+  box-shadow: 0 4px 23px #00000040;
 }
 
 .upcomingbox {
-    padding: 20px 20px;
-    box-shadow: 0 12px 16px rgb(0 0 0 / 12%);
-    border: 1px solid hsl(0deg 0% 0% / 5.88%);
-    border-radius: 10px;
+  padding: 20px 20px;
+  box-shadow: 0 12px 16px rgb(0 0 0 / 12%);
+  border: 1px solid hsl(0deg 0% 0% / 5.88%);
+  border-radius: 10px;
 }
 
 .upcomingevents {
-    padding-top: 60px;
-    padding-bottom: 70px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 
 .upcomingevents .owl-stage-outer {
-    padding: 0 15px;
-    padding-bottom: 30px;
+  padding: 0 15px;
+  padding-bottom: 30px;
 }
 
- .Pasteventsslider .owl-item.center .item .pasteventbox img {
-    -webkit-transform: scale(1.40);
-    -ms-transform: scale(1.40);
-    transform: scale(1.40);
-    height: 230px;
-    border-radius: 16px;
-       filter: blur(0px);
+.Pasteventsslider .owl-item.center .item .pasteventbox img {
+  -webkit-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+  height: 230px;
+  border-radius: 16px;
+  filter: blur(0px);
 }
- .Pasteventsslider .owl-item  .item .pasteventbox img  {
-    -webkit-transition: 0.3s;
-    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    -webkit-transform: scale(0.7);
-    -ms-transform: scale(0.7);
-    transform: scale(0.7);
-    height: 350px;
-    border-radius: 16px;
-    filter: blur(2px);
+.Pasteventsslider .owl-item .item .pasteventbox img {
+  -webkit-transition: 0.3s;
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  height: 350px;
+  border-radius: 16px;
+  filter: blur(2px);
 }
 
- .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
-    width: 100% !important;
-    object-fit: cover;
-   
+.Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
+  width: 100% !important;
+  object-fit: cover;
 }
- .Pasteventsslider .owl-carousel .owl-stage{    align-items: center; display: flex;}
+.Pasteventsslider .owl-carousel .owl-stage {
+  align-items: center;
+  display: flex;
+}
 
- .Pasteventsslider .owl-item .item {
-   transform: translate3d(0, 0, 0); /* DO NOT REMEMBER WHERE TU PUT THIS, SEARCH FOR 3D ACCELERATION */
-   transform: scale(0.9);
+.Pasteventsslider .owl-item .item {
+  transform: translate3d(
+    0,
+    0,
+    0
+  ); /* DO NOT REMEMBER WHERE TU PUT THIS, SEARCH FOR 3D ACCELERATION */
+  transform: scale(0.9);
 
- transition: all .25s ease-in-out; 
+  transition: all 0.25s ease-in-out;
   margin: 50px 0; /* OVERWRITE PLUGIN MARGIN */
- }
- .Pasteventsslider {
-    margin-top: -90px;
+}
+.Pasteventsslider {
+  margin-top: -90px;
 }
 
 .Pastevents .PageTitle b {
-    color: #1E1E1E;
-    text-align: center;
-    font-size: 16px;
-    margin-bottom: 5px;
-    display: block;
+  color: #1e1e1e;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
 }
 .postbtn {
-    margin-top: -57px;
-    z-index: 1;
-    position: relative;
+  margin-top: -57px;
+  z-index: 1;
+  position: relative;
 }
 
 .Pastevents {
-    padding-bottom: 70px;
+  padding-bottom: 70px;
 }
 
 .whyattentevent {
-    background: #F7F7F7;
-    padding: 35px 0px;
+  background: #f7f7f7;
+  padding: 35px 0px;
 }
 .whyattentbox {
-    text-align: center;
-    padding: 0 40px;
+  text-align: center;
+  padding: 0 40px;
 }
 .whyattentbox h4 {
-    font-size: 20px;
-    color: #1E1E1E;
-    font-weight: 600;
-    padding-top: 18px;
-    text-transform: capitalize;
-    line-height: 1.4;
+  font-size: 20px;
+  color: #1e1e1e;
+  font-weight: 600;
+  padding-top: 18px;
+  text-transform: capitalize;
+  line-height: 1.4;
 }
 
 .shapewhy {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
 }
 
 .typeseventsbox h4 {
-    font-size: 20px;
-    color: #000000;
-    font-weight: 700;
+  font-size: 20px;
+  color: #000000;
+  font-weight: 700;
 }
 
 .typeseventsbox p {
-    font-size: 16px;
-    color: #000000E5;
-    font-weight: 400;
-    margin-bottom: 0;
+  font-size: 16px;
+  color: #000000e5;
+  font-weight: 400;
+  margin-bottom: 0;
 }
 
 .typeseventsbox {
-    box-shadow: 0 4px 9px #00000040;
-    border: 1px solid #00000017;
+  box-shadow: 0 4px 9px #00000040;
+  border: 1px solid #00000017;
 }
 
-.owl-carousel .owl-item  .typeseventsbox figure img {
-       width: 100% !important;
-    height: 589px;
-    object-fit: cover;
+.owl-carousel .owl-item .typeseventsbox figure img {
+  width: 100% !important;
+  height: 589px;
+  object-fit: cover;
 }
 
 .typeseventsbox figcaption {
-    padding: 20px 20px;
+  padding: 20px 20px;
 }
 .typeofevents {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 .gotquestionsbg {
-    background: #DAFFF121;
-    padding: 20px 60px;
-    box-shadow: 0 4px 15px #00000040;
-    border-radius: 10px;
+  background: #dafff121;
+  padding: 20px 60px;
+  box-shadow: 0 4px 15px #00000040;
+  border-radius: 10px;
 }
 
 .gotquestionscontent h4 {
-    font-size: 50px;
-    color: #800030;
-    font-family: "Tangerine", cursive !important;
-    margin-bottom: 10px;
-    font-weight: 700;
+  font-size: 50px;
+  color: #800030;
+  font-family: "Tangerine", cursive !important;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 .gotquestionscontent p {
-    font-size: 16px;
-    color: #1E1E1E;
-    font-weight: 600;
+  font-size: 16px;
+  color: #1e1e1e;
+  font-weight: 600;
 }
 .gotquestionscontent {
-    padding-right: 60px;
+  padding-right: 60px;
 }
 
 .gotquestions {
-    margin-top: 40px;
-    margin-bottom: 60px;
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
 .typeofevents .owl-stage-outer {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
-.Pasteventsslider  .owl-nav button.owl-prev {
-    left: 30px;
+.Pasteventsslider .owl-nav button.owl-prev {
+  left: 30px;
 }
 .Pasteventsslider .owl-nav button.owl-next {
-    right: 30px;
+  right: 30px;
 }
 
-.owl-carousel .owl-item  .upcomingbox figure img {
-    height: 314px;
-    object-fit: cover;
-    width: 100% !important;
+.owl-carousel .owl-item .upcomingbox figure img {
+  height: 314px;
+  object-fit: cover;
+  width: 100% !important;
 }
 
 .userprofileimg {
-    background: #Ddd;
-    width: 35px;
-    height: 33px;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    overflow: hidden;
+  background: #ddd;
+  width: 35px;
+  height: 33px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  overflow: hidden;
 }
 
 .userprofileimg img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .dropdown-toggle {
-    padding: 0;
-    padding-right: 6px;
+  padding: 0;
+  padding-right: 6px;
 }
 
-.userprofile  button#dropdown-basic {
+.FooterContentInfo {
+  padding-top: 20px;
+}
+
+.service-btn a {
+  min-width: auto;
+  font-size: 13px;
+  padding: 0 3px !important;
+}
+
+.OurServicesContent p > p,
+.OurServicesContent p + p {
+  min-height: auto;
+}
+
+.userprofile button#dropdown-basic {
   background: transparent;
 }
 
-.userprofile .dropdown-toggle::after{ color: #000;}
+.userprofile .dropdown-toggle::after {
+  color: #000;
+}
 
 .userprofile .dropdown-menu a {
   color: #000;
@@ -4718,4 +4742,34 @@ ul.whyparthnerlist li {
 
 .userprofile .service-btn a {
   min-width: auto !important;
+}
+
+.SocialUsers div,
+.SocialUsers span {
+  border: 0;
+  font-weight: 700 !important;
+  color: #000;
+}
+
+.topcontentbox h4 {
+    font-size: 30px;
+    color: #800030;
+    font-weight: 700;
+}
+
+.topcontentboxlist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.topcontentbox {
+    margin-top: 25px;
+}
+
+.topcontentboxlist li img {
+    vertical-align: middle;
+    margin-right: 10px;
 }
