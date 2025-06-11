@@ -95,7 +95,10 @@ function Blogs() {
                 placeholder="Search blog name here..."
                 className="form-control"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) =>{
+                  handleSelectCategory("all"); 
+                  setSearchTerm(e.target.value)
+                }}
               />
               <button className="SearchBtn">
                 <img src={searchIcon} alt="Search" />
@@ -150,11 +153,13 @@ function Blogs() {
                           >
                             {categories.map((cat) => (
                               <li
-                                // data-item={cat.id}
                                 className={
                                   selectedCategory === cat.id ? "active" : ""
                                 }
-                                onClick={() => handleSelectCategory(cat.id)}
+                                onClick={() =>{
+                                  setSearchTerm("")
+                                  handleSelectCategory(cat.id)
+                                }}
                               >
                                 <span className="tag-info">{cat.name}</span>
                               </li>

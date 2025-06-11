@@ -29,6 +29,27 @@
   .AboutInfo h2 {
     font-size: 28px;
   }
+
+  .butterflyone {
+    right: 588px !important;
+  }
+
+  span.butterflytwo {
+    right: 538px !important;
+  }
+
+  span.butterflythree {
+    right: 513px !important;
+    top: 78px !important;
+  }
+
+  .calculatebody {
+    width: 100%;
+}
+.taginfo {
+   
+    right: 0;
+    top: 60px;}
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {

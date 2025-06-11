@@ -4,22 +4,20 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../../../../../public/assets/img/footerLogo.png";
 import CartIcon from "../../../../../public/assets/img/carticon.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 import { authActions } from "../../../../store/auth";
 import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
-
-import Dropdown from 'react-bootstrap/Dropdown';
-
-
-import userprofile from "../../../../../public/assets/img/user-profile.png"
+import Dropdown from "react-bootstrap/Dropdown";
+import userprofile from "../../../../../public/assets/img/user-profile.png";
 
 const Header = () => {
-  const { userAccessToken,isLoggedIn} = useSelector((state) => state.auth);
-  const {pathname } = useLocation()
+  const { userAccessToken, isLoggedIn } = useSelector((state) => state.auth);
+  const { pathname } = useLocation();
+  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const fetchCartitems = async () => {
@@ -27,7 +25,7 @@ const Header = () => {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       dispatch(authActions.setCartItems(res?.data?.data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response.data.error);
     }
   };
@@ -35,13 +33,20 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutUser(true));
   };
-  
-  useEffect(()=>{
-    if(isLoggedIn){
-      fetchCartitems()
-    }
 
-  },[])
+  const handleCartNavigate =()=>{
+    if(userAccessToken&&userAccessToken.length>0){
+      navigate("/cart")
+    }else{
+      toast.info("Please login first!")
+    }
+  }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchCartitems();
+    }
+  }, []);
   return (
     <header id="fixed-header" className="sticky">
       <div className="container">
@@ -56,52 +61,76 @@ const Header = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="">
-                  <Nav.Link as={Link} to="/" className={pathname.length==1&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to="/"
+                    className={pathname.length == 1 && `active`}
+                  >
                     Home
                   </Nav.Link>
-                  <Nav.Link as={Link} to={"/about-us"}  className={pathname.includes("/about-us")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to={"/about-us"}
+                    className={pathname.includes("/about-us") && `active`}
+                  >
                     About Us
                   </Nav.Link>
-                  <Nav.Link as={Link} to={"/all-packages"}  className={pathname.includes("/all-packages")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to={"/all-packages"}
+                    className={pathname.includes("/all-packages") && `active`}
+                  >
                     Packages
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/tools" className={pathname.includes("/tools")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to="/tools"
+                    className={pathname.includes("/tools") && `active`}
+                  >
                     Tools
                   </Nav.Link>
-                  <Nav.Link as={Link} to={"/testimonials"} className={pathname.includes("/testimonials")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to={"/testimonials"}
+                    className={pathname.includes("/testimonials") && `active`}
+                  >
                     Testimonials
                   </Nav.Link>
-                  <Nav.Link as={Link} to={"/blogs"}  className={pathname.includes("/blogs")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to={"/blogs"}
+                    className={pathname.includes("/blogs") && `active`}
+                  >
                     Blogs
                   </Nav.Link>
-                  <Nav.Link as={Link} to={"/contact-us"} className={pathname.includes("/contact-us")&&`active`}>
+                  <Nav.Link
+                    as={Link}
+                    to={"/contact-us"}
+                    className={pathname.includes("/contact-us") && `active`}
+                  >
                     Contact Us
                   </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
             <div className="Login-info d-flex align-items-center">
-
-                 <Dropdown className="userprofile">
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        
-        <span className="userprofileimg"><img src={userprofile}></img></span>
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">profile</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Logout</Dropdown.Item>
-       
-      </Dropdown.Menu>
-    </Dropdown>
-
-              <Link to={"/cart"} className="carticon">
+              <div onClick={()=>handleCartNavigate()} className="carticon">
                 <img src={CartIcon} />
-              </Link>
-              {userAccessToken.length>0 ? (
-                <button onClick={() => handleLogout()} className="header-btn ">
-                  Logout
-                </button>
+              </div>
+              {userAccessToken.length > 0 ? (
+                <Dropdown className="userprofile">
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <span className="userprofileimg">
+                      <img src={userprofile}></img>
+                    </span>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleLogout()}>
+                      Logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
                 <Link to="/login-user" className="header-btn ">
                   Login / Register

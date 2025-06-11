@@ -9,49 +9,44 @@ function Idealweight() {
   const [gender, setGender] = useState("");
   const [bodyFrame, setBodyFrame] = useState("");
   const [result, setResult] = useState(null);
+  const [error, setError] = useState("");
 
   const calculateIdealWeight = () => {
+    setError("");        // Clear previous error
+    setResult(null);     // Clear previous result
+  
     if (!height || !gender || !bodyFrame) {
-      setResult({ error: "Please provide all required inputs." });
+      setError("Please fill out all required fields.");
       return;
     }
-
+  
     let heightInches = parseFloat(height);
     if (isNaN(heightInches) || heightInches <= 0) {
-      setResult({ error: "Please enter a valid height." });
+      setError("Please enter a valid height.");
       return;
     }
-
-    // Convert height to inches if in cm
+  
     if (heightUnit === "cm") {
       heightInches = heightInches / 2.54;
     }
-
-    // Use minimum height of 60 inches for formula base
+  
     const baseHeight = Math.max(60, heightInches);
-
-    let idealWeight;
-    if (gender === "male") {
-      idealWeight = 48 + (baseHeight - 60) * 2.7;
-    } else {
-      idealWeight = 45.5 + (baseHeight - 60) * 2.2;
-    }
-
-    // Adjust for body frame
-    if (bodyFrame === "small") {
-      idealWeight *= 0.9;
-    } else if (bodyFrame === "large") {
-      idealWeight *= 1.1;
-    }
-
+    let idealWeight = gender === "male"
+      ? 48 + (baseHeight - 60) * 2.7
+      : 45.5 + (baseHeight - 60) * 2.2;
+  
+    if (bodyFrame === "small") idealWeight *= 0.9;
+    else if (bodyFrame === "large") idealWeight *= 1.1;
+  
     const lowerRange = idealWeight * 0.95;
     const upperRange = idealWeight * 1.05;
-
+  
     setResult({
       idealWeight: idealWeight.toFixed(1),
       range: `${lowerRange.toFixed(1)} - ${upperRange.toFixed(1)} kg`,
     });
   };
+  
 
   return (
     <>
@@ -151,6 +146,7 @@ function Idealweight() {
                 </div>
                 
                   <div className="calculateButton text-center mt-3">
+                  { error&&<p style={{color:"orange"}}>{error}</p>}
                     <button
                       className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                       onClick={calculateIdealWeight}
