@@ -1,3 +1,36 @@
+@media (max-width: 1400px) {
+  .service-btn a {
+    min-width: 160px !important;
+    font-size: 11px;
+    padding: 0 4px;
+    height: 42px;
+  }
+
+  .MuktiBoxRight figure img {
+    width: 380px;
+  }
+
+  .MuktiBoxRight h4 {
+    margin-bottom: 18px;
+    font-size: 20px;
+  }
+
+  .MuktiBoxRight p {
+    font-size: 14px;
+  }
+
+  .WhyUsinner h4 {
+    font-size: 20px;
+  }
+  .AboutInfoLeft p {
+    font-size: 16px;
+  }
+
+  .AboutInfo h2 {
+    font-size: 28px;
+  }
+}
+
 @media (min-width: 1200px) and (max-width: 1680px) {
   .OurServices.bg-solid {
     padding-bottom: 0;
@@ -1321,7 +1354,7 @@
 
   section.WhyUs .col-md-4 {
     width: 50%;
-}
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -2045,7 +2078,7 @@
   section.WhyUs .col-md-4 {
     width: 90%;
     margin: 20px auto;
-}
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2465,5 +2498,8 @@
     height: 300px;
     width: 100%;
     object-fit: cover;
+  }
+  .WhyUsinner p {
+    font-size: 14px;
   }
 }

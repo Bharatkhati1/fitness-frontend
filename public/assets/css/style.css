@@ -377,7 +377,8 @@ header .navbar-collapse .nav-link.active {
 }
 
 .ClientListinfo {
-  margin-bottom: 45px;
+  margin-bottom: 25px;
+  margin-top: 45px;
 }
 
 .ClientListinfo li {
@@ -4039,6 +4040,7 @@ ul.ourapproachlist li:after {
   border-radius: 14px;
   box-shadow: 0 4px 23px #00794652;
   padding: 40px 20px 20px;
+  height: 100%;
 }
 
 .WhyUsinner figure {
@@ -4058,13 +4060,7 @@ ul.ourapproachlist li:after {
   color: rgb(0 0 0 / 90%);
   font-weight: 400;
 }
-@media (max-width: 1400px) {
-  .service-btn a {
-    min-width: 160px !important;
-    font-size: 11px;
-    padding: 0 4px;
-  }
-}
+
 
 .note-editor .note-editing-area {
   height: 200px;
@@ -4699,9 +4695,24 @@ ul.whyparthnerlist li {
 .userprofileimg img {
     width: 100%;
     height: 100%;
-}
+} 
 
 .dropdown-toggle {
     padding: 0;
     padding-right: 6px;
+}
+
+.FooterContentInfo {
+    padding-top: 20px;
+}
+
+
+.service-btn a {
+    min-width: auto;
+    font-size: 13px;
+    padding: 0 3px !important;
+}
+
+.OurServicesContent p > p,.OurServicesContent p + p {
+    min-height: auto;
 }
