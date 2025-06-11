@@ -13,6 +13,7 @@ const Manage = () => {
     author: "",
     categoryId: "",
   });
+  const [galleryImages, setGalleryImages] = useState([]);
   const [image, setImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -21,6 +22,7 @@ const Manage = () => {
 
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
+  const galleryInputRef = useRef(null);
 
   const fetchCategories = async () => {
     try {
@@ -112,6 +114,13 @@ const Manage = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      galleryImages.forEach((file) => URL.revokeObjectURL(file));
+    };
+  }, [galleryImages]);
+
   return (
     <>
       {/* Form Section */}
@@ -181,6 +190,55 @@ const Manage = () => {
                       ))}
                     </select>
                   </div>
+                </div>
+
+                {/* Gallery Images (Optional) */}
+                <div className="col-lg-8">
+                  <div className="mb-3">
+                    <label className="form-label">
+                      Gallery Images (Optional)
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/*"
+                      ref={galleryInputRef}
+                      multiple
+                      onChange={(e) =>{
+                        setGalleryImages(Array.from(e.target.files));
+                        e.target.value = null;
+                      }
+                      }
+                    />
+                  </div>
+
+                  {/* Image Previews with Remove Icon */}
+                  {galleryImages.length > 0 && (
+                    <div className="d-flex flex-wrap gap-2">
+                      {galleryImages.map((file, index) => (
+                        <div
+                          key={index}
+                          className="gary-img-div"
+                        >
+                          <img
+                            src={URL.createObjectURL(file)}
+                            alt={`preview-${index}`}
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setGalleryImages((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              )
+                            }
+                            className="remove-img-btn-gly"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Short description */}
