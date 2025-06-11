@@ -12,11 +12,11 @@ const Categories = () => {
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const fileInputRef = useRef()
-    const selectedIdref = useRef(null)
+  const selectedIdref = useRef(null)
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_all_partners_category);
+      const res = await adminAxios.get(adminApiRoutes.get_master_category("partners"));
       setcategories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -32,6 +32,7 @@ const Categories = () => {
   
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
+    formPayload.append("slug", "partners");
     formPayload.append("isActive", formData.isActive);
     if (formData.image) {
       formPayload.append("image", formData.image);
@@ -39,14 +40,14 @@ const Categories = () => {
     const toastId = toast.loading("Submitting...");
     try {
       const url = isEdit
-        ? adminApiRoutes.update_sk_category(selectedId)
-        : adminApiRoutes.create_sk_category;
+        ? adminApiRoutes.update_master_category(selectedId)
+        : adminApiRoutes.create_master_category;
   
       const method = isEdit ? adminAxios.put : adminAxios.post;
   
       const response = await method(url, formPayload, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type":"multipart/form-data",
         },
       });
   
@@ -79,7 +80,7 @@ const Categories = () => {
   const deleteCategory = async () => {
     try {
       const idToDelete = selectedIdref.current;
-      await adminAxios.delete(adminApiRoutes.delete_sk_category(idToDelete));
+      await adminAxios.delete(adminApiRoutes.delete_master_category(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllCategories();
     } catch (error) {

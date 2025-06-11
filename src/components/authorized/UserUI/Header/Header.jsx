@@ -15,7 +15,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import userprofile from "../../../../../public/assets/img/user-profile.png";
 
 const Header = () => {
-  const { userAccessToken, isLoggedIn } = useSelector((state) => state.auth);
+  const { userAccessToken, isLoggedIn , user} = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const navigate = useNavigate()
   const dispatch = useDispatch();

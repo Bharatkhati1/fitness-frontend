@@ -26,7 +26,7 @@ function BookAppoinmentdate({ consultant }) {
   }
 
   const handleAppointment = async () => {
-    if (!selectedDate || !selectedSlot || !contactNumber) {
+    if (!selectedDate || !selectedSlot ) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -146,7 +146,7 @@ function BookAppoinmentdate({ consultant }) {
                 <h4 className="slottitle">Please select a date:</h4>
                 <Calender onDateSelect={setSelectedDate} />
 
-                <div className="provideContactinfo mt-4">
+                {/* <div className="provideContactinfo mt-4">
                   <h4 className="slottitle">
                     Please provide your contact number:
                   </h4>
@@ -161,7 +161,7 @@ function BookAppoinmentdate({ consultant }) {
                       onChange={(e) => setContactNumber(e.target.value)}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="col-md-6 slotdateboxright">

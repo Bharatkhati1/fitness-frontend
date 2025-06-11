@@ -73,10 +73,7 @@ const App = () => {
           <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
-
-          <Route path="packageDetails" element={<Diabetes />} />
-          <Route path="Careers" element={<Careers />} />
-          <Route path="BusinessParthner" element={<BusinessParthner />} />
+    
           <Route path="Events" element={<Events/>} />
           <Route path="UpcomigDetails" element={<UpcomigDetails/>} />
           <Route path="Innovation" element={<Innovation/>} />
@@ -85,10 +82,7 @@ const App = () => {
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
           />
-          <Route path="BookAppoinment" element={<BookAppoinment />} />
-          <Route path="BookAppoinmentdate" element={<BookAppoinmentdate />} />
           <Route path="Testimonial" element={<Testimonial />} />
-          {/* <Route path="AddToBag" element={<AddToBag />} /> */}
         </Routes>
       </Suspense>
     );

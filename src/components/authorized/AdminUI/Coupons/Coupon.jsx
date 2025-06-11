@@ -16,6 +16,7 @@ const Coupon = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [coupons, setCoupons] = useState([]);
+  const [partners, setPartners] = useState([]);
   const selectedIdRef = useRef(null);
 
   const fetchCoupons = async () => {
@@ -27,6 +28,14 @@ const Coupon = () => {
     }
   };
 
+  const fetchAllPartners = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_all_partners);
+      setPartners(res.data.data);
+    } catch (error) {
+      toast.error("Failed to fetch partners");
+    }
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -102,6 +111,7 @@ const Coupon = () => {
 
   useEffect(() => {
     fetchCoupons();
+    fetchAllPartners();
   }, []);
 
   return (
@@ -178,25 +188,37 @@ const Coupon = () => {
                   </div>
                 </div>
 
-                {/* Partner ID */}
+                {/* Partner  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Partner ID (Optional)</label>
-                    <input
-                      type="number"
-                      className="form-control"
+                    <label className="form-label">Select Partner</label>
+                    <select
+                      className="form-select"
                       name="partnerId"
-                      placeholder="Enter partner ID"
                       value={formData.partnerId}
-                      onChange={handleInputChange}
-                    />
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          partnerId: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Select category</option>
+                      {partners.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
                 {/* Commission */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Commission (Optional)</label>
+                    <label className="form-label">
+                      Partner Commission (Optional)
+                    </label>
                     <input
                       type="number"
                       className="form-control"
@@ -277,12 +299,12 @@ const Coupon = () => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
-                                    code: item.code,
-                                    type: item.type,
-                                    value: item.value,
-                                    expiry: item.expiry.split("T")[0],
-                                    partnerId: item.partnerId || "",
-                                    commission: item.commission || "",
+                                    code: item?.code,
+                                    type: item?.type,
+                                    value: item?.value,
+                                    expiry: item?.expiry?.split("T")[0],
+                                    partnerId: item?.partnerId || "",
+                                    commission: item?.commission || "",
                                   });
                                 }}
                               >
