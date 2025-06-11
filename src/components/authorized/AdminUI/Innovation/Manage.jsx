@@ -22,8 +22,6 @@ const Manage = () => {
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
 
-
-
   const fetchCategories = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_categories);
@@ -51,7 +49,9 @@ const Manage = () => {
     });
     if (image) data.append("image", image);
 
-    const toastId = toast.loading(`${isEdit ? "Updating" : "Creating"} item...`);
+    const toastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} item...`
+    );
     try {
       const url = isEdit
         ? adminApiRoutes.update_manage_item(selectedId)
@@ -73,7 +73,9 @@ const Manage = () => {
       fetchCategories();
     } catch (error) {
       toast.update(toastId, {
-        render: `Failed to ${isEdit ? "update" : "create"} item. ${error?.response?.data?.message || ""}`,
+        render: `Failed to ${isEdit ? "update" : "create"} item. ${
+          error?.response?.data?.message || ""
+        }`,
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -117,15 +119,20 @@ const Manage = () => {
         <div className="col-lg-12">
           <div className={`card ${isEdit ? "editing" : ""}`}>
             <div className="card-header d-flex justify-content-between">
-              <h4 className="card-title">{isEdit ? "Edit Item" : "Create Item"}</h4>
+              <h4 className="card-title">
+                {isEdit ? "Edit Item" : "Create Item"}
+              </h4>
               {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
             </div>
             <div className="card-body">
               <div className="row">
                 {[
                   { label: "Title", name: "title", placeholder: "Enter title" },
-                  { label: "Author", name: "author", placeholder: "Enter author name" },
-                  { label: "Short Description", name: "shortDescription", placeholder: "Enter short description" },
+                  {
+                    label: "Author",
+                    name: "author",
+                    placeholder: "Enter author name",
+                  },
                 ].map(({ label, name, placeholder }) => (
                   <div className="col-lg-6" key={name}>
                     <div className="mb-3">
@@ -176,8 +183,24 @@ const Manage = () => {
                   </div>
                 </div>
 
-                {/* CKEditor */}
-                <div className="col-lg-12">
+                {/* Short description */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Short Description</label>
+                    <Ckeditor
+                      text={formData.shortDescription}
+                      setText={(text) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          shortDescription: text,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+
+                {/* Long decsription */}
+                <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Long Description</label>
                     <Ckeditor
@@ -230,7 +253,9 @@ const Manage = () => {
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive === "1" ? "bg-success" : "bg-danger"
+                                item.isActive === "1"
+                                  ? "bg-success"
+                                  : "bg-danger"
                               }`}
                             >
                               {item.isActive === "1" ? "Active" : "Inactive"}
@@ -250,7 +275,10 @@ const Manage = () => {
                                   }));
                                 }}
                               >
-                                <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18" />
+                                <iconify-icon
+                                  icon="solar:pen-2-broken"
+                                  class="align-middle fs-18"
+                                />
                               </button>
 
                               <ConfirmationPopup
@@ -261,7 +289,9 @@ const Manage = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() => (selectedIdRef.current = item.id)}
+                                    onClick={() =>
+                                      (selectedIdRef.current = item.id)
+                                    }
                                   />
                                 }
                               />

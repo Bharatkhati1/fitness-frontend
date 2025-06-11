@@ -38,23 +38,30 @@ const Ckeditor = ({ text, setText }) => {
         },
       });
       const imageUrl = response.data.data.url;
-      window
-        .$(editorRef.current.editor)
-        .summernote("insertImage", imageUrl, function ($image) {
-          $image.attr("alt", file.name);
-          $image.attr("crossOrigin", "anonymous");
-        });
+  
+      const customImageHTML = `
+        <img 
+          src="${imageUrl}" 
+          alt="partner" 
+          crossOrigin="anonymous"
+        />
+      `;
+  
+      const currentHTML = window.$(editorRef.current.editor).summernote("code");
+      const newHTML = currentHTML + customImageHTML;
+  
+      window.$(editorRef.current.editor).summernote("code", newHTML);
     } catch (error) {
       toast.error("Image upload failed");
       console.error("Upload error:", error);
     }
-  };
+  };  
 
   return (
     <ReactSummernote
       ref={editorRef}
       options={{
-        height: 400,
+        height: 230,
         dialogsInBody: true,
         toolbar: [
           ["style", ["style"]],

@@ -13,6 +13,7 @@ function CaloriesCalculatore() {
   const [activityLevel, setActivityLevel] = useState("sedentary");
   const [goal, setGoal] = useState("maintain");
   const [calories, setCalories] = useState(null);
+  const [error, setError] = useState("");
 
   const convertToMetric = () => {
     let heightCm = height;
@@ -26,9 +27,17 @@ function CaloriesCalculatore() {
   };
 
   const calculateCalories = () => {
+    // Basic validation
+    if (!age || !height || !weight) {
+      setError("Please fill all the required fields.");
+      setCalories(null); // Optional: clear previous result
+      return;
+    }
+
+    setError(""); // Clear previous error
+
     const { heightCm, weightKg } = convertToMetric();
 
-    // BMR calculation
     let bmr;
     if (gender === "male") {
       bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
@@ -36,7 +45,6 @@ function CaloriesCalculatore() {
       bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
     }
 
-    // Activity multiplier
     const activityMap = {
       sedentary: 1.2,
       moderate: 1.375,
@@ -46,7 +54,6 @@ function CaloriesCalculatore() {
     };
     const tdee = bmr * activityMap[activityLevel];
 
-    // Goal adjustment
     let dailyCalories;
     switch (goal) {
       case "lose":
@@ -199,6 +206,8 @@ function CaloriesCalculatore() {
                   </div>
                 </div>
                 <div className="calculateButton text-center mt-3">
+                { error&&<p style={{color:"orange"}}>{error}</p>}
+
                   <button
                     className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                     onClick={calculateCalories}
@@ -209,32 +218,34 @@ function CaloriesCalculatore() {
               </div>
             </div>
 
-          {calories&&  <div className="col-md-6 ps-4">
-              <div className="calulaterResult calulaterDiet">
-                <h4>Result</h4>
-                <div className="ResultBox">
-                  <div className="ResultBox-left">
-                    <p>
-                      Based on your details and chosen goal, you should consume
-                      around
-                    </p>
-                    <span className="day-text">
-                      {calories ? (
-                        `${calories.toLocaleString("en-IN")} `
-                      ) : (
-                        <div className="dash-class">--</div>
-                      )}
-                      <sub>Calories/day</sub>
-                    </span>
-                  </div>
-                  <div className="ResultBox-right">
-                    <figure>
-                      <img src={Diet1} />
-                    </figure>
+            {calories && (
+              <div className="col-md-6 ps-4">
+                <div className="calulaterResult calulaterDiet">
+                  <h4>Result</h4>
+                  <div className="ResultBox">
+                    <div className="ResultBox-left">
+                      <p>
+                        Based on your details and chosen goal, you should
+                        consume around
+                      </p>
+                      <span className="day-text">
+                        {calories ? (
+                          `${calories.toLocaleString("en-IN")} `
+                        ) : (
+                          <div className="dash-class">--</div>
+                        )}
+                        <sub>Calories/day</sub>
+                      </span>
+                    </div>
+                    <div className="ResultBox-right">
+                      <figure>
+                        <img src={Diet1} />
+                      </figure>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>}
+            )}
           </div>
         </div>
       </section>

@@ -16,8 +16,8 @@ const Categories = () => {
 
   const fetchAllCategories = async () => {
     try {
-      // const res = await adminAxios.get(adminApiRoutes.get_sk_categories);
-      // setcategories(res.data.data);
+      const res = await adminAxios.get(adminApiRoutes.get_all_partners_category);
+      setcategories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
       toast.error(error.response.data.message);
@@ -246,7 +246,7 @@ const Categories = () => {
                             <Link to={item.image_url} target="_blank">
                               <img
                                 src={item.image_url}
-                                  crossorigin="anonymous"
+                                crossorigin="anonymous"
                                 alt="Consultant"
                                 style={{
                                   width: 50,

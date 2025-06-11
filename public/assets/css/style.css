@@ -4067,7 +4067,7 @@ ul.ourapproachlist li:after {
 }
 
 .note-editor .note-editing-area {
-  height: 200px;
+  min-height: 200px;
 }
 
 .Carrerbanner {

@@ -228,6 +228,7 @@ const Partners = () => {
                                   objectFit: "contain",
                                   border: "1px solid #ccc",
                                 }}
+                                crossOrigin="anonymous"
                                 onError={(e) => console.error("Image failed to load")}
                               />
                             </Link>

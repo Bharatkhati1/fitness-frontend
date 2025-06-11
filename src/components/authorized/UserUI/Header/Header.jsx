@@ -11,10 +11,7 @@ import { authActions } from "../../../../store/auth";
 import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
-
 import Dropdown from 'react-bootstrap/Dropdown';
-
-
 import userprofile from "../../../../../public/assets/img/user-profile.png"
 
 const Header = () => {
