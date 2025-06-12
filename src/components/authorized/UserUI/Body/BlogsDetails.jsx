@@ -3,18 +3,13 @@ import { useParams } from "react-router-dom";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../../../utils/constants";
 
-
-
-
 import { toast } from "react-toastify";
 import JoinCommunity from "./Modals/JoinCommunity";
 
 const BlogsDetails = () => {
   const { slug } = useParams();
-  const [details, setDetails] = useState({});  
+  const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
-
-
 
   const fetchServiceDetails = async () => {
     try {
@@ -31,7 +26,7 @@ const BlogsDetails = () => {
 
   return (
     <>
-      <JoinCommunity open={open} setOpen={setOpen}/>
+      <JoinCommunity open={open} setOpen={setOpen} />
       <section className=" BlogDeatils">
         <figure>
           <img crossOrigin="anonymous" src={details?.image_url} />
@@ -46,17 +41,25 @@ const BlogsDetails = () => {
         <div className="container">
           <div class="Bytext text-center">
             <span>
-              By The Daily Fitness .
-              {new Date(details.updatedAt).toLocaleDateString("en-GB")}
+              {details.auther && <>By {details.auther}.</>}
+              {details.date || details.createdAt ? (
+                <>
+                  {" "}
+                  {new Date(
+                    details.date || details.createdAt
+                  ).toLocaleDateString("en-GB")}
+                  .
+                </>
+              ) : null}
+              {details.readTime && <> {details.readTime} min read</>}
             </span>
-
           </div>
-          <div className="contentbox"
-           dangerouslySetInnerHTML={{
-            __html: details?.description,
-          }}
-          >
-          </div>
+          <div
+            className="contentbox"
+            dangerouslySetInnerHTML={{
+              __html: details?.description,
+            }}
+          ></div>
           <section className="JoinourhealthMain mb-4">
             <div className="container">
               <div className="Joinourhealth">
@@ -69,7 +72,7 @@ const BlogsDetails = () => {
                   </p>
                   <a
                     type="primary"
-                    onClick={()=> setOpen(true)}
+                    onClick={() => setOpen(true)}
                     className="btn btn-primary hvr-shutter-out-horizontal"
                   >
                     join our free community

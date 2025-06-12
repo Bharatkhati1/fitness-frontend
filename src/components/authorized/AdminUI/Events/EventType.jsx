@@ -1,24 +1,39 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
+import adminAxios from "../../../../utils/Api/adminAxios";
+import ConfirmationPopup from "../Popups/ConfirmationPopup";
 
 const EventType = () => {
   const [formData, setFormData] = useState({
     image: null,
-    title: '',
-    description: '',
+    title: "",
+    isActive: true,
+    description: "",
   });
 
   const [preview, setPreview] = useState(null);
   const [eventTypes, setEventTypes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
-
   const fileInputRef = useRef();
-
+  const selectedIdref = useRef();
   const isEdit = editIndex !== null;
+
+  const fetchAllCategories = async () => {
+    try {
+      const res = await adminAxios.get(
+        adminApiRoutes.get_master_category("events")
+      );
+      setEventTypes(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      toast.error(error.response.data.message);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
-
-    if (name === 'image') {
+    if (name === "image") {
       const file = files[0];
       setFormData((prev) => ({ ...prev, image: file }));
       setPreview(URL.createObjectURL(file));
@@ -27,62 +42,91 @@ const EventType = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { title, description, image } = formData;
+  const handleSubmit = async () => {
 
-    if (!title || !description || !image) {
-      alert('Please fill in all fields.');
-      return;
+    const formPayload = new FormData();
+    formPayload.append("name", formData.title);
+    formPayload.append("slug", "events");
+    formPayload.append("isActive", formData.isActive);
+    formPayload.append("description", formData.description);
+    if (formData.image) {
+      formPayload.append("image", formData.image);
     }
+    const toastId = toast.loading("Submitting...");
+    try {
+      const selectedId = selectedIdref?.current;
+      const url = isEdit
+        ? adminApiRoutes.update_master_category(selectedId)
+        : adminApiRoutes.create_master_category;
 
-    const newEvent = {
-      ...formData,
-      image_url: image instanceof File ? URL.createObjectURL(image) : image,
-    };
+      const method = isEdit ? adminAxios.put : adminAxios.post;
 
-    if (isEdit) {
-      const updated = [...eventTypes];
-      updated[editIndex] = newEvent;
-      setEventTypes(updated);
-      setEditIndex(null);
-    } else {
-      setEventTypes([...eventTypes, newEvent]);
+      const response = await method(url, formPayload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 200) {
+        fetchAllCategories();
+        onCancelEdit();
+        toast.update(toastId, {
+          render: response.data.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        toast.update(toastId, {
+          render: error.response?.data?.message || "Submission failed.",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      console.error("Something went wrong:", error);
+      toast.error(`Failed to submit. ${error.response?.data?.message || ""}`);
     }
-
-    setFormData({ image: null, title: '', description: '' });
-    setPreview(null);
-    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleEdit = (index) => {
     const data = eventTypes[index];
+    selectedIdref.current = data.id;
     setFormData({
-      title: data.title,
+      title: data.name,
       description: data.description,
       image: data.image,
+      isActive: data.isActive,
     });
-    setPreview(data.image_url);
+    setPreview(data.image);
     setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
-    const filtered = eventTypes.filter((_, i) => i !== index);
-    setEventTypes(filtered);
-    if (editIndex === index) {
-      setFormData({ image: null, title: '', description: '' });
-      setPreview(null);
-      setEditIndex(null);
+  const deleteCategory = async () => {
+    try {
+      const idToDelete = selectedIdref.current;
+      await adminAxios.delete(
+        adminApiRoutes.delete_master_category(idToDelete)
+      );
+      toast.success("Deleted Successfully");
+      fetchAllCategories();
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
   const onCancelEdit = () => {
     setEditIndex(null);
-    setFormData({ image: null, title: '', description: '' });
+    setFormData({ image: null, title: "", description: "", isActive: true });
     setPreview(null);
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  useEffect(()=>{
+   fetchAllCategories()
+  },[])
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -117,7 +161,7 @@ const EventType = () => {
               {/* Image */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Image</label>
+                  <label className="form-label">Image {isEdit && `: ${preview}`}</label>
                   <input
                     type="file"
                     accept="image/*"
@@ -126,13 +170,6 @@ const EventType = () => {
                     ref={fileInputRef}
                     onChange={handleInputChange}
                   />
-                  {preview && (
-                    <img
-                      src={preview}
-                      alt="Preview"
-                      style={{ width: 80, marginTop: 10 }}
-                    />
-                  )}
                 </div>
               </div>
 
@@ -148,6 +185,33 @@ const EventType = () => {
                     rows={3}
                     placeholder="Enter description"
                   />
+                </div>
+
+                {/* Status */}
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label d-block">Status</label>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={formData.isActive}
+                      onChange={() =>
+                        setFormData((prev) => ({ ...prev, isActive: true }))
+                      }
+                    />
+                    <label className="form-check-label">Active</label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={!formData.isActive}
+                      onChange={() =>
+                        setFormData((prev) => ({ ...prev, isActive: false }))
+                      }
+                    />
+                    <label className="form-check-label">Inactive</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,6 +240,7 @@ const EventType = () => {
                     <th>Image</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -187,6 +252,7 @@ const EventType = () => {
                         <td>
                           <img
                             src={item.image_url}
+                            crossOrigin="anonymous"
                             alt="event"
                             style={{
                               width: 50,
@@ -196,21 +262,41 @@ const EventType = () => {
                             }}
                           />
                         </td>
-                        <td>{item.title}</td>
+                        <td>{item.name}</td>
                         <td>{item.description}</td>
+                        <td>
+                            <span
+                              className={`badge ${
+                                item.isActive == "1" ? "bg-success" : "bg-danger"
+                              }`}
+                            >
+                              {item.isActive == "1" ? "Active" : "Inactive"}
+                            </span>
+                          </td>
                         <td>
                           <button
                             className="btn btn-sm btn-primary me-2"
                             onClick={() => handleEdit(index)}
                           >
-                            Edit
+                            <iconify-icon
+                              icon="solar:pen-2-broken"
+                              class="align-middle fs-18"
+                            ></iconify-icon>
                           </button>
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(index)}
-                          >
-                            Delete
-                          </button>
+                          <ConfirmationPopup
+                            bodyText="Are you sure you want to delete this Category ?"
+                            title="Delete Category"
+                            onOk={() => deleteCategory()}
+                            buttonText={
+                              <iconify-icon
+                                icon="solar:trash-bin-minimalistic-2-broken"
+                                class="align-middle fs-18"
+                                onClick={() =>
+                                  (selectedIdref.current = item.id)
+                                }
+                              ></iconify-icon>
+                            }
+                          />
                         </td>
                       </tr>
                     ))

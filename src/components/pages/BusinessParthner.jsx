@@ -195,6 +195,7 @@ function BusinessParthner() {
                   loop={true}
                 >
                   {category.Partners.map((ptr) => (
+                    <>
                     <div className="item">
                       <div>
                         <div className="partnerssecbox">
@@ -206,15 +207,12 @@ function BusinessParthner() {
                         </div>
                       </div>
                     </div>
+                    </>
                   ))}
                 </OwlCarousel>
               )}
             </div>
           ))}
-
-          <div className="sepratebox mt-4 mb-4">
-            <img src={bordersep}></img>
-          </div>
 
           <div className="getintouchinner">
             <div className="row align-items-center">

@@ -34,7 +34,7 @@ import { toast } from "react-toastify";
 
 function Careers() {
   const [allJobs, setAllJobs] = useState([]);
-  const [careersCms, setCareersCms] = useState({})
+  const [careersCms, setCareersCms] = useState({});
 
   const fetchJobs = async () => {
     try {
@@ -44,19 +44,19 @@ function Careers() {
       toast.error(error.response.data.error);
     }
   };
- 
-  const fetchCmsCareers =async()=>{
+
+  const fetchCmsCareers = async () => {
     try {
-      const res = await webAxios.get(userApiRoutes.get_master_cms("careers"))
-      setCareersCms(res.data.data)
+      const res = await webAxios.get(userApiRoutes.get_master_cms("careers"));
+      setCareersCms(res.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchJobs();
-    fetchCmsCareers()
+    fetchCmsCareers();
   }, []);
   return (
     <>
@@ -339,7 +339,11 @@ function Careers() {
                     <span>
                       {job.WorkPreference} - {job.employmentType}
                     </span>
-                    <p>{job.description}</p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: job.description,
+                      }}
+                    ></p>
                     <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
                       apply now
                     </a>

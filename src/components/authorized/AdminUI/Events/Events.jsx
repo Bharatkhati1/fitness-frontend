@@ -4,18 +4,22 @@ import { toast } from "react-toastify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import { Link } from "react-router-dom";
 
 const Events = () => {
   const [formData, setFormData] = useState({
     title: "",
     date: "",
     time: "",
-    location: "",
-    seats: "",
+    spots: "",
+    eventType: "",
     description: "",
+    longDescription: "",
     isActive: true,
+    address: "",
+    image: null,
   });
-  const [image, setImage] = useState(null);
+
   const [events, setEvents] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -32,47 +36,56 @@ const Events = () => {
     }
   };
 
+
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === "radio" ? value === "true" : value;
     setFormData((prev) => ({ ...prev, [name]: val }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
+    setSelectedFileName(file?.name || "");
+  };
+
   const handleSubmit = async () => {
-    if (!image && !isEdit) {
+    if (!formData.image && !isEdit) {
       toast.warning("Please select an image.");
       return;
     }
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
+      if (key === "image" && value) {
+        data.append("image", value);
+      } else {
+        data.append(key, value);
+      }
     });
-    if (image) data.append("event_image", image);
 
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} event...`
     );
     try {
       const url = isEdit
-        ? adminApiRoutes.update_event(selectedId)
-        : adminApiRoutes.create_event;
-
+        ? adminApiRoutes.update_events(selectedId)
+        : adminApiRoutes.create_events;
       const method = isEdit ? "put" : "post";
+
       const res = await adminAxios[method](url, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      if (res.status === 200) {
-        fetchAllEvents();
-        onCancelEdit();
-        toast.update(toastId, {
-          render: res.data.message,
-          type: "success",
-          isLoading: false,
-          autoClose: 3000,
-        });
-      }
+      toast.update(toastId, {
+        render: res.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
+      fetchAllEvents();
+      onCancelEdit();
     } catch (error) {
       toast.update(toastId, {
         render: `Failed to ${isEdit ? "update" : "create"} event. ${
@@ -88,7 +101,7 @@ const Events = () => {
   const deleteEvent = async () => {
     try {
       const id = selectedIdRef.current;
-      await adminAxios.delete(adminApiRoutes.delete_event(id));
+      await adminAxios.delete(adminApiRoutes.delete_events(id));
       toast.success("Event deleted successfully");
       fetchAllEvents();
     } catch (error) {
@@ -101,12 +114,14 @@ const Events = () => {
       title: "",
       date: "",
       time: "",
-      location: "",
-      seats: "",
+      spots: "",
+      eventType: "",
       description: "",
+      longDescription: "",
       isActive: true,
+      address: "",
+      image: null,
     });
-    setImage(null);
     setSelectedId(null);
     setSelectedFileName("");
     setIsEdit(false);
@@ -119,6 +134,7 @@ const Events = () => {
 
   return (
     <div className="row">
+      {/* Form */}
       <div className="col-lg-12">
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between">
@@ -136,29 +152,19 @@ const Events = () => {
                   type: "text",
                   placeholder: "Enter event title",
                 },
+                { label: "Date", name: "date", type: "date", placeholder: "" },
+                { label: "Time", name: "time", type: "time", placeholder: "" },
                 {
-                  label: "Date",
-                  name: "date",
-                  type: "date",
-                  placeholder: "Select event date",
-                },
-                {
-                  label: "Time",
-                  name: "time",
-                  type: "time",
-                  placeholder: "Select event time",
-                },
-                {
-                  label: "Location",
-                  name: "location",
-                  type: "text",
-                  placeholder: "Enter event location",
-                },
-                {
-                  label: "Seats",
-                  name: "seats",
+                  label: "Spots",
+                  name: "spots",
                   type: "number",
-                  placeholder: "Enter available seats",
+                  placeholder: "Enter available spots",
+                },
+                {
+                  label: "Address",
+                  name: "address",
+                  type: "text",
+                  placeholder: "Enter event address/location",
                 },
               ].map(({ label, name, type, placeholder }) => (
                 <div className="col-lg-6" key={name}>
@@ -176,7 +182,28 @@ const Events = () => {
                 </div>
               ))}
 
-              {/* Image  */}
+              {/* Event Type */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Select Event Type</label>
+                  <select
+                    className="form-select"
+                    value={formData.eventType}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        eventType: e.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Select type</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Image Upload */}
               <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">
@@ -187,32 +214,16 @@ const Events = () => {
                     accept="image/*"
                     className="form-control"
                     ref={fileInputRef}
-                    onChange={(e) => setImage(e.target.files[0])}
-                  />
-                </div>
-              </div>
- 
-              {/* Description  */}
-              <div className="col-lg-6">
-                <div className="mb-3">
-                  <label className="form-label">Description</label>
-                  <Ckeditor
-                    text={formData.description}
-                    setText={(text) =>
-                      setFormData((prev) => ({ ...prev, description: text }))
-                    }
+                    onChange={handleFileChange}
                   />
                 </div>
               </div>
 
-              {/* Status  */}
+              {/* Status */}
               <div className="col-lg-6">
                 <p>Status</p>
-                <div className="d-flex gap-2 align-items-center">
-                  {[
-                    { label: "Active", value: "true" },
-                    { label: "Inactive", value: "false" },
-                  ].map(({ label, value }) => (
+                <div className="d-flex gap-3 align-items-center">
+                  {["true", "false"].map((value) => (
                     <div className="form-check" key={value}>
                       <input
                         className="form-check-input"
@@ -222,9 +233,40 @@ const Events = () => {
                         checked={formData.isActive === (value === "true")}
                         onChange={handleInputChange}
                       />
-                      <label className="form-check-label">{label}</label>
+                      <label className="form-check-label">
+                        {value === "true" ? "Active" : "Inactive"}
+                      </label>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Short Description */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Short Description</label>
+                  <Ckeditor
+                    text={formData.description}
+                    setText={(text) =>
+                      setFormData((prev) => ({ ...prev, description: text }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Long Description */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">Long Description</label>
+                  <Ckeditor
+                    text={formData.longDescription}
+                    setText={(text) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        longDescription: text,
+                      }))
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -238,7 +280,7 @@ const Events = () => {
         </div>
       </div>
 
-      {/* Event Table */}
+      {/* Table */}
       <div className="col-xl-12 mt-4">
         <div className="card">
           <div className="card-header">
@@ -253,7 +295,7 @@ const Events = () => {
                     <th>Image</th>
                     <th>Title</th>
                     <th>Date</th>
-                    <th>Location</th>
+                    <th>Address</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -261,23 +303,26 @@ const Events = () => {
                 <tbody>
                   {events.length > 0 ? (
                     events.map((item, index) => (
-                      <tr key={index}>
+                      <tr key={item.id}>
                         <td>{index + 1}</td>
                         <td>
-                          <img
-                            src={item.image_url}
-                            alt="event"
-                            style={{
-                              width: 50,
-                              height: 50,
-                              objectFit: "cover",
-                              border: "1px solid #ddd",
-                            }}
-                          />
+                          <Link target="_blank" to={item.image_url}>
+                            <img
+                              src={item.image_url}
+                              alt="event"
+                              crossOrigin="anonymous"
+                              style={{
+                                width: 50,
+                                height: 50,
+                                objectFit: "cover",
+                                border: "1px solid #ddd",
+                              }}
+                            />
+                          </Link>
                         </td>
                         <td>{item.title}</td>
                         <td>{item.date}</td>
-                        <td>{item.location}</td>
+                        <td>{item.address}</td>
                         <td>
                           <span
                             className={`badge ${
@@ -297,10 +342,13 @@ const Events = () => {
                                   title: item.title,
                                   date: item.date,
                                   time: item.time,
-                                  location: item.location,
-                                  seats: item.seats,
+                                  spots: item.spots,
+                                  eventType: item.eventType,
                                   description: item.description,
+                                  longDescription: item.longDescription,
                                   isActive: item.isActive,
+                                  address: item.address,
+                                  image: null,
                                 });
                                 setSelectedId(item.id);
                                 setSelectedFileName(item.image);

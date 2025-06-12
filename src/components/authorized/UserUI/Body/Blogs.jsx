@@ -204,9 +204,9 @@ function Blogs() {
               blogs.map((blog) => (
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
                   <figure>
-                    <div className="OurBlogsTag">
+                    {/* <div className="OurBlogsTag">
                       {blog?.BlogCategory?.name || "Health"}
-                    </div>
+                    </div> */}
                     <img
                       crossOrigin="anonymous"
                       src={blog.image_url}
@@ -217,26 +217,32 @@ function Blogs() {
                     <h3>{blog.title}</h3>
                     <div className="Bytext">
                       <span>
-                        {blog.auther} -{" "}
-                        {new Date(
-                          blog.date || blog.createdAt
-                        ).toLocaleDateString("en-GB")}
+                        {blog.auther && <>By {blog.auther}.</>}
+                        {blog.date || blog.createdAt ? (
+                          <>
+                            {" "}
+                            {new Date(
+                              blog.date || blog.createdAt
+                            ).toLocaleDateString("en-GB")}
+                            .
+                          </>
+                        ) : null}
+                        {blog.readTime != "null" && <> {blog.readTime} min read</>}
                       </span>
                     </div>
                     <p
                       dangerouslySetInnerHTML={{
                         __html: blog.shortDescription,
                       }}
-                    >
-                    </p>
+                    ></p>
                     <Link
-                    style={{color:"green"}}
-                        to={`/blog/${blog.title
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
-                      >
-                        Read More <img src={readMoreimg} />
-                      </Link>
+                      style={{ color: "green" }}
+                      to={`/blog/${blog.title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    >
+                      Read More <img src={readMoreimg} />
+                    </Link>
                   </figcaption>
                 </div>
               ))

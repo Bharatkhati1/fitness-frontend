@@ -46,6 +46,12 @@ const adminApiRoutes = {
   update_team_member: (id) => `/teams/${id}`,
   delete_team_member: (id) => `/teams/${id}`,
 
+  //EVENT ROUTES
+  get_events: "/events",
+  create_events: "/events",
+  update_events: (id) => `/events/${id}`,
+  delete_events: (id) => `/events/${id}`,
+
   //CAREER ROUTES
   get_careers: "/jobs",
   create_career: "/jobs",

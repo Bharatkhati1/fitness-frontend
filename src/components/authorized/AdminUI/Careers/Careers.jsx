@@ -16,6 +16,7 @@ const Careers = () => {
   const [selectedCareerId, setSelectedCareerId] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const selectedIdref = useRef(null);
+  const [selectedId, setSelectedId] = useState("")
 
   const fetchCareers = async () => {
     try {
@@ -81,10 +82,11 @@ const Careers = () => {
 
   const handleDelete = async () => {
     try {
-      const idToDelete = selectedIdref.current;
+      const idToDelete = selectedIdref.current || selectedId;
       await adminAxios.delete(adminApiRoutes.delete_career(idToDelete));
       toast.success("Deleted successfully");
       fetchCareers();
+      setSelectedId("")
     } catch (error) {
       toast.error("Failed to delete career");
     }
@@ -93,6 +95,7 @@ const Careers = () => {
   const handleCancel = () => {
     setIsEdit(false);
     setSelectedCareerId(null);
+    setSelectedId("")
     setFormData({
       title: "",
       employmentType: "",
@@ -210,7 +213,11 @@ const Careers = () => {
                               <iconify-icon
                                 icon="solar:trash-bin-minimalistic-2-broken"
                                 onClick={() =>
-                                  (selectedIdref.current = career.id)
+                                  {
+                                    selectedIdref.current = career.id;
+                                    setSelectedId(career.id);
+                                    
+                                  }
                                 }
                               />
                             }
