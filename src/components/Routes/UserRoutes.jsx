@@ -25,6 +25,7 @@ import NewsAndMediaDetails from "../authorized/UserUI/Body/NewsMedia/NewsAndMedi
 import BusinessParthner from "../pages/BusinessParthner";
 import NotFound from "../authorized/NotFound";
 import Careers from "../pages/Careers";
+import Events from "../pages/Events";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -53,6 +54,7 @@ export default function UserRoutes() {
             <Route path="/package/:slug" element={<PackageDetails />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/events" element={<Events />} />
             <Route
               path="/experts/:slug/:type/:encodedId"
               element={<BookAppoinment />}
