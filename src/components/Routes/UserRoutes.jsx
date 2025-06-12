@@ -26,6 +26,7 @@ import BusinessParthner from "../pages/BusinessParthner";
 import NotFound from "../authorized/NotFound";
 import Careers from "../pages/Careers";
 import Events from "../pages/Events";
+import UpcomigDetails from "../pages/UpcomigDetails";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -55,6 +56,7 @@ export default function UserRoutes() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/events-details/:slug" element={<UpcomigDetails />} />
             <Route
               path="/experts/:slug/:type/:encodedId"
               element={<BookAppoinment />}

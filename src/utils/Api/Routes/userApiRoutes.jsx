@@ -76,7 +76,10 @@ const userApiRoutes = {
   appointment_booking:`/appointment-booking`,
 
   get_partners:`/partners?slug=partners`,
-  get_master_categories:(slug)=>`/categories?slug=${slug}`
+  get_master_categories:(slug)=>`/categories?slug=${slug}`,
+
+  get_upcoming_events:`/upcoming-events`,
+  get_past_events:`/past-events`
   
 };
 

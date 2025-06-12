@@ -74,7 +74,7 @@ const App = () => {
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
     
-          <Route path="UpcomigDetails" element={<UpcomigDetails/>} />
+          {/* <Route path="UpcomigDetails" element={<UpcomigDetails/>} /> */}
           <Route path="Innovation" element={<Innovation/>} />
 
           <Route
