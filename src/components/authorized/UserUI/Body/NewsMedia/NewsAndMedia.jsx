@@ -208,10 +208,10 @@ function NewsAndMedia() {
                       }}
                     ></p>
                     <Link
-                      style={{ color: "green" }}
+                       className="btn btn-primary max-width mt-1"
                       to={`/news-media/${item.slug}`}
                     >
-                      Read More <img src={readMoreimg} />
+                      Read More
                     </Link>
                   </figcaption>
                 </div>

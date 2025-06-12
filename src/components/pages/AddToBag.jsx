@@ -245,8 +245,8 @@ export default function AddToBag() {
                     )}
                   </ul>
 
-                  <div className="discoutBox mb-4">
-                    <div className="discoutBox mb-4">
+                  <div className="">
+                    <div className="discoutBox mb-4 d-block">
                       {!discountPrice ? (
                         <>
                           <input
@@ -266,7 +266,7 @@ export default function AddToBag() {
                             Coupon Applied: {coupon}
                           </span>
                           <button
-                            className="btn btn-sm btn-outline-danger"
+                            className="btn btn-sm btn-primary btn-outline-danger py-1 h-auto"
                             onClick={removeCoupon}
                           >
                             &times;

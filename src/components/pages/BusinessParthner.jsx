@@ -225,7 +225,6 @@ function BusinessParthner() {
                     merge={true}
                     nav={true}
                     margin={30}
-                    loop={true}
                   >
                     {category.Partners.map((ptr) => (
                       <>
