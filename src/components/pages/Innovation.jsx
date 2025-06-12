@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "antd";
 
 import innovationimg1 from "../../../public/assets/img/innovationimg1.png";
@@ -16,15 +16,16 @@ import { toast } from "react-toastify";
 import { webAxios } from "../../utils/constants";
 import useDebounce from "../Hooks/useDebounce";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { Link } from "react-router-dom";
 
 function Innovation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [innovation, setinnovation] = useState([]);
-   const [categories, setBlogCategories] = useState([]);
-const [selectedCategory, setSelectedCategory] = useState("all");
+  const [categories, setBlogCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -68,7 +69,9 @@ const [selectedCategory, setSelectedCategory] = useState("all");
 
   const getBlogCategories = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_master_categories("innovation"));
+      const response = await webAxios.get(
+        userApiRoutes.get_master_categories("innovation")
+      );
       const categoriesData = response.data.data;
       setBlogCategories(categoriesData);
     } catch (error) {
@@ -79,26 +82,24 @@ const [selectedCategory, setSelectedCategory] = useState("all");
     }
   };
 
-    const handlePageChange = (page) => {
-      if (page >= 1 && page <= totalPages) {
-        setCurrentPage(page);
-      }
-    };
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
-    const handleSelectCategory = (id) => {
-      setSelectedCategory(id);
-      setCurrentPage(1);
-    };
-  
+  const handleSelectCategory = (id) => {
+    setSelectedCategory(id);
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     getinnovation(currentPage, selectedCategory);
   }, [currentPage, selectedCategory]);
 
-
-    useEffect(() => {
-      getBlogCategories();
-    }, []);
+  useEffect(() => {
+    getBlogCategories();
+  }, []);
   return (
     <>
       <div className="innerSpace mt-4">
@@ -115,138 +116,155 @@ const [selectedCategory, setSelectedCategory] = useState("all");
                 </div>
               </div>
 
-            <div className="col-md-5">
-              <div className="row g-1">
-                <div className="col-md-6 ">
-                  <div className="imgsmcard">
-                    {" "}
-                    <img src={innovationimg2}></img>
+              <div className="col-md-5">
+                <div className="row g-1">
+                  <div className="col-md-6 ">
+                    <div className="imgsmcard">
+                      {" "}
+                      <img src={innovationimg2}></img>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6  ">
-                  <div className="innovationcontent">
-                    <span className="dotsicon">
-                      <img src={innovationicon3}></img>
-                    </span>
-                    <img src={innovationicon1}></img>
-                    <h4>Where daily health meets deep tech.</h4>
+                  <div className="col-md-6  ">
+                    <div className="innovationcontent">
+                      <span className="dotsicon">
+                        <img src={innovationicon3}></img>
+                      </span>
+                      <img src={innovationicon1}></img>
+                      <h4>Where daily health meets deep tech.</h4>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="innovationcontent">
-                    <span className="dotsicon">
-                      <img src={innovationicon3}></img>
-                    </span>
-                    <img src={innovationicon2}></img>
-                    <h4>Where daily health meets deep tech.</h4>
+                  <div className="col-md-6">
+                    <div className="innovationcontent">
+                      <span className="dotsicon">
+                        <img src={innovationicon3}></img>
+                      </span>
+                      <img src={innovationicon2}></img>
+                      <h4>Where daily health meets deep tech.</h4>
+                    </div>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="imgsmcard">
-                    {" "}
-                    <img src={innovationimg3}></img>
+                  <div className="col-md-6">
+                    <div className="imgsmcard">
+                      {" "}
+                      <img src={innovationimg3}></img>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <div className="filtersBox">
-        <div className="container">
-          <div className="filtersBoxInner">
-            <div className="row">
-              <div className="col-xxl-10 col-md-9 col-xl-10 col-sm-9">
-                <div className="filterOwl">
-                  <ul className="taginfolist ">
-                    <div className="row">
-                      <div className="col-xxl-auto col-sm-auto taginfoleft">
-                        <li
-                          className={selectedCategory === "all" ? "active" : ""}
-                          onClick={() => handleSelectCategory("all")}
-                        >
-                          <span className="tag-info">All</span>
-                        </li>
-                      </div>
-                      <div className="col-xxl col-sm  taginforight">
-                        {categories.length > 0 && (
-                          <OwlCarousel
-                            className="owl-theme"
-                            autoplay={false}
-                            margin={10}
-                            dots={false}
-                            items={7}
-                            nav
-                            responsive={{
-                              0: {
-                                items: 2, // 0px and up
-                              },
-                              481: {
-                                items: 3, // 0px and up
-                              },
-                              768: {
-                                items: 4, // 600px and up
-                              },
-                              992: {
-                                items: 5, // 600px and up
-                              },
-                              1200: {
-                                items: 7, // 1000px and up
-                              },
-                            }}
-                          >
-                            {categories.map((cat) => (
-                              <li
-                                className={
-                                  selectedCategory === cat.id ? "active" : ""
-                                }
-                                onClick={() => {
-                                  handleSelectCategory(cat.id);
+          <div className="filtersBox">
+            <div className="container">
+              <div className="filtersBoxInner">
+                <div className="row">
+                  <div className="col-xxl-12 col-md-12 col-xl-12 col-sm-12">
+                    <div className="filterOwl">
+                      <ul className="taginfolist ">
+                        <div className="row">
+                          <div className="col-xxl-auto col-sm-auto taginfoleft">
+                            <li
+                              className={
+                                selectedCategory === "all" ? "active" : ""
+                              }
+                              onClick={() => handleSelectCategory("all")}
+                            >
+                              <span className="tag-info">All</span>
+                            </li>
+                          </div>
+                          <div className="col-xxl col-sm  taginforight">
+                            {categories.length > 0 && (
+                              <OwlCarousel
+                                className="owl-theme"
+                                autoplay={false}
+                                margin={10}
+                                dots={false}
+                                items={7}
+                                nav
+                                responsive={{
+                                  0: {
+                                    items: 2, // 0px and up
+                                  },
+                                  481: {
+                                    items: 3, // 0px and up
+                                  },
+                                  768: {
+                                    items: 4, // 600px and up
+                                  },
+                                  992: {
+                                    items: 5, // 600px and up
+                                  },
+                                  1200: {
+                                    items: 7, // 1000px and up
+                                  },
                                 }}
                               >
-                                <span className="tag-info">{cat.name}</span>
-                              </li>
-                            ))}
-                          </OwlCarousel>
-                        )}
-                      </div>
+                                {categories.map((cat) => (
+                                  <li
+                                    className={
+                                      selectedCategory === cat.id
+                                        ? "active"
+                                        : ""
+                                    }
+                                    onClick={() => {
+                                      handleSelectCategory(cat.id);
+                                    }}
+                                  >
+                                    <span className="tag-info">{cat.name}</span>
+                                  </li>
+                                ))}
+                              </OwlCarousel>
+                            )}
+                          </div>
+                        </div>
+                      </ul>
                     </div>
-                  </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          {innovation.length > 0 ? (
+            innovation.map((inov) => (
+              <div className="innovationlist mt-4">
+                <div className="row align-items-center mb-4">
+                  <div className="col-md-5">
+                    <figure>
+                      <img crossOrigin="anonymous" src={inov.image_url}></img>
+                    </figure>
+                  </div>
+
+                  <div className="col-md-7 text-center ps-4">
+                    <h3 className="">{inov.title}</h3>
+                    <div class="Bytext text-center">
+                      <span>
+                        By {inov.auther} .{inov.date} . {inov.readTime} min read
+                      </span>
+                    </div>
+
+                    <hr className="dashed-text"></hr>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: inov.shortDescription,
+                      }}
+                    ></p>
+
+                    <Link
+                     className="btn btn-primary max-width"
+                      to={`/innovation-details/${inov.title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    >
+                      Read More 
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-12 text-center py-5">
+              <h5>No Data found.</h5>
+            </div>
+          )}
         </div>
-      </div>
-        {innovation.map((inov) => (
-          <div className="innovationlist mt-4">
-            <div className="row align-items-center mb-4">
-              <div className="col-md-5">
-                <figure>
-                  <img crossOrigin="anonymous" src={inov.image_url}></img>
-                </figure>
-              </div>
-
-              <div className="col-md-7 text-center">
-                <h3 className="">{inov.title}</h3>
-                <div class="Bytext text-center">
-                  <span>
-                    By {inov.auther} .{inov.date} . {inov.readTime} min read
-                  </span>
-                </div>
-
-                 <hr className="dashed-text"></hr>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: inov.shortDescription,
-                  }}
-                ></p>
-
-                <a className="btn btn-primary max-width">read now</a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
 
         <div className="stayaheadbg">
           <div className="container">
@@ -279,26 +297,23 @@ const [selectedCategory, setSelectedCategory] = useState("all");
         className="stayModal"
       >
         <div className="staybgmodal">
-          <div className="container">
-            
-             
-                <h4>Don’t Miss a Beat of Your Wellness Journey</h4>
+          <h4>Don’t Miss a Beat of Your Wellness Journey</h4>
 
-                <p>
-                  Be the first to receive expert fitness tips, nutrition
-                  insights, mental health hacks, event invites, and more —
-                  straight to your inbox.
-                </p>
+          <p>
+            Be the first to receive expert fitness tips, nutrition insights,
+            mental health hacks, event invites, and more — straight to your
+            inbox.
+          </p>
 
-                     <div className="formfield mb-4">
-                        <label>Your Email ID*</label>
-                        <input type="text" placeholder="Enter your email id" className="form-control"></input>
-                 
-                    </div> 
+          <div className="formfield  col-md-6">
+            <label>Your Email ID*</label>
+            <input
+              type="text"
+              placeholder="Enter your email id"
+              className="form-control"
+            ></input>
 
-                <a className="btn btn-primary max-width">subscribe</a>
-              
-           
+            <a className="btn btn-primary w-100 mt-3">subscribe</a>
           </div>
         </div>
       </Modal>

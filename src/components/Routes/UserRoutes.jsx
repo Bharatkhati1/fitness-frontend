@@ -60,6 +60,7 @@ export default function UserRoutes() {
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events-details/:slug" element={<UpcomigDetails />} />
+            <Route path="/innovation-details/:slug" element={<UpcomigDetails />} />
             <Route
               path="/experts/:slug/:type/:encodedId"
               element={<BookAppoinment />}
