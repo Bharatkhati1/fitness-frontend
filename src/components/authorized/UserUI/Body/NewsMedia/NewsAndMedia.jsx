@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import HealthBg from "../../../../../../public/assets/img/HealthBg.png";
+import BannerImag from "../../../../../../public/assets/img/new-media-banner.png";
 import searchIcon from "../../../../../../public/assets/img/searchIcon.png";
 import readMoreimg from "../../../../../../public/assets/img/ReadMoreicon.png";
 import leftp from "../../../../../../public/assets/img/leftp.png";
@@ -84,7 +84,7 @@ function NewsAndMedia() {
     <>
       <section className="innerbanner blogbanner">
         <figure>
-          <img src={HealthBg} alt="Banner" />
+          <img src={BannerImag} alt="Banner" />
         </figure>
         <div className="container">
           <div className="innerbannerContent">
@@ -131,6 +131,7 @@ function NewsAndMedia() {
                             autoplay={false}
                             margin={10}
                             dots={false}
+                            autoWidth
                             items={7}
                             nav
                             responsive={{
@@ -145,7 +146,7 @@ function NewsAndMedia() {
                               <li
                                 key={cat.id}
                                 className={
-                                  selectedCategory === cat.id ? "active" : ""
+                                  selectedCategory === cat.id ? "active px-2" : "px-2"
                                 }
                                 onClick={() => handleSelectCategory(cat.id)}
                               >
@@ -186,9 +187,9 @@ function NewsAndMedia() {
               newsItems.map((item) => (
                 <div className="col-md-6 OurHealthBlogContent" key={item.id}>
                   <figure>
-                    <div className="OurBlogsTag">
-                      {item?.BlogCategory?.name || "General"}
-                    </div>
+                    {item?.BlogCategory?.name &&<div className="OurBlogsTag">
+                      {item?.BlogCategory?.name}
+                    </div>}
                     <img
                       crossOrigin="anonymous"
                       src={item.image_url}
