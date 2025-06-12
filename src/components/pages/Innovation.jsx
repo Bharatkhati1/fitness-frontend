@@ -8,6 +8,8 @@ import innovationicon1 from "../../../public/assets/img/innovationicon1.png";
 import innovationicon2 from "../../../public/assets/img/innovationicon2.png";
 import innovationicon3 from "../../../public/assets/img/innovationicon3.png";
 
+import rvimg1 from "../../../public/assets/img/rv-img1.png";
+
 function Innovation() {
   return (
     <>
@@ -61,17 +63,121 @@ function Innovation() {
           </div>
         </div>
 
-        <div className="innovationlist">
-          <div className="row">
-            <div className="col-md-6">
-              <figure></figure>
+        <div className="innovationlist mt-4">
+          <div className="row align-items-center mb-4">
+            <div className="col-md-5">
+              <figure>
+                <img src={rvimg1}></img>
+              </figure>
             </div>
 
-            <div className="col-md-6">
-              <h3>Revolutionizing Wellness with AI & ML</h3>
+            <div className="col-md-7 text-center">
+              <h3 className="">Revolutionizing Wellness with AI & ML</h3>
               <div class="Bytext text-center">
                 <span>By The Daily Fitness .Invalid Date</span>
               </div>
+              <p>
+                Explore how we leverage Artificial Intelligence and Machine
+                Learning to tailor diet plans, workout routines, and mental
+                wellness guidance for each user, based on their lifestyle and
+                biological markers.
+              </p>
+
+              <a className="btn btn-primary max-width">read now</a>
+            </div>
+          </div>
+        </div>
+        <div className="innovationlist">
+          <div className="row align-items-center mb-4">
+            <div className="col-md-5">
+              <figure>
+                <img src={rvimg1}></img>
+              </figure>
+            </div>
+
+            <div className="col-md-7 text-center">
+              <h3 className="">Revolutionizing Wellness with AI & ML</h3>
+              <div class="Bytext text-center">
+                <span>By The Daily Fitness .Invalid Date</span>
+              </div>
+              <p>
+                Explore how we leverage Artificial Intelligence and Machine
+                Learning to tailor diet plans, workout routines, and mental
+                wellness guidance for each user, based on their lifestyle and
+                biological markers.
+              </p>
+
+              <a className="btn btn-primary max-width">read now</a>
+            </div>
+          </div>
+        </div>
+        <div className="innovationlist">
+          <div className="row align-items-center mb-4">
+            <div className="col-md-5">
+              <figure>
+                <img src={rvimg1}></img>
+              </figure>
+            </div>
+
+            <div className="col-md-7 text-center">
+              <h3 className="">Revolutionizing Wellness with AI & ML</h3>
+              <div class="Bytext text-center">
+                <span>By The Daily Fitness .Invalid Date</span>
+              </div>
+              <p>
+                Explore how we leverage Artificial Intelligence and Machine
+                Learning to tailor diet plans, workout routines, and mental
+                wellness guidance for each user, based on their lifestyle and
+                biological markers.
+              </p>
+
+              <a className="btn btn-primary max-width">read now</a>
+            </div>
+          </div>
+        </div>
+        <div className="innovationlist">
+          <div className="row align-items-center">
+            <div className="col-md-5">
+              <figure>
+                <img src={rvimg1}></img>
+              </figure>
+            </div>
+
+            <div className="col-md-7 text-center">
+              <h3 className="">Revolutionizing Wellness with AI & ML</h3>
+              <div class="Bytext text-center">
+                <span>By The Daily Fitness .Invalid Date</span>
+              </div>
+              <p>
+                Explore how we leverage Artificial Intelligence and Machine
+                Learning to tailor diet plans, workout routines, and mental
+                wellness guidance for each user, based on their lifestyle and
+                biological markers.
+              </p>
+
+              <a className="btn btn-primary max-width">read now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="stayaheadbg">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-9">
+              <h4>Stay Ahead in Health — One Inbox at a Time</h4>
+              <span>
+                Get powerful fitness tips, nutrition insights, mental wellness
+                hacks, and exclusive updates delivered straight to you.
+              </span>
+
+              <p>
+                Join a growing community that believes in smart, science-backed
+                living — because your wellness journey deserves the latest,
+                every step of the way.
+              </p>
+
+              <a className="btn btn-primary max-width">subscribe to our newsletter</a>
             </div>
           </div>
         </div>
