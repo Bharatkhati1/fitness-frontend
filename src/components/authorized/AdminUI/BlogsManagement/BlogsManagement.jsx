@@ -21,6 +21,7 @@ const BlogsManagement = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
   const [isEdit, setIsEdit] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const fileInputRef = useRef(null);
@@ -65,7 +66,7 @@ const BlogsManagement = () => {
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} blog...`
     );
-
+    setIsLoading(true)
     try {
       let url = isEdit
         ? adminApiRoutes.update_blog(selectedId)
@@ -108,6 +109,8 @@ const BlogsManagement = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -352,6 +355,7 @@ const BlogsManagement = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
                 {isEdit ? `Update Changes` : `Save Change`}
               </button>

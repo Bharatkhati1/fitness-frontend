@@ -22,6 +22,7 @@ const Events = () => {
 
   const [events, setEvents] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
@@ -66,6 +67,7 @@ const Events = () => {
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} event...`
     );
+    setIsLoading(true)
     try {
       const url = isEdit
         ? adminApiRoutes.update_events(selectedId)
@@ -94,6 +96,8 @@ const Events = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -286,7 +290,7 @@ const Events = () => {
           </div>
 
           <div className="card-footer border-top">
-            <button className="btn btn-primary" onClick={handleSubmit}>
+            <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
               {isEdit ? "Update Event" : "Create Event"}
             </button>
           </div>

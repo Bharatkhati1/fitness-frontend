@@ -68,6 +68,7 @@ function NewsAndMedia() {
   };
 
   const handleSelectCategory = (id) => {
+    setSearchTerm("")
     setSelectedCategory(id);
     setCurrentPage(1);
   };
@@ -98,7 +99,7 @@ function NewsAndMedia() {
                 placeholder="Search news title here..."
                 className="form-control"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) =>{ setSelectedCategory("all");setSearchTerm(e.target.value)}}
               />
               <button className="SearchBtn">
                 <img src={searchIcon} alt="Search" />
@@ -112,7 +113,7 @@ function NewsAndMedia() {
         <div className="container">
           <div className="filtersBoxInner">
             <div className="row">
-              <div className="col-xxl-10 col-md-9 col-xl-10 col-sm-9">
+              <div className="col-md col-sm-9">
                 <div className="filterOwl">
                   <ul className="taginfolist">
                     <div className="row">
@@ -132,15 +133,7 @@ function NewsAndMedia() {
                             margin={10}
                             dots={false}
                             autoWidth
-                            items={7}
-                            nav
-                            responsive={{
-                              0: { items: 2 },
-                              481: { items: 3 },
-                              768: { items: 4 },
-                              992: { items: 5 },
-                              1200: { items: 7 },
-                            }}
+                            nav={true}
                           >
                             {categories.map((cat) => (
                               <li
@@ -160,7 +153,7 @@ function NewsAndMedia() {
                   </ul>
                 </div>
               </div>
-              <div className="col-xxl-2 col-md-3 col-xl-2 col-sm-3 sortbyright">
+              <div className="col-auto sortbyright">
                 <select
                   className="form-select"
                   onChange={(e) => {

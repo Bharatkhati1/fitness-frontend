@@ -87,9 +87,9 @@ export default function AddToBag() {
           }
         },
         prefill: {
-          name: `${user.firstName} ${user.lastName}`,
-          email: user.email,
-          contact: user.phone,
+          name: `${user?.firstName} `,
+          email: user?.email,
+          contact: user?.phone,
         },
         theme: {
           color: "#528FF0",
@@ -165,7 +165,7 @@ export default function AddToBag() {
                     </label>
                     <input
                       type="text"
-                      value={user.firstName}
+                      value={user?.firstName}
                       className="form-control"
                       readOnly
                     />
@@ -177,7 +177,7 @@ export default function AddToBag() {
                     </label>
                     <input
                       type="text"
-                      value={user.email}
+                      value={user?.email}
                       className="form-control"
                       readOnly
                     />
@@ -188,7 +188,7 @@ export default function AddToBag() {
                       Phone Number<span className="validation">*</span>
                     </label>
                     <input
-                      value={user.phone}
+                      value={user?.phone}
                       className="form-control"
                       readOnly
                     />

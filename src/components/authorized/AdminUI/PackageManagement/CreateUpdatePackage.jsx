@@ -33,6 +33,7 @@ const CreateUpdatePackage = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [allConsultants, setAllConsultants] = useState([]);
 
   const [packageInclusions, setPackageInclusions] = useState([
@@ -128,8 +129,9 @@ const CreateUpdatePackage = () => {
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} package...`
     );
-
+    
     try {
+      setIsLoading(true)
       const url = isEdit
         ? adminApiRoutes.update_package(selectedPackageId)
         : adminApiRoutes.create_package;
@@ -164,6 +166,8 @@ const CreateUpdatePackage = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -623,6 +627,7 @@ const CreateUpdatePackage = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
                 {isEdit ? `Update Changes` : `Save Change`}
               </button>

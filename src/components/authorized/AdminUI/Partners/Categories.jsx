@@ -6,7 +6,7 @@ import ConfirmationPopup from "../Popups/ConfirmationPopup";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
-  const [formData, setFormData] = useState({name:"", image:null, isActive:true})
+  const [formData, setFormData] = useState({name:"", isActive:true})
   const [isEdit, setIsEdit] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("")
   const [categories, setcategories] = useState([]);
@@ -92,7 +92,7 @@ const Categories = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
-    setFormData({name:"", image:null, isActive:true})
+    setFormData({name:"", isActive:true})
   };
 
   const handleFormDataChange = (e) => {
@@ -142,24 +142,6 @@ const Categories = () => {
                       name="name"
                       placeholder="Enter title"
                       value={formData.name}
-                      onChange={handleFormDataChange}
-                    />
-                  </div>
-                </div>
-
-                {/* image  */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="consultant-image" className="form-label">
-                     Category Image {isEdit && `: ${selectedFileName}`}
-                    </label>
-                    <input
-                      id="consultant-image"
-                      name="image"
-                      type="file"
-                      ref={fileInputRef}
-                      className="form-control"
-                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
                   </div>
@@ -234,7 +216,6 @@ const Categories = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>ID</th>
-                      <th>Image</th>
                       <th>Name</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -245,24 +226,6 @@ const Categories = () => {
                       categories.map((item, index) => (
                         <tr key={index}>
                           <td>{index+1}</td>
-                          <td>
-                            <Link to={item.image_url} target="_blank">
-                              <img
-                                src={item.image_url}
-                                crossOrigin="anonymous"
-                                alt="Consultant"
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                  objectFit: "contain",
-                                  border: "1px solid #ccc",
-                                }}
-                                onError={() =>
-                                  console.error("Image load failed")
-                                }
-                              />
-                            </Link>
-                          </td>
                           <td>{item?.name}</td>
                           <td>
                             <span
@@ -282,7 +245,6 @@ const Categories = () => {
                                   setSelectedId(item.id);
                                   setFormData({
                                     name:item.name,
-                                    image:null,
                                     isActive:item.isActive,
                                   })
                                   setSelectedFileName(item.image)
