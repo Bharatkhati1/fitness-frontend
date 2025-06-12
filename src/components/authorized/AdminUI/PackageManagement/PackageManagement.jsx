@@ -59,7 +59,7 @@ const PackageManagement = () => {
       <div className="d-flex justify-content-end mb-3">
           <input
             className="w-50" 
-            placeholder="Search package..."
+            placeholder="Search here"
             onChange={(e) => handleSearch(e.target.value)}
             style={{ marginLeft: "20px" }}
           />

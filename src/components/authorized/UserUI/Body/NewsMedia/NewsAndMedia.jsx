@@ -96,7 +96,7 @@ function NewsAndMedia() {
             <div className="SearchBox">
               <input
                 type="text"
-                placeholder="Search news title here..."
+                placeholder="Search here"
                 className="form-control"
                 value={searchTerm}
                 onChange={(e) =>{ setSelectedCategory("all");setSearchTerm(e.target.value)}}

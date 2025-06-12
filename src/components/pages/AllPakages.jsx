@@ -78,7 +78,7 @@ function AllPakages() {
             <div className="SearchBox">
               <input
                 type="text"
-                placeholder="Search package name here..."
+                placeholder="Search here"
                 className="form-control"
                 value={search}
                 onChange={(e) => {

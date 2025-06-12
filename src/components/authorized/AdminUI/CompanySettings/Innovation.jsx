@@ -7,13 +7,14 @@ import Ckeditor from "../CkEditor/Ckeditor";
 const Innovation = () => {
   const [formData, setFormData] = useState({
     title: "Innovation",
-    banner:"",
-    optional_image:[]
+    banner: "",
+    optional_image: [],
   });
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("")
   const fileInputRef = useRef(null);
   const optionalInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -36,28 +37,32 @@ const Innovation = () => {
   const handleSubmit = async () => {
     setLoading(true);
     const payload = new FormData();
-  
+
     // Append all regular fields
     Object.entries(formData).forEach(([key, val]) => {
       if (key !== "optional_image" && val !== null && val !== undefined) {
         payload.append(key, val);
       }
     });
-  
+
     // Append gallery images one-by-one
-    galleryImages.forEach((file) => {
-      payload.append("optional_image", file);
+    galleryImages.forEach((img) => {
+      if (img.type === "new") {
+        payload.append("optional_image", img.data); // send only new files
+      }
     });
-  
+
+    // optionally send IDs of deleted images (if needed on backend)
+
     const loadingToastId = toast.loading("Updating innovation...");
     try {
       const url = adminApiRoutes.update_policy(formData.id);
       const method = adminAxios.put;
-  
+
       const response = await method(url, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       fetchPPDetails();
       toast.update(loadingToastId, {
         render: response.data.message,
@@ -78,16 +83,15 @@ const Innovation = () => {
       setLoading(false);
     }
   };
-  
 
   const onCancelEdit = () => {
     setIsEdit(false);
     setFormData({
-        title: "Innovation",
-        banner: "",
-      });
-      setGalleryImages([]);
-      
+      title: "Innovation",
+      banner: "",
+    });
+    setGalleryImages([]);
+
     if (fileInputRef.current) fileInputRef.current.value = "";
     if (optionalInputRef.current) optionalInputRef.current.value = "";
   };
@@ -100,8 +104,15 @@ const Innovation = () => {
       setFormData((prev) => ({
         ...prev,
         ...res.data.data,
-        optional_images: [],
       }));
+      setSelectedImage(res.data.data.banner)
+      setGalleryImages(
+        res.data?.data?.OptionalImages?.map((img) => ({
+          type: "existing",
+          data: img.image_url,
+          id: img.id,
+        })) || []
+      );
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.error);
@@ -114,9 +125,12 @@ const Innovation = () => {
 
   useEffect(() => {
     return () => {
-      galleryImages.forEach((file) => URL.revokeObjectURL(file));
+      galleryImages.forEach((img) => {
+        if (img.type === "new") URL.revokeObjectURL(img.data);
+      });
     };
   }, [galleryImages]);
+
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -131,7 +145,7 @@ const Innovation = () => {
           <div className="card-body">
             <div className="row">
               {/* Title */}
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">Title</label>
                   <input
@@ -146,7 +160,7 @@ const Innovation = () => {
               </div>
 
               {/* Banner Image */}
-              <div className="col-lg-8">
+              <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">Banner Image</label>
                   <input
@@ -160,11 +174,10 @@ const Innovation = () => {
                 </div>
               </div>
 
+              {/* Images  */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">
-                    Gallery Images (Optional)
-                  </label>
+                  <label className="form-label">Optional Images</label>
                   <input
                     type="file"
                     className="form-control"
@@ -173,25 +186,33 @@ const Innovation = () => {
                     multiple
                     onChange={(e) => {
                       const selected = Array.from(e.target.files);
-
                       if (selected.length + galleryImages.length > 5) {
                         toast.error("You can upload a maximum of 5 images.");
-                        e.target.value = null;
                         return;
                       }
 
-                      setGalleryImages((prev) => [...prev, ...selected]);
+                      const newFiles = selected.map((file) => ({
+                        type: "new",
+                        data: file,
+                      }));
+
+                      setGalleryImages((prev) => [...prev, ...newFiles]);
                       e.target.value = null;
                     }}
                   />
                 </div>
-
-                {galleryImages.length > 0 && (
+              </div>
+              {galleryImages.length > 0 && (
                   <div className="d-flex flex-wrap gap-2">
-                    {galleryImages.map((file, index) => (
+                    {galleryImages.map((img, index) => (
                       <div key={index} className="gary-img-div">
                         <img
-                          src={URL.createObjectURL(file)}
+                        crossOrigin="anonymous"
+                          src={
+                            img.type === "existing"
+                              ? img.data
+                              : URL.createObjectURL(img.data)
+                          }
                           alt={`preview-${index}`}
                         />
                         <button
@@ -209,7 +230,6 @@ const Innovation = () => {
                     ))}
                   </div>
                 )}
-              </div>
             </div>
           </div>
 

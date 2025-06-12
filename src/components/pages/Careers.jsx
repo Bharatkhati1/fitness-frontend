@@ -73,7 +73,7 @@ function Careers() {
           <div className="row align-items-center">
             <div className="col-md-6 pe-1 pb-4">
               <div className="Carrerbannerleft">
-                <h3>Where fitness meets innovation and Empathy meets Care</h3>
+                <h3>Where Fitness meets Innovation and Empathy meets Care.</h3>
                 <p>
                   We’re not just building programs—we’re building a healthier
                   world. If wellness drives you and purpose fuels you, you’re at

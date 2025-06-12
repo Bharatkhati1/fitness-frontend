@@ -95,7 +95,7 @@ function Blogs() {
             <div className="SearchBox">
               <input
                 type="text"
-                placeholder="Search blog name here..."
+                placeholder="Search here"
                 className="form-control"
                 value={searchTerm}
                 onChange={(e) => {

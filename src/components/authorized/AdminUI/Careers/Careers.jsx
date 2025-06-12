@@ -16,8 +16,8 @@ const Careers = () => {
   const [selectedCareerId, setSelectedCareerId] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const selectedIdref = useRef(null);
-  const [isLoading, setIsLoading]  = useState(false)
-  const [selectedId, setSelectedId] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
 
   const fetchCareers = async () => {
     try {
@@ -30,7 +30,7 @@ const Careers = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
@@ -39,7 +39,7 @@ const Careers = () => {
       toast.warning("All fields are required.");
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     const loadingToast = toast.loading(isEdit ? "Updating..." : "Creating...");
 
     try {
@@ -66,8 +66,8 @@ const Careers = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +89,7 @@ const Careers = () => {
       await adminAxios.delete(adminApiRoutes.delete_career(idToDelete));
       toast.success("Deleted successfully");
       fetchCareers();
-      setSelectedId("")
+      setSelectedId("");
     } catch (error) {
       toast.error("Failed to delete career");
     }
@@ -98,7 +98,7 @@ const Careers = () => {
   const handleCancel = () => {
     setIsEdit(false);
     setSelectedCareerId(null);
-    setSelectedId("")
+    setSelectedId("");
     setFormData({
       title: "",
       employmentType: "",
@@ -115,8 +115,14 @@ const Careers = () => {
     <>
       <div className="card">
         <div className="card-header d-flex justify-content-between align-items-center">
-          <h4 className="card-title">{isEdit ? "Edit Career" : "Create Career"}</h4>
-          {isEdit && <button className="btn btn-sm btn-secondary" onClick={handleCancel}>Cancel Edit</button>}
+          <h4 className="card-title">
+            {isEdit ? "Edit Career" : "Create Career"}
+          </h4>
+          {isEdit && (
+            <button className="btn btn-sm btn-secondary" onClick={handleCancel}>
+              Cancel Edit
+            </button>
+          )}
         </div>
         <div className="card-body">
           <div className="row">
@@ -162,13 +168,19 @@ const Careers = () => {
               <label className="form-label">Description</label>
               <Ckeditor
                 text={formData.description}
-                setText={(val) => setFormData((prev) => ({ ...prev, description: val }))}
+                setText={(val) =>
+                  setFormData((prev) => ({ ...prev, description: val }))
+                }
               />
             </div>
           </div>
         </div>
         <div className="card-footer">
-          <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
+          <button
+            className="btn btn-primary"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          >
             {isEdit ? "Update Career" : "Create Career"}
           </button>
         </div>
@@ -183,7 +195,7 @@ const Careers = () => {
             <table className="table table-hover align-middle">
               <thead className="bg-light">
                 <tr>
-                  <th>#</th>
+                  <th>Id</th>
                   <th>Title</th>
                   <th>Employment Type</th>
                   <th>Work Preference</th>
@@ -199,7 +211,11 @@ const Careers = () => {
                       <td>{career.title}</td>
                       <td>{career.employmentType}</td>
                       <td>{career.WorkPreference}</td>
-                      <td>{career.description?.replace(/<[^>]+>/g, "").slice(0, 80)}...</td>
+                      <td
+                        dangerouslySetInnerHTML={{
+                          __html: career?.description,
+                        }}
+                      ></td>
                       <td>
                         <div className="d-flex gap-2">
                           <button
@@ -215,13 +231,10 @@ const Careers = () => {
                             buttonText={
                               <iconify-icon
                                 icon="solar:trash-bin-minimalistic-2-broken"
-                                onClick={() =>
-                                  {
-                                    selectedIdref.current = career.id;
-                                    setSelectedId(career.id);
-                                    
-                                  }
-                                }
+                                onClick={() => {
+                                  selectedIdref.current = career.id;
+                                  setSelectedId(career.id);
+                                }}
                               />
                             }
                           />
