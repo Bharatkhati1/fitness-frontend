@@ -54,6 +54,7 @@ export default function UserRoutes() {
             <Route path="/innovation" element={<Innovation />} />
             <Route path="/packages" element={<Home />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/news-and-media" element={<NewsAndMedia />} />
             <Route path="/package/:slug" element={<PackageDetails />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />

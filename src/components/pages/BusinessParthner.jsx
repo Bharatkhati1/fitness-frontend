@@ -179,37 +179,48 @@ function BusinessParthner() {
 
       <div className="partnerssec">
         <div className="container">
-          {categorypartner.map((category) => (
+          {categorypartner.map((category, index) => (
             <div className="medicalpartners">
-              <div class="PageTitle text-center">
-                <h2>{category.name}</h2>
-              </div>
               {category?.Partners && category.Partners.length > 0 && (
-                <OwlCarousel
-                  className="owl-theme"
-                  dots={false}
-                  items={4}
-                  merge={true}
-                  nav={true}
-                  margin={30}
-                  loop={true}
-                >
-                  {category.Partners.map((ptr) => (
-                    <>
-                    <div className="item">
-                      <div>
-                        <div className="partnerssecbox">
-                          <figure>
-                            <img crossOrigin="anonymous" src={ptr.image_url}></img>
-                          </figure>
+                <>
+                  {" "}
+                  <div class="PageTitle text-center">
+                    <h2>{category.name}</h2>
+                  </div>
+                  <OwlCarousel
+                    className="owl-theme"
+                    dots={false}
+                    items={4}
+                    merge={true}
+                    nav={true}
+                    margin={30}
+                    loop={true}
+                  >
+                    {category.Partners.map((ptr) => (
+                      <>
+                        <div className="item">
+                          <div>
+                            <div className="partnerssecbox">
+                              <figure>
+                                <img
+                                  crossOrigin="anonymous"
+                                  src={ptr.image_url}
+                                ></img>
+                              </figure>
 
-                          <h3>{ptr.name}</h3>
+                              <h3>{ptr.name}</h3>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    </>
-                  ))}
-                </OwlCarousel>
+                      </>
+                    ))}
+                  </OwlCarousel>
+                </>
+              )}
+              {category?.Partners.length>0 &&index != categorypartner?.length - 1 && (
+                <div className="sepratebox mt-4 mb-4">
+                  <img src={bordersep}></img>
+                </div>
               )}
             </div>
           ))}

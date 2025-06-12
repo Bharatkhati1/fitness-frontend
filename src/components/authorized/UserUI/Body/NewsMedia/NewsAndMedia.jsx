@@ -35,6 +35,7 @@ function NewsAndMedia() {
       const query = {
         page,
         limit,
+        type:"news-media",
         order: sort,
         ...(category !== "all" && { category }),
         ...(search && { search }),
@@ -51,11 +52,10 @@ function NewsAndMedia() {
 
   const getCategories = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_blog_categories);
+      const response = await webAxios.get(userApiRoutes.get_master_categories("news-mida"));
       setCategories(response.data.data);
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Failed to fetch categories");
     }
   };
 

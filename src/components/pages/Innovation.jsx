@@ -272,8 +272,6 @@ const [selectedCategory, setSelectedCategory] = useState("all");
           </div>
         </div>
       </div>
-
-
       <Modal
         open={isModalOpen}
         onOk={handleOk}
