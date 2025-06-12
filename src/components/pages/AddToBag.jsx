@@ -11,20 +11,20 @@ import { useSelector } from "react-redux";
 export default function AddToBag() {
   const { user } = useSelector((state) => state.auth);
   const [cartItems, setCartItems] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
-  const discount = 0;
+  const [apliedCode, setAppliedCode] = useState("")
+  const [discountPrice, setDiscountPrice] = useState(null);
+  const [discountGet, setDiscounGet] = useState(0);
 
   const fetchCartitems = async () => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
-
   const removeFromCart = async (id) => {
     try {
       const res = await userAxios.delete(userApiRoutes.remove_from_cart(id));
@@ -40,6 +40,10 @@ export default function AddToBag() {
       const res = await userAxios.post(userApiRoutes.apply_coupon, {
         couponCode: coupon,
       });
+      setTotal(res.data.data.totalAmount);
+      setDiscountPrice(res.data.data.discountedAmount);
+      setDiscounGet(res.data.data.discountApplied);
+      setAppliedCode(res.data.data.coupon.code)
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.error || "Invalid Coupon");
@@ -47,13 +51,13 @@ export default function AddToBag() {
   };
 
   const handlePayment = async () => {
-    if(cartItems.length==0){
-      toast.error("No item in the cart !")
+    if (cartItems.length == 0) {
+      toast.error("No item in the cart !");
       return;
     }
     try {
       const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
-        amount: total,
+        amount: discountPrice || total,
       });
 
       const { orderId, amount, currency } = res.data.data;
@@ -64,15 +68,18 @@ export default function AddToBag() {
         name: "Smart Health",
         description: "Service Purchase",
         image: "/assets/img/logo.png",
-        order_id:orderId,
+        order_id: orderId,
         handler: async function (response) {
           try {
-            console.log("after payment response:",response)
-            const verifyRes = await userAxios.post(userApiRoutes.cart_checkout, {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            });
+            console.log("after payment response:", response);
+            const verifyRes = await userAxios.post(
+              userApiRoutes.cart_checkout,
+              {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }
+            );
             toast.success("Payment successful!");
             fetchCartitems();
           } catch (err) {
@@ -92,10 +99,24 @@ export default function AddToBag() {
       const razor = new window.Razorpay(options);
       razor.open();
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response?.data?.error || "Payment initiation failed!");
     }
   };
+
+  const removeCoupon = async () => {
+    try {
+      const res = await userAxios.delete(userApiRoutes.remove_coupon(apliedCode));
+      setCoupon("");
+      setDiscountPrice(null);
+      setDiscounGet(0);
+      toast.success(res.data.message || "Coupon removed");
+      fetchCartitems();
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Failed to remove coupon");
+    }
+  };
+  
 
   useEffect(() => {
     let sum = 0;
@@ -104,9 +125,7 @@ export default function AddToBag() {
       const qty = item?.quantity || 1;
       sum += price * qty;
     });
-
-    setSubtotal(sum);
-    setTotal(sum - discount);
+    setTotal(sum);
   }, [cartItems]);
 
   useEffect(() => {
@@ -147,18 +166,6 @@ export default function AddToBag() {
                     <input
                       type="text"
                       value={user.firstName}
-                      className="form-control"
-                      readOnly
-                    />
-                  </div>
-
-                  <div className="form-group mb-3">
-                    <label>
-                      Last Name<span className="validation">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={user.lastName}
                       className="form-control"
                       readOnly
                     />
@@ -239,30 +246,48 @@ export default function AddToBag() {
                   </ul>
 
                   <div className="discoutBox mb-4">
-                    <input
-                      className="form-control"
-                      placeholder="Add discount code"
-                      value={coupon}
-                      onChange={(e) => setCoupon(e.target.value)}
-                    />
-                    <img className="tagicon" src={discoutimg} />
-                    <button className="applybtn" onClick={applyCoupon}>
-                      Apply
-                    </button>
+                    <div className="discoutBox mb-4">
+                      {!discountPrice ? (
+                        <>
+                          <input
+                            className="form-control"
+                            placeholder="Add discount code"
+                            value={coupon}
+                            onChange={(e) => setCoupon(e.target.value)}
+                          />
+                          <img className="tagicon" src={discoutimg} />
+                          <button className="applybtn" onClick={applyCoupon}>
+                            Apply
+                          </button>
+                        </>
+                      ) : (
+                        <div className="applied-coupon-box d-flex align-items-center justify-content-between px-3 py-2 rounded bg-light">
+                          <span className="text-success fw-bold">
+                            Coupon Applied: {coupon}
+                          </span>
+                          <button
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={removeCoupon}
+                          >
+                            &times;
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <ul className="Pricebrnkdownlist">
                     <li>
                       <span>Subtotal:</span>
-                      <b>₹ {subtotal}</b>
+                      <b>₹ {total}</b>
                     </li>
                     <li>
                       <span>Discount:</span>
-                      <b className="red-text pe-4">-₹ {discount}</b>
+                      <b className="red-text ">- ₹{discountGet || 0}</b>
                     </li>
                     <li>
                       <span>Total:</span>
-                      <b>₹ {total}</b>
+                      <b>₹ {discountPrice || total}</b>
                     </li>
                   </ul>
 

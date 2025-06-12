@@ -209,9 +209,7 @@ function NewsAndMedia() {
                     ></p>
                     <Link
                       style={{ color: "green" }}
-                      to={`/news-media/${item.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
+                      to={`/news-media/${item.slug}`}
                     >
                       Read More <img src={readMoreimg} />
                     </Link>

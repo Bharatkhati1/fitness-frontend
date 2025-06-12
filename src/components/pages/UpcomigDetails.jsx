@@ -62,7 +62,7 @@ function UpcomigDetails() {
       ) : (
         <div class="Bytext text-center">
           <span>
-            By {details.auther} .{details.date} . {details.readTime} min read
+            By {details.auther} . {details.date} . {details.readTime} min read
           </span>
         </div>
       )}

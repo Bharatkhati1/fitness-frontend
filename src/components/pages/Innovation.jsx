@@ -249,9 +249,7 @@ function Innovation() {
 
                     <Link
                      className="btn btn-primary max-width"
-                      to={`/innovation-details/${inov.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
+                      to={`/innovation-details/${inov.slug}`}
                     >
                       Read More 
                     </Link>
