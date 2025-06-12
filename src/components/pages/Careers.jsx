@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Modal, Button } from "antd";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -26,6 +27,8 @@ import yogaimg3 from "../../../public/assets/img/yogaimg3.png";
 import culturesliderimg1 from "../../../public/assets/img/culturesliderimg1.png";
 import culturesliderimg2 from "../../../public/assets/img/culturesliderimg2.png";
 import culturesliderimg3 from "../../../public/assets/img/culturesliderimg3.png";
+
+import joinimgv from "../../../public/assets/img/joinimgv.png";
 
 import bagicon from "../../../public/assets/img/bagicon.png";
 import { webAxios } from "../../utils/constants.jsx";
@@ -58,6 +61,20 @@ function Careers() {
     fetchJobs();
     fetchCmsCareers();
   }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div className="Carrerbanner innerSpace mt-3">
@@ -344,7 +361,10 @@ function Careers() {
                         __html: job.description,
                       }}
                     ></p>
-                    <a className="btn btn-primary w-100 hvr-shutter-out-horizontal">
+                    <a
+                      className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                      onClick={showModal}
+                    >
                       apply now
                     </a>
                   </div>
@@ -354,6 +374,114 @@ function Careers() {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className="custom-modal"
+        centered
+      >
+        <div className="modalhead">
+          <h3>join our team</h3>
+        </div>
+
+        <div className="modalbody">
+          <span>Be a part of our mission to inspire healthy living.</span>
+          <p>
+            Submit your details below and stay connected with the latest career
+            opportunities.
+          </p>
+
+          <div className="row formmodal mt-4">
+            <div className="col-md-5 me-auto">
+              <div class="form-group mb-2">
+                <label>your full name*</label>
+                <input
+                  placeholder="Enter your full name"
+                  class="form-control"
+                  type="text"
+                  value=""
+                  name="name"
+                />
+              </div>
+
+              <div className="form-group mb-2">
+                <label>your Date of Birth*</label>
+                <input type="date" className="form-control"></input>
+              </div>
+
+              <div class="form-group mb-2">
+                <label>your Role:</label>
+                <input
+                  placeholder="Fitness Trainer"
+                  class="form-control"
+                  type="text"
+                  value=""
+                />
+              </div>
+
+              <div class="form-group mb-2">
+                <label>Are you a fitness enthusiast ?*</label>
+
+                <ul class="form-checkList sm-checklist d-flex flex-wrap">
+                  <li>
+                    <div class="form-check me-4">
+                      <input
+                        class="form-check-input"
+                        id="service-27"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="service-27">
+                        Yes
+                      </label>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        id="service-28"
+                        type="checkbox"
+                      />
+                      <label class="form-check-label" for="service-28">
+                        No
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="form-group mb-2">
+                <label>Upload Resume*</label>
+                <div class="upload-btn-wrapper">
+                  <button class="uploadbtn">Click here to upload</button>
+                  <input type="file" name="myfile" />
+                </div>
+              </div>
+
+              <div class="form-group mb-2">
+                <label>Select your experience</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+
+              <a className="btn btn-primary max-btn mt-4">apply now</a>
+            </div>
+
+            <div className="col-md-6">
+              <figure className="JoinImgvaerticle">
+                <img src={joinimgv}></img>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 }

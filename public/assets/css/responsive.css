@@ -45,11 +45,29 @@
 
   .calculatebody {
     width: 100%;
-}
-.taginfo {
-   
+  }
+  .taginfo {
     right: 0;
-    top: 60px;}
+    top: 60px;
+  }
+
+  .userlinks li a {
+    font-size: 10px;
+  }
+  .imgsmcard img {
+    height: 100%;
+  }
+  .imgcardcontent h4 {
+    font-size: 30px;
+  }
+  .stayaheadbg h4 {
+    font-size: 34px;
+  }
+  .stayaheadbg span {
+    font-size: 22px;}
+
+    .stayaheadbg p {
+    font-size: 18px;}
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -883,6 +901,10 @@
   .WhyUsinner {
     height: 100%;
   }
+
+    .stayaheadbg h4 {
+        font-size: 28px;
+    }
 }
 
 @media (max-width: 991px) {
