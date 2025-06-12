@@ -14,7 +14,7 @@ const Innovation = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("")
+  const [selectedImage, setSelectedImage] = useState(null)
   const fileInputRef = useRef(null);
   const optionalInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -162,7 +162,7 @@ const Innovation = () => {
               {/* Banner Image */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Banner Image</label>
+                  <label className="form-label">Banner Image {selectedImage&& `${selectedImage}`}</label>
                   <input
                     name="banner"
                     type="file"

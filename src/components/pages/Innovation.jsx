@@ -24,6 +24,7 @@ function Innovation() {
   const [categories, setBlogCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [cmsDetails, setCmsDetails] = useState({});
   const [totalPages, setTotalPages] = useState(1);
 
   const showModal = () => {
@@ -82,6 +83,20 @@ function Innovation() {
     }
   };
 
+  const getCmsDetail = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_master_cms("innovations")
+      );
+      setCmsDetails(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Failed to fetch categories"
+      );
+    }
+  };
+
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -99,7 +114,10 @@ function Innovation() {
 
   useEffect(() => {
     getBlogCategories();
+    getCmsDetail();
   }, []);
+
+  console.log(cmsDetails);
   return (
     <>
       <div className="innerSpace mt-4">
@@ -108,7 +126,10 @@ function Innovation() {
             <div className="row g-1">
               <div className="col-md-7">
                 <div className="imgcard">
-                  <img src={innovationimg1}></img>
+                  <img
+                    crossOrigin="anonymous"
+                    src={cmsDetails?.banner_url}
+                  ></img>
 
                   <div className="imgcardcontent">
                     <h4>Intelligence. Innovation. Impact.</h4>
@@ -118,36 +139,13 @@ function Innovation() {
 
               <div className="col-md-5">
                 <div className="row g-1">
-                  <div className="col-md-6 ">
-                    <div className="imgsmcard">
-                      {" "}
-                      <img src={innovationimg2}></img>
+                  {cmsDetails?.OptionalImages?.slice(0, 4).map((img) => (
+                    <div className="col-md-6 ">
+                      <div className="imgsmcard">
+                        <img src={img.image_url} crossOrigin="anonymous"></img>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-md-6  ">
-                    <div className="innovationcontent">
-                      <span className="dotsicon">
-                        <img src={innovationicon3}></img>
-                      </span>
-                      <img src={innovationicon1}></img>
-                      <h4>Where daily health meets deep tech.</h4>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="innovationcontent">
-                      <span className="dotsicon">
-                        <img src={innovationicon3}></img>
-                      </span>
-                      <img src={innovationicon2}></img>
-                      <h4>Where daily health meets deep tech.</h4>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="imgsmcard">
-                      {" "}
-                      <img src={innovationimg3}></img>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -177,32 +175,15 @@ function Innovation() {
                                 autoplay={false}
                                 margin={10}
                                 dots={false}
-                                items={7}
                                 nav
-                                responsive={{
-                                  0: {
-                                    items: 2, // 0px and up
-                                  },
-                                  481: {
-                                    items: 3, // 0px and up
-                                  },
-                                  768: {
-                                    items: 4, // 600px and up
-                                  },
-                                  992: {
-                                    items: 5, // 600px and up
-                                  },
-                                  1200: {
-                                    items: 7, // 1000px and up
-                                  },
-                                }}
+                                autoWidth
                               >
                                 {categories.map((cat) => (
                                   <li
                                     className={
                                       selectedCategory === cat.id
-                                        ? "active"
-                                        : ""
+                                        ? "active px-2"
+                                        : "px-2"
                                     }
                                     onClick={() => {
                                       handleSelectCategory(cat.id);
@@ -237,8 +218,10 @@ function Innovation() {
                     <div class="Bytext text-center">
                       <span>
                         By {inov.auther} .{" "}
-                        {new Date(inov.date).toLocaleDateString("en-GB").replaceAll("/", "-")} {" "}
-                         . {inov.readTime} min read
+                        {new Date(inov.date)
+                          .toLocaleDateString("en-GB")
+                          .replaceAll("/", "-")}{" "}
+                        . {inov.readTime} min read
                       </span>
                     </div>
 

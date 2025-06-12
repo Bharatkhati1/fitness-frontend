@@ -147,11 +147,13 @@ const Careers = () => {
                 <option value="">Select</option>
                 <option value="Full Time">Full Time</option>
                 <option value="Part Time">Part Time</option>
+                <option value="Freelancer">Freelancer</option>
                 <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
               </select>
             </div>
             <div className="col-lg-6 mb-3">
-              <label className="form-label">Work Preference</label>
+              <label className="form-label">Preferred Work Mode</label>
               <select
                 name="WorkPreference"
                 value={formData.WorkPreference}
@@ -198,7 +200,7 @@ const Careers = () => {
                   <th>Id</th>
                   <th>Title</th>
                   <th>Employment Type</th>
-                  <th>Work Preference</th>
+                  <th>Preferred Work Mode</th>
                   <th>Description</th>
                   <th>Action</th>
                 </tr>
