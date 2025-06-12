@@ -180,3 +180,7 @@ border-radius: 3px;
   .userprofile{
     margin-left: 20px;
   }
+
+  .upcomingbox img{
+    border-radius: 10px;
+  }

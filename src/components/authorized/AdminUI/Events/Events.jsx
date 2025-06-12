@@ -36,7 +36,6 @@ const Events = () => {
     }
   };
 
-
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === "radio" ? value === "true" : value;
@@ -160,12 +159,6 @@ const Events = () => {
                   type: "number",
                   placeholder: "Enter available spots",
                 },
-                {
-                  label: "Address",
-                  name: "address",
-                  type: "text",
-                  placeholder: "Enter event address/location",
-                },
               ].map(({ label, name, type, placeholder }) => (
                 <div className="col-lg-6" key={name}>
                   <div className="mb-3">
@@ -219,28 +212,6 @@ const Events = () => {
                 </div>
               </div>
 
-              {/* Status */}
-              <div className="col-lg-6">
-                <p>Status</p>
-                <div className="d-flex gap-3 align-items-center">
-                  {["true", "false"].map((value) => (
-                    <div className="form-check" key={value}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="isActive"
-                        value={value}
-                        checked={formData.isActive === (value === "true")}
-                        onChange={handleInputChange}
-                      />
-                      <label className="form-check-label">
-                        {value === "true" ? "Active" : "Inactive"}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* Short Description */}
               <div className="col-lg-6">
                 <div className="mb-3">
@@ -267,6 +238,47 @@ const Events = () => {
                       }))
                     }
                   />
+                </div>
+              </div>
+
+             {formData.eventType =="Offline" && <div className="col-lg-6" key={name}>
+                <div className="mb-3">
+                  <label className="form-label">Address</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="address"
+                    value={formData.address}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        address: e.target.value,
+                      }))
+                    }
+                    placeholder="Enter event address/location"
+                  />
+                </div>
+              </div>}
+
+              {/* Status */}
+              <div className="col-lg-6">
+                <p>Status</p>
+                <div className="d-flex gap-3 align-items-center">
+                  {["true", "false"].map((value) => (
+                    <div className="form-check" key={value}>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={value}
+                        checked={formData.isActive === (value === "true")}
+                        onChange={handleInputChange}
+                      />
+                      <label className="form-check-label">
+                        {value === "true" ? "Active" : "Inactive"}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
