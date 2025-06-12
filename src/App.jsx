@@ -74,10 +74,9 @@ const App = () => {
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
     
-          <Route path="Events" element={<Events/>} />
-          <Route path="UpcomigDetails" element={<UpcomigDetails/>} />
+          {/* <Route path="UpcomigDetails" element={<UpcomigDetails/>} /> */}
           <Route path="Innovation" element={<Innovation/>} />
-\
+
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}

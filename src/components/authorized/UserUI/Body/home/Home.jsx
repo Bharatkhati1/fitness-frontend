@@ -663,7 +663,7 @@ function Home() {
                 <figcaption>
                   <span>
                     {new Date(blog.createdAt).toLocaleDateString("en-GB")} .{" "}
-                    {blog.readTime || "2 min read"}
+                    {blog.readTime } min read
                   </span>
                   <Link
                     to={`/blog/${blog.title

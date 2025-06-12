@@ -4878,3 +4878,46 @@ ul.whyparthnerlist li {
     font-style: italic;
     padding: 10px 0 20px;
 }
+
+
+.innovationlistcontent h3 {
+    font-size: 30px;
+    color: #2A2A2A;
+    font-weight: 600;
+}
+
+hr.dashed-text {
+    border: 0;
+    border-bottom: 1px dashed #A8A8A8;
+    margin: 15px 0 35px;
+}
+
+.innovationlistcontent .Bytext {
+    padding-bottom: 5px;
+}
+
+.innovationlistcontent p {
+    font-size: 20px;
+    color: #1E1E1E;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.stayModal .ant-modal-content {
+    padding: 0 !important;
+}
+
+.stayModal  .ant-modal-footer {
+    display: none;
+}
+
+.stayModal .ant-modal {
+    width: 717px !important;
+}
+
+.stayaheadbg h4{font-size: 28px;}
+
+
+.staybgmodal {
+    background: url(../img/staybgmodal.png);
+}

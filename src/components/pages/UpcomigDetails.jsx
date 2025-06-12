@@ -4,8 +4,11 @@ import iconImg2 from "../../../public/assets/img/iconimg2.png";
 import iconImg3 from "../../../public/assets/img/iconimg3.png";
 
 import upcomigeventsbg from "../../../public/assets/img/upcomigeventsbg.png";
+import { useParams } from "react-router-dom";
 
 function UpcomigDetails() {
+  const { slug } = useParams();
+  console.log(slug)
   return (
     <>
       <section className="BlogDeatils">

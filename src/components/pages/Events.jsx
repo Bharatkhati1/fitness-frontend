@@ -1,6 +1,4 @@
-import React from "react";
-import Header from "../../components/authorized/UserUI/Header/Header.jsx";
-import Footer from "../../components/authorized/UserUI/Footer/Footer.jsx";
+import React, { useEffect, useState } from "react";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -35,12 +33,53 @@ import typesimg3 from "../../../public/assets/img/typesimg3.png";
 import typesimg4 from "../../../public/assets/img/typesimg4.png";
 
 import girlimg from "../../../public/assets/img/girlimg.png";
+import { toast } from "react-toastify";
+import { webAxios } from "../../utils/constants.jsx";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
+import { Link } from "react-router-dom";
 
 export default function Events() {
+  const [eventType, setEventTypes] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [pastevents, setPastEvents] = useState([]);
+
+  const fetchAllUpcomingEvents = async () => {
+    try {
+      const res = await webAxios.get(userApiRoutes.get_upcoming_events);
+      setUpcomingEvents(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  const fetchAllPastEvents = async () => {
+    try {
+      const res = await webAxios.get(userApiRoutes.get_past_events);
+      setPastEvents(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  const fetchEventTypes = async () => {
+    try {
+      const res = await webAxios.get(
+        userApiRoutes.get_master_categories("events")
+      );
+      setEventTypes(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  console.log(eventType, pastevents, upcomingEvents);
+  useEffect(() => {
+    fetchAllPastEvents();
+    fetchAllUpcomingEvents();
+    fetchEventTypes();
+  }, []);
   return (
     <>
-      <Header />
-
       <div className="EventsBanner spacetop">
         <div className="EventsBannercontent">
           <h3>Fueling Community, Energy & Wellness -One Event at a Time !</h3>
@@ -67,195 +106,68 @@ export default function Events() {
             <h2>upcoming events</h2>
           </div>
 
-          <OwlCarousel
-            className="owl-theme"
-            dots={false}
-            items={3}
-            merge={true}
-            nav={true}
-            margin={25}
-            loop={true}
-          >
-            <div className="item">
-              <div className="upcomingbox">
-                <figure>
-                  <img src={upcomingeventsimg1}></img>
-                </figure>
+          {upcomingEvents && upcomingEvents.length > 0 && (
+            <OwlCarousel
+              className="owl-theme"
+              dots={false}
+              items={3}
+              merge={true}
+              nav={true}
+              margin={25}
+              loop={true}
+            >
+              {upcomingEvents.map((event) => (
+                <div className="item">
+                  <div className="upcomingbox">
+                    <figure>
+                      <img crossOrigin="anonymous" src={event.image_url}></img>
+                    </figure>
 
-                <figcaption>
-                  <h4>14-Day Full Body Transformation Challenge</h4>
+                    <figcaption>
+                      <h4>{event.title}</h4>
 
-                  <ul className="eventinfolist">
-                    <li>
-                      <img src={calendericon1}></img> <span>12.06.2025</span>
-                    </li>
+                      <ul className="eventinfolist">
+                        <li>
+                          <img src={calendericon1}></img>{" "}
+                          <span>{event.date}</span>
+                        </li>
 
-                    <li>
-                      <img src={calendericon2}></img> <span>Online</span>
-                    </li>
+                        <li>
+                          <img src={calendericon2}></img>{" "}
+                          <span>{event.eventType}</span>
+                        </li>
 
-                    <li>
-                      <img src={calendericon3}></img> <span>05:30 PM</span>
-                    </li>
+                        <li>
+                          <img src={calendericon3}></img>{" "}
+                          <span>{event.time}</span>
+                        </li>
 
-                    <li>
-                      <img src={calendericon4}></img> <span>8 spots left</span>
-                    </li>
-                  </ul>
+                        <li>
+                          <img src={calendericon4}></img>{" "}
+                          <span>{event.spots}</span>
+                        </li>
+                      </ul>
 
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s
-                  </p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: event.description,
+                        }}
+                      ></p>
 
-                  <div className="eventsbtn d-flex mt-3">
-                    <a className="btn btn-primary w-100 me-1 hvr-shutter-out-horizontal">
-                      know more
-                    </a>
-                    <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
-                      register now
-                    </a>
+                      <div className="eventsbtn d-flex mt-3">
+                        <Link className="btn btn-primary w-100 me-1 hvr-shutter-out-horizontal">
+                          know more
+                        </Link>
+                        <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
+                          register now
+                        </a>
+                      </div>
+                    </figcaption>
                   </div>
-                </figcaption>
-              </div>
-            </div>
-
-            <div className="item">
-              <div className="upcomingbox">
-                <figure>
-                  <img src={upcomingeventsimg2}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Nutrition Masterclass with Dr. Anjali</h4>
-
-                  <ul className="eventinfolist">
-                    <li>
-                      <img src={calendericon1}></img> <span>12.06.2025</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon2}></img> <span>Online</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon3}></img> <span>05:30 PM</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon4}></img> <span>8 spots left</span>
-                    </li>
-                  </ul>
-
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s
-                  </p>
-
-                  <div className="eventsbtn d-flex mt-3">
-                    <a className="btn btn-primary w-100 me-1 hvr-shutter-out-horizontal">
-                      know more
-                    </a>
-                    <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
-                      register now
-                    </a>
-                  </div>
-                </figcaption>
-              </div>
-            </div>
-
-            <div className="item">
-              <div className="upcomingbox">
-                <figure>
-                  <img src={upcomingeventsimg3}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Yoga for Mental Clarity – Live Community Session</h4>
-
-                  <ul className="eventinfolist">
-                    <li>
-                      <img src={calendericon1}></img> <span>12.06.2025</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon2}></img> <span>Online</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon3}></img> <span>05:30 PM</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon4}></img> <span>8 spots left</span>
-                    </li>
-                  </ul>
-
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s
-                  </p>
-
-                  <div className="eventsbtn d-flex mt-3">
-                    <a className="btn btn-primary w-100 me-1 hvr-shutter-out-horizontal">
-                      know more
-                    </a>
-                    <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
-                      register now
-                    </a>
-                  </div>
-                </figcaption>
-              </div>
-            </div>
-
-            <div className="item">
-              <div className="upcomingbox">
-                <figure>
-                  <img src={upcomingeventsimg3}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Yoga for Mental Clarity – Live Community Session</h4>
-
-                  <ul className="eventinfolist">
-                    <li>
-                      <img src={calendericon1}></img> <span>12.06.2025</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon2}></img> <span>Online</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon3}></img> <span>05:30 PM</span>
-                    </li>
-
-                    <li>
-                      <img src={calendericon4}></img> <span>8 spots left</span>
-                    </li>
-                  </ul>
-
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s
-                  </p>
-
-                  <div className="eventsbtn d-flex mt-3">
-                    <a className="btn btn-primary w-100 me-1 hvr-shutter-out-horizontal">
-                      know more
-                    </a>
-                    <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
-                      register now
-                    </a>
-                  </div>
-                </figcaption>
-              </div>
-            </div>
-          </OwlCarousel>
+                </div>
+              ))}
+            </OwlCarousel>
+          )}
 
           <div></div>
         </div>
@@ -277,53 +189,36 @@ export default function Events() {
           </div>
 
           <div className="Pasteventsslider">
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={3}
-              nav={true}
-              margin={20}
-              loop={true}
-              center={true}
-            >
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg1}></img>
+            {pastevents && pastevents.length > 0 && (
+              <>
+                {" "}
+                <OwlCarousel
+                  className="owl-theme"
+                  dots={false}
+                  items={3}
+                  nav={true}
+                  margin={20}
+                  loop={true}
+                  center={true}
+                >
+                  {pastevents.map((event) => (
+                    <div className="item">
+                      <div className="pasteventbox">
+                        <img
+                          crossOrigin="anonymous"
+                          src={event.image_url}
+                        ></img>
+                      </div>
+                    </div>
+                  ))}
+                </OwlCarousel>
+                <div className="postbtn text-center">
+                  <Link className="btn btn-primary max-width hvr-shutter-out-horizontal">
+                    know more
+                  </Link>
                 </div>
-              </div>
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg2}></img>
-                </div>
-              </div>
-
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg3}></img>
-                </div>
-              </div>
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg2}></img>
-                </div>
-              </div>
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg2}></img>
-                </div>
-              </div>
-              <div className="item">
-                <div className="pasteventbox">
-                  <img src={pastsliderimg3}></img>
-                </div>
-              </div>
-            </OwlCarousel>
-
-            <div className="postbtn text-center">
-              <a className="btn btn-primary max-width hvr-shutter-out-horizontal">
-                know more
-              </a>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -389,65 +284,31 @@ export default function Events() {
         </div>
 
         <div className="container">
-          <OwlCarousel
-            className="owl-theme"
-            dots={false}
-            items={4}
-            nav={true}
-            margin={10}
-            loop={true}
-          >
-            <div className="item">
-              <div className="typeseventsbox">
-                <figure>
-                  <img src={typesimg1}></img>
-                </figure>
+          {eventType && eventType.length > 0 && (
+            <OwlCarousel
+              className="owl-theme"
+              dots={false}
+              items={4}
+              nav={true}
+              margin={10}
+              loop={true}
+            >
+              {eventType.map((type) => (
+                <div className="item">
+                  <div className="typeseventsbox">
+                    <figure>
+                      <img crossOrigin="anonymous" src={type.image_url}></img>
+                    </figure>
 
-                <figcaption>
-                  <h4>Fitness Challenges</h4>
-                  <p>7/14/30-day workout or weight-loss challenges.</p>
-                </figcaption>
-              </div>
-            </div>
-
-            <div className="item">
-              <div className="typeseventsbox">
-                <figure>
-                  <img src={typesimg2}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Webinars & Expert Talks</h4>
-                  <p>7/14/30-day workout or weight-loss challenges.</p>
-                </figcaption>
-              </div>
-            </div>
-
-            <div className="item">
-              <div className="typeseventsbox">
-                <figure>
-                  <img src={typesimg3}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Community Wellness Meetups</h4>
-                  <p>Yoga days, run clubs, Zumba parties.</p>
-                </figcaption>
-              </div>
-            </div>
-            <div className="item">
-              <div className="typeseventsbox">
-                <figure>
-                  <img src={typesimg4}></img>
-                </figure>
-
-                <figcaption>
-                  <h4>Workshops</h4>
-                  <p>Meal prep, mental fitness, strength training.</p>
-                </figcaption>
-              </div>
-            </div>
-          </OwlCarousel>
+                    <figcaption>
+                      <h4>{type.name}</h4>
+                      <p>{type.description}</p>
+                    </figcaption>
+                  </div>
+                </div>
+              ))}
+            </OwlCarousel>
+          )}
         </div>
       </div>
 
@@ -479,8 +340,6 @@ export default function Events() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }
