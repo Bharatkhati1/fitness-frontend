@@ -127,7 +127,7 @@ const BlogsManagement = () => {
     setIsEdit(false);
     setSelectedId(null);
     setName("");
-    setDate("")
+    setDate("");
     setCategoryId("");
     setLongDescription("");
     setShortDesc("");
@@ -215,15 +215,31 @@ const BlogsManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-time" className="form-label">
-                      Read Time
+                      Read Time (minutes)
                     </label>
                     <input
                       type="number"
                       id="service-time"
                       className="form-control"
-                      placeholder="Enter read time"
+                      placeholder="Enter read time (0-60)"
+                      min="0"
+                      max="60"
                       value={readTime}
-                      onChange={(e) => setReadTime(e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        // Allow empty value
+                        if (value === "") {
+                          setReadTime("");
+                          return;
+                        }
+                    
+                        const numericValue = parseInt(value, 10);
+                    
+                        // Only allow 0–60
+                        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 60) {
+                          setReadTime(numericValue);
+                        }
+                      }}
                     />
                   </div>
                 </div>
@@ -420,7 +436,7 @@ const BlogsManagement = () => {
                                   setShortDesc(item.shortDescription);
                                   setLongDescription(item.description);
                                   setStatus(item.isActive);
-                                  setDate(item.date|| "")
+                                  setDate(item.date || "");
                                   setReadTime(item.readTime);
                                   setAuthor(item?.auther);
                                   setSelectedFileName(item.image);

@@ -3,13 +3,14 @@ const userApiRoutes = {
 
   get_services: `/services`,
 
-  get_blogs: ({ search = '', page = 1, limit = 10, category, order } = {}) => {
+  get_blogs: ({ search = '', page = 1, limit = 10, category, order, type} = {}) => {
     const params = new URLSearchParams();
 
     if (search) params.append("search", search);
     if (page) params.append("page", page);
     if (order) params.append("order", order);
     if (limit) params.append("limit", limit);
+    if (type) params.append("type", type);
     if (category) params.append("category", category);
 
     const queryString = params.toString();
