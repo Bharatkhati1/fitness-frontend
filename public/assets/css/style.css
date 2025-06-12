@@ -4911,7 +4911,7 @@ hr.dashed-text {
     display: none;
 }
 
-.stayModal .ant-modal {
+.stayModal.ant-modal {
     width: 717px !important;
 }
 
@@ -4920,4 +4920,40 @@ hr.dashed-text {
 
 .staybgmodal {
     background: url(../img/staybgmodal.png);
+    padding: 20px 20px;
+        padding: 20px 20px;
+    background-size: cover;
+}
+
+
+
+.staybgmodal h4 {
+    font-size: 28px;
+    color: #1E1E1E;
+    font-weight: 700;
+}
+
+.staybgmodal p{ font-size: 14px; color:#1E1E1E; font-weight: 400; font-style: italic;}
+
+.ant-modal.stayModal .ant-modal-close-x {
+    line-height: normal;
+    position: absolute;
+    border: 1px solid #000;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+       top: 10px;
+    right: -2px;
+}
+
+
+.innovationlist figure img {
+    height: 391px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.filterOwl {
+    width: 95%;
+    margin: auto;
 }
