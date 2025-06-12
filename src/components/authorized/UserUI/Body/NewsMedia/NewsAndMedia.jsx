@@ -35,7 +35,7 @@ function NewsAndMedia() {
       const query = {
         page,
         limit,
-        type:"news-media",
+        type: "news-media",
         order: sort,
         ...(category !== "all" && { category }),
         ...(search && { search }),
@@ -52,7 +52,9 @@ function NewsAndMedia() {
 
   const getCategories = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_master_categories("news-mida"));
+      const response = await webAxios.get(
+        userApiRoutes.get_master_categories("news-media")
+      );
       setCategories(response.data.data);
     } catch (error) {
       console.error(error);
@@ -87,7 +89,9 @@ function NewsAndMedia() {
         <div className="container">
           <div className="innerbannerContent">
             <h2>news & media</h2>
-            <p>Stay informed with our latest news, media updates and insights.</p>
+            <p>
+              Stay informed with our latest news, media updates and insights.
+            </p>
             <div className="SearchBox">
               <input
                 type="text"
@@ -160,7 +164,7 @@ function NewsAndMedia() {
                   className="form-select"
                   onChange={(e) => {
                     const value = e.target.value;
-                    setSortBy(value === "1" ? "ASC" : "DESC");
+                    setSortBy(value === "2" ? "ASC" : "DESC");
                   }}
                 >
                   <option value="" disabled selected>
@@ -193,21 +197,24 @@ function NewsAndMedia() {
                   </figure>
                   <figcaption>
                     <h3>{item.title}</h3>
-                    <div className="Bytext">
+                    {/* <div className="Bytext">
                       <span>
                         {new Date(item.createdAt).toLocaleDateString("en-GB")}
                       </span>
-                    </div>
-                    <p>
-                      {item.shortDescription}{" "}
-                      <Link
-                        to={`/news-media/${item.title
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
-                      >
-                        Read More <img src={readMoreimg} />
-                      </Link>
-                    </p>
+                    </div> */}
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: item.shortDescription,
+                      }}
+                    ></p>
+                    <Link
+                      style={{ color: "green" }}
+                      to={`/news-media/${item.title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    >
+                      Read More <img src={readMoreimg} />
+                    </Link>
                   </figcaption>
                 </div>
               ))

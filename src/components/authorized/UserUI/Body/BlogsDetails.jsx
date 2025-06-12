@@ -27,7 +27,7 @@ const BlogsDetails = () => {
   return (
     <>
       <JoinCommunity open={open} setOpen={setOpen} />
-      <section className=" BlogDeatils">
+      <section className="BlogDeatils">
         <figure>
           <img crossOrigin="anonymous" src={details?.image_url} />
         </figure>
