@@ -35,6 +35,7 @@ function Blogs() {
       const query = {
         page,
         limit,
+        type:"blogs",
         order: sortBy,
         ...(category !== "all" && { category }),
         ...(search && { search }),

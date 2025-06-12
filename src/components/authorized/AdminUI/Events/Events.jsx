@@ -240,7 +240,8 @@ const Events = () => {
                   />
                 </div>
               </div>
-
+              
+              {/* Address */}
              {formData.eventType =="Offline" && <div className="col-lg-6" key={name}>
                 <div className="mb-3">
                   <label className="form-label">Address</label>

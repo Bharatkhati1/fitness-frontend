@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
+import { Link } from "react-router-dom";
 
 const Manage = () => {
   const [formData, setFormData] = useState({
@@ -12,25 +13,42 @@ const Manage = () => {
     longDescription: "",
     author: "",
     categoryId: "",
+    readTime: "",
+    isActive: true,
+    date: "",
   });
+
   const [galleryImages, setGalleryImages] = useState([]);
   const [image, setImage] = useState(null);
+  const [allinnovation, setAllInnovation] = useState([]);
+  const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const [categories, setCategories] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
 
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
   const galleryInputRef = useRef(null);
 
-  const fetchCategories = async () => {
+  const fetchAllBlogs = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_all_categories);
-      setAllCategories(res.data.categories || []);
-      setCategories(res.data.categories || []);
+      const res = await adminAxios.get(adminApiRoutes.get_blogs("innovation"));
+      setAllInnovation(res.data.data);
     } catch (error) {
-      toast.error("Failed to fetch categories.");
+      console.error("Failed to fetch sliders:", error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const fetchAllCategories = async () => {
+    try {
+      const res = await adminAxios.get(
+        adminApiRoutes.get_master_category("innovation")
+      );
+      setAllCategories(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch blog categories:", error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -40,43 +58,62 @@ const Manage = () => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.title || !formData.categoryId) {
+      toast.warning("Please fill all required fields.");
+      return;
+    }
+
     if (!image && !isEdit) {
       toast.warning("Please select an image.");
       return;
     }
 
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-    if (image) data.append("image", image);
+    const submissionData = new FormData();
+    submissionData.append("title", formData.title);
+    submissionData.append("description", formData.longDescription);
+    submissionData.append("isActive", formData.isActive);
+    submissionData.append("auther", formData.author);
+    submissionData.append("readTime", formData.readTime);
+    submissionData.append("date", formData.date);
+    submissionData.append("type", "innovation");
+    submissionData.append("categoryId", formData.categoryId);
+    submissionData.append("shortDescription", formData.shortDescription);
+    if (image) submissionData.append("blog_image", image);
 
-    const toastId = toast.loading(
-      `${isEdit ? "Updating" : "Creating"} item...`
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} Innovation...`
     );
+
     try {
       const url = isEdit
-        ? adminApiRoutes.update_manage_item(selectedId)
-        : adminApiRoutes.create_manage_item;
+        ? adminApiRoutes.update_blog(selectedId)
+        : adminApiRoutes.create_blog;
 
-      const method = isEdit ? "put" : "post";
-      const res = await adminAxios[method](url, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = isEdit
+        ? await adminAxios.put(url, submissionData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+        : await adminAxios.post(url, submissionData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
 
-      toast.update(toastId, {
-        render: res.data.message,
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
-
-      onCancelEdit();
-      fetchCategories();
+      if (response.status === 200) {
+        fetchAllBlogs();
+        onCancelEdit();
+        toast.update(loadingToastId, {
+          render: response.data.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
-      toast.update(toastId, {
-        render: `Failed to ${isEdit ? "update" : "create"} item. ${
-          error?.response?.data?.message || ""
+      console.log(error);
+      toast.update(loadingToastId, {
+        render: `Failed to ${isEdit ? "update" : "create"} innnovation. ${
+          error?.response?.data?.message
         }`,
         type: "error",
         isLoading: false,
@@ -92,6 +129,9 @@ const Manage = () => {
       longDescription: "",
       author: "",
       categoryId: "",
+      readTime: "",
+      isActive: true,
+      date: "",
     });
     setImage(null);
     setSelectedId(null);
@@ -99,20 +139,9 @@ const Manage = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const deleteCategory = async () => {
-    try {
-      const res = await adminAxios.delete(
-        adminApiRoutes.delete_category(selectedIdRef.current)
-      );
-      toast.success(res.data.message);
-      fetchCategories();
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Delete failed");
-    }
-  };
-
   useEffect(() => {
-    fetchCategories();
+    fetchAllCategories();
+    fetchAllBlogs();
   }, []);
 
   useEffect(() => {
@@ -129,7 +158,7 @@ const Manage = () => {
           <div className={`card ${isEdit ? "editing" : ""}`}>
             <div className="card-header d-flex justify-content-between">
               <h4 className="card-title">
-                {isEdit ? "Edit Item" : "Create Item"}
+                {isEdit ? "Edit Innovation" : "Add Innovation"}
               </h4>
               {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
             </div>
@@ -158,10 +187,46 @@ const Manage = () => {
                   </div>
                 ))}
 
+                {/* Date  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      className="form-control"
+                      value={formData.date}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Read Time (0–60 min)</label>
+                    <input
+                      type="number"
+                      name="readTime"
+                      className="form-control"
+                      min="0"
+                      max="60"
+                      value={formData.readTime}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (!isNaN(val) && val >= 0 && val <= 60) {
+                          setFormData((prev) => ({ ...prev, readTime: val }));
+                        } else if (e.target.value === "") {
+                          setFormData((prev) => ({ ...prev, readTime: "" }));
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+
                 {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Image</label>
+                    <label className="form-label">Image {isEdit && ` : ${selectedFileName}`}</label>
                     <input
                       type="file"
                       className="form-control"
@@ -192,8 +257,7 @@ const Manage = () => {
                   </div>
                 </div>
 
-                {/* Gallery Images (Optional) */}
-                <div className="col-lg-8">
+                {/* <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
                       Gallery Images (Optional)
@@ -204,22 +268,17 @@ const Manage = () => {
                       accept="image/*"
                       ref={galleryInputRef}
                       multiple
-                      onChange={(e) =>{
+                      onChange={(e) => {
                         setGalleryImages(Array.from(e.target.files));
                         e.target.value = null;
-                      }
-                      }
+                      }}
                     />
                   </div>
 
-                  {/* Image Previews with Remove Icon */}
                   {galleryImages.length > 0 && (
                     <div className="d-flex flex-wrap gap-2">
                       {galleryImages.map((file, index) => (
-                        <div
-                          key={index}
-                          className="gary-img-div"
-                        >
+                        <div key={index} className="gary-img-div">
                           <img
                             src={URL.createObjectURL(file)}
                             alt={`preview-${index}`}
@@ -239,7 +298,7 @@ const Manage = () => {
                       ))}
                     </div>
                   )}
-                </div>
+                </div> */}
 
                 {/* Short description */}
                 <div className="col-lg-6">
@@ -272,6 +331,33 @@ const Manage = () => {
                     />
                   </div>
                 </div>
+
+                {/* status  */}
+                <div className="col-lg-6">
+                  <label className="form-label">Status</label>
+                  <div className="d-flex gap-3">
+                    {["true", "false"].map((val) => (
+                      <div className="form-check" key={val}>
+                        <input
+                          type="radio"
+                          name="isActive"
+                          value={val}
+                          checked={formData.isActive === (val === "true")}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              isActive: e.target.value === "true",
+                            }))
+                          }
+                          className="form-check-input"
+                        />
+                        <label className="form-check-label">
+                          {val === "true" ? "Active" : "Inactive"}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -285,72 +371,110 @@ const Manage = () => {
       </div>
 
       {/* Table Section */}
-      <div className="row mt-4">
+      <div className="row">
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All News/Media Categories</h4>
+              <h4 className="card-title">All Innovation</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
                 <table className="table align-middle mb-0 table-hover table-centered">
                   <thead className="bg-light-subtle">
                     <tr>
-                      <th>Id</th>
+                      <th>ID</th>
+                      <th>Image</th>
                       <th>Name</th>
+                      <th>Short Description</th>
+                      <th>Category</th>
                       <th>Status</th>
-                      <th>Actions</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {categories.length > 0 ? (
-                      categories.map((item, index) => (
+                    {allinnovation.length > 0 ? (
+                      allinnovation.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{item?.name}</td>
+                          <td>
+                            <Link target="_blank" to={item.image_url}>
+                              {" "}
+                              <img
+                                crossorigin="anonymous"
+                                src={item.image_url}
+                                alt="Slider"
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  objectFit: "contain",
+                                  border: "1px solid #eee",
+                                }}
+                                onError={(e) => {
+                                  console.error(
+                                    "Image failed to load:",
+                                    item.image_url
+                                  );
+                                }}
+                              />
+                            </Link>
+                          </td>
+                          <td>{item?.title}</td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: item?.shortDescription,
+                            }}
+                          ></td>
+                          <td>{item?.Master?.name}</td>
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive === "1"
-                                  ? "bg-success"
-                                  : "bg-danger"
+                                item.isActive ? "bg-success" : "bg-danger"
                               }`}
                             >
-                              {item.isActive === "1" ? "Active" : "Inactive"}
+                              {item.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
                           <td>
-                            <div className="d-flex gap-2">
+                            <div class="d-flex gap-2">
                               <button
-                                className="btn btn-soft-primary btn-sm"
+                                class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedId(item.id);
-                                  setFormData((prev) => ({
-                                    ...prev,
-                                    title: item.name,
-                                    categoryId: item.id,
-                                  }));
+                                  setFormData({
+                                    title: item.title || "",
+                                    categoryId: item.categoryId || "",
+                                    shortDescription:
+                                      item.shortDescription || "",
+                                    longDescription: item.description || "",
+                                    isActive: item.isActive ?? true,
+                                    author: item.auther || "",
+                                    date: item.date || "",
+                                    readTime: item.readTime || "",
+                                  });
+                                  setSelectedFileName(item.image);
                                 }}
                               >
                                 <iconify-icon
                                   icon="solar:pen-2-broken"
                                   class="align-middle fs-18"
-                                />
+                                ></iconify-icon>
                               </button>
 
                               <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this category?"
-                                title="Delete Category"
-                                onOk={deleteCategory}
+                                bodyText="Are you sure you want to delete this Package ?"
+                                title="Delete Package"
+                                onOk={() => deleteBlog()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() =>
-                                      (selectedIdRef.current = item.id)
-                                    }
-                                  />
+                                    onClick={() => {
+                                      selectedIdref.current = item.id;
+                                      setSelectedId(item.id);
+                                    }}
+                                  ></iconify-icon>
                                 }
                               />
                             </div>
@@ -359,8 +483,8 @@ const Manage = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="4" className="text-center">
-                          No categories found.
+                        <td colSpan="6" className="text-center">
+                          No sliders found.
                         </td>
                       </tr>
                     )}

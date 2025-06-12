@@ -13,7 +13,7 @@ const Category = () => {
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      const res = await adminAxios.get(adminApiRoutes.get_master_category("innovation"));
       setCategories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -26,11 +26,12 @@ const Category = () => {
       const body = {
         name: formData.name,
         isActive: formData.isActive,
+        slug:"innovation"
       };
 
       const url = isEdit
-        ? adminApiRoutes.update_category(selectedId)
-        : adminApiRoutes.create_category;
+        ? adminApiRoutes.update_master_category(selectedId)
+        : adminApiRoutes.create_master_category;
 
       const response = isEdit
         ? await adminAxios.put(url, body)
@@ -56,7 +57,7 @@ const Category = () => {
   const deleteCategory = async () => {
     try {
       const idToDelete = selectedIdRef.current;
-      await adminAxios.delete(adminApiRoutes.delete_category(idToDelete));
+      await adminAxios.delete(adminApiRoutes.delete_master_category(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllCategories();
     } catch (error) {

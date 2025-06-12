@@ -27,6 +27,7 @@ import NotFound from "../authorized/NotFound";
 import Careers from "../pages/Careers";
 import Events from "../pages/Events";
 import UpcomigDetails from "../pages/UpcomigDetails";
+import Innovation from "../pages/Innovation";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -50,6 +51,7 @@ export default function UserRoutes() {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/service-details/:slug" element={<ServiceDetails />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/innovation" element={<Innovation />} />
             <Route path="/packages" element={<Home />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/package/:slug" element={<PackageDetails />} />
