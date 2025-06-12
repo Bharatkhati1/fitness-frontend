@@ -14,16 +14,12 @@ import whyparthnericon4 from "../../../public/assets/img/whyparthnericon4.png";
 import whyparthnericon5 from "../../../public/assets/img/whyparthnericon5.png";
 import whyparthnericon6 from "../../../public/assets/img/whyparthnericon6.png";
 
-import medicalparthners from "../../../public/assets/img/medical-parthnersimg.png";
-import corporatepartnersimg from "../../../public/assets/img/corporatepartnersimg.png";
-import instituteimg from "../../../public/assets/img/instituteimg.png";
-import restaurantimg from "../../../public/assets/img/restaurantimg.png";
-
 import bordersep from "../../../public/assets/img/border-sep.png";
 import gettouch from "../../../public/assets/img/gettouch.png";
 import { toast } from "react-toastify";
 import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { sendInquiry } from "../../store/auth/AuthExtraReducers";
 
 function BusinessParthner() {
   const [categorypartner, setcategorypartner] = useState([]);
@@ -36,6 +32,41 @@ function BusinessParthner() {
       toast.error(error.response.data.error);
     }
   };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const payload = {
+        ...formData,
+        type:"inquiry"
+      };
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!phoneRegex.test(formData.phone)) {
+        toast.error("Please enter a valid 10-digit phone number");
+        return;
+      }
+      await sendInquiry(payload);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    };
+  
 
   useEffect(() => {
     fetchPartners();
@@ -225,90 +256,77 @@ function BusinessParthner() {
             </div>
           ))}
 
-          <div className="getintouchinner">
-            <div className="row align-items-center">
-              <div className="col-md-6 getintouchinnerleft">
-                <h4>Get in Touch with Us</h4>
-                <p>We'd love to hear from you! Contact us anytime.</p>
-
-                <figure>
-                  <img src={gettouch}></img>
-                </figure>
-              </div>
-
-              <div className="col-md-6">
-                <div className="row GetIntouchinnerright">
-                  <div class="col-md-6 mb-3">
-                    <label>First Name*</label>
-                    <input
-                      placeholder="Enter your first name"
-                      class="form-control greyin"
-                      required=""
-                      type="text"
-                      value=""
-                      name="name"
-                    />
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label>Email ID*</label>
-                    <input
-                      placeholder="Enter your email id"
-                      class="form-control greyin"
-                      required=""
-                      type="email"
-                      value=""
-                      name="email"
-                    />
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label>Contact Number*</label>
-                    <div class="contactInput">
-                      <span class="greyin">+91</span>
-                      <input
-                        placeholder="Enter your contact number"
-                        class="form-control greyin"
-                        type="tel"
-                        value=""
-                        name="phone"
-                      />
+               <form className="getintouchinner" onSubmit={handleSubmit}>
+                    <div className="row align-items-center">
+                      <div className="col-md-6 getintouchinnerleft">
+                        <h4>Get in Touch with Us</h4>
+                        <p>We'd love to hear from you! Contact us anytime.</p>
+                        <figure>
+                          <img src={gettouch} />
+                        </figure>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="row GetIntouchinnerright">
+                          <div className="col-md-6 mb-3">
+                            <label>First Name*</label>
+                            <input
+                              name="name"
+                              value={formData.name}
+                              onChange={handleChange}
+                              placeholder="Enter your first name"
+                              className="form-control greyin"
+                              type="text"
+                              required
+                            />
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <label>Email ID*</label>
+                            <input
+                              name="email"
+                              value={formData.email}
+                              onChange={handleChange}
+                              placeholder="Enter your email id"
+                              className="form-control greyin"
+                              type="email"
+                              required
+                            />
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <label>Contact Number*</label>
+                            <div className="contactInput">
+                              <span className="greyin">+91</span>
+                              <input
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder="Enter your contact number"
+                                className="form-control greyin"
+                                type="tel"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-12">
+                            <label>Message</label>
+                            <textarea
+                              name="message"
+                              value={formData.message}
+                              onChange={handleChange}
+                              className="form-control greyin"
+                              placeholder="Type your message here"
+                            ></textarea>
+                          </div>
+                          <div className="col-md-12 text-center">
+                            <button
+                              type="submit"
+                              className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
+                            >
+                              submit your inquiry
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                    <label>Business Name*</label>
-                    <input
-                      placeholder="Business Name*"
-                      class="form-control greyin"
-                      required=""
-                      type="Business Name*"
-                      value=""
-                      name="email"
-                    />
-                  </div>
-
-                  <div class="col-md-12">
-                    <label>Message</label>
-                    <textarea
-                      name="message"
-                      class="form-control greyin"
-                      placeholder="Type your message here"
-                    ></textarea>
-                  </div>
-
-                  <div class="col-md-12 text-center">
-                    <button
-                      type="submit"
-                      class="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
-                    >
-                      submit your inquiry
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  </form>
         </div>
       </div>
     </>
