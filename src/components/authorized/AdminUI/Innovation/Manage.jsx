@@ -20,6 +20,7 @@ const Manage = () => {
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
   const [allinnovation, setAllInnovation] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -67,7 +68,7 @@ const Manage = () => {
       toast.warning("Please select an image.");
       return;
     }
-
+    setIsLoading(true)
     const submissionData = new FormData();
     submissionData.append("title", formData.title);
     submissionData.append("description", formData.longDescription);
@@ -119,6 +120,8 @@ const Manage = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -137,6 +140,18 @@ const Manage = () => {
     setSelectedId(null);
     setIsEdit(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const deleteBlog = async () => {
+    try {
+      const idToDelete = selectedIdRef.current || selectedId;
+      await adminAxios.delete(adminApiRoutes.delete_blog(idToDelete));
+      toast.success("Deleted Successfully");
+      fetchAllBlogs();
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
   };
 
   useEffect(() => {
@@ -301,7 +316,7 @@ const Manage = () => {
                 </div> */}
 
                 {/* Short description */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label className="form-label">Short Description</label>
                     <Ckeditor
@@ -317,7 +332,7 @@ const Manage = () => {
                 </div>
 
                 {/* Long decsription */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label className="form-label">Long Description</label>
                     <Ckeditor
@@ -362,7 +377,7 @@ const Manage = () => {
             </div>
 
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit}>
+              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
                 {isEdit ? "Update" : "Create"}
               </button>
             </div>
@@ -471,7 +486,7 @@ const Manage = () => {
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
                                     onClick={() => {
-                                      selectedIdref.current = item.id;
+                                      selectedIdRef.current = item.id;
                                       setSelectedId(item.id);
                                     }}
                                   ></iconify-icon>

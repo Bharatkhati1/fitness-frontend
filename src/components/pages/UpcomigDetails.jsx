@@ -62,18 +62,19 @@ function UpcomigDetails() {
       ) : (
         <div class="Bytext text-center">
           <span>
-            By {details.auther} . {details.date} . {details.readTime} min read
+            By {details.auther} . {new Date(details.date).toLocaleDateString("en-GB").replaceAll("/", "-")} . {details.readTime} min read
           </span>
         </div>
       )}
 
-      <div className="">
+      <div className="pb-3">
         <div
           className="container"
           dangerouslySetInnerHTML={{
             __html: details?.description,
           }}
         ></div>
+        <div className="clearfix"></div>
       </div>
     </>
   );

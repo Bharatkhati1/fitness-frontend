@@ -20,6 +20,7 @@ const NewsAndMediaManagement = () => {
   });
   const [allCategories, setAllCategories] = useState([]);
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -73,7 +74,7 @@ const NewsAndMediaManagement = () => {
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} article...`
     );
-
+    setIsLoading(true)
     try {
       const url = isEdit
         ? adminApiRoutes.update_blog(selectedId)
@@ -108,6 +109,8 @@ const NewsAndMediaManagement = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -285,7 +288,7 @@ const NewsAndMediaManagement = () => {
               </div>
             </div>
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit}>
+              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
                 {isEdit ? "Update Changes" : "Save Changes"}
               </button>
             </div>

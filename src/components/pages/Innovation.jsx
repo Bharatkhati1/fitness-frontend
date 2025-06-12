@@ -236,7 +236,9 @@ function Innovation() {
                     <h3 className="">{inov.title}</h3>
                     <div class="Bytext text-center">
                       <span>
-                        By {inov.auther} .{inov.date} . {inov.readTime} min read
+                        By {inov.auther} .{" "}
+                        {new Date(inov.date).toLocaleDateString("en-GB").replaceAll("/", "-")} {" "}
+                         . {inov.readTime} min read
                       </span>
                     </div>
 
@@ -248,10 +250,10 @@ function Innovation() {
                     ></p>
 
                     <Link
-                     className="btn btn-primary max-width"
+                      className="btn btn-primary max-width"
                       to={`/innovation-details/${inov.slug}`}
                     >
-                      Read More 
+                      Read More
                     </Link>
                   </div>
                 </div>

@@ -14,6 +14,7 @@ const Coupon = () => {
     commission: "",
   });
   const [isEdit, setIsEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedId, setSelectedId] = useState(null);
   const [coupons, setCoupons] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -51,7 +52,7 @@ const Coupon = () => {
       );
       return;
     }
-
+    setIsLoading(true)
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} coupon...`
     );
@@ -81,6 +82,8 @@ const Coupon = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -248,7 +251,7 @@ const Coupon = () => {
             </div>
 
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit}>
+              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
                 {isEdit ? "Update" : "Create"}
               </button>
             </div>

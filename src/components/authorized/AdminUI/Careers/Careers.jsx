@@ -16,6 +16,7 @@ const Careers = () => {
   const [selectedCareerId, setSelectedCareerId] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const selectedIdref = useRef(null);
+  const [isLoading, setIsLoading]  = useState(false)
   const [selectedId, setSelectedId] = useState("")
 
   const fetchCareers = async () => {
@@ -38,7 +39,7 @@ const Careers = () => {
       toast.warning("All fields are required.");
       return;
     }
-
+    setIsLoading(true)
     const loadingToast = toast.loading(isEdit ? "Updating..." : "Creating...");
 
     try {
@@ -65,6 +66,8 @@ const Careers = () => {
         isLoading: false,
         autoClose: 3000,
       });
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -165,7 +168,7 @@ const Careers = () => {
           </div>
         </div>
         <div className="card-footer">
-          <button className="btn btn-primary" onClick={handleSubmit}>
+          <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
             {isEdit ? "Update Career" : "Create Career"}
           </button>
         </div>

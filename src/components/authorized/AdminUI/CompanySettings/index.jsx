@@ -6,6 +6,7 @@ import ReturnPolicy from "./Policies/ReturnPolicy";
 import ContactDetails from "./ContactDetails/ContactDetails";
 import Users from "./Users/Users";
 import Careers from "./Career/Careers";
+import Innovation from "./innovation";
 
 const index = () => {
   return (
@@ -17,6 +18,7 @@ const index = () => {
           <Route path="return-policy" element={<ReturnPolicy />} />
           <Route path="contact-details" element={<ContactDetails />} />
           <Route path="career" element={<Careers />} />
+          <Route path="innovation" element={<Innovation />} />
         <Route path="/" element={<Navigate replace to="privacy-policy" />} />
       </Routes>
     </Suspense>
