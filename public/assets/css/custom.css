@@ -184,3 +184,8 @@ border-radius: 3px;
   .upcomingbox img{
     border-radius: 10px;
   }
+
+  .applied-coupon-box {
+    border: 1px dashed #28a745;
+    background-color: #e9f7ef;
+  }

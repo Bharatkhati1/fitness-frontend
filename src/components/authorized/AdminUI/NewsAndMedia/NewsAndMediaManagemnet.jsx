@@ -9,8 +9,9 @@ import Ckeditor from "../CkEditor/Ckeditor.jsx";
 const NewsAndMediaManagement = () => {
   const [formData, setFormData] = useState({
     title: "",
-    author: "",
-    readTime: "",
+    author: "TDF",
+    readTime: "2",
+    date:"12-6-2025",
     shortDescription: "",
     description: "",
     isActive: true,
@@ -27,7 +28,7 @@ const NewsAndMediaManagement = () => {
 
   const fetchAllArticles = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_blogs);
+      const res = await adminAxios.get(adminApiRoutes.get_blogs("news-media"));
       setArticles(res.data.data);
     } catch (error) {
       console.error("Failed to fetch articles:", error);
@@ -37,7 +38,9 @@ const NewsAndMediaManagement = () => {
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      const res = await adminAxios.get(
+        adminApiRoutes.get_master_category("news-media")
+      );
       setAllCategories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -57,15 +60,19 @@ const NewsAndMediaManagement = () => {
 
     const payload = new FormData();
     payload.append("title", formData.title);
-    payload.append("author", formData.author);
+    payload.append("auther", formData.author);
     payload.append("readTime", formData.readTime);
+    payload.append("date", formData.date);
+    payload.append("type", "news-media");
     payload.append("shortDescription", formData.shortDescription);
     payload.append("description", formData.description);
     payload.append("isActive", formData.isActive);
     payload.append("categoryId", formData.categoryId);
     if (formData.image) payload.append("blog_image", formData.image);
 
-    const loadingToastId = toast.loading(`${isEdit ? "Updating" : "Creating"} article...`);
+    const loadingToastId = toast.loading(
+      `${isEdit ? "Updating" : "Creating"} article...`
+    );
 
     try {
       const url = isEdit
@@ -73,8 +80,12 @@ const NewsAndMediaManagement = () => {
         : adminApiRoutes.create_blog;
 
       const response = isEdit
-        ? await adminAxios.put(url, payload, { headers: { "Content-Type": "multipart/form-data" } })
-        : await adminAxios.post(url, payload, { headers: { "Content-Type": "multipart/form-data" } });
+        ? await adminAxios.put(url, payload, {
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+        : await adminAxios.post(url, payload, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
 
       if (response.status === 200) {
         fetchAllArticles();
@@ -90,7 +101,9 @@ const NewsAndMediaManagement = () => {
       }
     } catch (error) {
       toast.update(loadingToastId, {
-        render: `Failed to ${isEdit ? "update" : "create"} article. ${error?.response?.data?.message}`,
+        render: `Failed to ${isEdit ? "update" : "create"} article. ${
+          error?.response?.data?.message
+        }`,
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -100,7 +113,9 @@ const NewsAndMediaManagement = () => {
 
   const deleteArticle = async () => {
     try {
-      await adminAxios.delete(adminApiRoutes.delete_blog(selectedIdRef.current));
+      await adminAxios.delete(
+        adminApiRoutes.delete_blog(selectedIdRef.current)
+      );
       toast.success("Deleted Successfully");
       fetchAllArticles();
     } catch (error) {
@@ -114,8 +129,9 @@ const NewsAndMediaManagement = () => {
     setSelectedFileName("");
     setFormData({
       title: "",
-      author: "",
-      readTime: "",
+      author: "TDF",
+      readTime: "2",
+      date:"12-6-2025",
       shortDescription: "",
       description: "",
       isActive: true,
@@ -166,44 +182,10 @@ const NewsAndMediaManagement = () => {
                     accept="image/*"
                     ref={fileInputRef}
                     className="form-control"
-                    onChange={(e) => handleInputChange("image", e.target.files[0])}
+                    onChange={(e) =>
+                      handleInputChange("image", e.target.files[0])
+                    }
                   />
-                </div>
-
-                {/* Author */}
-                <div className="col-lg-6 mb-3">
-                  <label className="form-label">Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter author"
-                    value={formData.author}
-                    onChange={(e) => handleInputChange("author", e.target.value)}
-                  />
-                </div>
-
-                {/* Read Time */}
-                <div className="col-lg-6 mb-3">
-                  <label className="form-label">Read Time (minutes)</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Enter read time"
-                    value={formData.readTime}
-                    onChange={(e) => handleInputChange("readTime", e.target.value)}
-                  />
-                </div>
-
-                {/* Short Description */}
-                <div className="col-lg-6 mb-3">
-                  <label className="form-label">Short Description</label>
-                  <Ckeditor text={formData.shortDescription} setText={(val) => handleInputChange("shortDescription", val)} />
-                </div>
-
-                {/* Long Description */}
-                <div className="col-lg-6 mb-3">
-                  <label className="form-label">Long Description</label>
-                  <Ckeditor text={formData.description} setText={(val) => handleInputChange("description", val)} />
                 </div>
 
                 {/* Category */}
@@ -212,7 +194,9 @@ const NewsAndMediaManagement = () => {
                   <select
                     className="form-select"
                     value={formData.categoryId}
-                    onChange={(e) => handleInputChange("categoryId", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("categoryId", e.target.value)
+                    }
                   >
                     <option value="">Select category</option>
                     {allCategories.map((cat) => (
@@ -223,8 +207,8 @@ const NewsAndMediaManagement = () => {
                   </select>
                 </div>
 
-                {/* Status */}
-                <div className="col-lg-6 mb-3">
+             {/* Status */}
+             <div className="col-lg-6 mb-3">
                   <label className="form-label d-block">Status</label>
                   <div className="form-check form-check-inline">
                     <input
@@ -244,6 +228,59 @@ const NewsAndMediaManagement = () => {
                     />
                     <label className="form-check-label">Inactive</label>
                   </div>
+                </div>
+
+                {/* Read Time
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label">Read Time (minutes)</label>
+                  <input
+                    type="number"
+                    id="read-time"
+                    className="form-control"
+                    placeholder="Enter read time (0-60)"
+                    min="0"
+                    max="60"
+                    value={formData.readTime}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Allow empty value
+                      if (value === "") {
+                        handleInputChange("readTime", "");
+                        return;
+                      }
+
+                      const numericValue = parseInt(value, 10);
+
+                      // Only allow 0–60
+                      if (
+                        !isNaN(numericValue) &&
+                        numericValue >= 0 &&
+                        numericValue <= 60
+                      ) {
+                        handleInputChange("readTime", numericValue);
+                      }
+                    }}
+                  />
+                </div> */}
+
+                {/* Short Description */}
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label">Short Description</label>
+                  <Ckeditor
+                    text={formData.shortDescription}
+                    setText={(val) =>
+                      handleInputChange("shortDescription", val)
+                    }
+                  />
+                </div>
+
+                {/* Long Description */}
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label">Long Description</label>
+                  <Ckeditor
+                    text={formData.description}
+                    setText={(val) => handleInputChange("description", val)}
+                  />
                 </div>
               </div>
             </div>
@@ -288,16 +325,34 @@ const NewsAndMediaManagement = () => {
                                 src={item.image_url}
                                 alt="Article"
                                 crossOrigin="anonymous"
-                                style={{ width: 50, height: 50, objectFit: "contain", border: "1px solid #eee" }}
-                                onError={(e) => console.error("Failed to load image:", item.image_url)}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                  objectFit: "contain",
+                                  border: "1px solid #eee",
+                                }}
+                                onError={(e) =>
+                                  console.error(
+                                    "Failed to load image:",
+                                    item.image_url
+                                  )
+                                }
                               />
                             </Link>
                           </td>
                           <td>{item.title}</td>
-                          <td dangerouslySetInnerHTML={{ __html: item.shortDescription }} />
-                          <td>{item.categoryId}</td>
+                          <td
+                            dangerouslySetInnerHTML={{
+                              __html: item.shortDescription,
+                            }}
+                          />
+                          <td>{item?.Master?.name}</td>
                           <td>
-                            <span className={`badge ${item.isActive ? "bg-success" : "bg-danger"}`}>
+                            <span
+                              className={`badge ${
+                                item.isActive ? "bg-success" : "bg-danger"
+                              }`}
+                            >
                               {item.isActive ? "Active" : "Inactive"}
                             </span>
                           </td>
@@ -322,7 +377,10 @@ const NewsAndMediaManagement = () => {
                                   });
                                 }}
                               >
-                                <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18" />
+                                <iconify-icon
+                                  icon="solar:pen-2-broken"
+                                  class="align-middle fs-18"
+                                />
                               </button>
 
                               <ConfirmationPopup

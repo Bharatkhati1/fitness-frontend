@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { webAxios } from "../../utils/constants";
 import useDebounce from "../Hooks/useDebounce";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { Link } from "react-router-dom";
 
 function Innovation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -221,35 +222,46 @@ function Innovation() {
               </div>
             </div>
           </div>
-          {innovation.map((inov) => (
-            <div className="innovationlist mt-4">
-              <div className="row align-items-center mb-4">
-                <div className="col-md-5">
-                  <figure>
-                    <img crossOrigin="anonymous" src={inov.image_url}></img>
-                  </figure>
-                </div>
-
-                <div className="col-md-7 text-center ps-4">
-                  <h3 className="">{inov.title}</h3>
-                  <div class="Bytext text-center">
-                    <span>
-                      By {inov.auther} .{inov.date} . {inov.readTime} min read
-                    </span>
+          {innovation.length > 0 ? (
+            innovation.map((inov) => (
+              <div className="innovationlist mt-4">
+                <div className="row align-items-center mb-4">
+                  <div className="col-md-5">
+                    <figure>
+                      <img crossOrigin="anonymous" src={inov.image_url}></img>
+                    </figure>
                   </div>
 
-                  <hr className="dashed-text"></hr>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: inov.shortDescription,
-                    }}
-                  ></p>
+                  <div className="col-md-7 text-center ps-4">
+                    <h3 className="">{inov.title}</h3>
+                    <div class="Bytext text-center">
+                      <span>
+                        By {inov.auther} .{inov.date} . {inov.readTime} min read
+                      </span>
+                    </div>
 
-                  <a className="btn btn-primary max-width">read now</a>
+                    <hr className="dashed-text"></hr>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: inov.shortDescription,
+                      }}
+                    ></p>
+
+                    <Link
+                     className="btn btn-primary max-width"
+                      to={`/innovation-details/${inov.slug}`}
+                    >
+                      Read More 
+                    </Link>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="col-12 text-center py-5">
+              <h5>No Data found.</h5>
             </div>
-          ))}
+          )}
         </div>
 
         <div className="stayaheadbg">
@@ -276,7 +288,6 @@ function Innovation() {
           </div>
         </div>
       </div>
-
       <Modal
         open={isModalOpen}
         onOk={handleOk}
@@ -284,28 +295,24 @@ function Innovation() {
         className="stayModal"
       >
         <div className="staybgmodal">
-         
-            <h4>Don’t Miss a Beat of Your Wellness Journey</h4>
+          <h4>Don’t Miss a Beat of Your Wellness Journey</h4>
 
-            <p>
-              Be the first to receive expert fitness tips, nutrition insights,
-              mental health hacks, event invites, and more — straight to your
-              inbox.
-            </p>
+          <p>
+            Be the first to receive expert fitness tips, nutrition insights,
+            mental health hacks, event invites, and more — straight to your
+            inbox.
+          </p>
 
-            <div className="formfield  col-md-6">
-              <label>Your Email ID*</label>
-              <input
-                type="text"
-                placeholder="Enter your email id"
-                className="form-control"
-              ></input>
+          <div className="formfield  col-md-6">
+            <label>Your Email ID*</label>
+            <input
+              type="text"
+              placeholder="Enter your email id"
+              className="form-control"
+            ></input>
 
-                <a className="btn btn-primary w-100 mt-3">subscribe</a>
-            </div>
-
-          
-        
+            <a className="btn btn-primary w-100 mt-3">subscribe</a>
+          </div>
         </div>
       </Modal>
     </>

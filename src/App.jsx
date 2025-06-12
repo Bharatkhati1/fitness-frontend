@@ -15,17 +15,7 @@ import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
-import BookAppoinment from "./components/pages/BookAppoinment.jsx";
-import BookAppoinmentdate from "./components/pages/BookAppoinmentdate.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
-import Diabetes from "./components/pages/Diabetes.jsx";
-import AddToBag from "./components/pages/AddToBag.jsx";
-import Careers from "./components/pages/Careers.jsx";
-import BusinessParthner from "./components/pages/BusinessParthner.jsx";
-import userAxios from "./utils/Api/userAxios.jsx";
-import Events from "./components/pages/Events.jsx";
-import UpcomigDetails from "./components/pages/UpcomigDetails.jsx";
-import Innovation from "./components/pages/Innovation.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));

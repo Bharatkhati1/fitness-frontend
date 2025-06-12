@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import HealthBg from "../../../../../../public/assets/img/HealthBg.png";
+import BannerImag from "../../../../../../public/assets/img/new-media-banner.png";
 import searchIcon from "../../../../../../public/assets/img/searchIcon.png";
 import readMoreimg from "../../../../../../public/assets/img/ReadMoreicon.png";
 import leftp from "../../../../../../public/assets/img/leftp.png";
@@ -35,6 +35,7 @@ function NewsAndMedia() {
       const query = {
         page,
         limit,
+        type: "news-media",
         order: sort,
         ...(category !== "all" && { category }),
         ...(search && { search }),
@@ -51,11 +52,12 @@ function NewsAndMedia() {
 
   const getCategories = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_blog_categories);
+      const response = await webAxios.get(
+        userApiRoutes.get_master_categories("news-media")
+      );
       setCategories(response.data.data);
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Failed to fetch categories");
     }
   };
 
@@ -82,12 +84,14 @@ function NewsAndMedia() {
     <>
       <section className="innerbanner blogbanner">
         <figure>
-          <img src={HealthBg} alt="Banner" />
+          <img src={BannerImag} alt="Banner" />
         </figure>
         <div className="container">
           <div className="innerbannerContent">
             <h2>news & media</h2>
-            <p>Stay informed with our latest news, media updates and insights.</p>
+            <p>
+              Stay informed with our latest news, media updates and insights.
+            </p>
             <div className="SearchBox">
               <input
                 type="text"
@@ -127,6 +131,7 @@ function NewsAndMedia() {
                             autoplay={false}
                             margin={10}
                             dots={false}
+                            autoWidth
                             items={7}
                             nav
                             responsive={{
@@ -141,7 +146,7 @@ function NewsAndMedia() {
                               <li
                                 key={cat.id}
                                 className={
-                                  selectedCategory === cat.id ? "active" : ""
+                                  selectedCategory === cat.id ? "active px-2" : "px-2"
                                 }
                                 onClick={() => handleSelectCategory(cat.id)}
                               >
@@ -160,7 +165,7 @@ function NewsAndMedia() {
                   className="form-select"
                   onChange={(e) => {
                     const value = e.target.value;
-                    setSortBy(value === "1" ? "ASC" : "DESC");
+                    setSortBy(value === "2" ? "ASC" : "DESC");
                   }}
                 >
                   <option value="" disabled selected>
@@ -182,9 +187,9 @@ function NewsAndMedia() {
               newsItems.map((item) => (
                 <div className="col-md-6 OurHealthBlogContent" key={item.id}>
                   <figure>
-                    <div className="OurBlogsTag">
-                      {item?.BlogCategory?.name || "General"}
-                    </div>
+                    {item?.BlogCategory?.name &&<div className="OurBlogsTag">
+                      {item?.BlogCategory?.name}
+                    </div>}
                     <img
                       crossOrigin="anonymous"
                       src={item.image_url}
@@ -193,21 +198,22 @@ function NewsAndMedia() {
                   </figure>
                   <figcaption>
                     <h3>{item.title}</h3>
-                    <div className="Bytext">
+                    {/* <div className="Bytext">
                       <span>
                         {new Date(item.createdAt).toLocaleDateString("en-GB")}
                       </span>
-                    </div>
-                    <p>
-                      {item.shortDescription}{" "}
-                      <Link
-                        to={`/news-media/${item.title
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
-                      >
-                        Read More <img src={readMoreimg} />
-                      </Link>
-                    </p>
+                    </div> */}
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: item.shortDescription,
+                      }}
+                    ></p>
+                    <Link
+                       className="btn btn-primary max-width mt-1"
+                      to={`/news-media/${item.slug}`}
+                    >
+                      Read More
+                    </Link>
                   </figcaption>
                 </div>
               ))

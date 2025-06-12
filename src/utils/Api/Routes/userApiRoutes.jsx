@@ -70,6 +70,7 @@ const userApiRoutes = {
   add_to_cart:`/add-to-cart`,
   remove_from_cart:(id)=>`/remove-cart-items/${id}`,
   apply_coupon:`/apply-coupon`,
+  remove_coupon:(code)=>`/remove-coupon/${code}`,
   create_order_razorpay:`/payment-order`,
   cart_checkout:`/checkout`,
 

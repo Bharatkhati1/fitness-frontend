@@ -83,7 +83,7 @@ const Footer = () => {
 
                 <ul className="userlinks">
                   <li>
-                    <Link to={"/blogs"}>News & Media</Link>
+                    <Link to={"/news-and-media"}>News & Media</Link>
                   </li>
                   <li>
                     <Link to={"/about-us"}>Who We Are</Link>
@@ -93,6 +93,12 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link to={"/bussiness-partners"}>Partners</Link>
+                  </li>
+                  <li>
+                    <Link to={"/innovation"}>Innovations</Link>
+                  </li>
+                  <li>
+                    <Link to={"/events"}>Event</Link>
                   </li>
                 </ul>
               </div>

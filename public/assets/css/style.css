@@ -2543,7 +2543,7 @@ button.SearchBtn {
 
 .taginfolist li {
   background: #4caf502e;
-  padding: 18px 40px;
+  padding: 10px 0px;
   height: 46px;
   justify-content: center;
   display: flex;
@@ -2552,8 +2552,13 @@ button.SearchBtn {
   font-size: 16px;
   color: #007946;
   font-weight: 600;
-  white-space: nowrap;
+  min-width: 100px;
   overflow: hidden;
+  text-align: center;
+}
+
+span.tag-info {
+    font-size: 14px;
 }
 
 .filtersBoxInner select.form-select {

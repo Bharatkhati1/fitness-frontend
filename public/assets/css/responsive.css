@@ -68,6 +68,11 @@
 
     .stayaheadbg p {
     font-size: 18px;}
+
+    .contactinfobox a {
+    font-size: 16px;}
+
+    .clientcontentbg > p{min-height: 90px;}
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -282,7 +287,7 @@
   }
 
   .servicelist p {
-    font-size: 13px;
+    font-size: 12px;
   }
   .product-list figcaption h3 {
     font-size: 18px;

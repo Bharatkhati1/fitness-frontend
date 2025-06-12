@@ -13,7 +13,7 @@ const NewsAndMediaDetails = () => {
   const fetchNewsDetails = async () => {
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_news_details(slug) 
+        userApiRoutes.get_blog_details(slug) 
       );
       setNewsDetails(response.data.data);
     } catch (error) {
@@ -28,7 +28,7 @@ const NewsAndMediaDetails = () => {
   return (
     <>
       <JoinCommunity open={open} setOpen={setOpen} />
-      <section className="NewsDetailsBanner">
+      <section className="BlogDeatils">
         <figure>
           <img crossOrigin="anonymous" src={newsDetails?.image_url} />
         </figure>
@@ -39,7 +39,7 @@ const NewsAndMediaDetails = () => {
         </div>
       </section>
 
-      <div className="NewsDetailsContent">
+      <div className="BlogDeatilsContent">
         <div className="container">
           <div className="Bytext text-center">
             <span>

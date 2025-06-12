@@ -154,7 +154,7 @@ const Coupon = () => {
                       onChange={handleInputChange}
                     >
                       <option value="flat">Flat</option>
-                      <option value="percentage">Percentage</option>
+                      <option value="percent">Percentage</option>
                     </select>
                   </div>
                 </div>

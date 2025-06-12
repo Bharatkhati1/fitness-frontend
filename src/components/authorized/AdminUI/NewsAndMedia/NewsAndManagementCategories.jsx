@@ -13,7 +13,7 @@ const NewsAndMediaManagementCategories = () => {
 
   const fetchAllCategories = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_categories);
+      const res = await adminAxios.get(adminApiRoutes.get_master_category("news-media"));
       setCategories(res.data.data);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -26,11 +26,12 @@ const NewsAndMediaManagementCategories = () => {
       const body = {
         name: formData.name,
         isActive: formData.isActive,
+        slug:"news-media"
       };
 
       const url = isEdit
-        ? adminApiRoutes.update_category(selectedId)
-        : adminApiRoutes.create_category;
+        ? adminApiRoutes.update_master_category(selectedId)
+        : adminApiRoutes.create_master_category;
 
       const response = isEdit
         ? await adminAxios.put(url, body)
