@@ -33,31 +33,31 @@ const Innovation = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-
   const handleSubmit = async () => {
     setLoading(true);
     const payload = new FormData();
-
+  
     // Append all regular fields
     Object.entries(formData).forEach(([key, val]) => {
-      if (key === "optional_image") {
-        if (val.length) {
-          [...val].forEach((file) => payload.append("optional_image", galleryImages));
-        }
-      } else if (val !== null && val !== undefined) {
+      if (key !== "optional_image" && val !== null && val !== undefined) {
         payload.append(key, val);
       }
     });
-
-    const loadingToastId = toast.loading("Updating  innovation...");
+  
+    // Append gallery images one-by-one
+    galleryImages.forEach((file) => {
+      payload.append("optional_image", file);
+    });
+  
+    const loadingToastId = toast.loading("Updating innovation...");
     try {
       const url = adminApiRoutes.update_policy(formData.id);
       const method = adminAxios.put;
-
+  
       const response = await method(url, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       fetchPPDetails();
       toast.update(loadingToastId, {
         render: response.data.message,
@@ -78,14 +78,16 @@ const Innovation = () => {
       setLoading(false);
     }
   };
+  
 
   const onCancelEdit = () => {
     setIsEdit(false);
     setFormData({
-      title: "Innovation",
-      banner:"",
-      optional_image:[]
-    });
+        title: "Innovation",
+        banner: "",
+      });
+      setGalleryImages([]);
+      
     if (fileInputRef.current) fileInputRef.current.value = "";
     if (optionalInputRef.current) optionalInputRef.current.value = "";
   };

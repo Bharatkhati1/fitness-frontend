@@ -19,7 +19,7 @@ export const Login = (userData, navigate, isAdmin = false) => {
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/login`,
         {
-          username: userData.username,
+          email: userData.username,
           password: userData.password,
           type: type,
         },
