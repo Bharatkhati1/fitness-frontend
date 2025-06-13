@@ -189,7 +189,7 @@ function Blogs() {
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1">Recent</option>
+                  <option value="1  ">Recent</option>
                   <option value="2">Oldest</option>
                 </select>
               </div>
@@ -205,9 +205,9 @@ function Blogs() {
               blogs.map((blog) => (
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
                   <figure>
-                    {/* <div className="OurBlogsTag">
+                   { blog?.BlogCategory?.name?.length>0&&<div className="OurBlogsTag">
                       {blog?.BlogCategory?.name || "Health"}
-                    </div> */}
+                    </div>}
                     <img
                       crossOrigin="anonymous"
                       src={blog.image_url}

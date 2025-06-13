@@ -42,7 +42,8 @@ const NewsAndMediaManagement = () => {
       const res = await adminAxios.get(
         adminApiRoutes.get_master_category("news-media")
       );
-      setAllCategories(res.data.data);
+      const activeCategories = res.data.data.filter((cat)=> cat.isActive == true)
+      setAllCategories(activeCategories);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
       toast.error(error.response?.data?.message);

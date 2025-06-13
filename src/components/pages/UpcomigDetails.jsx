@@ -9,14 +9,19 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../utils/constants";
 import { toast } from "react-toastify";
 
-function UpcomigDetails() {
+function UpcomigDetails({type}) {
   const { slug } = useParams();
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
 
   const fetchServiceDetails = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_blog_details(slug));
+      let response ={}
+      if(type == "event"){
+        response = await webAxios.get(userApiRoutes.get_event_detail(slug));
+      }else{
+        response = await webAxios.get(userApiRoutes.get_blog_details(slug));
+      }
       setDetails(response.data.data);
     } catch (error) {
       toast.error(error.response.data.error);
@@ -39,22 +44,22 @@ function UpcomigDetails() {
         </div>
       </section>
 
-      {details.type !== "innovation" ? (
+      {details.type !== "innovation" || type == "event"? (
         <div className="topcontentbox text-center">
           <div className="container">
             <h4>Fuel Your Body Right - Eat Smart, Live Strong</h4>
             <ul className="topcontentboxlist">
               <li>
                 <img src={iconImg1}></img>
-                <span>{details.date}</span>
+                <span>{details?.date}</span>
               </li>
               <li>
                 <img src={iconImg2}></img>
-                <span>11:00 AM – 1:00 PM IST</span>
+                <span>{details?.time}</span>
               </li>
               <li>
                 <img src={iconImg3}></img>
-                <span>Online (Live on Zoom)</span>
+                <span>{details?.eventType}</span>
               </li>
             </ul>
           </div>

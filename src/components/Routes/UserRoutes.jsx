@@ -59,7 +59,7 @@ export default function UserRoutes() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/events-details/:slug" element={<UpcomigDetails />} />
+            <Route path="/events-details/:slug" element={<UpcomigDetails type="event"/>} />
             <Route path="/innovation-details/:slug" element={<UpcomigDetails />} />
             <Route
               path="/experts/:slug/:type/:encodedId"
@@ -71,7 +71,7 @@ export default function UserRoutes() {
             <Route path="/tools/*" element={<Tools />} />
             <Route path="" element={<Home />} />
             <Route path="/not-found" element={<NotFound/>}/>
-            <Route path="*" element={<Navigate replace to="/not-found" />} />
+            <Route path="*" element={<NotFound />} />
 
              {/* Protect routes  */}
             <Route

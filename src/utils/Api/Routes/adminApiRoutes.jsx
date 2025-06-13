@@ -110,6 +110,7 @@ const adminApiRoutes = {
 
   //INQUIRIES ROUTES
   get_all_inquiry: (type) => `/inquiries/${type}`,
+  get_applied_jobs:`/jobs/applied`,
 
   //USER HANDLE ROUTES
   get_all_users: `/users`,
