@@ -64,15 +64,24 @@
     font-size: 34px;
   }
   .stayaheadbg span {
-    font-size: 22px;}
+    font-size: 22px;
+  }
 
-    .stayaheadbg p {
-    font-size: 18px;}
+  .stayaheadbg p {
+    font-size: 18px;
+  }
 
-    .contactinfobox a {
-    font-size: 16px;}
+  .contactinfobox a {
+    font-size: 16px;
+  }
 
-    .clientcontentbg > p{min-height: 90px;}
+  .clientcontentbg > p {
+    min-height: 90px;
+  }
+
+  .EventsBannercontent h3 {
+    font-size: 43px;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -907,9 +916,23 @@
     height: 100%;
   }
 
-    .stayaheadbg h4 {
-        font-size: 28px;
-    }
+  .stayaheadbg h4 {
+    font-size: 28px;
+  }
+  .service-btn {
+    flex-wrap: wrap;
+  }
+  .OurServicesContent figcaption h3 {
+    font-size: 18px;
+  }
+
+  .messageCofoundersTitle h2 {
+    font-size: 32px;
+  }
+
+  .messageCofoundersTitle {
+    margin-bottom: 35px;
+  }
 }
 
 @media (max-width: 991px) {

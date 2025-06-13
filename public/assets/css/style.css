@@ -2629,7 +2629,6 @@ ul.pagination {
 .OurHealthBlogContent a {
   cursor: pointer;
 }
-
 button.owl-prev span {
   color: transparent;
   background: url(../img//owlleft.png);
@@ -4268,19 +4267,6 @@ span.transicon {
   position: relative;
   height: 100%;
 }
-
-.findYourfitinner .job-description {
-  line-height: 1.5rem;
-  max-height: calc(1.5rem * 3);
-  min-height: calc(1.5rem * 3);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;        
-  -webkit-box-orient: vertical; 
-  text-overflow: ellipsis;
-}
-
-
 
 .findYourIcon {
   position: absolute;
