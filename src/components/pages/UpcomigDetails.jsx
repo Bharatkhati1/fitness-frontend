@@ -113,7 +113,7 @@ function UpcomigDetails({ type }) {
 
       <div className="pb-3">
         <div
-          className="container"
+          className="container mb-3"
           dangerouslySetInnerHTML={{
             __html: details?.description,
           }}
@@ -122,6 +122,7 @@ function UpcomigDetails({ type }) {
           Array.isArray(modifyOptionalImages) &&
           modifyOptionalImages?.length > 0 &&
           Array.isArray(modifyOptionalImages[0]) && (
+            <div className="container">
             <OwlCarousel
               className="owl-theme"
               autoplay={false}
@@ -135,11 +136,11 @@ function UpcomigDetails({ type }) {
               autoplayTimeout={9000}
             >
               {modifyOptionalImages?.map((group, index) => (
-                <div className="row" key={index}>
+                <div className="row g-2 event-images-optional" key={index}>
                   {group.map((srv, idx) => {
                     return (
                       <div className="col-md-6" key={idx}>
-                        <div className="OurServicesContent">
+                        <div className=" ">
                           <figure>
                             <img
                               crossOrigin="anonymous"
@@ -154,6 +155,7 @@ function UpcomigDetails({ type }) {
                 </div>
               ))}
             </OwlCarousel>
+            </div>
           )}
         <div className="clearfix"></div>
       </div>

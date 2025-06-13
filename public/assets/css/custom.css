@@ -189,3 +189,9 @@ border-radius: 3px;
     border: 1px dashed #28a745;
     background-color: #e9f7ef;
   }
+
+  body .owl-carousel .owl-item  .event-images-optional img{
+    aspect-ratio:16/9;
+    object-fit: cover;
+    width: 100% !important;
+  }
