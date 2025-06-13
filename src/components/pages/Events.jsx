@@ -360,16 +360,11 @@ export default function Events() {
                     {pastevents.map((event) => (
                       <div className="item">
                         <div className="pasteventbox">
-                          <div className="centertext">
-                            <img
-                              crossOrigin="anonymous"
-                              src={event.image_url}
-                            ></img>
-                            <div className="eventstext">
-                              Sports for great health
-                            </div>
-                          </div>
-                        </div>
+                          <img
+                            crossOrigin="anonymous"
+                            src={event.image_url}
+                          ></img>
+                          <div className="eventstext">{event.title}</div></div>
                       </div>
                     ))}
                   </OwlCarousel>

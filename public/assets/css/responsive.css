@@ -86,6 +86,13 @@
   .clientcontentbg > p {
     min-height: 90px;
   }
+<<<<<<< HEAD
+
+  .EventsBannercontent h3 {
+    font-size: 43px;
+  }
+=======
+>>>>>>> 447f266f9f2235bc553e892bc6d7a7738da82174
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -923,6 +930,7 @@
   .stayaheadbg h4 {
     font-size: 28px;
   }
+<<<<<<< HEAD
   .service-btn {
     flex-wrap: wrap;
   }
@@ -937,6 +945,8 @@
   .messageCofoundersTitle {
     margin-bottom: 35px;
   }
+=======
+>>>>>>> 447f266f9f2235bc553e892bc6d7a7738da82174
 }
 
 @media (max-width: 991px) {
