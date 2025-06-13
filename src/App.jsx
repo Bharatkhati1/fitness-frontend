@@ -16,6 +16,7 @@ import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
+import SiteMap from "./components/pages/SiteMap.jsx";
 
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
@@ -63,6 +64,8 @@ const App = () => {
           <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
+
+          <Route path="SiteMap" element={<SiteMap />} />
     
           {/* <Route path="UpcomigDetails" element={<UpcomigDetails/>} /> */}
           {/* <Route path="Innovation" element={<Innovation/>} /> */}
