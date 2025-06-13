@@ -107,6 +107,7 @@ const adminApiRoutes = {
   //POLICIES ROUTES
   get_policy_details: (slug) => `/cms/${slug}`,
   update_policy: (id) => `/cms/${id}`,
+  delete_optional_images:(id)=>`/cms-optional-image/${id}`,
 
   //INQUIRIES ROUTES
   get_all_inquiry: (type) => `/inquiries/${type}`,

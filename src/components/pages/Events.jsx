@@ -203,6 +203,15 @@ export default function Events() {
     });
   };
 
+  const formatTimeTo12Hour = (time24) => {
+    if (!time24) return "";
+    const [hour, minute] = time24.split(":").map(Number);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minute.toString().padStart(2, "0")} ${ampm}`;
+  };
+
+  
   useEffect(() => {
     fetchAllPastEvents();
     fetchAllUpcomingEvents();
@@ -264,7 +273,7 @@ export default function Events() {
                         <ul className="eventinfolist">
                           <li>
                             <img src={calendericon1}></img>{" "}
-                            <span>{event.date}</span>
+                            <span>{new Date(event.date).toLocaleDateString("en-GB").replaceAll("/", "-")} </span>
                           </li>
 
                           {event.eventType == "Online" ? (
@@ -281,7 +290,7 @@ export default function Events() {
 
                           <li>
                             <img src={calendericon3}></img>{" "}
-                            <span>{event.time}</span>
+                            <span>{formatTimeTo12Hour(event.time)}</span>
                           </li>
 
                           <li>
@@ -496,6 +505,8 @@ export default function Events() {
           </div>
         </div>
       </div>
+
+       {/* Join us Modal  */}
       <Modal
         open={isModalOpen}
         onOk={handleOk}
@@ -611,6 +622,7 @@ export default function Events() {
         </div>
       </Modal>
 
+       {/* Contact us modal  */}
       <Modal
         open={openContactUsModal}
         onCancel={() => setOpenContactusModal(false)}

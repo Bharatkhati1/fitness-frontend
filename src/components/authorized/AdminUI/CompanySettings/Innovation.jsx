@@ -119,6 +119,15 @@ const Innovation = () => {
     }
   };
 
+  const handleRemoveImage = async(id) => {
+    try {
+      const res = await adminAxios.delete(adminApiRoutes.delete_optional_images(id))
+      fetchPPDetails()
+    } catch (error) {
+      toast.error(error.response.data.error)
+    }
+  };
+
   useEffect(() => {
     fetchPPDetails();
   }, []);
@@ -188,16 +197,22 @@ const Innovation = () => {
                     multiple
                     onChange={(e) => {
                       const selected = Array.from(e.target.files);
-                      if (selected.length + galleryImages.length > 5) {
-                        toast.error("You can upload a maximum of 5 images.");
+                    
+                      // Count total including existing + new
+                      const totalImages = galleryImages.length;
+                      const remainingSlots = 5 - totalImages;
+                    
+                      if (selected.length > remainingSlots) {
+                        toast.error(`You can only upload ${remainingSlots} more image${remainingSlots === 1 ? "" : "s"}.`);
+                        galleryInputRef.current.value=""
                         return;
                       }
-
+                    
                       const newFiles = selected.map((file) => ({
                         type: "new",
                         data: file,
                       }));
-
+                    
                       setGalleryImages((prev) => [...prev, ...newFiles]);
                       e.target.value = null;
                     }}
@@ -220,9 +235,11 @@ const Innovation = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          setGalleryImages((prev) =>
-                            prev.filter((_, i) => i !== index)
-                          )
+                          img.type === "existing"
+                            ? handleRemoveImage(img.id)
+                            : setGalleryImages((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              )
                         }
                         className="remove-img-btn-gly"
                       >

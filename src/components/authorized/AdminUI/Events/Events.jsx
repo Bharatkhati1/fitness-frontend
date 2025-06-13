@@ -22,10 +22,12 @@ const Events = () => {
 
   const [events, setEvents] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
   const selectedIdRef = useRef(null);
 
   const fetchAllEvents = async () => {
@@ -63,11 +65,16 @@ const Events = () => {
         data.append(key, value);
       }
     });
+    galleryImages.forEach((img) => {
+      if (img.type === "new") {
+        data.append("optional_image", img.data); 
+      }
+    });
 
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} event...`
     );
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const url = isEdit
         ? adminApiRoutes.update_events(selectedId)
@@ -96,8 +103,8 @@ const Events = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -125,11 +132,31 @@ const Events = () => {
       address: "",
       image: null,
     });
+    setGalleryImages([])
     setSelectedId(null);
     setSelectedFileName("");
     setIsEdit(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
+
+  const handleRemoveImage = async (id, index) => {
+    try {
+      const res = await adminAxios.delete(
+        adminApiRoutes.delete_optional_images(id)
+      );
+      setGalleryImages((prev) => prev.filter((_, i) => i !== index));
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      galleryImages.forEach((img) => {
+        if (img.type === "new") URL.revokeObjectURL(img.data);
+      });
+    };
+  }, [galleryImages]);
 
   useEffect(() => {
     fetchAllEvents();
@@ -244,26 +271,60 @@ const Events = () => {
                   />
                 </div>
               </div>
-              
-              {/* Address */}
-             {formData.eventType =="Offline" && <div className="col-lg-6" key={name}>
+
+              {/* Gallery  Images  */}
+             {isEdit && <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Address</label>
+                  <label className="form-label">gallery Images(optional)</label>
                   <input
-                    type="text"
+                    type="file"
                     className="form-control"
-                    name="address"
-                    value={formData.address}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        address: e.target.value,
-                      }))
-                    }
-                    placeholder="Enter event address/location"
+                    accept="image/*"
+                    ref={galleryInputRef}
+                    multiple
+                    onChange={(e) => {
+                      const selected = Array.from(e.target.files)
+                      const newFiles = selected.map((file) => ({
+                        type: "new",
+                        data: file,
+                      }));
+
+                      setGalleryImages((prev) => [...prev, ...newFiles]);
+                      e.target.value = null;
+                    }}
                   />
                 </div>
               </div>}
+              {galleryImages.length > 0 && (
+                <div className="d-flex flex-wrap gap-2">
+                  {galleryImages.map((img, index) => (
+                    <div key={index} className="gary-img-div">
+                      <img
+                        crossOrigin="anonymous"
+                        src={
+                          img.type === "existing"
+                            ? img.data
+                            : URL.createObjectURL(img.data)
+                        }
+                        alt={`preview-${index}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          img.type === "existing"
+                            ? handleRemoveImage(img.id, index)
+                            : setGalleryImages((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              )
+                        }
+                        className="remove-img-btn-gly"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Status */}
               <div className="col-lg-6">
@@ -286,11 +347,37 @@ const Events = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Address */}
+              {formData.eventType == "Offline" && (
+                <div className="col-lg-6" key={name}>
+                  <div className="mb-3">
+                    <label className="form-label">Address</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="address"
+                      value={formData.address}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          address: e.target.value,
+                        }))
+                      }
+                      placeholder="Enter event address/location"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="card-footer border-top">
-            <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
+            <button
+              className="btn btn-primary"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
               {isEdit ? "Update Event" : "Create Event"}
             </button>
           </div>
@@ -367,6 +454,13 @@ const Events = () => {
                                   address: item.address,
                                   image: null,
                                 });
+                                setGalleryImages(
+                                  item?.OptionalImages?.map((img) => ({
+                                    type: "existing",
+                                    data: img.image_url,
+                                    id: img.id,
+                                  })) || []
+                                );
                                 setSelectedId(item.id);
                                 setSelectedFileName(item.image);
                                 setIsEdit(true);
