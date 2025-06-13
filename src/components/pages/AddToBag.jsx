@@ -25,6 +25,7 @@ export default function AddToBag() {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
     } catch (error) {
+      setCartItems([])
       console.log(error);
     }
   };
@@ -127,9 +128,9 @@ export default function AddToBag() {
     let sum = 0;
     cartItems.forEach((item) => {
       const price = parseFloat(item?.PackagePlan?.price || 0);
-      const qty = item?.quantity || 1;
-      sum += price * qty;
+      sum += price;
     });
+    console.log("sum", sum)
     setTotal(sum);
   }, [cartItems]);
 
