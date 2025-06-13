@@ -78,6 +78,7 @@ const NavItems = [
     path: "company-settings",
     subMenu: [
       {name:"All Users", path:"users"},
+      { name: "Applied Jobs", path: "applied-jobs" },
       { name: "Contact Details", path: "contact-details" },
       { name: "Privacy Policy", path: "privacy-policy" },
       { name: "Return Policy", path: "return-policy" },

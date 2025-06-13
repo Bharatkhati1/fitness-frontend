@@ -82,6 +82,7 @@ const userApiRoutes = {
 
   get_upcoming_events:`/upcoming-events`,
   get_past_events:`/past-events`,
+  get_event_detail:(slug)=>`/event-detail/${slug}`,
 
   apply_job:`/apply-now`
   

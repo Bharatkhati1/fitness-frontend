@@ -312,7 +312,7 @@ const Events = () => {
                     <th>Image</th>
                     <th>Title</th>
                     <th>Date</th>
-                    <th>Address</th>
+                    <th>Type</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -339,7 +339,7 @@ const Events = () => {
                         </td>
                         <td>{item.title}</td>
                         <td>{item.date}</td>
-                        <td>{item.address}</td>
+                        <td>{item.eventType}</td>
                         <td>
                           <span
                             className={`badge ${
