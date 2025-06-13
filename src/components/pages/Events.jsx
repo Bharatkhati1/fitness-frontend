@@ -6,6 +6,8 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 
 import calendericon1 from "../../../public/assets/img/calendericon1.png";
 import LocationIcon from "./images/LocationIcon.svg";
+import JoinUs from "./images/join-us.png";
+import gettouch from "../../../public/assets/img/gettouch.png";
 import calendericon2 from "../../../public/assets/img/calendericon2.png";
 import calendericon3 from "../../../public/assets/img/calendericon3.png";
 import calendericon4 from "../../../public/assets/img/calendericon4.png";
@@ -25,6 +27,7 @@ import { toast } from "react-toastify";
 import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
 
 export default function Events() {
   const navigate = useNavigate();
@@ -32,16 +35,16 @@ export default function Events() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [pastevents, setPastEvents] = useState([]);
   const [eventCms, setEventCms] = useState({});
-  const [centeredItem, setCenterIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openContactUsModal, setOpenContactusModal] = useState(false);
   const carouselRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
-    role: "",
-    fitnessEnthusiast: "",
-    resume_file: null,
-    experience: "",
+    mobile: "",
+    eventName: "",
+    eventTime: "",
+    termsAccepted: false,
   });
 
   const fetchAllUpcomingEvents = async () => {
@@ -85,7 +88,7 @@ export default function Events() {
   const handleNavigate = () => {
     navigate(`/events-details/${pastevents[carouselRef?.current]?.slug}`);
   };
-  
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -99,58 +102,59 @@ export default function Events() {
     setFormData({
       name: "",
       dob: "",
-      role: "",
-      fitnessEnthusiast: "",
-      resume_file: null,
-      experience: "",
-    })
-  };
-  const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === "file") {
-      setFormData((prev) => ({ ...prev, [name]: files[0] }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+      mobile: "",
+      eventName: "",
+      eventTime: "",
+      termsAccepted: false,
+    });
   };
 
-  const handleCheckboxChange = (value) => {
-    setFormData((prev) => ({ ...prev, fitnessEnthusiast: value }));
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (!formData.termsAccepted) {
+      return toast.error("You must accept the terms and conditions.");
+    }
+
     const payload = {
       name: formData.name,
       dob: formData.dob,
-      role: formData.role,
-      fitnessEnthusiast: formData.fitnessEnthusiast,
-      resume_file: formData.resume_file || "",
-      experience: formData.experience,
-      jobId: selectedJob,
+      mobile: formData.mobile,
+      eventName: formData.eventName,
+      eventTime: formData.eventTime,
     };
-  
-    const toastId = toast.loading("Submitting application..."); 
-  
+
+    const toastId = toast.loading("Submitting your details...");
+
     try {
-      await webAxios.post(userApiRoutes.apply_job, payload);
-       
+      await webAxios.post(userApiRoutes.apply_event, payload);
+
       toast.update(toastId, {
         render: "Application submitted successfully!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
       });
+
       setIsModalOpen(false);
       setFormData({
         name: "",
         dob: "",
+        mobile: "",
         role: "",
-        fitnessEnthusiast: "",
-        resume_file: null,
-        experience: "",
-      })
+        eventName: "",
+        eventTime: "",
+        termsAccepted: false,
+      });
     } catch (error) {
       toast.update(toastId, {
         render: error.response?.data?.error || "Submission failed. Try again.",
@@ -160,6 +164,45 @@ export default function Events() {
       });
     }
   };
+
+
+  //for contact us*********************
+  const [formDataContact, setFormDataContact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChangeContact = (e) => {
+    const { name, value } = e.target;
+    setFormDataContact((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmitContact = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...formDataContact,
+      type:"inquiry"
+    };
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(formDataContact.phone)) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
+    await sendInquiry(payload);
+    setOpenContactusModal(false)
+    setFormDataContact({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
+
   useEffect(() => {
     fetchAllPastEvents();
     fetchAllUpcomingEvents();
@@ -174,10 +217,16 @@ export default function Events() {
           <p>{eventCms.description}</p>
 
           <div className="events-btn mt-4">
-            <a href="#upcomingevent" className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal">
+            <a
+              href="#upcomingevent"
+              className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
+            >
               view upcoming events
             </a>
-            <a onClick={showModal} className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+            <a
+              onClick={showModal}
+              className="btn btn-primary max-btn hvr-shutter-out-horizontal"
+            >
               register now
             </a>
           </div>
@@ -296,18 +345,21 @@ export default function Events() {
                     ref={carouselRef}
                     center={true}
                     onChanged={(e) => {
-                      carouselRef.current = e.item.index
+                      carouselRef.current = e.item.index;
                     }}
                   >
                     {pastevents.map((event) => (
                       <div className="item">
                         <div className="pasteventbox">
                           <div className="centertext">
-                          <img
-                            crossOrigin="anonymous"
-                            src={event.image_url}
-                          ></img>
-                          <div className="eventstext">Sports for great health</div></div>
+                            <img
+                              crossOrigin="anonymous"
+                              src={event.image_url}
+                            ></img>
+                            <div className="eventstext">
+                              Sports for great health
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -426,7 +478,10 @@ export default function Events() {
                     team’s got your back. Don’t hesitate, let’s get you sorted
                     in no time.
                   </p>
-                  <a className="btn btn-primary max-width hvr-shutter-out-horizontal">
+                  <a
+                    onClick={() => setOpenContactusModal(true)}
+                    className="btn btn-primary max-width hvr-shutter-out-horizontal"
+                  >
                     contact us
                   </a>
                 </div>
@@ -449,20 +504,20 @@ export default function Events() {
         centered
       >
         <div className="modalhead">
-          <h3>join our team</h3>
+          <h3>We’re Excited to Have You!</h3>
         </div>
 
         <div className="modalbody">
-          <span>Be a part of our mission to inspire healthy living.</span>
           <p>
-            Submit your details below and stay connected with the latest career
-            opportunities.
+            Take the first step toward an enriching event experience. Fill out
+            the form and we’ll make sure you’re informed, prepared, and excited
+            to join.
           </p>
 
           <div className="row formmodal mt-4">
             <form onSubmit={handleSubmit} className="col-lg-6">
               <div className="form-group mb-2">
-                <label>Your Full Name*</label>
+                <label>Full Name*</label>
                 <input
                   placeholder="Enter your full name"
                   className="form-control"
@@ -475,7 +530,7 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Your Date of Birth*</label>
+                <label>Date of Birth*</label>
                 <input
                   type="date"
                   className="form-control"
@@ -487,86 +542,59 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Your Role:</label>
+                <label>Mobile Number*</label>
                 <input
-                  placeholder="Fitness Trainer"
+                  placeholder="Enter your mobile number"
                   className="form-control"
                   type="text"
-                  name="role"
+                  name="mobile"
                   required
-                  value={formData.role}
+                  value={formData.mobile}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mb-2">
-                <label>Are you a fitness fitnessEnthusiast?*</label>
-                <ul className="form-checkList sm-checklist d-flex flex-wrap">
-                  <li>
-                    <div className="form-check me-4">
-                      <input
-                        className="form-check-input"
-                        id="fitnessEnthusiast-yes"
-                        type="checkbox"
-                        required={!formData.fitnessEnthusiast}
-                        checked={formData.fitnessEnthusiast === "Yes"}
-                        onChange={() => handleCheckboxChange("Yes")}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="fitnessEnthusiast-yes"
-                      >
-                        Yes
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        id="fitnessEnthusiast-no"
-                        type="checkbox"
-                        required={!formData.fitnessEnthusiast}
-                        checked={formData.fitnessEnthusiast === "No"}
-                        onChange={() => handleCheckboxChange("No")}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="fitnessEnthusiast-no"
-                      >
-                        No
-                      </label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="form-group mb-2">
-                <label>Upload resume_file*</label>
+                <label>Event Name</label>
                 <input
-                  type="file"
-                  name="resume_file"
+                  placeholder="Event you're interested in"
                   className="form-control"
-                  accept=".pdf,.doc,.docx"
-                  required
+                  type="text"
+                  name="eventName"
+                  value={formData.eventName}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mb-2">
-                <label>Select your experience</label>
-                <select
-                  className="form-select"
-                  name="experience"
-                  required
-                  value={formData.experience}
+                <label>Event Time</label>
+                <input
+                  type="time"
+                  className="form-control"
+                  name="eventTime"
+                  value={formData.eventTime}
                   onChange={handleChange}
-                >
-                  <option value="">Open this select menu</option>
-                  <option value="1">1 year</option>
-                  <option value="2">2-3 years</option>
-                  <option value="3">3+ years</option>
-                </select>
+                />
+              </div>
+
+              <div className="form-check mb-3">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="termsAccepted"
+                  id="termsAccepted"
+                  checked={formData.termsAccepted}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      termsAccepted: e.target.checked,
+                    })
+                  }
+                  required
+                />
+                <label className="form-check-label" htmlFor="termsAccepted">
+                  I accept the Terms and Conditions
+                </label>
               </div>
 
               <button className="btn btn-primary max-btn mt-4" type="submit">
@@ -576,11 +604,90 @@ export default function Events() {
 
             <div className="col-lg-6">
               <figure className="JoinImgvaerticle">
-                {/* <img src={joinimgv} alt="Join Team" /> */}
+                <img src={JoinUs} alt="Join Team" />
               </figure>
             </div>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        open={openContactUsModal}
+        onCancel={() => setOpenContactusModal(false)}
+        className="custom-modal"
+        centered
+      >
+        <form className="getintouchinner" onSubmit={handleSubmitContact}>
+          <div className="row align-items-center">
+            <div className="col-md-6 getintouchinnerleft">
+              <h4>Get in Touch with Us</h4>
+              <p>We'd love to hear from you! Contact us anytime.</p>
+              <figure>
+                <img src={gettouch} />
+              </figure>
+            </div>
+            <div className="col-md-6">
+              <div className="row GetIntouchinnerright">
+                <div className="col-md-7 mb-3">
+                  <label>First Name*</label>
+                  <input
+                    name="name"
+                    value={formDataContact.name}
+                    onChange={handleChangeContact}
+                    placeholder="Enter your first name"
+                    className="form-control greyin"
+                    type="text"
+                    required
+                  />
+                </div>
+                <div className="col-md-7 mb-3">
+                  <label>Email ID*</label>
+                  <input
+                    name="email"
+                    value={formDataContact.email}
+                    onChange={handleChangeContact}
+                    placeholder="Enter your email id"
+                    className="form-control greyin"
+                    type="email"
+                    required
+                  />
+                </div>
+                <div className="col-md-7 mb-3">
+                  <label>Contact Number*</label>
+                  <div className="contactInput">
+                    <span className="greyin">+91</span>
+                    <input
+                      name="phone"
+                      value={formDataContact.phone}
+                      onChange={handleChangeContact}
+                      placeholder="Enter your contact number"
+                      className="form-control greyin"
+                      type="tel"
+                    />
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <label>Message</label>
+                  <textarea
+                    name="message"
+                    value={formDataContact.message}
+                    onChange={handleChangeContact}
+                    className="form-control greyin"
+                    placeholder="Type your message here"
+                  ></textarea>
+                </div>
+                <div className="col-md-12 text-center">
+                  <button
+                    type="submit"
+                    className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
+                  >
+                    submit your inquiry
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </Modal>
     </>
   );

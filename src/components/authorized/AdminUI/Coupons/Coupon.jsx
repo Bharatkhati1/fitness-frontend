@@ -10,6 +10,7 @@ const Coupon = () => {
     type: "flat",
     value: "",
     expiry: "",
+    maxCount:"",
     partnerId: "",
     commission: "",
   });
@@ -94,6 +95,7 @@ const Coupon = () => {
       value: "",
       expiry: "",
       partnerId: "",
+      maxCount:"",
       commission: "",
     });
     setSelectedId(null);
@@ -247,6 +249,38 @@ const Coupon = () => {
                     )}
                   </div>
                 </div>
+
+                     {/* Max Count */}
+                     <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">
+                     Max Count
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="maxCount"
+                      placeholder="Enter max count (0-100)"
+                      value={formData.maxCount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (
+                          value === "" ||
+                          (Number(value) >= 0 && Number(value) <= 100)
+                        ) {
+                          handleInputChange(e);
+                        }
+                      }}
+                      min="0"
+                      max="100"
+                    />
+                    {formData.commission > 100 && (
+                      <div className="text-danger small mt-1">
+                        Commission cannot be more than 100%
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -304,6 +338,7 @@ const Coupon = () => {
                                   setFormData({
                                     code: item?.code,
                                     type: item?.type,
+                                    maxCount:item?.maxCount|| "",
                                     value: item?.value,
                                     expiry: item?.expiry?.split("T")[0],
                                     partnerId: item?.partnerId || "",
