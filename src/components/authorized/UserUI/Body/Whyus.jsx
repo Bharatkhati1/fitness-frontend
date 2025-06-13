@@ -8,9 +8,6 @@ const Whyus = () => {
   return (
     <section className="WhyUs">
     <div className="container">
-      <div className="PageTitle text-center">
-        <h2>why us ?</h2>
-      </div>
       <div className="row justify-content-center g-4">
         <div className="col-md-4 ">
           <div className="WhyUsinner">

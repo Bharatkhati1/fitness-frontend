@@ -18,7 +18,7 @@ import useDebounce from "../Hooks/useDebounce";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
-  const { kitchenData = { items: [], totalPages: 1 }, kicthenCategories = [] , isLoggedIn} =
+  const { kitchenData = { items: [], totalPages: 1 }, kicthenCategories = [] , isLoggedIn, user} =
     useSelector((state) => state.auth);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
@@ -65,7 +65,9 @@ function Smartkitchen() {
       return;
     }
 
-    const promise = webAxios.post(userApiRoutes.download_recipe(id));
+    const promise = webAxios.post(userApiRoutes.download_recipe(id), {
+      email: user?.email,
+    });
 
     toast.promise(promise, {
       pending: "Downloading recipe...",

@@ -14,7 +14,7 @@ const Innovation = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const optionalInputRef = useRef(null);
   const galleryInputRef = useRef(null);
@@ -34,6 +34,7 @@ const Innovation = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+
   const handleSubmit = async () => {
     setLoading(true);
     const payload = new FormData();
@@ -53,7 +54,6 @@ const Innovation = () => {
     });
 
     // optionally send IDs of deleted images (if needed on backend)
-
     const loadingToastId = toast.loading("Updating innovation...");
     try {
       const url = adminApiRoutes.update_policy(formData.id);
@@ -105,7 +105,7 @@ const Innovation = () => {
         ...prev,
         ...res.data.data,
       }));
-      setSelectedImage(res.data.data.banner)
+      setSelectedImage(res.data.data.banner);
       setGalleryImages(
         res.data?.data?.OptionalImages?.map((img) => ({
           type: "existing",
@@ -162,7 +162,9 @@ const Innovation = () => {
               {/* Banner Image */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Banner Image {selectedImage&& `${selectedImage}`}</label>
+                  <label className="form-label">
+                    Main Image {selectedImage && `${selectedImage}`}
+                  </label>
                   <input
                     name="banner"
                     type="file"
@@ -203,33 +205,33 @@ const Innovation = () => {
                 </div>
               </div>
               {galleryImages.length > 0 && (
-                  <div className="d-flex flex-wrap gap-2">
-                    {galleryImages.map((img, index) => (
-                      <div key={index} className="gary-img-div">
-                        <img
+                <div className="d-flex flex-wrap gap-2">
+                  {galleryImages.map((img, index) => (
+                    <div key={index} className="gary-img-div">
+                      <img
                         crossOrigin="anonymous"
-                          src={
-                            img.type === "existing"
-                              ? img.data
-                              : URL.createObjectURL(img.data)
-                          }
-                          alt={`preview-${index}`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setGalleryImages((prev) =>
-                              prev.filter((_, i) => i !== index)
-                            )
-                          }
-                          className="remove-img-btn-gly"
-                        >
-                          ×
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                        src={
+                          img.type === "existing"
+                            ? img.data
+                            : URL.createObjectURL(img.data)
+                        }
+                        alt={`preview-${index}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setGalleryImages((prev) =>
+                            prev.filter((_, i) => i !== index)
+                          )
+                        }
+                        className="remove-img-btn-gly"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

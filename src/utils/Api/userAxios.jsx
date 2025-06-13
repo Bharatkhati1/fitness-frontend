@@ -31,36 +31,46 @@ const userAxios = axios.create({
   baseURL: `${GATEWAY_URL}/web`,
 });
 
+let isRefreshing = false; 
+
 userAxios.interceptors.request.use(
   async (config) => {
     let token = getToken();
 
     if (!jwtVerify()) {
-      try {
-        store.dispatch(authActions.checkingUserToken(true));
-        const { data } = await axios.post(
-          `${GATEWAY_URL}/web/refresh`,
-          { type: "userRefreshToken" },
-          { withCredentials: true }
-        );
+      // ✅ Only try refresh once per request
+      if (!isRefreshing) {
+        isRefreshing = true;
+        try {
+          store.dispatch(authActions.checkingUserToken(true));
+          const { data } = await axios.post(
+            `${GATEWAY_URL}/web/refresh`,
+            { type: "userRefreshToken" },
+            { withCredentials: true }
+          );
 
-        store.dispatch(
-          authActions.loginUser({
-            isLoggedIn: true,
-            isAdmin: false,
-            user: { ...data?.user },
-          })
-        );
-        store.dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
-        token = data?.accessToken;
-      } catch (err) {
-        console.error("Token refresh failed", err);
-      } finally {
-        store.dispatch(authActions.checkingUserToken(false));
+          store.dispatch(
+            authActions.loginUser({
+              isLoggedIn: true,
+              isAdmin: false,
+              user: { ...data?.user },
+            })
+          );
+          store.dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+          token = data?.accessToken;
+        } catch (err) {
+          console.error("Token refresh failed", err);
+          window.open("/login-user", "_self");
+        } finally {
+          isRefreshing = false;
+          store.dispatch(authActions.checkingUserToken(false));
+        }
+      } else {
+        window.open("/login-user", "_self");
       }
     }
 
-    // ✅ Always set latest token here
+    // ✅ Set token headers
     config.headers["authorization"] = `Bearer ${token}`;
     config.headers["currentTime"] = moment().format("YYYY-MM-DD HH:mm:ss");
     return config;
