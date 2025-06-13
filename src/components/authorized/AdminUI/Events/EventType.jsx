@@ -219,7 +219,7 @@ const EventType = () => {
 
           <div className="card-footer border-top">
             <button className="btn btn-primary" onClick={handleSubmit}>
-              {isEdit ? "Update Event" : "Create Event"}
+              {isEdit ? "Update Event Type" : "Create Event Type"}
             </button>
           </div>
         </div>
@@ -263,7 +263,7 @@ const EventType = () => {
                           />
                         </td>
                         <td>{item.name}</td>
-                        <td>{item.description}</td>
+                        <td className="w-50">{item.description}</td>
                         <td>
                             <span
                               className={`badge ${
@@ -275,7 +275,7 @@ const EventType = () => {
                           </td>
                         <td>
                           <button
-                            className="btn btn-sm btn-primary me-2"
+                            className="btn btn-sm btn-soft-primary me-2"
                             onClick={() => handleEdit(index)}
                           >
                             <iconify-icon
