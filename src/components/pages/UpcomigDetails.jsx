@@ -118,6 +118,7 @@ function UpcomigDetails({ type }) {
             __html: details?.description,
           }}
         ></div>
+          <div className="clearfix"></div>
         {type == "event" &&
           Array.isArray(modifyOptionalImages) &&
           modifyOptionalImages?.length > 0 &&
@@ -157,7 +158,7 @@ function UpcomigDetails({ type }) {
             </OwlCarousel>
             </div>
           )}
-        <div className="clearfix"></div>
+      
       </div>
     </>
   );
