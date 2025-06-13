@@ -9,12 +9,14 @@ const NewsAndMediaManagementCategories = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+  const [filterCategories,setFilterCategories] = useState([])
   const selectedIdRef = useRef();
 
   const fetchAllCategories = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_master_category("news-media"));
       setCategories(res.data.data);
+      setFilterCategories(res.data.data)
     } catch (error) {
       console.error("Failed to fetch categories:", error);
       toast.error(error.response?.data?.message || "Fetch error");
@@ -70,6 +72,17 @@ const NewsAndMediaManagementCategories = () => {
     setIsEdit(false);
     setSelectedId(null);
     setFormData({ name: "", isActive: 1 });
+  };
+
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = categories.filter((val) =>
+        val.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilterCategories(filterValue);
+    } else {
+      setFilterCategories(categories);
+    }
   };
 
   useEffect(() => {
@@ -176,6 +189,14 @@ const NewsAndMediaManagementCategories = () => {
 
       {/* All Categories Table */}
       <div className="row mt-4">
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50" 
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -186,15 +207,15 @@ const NewsAndMediaManagementCategories = () => {
                 <table className="table align-middle mb-0 table-hover table-centered">
                   <thead className="bg-light-subtle">
                     <tr>
-                      <th>#</th>
+                      <th>Id</th>
                       <th>Name</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {categories.length > 0 ? (
-                      categories.map((item, index) => (
+                    {filterCategories.length > 0 ? (
+                      filterCategories.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{item?.name}</td>
@@ -214,6 +235,7 @@ const NewsAndMediaManagementCategories = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({

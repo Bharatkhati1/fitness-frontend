@@ -10,11 +10,14 @@ const CategoryManagement = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+    const [filterCategories,setFilterCategories] = useState([])
+
   const selectedIdref = useRef()
   const fetchAllCategories = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_categories);
       setcategories(res.data.data);
+      setFilterCategories(res.data.data)
     } catch (error) {
       console.error("Failed to fetch blog categories:", error);
       toast.error(error.response.data.message);
@@ -73,6 +76,18 @@ const CategoryManagement = () => {
     }
   };
 
+  
+    const handleSearch = (search) => {
+      if (search.length > 0) {
+        const filterValue = categories.filter((val) =>
+          val.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilterCategories(filterValue);
+      } else {
+        setFilterCategories(categories);
+      }
+    };
+  
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
@@ -174,6 +189,14 @@ const CategoryManagement = () => {
       </div>
 
       <div className="row">
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50" 
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -191,8 +214,8 @@ const CategoryManagement = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {categories.length > 0 ? (
-                      categories.map((item, index) => (
+                    {filterCategories.length > 0 ? (
+                      filterCategories.map((item, index) => (
                         <tr key={index}>
                           <td>{index+1}</td>
                           <td>{item?.name}</td>

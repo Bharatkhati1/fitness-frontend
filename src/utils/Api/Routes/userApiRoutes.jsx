@@ -81,7 +81,9 @@ const userApiRoutes = {
   get_master_categories:(slug)=>`/categories?slug=${slug}`,
 
   get_upcoming_events:`/upcoming-events`,
-  get_past_events:`/past-events`
+  get_past_events:`/past-events`,
+
+  apply_job:`/apply-now`
   
 };
 

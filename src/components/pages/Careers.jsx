@@ -38,6 +38,36 @@ import { toast } from "react-toastify";
 function Careers() {
   const [allJobs, setAllJobs] = useState([]);
   const [careersCms, setCareersCms] = useState({});
+  const [selectedJob, setSelectedJob] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    dob: "",
+    role: "",
+    fitnessEnthusiast: "",
+    resume_file: null,
+    experience: "",
+  });
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setFormData({
+      name: "",
+      dob: "",
+      role: "",
+      fitnessEnthusiast: "",
+      resume_file: null,
+      experience: "",
+    })
+  };
 
   const fetchJobs = async () => {
     try {
@@ -57,24 +87,68 @@ function Careers() {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setFormData((prev) => ({ ...prev, [name]: files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleCheckboxChange = (value) => {
+    setFormData((prev) => ({ ...prev, fitnessEnthusiast: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const payload = {
+      name: formData.name,
+      dob: formData.dob,
+      role: formData.role,
+      fitnessEnthusiast: formData.fitnessEnthusiast,
+      resume_file: formData.resume_file || "",
+      experience: formData.experience,
+      jobId: selectedJob,
+    };
+  
+    const toastId = toast.loading("Submitting application..."); 
+  
+    try {
+      await webAxios.post(userApiRoutes.apply_job, payload);
+       
+      toast.update(toastId, {
+        render: "Application submitted successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      setIsModalOpen(false);
+      setFormData({
+        name: "",
+        dob: "",
+        role: "",
+        fitnessEnthusiast: "",
+        resume_file: null,
+        experience: "",
+      })
+    } catch (error) {
+      toast.update(toastId, {
+        render: error.response?.data?.error || "Submission failed. Try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    }
+  };
+  
+
   useEffect(() => {
     fetchJobs();
     fetchCmsCareers();
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <>
       <div className="Carrerbanner innerSpace mt-3">
@@ -159,8 +233,8 @@ function Careers() {
                   <figcaption>
                     <h3>Collaborative Culture</h3>
                     <p>
-                      Work with a team of passionate fitness enthusiasts who
-                      support and inspire each other.
+                      Work with a team of passionate fitness fitnessEnthusiasts
+                      who support and inspire each other.
                     </p>
                   </figcaption>
                 </div>
@@ -218,7 +292,10 @@ function Careers() {
                 <div className="wearecontent">
                   <h3>We are Hiring !</h3>
                   <p>Wellness Begins at Work. Join Us.</p>
-                  <a className="btn btn-primary max-width hvr-shutter-out-horizontal">
+                  <a
+                    href="#WeAreHiring"
+                    className="btn btn-primary max-width hvr-shutter-out-horizontal"
+                  >
                     join us
                   </a>
                 </div>
@@ -342,7 +419,7 @@ function Careers() {
             <p>Fresh Roles, Real Impact</p>
           </div>
 
-          <div className="findYourfitrow">
+          <div className="findYourfitrow" id="WeAreHiring">
             <div className="row g-3">
               {allJobs.map((job) => (
                 <div className="col-md-6">
@@ -364,7 +441,10 @@ function Careers() {
                     ></p>
                     <a
                       className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                      onClick={showModal}
+                      onClick={() => {
+                        showModal();
+                        setSelectedJob(job.ID);
+                      }}
                     >
                       apply now
                     </a>
@@ -395,58 +475,80 @@ function Careers() {
           </p>
 
           <div className="row formmodal mt-4">
-            <div className="col-md-5 me-auto">
-              <div class="form-group mb-2">
-                <label>your full name*</label>
+            <form onSubmit={handleSubmit} className="col-lg-6">
+              <div className="form-group mb-2">
+                <label>Your Full Name*</label>
                 <input
                   placeholder="Enter your full name"
-                  class="form-control"
+                  className="form-control"
                   type="text"
-                  value=""
                   name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="form-group mb-2">
-                <label>your Date of Birth*</label>
-                <input type="date" className="form-control"></input>
-              </div>
-
-              <div class="form-group mb-2">
-                <label>your Role:</label>
+                <label>Your Date of Birth*</label>
                 <input
-                  placeholder="Fitness Trainer"
-                  class="form-control"
-                  type="text"
-                  value=""
+                  type="date"
+                  className="form-control"
+                  name="dob"
+                  required
+                  value={formData.dob}
+                  onChange={handleChange}
                 />
               </div>
 
-              <div class="form-group mb-2">
-                <label>Are you a fitness enthusiast ?*</label>
+              <div className="form-group mb-2">
+                <label>Your Role:</label>
+                <input
+                  placeholder="Fitness Trainer"
+                  className="form-control"
+                  type="text"
+                  name="role"
+                  required
+                  value={formData.role}
+                  onChange={handleChange}
+                />
+              </div>
 
-                <ul class="form-checkList sm-checklist d-flex flex-wrap">
+              <div className="form-group mb-2">
+                <label>Are you a fitness fitnessEnthusiast?*</label>
+                <ul className="form-checkList sm-checklist d-flex flex-wrap">
                   <li>
-                    <div class="form-check me-4">
+                    <div className="form-check me-4">
                       <input
-                        class="form-check-input"
-                        id="service-27"
+                        className="form-check-input"
+                        id="fitnessEnthusiast-yes"
                         type="checkbox"
+                        required={!formData.fitnessEnthusiast}
+                        checked={formData.fitnessEnthusiast === "Yes"}
+                        onChange={() => handleCheckboxChange("Yes")}
                       />
-                      <label class="form-check-label" for="service-27">
+                      <label
+                        className="form-check-label"
+                        htmlFor="fitnessEnthusiast-yes"
+                      >
                         Yes
                       </label>
                     </div>
                   </li>
-
                   <li>
-                    <div class="form-check">
+                    <div className="form-check">
                       <input
-                        class="form-check-input"
-                        id="service-28"
+                        className="form-check-input"
+                        id="fitnessEnthusiast-no"
                         type="checkbox"
+                        required={!formData.fitnessEnthusiast}
+                        checked={formData.fitnessEnthusiast === "No"}
+                        onChange={() => handleCheckboxChange("No")}
                       />
-                      <label class="form-check-label" for="service-28">
+                      <label
+                        className="form-check-label"
+                        htmlFor="fitnessEnthusiast-no"
+                      >
                         No
                       </label>
                     </div>
@@ -454,30 +556,42 @@ function Careers() {
                 </ul>
               </div>
 
-              <div class="form-group mb-2">
-                <label>Upload Resume*</label>
-                <div class="upload-btn-wrapper">
-                  <button class="uploadbtn">Click here to upload</button>
-                  <input type="file" name="myfile" />
-                </div>
+              <div className="form-group mb-2">
+                <label>Upload resume_file*</label>
+                <input
+                  type="file"
+                  name="resume_file"
+                  className="form-control"
+                  accept=".pdf,.doc,.docx"
+                  required
+                  onChange={handleChange}
+                />
               </div>
 
-              <div class="form-group mb-2">
+              <div className="form-group mb-2">
                 <label>Select your experience</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select
+                  className="form-select"
+                  name="experience"
+                  required
+                  value={formData.experience}
+                  onChange={handleChange}
+                >
+                  <option value="">Open this select menu</option>
+                  <option value="1">1 year</option>
+                  <option value="2">2-3 years</option>
+                  <option value="3">3+ years</option>
                 </select>
               </div>
 
-              <a className="btn btn-primary max-btn mt-4">apply now</a>
-            </div>
+              <button className="btn btn-primary max-btn mt-4" type="submit">
+                Apply Now
+              </button>
+            </form>
 
-            <div className="col-md-6">
+            <div className="col-lg-6">
               <figure className="JoinImgvaerticle">
-                <img src={joinimgv}></img>
+                <img src={joinimgv} alt="Join Team" />
               </figure>
             </div>
           </div>
