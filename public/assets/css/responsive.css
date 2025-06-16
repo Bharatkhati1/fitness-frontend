@@ -66,8 +66,6 @@
   .stayaheadbg span {
     font-size: 22px;
   }
-    font-size: 22px;
-  }
 
   .stayaheadbg p {
     font-size: 18px;
@@ -86,13 +84,10 @@
   .clientcontentbg > p {
     min-height: 90px;
   }
-<<<<<<< HEAD
 
   .EventsBannercontent h3 {
     font-size: 43px;
   }
-=======
->>>>>>> 447f266f9f2235bc553e892bc6d7a7738da82174
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -930,7 +925,6 @@
   .stayaheadbg h4 {
     font-size: 28px;
   }
-<<<<<<< HEAD
   .service-btn {
     flex-wrap: wrap;
   }
@@ -945,8 +939,33 @@
   .messageCofoundersTitle {
     margin-bottom: 35px;
   }
-=======
->>>>>>> 447f266f9f2235bc553e892bc6d7a7738da82174
+
+  .EventsBannercontent h3 {
+    font-size: 38px;
+  }
+
+  div#upcomingevent {
+    padding-bottom: 0;
+  }
+  .whyattentbox h4 {
+    font-size: 14px;
+  }
+
+  .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
+    height: 200px;
+  }
+
+  .Pasteventsslider .owl-item.center .eventstext {
+    font-size: 10px;
+  }
+
+  .zigzagtextcontent {
+    max-width: 90%;
+  }
+
+  .zigzagtext h3 {
+    font-size: 45px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1443,6 +1462,97 @@
   .ThankyouModal h4 {
     font-size: 120px;
   }
+
+  .EventsBannercontent p {
+    font-size: 16px;
+  }
+
+  .EventsBannercontent p {
+    font-size: 16px;
+  }
+  .upcomingbox figcaption {
+    padding: 20px 0;
+  }
+  .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
+    height: 160px;
+  }
+
+  .Pasteventsslider .owl-item.active.center .item {
+    height: 120px;
+  }
+
+  .Pasteventsslider .owl-nav button.owl-prev {
+    left: 0;
+  }
+  .Pasteventsslider .owl-nav button.owl-next {
+    right: 0;
+  }
+  .Pasteventsslider {
+    margin-top: -30px;
+  }
+  .typeseventsbox p {
+    font-size: 14px;
+  }
+  .owl-carousel .owl-item .typeseventsbox figure img {
+    height: 380px;
+  }
+  .gotquestionscontent h4 {
+    font-size: 35px;
+  }
+  .gotquestionscontent p {
+    font-size: 14px;
+  }
+  .upcomingbox {
+    padding: 20px 15px;
+  }
+
+  .eventinfolist li {
+    padding: 5px 5px;
+  }
+
+  .upcomingbox {
+    padding: 20px 15px;
+  }
+
+  .eventsbtn .btn.btn-primary {
+    font-size: 13px;
+  }
+  .owl-carousel .owl-item .upcomingbox figure img {
+    height: 254px;
+  }
+
+  .whypartner .col {
+    order: 1;
+  }
+  .whypartner .col-md-4.text-center {
+    width: 100%;
+  }
+
+  ul.whyparthnerlist.whyp-odd li {
+    flex-direction: column-reverse;
+  }
+
+  .whyparthnerlist.whyp-odd li {
+    flex-direction: column-reverse;
+  }
+  .whyparthnerlist.whyp-odd figure {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 15px !important;
+  }
+
+  .whyparthnerlist figure {
+    margin-bottom: 15px !important;
+  }
+
+  .row.align-items-center {
+    align-items: flex-start !important;
+  }
+
+  .centerImg img {
+    height: 385px;
+    object-fit: contain;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1870,6 +1980,46 @@
   .ThankyouModal p {
     font-size: 20px;
   }
+  .EventsBannercontent h3 {
+    font-size: 32px;
+  }
+
+  .Pasteventsslider .owl-item.active.center .item {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.1);
+  }
+  .Pasteventsslider .owl-item.active.center .item {
+    height: 200px;
+  }
+
+  .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
+    height: 200px;
+  }
+
+  .gotquestionsbg .row {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  .gotquestionscontent {
+    padding-right: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .gotquestions {
+    margin-top: 0;
+  }
+  .zigzagtext h3 {
+    font-size: 26px;
+  }
+  .whyparthnerlist figcaption h4 {
+    font-size: 16px;
+    min-height: 40px;
+    line-height: 1.4;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 575px) {
@@ -1978,7 +2128,7 @@
   }
 
   .btn.max-width {
-    min-width: 100%;
+    min-width: 80%;
   }
 
   .RegisterPage .col-md-7.me-auto {
@@ -2175,6 +2325,81 @@
   }
   .ThankyouModal .btn-primary {
     margin-top: 20px !important;
+  }
+  .EventsBannercontent {
+    max-width: 80%;
+  }
+  .EventsBannercontent h3 {
+    font-size: 26px;
+  }
+
+  .events-btn {
+    display: flex;
+    width: 100%;
+  }
+
+  .upcomingevents .owl-carousel.owl-theme {
+    width: 95%;
+  }
+
+  .upcomingevents .owl-stage-outer {
+    padding: 0;
+  }
+
+  .upcomingevents .btn.max-btn {
+    min-width: auto !important;
+  }
+  .events-btn a {
+    width: 50%;
+    min-width: auto !important;
+    font-size: 11px;
+    text-align: center;
+  }
+  .events-btn {
+    margin-top: 10px !important;
+  }
+  .typeofevents .owl-carousel.owl-theme {
+    width: 80%;
+    margin: auto;
+  }
+
+  .gotquestionsbg {
+    width: 85%;
+    margin: auto;
+  }
+  .gotquestionsbg {
+    padding: 20px 40px;
+  }
+
+  .medicalpartners .owl-carousel.owl-theme {
+    width: 75%;
+    margin: auto;
+  }
+
+  .whypartner .col-md-4.text-center {
+    display: none;
+  }
+  .whypartner .col {
+    order: 1;
+    width: 100%;
+    flex: auto;
+    text-align: center;
+  }
+
+  ul.whyparthnerlist li {
+    padding: 10px 0;
+    flex-direction: column-reverse;
+  }
+  .whypartner {
+    padding-top: 45px;
+    padding-bottom: 0;
+  }
+  .getintouchinnerleft h4 {
+    font-size: 24px;
+  }
+
+  .getintouchinnerleft p {
+    font-size: 14px;
   }
 }
 @media (max-width: 480px) {
@@ -2605,5 +2830,55 @@
   }
   .ThankyouModal p {
     font-size: 16px;
+  }
+
+  .EventsBannercontent h3 {
+    font-size: 21px;
+  }
+
+  .whyattentevent .col {
+    width: 100% !important;
+    flex: auto;
+  }
+  .whyattentevent .col {
+    width: 100% !important;
+    flex: auto;
+    margin-bottom: 30px;
+  }
+
+  .EventsBannercontent {
+    max-width: 90%;
+  }
+
+  .events-btn.mt-4 {
+    margin-top: 20px !important;
+  }
+
+  .EventsBanner {
+    height: 440px;
+  }
+  .EventsBannercontent p {
+    font-size: 14px;
+  }
+  .gotquestionsbg {
+    padding: 20px 20px;
+  }
+
+  .partnerssec {
+    padding-bottom: 0;
+  }
+
+  .zigzagtext h3 {
+    font-size: 21px;
+  }
+
+  .zigzagtext {
+    padding: 14px 0;
+  }
+  .innerbanner figure img {
+    height: 224px;
+  }
+  .partnerssecbox h3 {
+    font-size: 14px;
   }
 }

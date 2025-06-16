@@ -215,7 +215,8 @@ const Manage = () => {
                     />
                   </div>
                 </div>
-
+                    
+                  {/* Read time  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Read Time (0–60 min)</label>
@@ -224,6 +225,7 @@ const Manage = () => {
                       name="readTime"
                       className="form-control"
                       min="0"
+                      placeholder="Enter read time (0-60 min)"
                       max="60"
                       value={formData.readTime}
                       onChange={(e) => {
