@@ -50,6 +50,7 @@ const AdminLogin = ({type}) => {
         Login(
           { username: formData.username, password: formData.password },
           navigate,
+          type,
           true
         )
       );

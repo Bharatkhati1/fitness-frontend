@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const AppliedJobs = () => {
   const [appliedJobs, setAppliedJobs] = useState([]);
-
   const fetchAppliedJobs =async()=>{
     try {
         const res = await adminAxios.get(adminApiRoutes.get_applied_jobs)
@@ -16,7 +15,7 @@ const AppliedJobs = () => {
     }
   }
   useEffect(()=>{
-  fetchAppliedJobs()
+    fetchAppliedJobs()
   },[])
   return (
     <div className="row mt-4">

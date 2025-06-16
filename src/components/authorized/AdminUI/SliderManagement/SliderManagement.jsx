@@ -16,6 +16,7 @@ const SliderManagement = () => {
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
+    const [filterService, setFilterServices] = useState([]);
   const fileInputRef = useRef(null);
     const selectedIdref = useRef(null)
 
@@ -23,6 +24,7 @@ const SliderManagement = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_sliders);
       setSliders(res.data.data);
+      setFilterServices(res.data.data)
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -95,6 +97,17 @@ const SliderManagement = () => {
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+  };
+
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = sliders.filter((val) =>
+        val.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilterServices(filterValue);
+    } else {
+      setFilterServices(sliders);
     }
   };
 
@@ -235,6 +248,14 @@ const SliderManagement = () => {
       </div>
 
       <div className="row">
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50" 
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -255,8 +276,8 @@ const SliderManagement = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {sliders.length > 0 ? (
-                      sliders.map((slider, index) => (
+                    {filterService.length > 0 ? (
+                      filterService.map((slider, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>

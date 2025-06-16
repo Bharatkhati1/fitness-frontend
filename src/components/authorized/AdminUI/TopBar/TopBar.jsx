@@ -62,7 +62,7 @@ const TopBar = () => {
                 </span>
               </a>
               <div className="dropdown-menu dropdown-menu-end">
-                <h6 className="dropdown-header">Welcome Admin!</h6>
+                <h6 className="dropdown-header">Welcome!</h6>
                 <button
                   className="dropdown-item text-danger"
                   onClick={() => handleLogout()}

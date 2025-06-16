@@ -6,7 +6,7 @@ import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-export const Login = (userData, navigate, isAdmin = false) => {
+export const Login = (userData, navigate, userType, isAdmin = false) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -22,6 +22,7 @@ export const Login = (userData, navigate, isAdmin = false) => {
           email: userData.username,
           password: userData.password,
           type: type,
+          userType,
         },
         {
           withCredentials: true,
@@ -168,7 +169,6 @@ export const getServicesForUser = () => {
       for (let i = 0; i < servicesData.length; i += chunkSize) {
         chunkedServices.push(servicesData.slice(i, i + chunkSize));
       }
-      console.log(chunkedServices);
       dispatch(
         authActions.setServices({
           services: chunkedServices,

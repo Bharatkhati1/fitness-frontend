@@ -47,7 +47,7 @@ export default function AdminRoutes() {
           <Route path="coupon" element={<Coupon />} />
           <Route path="inquiries/*" element={<InquiresMain/>} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
-          <Route path="*" element={<Navigate replace to={`/${type}/slider-management`} />} />
+          <Route path="*" element={<Navigate replace to={`/admin/slider-management`} />} />
         </Route>
       </Routes>
     </Suspense>
