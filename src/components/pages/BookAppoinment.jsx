@@ -40,7 +40,8 @@ function BookAppoinment() {
   }, [encodedId]);
 
   if (selectedConsultant) {
-    return <BookAppoinmentdate consultant={selectedConsultant} />;
+    const packageId = atob(encodedId)
+    return <BookAppoinmentdate consultant={selectedConsultant} packageId={packageId} />;
   }
   return (
     <>

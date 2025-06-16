@@ -5107,3 +5107,54 @@ button.uploadbtn {
   font-style: italic;
   color: #1e1e1e;
 }
+
+
+ul.sitelist {
+    columns: 3 auto;
+    margin: 10px 0 0;
+    padding-bottom: 25px;
+}
+
+ul.sitelistinner li {
+    padding: 6px 0;
+    font-size: 16px;
+    color: #06c;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.sitelistsec{
+    display: inline-block;
+    margin-bottom: 10px;
+    vertical-align: top;
+    z-index: 1;
+    column-span: 2;
+    margin-top: 20px;
+}
+.sitelist-title h4{ margin-bottom: 0 !important;}
+
+ul.sitelistinner {
+    box-sizing: border-box;
+}
+    
+.sitelistsec h4 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+ul.sitelistinner li a {
+    cursor: pointer;
+    color: #06c;
+}
+
+.imgcard img {
+  height: 465px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.imgsmcard img {
+  height: 230px;
+  object-fit: cover;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import fulldocterImg from "../../../public/assets/img/fulldocterImg.png";
 import Calender from "../authorized/UserUI/Calender";
@@ -7,8 +7,9 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import userAxios from "../../utils/Api/userAxios";
 import { useSelector } from "react-redux";
 
-function BookAppoinmentdate({ consultant }) {
+function BookAppoinmentdate({ consultant , packageId }) {
   const { encodedId } = useParams();
+  const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
@@ -25,62 +26,94 @@ function BookAppoinmentdate({ consultant }) {
     toast.error("Invalid consultant ID");
   }
 
-  const handleAppointment = async () => {
-    if (!selectedDate || !selectedSlot ) {
+  // const handleAppointment = async () => {
+  //   if (!selectedDate || !selectedSlot ) {
+  //     toast.error("Please fill all required fields");
+  //     return;
+  //   }
+  //   try {
+  //     const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
+  //       amount: consultant?.fees,
+  //     });
+
+  //     const { orderId, amount, currency } = res.data.data;
+  //     const options = {
+  //       key: "rzp_test_ENoX7bkuXjQBZc",
+  //       amount,
+  //       currency,
+  //       name: "Consultant booking",
+  //       description: "",
+  //       image: "/assets/img/logo.png",
+  //       order_id: orderId,
+  //       handler: async function (response) {
+  //         try {
+  //           const payload = {
+  //             consultantId: consultant.id,
+  //             consultantName: consultant?.name,
+  //             date: selectedDate,
+  //             startTime: selectedSlot?.start,
+  //             endTime: selectedSlot?.end,
+  //             razorpay_order_id: response.razorpay_order_id,
+  //             razorpay_payment_id: response.razorpay_payment_id,
+  //             razorpay_signature: response.razorpay_signature,
+  //           };
+  //           await userAxios.post(userApiRoutes.appointment_booking, payload);
+  //           toast.success("Booking successful!");
+  //           fetchAvailibilitySlots(consultant?.id)
+  //         } catch (err) {
+  //           console.log("verification err", err);
+  //           toast.error("Payment verification failed!");
+  //         }
+  //       },
+  //       prefill: {
+  //         name: `${user.firstName} ${user.lastName}`,
+  //         email: user.email,
+  //         contact: user.phone,
+  //       },
+  //       theme: {
+  //         color: "#528FF0",
+  //       },
+  //     };
+
+  //     const razor = new window.Razorpay(options);
+  //     razor.open();
+  //   } catch (error) {
+  //     console.log("last error", error);
+  //     toast.error(error.response?.data?.error || "Payment initiation failed!");
+  //   }
+  // };
+
+  const handleAppointment = () => {
+    if (!selectedDate || !selectedSlot) {
       toast.error("Please fill all required fields");
       return;
     }
-    try {
-      const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
-        amount: consultant?.fees,
-      });
-
-      const { orderId, amount, currency } = res.data.data;
-      const options = {
-        key: "rzp_test_ENoX7bkuXjQBZc",
-        amount,
-        currency,
-        name: "Consultant booking",
-        description: "",
-        image: "/assets/img/logo.png",
-        order_id: orderId,
-        handler: async function (response) {
-          try {
-            const payload = {
-              consultantId: consultant.id,
-              consultantName: consultant?.name,
-              date: selectedDate,
-              startTime: selectedSlot?.start,
-              endTime: selectedSlot?.end,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            };
-            await userAxios.post(userApiRoutes.appointment_booking, payload);
-            toast.success("Booking successful!");
-            fetchAvailibilitySlots(consultant?.id)
-          } catch (err) {
-            console.log("verification err", err);
-            toast.error("Payment verification failed!");
-          }
-        },
-        prefill: {
-          name: `${user.firstName} ${user.lastName}`,
-          email: user.email,
-          contact: user.phone,
-        },
-        theme: {
-          color: "#528FF0",
-        },
-      };
-
-      const razor = new window.Razorpay(options);
-      razor.open();
-    } catch (error) {
-      console.log("last error", error);
-      toast.error(error.response?.data?.error || "Payment initiation failed!");
-    }
+    const appointmentData = {
+      packageId:  packageId,
+      consultantId: consultant?.id,
+      consultantName: consultant?.name,
+      consultantImage: consultant?.image_url,
+      consultantExpertise: consultant?.expertise,
+      consultantExperience: consultant?.experience,
+      consultantFees: consultant?.fees,
+      bookingCharge: consultant?.fees,
+      consultantDuration: consultant?.duration,
+      selectedDate,
+      startTime: selectedSlot?.start,
+      endTime: selectedSlot?.end,
+      date: selectedDate,
+      selectedSlot,
+      user: {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        phone: user.phone,
+      },
+    };
+  
+    localStorage.setItem("appointmentData", JSON.stringify(appointmentData));
+    navigate("/checkout/appointment");
   };
+  
 
   const fetchAvailibilitySlots = async (id) => {
     try {
@@ -145,23 +178,6 @@ function BookAppoinmentdate({ consultant }) {
               <div className="col-md-6 slotdateboxleft">
                 <h4 className="slottitle">Please select a date:</h4>
                 <Calender onDateSelect={setSelectedDate} />
-
-                {/* <div className="provideContactinfo mt-4">
-                  <h4 className="slottitle">
-                    Please provide your contact number:
-                  </h4>
-
-                  <div className="contactInput">
-                    <span>+91</span>
-                    <input
-                      placeholder="Enter your contact number"
-                      className="form-control"
-                      type="text"
-                      value={contactNumber}
-                      onChange={(e) => setContactNumber(e.target.value)}
-                    />
-                  </div>
-                </div> */}
               </div>
 
               <div className="col-md-6 slotdateboxright">

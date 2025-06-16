@@ -8,16 +8,25 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import Thankyouimg from "../../../public/assets/img/Thankyouimg.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function AddToBag() {
+  const { type } = useParams();
   const { user } = useSelector((state) => state.auth);
   const [cartItems, setCartItems] = useState([]);
+  const [thankYouContent, setThankYouContent] = useState({
+    title: "Thank You !",
+    message:
+      "Your order has been placed successfully. We appreciate your support. Your order is being processed — stay tuned for updates!",
+    buttonText: "Back to Home",
+    redirectUrl: "/",
+  });
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
   const [apliedCode, setAppliedCode] = useState("");
   const [discountPrice, setDiscountPrice] = useState(null);
   const [discountGet, setDiscounGet] = useState(0);
+  const [appointmentData, setAppointmentData] = useState(null);
   const [ispaymentSuccessfull, setIsPaymentSuccessfull] = useState(false);
 
   const fetchCartitems = async () => {
@@ -25,74 +34,117 @@ export default function AddToBag() {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
     } catch (error) {
-      setCartItems([])
+      setCartItems([]);
       console.log(error);
     }
   };
-  const removeFromCart = async (id) => {
-    try {
-      const res = await userAxios.delete(userApiRoutes.remove_from_cart(id));
-      fetchCartitems();
-      toast.success(res.data.message);
-    } catch (error) {
-      toast.error(error.response?.data?.error || "Server Error");
-    }
-  };
-
   const applyCoupon = async () => {
     try {
-      const res = await userAxios.post(userApiRoutes.apply_coupon, {
-        couponCode: coupon,
-      });
+      const body =
+        type == "cart"
+          ? {
+              couponCode: coupon,
+              type: "order",
+            }
+          : {
+              couponCode: coupon,
+              type: "appointment",
+              totalAmount: appointmentData.consultantFees,
+            };
+      const res = await userAxios.post(userApiRoutes.apply_coupon, body);
       setTotal(res.data.data.totalAmount);
       setDiscountPrice(res.data.data.discountedAmount);
       setDiscounGet(res.data.data.discountApplied);
       setAppliedCode(res.data.data.coupon.code);
       toast.success(res.data.message);
     } catch (error) {
-      toast.error(error.response?.data?.error ||error.response?.data?.message || "Invalid Coupon");
+      toast.error(
+        error.response?.data?.error ||
+          error.response?.data?.message ||
+          "Invalid Coupon"
+      );
     }
   };
 
   const handlePayment = async () => {
-    if (cartItems.length == 0) {
-      toast.error("No item in the cart !");
+    if (type === "cart" && cartItems.length === 0) {
+      toast.error("No item in the cart!");
       return;
     }
+  
+    if (type === "appointment" && !appointmentData) {
+      toast.error("No appointment details found!");
+      return;
+    }
+  
+    // Calculate final amount after discount
+    const amountToPay =
+      type === "cart"
+        ? discountPrice || total
+        : (discountPrice || appointmentData.consultantFees);
+  
     try {
       const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
-        amount: discountPrice || total,
+        amount: amountToPay,
       });
-
+  
       const { orderId, amount, currency } = res.data.data;
+  
       const options = {
         key: "rzp_test_ENoX7bkuXjQBZc",
         amount,
         currency,
-        name: "Smart Health",
-        description: "Service Purchase",
+        name: type === "cart" ? "Smart Health" : "Appointment Booking",
+        description: type === "cart" ? "Service Purchase" : "Consultation",
         image: "/assets/img/logo.png",
         order_id: orderId,
         handler: async function (response) {
           try {
-            console.log("after payment response:", response);
-            const verifyRes = await userAxios.post(
-              userApiRoutes.cart_checkout,
-              {
+            const toastId = toast.loading("Please wait...");
+            if (type === "cart") {
+              await userAxios.post(userApiRoutes.cart_checkout, {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-              }
-            );
-            toast.success("Payment successful!");
+                coupon: discountPrice ? coupon : undefined,
+              });
+            } else {
+              const payload = {
+                ...appointmentData,
+                bookingCharge:discountPrice||appointmentData?.bookingCharge,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                coupon: discountPrice ? coupon : undefined,
+              };
+              await userAxios.post(userApiRoutes.appointment_booking, payload);
+              localStorage.removeItem("appointmentData");
+            }
+            toast.update(toastId, {
+              render: "Payment successful!",
+              type: "success",
+              isLoading: false,
+              autoClose: 3000,
+            });
+            setThankYouContent({
+              title: type === "cart" ? "Thank You!" : "Appointment Confirmed!",
+              message:
+                type === "cart"
+                  ? "Your order has been placed successfully. We appreciate your support. Your order is being processed – stay tuned for updates!"
+                  : "Your consultation has been successfully booked. We’ll notify you shortly. Thank you for choosing us!",
+              buttonText: "Back to Home",
+              redirectUrl: "/",
+            });
+  
             setIsPaymentSuccessfull(true);
             fetchCartitems();
           } catch (err) {
+            console.error(err);
             toast.error("Payment verification failed!");
           }
         },
         prefill: {
-          name: `${user?.firstName} `,
+          name: `${user?.firstName} ${user?.lastName}`,
           email: user?.email,
           contact: user?.phone,
         },
@@ -100,14 +152,15 @@ export default function AddToBag() {
           color: "#528FF0",
         },
       };
-
+  
       const razor = new window.Razorpay(options);
       razor.open();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error(error.response?.data?.error || "Payment initiation failed!");
     }
   };
+  
 
   const removeCoupon = async () => {
     try {
@@ -130,13 +183,55 @@ export default function AddToBag() {
       const price = parseFloat(item?.PackagePlan?.price || 0);
       sum += price;
     });
-    console.log("sum", sum)
     setTotal(sum);
   }, [cartItems]);
 
   useEffect(() => {
-    fetchCartitems();
+    if (type === "cart") {
+      fetchCartitems();
+    } else {
+      const storedData = localStorage.getItem("appointmentData");
+      if (storedData) {
+        setAppointmentData(JSON.parse(storedData));
+      }
+    }
   }, []);
+
+  const renderCouponBox = () => (
+    <div className="discoutBox mb-4 ">
+      {!discountPrice ? (
+        <>
+          <input
+            className="form-control"
+            placeholder="Add discount code"
+            value={coupon}
+            onChange={(e) => setCoupon(e.target.value)}
+          />
+          <img className="tagicon" src={discoutimg} />
+          <button
+            className="applybtn"
+            onClick={applyCoupon}
+            disabled={
+              (type === "cart" && cartItems.length === 0) ||
+              (type !== "cart" && !appointmentData)
+            }
+          >
+            Apply
+          </button>
+        </>
+      ) : (
+        <div className="applied-coupon-box d-flex align-items-center justify-content-between px-3 py-2 rounded bg-light">
+          <span className="text-success fw-bold">Coupon Applied: {coupon}</span>
+          <button
+            className="btn btn-sm btn-primary btn-outline-danger py-1 h-auto"
+            onClick={removeCoupon}
+          >
+            &times;
+          </button>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <>
@@ -146,7 +241,7 @@ export default function AddToBag() {
         </figure>
         <div className="container">
           <div className="innerbannerContent">
-            <h2>add to bag</h2>
+            <h2>checkout page</h2>
           </div>
         </div>
       </section>
@@ -157,15 +252,15 @@ export default function AddToBag() {
             <div className="row">
               <div className="col-lg-9 col-md-10 col-sm-12 m-auto">
                 <figure className="Thnkyouimg mb-4">
-                  <img src={Thankyouimg}></img>
+                  <img src={Thankyouimg} alt="Thank You" />
                 </figure>
-                <h4>Thank You !</h4>
-                <p>
-                  Your order has been placed successfully.We appreciate your
-                  support. Your order is being processed-stay tuned for updates!
-                </p>
-                <Link to={"/"} className="btn btn-primary max-width mt-4 hvr-shutter-out-horizontal">
-                  back to home
+                <h4>{thankYouContent.title}</h4>
+                <p>{thankYouContent.message}</p>
+                <Link
+                  to={thankYouContent.redirectUrl}
+                  className="btn btn-primary max-width mt-4 hvr-shutter-out-horizontal"
+                >
+                  {thankYouContent.buttonText}
                 </Link>
               </div>
             </div>
@@ -242,82 +337,112 @@ export default function AddToBag() {
                   </div>
 
                   <div className="addtobabody">
-                    <ul className="ordersummarylist">
-                      {cartItems.map((item) => (
-                        <li key={item.id}>
-                          <figure>
-                            <img src={osproductimg1} />
-                          </figure>
-                          <figcaption>
-                            <h4>
-                              {item?.PackagePlan?.Package?.Service?.name} -{" "}
-                              {item?.PackagePlan?.duration} Months
-                            </h4>
-                            <span className="price-text">
-                              ₹ {item?.PackagePlan?.price}
-                            </span>
-                            <a
-                              onClick={() => removeFromCart(item.id)}
-                              className="Deleteicon cursor-pointer"
-                            >
-                              <img src={deleteicon} />
-                            </a>
-                          </figcaption>
-                        </li>
-                      ))}
-                      {cartItems.length === 0 && (
-                        <li>
-                          <b>No item found!</b>
-                        </li>
-                      )}
-                    </ul>
+                    {type === "cart" ? (
+                      <>
+                        <ul className="ordersummarylist">
+                          {cartItems.map((item) => (
+                            <li key={item.id}>
+                              <figure>
+                                <img src={osproductimg1} />
+                              </figure>
+                              <figcaption>
+                                <h4>
+                                  {item?.PackagePlan?.Package?.Service?.name} -{" "}
+                                  {item?.PackagePlan?.duration} Months
+                                </h4>
+                                <span className="price-text">
+                                  ₹ {item?.PackagePlan?.price}
+                                </span>
+                              </figcaption>
+                            </li>
+                          ))}
+                          {cartItems.length === 0 && (
+                            <li>
+                              <b>No item found!</b>
+                            </li>
+                          )}
+                        </ul>
 
-                    <div className="">
-                      <div className="discoutBox mb-4 ">
-                        {!discountPrice ? (
-                          <>
-                            <input
-                              className="form-control"
-                              placeholder="Add discount code"
-                              value={coupon}
-                              onChange={(e) => setCoupon(e.target.value)}
-                            />
-                            <img className="tagicon" src={discoutimg} />
-                            <button className="applybtn" onClick={applyCoupon} disabled={cartItems?.length==0}>
-                              Apply
-                            </button>
-                          </>
-                        ) : (
-                          <div className="applied-coupon-box d-flex align-items-center justify-content-between px-3 py-2 rounded bg-light">
-                            <span className="text-success fw-bold">
-                              Coupon Applied: {coupon}
-                            </span>
-                            <button
-                              className="btn btn-sm btn-primary btn-outline-danger py-1 h-auto"
-                              onClick={removeCoupon}
-                            >
-                              &times;
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                        {/* Coupon for Cart */}
+                        {renderCouponBox()}
 
-                    <ul className="Pricebrnkdownlist">
-                      <li>
-                        <span>Subtotal:</span>
-                        <b>₹ {total}</b>
-                      </li>
-                      <li>
-                        <span>Discount:</span>
-                        <b className="red-text ">- ₹{discountGet || 0}</b>
-                      </li>
-                      <li>
-                        <span>Total:</span>
-                        <b>₹ {discountPrice || total}</b>
-                      </li>
-                    </ul>
+                        <ul className="Pricebrnkdownlist">
+                          <li>
+                            <span>Subtotal:</span>
+                            <b>₹ {total}</b>
+                          </li>
+                          <li>
+                            <span>Discount:</span>
+                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                          </li>
+                          <li>
+                            <span>Total:</span>
+                            <b>₹ {discountPrice || total}</b>
+                          </li>
+                        </ul>
+                      </>
+                    ) : appointmentData ? (
+                      <>
+                        <ul className="ordersummarylist">
+                          <li>
+                            <figure>
+                              <img
+                                src={appointmentData.consultantImage}
+                                alt="Consultant"
+                                crossOrigin="anonymous"
+                                style={{
+                                  width: "70px",
+                                  height: "70px",
+                                  borderRadius: "8px",
+                                }}
+                              />
+                            </figure>
+                            <figcaption>
+                              <h4>{appointmentData.consultantName}</h4>
+                              <p className="mb-1">
+                                Date: {appointmentData.selectedDate}
+                              </p>
+                              <p className="mb-1">
+                                Time: {appointmentData.selectedSlot?.start} -{" "}
+                                {appointmentData.selectedSlot?.end}
+                              </p>
+                              <p className="price-text">
+                                ₹ {appointmentData.consultantFees}
+                              </p>
+                            </figcaption>
+                          </li>
+                        </ul>
 
+                        {/* Coupon for Appointment */}
+                        {renderCouponBox()}
+
+                        <ul className="Pricebrnkdownlist mt-3">
+                          <li>
+                            <span>Consultation Fees:</span>
+                            <b>₹ {appointmentData.consultantFees}</b>
+                          </li>
+                          <li>
+                            <span>Duration:</span>
+                            <b>{appointmentData.consultantDuration} mins</b>
+                          </li>
+                          <li>
+                            <span>Discount:</span>
+                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                          </li>
+                          <li>
+                            <span>Total:</span>
+                            <b>
+                              ₹{" "}
+                              {discountPrice || appointmentData.consultantFees}
+                            </b>
+                          </li>
+                        </ul>
+                      </>
+                    ) : (
+                      <p>No appointment data available.</p>
+                    )}
+
+                    {/* Payment Button */}
                     <div className="btnbox mt-4 text-center">
                       <button
                         className="btn btn-primary max-width hvr-shutter-out-horizontal"
