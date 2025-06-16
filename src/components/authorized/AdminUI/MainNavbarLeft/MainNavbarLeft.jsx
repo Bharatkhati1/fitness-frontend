@@ -25,7 +25,15 @@ const NavItems = [
   },
   { id: 5, name: "Success Story", path: "success-stories" },
   { id: 6, name: "Team Management", path: "team-management" },
-  { id: 7, name: "Consultant", path: "consultants" },
+  {
+    id: 7,
+    name: "Consultant",
+    path: "consultants",
+    subMenu: [
+      { name: "Manage Consultant", path: "manage" },
+      { name: "Manage Leaves", path: "leaves" },
+    ],
+  },
   {
     id: 8,
     name: "Smart Kitchen",
