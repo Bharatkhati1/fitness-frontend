@@ -5,8 +5,7 @@ import PageLoader from "../PageLoader";
 import "./unAuthorized.scss";
 import { Login } from "../../store/auth/AuthExtraReducers";
 
-const AdminLogin = () => {
-  
+const AdminLogin = ({type}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const disableLoginButton = useSelector(

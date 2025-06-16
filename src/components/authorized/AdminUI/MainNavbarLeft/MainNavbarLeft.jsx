@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../../../public/assets/img/footerLogo.png";
+import { useSelector } from "react-redux";
 
 const NavItems = [
   { id: 1, name: "Slider Management", path: "slider-management" },
@@ -104,6 +105,7 @@ const NavItems = [
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
+  const { type="admin" } =  useSelector((state) => state.auth);
 
   return (
     <div className="main-nav">
@@ -124,8 +126,8 @@ const MainNavbarLeft = () => {
                 <Link
                   to={
                     item.subMenu
-                      ? `/admin/${item.path}/${item.subMenu[0].path}`
-                      : `/admin/${item.path}`
+                      ? `/${type}/${item.path}/${item.subMenu[0].path}`
+                      : `/${type}/${item.path}`
                   }
                   className={`nav-link ${isParentActive ? "active" : ""}`}
                 >
@@ -148,7 +150,7 @@ const MainNavbarLeft = () => {
                             key={index}
                           >
                             <Link
-                              to={`/admin/${item.path}/${sub.path}`}
+                              to={`/${type}/${item.path}/${sub.path}`}
                               className={`sub-nav-link ${
                                 isSubActive ? "active" : ""
                               }`}

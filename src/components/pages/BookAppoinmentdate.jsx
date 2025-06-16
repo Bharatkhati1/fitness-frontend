@@ -7,16 +7,18 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import userAxios from "../../utils/Api/userAxios";
 import { useSelector } from "react-redux";
 
-function BookAppoinmentdate({ consultant , packageId }) {
+function BookAppoinmentdate({ consultant, packageId, isFollowUp }) {
   const { encodedId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
   });
   const [selectedSlot, setSelectedSlot] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [bookingId, setBookingId] = useState("");
+  const [isfollowUpDiscountApplied, setIsFollowUpDiscountApplied] =
+    useState(null);
   const [slots, setSlots] = useState([]);
 
   let id = "";
@@ -88,17 +90,21 @@ function BookAppoinmentdate({ consultant , packageId }) {
       toast.error("Please fill all required fields");
       return;
     }
+    const fees = isfollowUpDiscountApplied
+      ? consultant?.fees - isfollowUpDiscountApplied
+      : consultant?.fees;
     const appointmentData = {
-      packageId:  packageId,
+      packageId: packageId,
       consultantId: consultant?.id,
       consultantName: consultant?.name,
       consultantImage: consultant?.image_url,
       consultantExpertise: consultant?.expertise,
       consultantExperience: consultant?.experience,
-      consultantFees: consultant?.fees,
-      bookingCharge: consultant?.fees,
+      consultantFees: fees,
+      bookingCharge: fees,
       consultantDuration: consultant?.duration,
       selectedDate,
+      isFollowUp,
       startTime: selectedSlot?.start,
       endTime: selectedSlot?.end,
       date: selectedDate,
@@ -109,12 +115,32 @@ function BookAppoinmentdate({ consultant , packageId }) {
         phone: user.phone,
       },
     };
-  
+
     localStorage.setItem("appointmentData", JSON.stringify(appointmentData));
     navigate("/checkout/appointment");
   };
-  
 
+  const validateBookingid = async () => {
+    try {
+      const res = await userAxios.post(
+        userApiRoutes.check_previous_booking_id,
+        {
+          previousBookingId: bookingId,
+          consultantId: consultant?.id,
+        }
+      );
+      if (res.data.data) {
+        toast.success("Follow up descount applied.");
+        setIsFollowUpDiscountApplied(res.data?.data?.followUpDiscount);
+      } else {
+        toast.info(res.data.message);
+        setIsFollowUpDiscountApplied(null)
+      }
+    } catch (error) {
+      toast.error(error.response.data.error);
+      setIsFollowUpDiscountApplied(null)
+    }
+  };
   const fetchAvailibilitySlots = async (id) => {
     try {
       const res = await userAxios.get(
@@ -156,7 +182,17 @@ function BookAppoinmentdate({ consultant , packageId }) {
 
             <div className="apdinfo d-flex justify-content-between align-items-center">
               <div className="pricetime">
-                ₹ {consultant?.fees || 0} | {consultant?.duration || 15} min
+                {isfollowUpDiscountApplied && consultant?.fees ? (
+                  <>
+                    <del style={{ color: "orange" }}>₹ {consultant.fees}</del>{" "}
+                    &nbsp; ₹ {consultant.fees - isfollowUpDiscountApplied} |{" "}
+                    {consultant.duration || 15} min
+                  </>
+                ) : (
+                  <>
+                    ₹ {consultant?.fees || 0} | {consultant?.duration || 15} min
+                  </>
+                )}
               </div>
 
               <div className="appoinmentsdetails">
@@ -178,6 +214,28 @@ function BookAppoinmentdate({ consultant , packageId }) {
               <div className="col-md-6 slotdateboxleft">
                 <h4 className="slottitle">Please select a date:</h4>
                 <Calender onDateSelect={setSelectedDate} />
+                {isFollowUp && (
+                  <div className="provideContactinfo mt-4">
+                    <h4 className="slottitle">
+                      Please provide your booking id:
+                    </h4>
+                    <div className="contactInput d-flex gap-2">
+                      <input
+                        placeholder="Enter your booking id"
+                        className="form-control"
+                        type="text"
+                        value={bookingId}
+                        onChange={(e) => setBookingId(e.target.value)}
+                      />
+                      <button
+                        onClick={() => validateBookingid()}
+                        className="btn btn-primary  hvr-shutter-out-horizontal"
+                      >
+                        check
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="col-md-6 slotdateboxright">
@@ -188,7 +246,11 @@ function BookAppoinmentdate({ consultant , packageId }) {
                     <li
                       key={slot.start}
                       className={`
-                         ${selectedSlot?.start === slot.start ? "slottimeactive" : ""}
+                         ${
+                           selectedSlot?.start === slot.start
+                             ? "slottimeactive"
+                             : ""
+                         }
                          ${slot.status === "booked" ? "booked-slot" : ""}
                        `}
                       onClick={() =>

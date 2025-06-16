@@ -135,7 +135,6 @@ export default function AddToBag() {
               buttonText: "Back to Home",
               redirectUrl: "/",
             });
-  
             setIsPaymentSuccessfull(true);
             fetchCartitems();
           } catch (err) {
@@ -414,7 +413,7 @@ export default function AddToBag() {
                         </ul>
 
                         {/* Coupon for Appointment */}
-                        {renderCouponBox()}
+                        {!appointmentData.isFollowUp && renderCouponBox()}
 
                         <ul className="Pricebrnkdownlist mt-3">
                           <li>
@@ -425,10 +424,10 @@ export default function AddToBag() {
                             <span>Duration:</span>
                             <b>{appointmentData.consultantDuration} mins</b>
                           </li>
-                          <li>
+                         { !appointmentData.isFollowUp &&<li>
                             <span>Discount:</span>
                             <b className="red-text ">- ₹{discountGet || 0}</b>
-                          </li>
+                          </li>}
                           <li>
                             <span>Total:</span>
                             <b>

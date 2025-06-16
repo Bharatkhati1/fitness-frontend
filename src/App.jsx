@@ -34,10 +34,10 @@ const ProtectedRoute = ({
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isCheckingToken, isLoggedIn, userAccessToken, adminAccessToken } =
+  const { isCheckingToken, type="admin", isLoggedIn, userAccessToken, adminAccessToken } =
     useSelector((state) => state.auth);
   const { pathname } = useLocation();
-  const isAdmin = pathname.includes("/admin");
+  const isAdmin = pathname.includes(`/${type}`);
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
@@ -45,11 +45,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getAccessToken(isAdmin));
-  }, [dispatch, isAdmin]);
+  }, [dispatch, type, isAdmin]);
 
   useEffect(() => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
-    // userAxios
   }, [isCheckingToken]);
 
   if (isCheckingToken) return <PageLoader />;
@@ -58,7 +57,12 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLogin type="admin" />} />
+          <Route path="/partner" element={<AdminLogin type="partner" />} />
+          <Route
+            path="/consultant"
+            element={<AdminLogin type="consultant" />}
+          />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/login-user" element={<LoginUser />} />
           <Route path="/SignUpUser" element={<SignUpUser />} />
@@ -66,10 +70,6 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="SiteMap" element={<SiteMap />} />
-    
-          {/* <Route path="UpcomigDetails" element={<UpcomigDetails/>} /> */}
-          {/* <Route path="Innovation" element={<Innovation/>} /> */}
-
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
@@ -87,7 +87,7 @@ const App = () => {
           <Route path="/login-user" element={<LoginUser />} />
         )}
         <Route
-          path="/admin/*"
+          path={`/${type}/*`}
           element={
             <ProtectedRoute condition={isAdminLogined} redirectTo="/">
               <AdminRoutes />

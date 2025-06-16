@@ -8,11 +8,13 @@ import "./package.scss";
 import { Select } from "antd";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { Option } = Select;
 
 const CreateUpdatePackage = () => {
   const navigate = useNavigate();
+  const { type = "admin" } = useSelector((state) => state.auth);
   const location = useLocation();
   const [packageName, setPackageName] = useState("");
   const [packageDesc, setPackageDesc] = useState("");
@@ -152,7 +154,7 @@ const CreateUpdatePackage = () => {
           isLoading: false,
           autoClose: 3000,
         });
-        navigate("/admin/service-management/packages");
+        navigate(`/${type}/service-management/packages`);
       } else {
         toast.error(response.data.message);
       }
@@ -332,7 +334,7 @@ const CreateUpdatePackage = () => {
   return (
     <>
       <div className="add-package-btn">
-        <Link to="/admin/service-management/packages">View Package</Link>
+        <Link to={`/${type}/service-management/packages`}>View Package</Link>
       </div>
       <div className="row">
         <div className="col-lg-12">

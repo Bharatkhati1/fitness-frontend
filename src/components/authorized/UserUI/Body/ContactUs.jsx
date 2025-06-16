@@ -50,11 +50,7 @@ function ContactUs() {
       contactFor: formData.contactFor.join(", "),
       type:"inquiry"
     };
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      toast.error("Please enter a valid 10-digit phone number");
-      return;
-    }
+
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -181,7 +177,7 @@ function ContactUs() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label>Contact Number*</label>
+                    <label>Contact Number</label>
                     <div className="contactInput">
                       <span className="greyin">+91</span>
                       <input

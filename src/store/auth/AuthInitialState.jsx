@@ -15,4 +15,5 @@ export const initialState = {
   allPackages:[],
   contactUsDetails:{},
   cartItems:[],
+  type:"admin",
 };

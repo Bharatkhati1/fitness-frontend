@@ -20,8 +20,10 @@ import PartnersManagement from "../authorized/AdminUI/Partners";
 import Careers from "../authorized/AdminUI/Careers/Careers";
 import EventManagement from "../authorized/AdminUI/Events/index"
 import Coupon from "../authorized/AdminUI/Coupons/Coupon";
+import { useSelector } from "react-redux";
 
 export default function AdminRoutes() {
+  const { type="admin" } = useSelector((state) => state.auth);
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
@@ -45,7 +47,7 @@ export default function AdminRoutes() {
           <Route path="coupon" element={<Coupon />} />
           <Route path="inquiries/*" element={<InquiresMain/>} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
-          <Route path="*" element={<Navigate replace to="/admin/slider-management" />} />
+          <Route path="*" element={<Navigate replace to={`/${type}/slider-management`} />} />
         </Route>
       </Routes>
     </Suspense>
