@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PageLoader from "../PageLoader";
 import "./unAuthorized.scss";
+import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import { Login } from "../../store/auth/AuthExtraReducers";
 
-const AdminLogin = ({type}) => {
+const AdminLogin = ({ type }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const disableLoginButton = useSelector(
     (state) => state.auth.disableLoginButton
   );
-
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -77,13 +78,11 @@ const AdminLogin = ({type}) => {
                           />
                         </a>
                       </div>
-
                       <h2 className="fw-bold fs-24">Sign In</h2>
                       <p className="text-muted mt-1 mb-4">
                         Enter your email address and password to access admin
                         panel.
                       </p>
-
                       <div className="mb-5">
                         <form
                           className="authentication-form"
@@ -113,7 +112,6 @@ const AdminLogin = ({type}) => {
                               </div>
                             )}
                           </div>
-
                           <div className="mb-3">
                             <label
                               className="form-label"
@@ -121,17 +119,29 @@ const AdminLogin = ({type}) => {
                             >
                               Password
                             </label>
-                            <input
-                              type="password"
-                              id="example-password"
-                              name="password"
-                              className={`form-control ${
-                                errors.password ? "is-invalid" : ""
-                              }`}
-                              placeholder="Enter your password"
-                              value={formData.password}
-                              onChange={handleChange}
-                            />
+                            <div className="withIcon">
+                              <input
+                                type={showPassword ? "text" : "password"}
+                                id="example-password"
+                                name="password"
+                                className={`form-control ${
+                                  errors.password ? "is-invalid" : ""
+                                }`}
+                                placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={handleChange}
+                              />
+                              <span
+                                className="EyeIcon"
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <img
+                                  src={EyeIcon}
+                                  alt="Toggle password visibility"
+                                />
+                              </span>
+                            </div>
                             {errors.password && (
                               <div className="invalid-feedback">
                                 {errors.password}

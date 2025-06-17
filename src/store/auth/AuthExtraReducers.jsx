@@ -37,6 +37,7 @@ export const Login = (userData, navigate, userType, isAdmin = false) => {
             user: { ...data?.user },
           })
         );
+        dispatch(authActions.setType(data.user.userType))
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
       } else {
@@ -53,7 +54,7 @@ export const Login = (userData, navigate, userType, isAdmin = false) => {
       localStorage.setItem("isAdmin", isAdmin);
       dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(isAdmin ? "/admin/slider-management" : "/", {
+      navigate(isAdmin ? `/${userType}/slider-management` : "/", {
         replace: true,
       });
     } catch (error) {
@@ -86,6 +87,7 @@ export const getAccessToken = (isAdmin) => {
           })
         );
         localStorage.setItem("isAdmin", isAdmin);
+        dispatch(authActions.setType(data.user.userType))
         dispatch(authActions.checkingUserToken(false));
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
@@ -149,7 +151,7 @@ export const logoutUser = (isUser) => {
         window.open("/login-user", "_self", false);
       } else {
         localStorage.removeItem("isAdmin");
-        window.open("/admin", "_self", false);
+        window.open("/", "_self", false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
