@@ -7,6 +7,7 @@ const CouponList = () => {
   const [partnerCoupons, setPartnerCoupons] = useState([]);
   const fetchPartnerCoupons = async () => {
     try {
+     
       const res = await adminAxios.get(adminApiRoutes.get_partner_coupon);
       setPartnerCoupons(res.data.data);
     } catch (error) {

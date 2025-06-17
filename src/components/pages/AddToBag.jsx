@@ -381,7 +381,7 @@ export default function AddToBag() {
                           </li>
                           <li>
                             <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
                           </li>
                           <li>
                             <span>Total:</span>
@@ -433,9 +433,9 @@ export default function AddToBag() {
                             <span>Duration:</span>
                             <b>{appointmentData.consultantDuration} mins</b>
                           </li>
-                         { !appointmentData.isFollowUp &&<li>
+                         {!appointmentData.isFollowUp &&<li>
                             <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
                           </li>}
                           <li>
                             <span>Total:</span>
