@@ -256,6 +256,25 @@ export default function Events() {
                 merge={true}
                 nav={true}
                 margin={25}
+
+                 responsive={{
+                    0: {
+                      items: 1, // 0px and up
+                    },
+                    481: {
+                      items: 1, // 0px and up
+                    },
+                    768: {
+                      items: 2, // 600px and up
+                    },
+                    992: {
+                      items: 2, // 600px and up
+                    },
+                    1200: {
+                      items: 2, // 1000px and up
+                    },
+                  }}
+                
               >
                 {upcomingEvents.map((event) => (
                   <div className="item">
@@ -356,6 +375,23 @@ export default function Events() {
                     onChanged={(e) => {
                       carouselRef.current = e.item.index;
                     }}
+                       responsive={{
+                    0: {
+                      items: 1, // 0px and up
+                    },
+                    481: {
+                      items: 1, // 0px and up
+                    },
+                    768: {
+                      items: 3, // 600px and up
+                    },
+                    992: {
+                      items: 3, // 600px and up
+                    },
+                    1200: {
+                      items: 3, // 1000px and up
+                    },
+                  }}
                   >
                     {pastevents.map((event) => (
                       <div className="item">
@@ -389,7 +425,7 @@ export default function Events() {
             <h2>Why Attend Our Events ?</h2>
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col col-sm-6">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy1}></img>
@@ -400,7 +436,7 @@ export default function Events() {
                 <h4>Stay updated with expert insights</h4>
               </div>
             </div>
-            <div className="col">
+            <div className="col col-sm-6">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy2}></img>
@@ -411,7 +447,7 @@ export default function Events() {
                 <h4>Learn new fitness strategies</h4>
               </div>
             </div>
-            <div className="col">
+            <div className="col col-sm-6">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy3}></img>
@@ -422,7 +458,7 @@ export default function Events() {
                 <h4>Connect with like-minded individuals</h4>
               </div>
             </div>
-            <div className="col">
+            <div className="col col-sm-6">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy4}></img>
@@ -449,6 +485,26 @@ export default function Events() {
               items={4}
               nav={true}
               margin={10}
+
+               responsive={{
+                    0: {
+                      items: 1, // 0px and up
+                    },
+                    481: {
+                      items: 1, // 0px and up
+                    },
+                    768: {
+                      items: 2, // 600px and up
+                    },
+                    992: {
+                      items: 3, // 600px and up
+                    },
+                    1200: {
+                      items: 3, // 1000px and up
+                    },
+              }}
+
+              
             >
               {eventType.map((type) => (
                 <div className="item">

@@ -213,7 +213,7 @@ function BusinessParthner() {
             <div className="medicalpartners">
               {category?.Partners && category.Partners.length > 0 && (
                 <>
-                  {" "}
+                 
                   <div class="PageTitle text-center">
                     <h2>{category.name}</h2>
                   </div>
@@ -224,6 +224,23 @@ function BusinessParthner() {
                     merge={true}
                     nav={true}
                     margin={30}
+                          responsive={{
+                    0: {
+                      items: 1, // 0px and up
+                    },
+                    481: {
+                      items: 1, // 0px and up
+                    },
+                    768: {
+                      items: 2, // 600px and up
+                    },
+                    992: {
+                      items: 3, // 600px and up
+                    },
+                    1200: {
+                      items: 3, // 1000px and up
+                    },
+              }}
                   >
                     {category.Partners.map((ptr) => (
                       <>
