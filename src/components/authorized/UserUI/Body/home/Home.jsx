@@ -538,7 +538,7 @@ function Home() {
               to={"/smart-kitchen"}
               className="btn btn-info hvr-shutter-out-horizontal"
             >
-              View More
+              Explore more such Recipes
             </Link>
           </div>
         </div>
@@ -833,7 +833,7 @@ function Home() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label>Contact Number*</label>
+                    <label>Contact Number</label>
                     <div className="contactInput">
                       <span>+91</span>
                       <input

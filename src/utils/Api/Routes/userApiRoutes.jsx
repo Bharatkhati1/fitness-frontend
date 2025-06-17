@@ -84,7 +84,9 @@ const userApiRoutes = {
   get_past_events:`/past-events`,
   get_event_detail:(slug)=>`/event-detail/${slug}`,
 
-  apply_job:`/apply-now`
+  apply_job:`/apply-now`,
+
+  check_previous_booking_id:`/check-previous-booking`
   
 };
 

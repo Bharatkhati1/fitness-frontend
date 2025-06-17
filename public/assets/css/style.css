@@ -5147,3 +5147,14 @@ ul.sitelistinner li a {
     cursor: pointer;
     color: #06c;
 }
+
+.imgcard img {
+  height: 465px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.imgsmcard img {
+  height: 230px;
+  object-fit: cover;
+}

@@ -41,4 +41,7 @@ export const reducers = {
   setCartItems(state, action) {
     state.cartItems = action.payload;
   },
+  setType(state, action) {
+    state.type = action.payload;
+  },
 };

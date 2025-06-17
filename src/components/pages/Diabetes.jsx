@@ -37,6 +37,7 @@ function PackageDetails() {
       dispatch(authActions.setCartItems(res?.data?.data));
     } catch (error) {
       console.log(error)
+      dispatch(authActions.setCartItems([]))
       toast.error(error.response.data.error);
     }
   };
@@ -51,8 +52,13 @@ function PackageDetails() {
       return;
     }
     dispatch(AddToCart(plainId))
-    fetchCartitems()
+    setTimeout(() => {
+      fetchCartitems()
+    }, 700);
   };
+  useEffect(()=>{
+    fetchCartitems()
+  },[])
   return (
     <>
       <section className="Diabetespage InnerpageSpace pb-0">

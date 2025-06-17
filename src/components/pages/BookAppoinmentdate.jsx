@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import fulldocterImg from "../../../public/assets/img/fulldocterImg.png";
 import Calender from "../authorized/UserUI/Calender";
@@ -7,15 +7,18 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import userAxios from "../../utils/Api/userAxios";
 import { useSelector } from "react-redux";
 
-function BookAppoinmentdate({ consultant }) {
+function BookAppoinmentdate({ consultant, packageId, isFollowUp }) {
   const { encodedId } = useParams();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
   });
   const [selectedSlot, setSelectedSlot] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [bookingId, setBookingId] = useState("");
+  const [isfollowUpDiscountApplied, setIsFollowUpDiscountApplied] =
+    useState(null);
   const [slots, setSlots] = useState([]);
 
   let id = "";
@@ -25,63 +28,119 @@ function BookAppoinmentdate({ consultant }) {
     toast.error("Invalid consultant ID");
   }
 
-  const handleAppointment = async () => {
-    if (!selectedDate || !selectedSlot ) {
+  // const handleAppointment = async () => {
+  //   if (!selectedDate || !selectedSlot ) {
+  //     toast.error("Please fill all required fields");
+  //     return;
+  //   }
+  //   try {
+  //     const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
+  //       amount: consultant?.fees,
+  //     });
+
+  //     const { orderId, amount, currency } = res.data.data;
+  //     const options = {
+  //       key: "rzp_test_ENoX7bkuXjQBZc",
+  //       amount,
+  //       currency,
+  //       name: "Consultant booking",
+  //       description: "",
+  //       image: "/assets/img/logo.png",
+  //       order_id: orderId,
+  //       handler: async function (response) {
+  //         try {
+  //           const payload = {
+  //             consultantId: consultant.id,
+  //             consultantName: consultant?.name,
+  //             date: selectedDate,
+  //             startTime: selectedSlot?.start,
+  //             endTime: selectedSlot?.end,
+  //             razorpay_order_id: response.razorpay_order_id,
+  //             razorpay_payment_id: response.razorpay_payment_id,
+  //             razorpay_signature: response.razorpay_signature,
+  //           };
+  //           await userAxios.post(userApiRoutes.appointment_booking, payload);
+  //           toast.success("Booking successful!");
+  //           fetchAvailibilitySlots(consultant?.id)
+  //         } catch (err) {
+  //           console.log("verification err", err);
+  //           toast.error("Payment verification failed!");
+  //         }
+  //       },
+  //       prefill: {
+  //         name: `${user.firstName} ${user.lastName}`,
+  //         email: user.email,
+  //         contact: user.phone,
+  //       },
+  //       theme: {
+  //         color: "#528FF0",
+  //       },
+  //     };
+
+  //     const razor = new window.Razorpay(options);
+  //     razor.open();
+  //   } catch (error) {
+  //     console.log("last error", error);
+  //     toast.error(error.response?.data?.error || "Payment initiation failed!");
+  //   }
+  // };
+
+  const handleAppointment = () => {
+    if (!selectedDate || !selectedSlot) {
       toast.error("Please fill all required fields");
       return;
     }
-    try {
-      const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
-        amount: consultant?.fees,
-      });
+    const fees = isfollowUpDiscountApplied
+      ? consultant?.fees - isfollowUpDiscountApplied
+      : consultant?.fees;
+    const appointmentData = {
+      packageId: packageId,
+      consultantId: consultant?.id,
+      consultantName: consultant?.name,
+      consultantImage: consultant?.image_url,
+      consultantExpertise: consultant?.expertise,
+      consultantExperience: consultant?.experience,
+      consultantFees: fees,
+      bookingCharge: fees,
+      consultantDuration: consultant?.duration,
+      selectedDate,
+      isFollowUp,
+      startTime: selectedSlot?.start,
+      endTime: selectedSlot?.end,
+      date: selectedDate,
+      selectedSlot,
+      user: {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        phone: user.phone,
+      },
+    };
 
-      const { orderId, amount, currency } = res.data.data;
-      const options = {
-        key: "rzp_test_ENoX7bkuXjQBZc",
-        amount,
-        currency,
-        name: "Consultant booking",
-        description: "",
-        image: "/assets/img/logo.png",
-        order_id: orderId,
-        handler: async function (response) {
-          try {
-            const payload = {
-              consultantId: consultant.id,
-              consultantName: consultant?.name,
-              date: selectedDate,
-              startTime: selectedSlot?.start,
-              endTime: selectedSlot?.end,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            };
-            await userAxios.post(userApiRoutes.appointment_booking, payload);
-            toast.success("Booking successful!");
-            fetchAvailibilitySlots(consultant?.id)
-          } catch (err) {
-            console.log("verification err", err);
-            toast.error("Payment verification failed!");
-          }
-        },
-        prefill: {
-          name: `${user.firstName} ${user.lastName}`,
-          email: user.email,
-          contact: user.phone,
-        },
-        theme: {
-          color: "#528FF0",
-        },
-      };
-
-      const razor = new window.Razorpay(options);
-      razor.open();
-    } catch (error) {
-      console.log("last error", error);
-      toast.error(error.response?.data?.error || "Payment initiation failed!");
-    }
+    localStorage.setItem("appointmentData", JSON.stringify(appointmentData));
+    navigate("/checkout/appointment");
   };
 
+  const validateBookingid = async () => {
+    try {
+      const res = await userAxios.post(
+        userApiRoutes.check_previous_booking_id,
+        {
+          previousBookingId: bookingId,
+          consultantId: consultant?.id,
+        }
+      );
+      if (res.data.data) {
+        toast.success("Follow up descount applied.");
+        setIsFollowUpDiscountApplied(res.data?.data?.followUpDiscount);
+      } else {
+        toast.info(res.data.message);
+        setIsFollowUpDiscountApplied(null)
+      }
+    } catch (error) {
+      toast.error(error.response.data.error);
+      setIsFollowUpDiscountApplied(null)
+    }
+  };
   const fetchAvailibilitySlots = async (id) => {
     try {
       const res = await userAxios.get(
@@ -123,7 +182,17 @@ function BookAppoinmentdate({ consultant }) {
 
             <div className="apdinfo d-flex justify-content-between align-items-center">
               <div className="pricetime">
-                ₹ {consultant?.fees || 0} | {consultant?.duration || 15} min
+                {isfollowUpDiscountApplied && consultant?.fees ? (
+                  <>
+                    <del style={{ color: "orange" }}>₹ {consultant.fees}</del>{" "}
+                    &nbsp; ₹ {consultant.fees - isfollowUpDiscountApplied} |{" "}
+                    {consultant.duration || 15} min
+                  </>
+                ) : (
+                  <>
+                    ₹ {consultant?.fees || 0} | {consultant?.duration || 15} min
+                  </>
+                )}
               </div>
 
               <div className="appoinmentsdetails">
@@ -145,23 +214,28 @@ function BookAppoinmentdate({ consultant }) {
               <div className="col-md-6 slotdateboxleft">
                 <h4 className="slottitle">Please select a date:</h4>
                 <Calender onDateSelect={setSelectedDate} />
-
-                {/* <div className="provideContactinfo mt-4">
-                  <h4 className="slottitle">
-                    Please provide your contact number:
-                  </h4>
-
-                  <div className="contactInput">
-                    <span>+91</span>
-                    <input
-                      placeholder="Enter your contact number"
-                      className="form-control"
-                      type="text"
-                      value={contactNumber}
-                      onChange={(e) => setContactNumber(e.target.value)}
-                    />
+                {isFollowUp && (
+                  <div className="provideContactinfo mt-4">
+                    <h4 className="slottitle">
+                      Please provide your booking id:
+                    </h4>
+                    <div className="contactInput d-flex gap-2">
+                      <input
+                        placeholder="Enter your booking id"
+                        className="form-control"
+                        type="text"
+                        value={bookingId}
+                        onChange={(e) => setBookingId(e.target.value)}
+                      />
+                      <button
+                        onClick={() => validateBookingid()}
+                        className="btn btn-primary  hvr-shutter-out-horizontal"
+                      >
+                        check
+                      </button>
+                    </div>
                   </div>
-                </div> */}
+                )}
               </div>
 
               <div className="col-md-6 slotdateboxright">
@@ -172,7 +246,11 @@ function BookAppoinmentdate({ consultant }) {
                     <li
                       key={slot.start}
                       className={`
-                         ${selectedSlot?.start === slot.start ? "slottimeactive" : ""}
+                         ${
+                           selectedSlot?.start === slot.start
+                             ? "slottimeactive"
+                             : ""
+                         }
                          ${slot.status === "booked" ? "booked-slot" : ""}
                        `}
                       onClick={() =>

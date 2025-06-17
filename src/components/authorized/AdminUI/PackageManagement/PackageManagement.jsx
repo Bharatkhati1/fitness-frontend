@@ -5,9 +5,11 @@ import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
+import { useSelector } from "react-redux";
 
 const PackageManagement = () => {
   const navigate = useNavigate();
+  const { type = "admin" } = useSelector((state) => state.auth);
   const [packages, setPackage] = useState([]);
   const [selectedPackageId, setSelectedPackageId] = useState(null);
     const [filterPackages, setFilterPackages] = useState([]);
@@ -52,7 +54,7 @@ const PackageManagement = () => {
   return (
     <>
       <div className="add-package-btn">
-        <Link to="/admin/service-management/create-update-package">
+        <Link to={`/${type}/service-management/create-update-package`}>
           + Add Package
         </Link>
       </div>
@@ -133,7 +135,7 @@ const PackageManagement = () => {
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() =>
                                   navigate(
-                                    `/admin/service-management/create-update-package?id=${item.id}&isEdit=true`
+                                    `/${type}/service-management/create-update-package?id=${item.id}&isEdit=true`
                                   )
                                 }
                               >

@@ -9,6 +9,7 @@ function BookAppoinment() {
   const { encodedId, type } = useParams();
   const [details, setDetails] = useState([]);
   const [selectedConsultant, setSelectedConsultant] = useState(null);
+  const [isFollowUp, setIsFollowUp] = useState(false);
 
   useEffect(() => {
     if (!encodedId) return;
@@ -40,7 +41,14 @@ function BookAppoinment() {
   }, [encodedId]);
 
   if (selectedConsultant) {
-    return <BookAppoinmentdate consultant={selectedConsultant} />;
+    const packageId = atob(encodedId);
+    return (
+      <BookAppoinmentdate
+        isFollowUp={isFollowUp}
+        consultant={selectedConsultant}
+        packageId={packageId}
+      />
+    );
   }
   return (
     <>
@@ -90,13 +98,23 @@ function BookAppoinment() {
                     <div className="bookappoinmentbody">
                       <h5>Overview:</h5>
                       <p>{cons?.description}</p>
-
-                      <a
-                        onClick={() => setSelectedConsultant(cons)}
-                        className="btn btn-primary max-width mt-2 hvr-shutter-out-horizontal"
-                      >
-                        make an appointment
-                      </a>
+                      <div className="d-flex justify-content-start gap-3">
+                        <a
+                          onClick={() => setSelectedConsultant(cons)}
+                          className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
+                        >
+                          make an appointment
+                        </a>
+                        <a
+                          onClick={() => {
+                            setIsFollowUp(true);
+                            setSelectedConsultant(cons);
+                          }}
+                          className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
+                        >
+                          Follow up
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import adminAxios from '../../../../utils/Api/adminAxios';
 import adminApiRoutes from '../../../../utils/Api/Routes/adminApiRoutes';
+import { Link } from 'react-router-dom';
 
 const AppliedJobs = () => {
   const [appliedJobs, setAppliedJobs] = useState([]);
@@ -30,11 +31,11 @@ const AppliedJobs = () => {
               <thead className="bg-light-subtle">
                 <tr>
                   <th>Id</th>
-                  <th>Image</th>
-                  <th>Title</th>
-                  <th>Short Description</th>
-                  <th>Category</th>
-                  <th>Status</th>
+                  <th>Resume</th>
+                  <th>Name</th>
+                  <th>DOB</th>
+                  <th>role</th>
+                  <th>date</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,9 +44,9 @@ const AppliedJobs = () => {
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td>
-                        <Link to={item.image_url} target="_blank">
+                        {item?.resume_url.length>0 ?<Link to={item.resume_url} target="_blank">
                           <img
-                            src={item.image_url}
+                            src={item.resume_url}
                             alt="Article"
                             crossOrigin="anonymous"
                             style={{
@@ -57,27 +58,17 @@ const AppliedJobs = () => {
                             onError={(e) =>
                               console.error(
                                 "Failed to load image:",
-                                item.image_url
+                                item.resume_url
                               )
                             }
                           />
-                        </Link>
+                        </Link>:"N/A"}
                       </td>
-                      <td>{item.title}</td>
-                      <td
-                        dangerouslySetInnerHTML={{
-                          __html: item.shortDescription,
-                        }}
-                      />
-                      <td>{item?.Master?.name}</td>
+                      <td>{item.name}</td>
+                      <td>{item.dob}</td>
+                      <td>{item?.role}</td>
                       <td>
-                        <span
-                          className={`badge ${
-                            item.isActive ? "bg-success" : "bg-danger"
-                          }`}
-                        >
-                          {item.isActive ? "Active" : "Inactive"}
-                        </span>
+                      {new Date(item?.createdAt).toLocaleDateString()}
                       </td>
                     </tr>
                   ))

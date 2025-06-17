@@ -28,6 +28,7 @@ import Careers from "../pages/Careers";
 import Events from "../pages/Events";
 import UpcomigDetails from "../pages/UpcomigDetails";
 import Innovation from "../pages/Innovation";
+import CartBag from "../pages/CartBag";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -76,6 +77,17 @@ export default function UserRoutes() {
              {/* Protect routes  */}
             <Route
               path="/cart"
+              element={
+                <ProtectedRoute
+                  condition={userAccessToken.length > 0}
+                  redirectTo="/"
+                >
+                  <CartBag />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/checkout/:type"
               element={
                 <ProtectedRoute
                   condition={userAccessToken.length > 0}
