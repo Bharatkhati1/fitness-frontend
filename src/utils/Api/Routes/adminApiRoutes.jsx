@@ -117,6 +117,11 @@ const adminApiRoutes = {
   //USER HANDLE ROUTES
   get_all_users: `/users`,
   update_status: (id) => `/users/${id}`,
+
+  //PARTNER COMPONENT ROUTES
+  get_partner_coupon:`/partner-coupons`,
+  get_coupon_usage:`/partner-coupon-usage`,
+  partner_payment_history:`/partner-payment-history`
 };
 
 export default adminApiRoutes;

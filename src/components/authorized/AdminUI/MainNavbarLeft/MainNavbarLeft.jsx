@@ -125,7 +125,15 @@ const NavItems = {
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
-  const { type = "admin" } = useSelector((state) => state.auth);
+  
+  let type = ""
+  if(pathname.includes("/admin")){
+    type = "admin"
+  }else if(pathname.includes("/partner")){
+    type = "partner"
+  }else{
+    type="consultant"
+  }
 
   return (
     <div className="main-nav">

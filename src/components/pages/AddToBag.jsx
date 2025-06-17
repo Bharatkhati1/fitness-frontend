@@ -101,16 +101,14 @@ export default function AddToBag() {
         image: "/assets/img/logo.png",
         order_id: orderId,
         handler: async function (response) {
+          const toastId = toast.loading("Please wait...");
           try {
-            const toastId = toast.loading("Please wait...");
             if (type === "cart") {
               await userAxios.post(userApiRoutes.cart_checkout, {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                couponAppliedId:appliedCouponDetails?.couponAppliedId,
-                packageId:"",
-                coupon: discountPrice ? coupon : undefined,
+                couponCode: discountPrice ? coupon : undefined,
               });
             } else {
               const payload = {
@@ -121,7 +119,7 @@ export default function AddToBag() {
                 razorpay_signature: response.razorpay_signature,
                 couponAppliedId:appliedCouponDetails?.couponAppliedId,
                 packageId:appointmentData.packageId,
-                coupon: discountPrice ? coupon : undefined,
+                couponCode: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);
               localStorage.removeItem("appointmentData");
@@ -145,7 +143,12 @@ export default function AddToBag() {
             fetchCartitems();
           } catch (err) {
             console.error(err);
-            toast.error("Payment verification failed!");
+            toast.update(toastId, {
+              render: "Payment verification failed!",
+              type: "error",
+              isLoading: false,
+              autoClose: 3000,
+            });
           }
         },
         prefill: {

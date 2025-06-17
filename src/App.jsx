@@ -42,12 +42,12 @@ const App = () => {
   const dispatch = useDispatch();
   const {
     isCheckingToken,
-    type = "admin",
+    type,
     isLoggedIn,
     userAccessToken,
   } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
-  const isAdmin = pathname.includes(`/${type}`);
+  const isAdmin = pathname.includes(`/admin`||`/partner`||`/consultant`);
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
@@ -99,7 +99,7 @@ const App = () => {
           <Route path="/login-user" element={<LoginUser />} />
         )}
 
-        {type === "admin" && (
+        {pathname.includes(`/admin`) && (
           <Route
             path="/admin/*"
             element={
@@ -110,7 +110,7 @@ const App = () => {
           />
         )}
 
-        {type === "partner" && (
+        {pathname.includes(`/partner`) && (
           <Route
             path="/partner/*"
             element={
@@ -121,7 +121,7 @@ const App = () => {
           />
         )}
 
-        {type === "consultant" && (
+        {pathname.includes(`/consultant`) && (
           <Route
             path="/consultant/*"
             element={
