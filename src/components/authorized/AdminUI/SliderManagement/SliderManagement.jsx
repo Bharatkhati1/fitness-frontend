@@ -147,7 +147,7 @@ const SliderManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="slider-image" className="form-label">
-                      Slider Image {isEdit && ` : ${selectedFileName}`}
+                      Slider Image {isEdit && !sliderImage &&` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"

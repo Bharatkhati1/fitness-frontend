@@ -137,7 +137,7 @@ const TeamManagement = () => {
                   <div className="col-lg-6">
                     <div className="mb-3">
                       <label htmlFor="team-image" className="form-label">
-                        Image {isEdit && ` : ${selectedFileName}`}
+                        Image {isEdit && !memberImage && ` : ${selectedFileName}`}
                       </label>
                       <input
                         type="file"
@@ -312,7 +312,6 @@ const TeamManagement = () => {
                                     setDescription(team.description);
                                     setMemberDesignation(team.position);
                                     setSelectedFileName(team.image)
-                                    setMemberImage(team.image_url);
                                     setStatus(team.isActive);
                                   }}
                                 >

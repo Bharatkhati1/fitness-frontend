@@ -5189,17 +5189,21 @@ ul.sitelistinner li a {
 }
 
 .editprofile {
-    width: 41px;
-    height: 41px;
-    position: absolute;
-    right: 15px;
-    bottom: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(192, 192, 192, 1) 100%);
-    cursor: pointer;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(192, 192, 192, 1) 100%
+  );
+  cursor: pointer;
 }
 
 .CardBbox {
@@ -5259,73 +5263,190 @@ select.form-select {
   color: rgb(0 0 0 / 60%);
 }
 
-
 .pakagesbox {
-    box-shadow: 0 4px 25px rgb(0 0 0 / 25%);
-    border-radius: 10px;
+  box-shadow: 0 4px 25px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .pakagehead {
-    background: #8000300F;
-    padding: 15px 20px;
+  background: #8000300f;
+  padding: 15px 20px;
 }
 
 .pakageheadtitle h4 {
-    font-size: 24px;
-    color: #000000;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 8px !important;
+  font-size: 24px;
+  color: #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px !important;
 }
 
 .pakageheadtitle span {
-    font-size: 16px;
-    color: #800030;
-    text-transform: capitalize;
-    font-weight: 600;
+  font-size: 16px;
+  color: #800030;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 
 .xs-btn {
-    background: #28B77A;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 6px 20px;
-    min-width: 130px;
-    text-align: center;
-    justify-content: center;
-    border-radius: 22px;
-    font-size: 16px;
-    cursor: pointer;
+  background: #28b77a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 6px 20px;
+  min-width: 130px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 22px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .pakagebody {
-    padding: 15px 20px;
+  padding: 15px 20px;
 }
 
 .pakagebody span {
-    font-size: 18px;
-    color: #000000;
-    font-style: italic;
+  font-size: 18px;
+  color: #000000;
+  font-style: italic;
 }
 
 .sx-btn-info {
-    background: #2669B5;
+  background: #2669b5;
 }
 
-.myconsultation  .pakagehead {
-    background: #4CAF5017;
+.myconsultation .pakagehead {
+  background: #4caf5017;
 }
 
 .pakageheadtitle p {
-    font-size: 16px;
-    color: #2A2A2A;
-    font-style: italic;
-    font-weight: 600;
+  font-size: 16px;
+  color: #2a2a2a;
+  font-style: italic;
+  font-weight: 600;
 }
 
 .cardprofile figure img {
-    width: 165px;
-    height: 165px;
-    border-radius: 50%;
+  width: 165px;
+  height: 165px;
+  border-radius: 50%;
+}
+
+.rating li {
+  margin-right: 4px;
+}
+
+.rating {
+  margin-bottom: 15px;
+}
+
+.ratingsbox .pakagebody p {
+  font-size: 14px;
+  color: #1e1e1e;
+  font-style: italic;
+}
+
+.actioninfo a {
+  box-shadow: 0 4px 7px #00000026;
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  border-radius: 5px;
+  justify-content: center;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1e1e;
+  min-width: 125px;
+  cursor: pointer;
+}
+
+.actioninfo img {
+  margin-right: 7px;
+}
+
+.dele-btn {
+  color: #c50900;
+}
+
+.cardfooter span {
+  font-size: 18px;
+  color: #1e1e1eb0;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.ratingsbox .pakagehead {
+  background: #ffc1070f;
+}
+
+.ratingsbox .pakagebody {
+  background: #fafafa;
+}
+
+button.btn.btn-danger {
+  background: #800030;
+}
+
+.contactInput.weightkg span {
+  border-left: 1px solid #e6e6e6;
+  border-right: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.contactInput.weightkg {
+  position: relative;
+}
+
+.contactInput.weightkg input.form-control {
+  padding-right: 60px;
+}
+
+.btn.btn-secondy {
+   background: #800030 !important;
+    border-radius: 10px;
+    min-width: 240px;
+    font-size: 16px;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+table.table tr th {
+  padding: 10px 10px;
+  border-bottom: 1px solid #00000033;
+  font-size: 14px;
+}
+
+table.table tr td {
+  padding: 15px 10px;
+  border-bottom: 1px solid #0000001c;
+  font-size: 14px;
+  color: #000;
+}
+
+.tablebox {
+  background: #fff;
+  padding: 20px 20px;
+  border: 1px solid hsl(0deg 0% 0% / 14.9%);
+  border-radius: 6px;
+}
+
+.tablebox h3 {
+  font-size: 22px;
+  padding: 0px 0 20px;
+  color: #000;
+}
+
+table.table tr:last-child td {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+table.table {
+  margin-bottom: 0;
 }

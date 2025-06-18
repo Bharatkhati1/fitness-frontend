@@ -118,9 +118,17 @@
     font-size: 16px;
   }
 
-  .cardcontent p{font-size: 18px;}
+  .cardcontent p {
+    font-size: 18px;
+  }
 
-  .logoutbtn{font-size: 14px;}
+  .logoutbtn {
+    font-size: 14px;
+  }
+
+  .pakageheadtitle h4 {
+    font-size: 22px;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {

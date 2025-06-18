@@ -133,6 +133,118 @@ function Profile() {
           </div>
 
           <div className="CardBbox mb-4">
+            <div className="cardhead d-flex justify-content-between">
+              <h3>current physical measurements</h3>
+              <a className="btn btn-secondy hvr-shutter-out-horizontal">update measurements</a>
+            </div>
+
+            <div className="Cardbody">
+              <div className="row">
+                <div class="col-md-6">
+                  <label>Weight</label>
+                  <div class="contactInput weightkg">
+                    <input
+                      placeholder="Enter your weight"
+                      class="form-control"
+                      type="number"
+                      value=""
+                      name="phone"
+                    />
+                    <span>kg</span>
+                  </div>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Height</label>
+                  <div class="contactInput weightkg">
+                    <input
+                      placeholder="Enter your height"
+                      class="form-control"
+                      type="number"
+                      value=""
+                      name="phone"
+                    />
+                    <span>cm</span>
+                  </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label>Chest Size</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your chest size (inches/cm)"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Waist Circumference</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your waist size (inches/cm)"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Neck Circumference</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your neck circumference (inches/cm)"
+                    className="form-control"
+                  ></input>
+                </div>
+              </div>
+
+              <div className="tablebox">
+                <h3>Measurement History</h3>
+                <table className="table">
+                  <tr>
+                    <th>Date</th>
+                    <th>Weight(kg)</th>
+                    <th>Height(cm)</th>
+                    <th>Chest(cm)</th>
+                    <th>Waist(cm)</th>
+                    <th>Neck(cm)</th>
+                  </tr>
+
+                  <tr>
+                    <td>Jan 15, 2024</td>
+                    <td>75</td>
+                    <td>175</td>
+                    <td>95</td>
+                    <td>85</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 15, 2024</td>
+                    <td>75</td>
+                    <td>175</td>
+                    <td>95</td>
+                    <td>85</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 15, 2024</td>
+                    <td>75</td>
+                    <td>175</td>
+                    <td>95</td>
+                    <td>85</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 15, 2024</td>
+                    <td>75</td>
+                    <td>175</td>
+                    <td>95</td>
+                    <td>85</td>
+                    <td>38</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div className="CardBbox mb-4">
             <div className="cardhead">
               <h3>Fitness & Health Overview</h3>
             </div>

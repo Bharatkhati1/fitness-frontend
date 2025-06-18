@@ -20,6 +20,7 @@ import SiteMap from "./components/pages/SiteMap.jsx";
 import Profile from "./components/pages/Profile.jsx";
 import ProfileMyPakages from "./components/pages/ProfileMyPakages.jsx";
 import MyConsultation from "./components/pages/MyConsultation.jsx";
+import MyTestimonails from "./components/pages/MyTestimonails.jsx";
 
 const ConsultantRoutes = lazy(() =>
   import("./components/Routes/ConsultantRoutes.jsx")
@@ -43,21 +44,32 @@ const ProtectedRoute = ({
 
 const App = () => {
   const dispatch = useDispatch();
-  const {
-    isCheckingToken,
-    type,
-    isLoggedIn,
-    userAccessToken,
-  } = useSelector((state) => state.auth);
+  const { isCheckingToken, type, isLoggedIn, userAccessToken } = useSelector(
+    (state) => state.auth
+  );
+
   const { pathname } = useLocation();
-  const isAdmin = pathname.includes(`/admin`||`/partner`||`/consultant`);
+  const isAdmin =
+    pathname.includes("/admin") ||
+    pathname.includes("/partner") ||
+    pathname.includes("/consultant");
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
   );
 
   useEffect(() => {
-    dispatch(getAccessToken(isAdmin));
+    let userType;
+    if (pathname.includes("/admin")) {
+      userType = "admin";
+    } else if (pathname.includes("/partner")) {
+      userType = "partner";
+    } else if (pathname.includes("/consultant")) {
+      userType = "consultant";
+    } else {
+      userType = "user";
+    }
+    dispatch(getAccessToken(isAdmin, userType));
   }, [dispatch, type, isAdmin]);
 
   useEffect(() => {
@@ -78,23 +90,26 @@ const App = () => {
           />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/login-user" element={<LoginUser />} />
+          <Route path="/login-user" element={<LoginUser />} />
           <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="SiteMap" element={<SiteMap />} />
 
-            <Route path="Profile" element={<Profile/>} />
+          <Route path="Profile" element={<Profile />} />
 
-             <Route path="ProfileMyPakages" element={<ProfileMyPakages/>} />
+          <Route path="ProfileMyPakages" element={<ProfileMyPakages />} />
 
-              <Route path="MyConsultation" element={<MyConsultation/>} />
-         
+          <Route path="MyConsultation" element={<MyConsultation />} />
+
+          <Route path="MyTestimonails" element={<MyTestimonails />} />
+
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
           />
-          <Route path="Testimonial" element={<Testimonial/>} />      
+          <Route path="Testimonial" element={<Testimonial />} />
         </Routes>
       </Suspense>
     );
@@ -144,7 +159,7 @@ const App = () => {
             }
           />
         )}
-        
+
         <Route path="/*" element={<UserRoutes />} />
       </Routes>
     </Suspense>

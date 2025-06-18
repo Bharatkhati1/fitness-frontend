@@ -106,7 +106,7 @@ function MyConsultation() {
                 </div>
               </div>
             </div>
-                <div className="pakagesbox myconsultation mb-4">
+            <div className="pakagesbox myconsultation mb-4">
               <div className="pakagehead">
                 <div className="row">
                   <div className="col">
@@ -148,7 +148,7 @@ function MyConsultation() {
                 </div>
               </div>
             </div>
-                <div className="pakagesbox myconsultation mb-4">
+            <div className="pakagesbox myconsultation mb-4">
               <div className="pakagehead">
                 <div className="row">
                   <div className="col">
@@ -190,7 +190,7 @@ function MyConsultation() {
                 </div>
               </div>
             </div>
-                <div className="pakagesbox myconsultation mb-4">
+            <div className="pakagesbox myconsultation mb-4">
               <div className="pakagehead">
                 <div className="row">
                   <div className="col">

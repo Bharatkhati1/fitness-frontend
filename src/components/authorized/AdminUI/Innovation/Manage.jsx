@@ -243,7 +243,7 @@ const Manage = () => {
                 {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Image {isEdit && ` : ${selectedFileName}`}</label>
+                    <label className="form-label">Image {isEdit && !image && ` : ${selectedFileName}`}</label>
                     <input
                       type="file"
                       className="form-control"
