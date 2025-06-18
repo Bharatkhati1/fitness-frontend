@@ -1,27 +1,26 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import PageLoader from "../PageLoader";
-import SliderManagement from '../authorized/AdminUI/SliderManagement/SliderManagement';
+import Dashboard from '../authorized/AdminUI/ConsultantComponents/Dashboard';
+import Appointments from '../authorized/AdminUI/ConsultantComponents/Appointments';
+import MainLayouts from '../Layouts/MainLayouts';
+import Ledger from '../authorized/AdminUI/ConsultantComponents/Ledger';
 
 const ConsultantRoutes = () => {
-    const { type = "admin" } = useSelector((state) => state.auth);
     return (
       <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route element={<MainLayouts />}>
-            <Route index element={<Navigate to="slider-management" replace />} />
-            <Route path="slider-management" element={<SliderManagement />} />
-            <Route
-              path="service-management/*"
-              element={<Navigate replace to="service-management/services" />}
-            />
-            <Route
-              path="*"
-              element={<Navigate replace to={`/consultant/slider-management`} />}
-            />
-          </Route>
-        </Routes>
+       <Routes>
+        <Route element={<MainLayouts />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="appointment" element={<Appointments />} />
+          <Route path="ledger" element={<Ledger />} />
+          <Route
+            path="*"
+            element={<Navigate replace to={`/service-provider/dashboard`} />}
+          />
+        </Route>
+      </Routes>
       </Suspense>
     );
   };

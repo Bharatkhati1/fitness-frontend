@@ -6,7 +6,7 @@ import "./unAuthorized.scss";
 import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import { Login } from "../../store/auth/AuthExtraReducers";
 
-const AdminLogin = ({ type }) => {
+const AdminLogin = ({ type, route }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const disableLoginButton = useSelector(
@@ -52,6 +52,7 @@ const AdminLogin = ({ type }) => {
           { username: formData.username, password: formData.password },
           navigate,
           type,
+          route,
           true
         )
       );

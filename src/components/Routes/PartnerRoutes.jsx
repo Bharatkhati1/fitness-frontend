@@ -17,7 +17,7 @@ const PartnerRoutes = () => {
           <Route path="ledger" element={<Ledger />} />
           <Route
             path="*"
-            element={<Navigate replace to={`/partner/dashboard`} />}
+            element={<Navigate replace to={`/b2b-partner/dashboard`} />}
           />
         </Route>
       </Routes>

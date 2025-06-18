@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../../../public/assets/img/footerLogo.png";
-import { useSelector } from "react-redux";
 
 const NavItems = {
   admin: [
@@ -88,6 +87,8 @@ const NavItems = {
       path: "company-settings",
       subMenu: [
         { name: "All Users", path: "users" },
+        { name: "Orders", path: "orders" },
+        { name: "Appointments", path: "appointments" },
         { name: "Applied Jobs", path: "applied-jobs" },
         { name: "Contact Details", path: "contact-details" },
         { name: "Privacy Policy", path: "privacy-policy" },
@@ -111,12 +112,12 @@ const NavItems = {
       path: "coupon",
     },
   ],
-  partner: [
+  "b2b-partner": [
     { id: 1, name: "Dashboard", path: "dashboard" },
     { id: 2, name: "Coupon List", path: "coupons" },
     { id: 3, name: "Ledger", path: "ledger" },
   ],
-  consultant: [
+  "service-provider": [
     { id: 1, name: "Dashboard", path: "dashboard" },
     { id: 2, name: "Appointments", path: "appointment" },
     { id: 3, name: "Ledger", path: "ledger" },
@@ -125,14 +126,14 @@ const NavItems = {
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
-  
-  let type = ""
-  if(pathname.includes("/admin")){
-    type = "admin"
-  }else if(pathname.includes("/partner")){
-    type = "partner"
-  }else{
-    type="consultant"
+
+  let type = "";
+  if (pathname.includes("/admin")) {
+    type = "admin";
+  } else if (pathname.includes("/b2b-partner")) {
+    type = "b2b-partner";
+  } else if (pathname.includes("/service-provider")) {
+    type = "service-provider";
   }
 
   return (
@@ -146,7 +147,7 @@ const MainNavbarLeft = () => {
       <div className="scrollbar" data-simplebar>
         <ul className="navbar-nav" id="navbar-nav">
           <li className="menu-title">General</li>
-          {NavItems[type].map((item) => {
+          {NavItems[type]?.map((item) => {
             const isParentActive = pathname.includes(item.path);
             return (
               <li className="nav-item" key={item.id}>

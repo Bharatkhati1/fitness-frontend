@@ -47,8 +47,8 @@ const App = () => {
   const { pathname } = useLocation();
   const isAdmin =
     pathname.includes("/admin") ||
-    pathname.includes("/partner") ||
-    pathname.includes("/consultant");
+    pathname.includes("/b2b-partner") ||
+    pathname.includes("/service-provider");
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
@@ -58,9 +58,9 @@ const App = () => {
     let userType;
     if (pathname.includes("/admin")) {
       userType = "admin";
-    } else if (pathname.includes("/partner")) {
+    } else if (pathname.includes("/b2b-partner")) {
       userType = "partner";
-    } else if(pathname.includes("/consultant")) {
+    } else if(pathname.includes("/service-provider")) {
       userType = "consultant";
     }else{
       userType = "user"
@@ -78,11 +78,11 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<AdminLogin type="admin" />} />
-          <Route path="/partner" element={<AdminLogin type="partner" />} />
+          <Route path="/admin" element={<AdminLogin type="admin" route ="admin" />} />
+          <Route path="/b2b-partner" element={<AdminLogin type="partner" route="b2b-partner" />} />
           <Route
-            path="/consultant"
-            element={<AdminLogin type="consultant" />}
+            path="/service-provider"
+            element={<AdminLogin type="consultant" route="service-provider"/>}
           />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/login-user" element={<LoginUser />} />
@@ -105,8 +105,8 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route path="/partner" element={<AdminLogin type="partner" />} />
-        <Route path="/consultant" element={<AdminLogin type="consultant" />} />
+        <Route path="/b2b-partner" element={<AdminLogin type="partner" />} />
+        <Route path="/service-provider" element={<AdminLogin type="consultant" />} />
         {userAccessToken.length == 0 && (
           <Route path="/login-user" element={<LoginUser />} />
         )}
@@ -122,24 +122,24 @@ const App = () => {
           />
         )}
 
-        {pathname.includes(`/partner`) && (
+        {pathname.includes(`/b2b-partner`) && (
           <Route
-            path="/partner/*"
+            path="/b2b-partner/*"
             element={
-              <ProtectedRoute condition={isAdminLogined} redirectTo="/partner">
+              <ProtectedRoute condition={isAdminLogined} redirectTo="/b2b-partner">
                 <PartnerRoutes />
               </ProtectedRoute>
             }
           />
         )}
 
-        {pathname.includes(`/consultant`) && (
+        {pathname.includes(`/service-provider`) && (
           <Route
-            path="/consultant/*"
+            path="/service-provider/*"
             element={
               <ProtectedRoute
                 condition={isAdminLogined}
-                redirectTo="/consultant"
+                redirectTo="/service-provider"
               >
                 <ConsultantRoutes />
               </ProtectedRoute>

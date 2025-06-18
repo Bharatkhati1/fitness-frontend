@@ -6,7 +6,7 @@ import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-export const Login = (userData, navigate, userType, isAdmin = false) => {
+export const Login = (userData, navigate, userType,route, isAdmin = false) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -54,7 +54,7 @@ export const Login = (userData, navigate, userType, isAdmin = false) => {
       localStorage.setItem("isAdmin", isAdmin);
       dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(isAdmin ? `/${userType}/slider-management` : "/", {
+      navigate(isAdmin ? `/${route}/slider-management` : "/", {
         replace: true,
       });
     } catch (error) {

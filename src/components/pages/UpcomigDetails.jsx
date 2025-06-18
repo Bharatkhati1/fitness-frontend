@@ -115,50 +115,51 @@ function UpcomigDetails({ type }) {
         <div
           className="container mb-3"
           dangerouslySetInnerHTML={{
-            __html: details?.description,
+            __html:
+              type == "event" ? details?.longDescription : details?.description,
           }}
         ></div>
-          <div className="clearfix"></div>
+        <div className="clearfix"></div>
         {type == "event" &&
           Array.isArray(modifyOptionalImages) &&
           modifyOptionalImages?.length > 0 &&
           Array.isArray(modifyOptionalImages[0]) && (
             <div className="container">
-            <OwlCarousel
-              className="owl-theme"
-              autoplay={false}
-              dots={true}
-              items={1}
-              loop={false}
-              margin={10}
-              nav={true}
-              navText={[prevArrow, nextArrow]}
-              autoplaySpeed={3000}
-              autoplayTimeout={9000}
-            >
-              {modifyOptionalImages?.map((group, index) => (
-                <div className="row g-2 event-images-optional" key={index}>
-                  {group.map((srv, idx) => {
-                    return (
-                      <div className="col-md-6" key={idx}>
-                        <div className=" ">
-                          <figure>
-                            <img
-                              crossOrigin="anonymous"
-                              src={srv.image_url}
-                              alt={srv.image}
-                            />
-                          </figure>
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={true}
+                items={1}
+                loop={false}
+                margin={10}
+                nav={true}
+                navText={[prevArrow, nextArrow]}
+                autoplaySpeed={3000}
+                autoplayTimeout={9000}
+              >
+                {modifyOptionalImages?.map((group, index) => (
+                  <div className="row g-2 event-images-optional" key={index}>
+                    {group.map((srv, idx) => {
+                      return (
+                        <div className="col-md-6" key={idx}>
+                          <div className=" ">
+                            <figure>
+                              <img
+                                crossOrigin="anonymous"
+                                src={srv.image_url}
+                                alt={srv.image}
+                              />
+                            </figure>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </OwlCarousel>
+                      );
+                    })}
+                  </div>
+                ))}
+              </OwlCarousel>
             </div>
           )}
-      
+        <div className="clearfix"></div>
       </div>
     </>
   );
