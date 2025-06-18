@@ -234,7 +234,7 @@ const ServiceManagement = () => {
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
                       Service Banner Image{" "}
-                      {isEdit && ` : ${selectedBannerFileName}`}
+                      {isEdit && !serviceBannerImage && ` : ${selectedBannerFileName}`}
                     </label>
                     <input
                       type="file"
@@ -251,7 +251,7 @@ const ServiceManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Service Image {isEdit && ` : ${selectedFileName}`}
+                      Service Image {isEdit && !sliderImage&& ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -268,7 +268,7 @@ const ServiceManagement = () => {
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Story Image {isEdit && ` : ${storyImageName}`}
+                      Story Image {isEdit && !storyImage && ` : ${storyImageName}`}
                     </label>
                     <input
                       type="file"

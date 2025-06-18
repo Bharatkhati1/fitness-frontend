@@ -149,7 +149,7 @@ const Partners = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
-                      Partner Image {isEdit && `: ${selectedFileName}`}
+                      Partner Image {isEdit && !formData.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       type="file"

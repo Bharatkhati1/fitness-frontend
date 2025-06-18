@@ -184,7 +184,7 @@ const BlogsManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Blog Image {isEdit && ` : ${selectedFileName}`}
+                      Blog Image {isEdit && !image &&` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"

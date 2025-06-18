@@ -179,7 +179,7 @@ const NewsAndMediaManagement = () => {
                 {/* Image */}
                 <div className="col-lg-6 mb-3">
                   <label className="form-label">
-                    Image {isEdit && `: ${selectedFileName}`}
+                    Image {isEdit && !formData.image && `: ${selectedFileName}`}
                   </label>
                   <input
                     type="file"

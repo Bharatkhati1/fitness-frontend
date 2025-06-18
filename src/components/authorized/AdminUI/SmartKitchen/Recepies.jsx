@@ -183,7 +183,7 @@ const Recepies = () => {
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="receipe-image" className="form-label">
-                      Image {isEdit && `: ${selectedFileName}`}
+                      Image {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="receipe-image"

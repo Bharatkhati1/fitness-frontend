@@ -49,7 +49,7 @@ const JoinCommunity = ({ open, setOpen }) => {
     <Modal
       open={open}
       onCancel={handleCancel}
-      footer={null} // Remove default footer buttons
+      footer={null} 
       className="custom-modal"
       centered
     >

@@ -148,7 +148,7 @@ const Categories = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="consultant-image" className="form-label">
-                     Category Image {isEdit && `: ${selectedFileName}`}
+                     Category Image {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="consultant-image"

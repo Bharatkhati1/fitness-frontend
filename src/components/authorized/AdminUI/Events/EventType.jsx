@@ -96,7 +96,7 @@ const EventType = () => {
     setFormData({
       title: data.name,
       description: data.description,
-      image: data.image,
+      image: "",
       isActive: data.isActive,
     });
     setPreview(data.image);
@@ -161,7 +161,7 @@ const EventType = () => {
               {/* Image */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Image {isEdit && `: ${preview}`}</label>
+                  <label className="form-label">Image {isEdit && !formData.image && `: ${preview}`}</label>
                   <input
                     type="file"
                     accept="image/*"

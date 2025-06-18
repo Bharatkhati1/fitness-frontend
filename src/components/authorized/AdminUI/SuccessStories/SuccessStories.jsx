@@ -155,7 +155,7 @@ const SuccessStories = () => {
                   {/*Before image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Before Image {isEdit && `: ${succesStoryImage2}`}
+                      Before Image {isEdit && !beforeImage &&`: ${succesStoryImage2}`}
                     </label>
                     <input
                       type="file"
@@ -171,7 +171,7 @@ const SuccessStories = () => {
                   {/* After image */}
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      After Image {isEdit && `: ${succesStoryImage1}`}
+                      After Image {isEdit && !afterImage && `: ${succesStoryImage1}`}
                     </label>
                     <input
                       type="file"

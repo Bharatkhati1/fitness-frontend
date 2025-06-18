@@ -273,7 +273,7 @@ const Consultants = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="consultant-image" className="form-label">
-                      Image {isEdit && `: ${selectedFileName}`}
+                      Image {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="consultant-image"
@@ -422,6 +422,7 @@ const Consultants = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0)
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
                                   setFormData({
