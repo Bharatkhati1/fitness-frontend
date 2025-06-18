@@ -10,12 +10,12 @@ const Coupon = () => {
     type: "flat",
     value: "",
     expiry: "",
-    maxCount:"",
+    maxCount: "",
     partnerId: "",
     commission: "",
   });
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [coupons, setCoupons] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -53,7 +53,7 @@ const Coupon = () => {
       );
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} coupon...`
     );
@@ -83,8 +83,8 @@ const Coupon = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +95,7 @@ const Coupon = () => {
       value: "",
       expiry: "",
       partnerId: "",
-      maxCount:"",
+      maxCount: "",
       commission: "",
     });
     setSelectedId(null);
@@ -104,8 +104,9 @@ const Coupon = () => {
 
   const deleteCoupon = async () => {
     try {
+      const idToDelete = selectedIdRef.current;
       const res = await adminAxios.delete(
-        adminApiRoutes.delete_coupon(selectedIdRef.current)
+        adminApiRoutes.delete_coupon(idToDelete)
       );
       toast.success(res.data.message);
       fetchCoupons();
@@ -250,12 +251,10 @@ const Coupon = () => {
                   </div>
                 </div>
 
-                     {/* Max Count */}
-                     <div className="col-lg-6">
+                {/* Max Count */}
+                <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">
-                     Max Count
-                    </label>
+                    <label className="form-label">Max Count</label>
                     <input
                       type="number"
                       className="form-control"
@@ -285,7 +284,11 @@ const Coupon = () => {
             </div>
 
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
+              <button
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
                 {isEdit ? "Update" : "Create"}
               </button>
             </div>
@@ -338,7 +341,7 @@ const Coupon = () => {
                                   setFormData({
                                     code: item?.code,
                                     type: item?.type,
-                                    maxCount:item?.maxCount|| "",
+                                    maxCount: item?.maxCount || "",
                                     value: item?.value,
                                     expiry: item?.expiry?.split("T")[0],
                                     partnerId: item?.partnerId || "",

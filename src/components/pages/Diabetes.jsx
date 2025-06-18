@@ -16,7 +16,7 @@ function PackageDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const [details, setDetails] = useState({});
-  const {cartItems =[], isLoggedIn} = useSelector((state)=> state.auth)
+  const {cartItems =[], isLoggedIn, userAccessToken} = useSelector((state)=> state.auth)
  const cartItemIds = cartItems?.map((item)=> item.subscriptionPlanId)
 
   const fetchPackageDetails = async () => {
@@ -56,8 +56,11 @@ function PackageDetails() {
       fetchCartitems()
     }, 700);
   };
+
   useEffect(()=>{
-    fetchCartitems()
+    if(userAccessToken&&userAccessToken.length>0){
+      fetchCartitems()
+    }
   },[])
   return (
     <>

@@ -2,65 +2,262 @@ import React from "react";
 import Header from "../authorized/UserUI/Header/Header.jsx";
 import Footer from "../authorized/UserUI/Footer/Footer.jsx";
 
+import profileuserimg from "../../../public/assets/img/profileuserimg.png";
+import pencilicons from "../../../public/assets/img/pencilicon.png";
+import logouticon from "../../../public/assets/img/logouticon.png";
+
 function Profile() {
   return (
     <>
       <Header />
 
-      <div className="Carduserinfo">
-        <div className="row">
-          <div className="col-md-3">
-            <figure></figure>
+      <div className="spacetop">
+        <div className="container">
+          <div className="Carduserinfo pt-4 mb-4">
+            <div className="row">
+              <div className="col-auto">
+                <div className="cardprofile">
+                  <figure>
+                    <img src={profileuserimg}></img>
+                  </figure>
+
+                  <a className="editprofile">
+                    <img src={pencilicons}></img>
+                  </a>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="cardcontent">
+                  <h3>Hello Smriti Pandey !</h3>
+                  <p>
+                    Everything about you, your journey, and your progress — all
+                    in one calm, curated space.
+                  </p>
+                  <div className="tabscardbox d-flex justify-content-between align-items-center  mt-3">
+                    <ul className="tabslist">
+                      <li className="active">
+                        <a>Personal Information</a>
+                      </li>
+                      <li>
+                        <a>my packages</a>
+                      </li>
+                      <li>
+                        <a>my consultations</a>
+                      </li>
+                      <li>
+                        <a>my testimonials</a>
+                      </li>
+                    </ul>
+
+                    <a className="logoutbtn">
+                      <img src={logouticon}></img>Log Out
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="col">
-            <h3>Hello Smriti Pandey !</h3>
-            <p>
-              Everything about you, your journey, and your progress — all in one
-              calm, curated space.
-            </p>
-            <ul className="tabslist">
-              <li>
-                <a>Personal Information</a>
-              </li>
-              <li>
-                <a>my packages</a>
-              </li>
-              <li>
-                <a>my consultations</a>
-              </li>
-              <li>
-                <a>my testimonials</a>
-              </li>
-            </ul>
+          <div className="CardBbox mb-4">
+            <div className="cardhead">
+              <h3>basic details</h3>
+            </div>
+
+            <div className="Cardbody">
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label>full name*</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Email ID*</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your email id"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Age*</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your age"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Gender*</label>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Select your gender</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label>Contact Number</label>
+                  <div class="contactInput">
+                    <span>+91</span>
+                    <input
+                      placeholder="Enter your contact number"
+                      class="form-control"
+                      type="number"
+                      value=""
+                      name="phone"
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <label>Address (Pin Code / Zip Code)</label>
+                  <input
+                    type="text"
+                    placeholder="Enter here"
+                    className="form-control"
+                  ></input>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="CardBbox">
-        <div className="cardhead">
-          <h3>basic details</h3>
-        </div>
-
-        <div className="Cardbody">
-          <div className="row">
-            <div className="col-md-6">
-              <label>full name*</label>
-              <input
-                type="text"
-                placeholder="Enter your full name"
-                className="form-control"
-              ></input>
+          <div className="CardBbox mb-4">
+            <div className="cardhead">
+              <h3>Fitness & Health Overview</h3>
             </div>
 
-            <div className="col-md-6">
-              <label>full name*</label>
-              <input
-                type="text"
-                placeholder="Enter your full name"
-                className="form-control"
-              ></input>
+            <div className="Cardbody">
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label>Diet Preference</label>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Select diet preference</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Workout Preference</label>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option selected>Select your workout preference</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+
+                <div className="col-md-12 mb-3">
+                  <label>Pre-existing Medical Conditions (if any)</label>
+                  <ul className="form-checkList d-flex flex-wrap">
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="check-27"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="check-27">
+                          Diabetes
+                        </label>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="check-28"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="check-28">
+                          Hypertension (High BP)
+                        </label>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="check-29"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="check-29">
+                          Thyroid
+                        </label>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="check-30"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="check-30">
+                          PCOS/PCOD
+                        </label>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          id="check-31"
+                          type="checkbox"
+                        />
+                        <label class="form-check-label" for="check-31">
+                          others
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    placeholder="Please specify"
+                    className="form-control"
+                  ></input>
+                </div>
+
+                <div className="col-md-12">
+                  <label>
+                    Pre-existing Sports Injury (If Yes, please describe)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Describe here"
+                    className="form-control"
+                  ></input>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div className="formbtn text-center  mt-4 mb-4">
+            <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+              save profile
+            </a>
           </div>
         </div>
       </div>

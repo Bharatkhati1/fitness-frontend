@@ -206,7 +206,6 @@ body .btn.btn-primary {
 
 .SmartKichin .btn-info {
   margin-top: 50px;
- 
 }
 
 .PageTitle {
@@ -345,14 +344,14 @@ header .navbar-collapse .nav-link.active {
   color: #fff !important;
   display: flex;
   background: var(--secondary-color);
-     padding: 12px 20px;
-    font-weight: 800;
-    align-items: center;
-    margin-right: 25px;
-    text-transform: uppercase;
-    cursor: pointer;
-    min-width: 165px;
-    justify-content: center;
+  padding: 12px 20px;
+  font-weight: 800;
+  align-items: center;
+  margin-right: 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-width: 165px;
+  justify-content: center;
 }
 .bookappoinmentl {
   height: 100%;
@@ -507,8 +506,6 @@ body .heartBeatImg {
   padding-bottom: 65px;
 }
 
-
-
 .OurServicesContent {
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
   border-radius: 8px;
@@ -597,8 +594,6 @@ body .heartBeatImg {
   z-index: -1;
 }
 
-
-
 .SmartKichinContent figcaption {
   width: 320px;
   margin: auto;
@@ -627,7 +622,6 @@ body .heartBeatImg {
   color: #000000e5;
   margin-bottom: 15px;
 }
-
 
 .PosterSec {
   background: url(../img/posterSec.png);
@@ -671,7 +665,6 @@ body .heartBeatImg {
   background-size: cover;
 }
 
-
 .OurHealthBlogContent figure img {
   width: 100%;
   height: 310px;
@@ -699,8 +692,6 @@ body .heartBeatImg {
   line-height: 1.3;
 }
 
-
-
 /* .col-md-6.OurHealthBlogContent {
   margin-bottom: 55px;
   padding: 0 40px;
@@ -708,7 +699,6 @@ body .heartBeatImg {
 
 .meetOurExperts {
   background: #f5f4f4;
-
 }
 
 .meetOurExperts figure img {
@@ -1539,7 +1529,6 @@ ul.wightList h4 {
 ul.wightList figure {
   margin-bottom: 0;
 }
-
 
 .yourBmi {
   font-size: 28px;
@@ -4020,8 +4009,6 @@ ul.ourapproachlist li:after {
   object-fit: cover;
 }
 
-
-
 .WhyUsinner {
   border-radius: 14px;
   box-shadow: 0 4px 23px #00794652;
@@ -4415,7 +4402,7 @@ ul.whyparthnerlist li {
   margin: auto;
 }
 
-.EventsBanner.spacetop {
+.spacetop {
   padding-top: 78px;
 }
 
@@ -4526,55 +4513,51 @@ ul.whyparthnerlist li {
   border-radius: 16px;
 }
 .Pasteventsslider .owl-item.center .eventstext {
-   opacity: 1;
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    left: 0;
-    right: 0;
-    background: #1E1E1E8A;
-    font-size: 16px;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 5px 10px;
+  opacity: 1;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  left: 0;
+  right: 0;
+  background: #1e1e1e8a;
+  font-size: 16px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 5px 10px;
 }
 .Pasteventsslider .owl-item .eventstext {
   opacity: 0;
 }
 .Pasteventsslider .owl-item.active.center .item {
- -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.5);
-    height: 200px;
-    filter: blur(0px);
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    margin: auto;
-    width: 90%;
-    -webkit-transition: 1s;
-    -o-transition: 1s;
-    transition: 1s;
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.5);
+  height: 200px;
+  filter: blur(0px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: auto;
+  width: 90%;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
 }
 
 .Pasteventsslider .owl-item .item {
-
   -webkit-transform: scale(0.7);
   -ms-transform: scale(0.7);
   transform: scale(0.7);
-   -webkit-transition: 1s;
-   -o-transition: 1s;
-   transition: 1s;
-
-
-
-}.pasteventbox {
-    width: 100%;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.pasteventbox {
+  width: 100%;
 }
 
 .Pasteventsslider .owl-item.center .item .pasteventbox img {
-  
   width: 100% !important;
 }
 .Pasteventsslider .owl-item .item .pasteventbox img {
@@ -4592,10 +4575,10 @@ ul.whyparthnerlist li {
 }
 
 .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
-    width: 100% !important;
-    border-radius: 16px;
-    height: 350px;
-    object-fit: cover;
+  width: 100% !important;
+  border-radius: 16px;
+  height: 350px;
+  object-fit: cover;
 }
 .Pasteventsslider .owl-carousel .owl-stage {
   align-items: center;
@@ -5085,44 +5068,45 @@ button.uploadbtn {
   color: #1e1e1e;
 }
 
-
 ul.sitelist {
-    columns: 3 auto;
-    margin: 10px 0 0;
-    padding-bottom: 25px;
+  columns: 3 auto;
+  margin: 10px 0 0;
+  padding-bottom: 25px;
 }
 
 ul.sitelistinner li {
-    padding: 6px 0;
-    font-size: 16px;
-    color: #06c;
-    font-weight: 500;
-    cursor: pointer;
+  padding: 6px 0;
+  font-size: 16px;
+  color: #06c;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.sitelistsec{
-    display: inline-block;
-    margin-bottom: 10px;
-    vertical-align: top;
-    z-index: 1;
-    column-span: 2;
-    margin-top: 20px;
+.sitelistsec {
+  display: inline-block;
+  margin-bottom: 10px;
+  vertical-align: top;
+  z-index: 1;
+  column-span: 2;
+  margin-top: 20px;
 }
-.sitelist-title h4{ margin-bottom: 0 !important;}
+.sitelist-title h4 {
+  margin-bottom: 0 !important;
+}
 
 ul.sitelistinner {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-    
+
 .sitelistsec h4 {
-    color: #000;
-    font-size: 18px;
-    font-weight: 600;
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 ul.sitelistinner li a {
-    cursor: pointer;
-    color: #06c;
+  cursor: pointer;
+  color: #06c;
 }
 
 .imgcard img {
@@ -5137,31 +5121,211 @@ ul.sitelistinner li a {
 }
 
 .taginfoleft {
-    width: auto !important;
+  width: auto !important;
 }
 
 .col-xxl.col-sm.taginforight {
-    padding-left: 126px;
+  padding-left: 126px;
 }
 
 .col-xxl-auto.col-sm-auto.taginfoleft {
-    position: absolute;
-    left: 45px;
+  position: absolute;
+  left: 45px;
 }
 
 .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
-    width: 88%;
+  width: 88%;
 }
 
 .taginfolist {
-    margin-bottom: 0;
-    margin-left: 45px;
+  margin-bottom: 0;
+  margin-left: 45px;
 }
 
 .OurHealthBlog {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .OurServices .owl-dots {
-    margin-top: 35px;
+  margin-top: 35px;
+}
+
+.cardcontent h3 {
+  font-size: 38px;
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 5px !important;
+}
+
+.cardcontent p {
+  font-style: italic;
+  font-size: 22px;
+  color: #1e1e1e;
+}
+
+.tabslist li a {
+  background: #e4e4e4;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  font-size: 16px;
+  color: #000000 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tabslist {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.tabslist li.active a {
+  background: #800030;
+  color: #fff !important;
+}
+
+.editprofile {
+    width: 41px;
+    height: 41px;
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(192, 192, 192, 1) 100%);
+    cursor: pointer;
+}
+
+.CardBbox {
+  background: #fafafa;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 13px #00000026;
+}
+
+.cardhead h3 {
+  font-size: 28px;
+  color: #800030;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.cardhead {
+  border-bottom: 1px solid #d4d4d4;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.Cardbody .form-checkList li {
+  width: auto;
+  margin-bottom: 0;
+}
+
+.Cardbody .form-checkList {
+  gap: 45px;
+}
+
+.logoutbtn {
+  background: #c5090014;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 23px;
+  color: #c50900;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.logoutbtn img {
+  margin-right: 6px;
+}
+
+select.form-select {
+  height: 43px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(0 0 0 / 60%);
+}
+
+
+.pakagesbox {
+    box-shadow: 0 4px 25px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+}
+
+.pakagehead {
+    background: #8000300F;
+    padding: 15px 20px;
+}
+
+.pakageheadtitle h4 {
+    font-size: 24px;
+    color: #000000;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px !important;
+}
+
+.pakageheadtitle span {
+    font-size: 16px;
+    color: #800030;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.xs-btn {
+    background: #28B77A;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 6px 20px;
+    min-width: 130px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 22px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pakagebody {
+    padding: 15px 20px;
+}
+
+.pakagebody span {
+    font-size: 18px;
+    color: #000000;
+    font-style: italic;
+}
+
+.sx-btn-info {
+    background: #2669B5;
+}
+
+.myconsultation  .pakagehead {
+    background: #4CAF5017;
+}
+
+.pakageheadtitle p {
+    font-size: 16px;
+    color: #2A2A2A;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.cardprofile figure img {
+    width: 165px;
+    height: 165px;
+    border-radius: 50%;
 }

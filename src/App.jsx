@@ -18,6 +18,8 @@ import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx"
 import Testimonial from "./components/pages/Testimonial.jsx";
 import SiteMap from "./components/pages/SiteMap.jsx";
 import Profile from "./components/pages/Profile.jsx";
+import ProfileMyPakages from "./components/pages/ProfileMyPakages.jsx";
+import MyConsultation from "./components/pages/MyConsultation.jsx";
 
 const ConsultantRoutes = lazy(() =>
   import("./components/Routes/ConsultantRoutes.jsx")
@@ -43,12 +45,12 @@ const App = () => {
   const dispatch = useDispatch();
   const {
     isCheckingToken,
-    type = "admin",
+    type,
     isLoggedIn,
     userAccessToken,
   } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
-  const isAdmin = pathname.includes(`/${type}`);
+  const isAdmin = pathname.includes(`/admin`||`/partner`||`/consultant`);
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
@@ -83,6 +85,10 @@ const App = () => {
           <Route path="SiteMap" element={<SiteMap />} />
 
             <Route path="Profile" element={<Profile/>} />
+
+             <Route path="ProfileMyPakages" element={<ProfileMyPakages/>} />
+
+              <Route path="MyConsultation" element={<MyConsultation/>} />
          
           <Route
             path="DiabetesHealthPakages"
@@ -103,7 +109,7 @@ const App = () => {
           <Route path="/login-user" element={<LoginUser />} />
         )}
 
-        {type === "admin" && (
+        {pathname.includes(`/admin`) && (
           <Route
             path="/admin/*"
             element={
@@ -114,7 +120,7 @@ const App = () => {
           />
         )}
 
-        {type === "partner" && (
+        {pathname.includes(`/partner`) && (
           <Route
             path="/partner/*"
             element={
@@ -125,7 +131,7 @@ const App = () => {
           />
         )}
 
-        {type === "consultant" && (
+        {pathname.includes(`/consultant`) && (
           <Route
             path="/consultant/*"
             element={

@@ -101,16 +101,14 @@ export default function AddToBag() {
         image: "/assets/img/logo.png",
         order_id: orderId,
         handler: async function (response) {
+          const toastId = toast.loading("Please wait...");
           try {
-            const toastId = toast.loading("Please wait...");
             if (type === "cart") {
               await userAxios.post(userApiRoutes.cart_checkout, {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                couponAppliedId:appliedCouponDetails?.couponAppliedId,
-                packageId:"",
-                coupon: discountPrice ? coupon : undefined,
+                couponCode: discountPrice ? coupon : undefined,
               });
             } else {
               const payload = {
@@ -121,7 +119,7 @@ export default function AddToBag() {
                 razorpay_signature: response.razorpay_signature,
                 couponAppliedId:appliedCouponDetails?.couponAppliedId,
                 packageId:appointmentData.packageId,
-                coupon: discountPrice ? coupon : undefined,
+                couponCode: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);
               localStorage.removeItem("appointmentData");
@@ -145,7 +143,12 @@ export default function AddToBag() {
             fetchCartitems();
           } catch (err) {
             console.error(err);
-            toast.error("Payment verification failed!");
+            toast.update(toastId, {
+              render: "Payment verification failed!",
+              type: "error",
+              isLoading: false,
+              autoClose: 3000,
+            });
           }
         },
         prefill: {
@@ -378,7 +381,7 @@ export default function AddToBag() {
                           </li>
                           <li>
                             <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
                           </li>
                           <li>
                             <span>Total:</span>
@@ -430,9 +433,9 @@ export default function AddToBag() {
                             <span>Duration:</span>
                             <b>{appointmentData.consultantDuration} mins</b>
                           </li>
-                         { !appointmentData.isFollowUp &&<li>
+                         {!appointmentData.isFollowUp &&<li>
                             <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet || 0}</b>
+                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
                           </li>}
                           <li>
                             <span>Total:</span>

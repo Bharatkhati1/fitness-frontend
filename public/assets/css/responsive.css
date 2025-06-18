@@ -101,6 +101,26 @@
   .GetIntouchinnerright .col-md-6.mb-3 {
     margin-bottom: 12px !important;
   }
+
+  .tabslist li a {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .tabslist {
+    gap: 10px;
+  }
+  .pakageheadtitle h4 {
+    font-size: 20px;
+  }
+
+  .pakagebody span {
+    font-size: 16px;
+  }
+
+  .cardcontent p{font-size: 18px;}
+
+  .logoutbtn{font-size: 14px;}
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -134,7 +154,6 @@
     width: 294px;
   }
 
- 
   .Login-info.d-flex.align-items-center {
     padding-left: 30px;
   }
@@ -405,6 +424,10 @@
 
   .Clientbefore figure img {
     height: 170px;
+  }
+
+  .cardcontent h3 {
+    font-size: 28px;
   }
 }
 @media (min-width: 1366px) and (max-width: 1641px) {
@@ -984,6 +1007,10 @@
   .MuktiBox .col-md-6.ms-auto {
     width: 100%;
   }
+
+  .filtersBoxInner .owl-theme .owl-nav {
+    display: block !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1127,9 +1154,6 @@
   .trailofferform .col-md-6.mb-3 {
     width: 100%;
   }
-
-
-
 
   .LoginPage .col-md-4.me-auto {
     width: 65%;
@@ -1411,12 +1435,9 @@
     font-size: 16px;
   }
 
-
   body .owl-carousel .owl-item .bannerSectionInner figure img {
-   
     height: 390px;
     width: 227px !important;
-   
   }
 
   .owl-p ul li {
@@ -1454,7 +1475,6 @@
     width: 400px;
     height: 400px;
   }
-
 
   .ThankyouModal h4 {
     font-size: 120px;
@@ -1557,6 +1577,16 @@
   .GetIntouch {
     padding-top: 55px;
   }
+  .filtersBoxInner .col-xxl-10.col-md-9.col-xl-10.col-sm-9 {
+    width: 94%;
+  }
+
+  .filtersBoxInner .col-xxl-2.col-md-3.col-xl-2.col-sm-3.sortbyright {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-top: 10px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -1656,8 +1686,6 @@
     top: 0;
     margin-top: 23px;
   }
-
-
 
   .SmartKichinContent figcaption h3 {
     height: auto;
@@ -1877,7 +1905,6 @@
     height: 330px;
   }
 
-
   .our-approachmain {
     padding-top: 35px !important;
     padding-bottom: 20px !important;
@@ -1908,7 +1935,7 @@
     font-size: 26px;
     margin-bottom: 12px;
   }
- 
+
   .col-md-6.bannerSectionLeft.pe-0 {
     padding-right: 20px !important;
   }
@@ -1927,7 +1954,7 @@
 
   .bannerSection .owl-dots {
     margin-top: 20px;
-}
+  }
 
   .Clientbefore figure img {
     height: 150px;
@@ -2017,16 +2044,16 @@
   }
   span.circleshape {
     display: none;
-}
-.SectionSpace {
+  }
+  .SectionSpace {
     padding-top: 40px;
     padding-bottom: 40px;
-}
+  }
 
-    .GetIntouchRight {
-        padding-bottom: 30px;
-        margin-bottom: 30px;
-    }
+  .GetIntouchRight {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -2153,9 +2180,7 @@
   .col-xxl-auto.col-sm-auto.taginfoleft {
     width: auto;
   }
-  .col-xxl.taginforight {
-    width: calc(100% - 115px);
-  }
+
   .filtersBoxInner select.form-select {
     width: 25%;
     margin-left: auto;
@@ -2245,7 +2270,6 @@
     font-size: 24px;
   }
 
-
   .SmartKichinbox p {
     font-size: 16px;
   }
@@ -2322,7 +2346,6 @@
   .productslists .owl-carousel.owl-theme {
     width: 85%;
   }
-
 
   .ThankyouModal .btn-primary {
     margin-top: 20px !important;
@@ -2403,12 +2426,21 @@
     font-size: 14px;
   }
 
-  body .owl-carousel .owl-item .bannerSectionInner figure img{ top: 0;}
+  body .owl-carousel .owl-item .bannerSectionInner figure img {
+    top: 0;
+  }
 
-.SectionSpace .container {
+  .SectionSpace .container {
     padding-left: 30px;
     padding-right: 30px;
-}
+  }
+  .filterOwl .owl-nav button.owl-prev span {
+    left: -102px;
+  }
+  .filterOwl button.owl-next span {
+    right: 20px;
+    top: 47px !important;
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2726,7 +2758,6 @@
     width: 100%;
   }
 
-
   body .owl-carousel .owl-item .bannerSectionInner figure img {
     width: 95% !important;
   }
@@ -2757,7 +2788,7 @@
   .OurHealthBlogContent figcaption h3 {
     font-size: 16px;
   }
- 
+
   .ordersummarylist figcaption h4 {
     font-size: 14px;
   }
@@ -2886,5 +2917,6 @@
   }
 
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
-    display: none;}
+    display: none;
+  }
 }
