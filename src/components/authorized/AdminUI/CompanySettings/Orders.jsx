@@ -14,7 +14,7 @@ const AllOrders = () => {
       toast.error(error.response.data.error);
     }
   };
-  console.log(allOrders);
+  
   useEffect(() => {
     fetchAllOrders();
   }, []);

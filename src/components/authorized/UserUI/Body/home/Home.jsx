@@ -365,7 +365,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="OurServices bg-solid">
+      <section className="OurServices bg-solid SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
             <h2>OUR SERVICES</h2>
@@ -391,7 +391,7 @@ function Home() {
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row" key={index}>
+                <div className="row g-4 g-sm-3" key={index}>
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {
@@ -474,7 +474,7 @@ function Home() {
           )}
         </div>
       </section>
-      <section className="WhyChoose">
+      <section className="WhyChoose SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
             <h2>
@@ -501,7 +501,7 @@ function Home() {
         </div>
       </section>
       <Whyus />
-      <section className="SmartKichin">
+      <section className="SmartKichin SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
             <h2>Smart Kitchen</h2>
@@ -510,7 +510,7 @@ function Home() {
               meals effortlessly with ease and convenience
             </p>
           </div>
-          <div className="row">
+          <div className="row g-4 g-sm-3">
             {kitchenData.slice(0, 3).map((data) => (
               <div className="col-md-4 SmartKichinContent">
                 <figure>
@@ -536,7 +536,7 @@ function Home() {
           <div className="text-center">
             <Link
               to={"/smart-kitchen"}
-              className="btn btn-info hvr-shutter-out-horizontal"
+              className="btn btn-info sm-btn hvr-shutter-out-horizontal"
             >
               Explore more such Recipes
             </Link>
@@ -550,7 +550,7 @@ function Home() {
             <img src={butterflyimg}></img>
           </span> */}
 
-          <span className="butterflyone">
+         <div className="buttergroup"> <span className="butterflyone">
             <img src={butterfly1}></img>
           </span>
           <span className="butterflytwo">
@@ -564,7 +564,7 @@ function Home() {
           </span>
           <span className="butterflyfive">
             <img src={butterfly5}></img>
-          </span>
+          </span></div>
 
           <div className="row">
             <div className="MuktiBoxLeft">
@@ -592,7 +592,7 @@ function Home() {
                   just one step away from availing the best solution.
                 </p>
 
-                <a className="btn btn-primary max-width mt-3 hvr-shutter-out-horizontal">
+                <a className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal">
                   know more
                 </a>
               </div>
@@ -639,18 +639,18 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="OurHealthBlog">
+      <section className="OurHealthBlog SectionSpace">
         <div className="container">
-          <div className="PageTitle text-center">
+          <div className="PageTitle text-center ">
             <h2>our health blogs</h2>
             <p>
               You didn’t come this far to stop. Read our insightful articles on
               health and fitness.
             </p>
           </div>
-          <div className="row OurHealthBlogRows">
+          <div className="row OurHealthBlogRows g-5 g-sm-4  justify-content-center">
             {blogs.map((blog) => (
-              <div className="col-md-6 OurHealthBlogContent">
+              <div className="col-lg-5 col-md-6  OurHealthBlogContent">
                 <figure>
                   <Link
                     to={`/blog/${blog.title
@@ -663,7 +663,7 @@ function Home() {
                 <figcaption>
                   <span>
                     {new Date(blog.createdAt).toLocaleDateString("en-GB")} .{" "}
-                    {blog.readTime } min read
+                    {blog.readTime} min read
                   </span>
                   <Link
                     to={`/blog/${blog.title
@@ -680,14 +680,14 @@ function Home() {
             <Link
               to={"/blogs"}
               style={{ width: "33%" }}
-              className="btn btn-info hvr-shutter-out-horizontal w-33"
+              className="btn btn-info hvr-shutter-out-horizontal w-33 mt-4"
             >
               view more
             </Link>
           </div>
         </div>
       </section>
-      <section className="meetOurExperts">
+      <section className="meetOurExperts SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
             <h2>Meet Our Expert Wellness Team</h2>
@@ -884,7 +884,7 @@ function Home() {
                   <div className="col-md-12 text-center">
                     <button
                       type="submit"
-                      className="btn btn-primary mt-3 max-btn hvr-shutter-out-horizontal"
+                      className="btn btn-primary mt-3 sm-btn hvr-shutter-out-horizontal"
                     >
                       Submit
                     </button>

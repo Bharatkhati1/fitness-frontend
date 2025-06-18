@@ -17,6 +17,10 @@ import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import SiteMap from "./components/pages/SiteMap.jsx";
+import Profile from "./components/pages/Profile.jsx";
+import ProfileMyPakages from "./components/pages/ProfileMyPakages.jsx";
+import MyConsultation from "./components/pages/MyConsultation.jsx";
+import MyTestimonails from "./components/pages/MyTestimonails.jsx";
 
 const ConsultantRoutes = lazy(() =>
   import("./components/Routes/ConsultantRoutes.jsx")
@@ -62,8 +66,8 @@ const App = () => {
       userType = "partner";
     } else if(pathname.includes("/service-provider")) {
       userType = "consultant";
-    }else{
-      userType = "user"
+    } else {
+      userType = "user";
     }
     dispatch(getAccessToken(isAdmin, userType));
   }, [dispatch, type, isAdmin]);
@@ -92,6 +96,15 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="SiteMap" element={<SiteMap />} />
+
+          <Route path="Profile" element={<Profile />} />
+
+          <Route path="ProfileMyPakages" element={<ProfileMyPakages />} />
+
+          <Route path="MyConsultation" element={<MyConsultation />} />
+
+          <Route path="MyTestimonails" element={<MyTestimonails />} />
+
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}

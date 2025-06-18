@@ -86,7 +86,11 @@ const userApiRoutes = {
 
   apply_job:`/apply-now`,
 
-  check_previous_booking_id:`/check-previous-booking`
+  check_previous_booking_id:`/check-previous-booking`,
+
+  //PPROFILE API'S USER
+  get_profile_details:`/user-profile`,
+  update_profile:`/user-profile`
   
 };
 

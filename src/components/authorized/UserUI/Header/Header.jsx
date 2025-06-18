@@ -11,13 +11,14 @@ import { authActions } from "../../../../store/auth";
 import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
-import Dropdown from "react-bootstrap/Dropdown";
-import userprofile from "../../../../../public/assets/img/user-profile.png";
+import ProfileIcon from "./Profile_icon.png"
 
 const Header = () => {
-  const { userAccessToken, isLoggedIn , user} = useSelector((state) => state.auth);
+  const { userAccessToken, isLoggedIn, user } = useSelector(
+    (state) => state.auth
+  );
   const { pathname } = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchCartitems = async () => {
@@ -34,13 +35,13 @@ const Header = () => {
     dispatch(logoutUser(true));
   };
 
-  const handleCartNavigate =()=>{
-    if(userAccessToken&&userAccessToken.length>0){
-      navigate("/cart")
-    }else{
-      toast.info("Please login first!")
+  const handleCartNavigate = () => {
+    if (userAccessToken && userAccessToken.length > 0) {
+      navigate("/cart");
+    } else {
+      toast.info("Please login first!");
     }
-  }
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -114,23 +115,13 @@ const Header = () => {
               </Navbar.Collapse>
             </Navbar>
             <div className="Login-info d-flex align-items-center">
-              <div onClick={()=>handleCartNavigate()} className="carticon">
+              <div onClick={() => handleCartNavigate()} className="carticon">
                 <img src={CartIcon} />
               </div>
               {userAccessToken.length > 0 ? (
-                <Dropdown className="userprofile">
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    <span className="userprofileimg">
-                      <img src={userprofile}></img>
-                    </span>
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => handleLogout()}>
-                      Logout
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                <Link to="/profile" className="header-btn ">
+                  <img src={ProfileIcon} className="me-2"/> My Profile
+                </Link>
               ) : (
                 <Link to="/login-user" className="header-btn ">
                   Login / Register
