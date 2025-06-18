@@ -425,7 +425,7 @@ export default function Events() {
             <h2>Why Attend Our Events ?</h2>
           </div>
           <div className="row">
-            <div className="col col-sm-6">
+            <div className="col ">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy1}></img>
@@ -436,7 +436,7 @@ export default function Events() {
                 <h4>Stay updated with expert insights</h4>
               </div>
             </div>
-            <div className="col col-sm-6">
+            <div className="col ">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy2}></img>
@@ -447,7 +447,7 @@ export default function Events() {
                 <h4>Learn new fitness strategies</h4>
               </div>
             </div>
-            <div className="col col-sm-6">
+            <div className="col ">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy3}></img>
@@ -458,7 +458,7 @@ export default function Events() {
                 <h4>Connect with like-minded individuals</h4>
               </div>
             </div>
-            <div className="col col-sm-6">
+            <div className="col ">
               <div className="whyattentbox">
                 <span className="shapewhy">
                   <img src={shapewhy4}></img>

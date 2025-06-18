@@ -68,11 +68,12 @@ const adminApiRoutes = {
   update_consultant: (id) => `/consultant/${id}`,
   delete_consultant: (id) => `/consultant/${id}`,
 
-   //CONSULTANTS LEAVE ROUTES
-   add_consultant_leave: `/consultant-leave`,
-   get_consultant_leaves:(id)=>`/consultant-leave?consultantId=${id}`,
-   updat_consultant_leave: (id) => `/consultant-leave/${id}`,
-   delete_consultant_leave: (id) => `/consultant-leave/${id}`,
+  //CONSULTANTS LEAVES ROUTES
+  get_consultant_leaves: (consultantId) =>
+    consultantId ? `/consultant-leave?consultantId=${consultantId}` : `/consultant-leave`,  
+  create_consultant_leave: `/consultant-leave`,
+  update_consultant_leave: (id) => `/consultant-leave/${id}`,
+  delete_consultant_leave: (id) => `/consultant-leave/${id}`,
 
   //SMART KITCHEN CATEGORIES
   get_sk_categories: `/item-category`,

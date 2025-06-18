@@ -66,7 +66,7 @@ const Footer = () => {
 
                 <ul className="userlinks">
                   {allServices.slice(0, 8).map((service) => (
-                    <li>
+                    <li key={service.id}>
                       <Link
                         to={`/service-details/${service.name
                           .toLowerCase()

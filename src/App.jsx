@@ -17,7 +17,14 @@ import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import SiteMap from "./components/pages/SiteMap.jsx";
+import Profile from "./components/pages/Profile.jsx";
 
+const ConsultantRoutes = lazy(() =>
+  import("./components/Routes/ConsultantRoutes.jsx")
+);
+const PartnerRoutes = lazy(() =>
+  import("./components/Routes/PartnerRoutes.jsx")
+);
 const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
 const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
 const ForgotPasswordForm = lazy(() =>
@@ -34,8 +41,12 @@ const ProtectedRoute = ({
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isCheckingToken, type="admin", isLoggedIn, userAccessToken, adminAccessToken } =
-    useSelector((state) => state.auth);
+  const {
+    isCheckingToken,
+    type = "admin",
+    isLoggedIn,
+    userAccessToken,
+  } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const isAdmin = pathname.includes(`/${type}`);
 
@@ -70,11 +81,14 @@ const App = () => {
           <Route path="*" element={<Navigate replace to="/*" />} />
 
           <Route path="SiteMap" element={<SiteMap />} />
+
+            <Route path="Profile" element={<Profile/>} />
+         
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
           />
-          <Route path="Testimonial" element={<Testimonial />} />
+          <Route path="Testimonial" element={<Testimonial/>} />      
         </Routes>
       </Suspense>
     );
@@ -83,17 +97,48 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        <Route path="/partner" element={<AdminLogin type="partner" />} />
+        <Route path="/consultant" element={<AdminLogin type="consultant" />} />
         {userAccessToken.length == 0 && (
           <Route path="/login-user" element={<LoginUser />} />
         )}
-        <Route
-          path={`/${type}/*`}
-          element={
-            <ProtectedRoute condition={isAdminLogined} redirectTo="/">
-              <AdminRoutes />
-            </ProtectedRoute>
-          }
-        />
+
+        {type === "admin" && (
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute condition={isAdminLogined} redirectTo="/admin">
+                <AdminRoutes />
+              </ProtectedRoute>
+            }
+          />
+        )}
+
+        {type === "partner" && (
+          <Route
+            path="/partner/*"
+            element={
+              <ProtectedRoute condition={isAdminLogined} redirectTo="/partner">
+                <PartnerRoutes />
+              </ProtectedRoute>
+            }
+          />
+        )}
+
+        {type === "consultant" && (
+          <Route
+            path="/consultant/*"
+            element={
+              <ProtectedRoute
+                condition={isAdminLogined}
+                redirectTo="/consultant"
+              >
+                <ConsultantRoutes />
+              </ProtectedRoute>
+            }
+          />
+        )}
+        
         <Route path="/*" element={<UserRoutes />} />
       </Routes>
     </Suspense>

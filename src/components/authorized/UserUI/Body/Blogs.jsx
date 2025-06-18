@@ -132,9 +132,10 @@ function Blogs() {
                           <OwlCarousel
                             className="owl-theme"
                             autoplay={false}
-                            margin={10}
+                            margin={12}
                             dots={false}
-                            items={7}
+                            items={5}
+                            autoWidth={true}
                             nav
                             responsive={{
                               0: {

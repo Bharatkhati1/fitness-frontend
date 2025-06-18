@@ -206,7 +206,7 @@ body .btn.btn-primary {
 
 .SmartKichin .btn-info {
   margin-top: 50px;
-  width: 31%;
+ 
 }
 
 .PageTitle {
@@ -345,13 +345,14 @@ header .navbar-collapse .nav-link.active {
   color: #fff !important;
   display: flex;
   background: var(--secondary-color);
-  padding: 10px 20px;
-  font-weight: 800;
-  height: 53px;
-  align-items: center;
-  margin-right: 25px;
-  text-transform: uppercase;
-  cursor: pointer;
+     padding: 12px 20px;
+    font-weight: 800;
+    align-items: center;
+    margin-right: 25px;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-width: 165px;
+    justify-content: center;
 }
 .bookappoinmentl {
   height: 100%;
@@ -506,10 +507,7 @@ body .heartBeatImg {
   padding-bottom: 65px;
 }
 
-.OurServices {
-  padding-top: 60px;
-  padding-bottom: 70px;
-}
+
 
 .OurServicesContent {
   box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
@@ -532,9 +530,7 @@ body .heartBeatImg {
   min-height: 47px;
   text-transform: uppercase;
 }
-.OurServices .col-md-4 {
-  margin-bottom: 30px;
-}
+
 .OurServicesContent figure img {
   display: block;
   width: 100% !important;
@@ -576,7 +572,7 @@ body .heartBeatImg {
   margin: auto;
 }
 
-.WhyChoose {
+.SectionSpace {
   padding-top: 60px;
   padding-bottom: 70px;
 }
@@ -601,10 +597,7 @@ body .heartBeatImg {
   z-index: -1;
 }
 
-.SmartKichin {
-  padding-top: 60px;
-  padding-bottom: 70px;
-}
+
 
 .SmartKichinContent figcaption {
   width: 320px;
@@ -635,9 +628,6 @@ body .heartBeatImg {
   margin-bottom: 15px;
 }
 
-.SmartKichin .row .col-md-4 {
-  padding: 0 25px;
-}
 
 .PosterSec {
   background: url(../img/posterSec.png);
@@ -681,10 +671,6 @@ body .heartBeatImg {
   background-size: cover;
 }
 
-.OurHealthBlog {
-  padding-top: 60px;
-  padding-bottom: 70px;
-}
 
 .OurHealthBlogContent figure img {
   width: 100%;
@@ -713,19 +699,16 @@ body .heartBeatImg {
   line-height: 1.3;
 }
 
-.row.OurHealthBlogRows {
-  width: 84%;
-  margin: auto;
-}
 
-.col-md-6.OurHealthBlogContent {
+
+/* .col-md-6.OurHealthBlogContent {
   margin-bottom: 55px;
   padding: 0 40px;
-}
+} */
 
 .meetOurExperts {
   background: #f5f4f4;
-  padding: 60px 0 70px;
+
 }
 
 .meetOurExperts figure img {
@@ -1557,9 +1540,6 @@ ul.wightList figure {
   margin-bottom: 0;
 }
 
-.btn.sm-btn {
-  min-width: 304px;
-}
 
 .yourBmi {
   font-size: 28px;
@@ -2543,7 +2523,7 @@ button.SearchBtn {
 
 .taginfolist li {
   background: #4caf502e;
-  padding: 10px 0px;
+  padding: 10px 15px;
   height: 46px;
   justify-content: center;
   display: flex;
@@ -3015,7 +2995,7 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .btn.sm-btn {
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .Browseservice {
@@ -3551,9 +3531,9 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
-.col-xxl.taginforight {
+/* .col-xxl.taginforight {
   width: calc(100% - 171px);
-}
+} */
 
 .sortbyright {
   text-align: revert;
@@ -4040,10 +4020,7 @@ ul.ourapproachlist li:after {
   object-fit: cover;
 }
 
-.WhyUs {
-  padding-top: 60px;
-  padding-bottom: 70px;
-}
+
 
 .WhyUsinner {
   border-radius: 14px;
@@ -5019,7 +4996,7 @@ hr.dashed-text {
 }
 
 .filterOwl {
-  width: 95%;
+  width: 100%;
   margin: auto;
 }
 
@@ -5157,4 +5134,34 @@ ul.sitelistinner li a {
 .imgsmcard img {
   height: 230px;
   object-fit: cover;
+}
+
+.taginfoleft {
+    width: auto !important;
+}
+
+.col-xxl.col-sm.taginforight {
+    padding-left: 126px;
+}
+
+.col-xxl-auto.col-sm-auto.taginfoleft {
+    position: absolute;
+    left: 45px;
+}
+
+.filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
+    width: 88%;
+}
+
+.taginfolist {
+    margin-bottom: 0;
+    margin-left: 45px;
+}
+
+.OurHealthBlog {
+    overflow: hidden;
+}
+
+.OurServices .owl-dots {
+    margin-top: 35px;
 }

@@ -329,7 +329,7 @@ function Testimonial() {
                     </div>
                   </div>
                   <h3 className="clientafterbeforetitle">
-                    {successStory.title || "12 months natural transformation"}
+                    {successStory.description || "12 months natural transformation"}
                   </h3>
                 </div>
               </div>

@@ -27,13 +27,13 @@ function AllPakages() {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
     arrows: true,
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 6 } },
+      { breakpoint: 1200, settings: { slidesToShow: 4 } },
       { breakpoint: 992, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
       { breakpoint: 481, settings: { slidesToShow: 1 } },

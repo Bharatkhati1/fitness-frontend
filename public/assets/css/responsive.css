@@ -86,6 +86,21 @@
   .EventsBannercontent h3 {
     font-size: 43px;
   }
+  .contactinfobox {
+    padding: 25px 10px;
+  }
+
+  .contactinfobox span {
+    margin-right: 4px !important;
+  }
+
+  .GetIntouchinnerright .form-checkList label.form-check-label {
+    margin-bottom: 0;
+  }
+
+  .GetIntouchinnerright .col-md-6.mb-3 {
+    margin-bottom: 12px !important;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
@@ -119,9 +134,7 @@
     width: 294px;
   }
 
-  .col-md-6.OurHealthBlogContent {
-    padding: 0 25px;
-  }
+ 
   .Login-info.d-flex.align-items-center {
     padding-left: 30px;
   }
@@ -414,6 +427,9 @@
 }
 
 @media (max-width: 1199px) {
+  .owl-theme .owl-nav {
+    display: none !important;
+  }
   .bannerSection {
     overflow: hidden;
   }
@@ -464,9 +480,7 @@
   .SmartKichinContent figcaption h3 {
     font-size: 20px;
   }
-  .col-md-6.OurHealthBlogContent {
-    padding: 0 20px;
-  }
+
   .OurHealthBlogContent figcaption h3 {
     font-size: 20px;
   }
@@ -832,10 +846,6 @@
   .Packagecontent figcaption p {
     font-size: 14px;
   }
-  .owl-carousel.owl-theme {
-    width: 90%;
-    margin: auto;
-  }
 
   .OurHealthBlog .text-center.btn-sec.mt-4 {
     margin-top: 0 !important;
@@ -964,6 +974,16 @@
   .zigzagtext h3 {
     font-size: 45px;
   }
+  .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
+    width: 86%;
+  }
+
+  .MuktiBoxLeft {
+    display: none;
+  }
+  .MuktiBox .col-md-6.ms-auto {
+    width: 100%;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1079,22 +1099,12 @@
   .OurServicesContent figcaption h3 {
     font-size: 20px;
   }
-  .SmartKichin .row .col-md-4 {
-    padding: 0 10px;
-  }
+
   .SmartKichinContent figcaption h3 {
     font-size: 18px;
   }
   .btn {
     height: 40px;
-  }
-  .OurHealthBlog {
-    padding-top: 45px;
-    padding-bottom: 45px;
-  }
-
-  .row.OurHealthBlogRows {
-    width: 100%;
   }
 
   .infobox.infoboxLeft {
@@ -1117,14 +1127,9 @@
   .trailofferform .col-md-6.mb-3 {
     width: 100%;
   }
-  .col-md-6.GetIntouchLeft {
-    width: 100%;
-  }
 
-  .col-md-6.GetIntouchRight {
-    width: 100%;
-    margin-top: 20px;
-  }
+
+
 
   .LoginPage .col-md-4.me-auto {
     width: 65%;
@@ -1406,16 +1411,12 @@
     font-size: 16px;
   }
 
+
   body .owl-carousel .owl-item .bannerSectionInner figure img {
-    margin: 45px 0 30px;
-    height: 420px;
-    width: 227px !important;
-  }
-  body .owl-carousel .owl-item .bannerSectionInner figure img {
-    margin: 45px 0 30px;
+   
     height: 390px;
     width: 227px !important;
-    object-fit: fill;
+   
   }
 
   .owl-p ul li {
@@ -1454,9 +1455,7 @@
     height: 400px;
   }
 
-  section.WhyUs .col-md-4 {
-    width: 50%;
-  }
+
   .ThankyouModal h4 {
     font-size: 120px;
   }
@@ -1550,6 +1549,13 @@
   .centerImg img {
     height: 385px;
     object-fit: contain;
+  }
+
+  .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
+    width: auto;
+  }
+  .GetIntouch {
+    padding-top: 55px;
   }
 }
 @media (max-width: 767px) {
@@ -1651,13 +1657,7 @@
     margin-top: 23px;
   }
 
-  .col-md-4.SmartKichinContent figure img {
-    width: 100%;
-  }
 
-  .SmartKichin .row .col-md-4 {
-    margin-bottom: 30px;
-  }
 
   .SmartKichinContent figcaption h3 {
     height: auto;
@@ -1876,10 +1876,7 @@
   .BlogDeatils figure img {
     height: 330px;
   }
-  section.SmartKichin {
-    width: 86%;
-    margin: auto;
-  }
+
 
   .our-approachmain {
     padding-top: 35px !important;
@@ -1911,12 +1908,7 @@
     font-size: 26px;
     margin-bottom: 12px;
   }
-  body .owl-carousel .owl-item .bannerSectionInner figure img {
-    margin: 45px 0 30px;
-    height: 330px;
-    width: 199px !important;
-    object-fit: fill;
-  }
+ 
   .col-md-6.bannerSectionLeft.pe-0 {
     padding-right: 20px !important;
   }
@@ -1930,7 +1922,12 @@
     width: 60% !important;
     object-fit: fill;
     margin-left: auto;
+    top: 130px;
   }
+
+  .bannerSection .owl-dots {
+    margin-top: 20px;
+}
 
   .Clientbefore figure img {
     height: 150px;
@@ -2018,6 +2015,18 @@
     display: flex;
     justify-content: center;
   }
+  span.circleshape {
+    display: none;
+}
+.SectionSpace {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+    .GetIntouchRight {
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+    }
 }
 
 @media (max-width: 575px) {
@@ -2236,10 +2245,7 @@
     font-size: 24px;
   }
 
-  .SmartKichin {
-    width: 74%;
-    margin: auto;
-  }
+
   .SmartKichinbox p {
     font-size: 16px;
   }
@@ -2317,10 +2323,7 @@
     width: 85%;
   }
 
-  section.WhyUs .col-md-4 {
-    width: 90%;
-    margin: 20px auto;
-  }
+
   .ThankyouModal .btn-primary {
     margin-top: 20px !important;
   }
@@ -2399,6 +2402,13 @@
   .getintouchinnerleft p {
     font-size: 14px;
   }
+
+  body .owl-carousel .owl-item .bannerSectionInner figure img{ top: 0;}
+
+.SectionSpace .container {
+    padding-left: 30px;
+    padding-right: 30px;
+}
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2715,10 +2725,7 @@
   .col-md-4.Packagecontent {
     width: 100%;
   }
-  .OurServices .owl-carousel.owl-theme {
-    width: 85%;
-    margin: auto;
-  }
+
 
   body .owl-carousel .owl-item .bannerSectionInner figure img {
     width: 95% !important;
@@ -2750,9 +2757,7 @@
   .OurHealthBlogContent figcaption h3 {
     font-size: 16px;
   }
-  .col-md-6.OurHealthBlogContent {
-    margin-bottom: 25px;
-  }
+ 
   .ordersummarylist figcaption h4 {
     font-size: 14px;
   }
@@ -2879,4 +2884,7 @@
   .partnerssecbox h3 {
     font-size: 14px;
   }
+
+  .col-md-6.bannerSectionRight.ps-5.justify-content-end {
+    display: none;}
 }

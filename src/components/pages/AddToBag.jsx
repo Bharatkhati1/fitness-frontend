@@ -24,6 +24,7 @@ export default function AddToBag() {
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
   const [apliedCode, setAppliedCode] = useState("");
+  const [appliedCouponDetails, setAppliedCouponDetails] = useState("")
   const [discountPrice, setDiscountPrice] = useState(null);
   const [discountGet, setDiscounGet] = useState(0);
   const [appointmentData, setAppointmentData] = useState(null);
@@ -53,6 +54,7 @@ export default function AddToBag() {
             };
       const res = await userAxios.post(userApiRoutes.apply_coupon, body);
       setTotal(res.data.data.totalAmount);
+      setAppliedCouponDetails(res.data.data.coupon)
       setDiscountPrice(res.data.data.discountedAmount);
       setDiscounGet(res.data.data.discountApplied);
       setAppliedCode(res.data.data.coupon.code);
@@ -106,6 +108,8 @@ export default function AddToBag() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
+                couponAppliedId:appliedCouponDetails?.couponAppliedId,
+                packageId:"",
                 coupon: discountPrice ? coupon : undefined,
               });
             } else {
@@ -115,6 +119,8 @@ export default function AddToBag() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
+                couponAppliedId:appliedCouponDetails?.couponAppliedId,
+                packageId:appointmentData.packageId,
                 coupon: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);

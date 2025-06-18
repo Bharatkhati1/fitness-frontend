@@ -10,7 +10,7 @@ import SmartKitchen from "../authorized/AdminUI/SmartKitchen/index"
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
 import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement";
-import Consultants from "../authorized/AdminUI/Consultants/Consultants";
+import Consultants from "../authorized/AdminUI/Consultants/index";
 import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateUpdatePackage";
 import CompanySetting from "../authorized/AdminUI/CompanySettings/index"
 import Innovation from "../authorized/AdminUI/Innovation/index"
@@ -37,7 +37,7 @@ export default function AdminRoutes() {
           <Route path="team-management" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="smart-kitchen/*" element={<SmartKitchen />} />
-          <Route path="consultants" element={<Consultants />} />
+          <Route path="consultants/*" element={<Consultants />} />
           <Route path="innovation/*" element={<Innovation />} />
           <Route path="company-settings/*" element={<CompanySetting />} />
           <Route path="news-media/*" element={<NewsAndMedia />} />
@@ -47,7 +47,7 @@ export default function AdminRoutes() {
           <Route path="coupon" element={<Coupon />} />
           <Route path="inquiries/*" element={<InquiresMain/>} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
-          <Route path="*" element={<Navigate replace to={`/${type}/slider-management`} />} />
+          <Route path="*" element={<Navigate replace to={`/admin/slider-management`} />} />
         </Route>
       </Routes>
     </Suspense>
