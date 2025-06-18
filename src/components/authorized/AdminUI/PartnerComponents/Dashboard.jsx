@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const { user } = useSelector((state)=> state.auth)
   const [transactionHistory, setTransactionHistory] = useState({});
-  const [couponUsage, setCouponUsage] = useState({});
-  const [partnerCoupons, setPartnerCoupons] = useState([])
+  const [couponUsage, setCouponUsage] = useState([]);
+  const [partnerCoupons, setPartnerCoupons] = useState([]);
   const Cards = [
     {
       name: "Current Balance",
-      value: 283267,
+      value: user?.earning,
     },
     {
       name: "Total Commission",
@@ -22,34 +24,34 @@ const Dashboard = () => {
     },
     {
       name: "Coupons Used",
-      value: 242,
+      value: couponUsage.length,
     },
   ];
 
   const fetchTransactionHistory = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.partner_payment_history);
-      setTransactionHistory(res.data.data)
+      setTransactionHistory(res.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
   };
-  
+
   const getCouponUsage = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_coupon_usage);
-      setCouponUsage(res.data.data)
+      setCouponUsage(res.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
   };
 
   const fetchPartnerCoupons = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_partner_coupon);
-      setPartnerCoupons(res.data.data)
+      setPartnerCoupons(res.data.data);
     } catch (error) {
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
     }
   };
 
@@ -97,24 +99,23 @@ const Dashboard = () => {
                 <table className="table align-middle mb-0 table-hover table-centered">
                   <thead className="bg-light-subtle">
                     <tr>
-                      <th>ID</th>
-                      <th>Image</th>
-                      <th>Name</th>
-                      <th>Short Description</th>
-                      <th>Service Name</th>
-                      <th>Status</th>
-                      <th>Action</th>
+                      <th>Code</th>
+                      <th>Type</th>
+                      <th>Discount</th>
+                      <th>Commission</th>
+                      <th>User name</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>{1}</td>
-                      <td>ds</td>
-                      <td>ssss</td>
-                      <td>qww</td>
-                      <td>q</td>
-                      <td></td>
-                    </tr>
+                    {couponUsage.map((info) => (
+                      <tr>
+                        <td>{info.couponCode}</td>
+                        <td>{info.type}</td>
+                        <td>{info.discount}</td>
+                        <td>{info.comission}</td>
+                        <td>{info.User.name}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

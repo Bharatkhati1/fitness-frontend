@@ -108,6 +108,7 @@ function SignUpUser() {
         await axios.post(`${GATEWAY_URL}/web/otp-verify`, {
           email: formData.email,
           otp: formData.otp,
+          userType:"user"
         });
 
         toast.update(toastId, {

@@ -221,11 +221,12 @@ export default function Events() {
   return (
     <>
       <div className="EventsBanner spacetop">
-        <div className="EventsBannercontent">
+        <div className="EventsBannercontent ">
+          <div className="container">
           <h3>{eventCms?.title}</h3>
           <p>{eventCms.description}</p>
 
-          <div className="events-btn mt-4">
+          <div className="events-btn text-center mt-4">
             <a
               href="#upcomingevent"
               className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
@@ -237,7 +238,7 @@ export default function Events() {
               className="btn btn-primary max-btn hvr-shutter-out-horizontal"
             >
               register now
-            </a>
+            </a></div>
           </div>
         </div>
       </div>
@@ -485,7 +486,7 @@ export default function Events() {
               items={4}
               nav={true}
               margin={10}
-
+              // loop={true}
                responsive={{
                     0: {
                       items: 1, // 0px and up

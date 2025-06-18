@@ -40,21 +40,30 @@ const ProtectedRoute = ({
 
 const App = () => {
   const dispatch = useDispatch();
-  const {
-    isCheckingToken,
-    type,
-    isLoggedIn,
-    userAccessToken,
-  } = useSelector((state) => state.auth);
+  const { isCheckingToken, type, isLoggedIn, userAccessToken } = useSelector(
+    (state) => state.auth
+  );
+
   const { pathname } = useLocation();
-  const isAdmin = pathname.includes(`/admin`||`/partner`||`/consultant`);
+  const isAdmin =
+    pathname.includes("/admin") ||
+    pathname.includes("/partner") ||
+    pathname.includes("/consultant");
 
   const [isAdminLogined, setIsAdminLogined] = useState(
     localStorage.getItem("isAdmin") === "true"
   );
 
   useEffect(() => {
-    dispatch(getAccessToken(isAdmin));
+    let userType;
+    if (pathname.includes("/admin")) {
+      userType = "admin";
+    } else if (pathname.includes("/partner")) {
+      userType = "partner";
+    } else {
+      userType = "consultant";
+    }
+    dispatch(getAccessToken(isAdmin, userType));
   }, [dispatch, type, isAdmin]);
 
   useEffect(() => {
@@ -74,6 +83,7 @@ const App = () => {
             element={<AdminLogin type="consultant" />}
           />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="/login-user" element={<LoginUser />} />
           <Route path="/login-user" element={<LoginUser />} />
           <Route path="/SignUpUser" element={<SignUpUser />} />
           <Route path="/*" element={<UserRoutes />} />
@@ -134,7 +144,7 @@ const App = () => {
             }
           />
         )}
-        
+
         <Route path="/*" element={<UserRoutes />} />
       </Routes>
     </Suspense>

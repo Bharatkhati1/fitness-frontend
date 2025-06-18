@@ -13,11 +13,15 @@ import { authActions } from "../../store/auth";
 
 function PackageDetails() {
   const { slug } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [details, setDetails] = useState({});
-  const {cartItems =[], isLoggedIn, userAccessToken} = useSelector((state)=> state.auth)
- const cartItemIds = cartItems?.map((item)=> item.subscriptionPlanId)
+  const {
+    cartItems = [],
+    isLoggedIn,
+    userAccessToken,
+  } = useSelector((state) => state.auth);
+  const cartItemIds = cartItems?.map((item) => item.subscriptionPlanId);
 
   const fetchPackageDetails = async () => {
     try {
@@ -26,7 +30,7 @@ function PackageDetails() {
       );
       setDetails(response.data.data);
     } catch (error) {
-      setDetails(null)
+      setDetails(null);
       toast.error(error.response.data.message);
     }
   };
@@ -36,32 +40,40 @@ function PackageDetails() {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       dispatch(authActions.setCartItems(res?.data?.data));
     } catch (error) {
-      console.log(error)
-      dispatch(authActions.setCartItems([]))
+      console.log(error);
+      dispatch(authActions.setCartItems([]));
       toast.error(error.response.data.error);
     }
   };
 
-  useEffect(() => {
-    fetchPackageDetails();
-  }, [slug])
-
   const handleAddToCart = async (plainId) => {
     if (!isLoggedIn) {
-      toast.info("Please login first.")
+      toast.info("Please login first.");
       return;
     }
-    dispatch(AddToCart(plainId))
+    dispatch(AddToCart(plainId, false));
     setTimeout(() => {
-      fetchCartitems()
+      fetchCartitems();
     }, 700);
   };
 
-  useEffect(()=>{
-    if(userAccessToken&&userAccessToken.length>0){
-      fetchCartitems()
+  const handleBuyNow = async (id) => {
+    if (!isLoggedIn) {
+      toast.info("Please login first.");
+      return;
     }
-  },[])
+    dispatch(AddToCart(id, true, navigate));
+  };
+
+  useEffect(() => {
+    if (userAccessToken && userAccessToken.length > 0) {
+      fetchCartitems();
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPackageDetails();
+  }, [slug]);
   return (
     <>
       <section className="Diabetespage InnerpageSpace pb-0">
@@ -72,102 +84,117 @@ function PackageDetails() {
         <span className="daishaperight">
           <img src={shapeangelleft}></img>
         </span>
-        {details?<div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-5 Diabetespageleft">
-              <figure>
-                <img crossOrigin="anonymous" src={details?.image_url} />
-              </figure>
+        {details ? (
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-md-5 Diabetespageleft">
+                <figure>
+                  <img crossOrigin="anonymous" src={details?.image_url} />
+                </figure>
+              </div>
+
+              <div className="col-md-6 Diabetespageright">
+                <h3>{details?.name} </h3>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: details?.description,
+                  }}
+                ></p>
+              </div>
             </div>
 
-            <div className="col-md-6 Diabetespageright">
-              <h3>{details?.name} </h3>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: details?.description,
-                }}
-              ></p>
+            <div className="DiabetesHealthPakages mt-4 mb-0">
+              <div class="InnerPageTitle text-center">
+                <h4>{details.name} PACKAGEs</h4>
+              </div>
+
+              <div className="row">
+                {details?.PackagePlans?.map((plan) => (
+                  <div className="col-md-3">
+                    <div className="DiabetesHealthcontent">
+                      <figure>
+                        <img crossOrigin="anonymous" src={plan.image_url}></img>
+                      </figure>
+
+                      <figcaption>
+                        <h3>
+                          ₹{plan.price} | {plan.duration} months
+                        </h3>
+                        {plan.description && (
+                          <>
+                            <span>Package description:</span>
+                            <p
+                              className="text-center"
+                              dangerouslySetInnerHTML={{
+                                __html: plan?.description,
+                              }}
+                            ></p>
+                          </>
+                        )}
+
+                        <div className="btnbox text-center">
+                          <a
+                            onClick={() => handleBuyNow(plan.id)}
+                            className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal"
+                          >
+                            buy now
+                          </a>
+                          <a
+                            onClick={() =>
+                              cartItemIds.includes(plan.id)
+                                ? navigate("/cart")
+                                : handleAddToCart(plan.id)
+                            }
+                            className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
+                          >
+                            {cartItemIds.includes(plan.id)
+                              ? `Go to cart`
+                              : `add to bag`}
+                          </a>
+                        </div>
+                      </figcaption>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+        ) : (
+          <div className="col-12 text-center py-5">
+            <h5>No Details found.</h5>
+          </div>
+        )}
 
-          <div className="DiabetesHealthPakages mt-4 mb-0">
-            <div class="InnerPageTitle text-center">
-              <h4>{details.name} PACKAGEs</h4>
-            </div>
-
-            <div className="row">
-              {details?.PackagePlans?.map((plan) => (
-                <div className="col-md-3">
-                  <div className="DiabetesHealthcontent">
+        {details && (
+          <div className="PackageINclusion mt-5 pt-3 pb-5">
+            <div className="container">
+              <h3 className="pn-title text-center">
+                {details?.name} Management Package inclusions
+              </h3>
+              <div className="row">
+                {details?.PackageInclusions?.map((inclusion) => (
+                  <div className="col-md-4 Packagecontent">
                     <figure>
-                      <img crossOrigin="anonymous" src={plan.image_url}></img>
+                      <img
+                        crossOrigin="anonymous"
+                        src={inclusion.image_url}
+                      ></img>
                     </figure>
 
                     <figcaption>
-                      <h3>
-                        ₹{plan.price} | {plan.duration} months
-                      </h3>
-                      {plan.description && (
-                        <>
-                          <span>Package description:</span>
-                          <p
-                            className="text-center"
-                            dangerouslySetInnerHTML={{
-                              __html: plan?.description,
-                            }}
-                          ></p>
-                        </>
-                      )}
-
-                      <div className="btnbox text-center">
-                        <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
-                          buy now
-                        </a>
-                        <a
-                          onClick={() => cartItemIds.includes(plan.id)? navigate("/cart"): handleAddToCart(plan.id)}
-                          className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
-                        >
-                        {cartItemIds.includes(plan.id)?`Go to cart`:`add to bag`}
-                        </a>
-                      </div>
+                      <h4>{inclusion.name}</h4>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: inclusion?.description,
+                        }}
+                      ></p>
                     </figcaption>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>: <div className="col-12 text-center py-5">
-                <h5>No Details found.</h5>
-              </div>}
-
-        { details&&<div className="PackageINclusion mt-5 pt-3 pb-5">
-          <div className="container">
-            <h3 className="pn-title text-center">
-              {details?.name} Management Package inclusions
-            </h3>
-            <div className="row">
-              {details?.PackageInclusions?.map((inclusion) => (
-                <div className="col-md-4 Packagecontent">
-                  <figure>
-                    <img
-                      crossOrigin="anonymous"
-                      src={inclusion.image_url}
-                    ></img>
-                  </figure>
-
-                  <figcaption>
-                    <h4>{inclusion.name}</h4>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: inclusion?.description,
-                      }}
-                    ></p>
-                  </figcaption>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>}
+        )}
       </section>
     </>
   );

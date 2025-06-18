@@ -66,14 +66,14 @@ export const Login = (userData, navigate, userType, isAdmin = false) => {
   };
 };
 
-export const getAccessToken = (isAdmin) => {
+export const getAccessToken = (isAdmin, userType) => {
   return async (dispatch) => {
     try {
       dispatch(authActions.checkingUserToken(true));
       const type = isAdmin ? "adminRefreshToken" : "userRefreshToken";
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/refresh`,
-        { type },
+        { type, userType },
         {
           withCredentials: true,
         }
@@ -299,28 +299,42 @@ export const handleSocialLoginGoogle = async (
   };
 };
 
-export const AddToCart = (plainId) => {
+export const AddToCart = (plainId, isBuyNow = false, navigate) => {
   return async (dispatch) => {
-    const toastId = toast.loading("Adding to cart...");
+    let toastId;
+
+    if (!isBuyNow) {
+      toastId = toast.loading("Adding to cart...");
+    }
+
     try {
       const response = await userAxios.post(userApiRoutes.add_to_cart, {
         subscriptionPlanId: plainId,
         quantity: 1,
       });
 
-      toast.update(toastId, {
-        render: "Added to cart successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      if (!isBuyNow) {
+        toast.update(toastId, {
+          render: "Added to cart successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }else{
+        navigate("/checkout/cart")
+      }
+      return response?.data;
     } catch (error) {
-      toast.update(toastId, {
-        render: error?.response?.data?.message || "Failed to add to cart",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      if (!isBuyNow) {
+        toast.update(toastId, {
+          render: error?.response?.data?.message || "Failed to add to cart",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        toast.error(error?.response?.data?.message || "Failed to add to cart");
+      }
     }
   };
 };

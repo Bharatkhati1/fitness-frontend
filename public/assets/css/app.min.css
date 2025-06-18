@@ -17609,7 +17609,7 @@ fieldset:disabled .btn {
 
 .topbar {
   top: 0;
-  z-index: 1005;
+  z-index: 2;
   position: sticky;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -17778,7 +17778,7 @@ html[data-menu-size=hidden] .topbar {
 .wrapper .main-nav {
   top: 0;
   bottom: 0;
-  z-index: 1010;
+  z-index: 3;
   margin-left: 0;
   position: fixed;
   -webkit-transition: all 0.3s ease-in-out;
