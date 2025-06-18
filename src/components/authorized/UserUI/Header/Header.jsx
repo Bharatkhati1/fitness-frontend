@@ -31,10 +31,6 @@ const Header = () => {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser(true));
-  };
-
   const handleCartNavigate = () => {
     if (userAccessToken && userAccessToken.length > 0) {
       navigate("/cart");
