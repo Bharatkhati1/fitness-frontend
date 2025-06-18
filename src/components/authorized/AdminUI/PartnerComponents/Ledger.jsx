@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const Ledger = () => {
   const [transactions, setTransactions] = useState([]);
@@ -44,7 +45,7 @@ const Ledger = () => {
                       <td>{transaction.type}</td>
                       <td>{transaction.amount}</td>
                       <td>{transaction.comment}</td>
-                      <td>{transaction.createdAt}</td>
+                      <td>{moment(transaction.createdAt).format('DD-MM-YYYY HH:mm')}</td>
                     </tr>
                   ))}
                 </tbody>

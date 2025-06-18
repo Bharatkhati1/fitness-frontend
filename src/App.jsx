@@ -60,8 +60,10 @@ const App = () => {
       userType = "admin";
     } else if (pathname.includes("/partner")) {
       userType = "partner";
-    } else {
+    } else if(pathname.includes("/consultant")) {
       userType = "consultant";
+    }else{
+      userType = "user"
     }
     dispatch(getAccessToken(isAdmin, userType));
   }, [dispatch, type, isAdmin]);

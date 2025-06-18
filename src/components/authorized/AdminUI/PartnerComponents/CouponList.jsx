@@ -4,10 +4,11 @@ import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { Tooltip } from "antd";
 import UsageDetails from "./Popup/UsageDetails";
+import moment from "moment";
 
 const CouponList = () => {
   const [partnerCoupons, setPartnerCoupons] = useState([]);
-  const [selectedCouponId, setSelectedCouponId] = useState("");
+  const [selectedCouponId, setSelectedCouponId] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const fetchPartnerCoupons = async () => {
     try {
@@ -26,7 +27,7 @@ const CouponList = () => {
       <UsageDetails
         open={modalOpen}
         setOpen={setModalOpen}
-        id={selectedCouponId}
+        selectedCouponUsage={selectedCouponId}
       />
       <div className="row">
         <div className="col-xl-12">
@@ -44,6 +45,7 @@ const CouponList = () => {
                       <th>Expiry</th>
                       <th>Type</th>
                       <th>Commission</th>
+                      <th>Used By</th>
                       <th>Created At</th>
                       <th>Action</th>
                     </tr>
@@ -56,7 +58,8 @@ const CouponList = () => {
                         <td>{coupon.expiry}</td>
                         <td>{coupon.type}</td>
                         <td>{coupon.commission}</td>
-                        <td> {new Date(coupon.createdAt).toLocaleDateString()}</td>
+                        <td>{coupon?.CouponUsages?.length || 0}</td>
+                        <td>{moment(coupon.createdAt).format('DD-MM-YYYY HH:mm')}</td>
                         <td>
                           <Tooltip title="View Usage">
                             <p
@@ -66,7 +69,7 @@ const CouponList = () => {
                                 margin:"0"
                               }}
                               onClick={() => {
-                                setSelectedCouponId(coupon.id);
+                                setSelectedCouponId(coupon?.CouponUsages);
                                 setModalOpen(true);
                               }}
                             >

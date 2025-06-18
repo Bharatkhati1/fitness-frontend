@@ -66,7 +66,7 @@ function Careers() {
       fitnessEnthusiast: "",
       resume_file: null,
       experience: "",
-    })
+    });
   };
 
   const fetchJobs = async () => {
@@ -89,6 +89,10 @@ function Careers() {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+    if (name === "name") {
+      const isValid = /^[A-Za-z\s]*$/.test(value);
+      if (!isValid) return; 
+    }
     if (type === "file") {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
     } else {
@@ -102,7 +106,7 @@ function Careers() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const payload = {
       name: formData.name,
       dob: formData.dob,
@@ -112,12 +116,12 @@ function Careers() {
       experience: formData.experience,
       jobId: selectedJob,
     };
-  
-    const toastId = toast.loading("Submitting application..."); 
-  
+
+    const toastId = toast.loading("Submitting application...");
+
     try {
       await webAxios.post(userApiRoutes.apply_job, payload);
-       
+
       toast.update(toastId, {
         render: "Application submitted successfully!",
         type: "success",
@@ -132,7 +136,7 @@ function Careers() {
         fitnessEnthusiast: "",
         resume_file: null,
         experience: "",
-      })
+      });
     } catch (error) {
       toast.update(toastId, {
         render: error.response?.data?.error || "Submission failed. Try again.",
@@ -142,7 +146,6 @@ function Careers() {
       });
     }
   };
-  
 
   useEffect(() => {
     fetchJobs();
@@ -495,9 +498,11 @@ function Careers() {
                   type="date"
                   className="form-control"
                   name="dob"
+                  placeholder="Enter your DOB"
                   required
                   value={formData.dob}
                   onChange={handleChange}
+                  max={new Date().toISOString().split("T")[0]}
                 />
               </div>
 
@@ -515,7 +520,7 @@ function Careers() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Are you a fitness fitnessEnthusiast?*</label>
+                <label>Are you a fitness enthusiast?*</label>
                 <ul className="form-checkList sm-checklist d-flex flex-wrap">
                   <li>
                     <div className="form-check me-4">
@@ -557,7 +562,7 @@ function Careers() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Upload resume_file*</label>
+                <label>Upload Resume*</label>
                 <input
                   type="file"
                   name="resume_file"
