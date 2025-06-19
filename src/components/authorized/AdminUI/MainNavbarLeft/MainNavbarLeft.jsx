@@ -89,6 +89,7 @@ const NavItems = {
       subMenu: [
         { name: "All Users", path: "users" },
         { name: "Orders", path: "orders" },
+        { name: "Testimonials", path: "testimonials" },
         { name: "Appointments", path: "appointments" },
         { name: "Applied Jobs", path: "applied-jobs" },
         { name: "Contact Details", path: "contact-details" },

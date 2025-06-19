@@ -10,6 +10,7 @@ import Innovation from "./innovation";
 import AppliedJobs from "./AppliedJobs";
 import AllOrders from "./Orders";
 import AllAppointments from "./Appointments";
+import Testimonials from "./Testimonials";
 
 const index = () => {
   return (
@@ -18,6 +19,7 @@ const index = () => {
         <Route index element={<Navigate to="privacy-policy" replace />} />
           <Route path="users" element={<Users />} />
           <Route path="applied-jobs" element={<AppliedJobs />} />
+          <Route path="testimonials" element={<Testimonials />} />
           <Route path="orders" element={<AllOrders/>} />
           <Route path="appointments" element={<AllAppointments />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />

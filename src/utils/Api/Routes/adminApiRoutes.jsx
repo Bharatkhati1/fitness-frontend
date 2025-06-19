@@ -129,7 +129,9 @@ const adminApiRoutes = {
   
   //ALL ORDERS AND APPOINTMENTS ADMIN
   get_all_orders:`/orders`,
-  get_all_appointments:`/appointments`
+  get_all_appointments:`/appointments`,
+
+  get_testimonials:`/feedbacks`
 };
 
 export default adminApiRoutes;
