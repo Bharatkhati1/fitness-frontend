@@ -106,28 +106,35 @@ function Careers() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const payload = {
-      name: formData.name,
-      dob: formData.dob,
-      role: formData.role,
-      fitnessEnthusiast: formData.fitnessEnthusiast,
-      resume_file: formData.resume_file || "",
-      experience: formData.experience,
-      jobId: selectedJob,
-    };
-
+  
+    const formPayload = new FormData();
+    formPayload.append("name", formData.name);
+    formPayload.append("dob", formData.dob);
+    formPayload.append("role", formData.role);
+    formPayload.append("fitnessEnthusiast", formData.fitnessEnthusiast);
+    formPayload.append("experience", formData.experience);
+    formPayload.append("jobId", selectedJob);
+  
+    if (formData.resume_file) {
+      formPayload.append("resume_file", formData.resume_file);
+    }
+  
     const toastId = toast.loading("Submitting application...");
-
+  
     try {
-      await webAxios.post(userApiRoutes.apply_job, payload);
-
+      await webAxios.post(userApiRoutes.apply_job, formPayload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
       toast.update(toastId, {
         render: "Application submitted successfully!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
       });
+  
       setIsModalOpen(false);
       setFormData({
         name: "",
@@ -146,7 +153,7 @@ function Careers() {
       });
     }
   };
-
+  
   useEffect(() => {
     fetchJobs();
     fetchCmsCareers();
@@ -174,7 +181,11 @@ function Careers() {
                   the right place.
                 </p>
 
+<<<<<<< HEAD
                 <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+=======
+                <a  href="#WeAreHiring" className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+>>>>>>> 447eb198ad6e30a6feec3114a19283e4581e12f9
                   Shape Lives With Us
                 </a>
               </div>
@@ -446,6 +457,7 @@ function Careers() {
                       className="btn btn-primary w-100 hvr-shutter-out-horizontal"
                       onClick={() => {
                         showModal();
+                        setFormData((prev) => ({ ...prev, role: job.title }));
                         setSelectedJob(job.ID);
                       }}
                     >

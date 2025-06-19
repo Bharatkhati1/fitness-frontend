@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
+import { Select } from "antd";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -28,7 +29,7 @@ import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
-
+const { Option } = Select
 export default function Events() {
   const navigate = useNavigate();
   const [eventType, setEventTypes] = useState([]);
@@ -40,9 +41,9 @@ export default function Events() {
   const carouselRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
-    dob: "",
+    email: "",
     mobile: "",
-    eventName: "",
+    eventId: "",
     eventTime: "",
     termsAccepted: false,
   });
@@ -127,19 +128,19 @@ export default function Events() {
 
     const payload = {
       name: formData.name,
-      dob: formData.dob,
-      mobile: formData.mobile,
-      eventName: formData.eventName,
-      eventTime: formData.eventTime,
+      email: formData.email,
+      phone: formData.mobile,
+      itemId: formData.eventId,
+      type : "event-registration"
     };
 
     const toastId = toast.loading("Submitting your details...");
 
     try {
-      await webAxios.post(userApiRoutes.apply_event, payload);
+      await webAxios.post(userApiRoutes.send_inquiry, payload);
 
       toast.update(toastId, {
-        render: "Application submitted successfully!",
+        render: "Registration successfully!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
@@ -165,7 +166,6 @@ export default function Events() {
     }
   };
 
-
   //for contact us*********************
   const [formDataContact, setFormDataContact] = useState({
     name: "",
@@ -186,7 +186,7 @@ export default function Events() {
     e.preventDefault();
     const payload = {
       ...formDataContact,
-      type:"inquiry"
+      type: "inquiry",
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formDataContact.phone)) {
@@ -194,7 +194,7 @@ export default function Events() {
       return;
     }
     await sendInquiry(payload);
-    setOpenContactusModal(false)
+    setOpenContactusModal(false);
     setFormDataContact({
       name: "",
       email: "",
@@ -211,34 +211,36 @@ export default function Events() {
     return `${hour12}:${minute.toString().padStart(2, "0")} ${ampm}`;
   };
 
-  
   useEffect(() => {
     fetchAllPastEvents();
     fetchAllUpcomingEvents();
     fetchEventTypes();
     fetchCmsEvents();
   }, []);
+
+  console.log(formData)
   return (
     <>
       <div className="EventsBanner spacetop">
         <div className="EventsBannercontent ">
           <div className="container">
-          <h3>{eventCms?.title}</h3>
-          <p>{eventCms.description}</p>
+            <h3>{eventCms?.title}</h3>
+            <p>{eventCms.description}</p>
 
-          <div className="events-btn text-center mt-4">
-            <a
-              href="#upcomingevent"
-              className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
-            >
-              view upcoming events
-            </a>
-            <a
-              onClick={showModal}
-              className="btn btn-primary max-btn hvr-shutter-out-horizontal"
-            >
-              register now
-            </a></div>
+            <div className="events-btn text-center mt-4">
+              <a
+                href="#upcomingevent"
+                className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
+              >
+                view upcoming events
+              </a>
+              <a
+                onClick={showModal}
+                className="btn btn-primary max-btn hvr-shutter-out-horizontal"
+              >
+                register now
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -257,25 +259,23 @@ export default function Events() {
                 merge={true}
                 nav={true}
                 margin={25}
-
-                 responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 2, // 600px and up
-                    },
-                    992: {
-                      items: 2, // 600px and up
-                    },
-                    1200: {
-                      items: 2, // 1000px and up
-                    },
-                  }}
-                
+                responsive={{
+                  0: {
+                    items: 1, // 0px and up
+                  },
+                  481: {
+                    items: 1, // 0px and up
+                  },
+                  768: {
+                    items: 2, // 600px and up
+                  },
+                  992: {
+                    items: 2, // 600px and up
+                  },
+                  1200: {
+                    items: 2, // 1000px and up
+                  },
+                }}
               >
                 {upcomingEvents.map((event) => (
                   <div className="item">
@@ -293,7 +293,11 @@ export default function Events() {
                         <ul className="eventinfolist">
                           <li>
                             <img src={calendericon1}></img>{" "}
-                            <span>{new Date(event.date).toLocaleDateString("en-GB").replaceAll("/", "-")} </span>
+                            <span>
+                              {new Date(event.date)
+                                .toLocaleDateString("en-GB")
+                                .replaceAll("/", "-")}{" "}
+                            </span>
                           </li>
 
                           {event.eventType == "Online" ? (
@@ -332,7 +336,17 @@ export default function Events() {
                           >
                             know more
                           </Link>
-                          <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
+                          <a
+                            className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal"
+                            onClick={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                eventId: event.id,
+                                eventTime:event.time
+                              }));
+                              showModal();
+                            }}
+                          >
                             register now
                           </a>
                         </div>
@@ -376,23 +390,23 @@ export default function Events() {
                     onChanged={(e) => {
                       carouselRef.current = e.item.index;
                     }}
-                       responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 3, // 600px and up
-                    },
-                    992: {
-                      items: 3, // 600px and up
-                    },
-                    1200: {
-                      items: 3, // 1000px and up
-                    },
-                  }}
+                    responsive={{
+                      0: {
+                        items: 1, // 0px and up
+                      },
+                      481: {
+                        items: 1, // 0px and up
+                      },
+                      768: {
+                        items: 3, // 600px and up
+                      },
+                      992: {
+                        items: 3, // 600px and up
+                      },
+                      1200: {
+                        items: 3, // 1000px and up
+                      },
+                    }}
                   >
                     {pastevents.map((event) => (
                       <div className="item">
@@ -401,7 +415,8 @@ export default function Events() {
                             crossOrigin="anonymous"
                             src={event.image_url}
                           ></img>
-                          <div className="eventstext">{event.title}</div></div>
+                          <div className="eventstext">{event.title}</div>
+                        </div>
                       </div>
                     ))}
                   </OwlCarousel>
@@ -487,25 +502,23 @@ export default function Events() {
               nav={true}
               margin={10}
               // loop={true}
-               responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 2, // 600px and up
-                    },
-                    992: {
-                      items: 3, // 600px and up
-                    },
-                    1200: {
-                      items: 3, // 1000px and up
-                    },
+              responsive={{
+                0: {
+                  items: 1, // 0px and up
+                },
+                481: {
+                  items: 1, // 0px and up
+                },
+                768: {
+                  items: 2, // 600px and up
+                },
+                992: {
+                  items: 3, // 600px and up
+                },
+                1200: {
+                  items: 3, // 1000px and up
+                },
               }}
-
-              
             >
               {eventType.map((type) => (
                 <div className="item">
@@ -558,7 +571,7 @@ export default function Events() {
         </div>
       </div>
 
-       {/* Join us Modal  */}
+      {/* Join us Modal  */}
       <Modal
         open={isModalOpen}
         onOk={handleOk}
@@ -593,13 +606,14 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Date of Birth*</label>
+                <label>Email*</label>
                 <input
-                  type="date"
+                  placeholder="Enter your mobile number"
                   className="form-control"
-                  name="dob"
+                  type="email"
+                  name="email"
                   required
-                  value={formData.dob}
+                  value={formData.email}
                   onChange={handleChange}
                 />
               </div>
@@ -609,7 +623,7 @@ export default function Events() {
                 <input
                   placeholder="Enter your mobile number"
                   className="form-control"
-                  type="text"
+                  type="number"
                   name="mobile"
                   required
                   value={formData.mobile}
@@ -618,29 +632,23 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Event Name</label>
-                <input
-                  placeholder="Event you're interested in"
+                <label>Select Event</label>
+                <select
                   className="form-control"
-                  type="text"
                   name="eventName"
-                  value={formData.eventName}
+                  value={formData.eventId}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">Select an event</option>
+                  {upcomingEvents.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.title}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="form-group mb-2">
-                <label>Event Time</label>
-                <input
-                  type="time"
-                  className="form-control"
-                  name="eventTime"
-                  value={formData.eventTime}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-check mb-3">
+              <div className="form-check mb-1 mt-4">
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -655,7 +663,7 @@ export default function Events() {
                   }
                   required
                 />
-                <label className="form-check-label" htmlFor="termsAccepted">
+                <label className="form-check-label " htmlFor="termsAccepted">
                   I accept the Terms and Conditions
                 </label>
               </div>
@@ -674,7 +682,7 @@ export default function Events() {
         </div>
       </Modal>
 
-       {/* Contact us modal  */}
+      {/* Contact us modal  */}
       <Modal
         open={openContactUsModal}
         onCancel={() => setOpenContactusModal(false)}

@@ -240,6 +240,7 @@ const LoginUser = () => {
         authActions.loginUser({
           isLoggedIn: true,
           isAdmin: false,
+          user: { ...data?.user }
         })
       );
       dispatch(authActions.setUserDetails({ ...data?.user }));

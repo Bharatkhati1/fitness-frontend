@@ -47,9 +47,9 @@ const Inquiry = () => {
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td>{item?.name}</td>
-                      <td>{item.email}</td>
-                      <td>{item?.phome}</td>
-                      <td>{item.message}</td>
+                      <td>{item.email || "-"}</td>
+                      <td>{item?.phone}</td>
+                      <td>{item.message || "-"}</td>
                     </tr>
                   ))
                 ) : (

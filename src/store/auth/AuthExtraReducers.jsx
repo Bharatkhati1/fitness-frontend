@@ -263,26 +263,22 @@ export const handleSocialLoginGoogle = async (
   isAdmin = false
 ) => {
   return async (dispatch) => {
-    console.log("inside");
     try {
       if (!navigator.onLine) {
         toast.error("Please check your Internet Connection");
         return;
       }
-      // dispatch(authActions.checkingUserToken(true));
-      // dispatch(authActions.setLoginButtonDisable(true));
 
       const payload = {
         ...dataGoogle,
         profilePicture: dataGoogle?.picture,
       };
       const { data } = await webAxios.post(userApiRoutes.social_login, payload);
-
-      console.log(data);
       dispatch(
         authActions.loginUser({
           isLoggedIn: true,
           isAdmin: isAdmin,
+          user: { ...data?.user }
         })
       );
       dispatch(authActions.setUserDetails({ ...data?.user }));

@@ -90,7 +90,23 @@ const userApiRoutes = {
 
   //PPROFILE API'S USER
   get_profile_details:`/user-profile`,
-  update_profile:`/user-profile`
+  update_profile:`/user-profile`,
+  get_packages_user:`/user-packages`,
+  user_consultation:`/user-consultations`,
+
+  //Testimnials profile
+  get_testimonials: (serviceId, userId) => {
+    const params = new URLSearchParams();
+  
+    if (serviceId) params.append("serviceId", serviceId);
+    if (userId) params.append("userId", userId);
+  
+    return `/user/feedback?${params.toString()}`;
+  },
+
+  add_testimonial:`/user/feedback`,
+
+  get_feedback_package:`/user/feedback-packages`
   
 };
 

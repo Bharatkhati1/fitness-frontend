@@ -24,6 +24,7 @@ export default function AddToBag() {
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
   const [apliedCode, setAppliedCode] = useState("");
+  const [loading, setLoading] = useState(false)
   const [appliedCouponDetails, setAppliedCouponDetails] = useState("")
   const [discountPrice, setDiscountPrice] = useState(null);
   const [discountGet, setDiscounGet] = useState(0);
@@ -86,12 +87,12 @@ export default function AddToBag() {
         : (discountPrice || appointmentData.consultantFees);
   
     try {
+      setLoading(true)
       const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
         amount: amountToPay,
       });
-  
+       
       const { orderId, amount, currency } = res.data.data;
-  
       const options = {
         key: "rzp_test_ENoX7bkuXjQBZc",
         amount,
@@ -139,6 +140,7 @@ export default function AddToBag() {
               buttonText: "Back to Home",
               redirectUrl: "/",
             });
+            setLoading(false)
             setIsPaymentSuccessfull(true);
             fetchCartitems();
           } catch (err) {
@@ -149,6 +151,7 @@ export default function AddToBag() {
               isLoading: false,
               autoClose: 3000,
             });
+            setLoading(false)
           }
         },
         prefill: {
@@ -166,6 +169,8 @@ export default function AddToBag() {
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.error || "Payment initiation failed!");
+    }finally{
+      setLoading(false)
     }
   };
   
@@ -455,8 +460,9 @@ export default function AddToBag() {
                       <button
                         className="btn btn-primary max-width hvr-shutter-out-horizontal"
                         onClick={handlePayment}
+                        disabled={loading}
                       >
-                        proceed to pay
+                       {loading ?"Please wait..." :"proceed to pay"}
                       </button>
                     </div>
                   </div>
