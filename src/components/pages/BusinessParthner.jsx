@@ -284,7 +284,7 @@ function BusinessParthner() {
               <div className="col-md-6">
                 <div className="row GetIntouchinnerright">
                   <div className="col-md-6 mb-3">
-                    <label>First Name*</label>
+                    <label>Your Name*</label>
                     <input
                       name="name"
                       value={formData.name}
@@ -295,8 +295,21 @@ function BusinessParthner() {
                       required
                     />
                   </div>
+                  <div className="col-md-6 ">&nbsp;</div>
                   <div className="col-md-6 mb-3">
-                    <label>Email ID*</label>
+                    <label>Business Name*</label>
+                    <input
+                      name="name"
+                     
+                      placeholder="Enter your business name"
+                      className="form-control greyin"
+                      type="text"
+                      required
+                    />
+                  </div>
+                    <div className="col-md-6 ">&nbsp;</div>
+                  <div className="col-md-6 mb-3">
+                    <label>Your Email ID*</label>
                     <input
                       name="email"
                       value={formData.email}
@@ -307,8 +320,9 @@ function BusinessParthner() {
                       required
                     />
                   </div>
+                   <div className="col-md-6 ">&nbsp;</div>
                   <div className="col-md-6 mb-3">
-                    <label>Contact Number*</label>
+                    <label>Your Contact Number*</label>
                     <div className="contactInput">
                       <span className="greyin">+91</span>
                       <input
@@ -322,7 +336,7 @@ function BusinessParthner() {
                     </div>
                   </div>
                   <div className="col-md-12">
-                    <label>Message</label>
+                    <label>Your Message</label>
                     <textarea
                       name="message"
                       value={formData.message}

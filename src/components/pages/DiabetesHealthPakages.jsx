@@ -41,10 +41,10 @@ function DiabetesHealthPakages() {
                   </ul>
 
                   <div className="btnbox text-center">
-                    <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  mb-2 hvr-shutter-out-horizontal">
                       buy now
                     </a>
-                    <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  hvr-shutter-out-horizontal">
                       add to bag
                     </a>
                   </div>
@@ -78,10 +78,10 @@ function DiabetesHealthPakages() {
                   </ul>
 
                   <div className="btnbox text-center">
-                    <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  mb-2 hvr-shutter-out-horizontal">
                       buy now
                     </a>
-                    <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary hvr-shutter-out-horizontal">
                       add to bag
                     </a>
                   </div>
@@ -115,10 +115,10 @@ function DiabetesHealthPakages() {
                   </ul>
 
                   <div className="btnbox text-center">
-                    <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  mb-2 hvr-shutter-out-horizontal">
                       buy now
                     </a>
-                    <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  hvr-shutter-out-horizontal">
                       add to bag
                     </a>
                   </div>
@@ -152,10 +152,10 @@ function DiabetesHealthPakages() {
                   </ul>
 
                   <div className="btnbox text-center">
-                    <a className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  mb-2 hvr-shutter-out-horizontal">
                       buy now
                     </a>
-                    <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
+                    <a className="btn btn-primary  hvr-shutter-out-horizontal">
                       add to bag
                     </a>
                   </div>

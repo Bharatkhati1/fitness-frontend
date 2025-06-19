@@ -66,7 +66,7 @@ export default function CartBag() {
                 <h4>order List - {cartItems.length} Item</h4>
               </div>
 
-              <div className="addtobabody">
+              <div className="addtobabody ps-0 pe-0">
                 <ul className="ordersummarylist">
                   {cartItems.map((item) => (
                     <li key={item.id}>
@@ -110,7 +110,7 @@ export default function CartBag() {
                   <button
                   onClick={()=>navigate("/checkout/cart")}
                     disabled={!cartItems.length > 0}
-                    className="btn btn-primary max-width hvr-shutter-out-horizontal"
+                    className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                   >
                     proceed to checkout
                   </button>

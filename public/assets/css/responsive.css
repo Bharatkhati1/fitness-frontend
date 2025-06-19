@@ -1,4 +1,55 @@
+.zigzagtextcontent {
+  padding: 0 20px;
+}
+@media (min-width: 576px) {
+  .zigzagtextcontent {
+    max-width: 540px;
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .zigzagtextcontent {
+    max-width: 720px;
+    padding: 0 15px;
+  }
+}
+@media (min-width: 992px) {
+  .zigzagtextcontent {
+    max-width: 960px;
+    padding: 0 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .zigzagtextcontent {
+    max-width: 1140px;
+    padding: 0 15px;
+  }
+}
+@media (min-width: 1400px) {
+  .zigzagtextcontent {
+    max-width: 1320px;
+    padding: 0 15px;
+  }
+}
+
 @media (max-width: 1400px) {
+  .ourvaluebox {
+    font-size: 15px;
+  }
+
+  .wearecontent p {
+    font-size: 18px;
+  }
+
+  .Trasnformboxbox h3 {
+    font-size: 20px;
+  }
+
+  .Carrerbannerleft h3 {
+    font-size: 32px;
+  }
+
   .service-btn a {
     min-width: 160px !important;
     font-size: 11px;
@@ -127,6 +178,17 @@
   }
 
   .pakageheadtitle h4 {
+    font-size: 22px;
+  }
+  .Carrerbannerleft p {
+    font-size: 16px;
+  }
+
+  .wearecontent h3 {
+    font-size: 58px;
+  }
+
+  .cardhead h3 {
     font-size: 22px;
   }
 }
@@ -998,10 +1060,6 @@
     font-size: 10px;
   }
 
-  .zigzagtextcontent {
-    max-width: 90%;
-  }
-
   .zigzagtext h3 {
     font-size: 45px;
   }
@@ -1018,6 +1076,66 @@
 
   .filtersBoxInner .owl-theme .owl-nav {
     display: block !important;
+  }
+
+  .col-auto.sortbyright {
+    margin: 20px auto 0;
+  }
+
+  .formBox .btn.btn-link {
+    color: #000 !important;
+    font-weight: 600;
+    text-decoration: underline !important;
+  }
+
+  .CarrerShape2 {
+    top: 170px;
+  }
+
+  .CarrerShape3 {
+    bottom: 50px;
+  }
+
+  .Trasnform {
+    padding-top: 0;
+  }
+
+  .ourvaluebox {
+    padding: 20px 12px 18px 45px;
+  }
+
+  .CarrerShape1 {
+    right: -62px;
+    top: -38px;
+  }
+
+  span.CarrerShape1 img {
+    width: 231px;
+  }
+  .Trasnformbox .col-md-3 {
+    width: 50%;
+  }
+
+  .cardcontent h3 {
+    font-size: 30px;
+  }
+
+  ul.tabslist {
+    flex-wrap: wrap;
+  }
+  .tabscardbox {
+    align-items: flex-start !important;
+  }
+  .logoutbtn {
+    min-width: 140px;
+  }
+
+  .tabscardbox {
+    align-items: flex-start !important;
+  }
+
+  .Cardbody .col-md-6.mb-3 {
+    margin-bottom: 15px !important;
   }
 }
 
@@ -1595,6 +1713,41 @@
     margin-left: auto;
     margin-top: 10px;
   }
+
+  span.CarrerShape2 {
+    display: none;
+  }
+
+  .Carrerbanner {
+    padding-bottom: 123px;
+    height: auto;
+  }
+
+  .wearecontent h3 {
+    font-size: 42px;
+  }
+
+  .wearecontent p {
+    font-size: 14px;
+  }
+  .Deleteicon {
+    top: 32px;
+  }
+
+  .ordersummarylist figcaption h4 {
+    font-size: 16px;
+  }
+  .wearecontent a {
+    z-index: 9;
+  }
+  .wearecontent .btn.sm-btn {
+    min-width: 200px;
+  }
+
+  .JoinImgvaerticle img {
+    height: 300px;
+    margin-top: 20px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -2062,6 +2215,79 @@
     padding-bottom: 30px;
     margin-bottom: 30px;
   }
+  .ordersummarylist .price-text {
+    font-size: 18px;
+  }
+  .Carrerbanner .row {
+    flex-direction: column-reverse;
+  }
+  .Carrerbannerright img {
+    width: 70%;
+    margin: auto;
+    display: block;
+    margin-bottom: 30px;
+  }
+  .wearecontent h3 {
+    font-size: 34px;
+  }
+  .wearecontent p {
+    font-size: 11px;
+  }
+  .ourvaluebox {
+    padding: 20px 12px 20px 45px;
+    margin: 10px 0;
+  }
+
+  .ourvalueinner .g-5,
+  .ourvalueinner .gy-5 {
+    --bs-gutter-y: 0;
+  }
+  .ourvaluebox {
+    margin-top: 0 !important;
+  }
+
+  .ourvalueinner {
+    padding-top: 30px;
+  }
+  .ourcluture .owl-carousel .owl-item img {
+    height: 200px;
+  }
+
+  .Carrerbannerleft h3 {
+    font-size: 26px;
+    margin-bottom: 10px !important;
+  }
+  .Carrerbannerleft p {
+    font-size: 14px;
+    padding-right: 20px;
+    margin-bottom: 20px !important;
+  }
+
+  .ant-modal.custom-modal .modalhead h3 {
+    font-size: 28px;
+  }
+
+  .ant-modal.custom-modal .modalbody span {
+    font-size: 16px;
+  }
+
+  .ant-modal.custom-modal .modalbody > p {
+    font-size: 16px;
+  }
+
+  .ourvaluebox.mt-5 {
+    margin-top: 0 !important;
+  }
+  .Carduserinfo .row {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cardprofile {
+    width: 165px;
+    height: 165px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -2448,6 +2674,58 @@
   .filterOwl button.owl-next span {
     right: 20px;
     top: 47px !important;
+  }
+
+  .Trasnformboxbox h3 {
+    font-size: 16px;
+  }
+
+  .Trasnformboxbox p {
+    font-size: 13px;
+    padding: 0 30px;
+  }
+  .Trasnformboxbox figure {
+    margin-bottom: 14px !important;
+  }
+
+  .findYourfitinner h4 {
+    font-size: 20px;
+  }
+
+  .findYourfitinner span {
+    font-size: 16px;
+  }
+
+  .findYourfitinner p {
+    font-size: 14px !important;
+  }
+  .cardcontent h3 {
+    font-size: 26px;
+  }
+
+  .tabscardbox {
+    flex-wrap: wrap;
+  }
+
+  ul.tabslist {
+    margin-bottom: 20px;
+  }
+
+  ul.tabslist li {
+    width: 48%;
+  }
+  .tabscardbox {
+    justify-content: center !important;
+  }
+  .tabslist {
+    justify-content: center;
+  }
+
+  .CardBbox {
+    padding: 30px 30px;
+  }
+  .cardhead h3 {
+    font-size: 18px;
   }
 }
 @media (max-width: 480px) {
@@ -2926,5 +3204,85 @@
 
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
     display: none;
+  }
+  .ordersummarylist .Deleteicon {
+    top: auto;
+    bottom: 0;
+  }
+
+  .Trasnformbox .col-md-3 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .wearehiringInner .row .col:first-child {
+    display: none;
+  }
+  .wearehiringInner .col {
+    width: 100%;
+    text-align: center;
+  }
+
+  .wearehiringInner .row {
+    flex-direction: column-reverse;
+  }
+
+  .wearecontent h3 {
+    font-size: 48px;
+  }
+  .wearecontent {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .findYourfitinner h4 {
+    font-size: 18px;
+    padding-right: 40px !important;
+  }
+
+  .findYourfitinner span {
+    font-size: 14px;
+  }
+
+  .tabslist li a {
+    padding: 12px 4px;
+    font-size: 12px;
+  }
+  .Carduserinfo.pt-4.mb-4 {
+    padding-top: 0 !important;
+  }
+
+  .cardprofile {
+    width: 140px;
+    height: 140px;
+  }
+
+  .cardprofile figure img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .editprofile {
+    right: 0;
+  }
+  .cardcontent h3 {
+    font-size: 22px;
+  }
+  .cardcontent p {
+    font-size: 16px;
+  }
+  .logoutbtn {
+    font-size: 12px;
+  }
+  .CardBbox {
+    padding: 25px 20px;
+  }
+  ul.BottomFooterList li a {
+    font-size: 11px;
+  }
+
+  ul.BottomFooterList li:first-child  {
+    padding-left: 0;
+    margin-left: 0;
   }
 }

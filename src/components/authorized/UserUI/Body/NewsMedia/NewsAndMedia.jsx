@@ -154,6 +154,17 @@ function NewsAndMedia() {
                 </div>
               </div>
               <div className="col-auto sortbyright">
+
+                 <select  className="form-select me-2">
+
+                     <option value="">
+                    Filter
+                  </option>
+                  <option value="1">Recent</option>
+                  <option value="2">Oldest</option>
+
+
+                  </select>
                 <select
                   className="form-select"
                   onChange={(e) => {
@@ -167,6 +178,8 @@ function NewsAndMedia() {
                   <option value="1">Recent</option>
                   <option value="2">Oldest</option>
                 </select>
+
+                 
               </div>
             </div>
           </div>
