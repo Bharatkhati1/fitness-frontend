@@ -10,9 +10,10 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 function MyTestimonails() {
-  const {user} = useSelector((state)=> state.auth)
+  const { user } = useSelector((state) => state.auth);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [alltestimonials, setAlltestimonials] = useState([])
+  const [alltestimonials, setAlltestimonials] = useState([]);
+  const [packages, setpackages] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedService, setSelectedService] = useState("");
   const [testimonialText, setTestimonialText] = useState("");
@@ -32,42 +33,51 @@ function MyTestimonails() {
     setTestimonialText("");
   };
 
-  console.log(user)
-  const fetchtestimonials =async()=>{
+  const fetchtestimonials = async () => {
     try {
-      const res = await userAxios.get(userApiRoutes.get_testimonials(null, user.id));
-      setAlltestimonials(res.data.data)
+      const res = await userAxios.get(
+        userApiRoutes.get_testimonials(null, user.id)
+      );
+      setAlltestimonials(res.data.data);
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data.message)
+      console.log(error);
+      toast.error(error.response.data.message);
     }
-  }
+  };
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     const payload = {
       rating: selectedRating,
       packageId: selectedService,
       description: testimonialText,
     };
-    console.log("Submitted Payload:", payload);
     try {
-    const res = await userAxios.post(userApiRoutes.add_testimonial, payload);
-    toast.success(res.data.message)
-    setIsModalOpen(false);
-    resetForm();
+      const res = await userAxios.post(userApiRoutes.add_testimonial, payload);
+      toast.success(res.data.message);
+      setIsModalOpen(false);
+      resetForm();
     } catch (error) {
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
     }
-    
   };
 
   const handleStarClick = (index) => {
     setSelectedRating(index + 1);
   };
 
-  useEffect(()=>{
-  fetchtestimonials()
-  },[])
+  const fetchFeedbackPackages = async () => {
+    try {
+      const res = await userAxios.get(userApiRoutes.get_feedback_package);
+      setpackages(res.data.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+  useEffect(() => {
+    fetchtestimonials();
+    fetchFeedbackPackages();
+  }, []);
   return (
     <>
       <div className="CardBody">
@@ -81,33 +91,32 @@ function MyTestimonails() {
         </div>
 
         {/* Example static testimonial card */}
-       { alltestimonials.map((testimonial)=> <div className="pakagesbox ratingsbox mb-4">
-          <div className="pakagehead">
-            <div className="row">
-              <div className="col">
-                <div className="pakageheadtitle">
-                  <h4>Package name</h4>
-                  <span>disease management</span>
+        {alltestimonials.map((testimonial) => (
+          <div className="pakagesbox ratingsbox mb-4">
+            <div className="pakagehead">
+              <div className="row">
+                <div className="col">
+                  <div className="pakageheadtitle">
+                    <h4>{testimonial?.Package?.name}</h4>
+                    <span>{testimonial?.Service?.name}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="pakagebody">
-            <div className="row ">
-              <div className="col">
-                <ul className="rating d-flex">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <li key={i}>
-                      <img src={fillstar} alt="star" />
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                 {testimonial.description}
-                </p>
+            <div className="pakagebody">
+              <div className="row ">
+                <div className="col">
+                  <ul className="rating d-flex">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <li key={i}>
+                        <img src={fillstar} alt="star" />
+                      </li>
+                    ))}
+                  </ul>
+                  <p>{testimonial.description}</p>
 
-                {/* <div className="cardfooter d-flex align-items-center justify-content-between">
+                  {/* <div className="cardfooter d-flex align-items-center justify-content-between">
                   <span>Submitted on {moment(testimonial.createdAt).format("DD MMM YYYY")}</span>
                   <div className="actioninfo d-flex">
                     <a>
@@ -120,11 +129,11 @@ function MyTestimonails() {
                     </a>
                   </div>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-       )}
+        ))}
       </div>
 
       {/* Modal Section */}
@@ -147,9 +156,9 @@ function MyTestimonails() {
               onChange={(e) => setSelectedService(e.target.value)}
             >
               <option value="">Select a service</option>
-              <option value="1">Diabetes Management</option>
-              <option value="2">Weight Loss</option>
-              <option value="3">Nutrition Coaching</option>
+              {packages?.map((pkg) => (
+                <option value="1">{pkg?.PackagePlan?.Package?.name}</option>
+              ))}
             </select>
           </div>
 

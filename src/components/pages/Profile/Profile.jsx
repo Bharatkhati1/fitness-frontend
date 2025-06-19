@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import profileuserimg from "../../../../public/assets/img/profileuserimg.png";
 import pencilicons from "../../../../public/assets/img/pencilicon.png";
 import logouticon from "../../../../public/assets/img/logouticon.png";
@@ -14,10 +14,11 @@ import MyTestimonails from "./MyTestimonails";
 
 function Profile() {
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
   const [profileDetails, setProfileDetails] = useState({});
   const [selectedTab, setSelectedTab] = useState(0);
-  const [userPackages, setUserPackages] = useState([])
-  const [consultations, setConsultations] = useState([])
+  const [userPackages, setUserPackages] = useState([]);
+  const [consultations, setConsultations] = useState([]);
   const [formData, setFormData] = useState({
     age: "",
     gender: "",
@@ -56,7 +57,7 @@ function Profile() {
         sportInjury: data.UserDetail.sportInjury || "",
       });
     } catch (error) {
-      toast.error(error.response?.data?.error );
+      toast.error(error.response?.data?.error);
     }
   };
 
@@ -93,7 +94,7 @@ function Profile() {
       const data = res.data.data;
       setUserPackages(data);
     } catch (error) {
-      toast.error(error.response?.data?.error );
+      toast.error(error.response?.data?.error);
     }
   };
 
@@ -106,6 +107,44 @@ function Profile() {
       toast.error(error.response?.data?.error || "Failed to fetch profile");
     }
   };
+
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const updatedFormData = new FormData();
+    updatedFormData.append("user_image", file);
+  
+    // Append other form fields
+    Object.entries(formData).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((v) => updatedFormData.append(`${key}[]`, v));
+      } else {
+        updatedFormData.append(key, value);
+      }
+    });
+  
+    try {
+      await userAxios.put(userApiRoutes.update_profile, updatedFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      toast.success("Profile image updated successfully");
+      fetchProfileDetails(); // Refresh profile
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to update profile image"
+      );
+    }
+  };
+  
+  
 
   useEffect(() => {
     fetchProfileDetails();
@@ -129,9 +168,18 @@ function Profile() {
                   }}
                 />
               </figure>
-              <button className="editprofile">
+
+              <button className="editprofile" onClick={handleIconClick}>
                 <img src={pencilicons} alt="edit" />
               </button>
+
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleFileChange}
+              />
             </div>
           </div>
           <div className="col">

@@ -104,7 +104,9 @@ const userApiRoutes = {
     return `/user/feedback?${params.toString()}`;
   },
 
-  add_testimonial:`/user/feedback`
+  add_testimonial:`/user/feedback`,
+
+  get_feedback_package:`/user/feedback-packages`
   
 };
 

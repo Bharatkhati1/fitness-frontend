@@ -43,24 +43,8 @@ const AppliedJobs = () => {
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td>
-                        {item?.resume_url.length>0 ?<Link to={item.resume_url} target="_blank">
-                          <img
-                            src={item.resume_url}
-                            alt="Article"
-                            crossOrigin="anonymous"
-                            style={{
-                              width: 50,
-                              height: 50,
-                              objectFit: "contain",
-                              border: "1px solid #eee",
-                            }}
-                            onError={(e) =>
-                              console.error(
-                                "Failed to load image:",
-                                item.resume_url
-                              )
-                            }
-                          />
+                        {item?.resume_url.length>0 ?<Link to={item.resume_url} target="_blank" style={{color:"blue", textDecoration:"underline"}}>
+                          Resume
                         </Link>:"N/A"}
                       </td>
                       <td>{item.name}</td>
