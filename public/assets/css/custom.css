@@ -209,3 +209,13 @@ body .owl-carousel .owl-item .event-images-optional img {
   border: 1px solid #00000033;
   border-radius: 10px;
 }
+
+.update-meas-btn{
+  background-color:#800030;
+  border-radius: 10px;
+  text-transform:uppercase;
+  color: white;
+  font-weight: 500;
+  border: none;
+  padding: 8px 10px;
+}

@@ -40,9 +40,9 @@ export default function Events() {
   const carouselRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
-    dob: "",
+    email: "",
     mobile: "",
-    eventName: "",
+    eventId: "",
     eventTime: "",
     termsAccepted: false,
   });
@@ -127,19 +127,19 @@ export default function Events() {
 
     const payload = {
       name: formData.name,
-      dob: formData.dob,
-      mobile: formData.mobile,
-      eventName: formData.eventName,
-      eventTime: formData.eventTime,
+      email: formData.email,
+      phone: formData.mobile,
+      itemId: formData.eventId,
+      type : "event-registration"
     };
 
     const toastId = toast.loading("Submitting your details...");
 
     try {
-      await webAxios.post(userApiRoutes.apply_event, payload);
+      await webAxios.post(userApiRoutes.send_inquiry, payload);
 
       toast.update(toastId, {
-        render: "Application submitted successfully!",
+        render: "Registration successfully!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
@@ -216,6 +216,8 @@ export default function Events() {
     fetchEventTypes();
     fetchCmsEvents();
   }, []);
+
+  console.log(formData)
   return (
     <>
       <div className="EventsBanner spacetop">
@@ -333,7 +335,17 @@ export default function Events() {
                           >
                             know more
                           </Link>
-                          <a className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal">
+                          <a
+                            className="btn btn-primary w-100 ms-1 hvr-shutter-out-horizontal"
+                            onClick={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                eventId: event.id,
+                                eventTime:event.time
+                              }));
+                              showModal();
+                            }}
+                          >
                             register now
                           </a>
                         </div>
@@ -593,15 +605,15 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Date of Birth*</label>
+                <label>Email*</label>
                 <input
-                  type="date"
+                  placeholder="Enter your mobile number"
                   className="form-control"
-                  name="dob"
+                  type="email"
+                  name="email"
                   required
-                  value={formData.dob}
+                  value={formData.email}
                   onChange={handleChange}
-                  max={new Date().toISOString().split("T")[0]} // This sets max date to today
                 />
               </div>
 
@@ -623,12 +635,12 @@ export default function Events() {
                 <select
                   className="form-control"
                   name="eventName"
-                  value={formData.eventName}
+                  value={formData.eventId}
                   onChange={handleChange}
                 >
                   <option value="">Select an event</option>
                   {upcomingEvents.map((event) => (
-                    <option key={event.id} value={event.title}>
+                    <option key={event.id} value={event.id}>
                       {event.title}
                     </option>
                   ))}

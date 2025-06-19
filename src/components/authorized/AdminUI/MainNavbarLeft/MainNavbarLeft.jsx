@@ -50,6 +50,7 @@ const NavItems = {
       subMenu: [
         { name: "Community", path: "community" },
         { name: "Inquiry", path: "inquiry" },
+        { name: "Event Registration", path: "event-registration" },
       ],
     },
     {

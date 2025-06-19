@@ -56,7 +56,7 @@ function Profile() {
         sportInjury: data.UserDetail.sportInjury || "",
       });
     } catch (error) {
-      toast.error(error.response?.data?.error || "Failed to fetch profile");
+      toast.error(error.response?.data?.error );
     }
   };
 
@@ -93,7 +93,7 @@ function Profile() {
       const data = res.data.data;
       setUserPackages(data);
     } catch (error) {
-      toast.error(error.response?.data?.error || "Failed to fetch profile");
+      toast.error(error.response?.data?.error );
     }
   };
 
@@ -175,6 +175,7 @@ function Profile() {
       </div>
       {selectedTab == 0 && (
         <ProfileInfo
+          profileDetails={profileDetails}
           formData={formData}
           setFormData={setFormData}
           handleSave={handleSave}

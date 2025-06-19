@@ -10,6 +10,7 @@ const index = () => {
       <Route index element={<Navigate to="community" replace />} />
       <Route path="community" element={<Inquiry />} />
       <Route path="inquiry" element={<Inquiry />} />
+      <Route path="event-registration" element={<Inquiry />} />
       <Route path="/" element={<Navigate replace to="community" />} />
     </Routes>
   </Suspense>
