@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Modal } from "antd";
+import { Select } from "antd";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -28,7 +29,7 @@ import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
-
+const { Option } = Select
 export default function Events() {
   const navigate = useNavigate();
   const [eventType, setEventTypes] = useState([]);
@@ -647,18 +648,7 @@ export default function Events() {
                 </select>
               </div>
 
-              <div className="form-group mb-2">
-                <label>Event Time</label>
-                <input
-                  type="time"
-                  className="form-control"
-                  name="eventTime"
-                  value={formData.eventTime}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-check mb-3">
+              <div className="form-check mb-1 mt-4">
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -673,7 +663,7 @@ export default function Events() {
                   }
                   required
                 />
-                <label className="form-check-label" htmlFor="termsAccepted">
+                <label className="form-check-label " htmlFor="termsAccepted">
                   I accept the Terms and Conditions
                 </label>
               </div>

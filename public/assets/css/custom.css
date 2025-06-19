@@ -219,3 +219,9 @@ body .owl-carousel .owl-item .event-images-optional img {
   border: none;
   padding: 8px 10px;
 }
+select.form-control {
+  appearance: auto;
+  margin-right: -10px;
+  -webkit-appearance: menulist; /* for Safari */
+  -moz-appearance: menulist;    /* for Firefox */
+}
