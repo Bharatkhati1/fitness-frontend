@@ -165,7 +165,6 @@ export default function Events() {
     }
   };
 
-
   //for contact us*********************
   const [formDataContact, setFormDataContact] = useState({
     name: "",
@@ -186,7 +185,7 @@ export default function Events() {
     e.preventDefault();
     const payload = {
       ...formDataContact,
-      type:"inquiry"
+      type: "inquiry",
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formDataContact.phone)) {
@@ -194,7 +193,7 @@ export default function Events() {
       return;
     }
     await sendInquiry(payload);
-    setOpenContactusModal(false)
+    setOpenContactusModal(false);
     setFormDataContact({
       name: "",
       email: "",
@@ -211,7 +210,6 @@ export default function Events() {
     return `${hour12}:${minute.toString().padStart(2, "0")} ${ampm}`;
   };
 
-  
   useEffect(() => {
     fetchAllPastEvents();
     fetchAllUpcomingEvents();
@@ -223,22 +221,23 @@ export default function Events() {
       <div className="EventsBanner spacetop">
         <div className="EventsBannercontent ">
           <div className="container">
-          <h3>{eventCms?.title}</h3>
-          <p>{eventCms.description}</p>
+            <h3>{eventCms?.title}</h3>
+            <p>{eventCms.description}</p>
 
-          <div className="events-btn text-center mt-4">
-            <a
-              href="#upcomingevent"
-              className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
-            >
-              view upcoming events
-            </a>
-            <a
-              onClick={showModal}
-              className="btn btn-primary max-btn hvr-shutter-out-horizontal"
-            >
-              register now
-            </a></div>
+            <div className="events-btn text-center mt-4">
+              <a
+                href="#upcomingevent"
+                className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
+              >
+                view upcoming events
+              </a>
+              <a
+                onClick={showModal}
+                className="btn btn-primary max-btn hvr-shutter-out-horizontal"
+              >
+                register now
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -257,25 +256,23 @@ export default function Events() {
                 merge={true}
                 nav={true}
                 margin={25}
-
-                 responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 2, // 600px and up
-                    },
-                    992: {
-                      items: 2, // 600px and up
-                    },
-                    1200: {
-                      items: 2, // 1000px and up
-                    },
-                  }}
-                
+                responsive={{
+                  0: {
+                    items: 1, // 0px and up
+                  },
+                  481: {
+                    items: 1, // 0px and up
+                  },
+                  768: {
+                    items: 2, // 600px and up
+                  },
+                  992: {
+                    items: 2, // 600px and up
+                  },
+                  1200: {
+                    items: 2, // 1000px and up
+                  },
+                }}
               >
                 {upcomingEvents.map((event) => (
                   <div className="item">
@@ -293,7 +290,11 @@ export default function Events() {
                         <ul className="eventinfolist">
                           <li>
                             <img src={calendericon1}></img>{" "}
-                            <span>{new Date(event.date).toLocaleDateString("en-GB").replaceAll("/", "-")} </span>
+                            <span>
+                              {new Date(event.date)
+                                .toLocaleDateString("en-GB")
+                                .replaceAll("/", "-")}{" "}
+                            </span>
                           </li>
 
                           {event.eventType == "Online" ? (
@@ -376,23 +377,23 @@ export default function Events() {
                     onChanged={(e) => {
                       carouselRef.current = e.item.index;
                     }}
-                       responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 3, // 600px and up
-                    },
-                    992: {
-                      items: 3, // 600px and up
-                    },
-                    1200: {
-                      items: 3, // 1000px and up
-                    },
-                  }}
+                    responsive={{
+                      0: {
+                        items: 1, // 0px and up
+                      },
+                      481: {
+                        items: 1, // 0px and up
+                      },
+                      768: {
+                        items: 3, // 600px and up
+                      },
+                      992: {
+                        items: 3, // 600px and up
+                      },
+                      1200: {
+                        items: 3, // 1000px and up
+                      },
+                    }}
                   >
                     {pastevents.map((event) => (
                       <div className="item">
@@ -401,7 +402,8 @@ export default function Events() {
                             crossOrigin="anonymous"
                             src={event.image_url}
                           ></img>
-                          <div className="eventstext">{event.title}</div></div>
+                          <div className="eventstext">{event.title}</div>
+                        </div>
                       </div>
                     ))}
                   </OwlCarousel>
@@ -487,25 +489,23 @@ export default function Events() {
               nav={true}
               margin={10}
               // loop={true}
-               responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 2, // 600px and up
-                    },
-                    992: {
-                      items: 3, // 600px and up
-                    },
-                    1200: {
-                      items: 3, // 1000px and up
-                    },
+              responsive={{
+                0: {
+                  items: 1, // 0px and up
+                },
+                481: {
+                  items: 1, // 0px and up
+                },
+                768: {
+                  items: 2, // 600px and up
+                },
+                992: {
+                  items: 3, // 600px and up
+                },
+                1200: {
+                  items: 3, // 1000px and up
+                },
               }}
-
-              
             >
               {eventType.map((type) => (
                 <div className="item">
@@ -558,7 +558,7 @@ export default function Events() {
         </div>
       </div>
 
-       {/* Join us Modal  */}
+      {/* Join us Modal  */}
       <Modal
         open={isModalOpen}
         onOk={handleOk}
@@ -601,6 +601,7 @@ export default function Events() {
                   required
                   value={formData.dob}
                   onChange={handleChange}
+                  max={new Date().toISOString().split("T")[0]} // This sets max date to today
                 />
               </div>
 
@@ -609,7 +610,7 @@ export default function Events() {
                 <input
                   placeholder="Enter your mobile number"
                   className="form-control"
-                  type="text"
+                  type="number"
                   name="mobile"
                   required
                   value={formData.mobile}
@@ -618,15 +619,20 @@ export default function Events() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Event Name</label>
-                <input
-                  placeholder="Event you're interested in"
+                <label>Select Event</label>
+                <select
                   className="form-control"
-                  type="text"
                   name="eventName"
                   value={formData.eventName}
                   onChange={handleChange}
-                />
+                >
+                  <option value="">Select an event</option>
+                  {upcomingEvents.map((event) => (
+                    <option key={event.id} value={event.title}>
+                      {event.title}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="form-group mb-2">
@@ -674,7 +680,7 @@ export default function Events() {
         </div>
       </Modal>
 
-       {/* Contact us modal  */}
+      {/* Contact us modal  */}
       <Modal
         open={openContactUsModal}
         onCancel={() => setOpenContactusModal(false)}

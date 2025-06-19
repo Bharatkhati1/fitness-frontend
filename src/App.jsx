@@ -17,10 +17,6 @@ import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import SiteMap from "./components/pages/SiteMap.jsx";
-import Profile from "./components/pages/Profile.jsx";
-import ProfileMyPakages from "./components/pages/ProfileMyPakages.jsx";
-import MyConsultation from "./components/pages/MyConsultation.jsx";
-import MyTestimonails from "./components/pages/MyTestimonails.jsx";
 
 const ConsultantRoutes = lazy(() =>
   import("./components/Routes/ConsultantRoutes.jsx")
@@ -97,14 +93,6 @@ const App = () => {
 
           <Route path="SiteMap" element={<SiteMap />} />
 
-          <Route path="Profile" element={<Profile />} />
-
-          <Route path="ProfileMyPakages" element={<ProfileMyPakages />} />
-
-          <Route path="MyConsultation" element={<MyConsultation />} />
-
-          <Route path="MyTestimonails" element={<MyTestimonails />} />
-
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
@@ -118,8 +106,9 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route path="/b2b-partner" element={<AdminLogin type="partner" />} />
-        <Route path="/service-provider" element={<AdminLogin type="consultant" />} />
+      <Route path="/admin" element={<AdminLogin type="admin" route ="admin" />} />
+        <Route path="/b2b-partner" element={<AdminLogin type="partner"  route="b2b-partner"  />} />
+        <Route path="/service-provider" element={<AdminLogin type="consultant"  route="service-provider" />} />
         {userAccessToken.length == 0 && (
           <Route path="/login-user" element={<LoginUser />} />
         )}

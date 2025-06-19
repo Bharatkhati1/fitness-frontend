@@ -29,7 +29,7 @@ import Events from "../pages/Events";
 import UpcomigDetails from "../pages/UpcomigDetails";
 import Innovation from "../pages/Innovation";
 import CartBag from "../pages/CartBag";
-import Profile from "../pages/Profile";
+import Profile from "../pages/Profile/Profile";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);

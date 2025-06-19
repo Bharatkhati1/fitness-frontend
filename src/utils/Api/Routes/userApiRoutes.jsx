@@ -90,7 +90,9 @@ const userApiRoutes = {
 
   //PPROFILE API'S USER
   get_profile_details:`/user-profile`,
-  update_profile:`/user-profile`
+  update_profile:`/user-profile`,
+  get_packages_user:`/user-packages`,
+  user_consultation:`/user-consultations`
   
 };
 

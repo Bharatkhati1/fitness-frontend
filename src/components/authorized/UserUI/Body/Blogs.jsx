@@ -121,8 +121,9 @@ function Blogs() {
                     <div className="row">
                       <div className="col-xxl-auto col-sm-auto taginfoleft">
                         <li
-                          className={selectedCategory === "all" ? "active" : ""}
-                          onClick={() => handleSelectCategory("all")}
+                        style={{zIndex:"1000"}}
+                          className={selectedCategory == "all" ? "active" : ""}
+                          onClick={(e) => handleSelectCategory("all")}
                         >
                           <span className="tag-info">All</span>
                         </li>

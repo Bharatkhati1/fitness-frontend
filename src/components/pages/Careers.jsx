@@ -174,7 +174,7 @@ function Careers() {
                   the right place.
                 </p>
 
-                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                <a  href="#WeAreHiring" className="btn btn-primary max-btn hvr-shutter-out-horizontal">
                   Shape Lives With Us
                 </a>
               </div>
@@ -446,6 +446,7 @@ function Careers() {
                       className="btn btn-primary w-100 hvr-shutter-out-horizontal"
                       onClick={() => {
                         showModal();
+                        setFormData((prev) => ({ ...prev, role: job.title }));
                         setSelectedJob(job.ID);
                       }}
                     >

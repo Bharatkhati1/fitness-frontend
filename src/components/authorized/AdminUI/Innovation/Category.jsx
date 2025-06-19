@@ -179,7 +179,7 @@ const Category = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All News/Media Categories</h4>
+              <h4 className="card-title">All Categories</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -214,6 +214,7 @@ const Category = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0,0)
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
