@@ -288,7 +288,7 @@ export default function AddToBag() {
                     <h4>contact details</h4>
                   </div>
 
-                  <div className="addtobabody">
+                  <div className="addtobabody p-0">
                     <div className="form-group mb-3">
                       <label>
                         First Name<span className="validation">*</span>
@@ -344,7 +344,7 @@ export default function AddToBag() {
                     <h4>order summary - {cartItems.length} Item</h4>
                   </div>
 
-                  <div className="addtobabody">
+                  <div className="addtobabody ">
                     {type === "cart" ? (
                       <>
                         <ul className="ordersummarylist">

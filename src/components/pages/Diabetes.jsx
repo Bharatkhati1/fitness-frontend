@@ -135,7 +135,7 @@ function PackageDetails() {
                         <div className="btnbox text-center">
                           <a
                             onClick={() => handleBuyNow(plan.id)}
-                            className="btn btn-primary sm-btn mb-2 hvr-shutter-out-horizontal"
+                            className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
                           >
                             buy now
                           </a>
@@ -145,7 +145,7 @@ function PackageDetails() {
                                 ? navigate("/cart")
                                 : handleAddToCart(plan.id)
                             }
-                            className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
+                            className="btn btn-primary w-100 hvr-shutter-out-horizontal"
                           >
                             {cartItemIds.includes(plan.id)
                               ? `Go to cart`

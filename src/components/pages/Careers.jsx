@@ -165,16 +165,16 @@ function Careers() {
 
         <div className="container">
           <div className="row align-items-center">
-            <div className="col-md-6 pe-1 pb-4">
-              <div className="Carrerbannerleft">
-                <h3>Where Fitness meets Innovation and Empathy meets Care.</h3>
-                <p>
+            <div className="col-md-6 pe-0">
+              <div className="Carrerbannerleft ">
+                <h3 className="mb-3">Where Fitness meets Innovation and Empathy meets Care.</h3>
+                <p className="mb-4">
                   We’re not just building programs—we’re building a healthier
                   world. If wellness drives you and purpose fuels you, you’re at
                   the right place.
                 </p>
 
-                <a className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
                   Shape Lives With Us
                 </a>
               </div>
@@ -297,7 +297,7 @@ function Careers() {
                   <p>Wellness Begins at Work. Join Us.</p>
                   <a
                     href="#WeAreHiring"
-                    className="btn btn-primary max-width hvr-shutter-out-horizontal"
+                    className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                   >
                     join us
                   </a>
@@ -323,7 +323,7 @@ function Careers() {
         <div className="ourvalueinner">
           <div className="container">
             <div className="row justify-content-center g-5">
-              <div className="col-md-6 ">
+              <div className="col-md-6">
                 <div className="ourvaluebox  ">
                   <p>Innovation in fitness solutions</p>
                 </div>
@@ -519,7 +519,21 @@ function Careers() {
                 />
               </div>
 
+          
+
               <div className="form-group mb-2">
+                <label>Upload Resume*</label>
+                <input
+                  type="file"
+                  name="resume_file"
+                  className="form-control"
+                  accept=".pdf,.doc,.docx"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
+                  <div className="form-group mb-2">
                 <label>Are you a fitness enthusiast?*</label>
                 <ul className="form-checkList sm-checklist d-flex flex-wrap">
                   <li>
@@ -559,18 +573,6 @@ function Careers() {
                     </div>
                   </li>
                 </ul>
-              </div>
-
-              <div className="form-group mb-2">
-                <label>Upload Resume*</label>
-                <input
-                  type="file"
-                  name="resume_file"
-                  className="form-control"
-                  accept=".pdf,.doc,.docx"
-                  required
-                  onChange={handleChange}
-                />
               </div>
 
               <div className="form-group mb-2">
