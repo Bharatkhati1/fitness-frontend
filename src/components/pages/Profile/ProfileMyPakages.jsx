@@ -15,7 +15,7 @@ function ProfileMyPakages({ userPackages }) {
                 <div className="col">
                   <div className="pakageheadtitle">
                     <h4>{pkg.planName}</h4>
-                    <span>{pkg?.Services?.name}</span>
+                    <span>{pkg?.serviceName}</span>
                   </div>
                 </div>
 

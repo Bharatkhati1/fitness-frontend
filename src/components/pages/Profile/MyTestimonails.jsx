@@ -163,7 +163,7 @@ function MyTestimonails() {
             >
               <option value="">Select a service</option>
               {packages?.map((pkg) => (
-                <option value="1">{pkg?.PackagePlan?.Package?.name}</option>
+                <option value={pkg?.PackagePlan?.Package?.id}>{pkg?.PackagePlan?.Package?.name}</option>
               ))}
             </select>
           </div>
