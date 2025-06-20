@@ -46,10 +46,16 @@ function MyTestimonails() {
   };
 
   const handleSubmit = async () => {
+    const matchingEntry = packages.find(
+      (item) => item.PackagePlan?.Package?.id == selectedService
+    );
+    console.log(selectedService, matchingEntry, packages)
+    const serviceId = matchingEntry?.PackagePlan?.Package?.Service?.id || null;
     const payload = {
       rating: selectedRating,
       packageId: selectedService,
       description: testimonialText,
+      serviceId: serviceId,
     };
     try {
       const res = await userAxios.post(userApiRoutes.add_testimonial, payload);
@@ -157,7 +163,7 @@ function MyTestimonails() {
             >
               <option value="">Select a service</option>
               {packages?.map((pkg) => (
-                <option value="1">{pkg?.PackagePlan?.Package?.name}</option>
+                <option value={pkg?.PackagePlan?.Package?.id}>{pkg?.PackagePlan?.Package?.name}</option>
               ))}
             </select>
           </div>

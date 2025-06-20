@@ -181,11 +181,7 @@ function Careers() {
                   the right place.
                 </p>
 
-<<<<<<< HEAD
-                <a className="btn btn-primary sm-btn hvr-shutter-out-horizontal">
-=======
                 <a  href="#WeAreHiring" className="btn btn-primary max-btn hvr-shutter-out-horizontal">
->>>>>>> 447eb198ad6e30a6feec3114a19283e4581e12f9
                   Shape Lives With Us
                 </a>
               </div>
