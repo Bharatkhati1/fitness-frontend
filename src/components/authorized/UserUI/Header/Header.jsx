@@ -6,7 +6,6 @@ import Logo from "../../../../../public/assets/img/footerLogo.png";
 import CartIcon from "../../../../../public/assets/img/carticon.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 import { authActions } from "../../../../store/auth";
 import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
@@ -14,7 +13,7 @@ import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import ProfileIcon from "./Profile_icon.png"
 
 const Header = () => {
-  const { userAccessToken, isLoggedIn, user } = useSelector(
+  const { userAccessToken, isLoggedIn, cartItems =[] } = useSelector(
     (state) => state.auth
   );
   const { pathname } = useLocation();
@@ -44,6 +43,7 @@ const Header = () => {
       fetchCartitems();
     }
   }, []);
+
   return (
     <header id="fixed-header" className="sticky">
       <div className="container">
@@ -113,6 +113,7 @@ const Header = () => {
             <div className="Login-info d-flex align-items-center">
               <div onClick={() => handleCartNavigate()} className="carticon">
                 <img src={CartIcon} />
+                <span className="cart-item-count">{cartItems.length}</span>
               </div>
               {userAccessToken.length > 0 ? (
                 <Link to="/profile" className="header-btn ">

@@ -91,7 +91,7 @@ const NavItems = {
         { name: "Orders", path: "orders" },
         { name: "Testimonials", path: "testimonials" },
         { name: "Appointments", path: "appointments" },
-        { name: "Applied Jobs", path: "applied-jobs" },
+        { name: "Job Applications", path: "applied-jobs" },
         { name: "Contact Details", path: "contact-details" },
         { name: "Privacy Policy", path: "privacy-policy" },
         { name: "Return Policy", path: "return-policy" },

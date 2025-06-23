@@ -18,16 +18,19 @@ const Events = () => {
     isActive: true,
     address: "",
     image: null,
+    bannerImage: null,
   });
 
   const [events, setEvents] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedBannerImage, setSelectedBannerImage] = useState("");
   const [galleryImages, setGalleryImages] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
   const galleryInputRef = useRef(null);
+  const bannerImageref = useRef(null);
   const selectedIdRef = useRef(null);
 
   const fetchAllEvents = async () => {
@@ -51,6 +54,12 @@ const Events = () => {
     setSelectedFileName(file?.name || "");
   };
 
+  const handleBanneruplaod = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, bannerImage: file }));
+    setSelectedFileName(file?.name || "");
+  };
+
   const handleSubmit = async () => {
     if (!formData.image && !isEdit) {
       toast.warning("Please select an image.");
@@ -67,7 +76,7 @@ const Events = () => {
     });
     galleryImages.forEach((img) => {
       if (img.type === "new") {
-        data.append("optional_image", img.data); 
+        data.append("optional_image", img.data);
       }
     });
 
@@ -130,13 +139,15 @@ const Events = () => {
       longDescription: "",
       isActive: true,
       address: "",
+      bannerImage: null,
       image: null,
     });
-    setGalleryImages([])
+    setGalleryImages([]);
     setSelectedId(null);
     setSelectedFileName("");
     setIsEdit(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (bannerImageref.current) bannerImageref.current.value = "";
   };
 
   const handleRemoveImage = async (id, index) => {
@@ -231,7 +242,8 @@ const Events = () => {
               <div className="col-lg-6">
                 <div className="mb-3">
                   <label className="form-label">
-                    Event Image {isEdit && !formData.image && `: ${selectedFileName}`}
+                    Event Image{" "}
+                    {isEdit && !formData.image && `: ${selectedFileName}`}
                   </label>
                   <input
                     type="file"
@@ -240,6 +252,44 @@ const Events = () => {
                     ref={fileInputRef}
                     onChange={handleFileChange}
                   />
+                </div>
+              </div>
+
+              {/* Banner Image Upload */}
+              <div className="col-lg-6">
+                <div className="mb-3">
+                  <label className="form-label">
+                    Banner Image{" "}
+                    {isEdit && !formData.bannerImage && `: ${selectedFileName}`}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="form-control"
+                    ref={bannerImageref}
+                    onChange={handleBanneruplaod}
+                  />
+                </div>
+              </div>
+              {/* Status */}
+              <div className="col-lg-6">
+                <p>Status</p>
+                <div className="d-flex gap-3 align-items-center">
+                  {["true", "false"].map((value) => (
+                    <div className="form-check" key={value}>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={value}
+                        checked={formData.isActive === (value === "true")}
+                        onChange={handleInputChange}
+                      />
+                      <label className="form-check-label">
+                        {value === "true" ? "Active" : "Inactive"}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -273,28 +323,33 @@ const Events = () => {
               </div>
 
               {/* Gallery  Images  */}
-             {isEdit && <div className="col-lg-6">
-                <div className="mb-3">
-                  <label className="form-label">gallery Images(optional)</label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    accept="image/*"
-                    ref={galleryInputRef}
-                    multiple
-                    onChange={(e) => {
-                      const selected = Array.from(e.target.files)
-                      const newFiles = selected.map((file) => ({
-                        type: "new",
-                        data: file,
-                      }));
+              {isEdit && (
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">
+                      gallery Images(optional)
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/*"
+                      ref={galleryInputRef}
+                      multiple
+                      onChange={(e) => {
+                        const selected = Array.from(e.target.files);
+                        const newFiles = selected.map((file) => ({
+                          type: "new",
+                          data: file,
+                        }));
 
-                      setGalleryImages((prev) => [...prev, ...newFiles]);
-                      e.target.value = null;
-                    }}
-                  />
+                        setGalleryImages((prev) => [...prev, ...newFiles]);
+                        e.target.value = null;
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>}
+              )}
+
               {galleryImages.length > 0 && (
                 <div className="d-flex flex-wrap gap-2">
                   {galleryImages.map((img, index) => (
@@ -325,28 +380,6 @@ const Events = () => {
                   ))}
                 </div>
               )}
-
-              {/* Status */}
-              <div className="col-lg-6">
-                <p>Status</p>
-                <div className="d-flex gap-3 align-items-center">
-                  {["true", "false"].map((value) => (
-                    <div className="form-check" key={value}>
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="isActive"
-                        value={value}
-                        checked={formData.isActive === (value === "true")}
-                        onChange={handleInputChange}
-                      />
-                      <label className="form-check-label">
-                        {value === "true" ? "Active" : "Inactive"}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Address */}
               {formData.eventType == "Offline" && (
@@ -453,7 +486,9 @@ const Events = () => {
                                   isActive: item.isActive,
                                   address: item.address,
                                   image: null,
+                                  bannerImage: null,
                                 });
+                                setSelectedBannerImage(item.bannerImage);
                                 setGalleryImages(
                                   item?.OptionalImages?.map((img) => ({
                                     type: "existing",
