@@ -26,6 +26,7 @@ function Innovation() {
   const [currentPage, setCurrentPage] = useState(1);
   const [cmsDetails, setCmsDetails] = useState({});
   const [totalPages, setTotalPages] = useState(1);
+  const [sliders, setSliders] = useState([])
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -97,9 +98,13 @@ function Innovation() {
     }
   };
 
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+  const getSliders = async () => {
+    try {
+      const response = await webAxios.get(userApiRoutes.get_sliders("innovation-page"));
+      setSliders(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
     }
   };
 
@@ -115,9 +120,9 @@ function Innovation() {
   useEffect(() => {
     getBlogCategories();
     getCmsDetail();
+    getSliders();
   }, []);
-
-  console.log(cmsDetails);
+  console.log(sliders)
   return (
     <>
       <div className="innerSpace mt-4">
@@ -128,7 +133,7 @@ function Innovation() {
                 <div className="imgcard">
                   <img
                     crossOrigin="anonymous"
-                    src={cmsDetails?.banner_url}
+                    src={sliders[0]?.image_url}
                   ></img>
 
                   <div className="imgcardcontent">
@@ -139,10 +144,12 @@ function Innovation() {
 
               <div className="col-md-5">
                 <div className="row g-1">
-                  {cmsDetails?.OptionalImages?.slice(0, 4).map((img) => (
-                    <div className="col-md-6 col-sm-6 col-6">
+                  {sliders?.slice(1,5).map((img) => (
+                    <div className="col-md-6 ">
                       <div className="imgsmcard">
                         <img src={img.image_url} crossOrigin="anonymous"></img>
+                        {/* <p>{img.heading}</p> */}
+                        <div className="imgsmcardcontent"><p>AI in your pocket.  Wellness at your fingertips.</p></div>
                       </div>
                     </div>
                   ))}

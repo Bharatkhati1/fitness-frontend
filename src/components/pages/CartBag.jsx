@@ -6,9 +6,12 @@ import userAxios from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 export default function CartBag() {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -16,6 +19,7 @@ export default function CartBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
+      return res.data.data
     } catch (error) {
       setCartItems([]);
       console.log(error);
@@ -24,7 +28,9 @@ export default function CartBag() {
   const removeFromCart = async (id) => {
     try {
       const res = await userAxios.delete(userApiRoutes.remove_from_cart(id));
-      fetchCartitems();
+      const result   = await fetchCartitems();
+      console.log("res", result)
+      dispatch(authActions.setCartItems(result))
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response?.data?.error || "Server Error");

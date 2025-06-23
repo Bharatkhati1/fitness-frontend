@@ -66,7 +66,7 @@ function UpcomigDetails({ type }) {
     <>
       <section className="BlogDeatils">
         <figure>
-          <img src={details.image_url} crossOrigin="anonymous" />
+          <img src={details.banner_image_url||details.image_url} crossOrigin="anonymous" />
         </figure>
         <div className="container">
           <div className="innerbannerContent">

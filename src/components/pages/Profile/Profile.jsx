@@ -144,8 +144,6 @@ function Profile() {
     }
   };
   
-  
-
   useEffect(() => {
     fetchProfileDetails();
     fetchPackages();

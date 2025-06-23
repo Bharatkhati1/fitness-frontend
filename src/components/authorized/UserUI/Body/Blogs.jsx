@@ -202,7 +202,7 @@ function Blogs() {
 
       <div className="OurBlogs">
         <div className="container">
-          <div className="row OurBlogsRows">
+          <div className="row g-5">
             {blogs.length > 0 ? (
               blogs.map((blog) => (
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>

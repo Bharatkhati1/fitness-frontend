@@ -16,13 +16,13 @@ const SliderManagement = () => {
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
-    const [filterService, setFilterServices] = useState([]);
+  const [filterService, setFilterServices] = useState([]);
   const fileInputRef = useRef(null);
-    const selectedIdref = useRef(null)
+  const selectedIdref = useRef(null)
 
   const fetchAllSliders = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_sliders);
+      const res = await adminAxios.get(adminApiRoutes.get_sliders("home-page"));
       setSliders(res.data.data);
       setFilterServices(res.data.data)
     } catch (error) {
@@ -41,6 +41,7 @@ const SliderManagement = () => {
     formData.append("heading", sliderHeading);
     formData.append("subHeading", sliderSubheading);
     formData.append("isActive", sliderStatus);
+    formData.append("slug", "home-page");
     sliderImage && formData.append("slider_image", sliderImage);
 
     try {

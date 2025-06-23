@@ -21,8 +21,9 @@ function PackageDetails() {
     isLoggedIn,
     userAccessToken,
   } = useSelector((state) => state.auth);
-  const cartItemIds = cartItems?.map((item) => item.subscriptionPlanId);
+  const cartItemIds = cartItems?.map((item) => item.packagePlanId);
 
+  console.log(cartItems)
   const fetchPackageDetails = async () => {
     try {
       const response = await webAxios.get(

@@ -35,7 +35,8 @@ const Partners = () => {
       const res = await adminAxios.get(
         adminApiRoutes.get_master_category("partners")
       );
-      setAllCategories(res.data.data);
+      const activeCategories = res.data?.data.filter((item)=> item.isActive == true);
+      setAllCategories(activeCategories);
     } catch (error) {
       toast.error("Failed to fetch categories");
     }
@@ -278,7 +279,7 @@ const Partners = () => {
                           </td>
                           <td>{partner.name}</td>
                           <td>{partner.email}</td>
-                          <td>{partner.categoryName || partner.categoryId}</td>
+                          <td>{partner.Master.name || partner.categoryId}</td>
                           <td>
                             <div className="d-flex gap-2">
                               <button

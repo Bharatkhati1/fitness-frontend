@@ -11,21 +11,24 @@ const NewsAndMediaManagement = () => {
     title: "",
     author: "TDF",
     readTime: "2",
-    date:"12-6-2025",
+    date: "12-6-2025",
     shortDescription: "",
     description: "",
     isActive: true,
+    bannerImage: null,
     categoryId: "",
     image: null,
   });
   const [allCategories, setAllCategories] = useState([]);
   const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [bannerImageName, setBannerImageName] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
+  const bannerImageRef = useRef(null);
 
   const fetchAllArticles = async () => {
     try {
@@ -42,7 +45,9 @@ const NewsAndMediaManagement = () => {
       const res = await adminAxios.get(
         adminApiRoutes.get_master_category("news-media")
       );
-      const activeCategories = res.data.data.filter((cat)=> cat.isActive == true)
+      const activeCategories = res.data.data.filter(
+        (cat) => cat.isActive == true
+      );
       setAllCategories(activeCategories);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
@@ -71,11 +76,13 @@ const NewsAndMediaManagement = () => {
     payload.append("isActive", formData.isActive);
     payload.append("categoryId", formData.categoryId);
     if (formData.image) payload.append("blog_image", formData.image);
+    if (formData.bannerImage)
+      payload.append("banner_image", formData.bannerImage);
 
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} article...`
     );
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const url = isEdit
         ? adminApiRoutes.update_blog(selectedId)
@@ -110,15 +117,16 @@ const NewsAndMediaManagement = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const deleteArticle = async () => {
     try {
+      const idToDelete = selectedIdRef.current || selectedId;
       await adminAxios.delete(
-        adminApiRoutes.delete_blog(selectedIdRef.current)
+        adminApiRoutes.delete_blog(idToDelete)
       );
       toast.success("Deleted Successfully");
       fetchAllArticles();
@@ -135,14 +143,17 @@ const NewsAndMediaManagement = () => {
       title: "",
       author: "TDF",
       readTime: "2",
-      date:"12-6-2025",
+      date: "12-6-2025",
       shortDescription: "",
       description: "",
       isActive: true,
       categoryId: "",
+      bannerImage: null,
       image: null,
     });
+    setBannerImageName("");
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (bannerImageRef.current) bannerImageRef.current.value = "";
   };
 
   useEffect(() => {
@@ -192,6 +203,23 @@ const NewsAndMediaManagement = () => {
                   />
                 </div>
 
+                {/* Banner Image */}
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label">
+                    Banner Image{" "}
+                    {isEdit && !formData.bannerImage && `: ${bannerImageName}`}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={bannerImageRef}
+                    className="form-control"
+                    onChange={(e) =>
+                      handleInputChange("bannerImage", e.target.files[0])
+                    }
+                  />
+                </div>
+
                 {/* Category */}
                 <div className="col-lg-6 mb-3">
                   <label className="form-label">Select Category</label>
@@ -209,29 +237,6 @@ const NewsAndMediaManagement = () => {
                       </option>
                     ))}
                   </select>
-                </div>
-
-             {/* Status */}
-             <div className="col-lg-6 mb-3">
-                  <label className="form-label d-block">Status</label>
-                  <div className="form-check form-check-inline">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      checked={formData.isActive}
-                      onChange={() => handleInputChange("isActive", true)}
-                    />
-                    <label className="form-check-label">Active</label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      checked={!formData.isActive}
-                      onChange={() => handleInputChange("isActive", false)}
-                    />
-                    <label className="form-check-label">Inactive</label>
-                  </div>
                 </div>
 
                 {/* Read Time
@@ -286,10 +291,37 @@ const NewsAndMediaManagement = () => {
                     setText={(val) => handleInputChange("description", val)}
                   />
                 </div>
+
+                {/* Status */}
+                <div className="col-lg-6 mb-3">
+                  <label className="form-label d-block">Status</label>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={formData.isActive}
+                      onChange={() => handleInputChange("isActive", true)}
+                    />
+                    <label className="form-check-label">Active</label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      checked={!formData.isActive}
+                      onChange={() => handleInputChange("isActive", false)}
+                    />
+                    <label className="form-check-label">Inactive</label>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
+              <button
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
                 {isEdit ? "Update Changes" : "Save Changes"}
               </button>
             </div>
@@ -376,9 +408,11 @@ const NewsAndMediaManagement = () => {
                                     shortDescription: item.shortDescription,
                                     description: item.description,
                                     isActive: item.isActive,
+                                    bannerImage: null,
                                     categoryId: item.categoryId,
                                     image: null,
                                   });
+                                  setBannerImageName(item.bannerImage);
                                 }}
                               >
                                 <iconify-icon
@@ -390,7 +424,7 @@ const NewsAndMediaManagement = () => {
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this article?"
                                 title="Delete Article"
-                                onOk={deleteArticle}
+                                onOk={()=>deleteArticle()}
                                 buttonText={
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"

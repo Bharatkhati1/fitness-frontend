@@ -20,11 +20,14 @@ const BlogsManagement = () => {
   const [date, setDate] = useState(today);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [bannerName, setBannername] = useState("");
   const [image, setImage] = useState(null);
+  const [bannerImage, setBannerImage] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isEdit, setIsEdit] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const fileInputRef = useRef(null);
+  const bannerImgref = useRef(null);
   const selectedIdref = useRef(null);
 
   const fetchAllBlogs = async () => {
@@ -63,6 +66,7 @@ const BlogsManagement = () => {
     formData.append("categoryId", categoryId);
     formData.append("shortDescription", shortDesc);
     image && formData.append("blog_image", image);
+    bannerImage && formData.append("banner_image", bannerImage);
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} blog...`
     );
@@ -132,6 +136,8 @@ const BlogsManagement = () => {
     setName("");
     setDate("");
     setCategoryId("");
+    setBannername("")
+    setBannerImage(null)
     setLongDescription("");
     setShortDesc("");
     setStatus("1");
@@ -141,6 +147,9 @@ const BlogsManagement = () => {
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+    if(bannerImgref.current){
+      bannerImgref.current.value= ""
     }
   };
   useEffect(() => {
@@ -193,6 +202,23 @@ const BlogsManagement = () => {
                       ref={fileInputRef}
                       className="form-control"
                       onChange={(e) => setImage(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+
+                   {/* Banner Image  */}
+                   <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-image" className="form-label">
+                      Banner Image {isEdit && !bannerImage &&` : ${bannerName}`}
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      id="service-image"
+                      ref={bannerImgref}
+                      className="form-control"
+                      onChange={(e) => setBannerImage(e.target.files[0])}
                     />
                   </div>
                 </div>
@@ -282,30 +308,7 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-
-                {/* Short Description  */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Short Desciption
-                    </label>
-                    <Ckeditor text={shortDesc} setText={setShortDesc} />
-                  </div>
-                </div>
-
-                {/* Long Description  */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Long Desciption
-                    </label>
-                    <Ckeditor
-                      text={longDescription}
-                      setText={setLongDescription}
-                    />
-                  </div>
-                </div>
-
+                
                 {/* Status */}
                 <div className="col-lg-6">
                   <p>Blog Status</p>
@@ -346,6 +349,30 @@ const BlogsManagement = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Short Description  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Short Desciption
+                    </label>
+                    <Ckeditor text={shortDesc} setText={setShortDesc} />
+                  </div>
+                </div>
+
+                {/* Long Description  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Long Desciption
+                    </label>
+                    <Ckeditor
+                      text={longDescription}
+                      setText={setLongDescription}
+                    />
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -417,7 +444,7 @@ const BlogsManagement = () => {
                               __html: item?.shortDescription,
                             }}
                           ></td>
-                          <td>{item?.categoryId}</td>
+                          <td>{item?.BlogCategory?.name}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -436,6 +463,7 @@ const BlogsManagement = () => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setName(item.title);
+                                  setBannername(item.bannerImage)
                                   setCategoryId(item.categoryId);
                                   setShortDesc(item.shortDescription);
                                   setLongDescription(item.description);

@@ -115,7 +115,7 @@ function Home() {
 
   const getSliders = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_sliders);
+      const response = await webAxios.get(userApiRoutes.get_sliders("home-page"));
       setSliders(response.data.data);
     } catch (error) {
       console.error(error);

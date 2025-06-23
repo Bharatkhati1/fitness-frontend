@@ -173,51 +173,89 @@ function AllPakages() {
                 margin={20}
                 nav={true}
                 responsive={{
-                  0: {
-                    items: 1, // 0px and up
-                  },
-                  481: {
-                    items: 2, // 0px and up
-                  },
-                  768: {
-                    items: 2, // 600px and up
-                  },
-                  992: {
-                    items: 3, // 600px and up
-                  },
-                  1200: {
-                    items: 3, // 1000px and up
-                  },
+                  0: { items: 1 },
+                  481: { items: 2 },
+                  768: { items: 2 },
+                  992: { items: 3 },
+                  1200: { items: 3 },
                 }}
               >
-                {allPackages.map((pkg) => (
-                  <div class="item">
-                    <div className="product-list">
-                      <figure>
-                        <img crossOrigin="anonymous" src={pkg.image_url} />
-                      </figure>
+                {allPackages.map((pkg) => {
+                  let parsedActions = [];
 
-                      <figcaption>
-                        <h3 className=" text-center">{pkg.name}</h3>
-                        <div className="btnbox text-center">
-                          <Link
-                            to={`/package/${pkg.name
-                              .toLowerCase()
-                              .replace(/\s+/g, "-")}`}
-                            className="btn btn-primary sm-btn m-auto hvr-shutter-out-horizontal"
-                          >
-                            know more
-                          </Link>
-                        </div>
-                      </figcaption>
+                  try {
+                    const raw =
+                      typeof pkg.actions === "string" ? pkg.actions : "[]";
+                    const parsed = JSON.parse(raw);
+                    parsedActions = Array.isArray(parsed) ? parsed : [];
+                  } catch (err) {
+                    console.warn("Invalid JSON for actions:", pkg.actions);
+                  }
+
+                  const showButton = (label) =>
+                    parsedActions.some((act) => act.name === label);
+
+                  return (
+                    <div key={pkg.id} className="item">
+                      <div className="product-list">
+                        <figure>
+                          <img
+                            crossOrigin="anonymous"
+                            src={pkg.image_url}
+                            alt={pkg.name}
+                          />
+                        </figure>
+
+                        <figcaption>
+                          <h3 className="text-center">{pkg.name}</h3>
+
+                          <div className="btnbox text-center d-flex flex-column gap-2 mt-2">
+                            {showButton("Know more") && (
+                              <Link
+                                to={`/package/${pkg.name
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-")}`}
+                                className="btn btn-primary hvr-shutter-out-horizontal"
+                              >
+                                Know More
+                              </Link>
+                            )}
+                            {showButton("Consult a Doctor") && (
+                              <Link
+                                to={`/experts/${pkg.name
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-")}/doctor/${btoa(
+                                  pkg.id
+                                )}`}
+                                className="btn btn-primary hvr-shutter-out-horizontal"
+                              >
+                                Consult a Doctor
+                              </Link>
+                            )}
+                            {showButton("Talk to a Therapist") && (
+                              <Link
+                                to={`/experts/${pkg.name
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-")}/therapist/${btoa(
+                                  pkg.id
+                                )}`}
+                                className="btn btn-primary hvr-shutter-out-horizontal"
+                              >
+                                Talk to a Therapist
+                              </Link>
+                            )}
+                          </div>
+                        </figcaption>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </OwlCarousel>
             )}
+
             {allPackages?.length == 0 && (
               <div className="col-12 text-center py-5">
-                <h5>No package found.</h5> 
+                <h5>No package found.</h5>
               </div>
             )}
           </div>

@@ -15,6 +15,7 @@ const Manage = () => {
     categoryId: "",
     readTime: "",
     isActive: true,
+    bannerImage: null,
     date: "",
   });
 
@@ -24,12 +25,13 @@ const Manage = () => {
   const [allinnovation, setAllInnovation] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [banneImagName, setBannerUImageName] = useState("")
   const [selectedId, setSelectedId] = useState(null);
   const [allCategories, setAllCategories] = useState([]);
 
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
-  const galleryInputRef = useRef(null);
+  const bannerImgRef = useRef(null);
 
   const fetchAllBlogs = async () => {
     try {
@@ -80,6 +82,7 @@ const Manage = () => {
     submissionData.append("categoryId", formData.categoryId);
     submissionData.append("shortDescription", formData.shortDescription);
     if (image) submissionData.append("blog_image", image);
+    if (formData.bannerImage) submissionData.append("banner_image", formData.bannerImage);
 
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} Innovation...`
@@ -133,12 +136,15 @@ const Manage = () => {
       author: "",
       categoryId: "",
       readTime: "",
+      bannerImage:null,
       isActive: true,
       date: "",
     });
     setImage(null);
     setSelectedId(null);
+    setBannerUImageName("")
     setIsEdit(false);
+    if( bannerImgRef.current) bannerImgRef.current.value = "";
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -254,6 +260,20 @@ const Manage = () => {
                   </div>
                 </div>
 
+                {/* Banner Image  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label"> Banner Image {isEdit && !formData.bannerImage && ` : ${banneImagName}`}</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/*"
+                      ref={bannerImgRef}
+                      onChange={(e) => setFormData((prev)=> ({...prev , bannerImage:e.target.files[0]}))}
+                    />
+                  </div>
+                </div>
+
                 {/* Category Select */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -274,6 +294,32 @@ const Manage = () => {
                   </div>
                 </div>
 
+                {/* status  */}
+                <div className="col-lg-6">
+                  <label className="form-label">Status</label>
+                  <div className="d-flex gap-3">
+                    {["true", "false"].map((val) => (
+                      <div className="form-check" key={val}>
+                        <input
+                          type="radio"
+                          name="isActive"
+                          value={val}
+                          checked={formData.isActive === (val === "true")}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              isActive: e.target.value === "true",
+                            }))
+                          }
+                          className="form-check-input"
+                        />
+                        <label className="form-check-label">
+                          {val === "true" ? "Active" : "Inactive"}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 {/* <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
@@ -349,32 +395,6 @@ const Manage = () => {
                   </div>
                 </div>
 
-                {/* status  */}
-                <div className="col-lg-6">
-                  <label className="form-label">Status</label>
-                  <div className="d-flex gap-3">
-                    {["true", "false"].map((val) => (
-                      <div className="form-check" key={val}>
-                        <input
-                          type="radio"
-                          name="isActive"
-                          value={val}
-                          checked={formData.isActive === (val === "true")}
-                          onChange={(e) =>
-                            setFormData((prev) => ({
-                              ...prev,
-                              isActive: e.target.value === "true",
-                            }))
-                          }
-                          className="form-check-input"
-                        />
-                        <label className="form-check-label">
-                          {val === "true" ? "Active" : "Inactive"}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -467,9 +487,11 @@ const Manage = () => {
                                     longDescription: item.description || "",
                                     isActive: item.isActive ?? true,
                                     author: item.auther || "",
+                                    bannerImage:null,
                                     date: item.date || "",
                                     readTime: item.readTime || "",
                                   });
+                                  setBannerUImageName(item.bannerImage)
                                   setSelectedFileName(item.image);
                                 }}
                               >

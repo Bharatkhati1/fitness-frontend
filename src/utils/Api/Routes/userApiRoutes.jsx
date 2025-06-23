@@ -1,5 +1,5 @@
 const userApiRoutes = {
-  get_sliders: `/sliders`,
+  get_sliders:(slug)=>`/sliders?slug=${slug}`,
 
   get_services: `/services`,
 

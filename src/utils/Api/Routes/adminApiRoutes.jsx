@@ -17,7 +17,7 @@ const adminApiRoutes = {
   delete_package: (packageId) => `/package/${packageId}`,
 
   //SLIDER ROUTES
-  get_sliders: "/slider",
+  get_sliders:(slug)=> `/slider?slug=${slug}`,
   create_slider: "/slider",
   update_slider: (sliderId) => `/slider/${sliderId}`,
   delete_slider: (sliderId) => `/slider/${sliderId}`,
@@ -35,7 +35,7 @@ const adminApiRoutes = {
   delete_category: (categoryId) => `/blog-category/${categoryId}`,
 
   //BLOG ROUTES
-  get_blogs:(slug)=> `/blog?type=${slug}`,
+  get_blogs:(slug)=> `/blog?type=${slug}&limit=1000`,
   create_blog: "/blog",
   update_blog: (blogId) => `/blog/${blogId}`,
   delete_blog: (blogId) => `/blog/${blogId}`,

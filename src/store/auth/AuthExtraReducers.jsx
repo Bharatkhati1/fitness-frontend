@@ -51,6 +51,7 @@ export const Login = (userData, navigate, userType,route, isAdmin = false) => {
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
+      
       localStorage.setItem("isAdmin", isAdmin);
       dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));

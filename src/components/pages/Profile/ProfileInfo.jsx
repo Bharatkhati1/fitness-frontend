@@ -118,6 +118,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
       },
     },
   };
+  
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -178,7 +179,9 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
       <div className="CardBbox mb-4">
         <div className="cardhead d-flex justify-content-between">
           <h3>Current Physical Measurements</h3>
-          <button onClick={() => handleSave()} className="update-meas-btn">Update Measurments</button>
+          <button onClick={() => handleSave()} className="update-meas-btn">
+            Update Measurments
+          </button>
         </div>
         <div className="Cardbody row">
           <div className="Cardbody row">
@@ -286,24 +289,34 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
         <div className="Cardbody row">
           <div className="col-md-6 mb-3">
             <label>Diet Preference</label>
-            <input
-              type="text"
+            <select
               className="form-control"
               name="dietPreference"
               value={formData.dietPreference}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Diet Preference</option>
+              <option value="Vegetarian">Vegetarian</option>
+              <option value="Non-Vegetarian">Non-Vegetarian</option>
+              <option value="Eggetarian">Eggetarian</option>
+            </select>
           </div>
+
           <div className="col-md-6 mb-3">
             <label>Workout Preference</label>
-            <input
-              type="text"
+            <select
               className="form-control"
               name="workoutPreference"
               value={formData.workoutPreference}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Workout Preference</option>
+              <option value="Gym">Gym</option>
+              <option value="Home">Home</option>
+              <option value="Outdoor">Outdoor</option>
+            </select>
           </div>
+
           <div className="col-md-12 mb-3">
             <label>Medical Conditions</label>
             <div className="d-flex flex-wrap gap-3">
