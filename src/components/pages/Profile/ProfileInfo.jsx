@@ -254,7 +254,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
               </div>
             </div>
           </div>
-          <div className="chart-section mt-4">
+         {profileDetails?.physicalMeasurement?.length > 0 && <div className="chart-section mt-4">
             <h3>Measurement Trends</h3>
             <div style={{ width: "100%", maxWidth: "100%" }}>
               <Line
@@ -278,7 +278,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
                 height={350}
               />
             </div>
-          </div>
+          </div>}
         </div>
       </div>
 

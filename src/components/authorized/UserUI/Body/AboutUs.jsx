@@ -32,7 +32,8 @@ import JoinCommunity from "./Modals/JoinCommunity";
 function AboutUs() {
   const location = useLocation();
   const [team, setTeam] = useState([]);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [cmsDetails, setCmsDetails] = useState({});
 
   const fetchAllTeam = async () => {
     try {
@@ -54,12 +55,28 @@ function AboutUs() {
     }
   }, [location]);
 
+  const getCmsDetail = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_master_cms("about-us")
+      );
+      setCmsDetails(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Failed to fetch categories"
+      );
+    }
+  };
+
   useEffect(() => {
     fetchAllTeam();
+    getCmsDetail();
   }, []);
+  console.log(cmsDetails);
   return (
     <>
-    <JoinCommunity setOpen={setOpen} open={open}/>
+      <JoinCommunity setOpen={setOpen} open={open} />
       <div className="AboutBanner innerSpace">
         <span className="BannerShape">
           <img src={shapeabout} />
@@ -102,7 +119,10 @@ function AboutUs() {
           </ul>
         </div>
       </div>
-
+      <div className="about-cms container text-center">
+        <h2 className="mt-5">{cmsDetails?.title}</h2>
+        <img crossOrigin="anonymous" src={cmsDetails?.banner_url} />
+      </div>
       <div className="FitnessJourney">
         <div className="container">
           <div className="FitnessJourneyInner">
@@ -113,7 +133,10 @@ function AboutUs() {
             <figcaption className="FitnessJourneyContent">
               <h4>empower your fitness journey with us</h4>
 
-              <a onClick={()=> setOpen(true)} className="btn btn-primary hvr-shutter-out-horizontal">
+              <a
+                onClick={() => setOpen(true)}
+                className="btn btn-primary hvr-shutter-out-horizontal"
+              >
                 join now
               </a>
 
@@ -223,7 +246,7 @@ function AboutUs() {
         </div>
       </div>
 
-      <div className="OurVisionMission OurVisionMissionOdd" >
+      <div className="OurVisionMission OurVisionMissionOdd">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
@@ -297,7 +320,7 @@ function AboutUs() {
         </div>
       </div>
 
-    <section className="OurTEAM">
+      <section className="OurTEAM">
         <div className="OurTEAMhead text-center" id="MeetOurFamily">
           <span>our team</span>
           <h2>meet our dedicated team</h2>

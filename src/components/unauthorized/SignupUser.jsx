@@ -253,15 +253,15 @@ function SignUpUser() {
       </button>
 
       {/* Already have an account button */}
-      <div className="text-center mt-3 ">
-        <span></span>
+      <div className="text-center mt-3 DotHave ">
+        <span>Already Have Account ? </span>
         <button
           type="button"
-          className="btn btn-link p-0"
+          className="btn btn-link p-0 TextLink"
           onClick={() => navigate("/login-user")}
           style={{ textDecoration: "underline", color: "#007bff" }}
         >
-          Login
+          Log in
         </button>
       </div>
     </>

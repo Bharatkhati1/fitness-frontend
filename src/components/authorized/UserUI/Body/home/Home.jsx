@@ -592,9 +592,9 @@ function Home() {
                   just one step away from availing the best solution.
                 </p>
 
-                <a className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal">
+                <Link to={"/service-details/muktee:-a-deaddiction-program"} className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal">
                   know more
-                </a>
+                </Link>
               </div>
             </div>
           </div>

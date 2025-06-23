@@ -1241,8 +1241,9 @@ header.sticky {
 
 .TextLink {
   font-size: 14px;
-  color: var(--primary-color);
-  font-weight: 600;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
 }
 
 .DotHave {
@@ -5566,4 +5567,12 @@ ul.FOLLOWUSlist.d-flex {
     font-style: italic;
     background: rgb(0 0 0 / 19%);
     margin-bottom: -9px;
+    left: 0;
+    right: 0;
+}
+
+
+
+.BlogDeatils .container {
+    position: relative;
 }

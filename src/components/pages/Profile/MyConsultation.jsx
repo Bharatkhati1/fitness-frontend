@@ -75,6 +75,9 @@ function MyConsultation({ consultations }) {
             </div>
           );
         })}
+        {consultations.length ==0 &&     <div className="col-12 text-center py-5">
+              <h5>No data found.</h5>
+            </div>}
       </div>
     </>
   );

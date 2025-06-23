@@ -49,7 +49,7 @@ function MyTestimonails() {
     const matchingEntry = packages.find(
       (item) => item.PackagePlan?.Package?.id == selectedService
     );
-    console.log(selectedService, matchingEntry, packages)
+    console.log(selectedService, matchingEntry, packages);
     const serviceId = matchingEntry?.PackagePlan?.Package?.Service?.id || null;
     const payload = {
       rating: selectedRating,
@@ -140,6 +140,11 @@ function MyTestimonails() {
             </div>
           </div>
         ))}
+        {alltestimonials.length == 0 && (
+          <div className="col-12 text-center py-5">
+            <h5>No data found.</h5>
+          </div>
+        )}
       </div>
 
       {/* Modal Section */}
@@ -163,7 +168,9 @@ function MyTestimonails() {
             >
               <option value="">Select a service</option>
               {packages?.map((pkg) => (
-                <option value={pkg?.PackagePlan?.Package?.id}>{pkg?.PackagePlan?.Package?.name}</option>
+                <option value={pkg?.PackagePlan?.Package?.id}>
+                  {pkg?.PackagePlan?.Package?.name}
+                </option>
               ))}
             </select>
           </div>
