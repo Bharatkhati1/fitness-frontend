@@ -243,3 +243,6 @@ select.form-control {
   font-weight: 700;
   text-transform: uppercase;
 }
+.note-dropdown-menu {
+  min-width: 358px !important;
+}

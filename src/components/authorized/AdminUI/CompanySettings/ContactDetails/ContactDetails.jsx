@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import adminApiRoutes from "../../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../../utils/Api/adminAxios";
 import { toast } from "react-toastify";
@@ -6,27 +6,31 @@ import { toast } from "react-toastify";
 const ContactDetails = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    phone: '',
-    address: '',
-    instagram: '',
-    facebook: '',
-    linkedin: '',
-    twitter: '',
-    youtube:"",
+    email: "",
+    phone: "",
+    address: "",
+    instagram: "",
+    facebook: "",
+    linkedin: "",
+    twitter: "",
+    youtube: "",
+    kitchenYoutube: "",
+    kitchenInstagram: "",
   });
 
   const onCancelEdit = () => {
     setIsEdit(false);
     setFormData({
-      email: '',
-      phone: '',
-      address: '',
-      instagram: '',
-      facebook: '',
-      linkedin: '',
-      twitter: '',
-      youtube:"",
+      email: "",
+      phone: "",
+      address: "",
+      instagram: "",
+      facebook: "",
+      linkedin: "",
+      twitter: "",
+      youtube: "",
+      kitchenYoutube: "",
+      kitchenInstagram: "",
     });
   };
 
@@ -38,50 +42,50 @@ const ContactDetails = () => {
     }));
   };
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     if (isEdit) {
-      const response = await adminAxios.post(adminApiRoutes.update_contact_details, formData)
-      toast.success(response.data.message)
+      const response = await adminAxios.post(
+        adminApiRoutes.update_contact_details,
+        formData
+      );
+      toast.success(response.data.message);
       setIsEdit(false);
     } else {
       setIsEdit(true);
     }
   };
 
-  const fetchContactDetails = async()=>{
+  const fetchContactDetails = async () => {
     try {
-        const res = await adminAxios.get(adminApiRoutes.get_contact_details);
-        setFormData(res.data.data);
+      const res = await adminAxios.get(adminApiRoutes.get_contact_details);
+      setFormData(res.data.data);
     } catch (error) {
-         console.error(error.response.data.message)
+      console.error(error.response.data.message);
     }
-  }
+  };
 
-  useEffect(()=>{
-    fetchContactDetails()
-  },[])
+  useEffect(() => {
+    fetchContactDetails();
+  }, []);
   return (
     <div className="row">
       <div className="col-lg-12">
-        <div className={`card ${isEdit ? 'editing' : ''}`}>
+        <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between align-items-center">
             <h4 className="card-title">
-              {isEdit ? 'Edit Contact Details' : 'Contact Details'}
+              {isEdit ? "Edit Contact Details" : "Contact Details"}
             </h4>
-            {isEdit && (
-              <button onClick={onCancelEdit}>
-                Cancel Edit
-              </button>
-            )}
+            {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
           </div>
 
           <div className="card-body">
             <div className="row">
-
               {/* Email */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -97,7 +101,9 @@ const ContactDetails = () => {
               {/* Phone */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label htmlFor="phone" className="form-label">Phone</label>
+                  <label htmlFor="phone" className="form-label">
+                    Phone
+                  </label>
                   <input
                     type="text"
                     id="phone"
@@ -113,7 +119,9 @@ const ContactDetails = () => {
               {/* Address */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label htmlFor="address" className="form-label">Address</label>
+                  <label htmlFor="address" className="form-label">
+                    Address
+                  </label>
                   <input
                     id="address"
                     name="address"
@@ -126,25 +134,26 @@ const ContactDetails = () => {
               </div>
 
               {/* Social Media */}
-              {['instagram', 'facebook', 'linkedin', 'twitter', 'youtube'].map((platform) => (
-                <div className="col-lg-6" key={platform}>
-                  <div className="mb-3">
-                    <label htmlFor={platform} className="form-label">
-                      {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                    </label>
-                    <input
-                      type="text"
-                      id={platform}
-                      name={platform}
-                      className="form-control"
-                      value={formData[platform]}
-                      onChange={handleChange}
-                      readOnly={!isEdit}
-                    />
+              {["instagram", "facebook", "linkedin", "twitter", "youtube"].map(
+                (platform) => (
+                  <div className="col-lg-6" key={platform}>
+                    <div className="mb-3">
+                      <label htmlFor={platform} className="form-label">
+                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                      </label>
+                      <input
+                        type="text"
+                        id={platform}
+                        name={platform}
+                        className="form-control"
+                        value={formData[platform]}
+                        onChange={handleChange}
+                        readOnly={!isEdit}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-              
+                )
+              )}
             </div>
           </div>
 
@@ -154,7 +163,7 @@ const ContactDetails = () => {
               className="btn btn-primary"
               onClick={handleSubmit}
             >
-              {isEdit ? 'Update Changes' : 'Edit'}
+              {isEdit ? "Update Changes" : "Edit"}
             </button>
           </div>
         </div>

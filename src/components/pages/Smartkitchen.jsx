@@ -16,18 +16,25 @@ import { toast } from "react-toastify";
 import EmailRequiredPopup from "../authorized/UserUI/EmailRequiredpopup";
 import useDebounce from "../Hooks/useDebounce";
 
+import ficoninsta from "../../../public/assets/img/f-icon-insta.png";
+import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
+
 function Smartkitchen() {
   const dispatch = useDispatch();
-  const { kitchenData = { items: [], totalPages: 1 }, kicthenCategories = [] , isLoggedIn, user} =
-    useSelector((state) => state.auth);
+  const {
+    kitchenData = { items: [], totalPages: 1 },
+    kicthenCategories = [],
+    isLoggedIn,
+    user,
+  } = useSelector((state) => state.auth);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(null);
-  const [type, setType] = useState(""); 
+  const [type, setType] = useState("");
   const [page, setPage] = useState(1);
 
-  const debouncedSearch = useDebounce(search, 400); 
+  const debouncedSearch = useDebounce(search, 400);
 
   useEffect(() => {
     dispatch(getKitchenData({ search: debouncedSearch, page, category, type }));
@@ -115,7 +122,7 @@ function Smartkitchen() {
 
   return (
     <>
-       <EmailRequiredPopup
+      <EmailRequiredPopup
         visible={openEmailRequiredPopup}
         onClose={() => setOpenEmailRequiredPopup(false)}
         onGetRecipe={onGetRecipe}
@@ -129,6 +136,7 @@ function Smartkitchen() {
           <div className="innerbannerContent">
             <h2>smart kitchen</h2>
             <p>Cook Smart. Eat Right. Live Well.</p>
+        
             <div className="searcwithbtn d-flex">
               <div className="SearchBox">
                 <input
@@ -150,16 +158,35 @@ function Smartkitchen() {
                   Veg
                 </a>
                 <a
-                  className={`btn  ${
-                    type === "non-veg" ? "VegBtn" : ""
-                  }`}
+                  className={`btn  ${type === "non-veg" ? "VegBtn" : ""}`}
                   onClick={() => handleTypeClick("non-veg")}
                 >
                   non Veg
                 </a>
               </div>
             </div>
-          </div>
+     <div className="FOLLOWUS bannerfollow">
+              <h3>follow us </h3>
+              <ul className="FOLLOWUSlist d-flex">
+                <li>
+                  <a>
+                    <img src={ficoninsta}></img>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <img src={ficonyoutube}></img>
+                  </a>
+                </li>
+              </ul>
+            </div>
+     
+
+            </div>
+                   
+       
+            
+        
         </div>
       </section>
 
@@ -183,7 +210,11 @@ function Smartkitchen() {
                     onClick={() => handleCategoryClick(cat.id)}
                   >
                     <figure>
-                      <img crossOrigin="anonymous" src={cat.image_url} alt={cat.name} />
+                      <img
+                        crossOrigin="anonymous"
+                        src={cat.image_url}
+                        alt={cat.name}
+                      />
                     </figure>
                     <p>{cat.name}</p>
                   </div>
@@ -202,63 +233,88 @@ function Smartkitchen() {
               kitchenData?.map((item) => (
                 <div className="col" key={item.id}>
                   <figure>
-                    <img crossOrigin="anonymous" src={item.image_url} alt={item.name} />
+                    <img
+                      crossOrigin="anonymous"
+                      src={item.image_url}
+                      alt={item.name}
+                    />
                   </figure>
                   <figcaption>
                     <h4>{item.name}</h4>
                     <p>{item.description}</p>
-                    <a onClick={()=>downloadRecipe(item.id)} className="btn btn-primary xm-btn hvr-shutter-out-horizontal">
-                       Download Recipe
+                    <a
+                      onClick={() => downloadRecipe(item.id)}
+                      className="btn btn-primary xm-btn hvr-shutter-out-horizontal"
+                    >
+                      Download Recipe
                     </a>
                   </figcaption>
                 </div>
               ))
             ) : (
               <div className="col-12 text-center py-5">
-              <h5>No item found.</h5>
-            </div>
+                <h5>No item found.</h5>
+              </div>
             )}
           </div>
         </div>
-
-        {/* Pagination
-        <div className="paginationBox d-flex justify-content-center">
-          <ul className="pagination">
-            <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-              <a
-                className="page-link"
-                onClick={() => handlePageChange(page - 1)}
-              >
-                <img src={leftp} />
-              </a>
-            </li>
-            {[...Array(kitchenData.totalPages)].map((_, idx) => (
-              <li
-                key={idx}
-                className={`page-item ${page === idx + 1 ? "active" : ""}`}
-              >
-                <a
-                  className="page-link"
-                  onClick={() => handlePageChange(idx + 1)}
+        <div className="container ">
+          <div className="paginationfooter d-flex align-items-center justify-content-center">
+            <div className="paginationBox d-flex justify-content-center">
+              <ul className="pagination">
+                <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
+                  <a
+                    className="page-link"
+                    onClick={() => handlePageChange(page - 1)}
+                  >
+                    <img src={leftp} />
+                  </a>
+                </li>
+                {[...Array(kitchenData.totalPages)].map((_, idx) => (
+                  <li
+                    key={idx}
+                    className={`page-item ${page === idx + 1 ? "active" : ""}`}
+                  >
+                    <a
+                      className="page-link"
+                      onClick={() => handlePageChange(idx + 1)}
+                    >
+                      {idx + 1}
+                    </a>
+                  </li>
+                ))}
+                <li
+                  className={`page-item ${
+                    page === kitchenData.totalPages ? "disabled" : ""
+                  }`}
                 >
-                  {idx + 1}
-                </a>
-              </li>
-            ))}
-            <li
-              className={`page-item ${
-                page === kitchenData.totalPages ? "disabled" : ""
-              }`}
-            >
-              <a
-                className="page-link"
-                onClick={() => handlePageChange(page + 1)}
-              >
-                <img src={leftR} />
-              </a>
-            </li>
-          </ul>
-        </div> */}
+                  <a
+                    className="page-link"
+                    onClick={() => handlePageChange(page + 1)}
+                  >
+                    <img src={leftR} />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="FOLLOWUS">
+              <h3>follow us </h3>
+              <ul className="FOLLOWUSlist d-flex">
+                <li>
+                  <a>
+                    <img src={ficoninsta}></img>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <img src={ficonyoutube}></img>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

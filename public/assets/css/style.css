@@ -1358,6 +1358,7 @@ ul.BottomFooterList,
   bottom: 55px;
   z-index: 9;
   left: 0;
+  right: 0;
 }
 
 .innerbanner:after {
@@ -2553,9 +2554,7 @@ span.tag-info {
   justify-content: space-between;
 }
 
-.OurBlogs .OurHealthBlogContent {
-  padding: 0 30px;
-}
+
 
 .taginfolist {
   margin-bottom: 0;
@@ -5212,6 +5211,7 @@ ul.sitelistinner li a {
     rgba(192, 192, 192, 1) 100%
   );
   cursor: pointer;
+  border: 0;
 }
 
 .CardBbox {
@@ -5493,4 +5493,77 @@ table.table {
 
 .cardprofile {
     position: relative;
+}
+
+.SmartKichinslider {
+    padding: 30px 0;
+}
+
+.paginationfooter .container {
+    position: relative;
+}
+
+.paginationBox.d-flex.justify-content-center {
+    flex: 11;
+}
+
+.FOLLOWUS {
+    flex: 1;
+}
+
+.FOLLOWUSlist li {
+    width: 56px;
+    height: 56px;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,800030+100&1+0,0.25+100,0.12+100 */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(128,0,48,0.22) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+ul.FOLLOWUSlist.d-flex {
+    gap: 10px;
+}
+
+ .FOLLOWUS h3 {
+    font-size: 16px;
+    color: #1E1E1E;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.FOLLOWUS.bannerfollow {
+    position: absolute;
+    right: 0;
+    bottom: -11px;
+}
+
+.FOLLOWUS.bannerfollow h3 {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+     font-size: 16px;
+      text-align: center;
+}
+
+.FOLLOWUS.bannerfollow  .FOLLOWUSlist li{ background: #fff; cursor: pointer;}
+.imgsmcard {
+    position: relative;
+    overflow: hidden;
+}
+
+.imgsmcardcontent {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    padding: 10px 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: italic;
+    background: rgb(0 0 0 / 19%);
+    margin-bottom: -9px;
 }
