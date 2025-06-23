@@ -30,7 +30,7 @@ const NewsAndMediaDetails = () => {
       <JoinCommunity open={open} setOpen={setOpen} />
       <section className="BlogDeatils">
         <figure>
-          <img crossOrigin="anonymous" src={newsDetails?.image_url} />
+          <img crossOrigin="anonymous" src={newsDetails?.banner_image_url||newsDetails?.image_url} />
         </figure>
         <div className="container">
           <div className="innerbannerContent">

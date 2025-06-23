@@ -29,7 +29,7 @@ const BlogsDetails = () => {
       <JoinCommunity open={open} setOpen={setOpen} />
       <section className="BlogDeatils">
         <figure>
-          <img crossOrigin="anonymous" src={details?.image_url} />
+          <img crossOrigin="anonymous" src={details?.banner_image_url||details?.image_url} />
         </figure>
         <div className="container">
           <div className="innerbannerContent">
