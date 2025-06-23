@@ -11,6 +11,7 @@ import AppliedJobs from "./AppliedJobs";
 import AllOrders from "./Orders";
 import AllAppointments from "./Appointments";
 import Testimonials from "./Testimonials";
+import AboutUs from "./AboutUs";
 
 const index = () => {
   return (
@@ -25,6 +26,7 @@ const index = () => {
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="return-policy" element={<ReturnPolicy />} />
           <Route path="contact-details" element={<ContactDetails />} />
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="career" element={<Careers />} />
           <Route path="innovation" element={<Innovation />} />
         <Route path="/" element={<Navigate replace to="privacy-policy" />} />

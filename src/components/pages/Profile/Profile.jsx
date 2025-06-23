@@ -62,16 +62,34 @@ function Profile() {
   };
 
   const validateForm = () => {
-    if (!formData.age) return toast.error("Age is required");
-    if (!formData.gender) return toast.error("Gender is required");
-    if (formData.pincode && isNaN(formData.pincode))
-      return toast.error("Pincode must be numeric");
-    if (formData.weight && isNaN(formData.weight))
-      return toast.error("Weight must be numeric");
-    if (formData.height && isNaN(formData.height))
-      return toast.error("Height must be numeric");
+    if (!formData.age || isNaN(formData.age) || Number(formData.age) <= 0) {
+      toast.error("Valid age is required");
+      return false;
+    }
+  
+    if (!formData.gender) {
+      toast.error("Gender is required");
+      return false;
+    }
+  
+    if (formData.pincode && isNaN(formData.pincode)) {
+      toast.error("Pincode must be numeric");
+      return false;
+    }
+  
+    if (formData.weight && isNaN(formData.weight)) {
+      toast.error("Weight must be numeric");
+      return false;
+    }
+  
+    if (formData.height && isNaN(formData.height)) {
+      toast.error("Height must be numeric");
+      return false;
+    }
+  
     return true;
   };
+  
 
   const handleSave = async () => {
     if (!validateForm()) return;

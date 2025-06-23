@@ -236,3 +236,10 @@ select.form-control {
   border-radius: 50%;
   padding: 1px 5px;
 }
+
+.about-cms h2{
+  font-size: 32px;
+  color: #800030;
+  font-weight: 700;
+  text-transform: uppercase;
+}
