@@ -1748,6 +1748,25 @@
     height: 300px;
     margin-top: 20px;
   }
+  .imgcard img {
+    height: 350px;
+  }
+
+  .imgsmcard img {
+    height: 172px;
+  }
+  .filtersBox {
+    padding-bottom: 0;
+  }
+  hr.dashed-text {
+    margin: 15px 0 20px;
+  }
+  .innovationlist h3 {
+    font-size: 20px;
+  }
+  .innovationlist figure img {
+    height: 330px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -2288,6 +2307,33 @@
     margin: auto;
     margin-bottom: 25px;
   }
+  .pakageheadtitle span {
+    font-size: 13px;
+  }
+
+  .pakageheadtitle h4 {
+    font-size: 18px;
+  }
+  table.table {
+    white-space: nowrap;
+  }
+
+  .imgcardcontent h4 {
+    font-size: 24px;
+  }
+
+  .col-md-7.text-center.ps-4 {
+    padding-left: 15px !important;
+    margin-top: 30px;
+  }
+
+  .stayaheadbg span {
+    font-size: 18px;
+  }
+
+  .stayaheadbg h4 {
+    font-size: 22px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -2708,7 +2754,7 @@
   }
 
   ul.tabslist {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   ul.tabslist li {
@@ -2726,6 +2772,32 @@
   }
   .cardhead h3 {
     font-size: 18px;
+  }
+
+  .tabscardbox {
+    justify-content: center !important;
+  }
+  .cardhead {
+    flex-wrap: wrap;
+  }
+
+  .cardhead h3 {
+    font-size: 16px;
+  }
+
+  button.update-meas-btn {
+    margin-top: 10px;
+  }
+  .pakagebody span {
+    font-size: 14px;
+  }
+
+  .tabscardbox {
+    justify-content: center !important;
+  }
+
+  .imgcardcontent h4 {
+    font-size: 24px;
   }
 }
 @media (max-width: 480px) {
@@ -3281,8 +3353,48 @@
     font-size: 11px;
   }
 
-  ul.BottomFooterList li:first-child  {
+  ul.BottomFooterList li:first-child {
     padding-left: 0;
     margin-left: 0;
+  }
+  .tabscardbox {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .tabslist li a {
+    height: 100%;
+  }
+
+  .pakagehead .row {
+    flex-direction: column;
+  }
+
+  .pakageheadtitle {
+    margin-bottom: 10px;
+  }
+
+  .pakagebody .row {
+    flex-direction: column;
+  }
+
+  .imgcardcontent h4 {
+    font-size: 24px;
+  }
+
+  .innerSpace {
+    padding-top: 40px;
+  }
+
+  .imgcard img {
+    height: 280px;
+  }
+
+  .imgcardcontent h4 {
+    font-size: 16px;
+  }
+
+  .imgsmcard img {
+    height: 128px;
   }
 }

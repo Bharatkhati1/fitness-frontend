@@ -5212,6 +5212,7 @@ ul.sitelistinner li a {
     rgba(192, 192, 192, 1) 100%
   );
   cursor: pointer;
+  border: 0;
 }
 
 .CardBbox {

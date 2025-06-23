@@ -140,7 +140,7 @@ function Innovation() {
               <div className="col-md-5">
                 <div className="row g-1">
                   {cmsDetails?.OptionalImages?.slice(0, 4).map((img) => (
-                    <div className="col-md-6 ">
+                    <div className="col-md-6 col-sm-6 col-6">
                       <div className="imgsmcard">
                         <img src={img.image_url} crossOrigin="anonymous"></img>
                       </div>
@@ -150,7 +150,7 @@ function Innovation() {
               </div>
             </div>
           </div>
-          <div className="filtersBox">
+          <div className="filtersBox innovationfilters">
             <div className="container">
               <div className="filtersBoxInner">
                 <div className="row">

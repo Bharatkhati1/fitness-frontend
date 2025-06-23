@@ -31,12 +31,12 @@ function ProfileMyPakages({ userPackages }) {
 
             <div className="pakagebody">
               <div className="row">
-                {/* <div className="col d-flex align-items-center">
+                <div className="col d-flex align-items-center">
                   <figure className="me-1">
                     <img src={watchicon} />
                   </figure>
-                  <span>Duration: 6 Months</span>
-                </div> */}
+                  <span>Duration: {pkg?.duration} Months</span>
+                </div>
                 <div className="col d-flex align-items-center">
                   <figure className="me-1">
                     <img src={calendericon} />
