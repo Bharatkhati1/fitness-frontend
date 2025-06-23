@@ -116,7 +116,7 @@ const AboutUs = () => {
                   <div className="col-lg-8">
                     <div className="mb-3">
                       <label htmlFor="privacy-image" className="form-label">
-                        Banner Image {formData?.banner && `: ${formData.banner}`}
+                         Image {formData?.banner && `: ${formData.banner}`}
                       </label>
                       <input
                         id="privacy-image"
