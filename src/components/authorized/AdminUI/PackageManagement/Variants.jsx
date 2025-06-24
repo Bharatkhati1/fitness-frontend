@@ -24,14 +24,14 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 <h4 className="mb-0">Package Variant {index + 1}</h4>
               </div>
               <div className="col-auto">
-                {packageVariants.length > 1 && index !== 0 && (
+                {/* {packageVariants.length > 1 && index !== 0 && ( */}
                   <button
                     className="remove-btn-inclusion"
                     onClick={() => removeVariant(index)}
                   >
                     -
                   </button>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>

@@ -73,7 +73,7 @@ function AboutUs() {
   const getMessages = async () => {
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_sliders("home-page")
+        userApiRoutes.get_sliders("misson")
       );
       setMessage(response.data.data);
     } catch (error) {

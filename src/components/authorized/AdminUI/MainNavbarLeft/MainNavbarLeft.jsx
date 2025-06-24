@@ -4,7 +4,10 @@ import logo from "../../../../../public/assets/img/footerLogo.png";
 
 const NavItems = {
   admin: [
-    { id: 1, name: "Slider Management", path: "slider-management" },
+    { id: 1, name: "Slider Management", path: "slider-management", subMenu: [
+      { name: "Manage", path: "manage" },
+      { name: "Why Us Image", path: "why-us-image" },
+    ], },
     {
       id: 2,
       name: "Service Management",
@@ -28,7 +31,7 @@ const NavItems = {
       id: 6, name: "Team Management", path: "team-management" ,
       subMenu: [
         { name: "Team", path: "manage" },
-        { name: "Misson Message", path: "message" },
+        { name: "Message", path: "message" },
       ],
     },
     {

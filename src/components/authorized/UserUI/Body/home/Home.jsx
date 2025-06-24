@@ -63,6 +63,7 @@ function Home() {
     contactFor: [],
   });
   const [sliders, setSliders] = useState([]);
+  const [whyus, setWhyus] = useState([])
   const [blogs, setBlogs] = useState([]);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
@@ -202,6 +203,19 @@ function Home() {
     }
   };
 
+  
+  const getMessages = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_sliders("whyus")
+      );
+      setWhyus(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -234,6 +248,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getBlogs();
+    getMessages()
     dispatch(getKitchenData());
   }, []);
 
@@ -271,6 +286,9 @@ function Home() {
             nav={true}
             navText={[prevArrow, nextArrow]}
           >
+           <div className="why-class">
+                <img crossOrigin="annoymous" className="w-100"  src={whyus[0]?.image_url}  />
+                </div>
             {sliders.map((slider) => (
               <div>
                 <div className="container h-100">
@@ -330,6 +348,7 @@ function Home() {
                 </div>
               </div>
             ))}
+              
           </OwlCarousel>
         )}
       </section>

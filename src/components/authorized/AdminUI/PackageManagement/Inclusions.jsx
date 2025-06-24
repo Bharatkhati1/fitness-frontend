@@ -18,14 +18,14 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
                   <h4 className="mb-0">Package Inclusion {index + 1}</h4>
                 </div>
                 <div className="col-auto">
-                  {packageInclusions.length > 1 && index !== 0 && (
+                  {/* {packageInclusions.length > 1 && index !== 0 && ( */}
                     <button
                       className="remove-btn-inclusion"
                       onClick={() => removeInclusion(index)}
                     >
                       -
                     </button>
-                  )}
+                  {/* )} */}
                 </div>
               </div>
             </div>

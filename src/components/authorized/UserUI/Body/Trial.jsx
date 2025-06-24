@@ -56,25 +56,25 @@ const Trial = () => {
             {cartItemIds.includes(1) ? `Go to cart` : `add to bag`}
           </button>
 
-          <ul className="list-unstyled">
+          <ol className="list-unstyled">
             <li className="mb-3">
-              Gain access to an exciting variety of workouts, including yoga,
+            • Gain access to an exciting variety of workouts, including yoga,
               high-intensity interval training (HIT), and strength training, all
               led by certified fitness instructors.
             </li>
             <li className="mb-3">
-              Our interactive platform allows you to join live sessions or
+            • Our interactive platform allows you to join live sessions or
               choose from an extensive library of pre-recorded classes that fit
               your schedule
             </li>
             <li className="mb-3">
-              Get a generalised diet plan aimed at meeting your goals.
+            • Get a generalised diet plan aimed at meeting your goals.
             </li>
             <li className="mb-3">
-              One-to-one consultation with our fitness experts regarding all
+            • One-to-one consultation with our fitness experts regarding all
               your queries and the roadmap towards your better fitness.
             </li>
-          </ul>
+          </ol>
         </div>
       </div>
     </div>
