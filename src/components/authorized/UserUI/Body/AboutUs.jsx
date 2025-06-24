@@ -73,7 +73,7 @@ function AboutUs() {
     fetchAllTeam();
     getCmsDetail();
   }, []);
-  console.log(cmsDetails);
+  
   return (
     <>
       <JoinCommunity setOpen={setOpen} open={open} />

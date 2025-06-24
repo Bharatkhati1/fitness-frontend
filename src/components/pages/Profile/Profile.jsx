@@ -201,7 +201,7 @@ function Profile() {
           <div className="col">
             <div className="cardcontent">
               <h3>Hello {profileDetails?.firstName || "User"}!</h3>
-              <p>Your profile and progress — all in one place.</p>
+              <p>Everything about you, your journey, and your progress — all in one calm, curated space.</p>
               <div className="tabscardbox d-flex justify-content-between align-items-center mt-3">
                 <ul className="tabslist">
                   <li

@@ -10,6 +10,7 @@ import searchIcon from "../../../public/assets/img/searchIcon.png";
 import kichinbanner from "../../../public/assets/img/kichinbanner.png";
 import leftp from "../../../public/assets/img/leftp.png";
 import leftR from "../../../public/assets/img/rightp.png";
+import BannerUpper from "./smartkichinbtext.png";
 import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
@@ -18,6 +19,8 @@ import useDebounce from "../Hooks/useDebounce";
 
 import ficoninsta from "../../../public/assets/img/f-icon-insta.png";
 import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
+import { Link } from "react-router-dom";
+import userAxios from "../../utils/Api/userAxios";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ function Smartkitchen() {
     kicthenCategories = [],
     isLoggedIn,
     user,
+    contactUsDetails = {},
   } = useSelector((state) => state.auth);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
@@ -127,66 +131,68 @@ function Smartkitchen() {
         onClose={() => setOpenEmailRequiredPopup(false)}
         onGetRecipe={onGetRecipe}
       />
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner blogbanner smartkitchein-banner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>
           <img src={kichinbanner} alt="Smart Kitchen Banner" />
         </figure>
-        <div className="container">
-          <div className="innerbannerContent">
-            <h2>smart kitchen</h2>
-            <p>Cook Smart. Eat Right. Live Well.</p>
-        
-            <div className="searcwithbtn d-flex">
-              <div className="SearchBox">
-                <input
-                  type="text"
-                  placeholder="Search here"
-                  className="form-control"
-                  value={search}
-                  onChange={handleSearchChange}
-                />
-                <button className="SearchBtn">
-                  <img src={searchIcon} />
-                </button>
-              </div>
-              <div className="btnserch d-flex align-items-center">
-                <a
-                  className={`btn  ${type === "veg" ? "VegBtn" : ""}`}
-                  onClick={() => handleTypeClick("veg")}
-                >
-                  Veg
-                </a>
-                <a
-                  className={`btn  ${type === "non-veg" ? "VegBtn" : ""}`}
-                  onClick={() => handleTypeClick("non-veg")}
-                >
-                  non Veg
-                </a>
-              </div>
-            </div>
-     <div className="FOLLOWUS bannerfollow">
-              <h3>follow us </h3>
-              <ul className="FOLLOWUSlist d-flex">
-                <li>
-                  <a>
-                    <img src={ficoninsta}></img>
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <img src={ficonyoutube}></img>
-                  </a>
-                </li>
-              </ul>
-            </div>
-     
 
+        <div className="container ">
+          <div className="innerbannerContent">
+            <span className="bannerup">
+              <img src={BannerUpper} />
+            </span>
+            <div className="row mt-3 align-items-end">
+              <div className="col  ">
+                <div className="searcwithbtn d-flex">
+                  <div className="SearchBox">
+                    <input
+                      type="text"
+                      placeholder="Search here"
+                      className="form-control"
+                      value={search}
+                      onChange={handleSearchChange}
+                    />
+                    <button className="SearchBtn">
+                      <img src={searchIcon} />
+                    </button>
+                  </div>
+                  <div className="btnserch d-flex align-items-center">
+                    <a
+                      className={`btn  ${type === "veg" ? "VegBtn" : ""}`}
+                      onClick={() => handleTypeClick("veg")}
+                    >
+                      Veg
+                    </a>
+                    <a
+                      className={`btn  ${type === "non-veg" ? "VegBtn" : ""}`}
+                      onClick={() => handleTypeClick("non-veg")}
+                    >
+                      non Veg
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-auto  ">
+                <div className="FOLLOWUS bannerfollow">
+                  <h3>follow us </h3>
+                  <ul className="FOLLOWUSlist d-flex">
+                    <li>
+                      <Link to={contactUsDetails?.kitchenInstagram}>
+                        <img src={ficoninsta}></img>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={contactUsDetails?.kitchenYoutube}>
+                        <img src={ficonyoutube}></img>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-                   
-       
-            
-        
+          </div>
         </div>
       </section>
 
@@ -200,6 +206,23 @@ function Smartkitchen() {
               items={7}
               nav
               margin={10}
+              responsive={{
+                0: {
+                  items: 2, // 0px and up
+                },
+                481: {
+                  items: 3, // 0px and up
+                },
+                768: {
+                  items: 5, // 600px and up
+                },
+                992: {
+                  items: 6, // 600px and up
+                },
+                1200: {
+                  items: 7, // 1000px and up
+                },
+              }}
             >
               {kicthenCategories?.map((cat) => (
                 <div className="item" key={cat.id}>
@@ -302,14 +325,14 @@ function Smartkitchen() {
               <h3>follow us </h3>
               <ul className="FOLLOWUSlist d-flex">
                 <li>
-                  <a>
+                  <Link to={contactUsDetails?.kitchenInstagram}>
                     <img src={ficoninsta}></img>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a>
+                  <Link to={contactUsDetails?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

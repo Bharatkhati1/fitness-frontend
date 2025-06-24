@@ -112,7 +112,7 @@ function NewsAndMedia() {
       <div className="filtersBox">
         <div className="container">
           <div className="filtersBoxInner">
-            <div className="row">
+            <div className="row g-5">
               <div className="col-md col-sm-9">
                 <div className="filterOwl">
                   <ul className="taginfolist">
@@ -188,7 +188,7 @@ function NewsAndMedia() {
 
       <div className="OurBlogs">
         <div className="container">
-          <div className="row OurBlogsRows">
+          <div className="row g-5">
             {newsItems.length > 0 ? (
               newsItems.map((item) => (
                 <div className="col-md-6 OurHealthBlogContent" key={item.id}>
