@@ -119,7 +119,7 @@ export default function AddToBag() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 couponAppliedId:appliedCouponDetails?.couponAppliedId,
-                packageId:appointmentData.packageId,
+                packageId:appointmentData.packageId|| 1,
                 couponCode: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);

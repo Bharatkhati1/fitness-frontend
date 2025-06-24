@@ -114,7 +114,7 @@ export default function CartBag() {
                     </p>
                   )}
                   <button
-                  onClick={()=>navigate("/checkout/cart")}
+                  onClick={()=> navigate("/checkout/cart")}
                     disabled={!cartItems.length > 0}
                     className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
                   >

@@ -52,8 +52,7 @@ const Trial = () => {
             className="btn btn-primary mb-4"
             onClick={() => handleAddToCart(1)}
           >
-            {" "}
-            {cartItemIds.includes(1) ? `Go to cart` : `add to bag`}
+            {cartItemIds.includes(1) ? `Added to Bag` : `add to bag`}
           </button>
 
           <ol className="list-unstyled">

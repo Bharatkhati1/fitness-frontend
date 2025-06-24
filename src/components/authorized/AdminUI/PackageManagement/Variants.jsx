@@ -3,6 +3,7 @@ import Ckeditor from "../CkEditor/Ckeditor";
 
 const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
   const allValues = [
+    { value: 1, name: "1 Month" },
     { value: 3, name: "3 Months" },
     { value: 6, name: "6 Months" },
     { value: 9, name: "9 Months" },
