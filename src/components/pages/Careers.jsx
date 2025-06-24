@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "antd";
+import { DatePicker } from "antd";
+import moment from "moment";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -91,7 +93,7 @@ function Careers() {
     const { name, value, type, files } = e.target;
     if (name === "name") {
       const isValid = /^[A-Za-z\s]*$/.test(value);
-      if (!isValid) return; 
+      if (!isValid) return;
     }
     if (type === "file") {
       setFormData((prev) => ({ ...prev, [name]: files[0] }));
@@ -106,7 +108,7 @@ function Careers() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
     formPayload.append("dob", formData.dob);
@@ -114,27 +116,27 @@ function Careers() {
     formPayload.append("fitnessEnthusiast", formData.fitnessEnthusiast);
     formPayload.append("experience", formData.experience);
     formPayload.append("jobId", selectedJob);
-  
+
     if (formData.resume_file) {
       formPayload.append("resume_file", formData.resume_file);
     }
-  
+
     const toastId = toast.loading("Submitting application...");
-  
+
     try {
       await webAxios.post(userApiRoutes.apply_job, formPayload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-  
+
       toast.update(toastId, {
         render: "Application submitted successfully!",
         type: "success",
         isLoading: false,
         autoClose: 3000,
       });
-  
+
       setIsModalOpen(false);
       setFormData({
         name: "",
@@ -153,7 +155,7 @@ function Careers() {
       });
     }
   };
-  
+
   useEffect(() => {
     fetchJobs();
     fetchCmsCareers();
@@ -174,14 +176,19 @@ function Careers() {
           <div className="row align-items-center">
             <div className="col-md-6 pe-0">
               <div className="Carrerbannerleft ">
-                <h3 className="mb-3">Where Fitness meets Innovation and Empathy meets Care.</h3>
+                <h3 className="mb-3">
+                  Where Fitness meets Innovation and Empathy meets Care.
+                </h3>
                 <p className="mb-4">
                   We’re not just building programs—we’re building a healthier
                   world. If wellness drives you and purpose fuels you, you’re at
                   the right place.
                 </p>
 
-                <a  href="#WeAreHiring" className="btn btn-primary max-btn hvr-shutter-out-horizontal">
+                <a
+                  href="#WeAreHiring"
+                  className="btn btn-primary max-btn hvr-shutter-out-horizontal"
+                >
                   Shape Lives With Us
                 </a>
               </div>
@@ -501,7 +508,7 @@ function Careers() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Your Date of Birth*</label>
+                <label>your Date of Birth*</label>
                 <input
                   type="date"
                   className="form-control"
@@ -509,6 +516,7 @@ function Careers() {
                   placeholder="Enter your DOB"
                   required
                   value={formData.dob}
+                  style={{ textTransform: "uppercase" }}
                   onChange={handleChange}
                   max={new Date().toISOString().split("T")[0]}
                 />
@@ -527,8 +535,6 @@ function Careers() {
                 />
               </div>
 
-          
-
               <div className="form-group mb-2">
                 <label>Upload Resume*</label>
                 <input
@@ -541,7 +547,7 @@ function Careers() {
                 />
               </div>
 
-                  <div className="form-group mb-2">
+              <div className="form-group mb-2">
                 <label>Are you a fitness enthusiast?*</label>
                 <ul className="form-checkList sm-checklist d-flex flex-wrap">
                   <li>
@@ -584,7 +590,7 @@ function Careers() {
               </div>
 
               <div className="form-group mb-2">
-                <label>Select your experience</label>
+                <label>years of experience*</label>
                 <select
                   className="form-select"
                   name="experience"

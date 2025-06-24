@@ -214,6 +214,7 @@ const Manage = () => {
                     <label className="form-label">Date</label>
                     <input
                       type="date"
+                      style={{ textTransform: "uppercase" }}
                       name="date"
                       className="form-control"
                       value={formData.date}

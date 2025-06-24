@@ -22,8 +22,8 @@ const BlogsManagement = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [bannerName, setBannername] = useState("");
   const [image, setImage] = useState(null);
-  const [bannerImage, setBannerImage] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [bannerImage, setBannerImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const fileInputRef = useRef(null);
@@ -70,7 +70,7 @@ const BlogsManagement = () => {
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} blog...`
     );
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       let url = isEdit
         ? adminApiRoutes.update_blog(selectedId)
@@ -113,8 +113,8 @@ const BlogsManagement = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -136,8 +136,8 @@ const BlogsManagement = () => {
     setName("");
     setDate("");
     setCategoryId("");
-    setBannername("")
-    setBannerImage(null)
+    setBannername("");
+    setBannerImage(null);
     setLongDescription("");
     setShortDesc("");
     setStatus("1");
@@ -148,8 +148,8 @@ const BlogsManagement = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-    if(bannerImgref.current){
-      bannerImgref.current.value= ""
+    if (bannerImgref.current) {
+      bannerImgref.current.value = "";
     }
   };
   useEffect(() => {
@@ -193,7 +193,7 @@ const BlogsManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Blog Image {isEdit && !image &&` : ${selectedFileName}`}
+                      Blog Image {isEdit && !image && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -206,11 +206,12 @@ const BlogsManagement = () => {
                   </div>
                 </div>
 
-                   {/* Banner Image  */}
-                   <div className="col-lg-6">
+                {/* Banner Image  */}
+                <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Banner Image {isEdit && !bannerImage &&` : ${bannerName}`}
+                      Banner Image{" "}
+                      {isEdit && !bannerImage && ` : ${bannerName}`}
                     </label>
                     <input
                       type="file"
@@ -261,11 +262,15 @@ const BlogsManagement = () => {
                           setReadTime("");
                           return;
                         }
-                    
+
                         const numericValue = parseInt(value, 10);
-                    
+
                         // Only allow 0–60
-                        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 60) {
+                        if (
+                          !isNaN(numericValue) &&
+                          numericValue >= 0 &&
+                          numericValue <= 60
+                        ) {
                           setReadTime(numericValue);
                         }
                       }}
@@ -302,13 +307,14 @@ const BlogsManagement = () => {
                     <input
                       type="date"
                       id="select-date"
+                      style={{ textTransform: "uppercase" }}
                       className="form-control"
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
                     />
                   </div>
                 </div>
-                
+
                 {/* Status */}
                 <div className="col-lg-6">
                   <p>Blog Status</p>
@@ -350,18 +356,8 @@ const BlogsManagement = () => {
                   </div>
                 </div>
 
-                {/* Short Description  */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label htmlFor="service-des" className="form-label">
-                      Short Desciption
-                    </label>
-                    <Ckeditor text={shortDesc} setText={setShortDesc} />
-                  </div>
-                </div>
-
                 {/* Long Description  */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Long Desciption
@@ -372,7 +368,15 @@ const BlogsManagement = () => {
                     />
                   </div>
                 </div>
-
+                {/* Short Description  */}
+                <div className="col-lg-12">
+                  <div className="mb-3">
+                    <label htmlFor="service-des" className="form-label">
+                      Short Desciption
+                    </label>
+                    <Ckeditor text={shortDesc} setText={setShortDesc} />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -463,7 +467,7 @@ const BlogsManagement = () => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setName(item.title);
-                                  setBannername(item.bannerImage)
+                                  setBannername(item.bannerImage);
                                   setCategoryId(item.categoryId);
                                   setShortDesc(item.shortDescription);
                                   setLongDescription(item.description);

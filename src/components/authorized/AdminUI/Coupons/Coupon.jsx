@@ -186,6 +186,7 @@ const Coupon = () => {
                     <label className="form-label">Expiry Date*</label>
                     <input
                       type="date"
+                      style={{ textTransform: "uppercase" }}
                       className="form-control"
                       name="expiry"
                       value={formData.expiry}

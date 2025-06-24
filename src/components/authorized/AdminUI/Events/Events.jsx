@@ -294,7 +294,7 @@ const Events = () => {
               </div>
 
               {/* Short Description */}
-              <div className="col-lg-6">
+              <div className="col-lg-12">
                 <div className="mb-3">
                   <label className="form-label">Short Description</label>
                   <Ckeditor
@@ -307,7 +307,7 @@ const Events = () => {
               </div>
 
               {/* Long Description */}
-              <div className="col-lg-6">
+              <div className="col-lg-12">
                 <div className="mb-3">
                   <label className="form-label">Long Description</label>
                   <Ckeditor

@@ -282,7 +282,7 @@ const ServiceManagement = () => {
                 </div>
 
                 {/* Short Description */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Short Description
@@ -298,7 +298,7 @@ const ServiceManagement = () => {
                 </div>
 
                 {/* Long Description */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Long Desciption
