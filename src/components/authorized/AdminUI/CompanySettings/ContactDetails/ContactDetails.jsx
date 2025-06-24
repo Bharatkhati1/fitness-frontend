@@ -20,38 +20,26 @@ const ContactDetails = () => {
 
   const onCancelEdit = () => {
     setIsEdit(false);
-    setFormData({
-      email: "",
-      phone: "",
-      address: "",
-      instagram: "",
-      facebook: "",
-      linkedin: "",
-      twitter: "",
-      youtube: "",
-      kitchenYoutube: "",
-      kitchenInstagram: "",
-    });
+    fetchContactDetails(); // Reset form with saved data
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
-    if (isEdit) {
+    if (!isEdit) return setIsEdit(true);
+
+    try {
       const response = await adminAxios.post(
         adminApiRoutes.update_contact_details,
         formData
       );
-      toast.success(response.data.message);
+      toast.success(response.data.message || "Updated successfully");
       setIsEdit(false);
-    } else {
-      setIsEdit(true);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Update failed");
     }
   };
 
@@ -60,13 +48,42 @@ const ContactDetails = () => {
       const res = await adminAxios.get(adminApiRoutes.get_contact_details);
       setFormData(res.data.data);
     } catch (error) {
-      console.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to fetch details");
     }
   };
 
   useEffect(() => {
     fetchContactDetails();
   }, []);
+
+  const renderInput = (label, name, placeholder = "") => (
+    <div className="col-lg-6 mb-3" key={name}>
+      <label htmlFor={name} className="form-label">
+        {label}
+      </label>
+      <input
+        type="text"
+        id={name}
+        name={name}
+        className="form-control"
+        placeholder={placeholder}
+        value={formData[name]}
+        onChange={handleChange}
+        readOnly={!isEdit}
+      />
+    </div>
+  );
+
+  const socialFields = [
+    { label: "Instagram", name: "instagram" },
+    { label: "Facebook", name: "facebook" },
+    { label: "LinkedIn", name: "linkedin" },
+    { label: "Twitter", name: "twitter" },
+    { label: "YouTube", name: "youtube" },
+    { label: "Kitchen Instagram", name: "kitchenInstagram" },
+    { label: "Kitchen YouTube", name: "kitchenYoutube" },
+  ];
+
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -75,94 +92,26 @@ const ContactDetails = () => {
             <h4 className="card-title">
               {isEdit ? "Edit Contact Details" : "Contact Details"}
             </h4>
-            {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
+            {isEdit && (
+              <button className="btn btn-sm btn-outline-secondary" onClick={onCancelEdit}>
+                Cancel Edit
+              </button>
+            )}
           </div>
 
           <div className="card-body">
             <div className="row">
-              {/* Email */}
-              <div className="col-lg-6">
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="form-control"
-                    value={formData.email}
-                    onChange={handleChange}
-                    readOnly={!isEdit}
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="col-lg-6">
-                <div className="mb-3">
-                  <label htmlFor="phone" className="form-label">
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    className="form-control"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    readOnly={!isEdit}
-                  />
-                </div>
-              </div>
-
-              {/* Address */}
-              <div className="col-lg-6">
-                <div className="mb-3">
-                  <label htmlFor="address" className="form-label">
-                    Address
-                  </label>
-                  <input
-                    id="address"
-                    name="address"
-                    className="form-control"
-                    value={formData.address}
-                    onChange={handleChange}
-                    readOnly={!isEdit}
-                  />
-                </div>
-              </div>
-
-              {/* Social Media */}
-              {["instagram", "facebook", "linkedin", "twitter", "youtube"].map(
-                (platform) => (
-                  <div className="col-lg-6" key={platform}>
-                    <div className="mb-3">
-                      <label htmlFor={platform} className="form-label">
-                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                      </label>
-                      <input
-                        type="text"
-                        id={platform}
-                        name={platform}
-                        className="form-control"
-                        value={formData[platform]}
-                        onChange={handleChange}
-                        readOnly={!isEdit}
-                      />
-                    </div>
-                  </div>
-                )
+              {renderInput("Email", "email", "Enter email")}
+              {renderInput("Phone", "phone", "Enter phone number")}
+              {renderInput("Address", "address", "Enter address")}
+              {socialFields.map((field) =>
+                renderInput(field.label, field.name, `Enter ${field.label.toLowerCase()} link`)
               )}
             </div>
           </div>
 
-          <div className="card-footer border-top text-end">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleSubmit}
-            >
+          <div className="card-footer text-end border-top">
+            <button className="btn btn-primary" onClick={handleSubmit}>
               {isEdit ? "Update Changes" : "Edit"}
             </button>
           </div>

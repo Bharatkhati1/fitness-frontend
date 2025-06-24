@@ -17,7 +17,7 @@ const ForgotPassword = () => {
 
     try {
       setLoading(true);
-      await axios.post(`${GATEWAY_URL}/web/forgot-password`, { email });
+      await axios.post(`${GATEWAY_URL}/web/forgot-password`, { email, type:"user" });
       toast.success("Reset instructions sent to your email.");
       setSubmitted(true);
     } catch (err) {

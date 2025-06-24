@@ -18,6 +18,7 @@ import useDebounce from "../Hooks/useDebounce";
 
 import ficoninsta from "../../../public/assets/img/f-icon-insta.png";
 import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
+import { Link } from "react-router-dom";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function Smartkitchen() {
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const [search, setSearch] = useState("");
+  const [formData, setFormData] = useState({})
   const [category, setCategory] = useState(null);
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
@@ -120,6 +122,19 @@ function Smartkitchen() {
     }
   };
 
+  const fetchContactDetails = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_contact_details);
+      setFormData(res.data.data);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch details");
+    }
+  };
+
+  useEffect(() => {
+    fetchContactDetails();
+  }, []);
+
   return (
     <>
       <EmailRequiredPopup
@@ -169,14 +184,14 @@ function Smartkitchen() {
               <h3>follow us </h3>
               <ul className="FOLLOWUSlist d-flex">
                 <li>
-                  <a>
+                  <Link to={formData?.kitchenInstagram}>
                     <img src={ficoninsta}></img>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a>
+                  <Link to={formData?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -301,15 +316,15 @@ function Smartkitchen() {
             <div className="FOLLOWUS">
               <h3>follow us </h3>
               <ul className="FOLLOWUSlist d-flex">
-                <li>
-                  <a>
+              <li>
+                  <Link to={formData?.kitchenInstagram}>
                     <img src={ficoninsta}></img>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a>
+                  <Link to={formData?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
