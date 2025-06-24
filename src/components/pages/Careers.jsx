@@ -176,14 +176,8 @@ function Careers() {
           <div className="row align-items-center">
             <div className="col-md-6 pe-0">
               <div className="Carrerbannerleft ">
-                <h3 className="mb-3">
-                  Where Fitness meets Innovation and Empathy meets Care.
-                </h3>
-                <p className="mb-4">
-                  We’re not just building programs—we’re building a healthier
-                  world. If wellness drives you and purpose fuels you, you’re at
-                  the right place.
-                </p>
+                <h3 className="mb-3">{careersCms?.title}</h3>
+                <p className="mb-4">{careersCms?.description}</p>
 
                 <a
                   href="#WeAreHiring"
@@ -376,45 +370,27 @@ function Careers() {
             <p>Where every day is a step toward a healthier, happier world.</p>
           </div>
 
-          <div>
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              merge={true}
-              nav={true}
-              margin={10}
-              loop={true}
-            >
-              <div className="item">
-                <div>
-                  <img src={culturesliderimg1}></img>
-                </div>
+          {careersCms?.OptionalImages &&
+            careersCms?.OptionalImages.length > 0 && (
+              <div>
+                <OwlCarousel
+                  className="owl-theme"
+                  dots={false}
+                  items={4}
+                  merge={true}
+                  nav={true}
+                  margin={10}
+                >
+                  {careersCms?.OptionalImages.map((img) => (
+                    <div className="item">
+                      <div>
+                        <img crossOrigin="anonymous" src={img.image_url}></img>
+                      </div>
+                    </div>
+                  ))}
+                </OwlCarousel>
               </div>
-
-              <div className="item" data-merge="2">
-                <div>
-                  <img src={culturesliderimg2}></img>
-                </div>
-              </div>
-
-              <div className="item">
-                <div>
-                  <img src={culturesliderimg1}></img>
-                </div>
-              </div>
-              <div className="item" data-merge="2">
-                <div>
-                  <img src={culturesliderimg2}></img>
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <img src={culturesliderimg3}></img>
-                </div>
-              </div>
-            </OwlCarousel>
-          </div>
+            )}
 
           <p className="text-center pt-4">
             At DailyFitness, we believe wellness isn't just our mission—it's our

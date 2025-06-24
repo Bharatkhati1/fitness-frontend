@@ -9,13 +9,13 @@ const Careers = () => {
         title: "",
         banner: null,
         description: "",
-        content: "",
       });
-    
+     const [galleryImages, setGalleryImages] = useState([]);
       const [isEdit, setIsEdit] = useState(false);
       const [loading, setLoading] = useState(false);
       const [selectedFileName, setSelectedFileName] = useState("");
       const fileInputRef = useRef(null);
+      const galleryInputRef = useRef(null);
     
       const handleFormDataChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -33,7 +33,11 @@ const Careers = () => {
         Object.entries(formData).forEach(([key, val]) => {
           if (val !== null && val !== undefined) payload.append(key, val);
         });
-    
+        galleryImages.forEach((img) => {
+          if (img.type === "new") {
+            payload.append("optional_image", img.data);
+          }
+        });
         const loadingToastId = toast.loading("Updating policies...");
         try {
           const url = adminApiRoutes.update_policy(formData.id);
@@ -52,6 +56,7 @@ const Careers = () => {
           onCancelEdit();
         } catch (error) {
           console.log(error);
+          setLoading(false)
           toast.error(`Failed to submit: ${error.response?.data?.message}`);
         } finally {
           setLoading(false);
@@ -76,15 +81,41 @@ const Careers = () => {
             adminApiRoutes.get_policy_details("careers")
           );
           setFormData(res.data.data);
+          setGalleryImages(
+            res.data.data?.OptionalImages?.map((img) => ({
+              type: "existing",
+              data: img.image_url,
+              id: img.id,
+            })) || []
+          );
         } catch (error) {
           console.log(error);
           toast.error(error.response.data.error);
         }
       };
-    
+
+      const handleRemoveImage = async (id, index) => {
+        try {
+          const res = await adminAxios.delete(
+            adminApiRoutes.delete_optional_images(id)
+          );
+          setGalleryImages((prev) => prev.filter((_, i) => i !== index));
+        } catch (error) {
+          toast.error(error.response.data.error);
+        }
+      };
+
       useEffect(() => {
         fetchPPDetails();
       }, []);
+
+        useEffect(() => {
+          return () => {
+            galleryImages.forEach((img) => {
+              if (img.type === "new") URL.revokeObjectURL(img.data);
+            });
+          };
+        }, [galleryImages]);
     
       return (
         <div className="row">
@@ -99,7 +130,7 @@ const Careers = () => {
               <div className="card-body">
                 <div className="row">
                   {/* Title */}
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                     <div className="mb-3">
                       <label className="form-label">Title</label>
                       <input
@@ -114,7 +145,7 @@ const Careers = () => {
                     </div>
                   </div>
     
-                  {/* Banner Image Upload */}
+                  {/* Banner Image Upload
                   <div className="col-lg-8">
                     <div className="mb-3">
                       <label htmlFor="privacy-image" className="form-label">
@@ -130,7 +161,7 @@ const Careers = () => {
                         onChange={handleFormDataChange}
                       />
                     </div>
-                  </div>
+                  </div> */}
     
                   {/* desciption  */}
                   <div className="col-lg-12">
@@ -149,7 +180,7 @@ const Careers = () => {
                     </div>
                   </div>
     
-                  {/* Body */}
+                  {/* Body
                   <div className="col-lg-12">
                     <div className="mb-3">
                       <label className="form-label">Body</label>
@@ -160,7 +191,63 @@ const Careers = () => {
                         }
                       />
                     </div>
+                  </div> */}
+
+                {/* Gallery  Images  */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">
+                    Images
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/*"
+                      ref={galleryInputRef}
+                      multiple
+                      onChange={(e) => {
+                        const selected = Array.from(e.target.files);
+                        const newFiles = selected.map((file) => ({
+                          type: "new",
+                          data: file,
+                        }));
+                        setGalleryImages((prev) => [...prev, ...newFiles]);
+                        e.target.value = null;
+                      }}
+                    />
                   </div>
+                </div>
+
+              {galleryImages.length > 0 && (
+                <div className="d-flex flex-wrap gap-2">
+                  {galleryImages.map((img, index) => (
+                    <div key={index} className="gary-img-div">
+                      <img
+                        crossOrigin="anonymous"
+                        src={
+                          img.type === "existing"
+                            ? img.data
+                            : URL.createObjectURL(img.data)
+                        }
+                        alt={`preview-${index}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          img.type === "existing"
+                            ? handleRemoveImage(img.id, index)
+                            : setGalleryImages((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              )
+                        }
+                        className="remove-img-btn-gly"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
                 </div>
               </div>
     
