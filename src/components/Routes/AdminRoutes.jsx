@@ -9,7 +9,7 @@ import Blogs from "../authorized/AdminUI/BlogsManagement/index";
 import SmartKitchen from "../authorized/AdminUI/SmartKitchen/index"
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
-import TeamManagement from "../authorized/AdminUI/TeamManagement/TeamManagement";
+import TeamManagement from "../authorized/AdminUI/TeamManagement/index";
 import Consultants from "../authorized/AdminUI/Consultants/index";
 import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateUpdatePackage";
 import CompanySetting from "../authorized/AdminUI/CompanySettings/index"
@@ -34,7 +34,7 @@ export default function AdminRoutes() {
           <Route path="service-management/packages" element={<PackageManagement />} />
           <Route path="service-management/create-update-package" element={<CreateUpdatePackage />} />
           <Route path="success-stories" element={<SuccessStories />} />
-          <Route path="team-management" element={<TeamManagement />} />
+          <Route path="team-management/*" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="smart-kitchen/*" element={<SmartKitchen />} />
           <Route path="consultants/*" element={<Consultants />} />

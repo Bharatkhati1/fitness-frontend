@@ -6,12 +6,13 @@ import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 
-const SliderManagement = () => {
+const Mission = () => {
   const [sliderName, setSliderName] = useState("");
   const [sliderHeading, setSliderHeading] = useState("");
   const [sliderSubheading, setSliderSubheading] = useState("");
   const [sliderStatus, setSliderStatus] = useState(true);
   const [selectedSliderId, setSelectedSliderId] = useState(null);
+  const [selectedId, setSelectedId] = useState("");
   const [selectedFileName, setSelectedFileName] = useState("");
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
@@ -22,7 +23,7 @@ const SliderManagement = () => {
 
   const fetchAllSliders = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_sliders("home-page"));
+      const res = await adminAxios.get(adminApiRoutes.get_sliders("misson"));
       setSliders(res.data.data);
       setFilterServices(res.data.data);
     } catch (error) {
@@ -39,9 +40,9 @@ const SliderManagement = () => {
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("heading", sliderHeading);
-    formData.append("subHeading", sliderSubheading);
-    formData.append("isActive", sliderStatus);
-    formData.append("slug", "home-page");
+    formData.append("subHeading", "sliderSubheading");
+    formData.append("isActive", true);
+    formData.append("slug", "misson");
     sliderImage && formData.append("slider_image", sliderImage);
 
     try {
@@ -119,7 +120,7 @@ const SliderManagement = () => {
           <div className={`card ${isEdit && `editing`}`}>
             <div className="card-header">
               <h4 className="card-title">
-                {isEdit ? `Edit Selected Slider` : `Add Slider`}
+                {isEdit ? `Edit Selected Message` : `Add Message`}
               </h4>
               {isEdit && (
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
@@ -131,7 +132,7 @@ const SliderManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="slider-name" className="form-label">
-                      Slider Name
+                      Name
                     </label>
                     <input
                       type="text"
@@ -148,8 +149,7 @@ const SliderManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="slider-image" className="form-label">
-                      Slider Image{" "}
-                      {isEdit && !sliderImage && ` : ${selectedFileName}`}
+                      Image {isEdit && !sliderImage && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -166,70 +166,16 @@ const SliderManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="slider-heading" className="form-label">
-                      Slider Heading
+                      Message
                     </label>
                     <input
                       type="text"
                       id="slider-heading"
                       className="form-control"
-                      placeholder="Enter heading"
+                      placeholder="Enter message"
                       value={sliderHeading}
                       onChange={(e) => setSliderHeading(e.target.value)}
                     />
-                  </div>
-                </div>
-
-                {/* Subheading */}
-                <div className="col-lg-12">
-                  <div className="mb-3">
-                    <label htmlFor="slider-subheading" className="form-label">
-                      Slider SubHeading
-                    </label>
-                    <Ckeditor
-                      text={sliderSubheading}
-                      setText={(val) => setSliderSubheading(val)}
-                    />
-                  </div>
-                </div>
-
-                {/* Status */}
-                <div className="col-lg-6">
-                  <p>Slider Status</p>
-                  <div className="d-flex gap-2 align-items-center">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="slider-status"
-                        value={true}
-                        checked={sliderStatus}
-                        onChange={() => setSliderStatus(true)}
-                        id="status-active"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="status-active"
-                      >
-                        Active
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="slider-status"
-                        value={false}
-                        checked={!sliderStatus}
-                        onChange={() => setSliderStatus(false)}
-                        id="status-inactive"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="status-inactive"
-                      >
-                        Inactive
-                      </label>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -261,7 +207,7 @@ const SliderManagement = () => {
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Sliders</h4>
+              <h4 className="card-title">All Messages</h4>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -271,9 +217,7 @@ const SliderManagement = () => {
                       <th>ID</th>
                       <th>Image</th>
                       <th>Name</th>
-                      <th>Heading</th>
-                      <th>Subheading</th>
-                      <th>Status</th>
+                      <th>Message</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -306,20 +250,6 @@ const SliderManagement = () => {
                           </td>
                           <td>{slider.name}</td>
                           <td>{slider.heading}</td>
-                          <td
-                            dangerouslySetInnerHTML={{
-                              __html: slider.subHeading,
-                            }}
-                          ></td>
-                          <td>
-                            <span
-                              className={`badge ${
-                                slider.isActive ? "bg-success" : "bg-danger"
-                              }`}
-                            >
-                              {slider.isActive ? "Active" : "Inactive"}
-                            </span>
-                          </td>
                           <td>
                             <div className="d-flex gap-2">
                               <button
@@ -342,8 +272,8 @@ const SliderManagement = () => {
                               </button>
 
                               <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this Slider ?"
-                                title="Delete Slider "
+                                bodyText="Are you sure you want to delete this Message ?"
+                                title="Delete Message "
                                 onOk={() => deleteSlider()}
                                 buttonText={
                                   <iconify-icon
@@ -363,7 +293,7 @@ const SliderManagement = () => {
                     ) : (
                       <tr>
                         <td colSpan="6" className="text-center">
-                          No sliders found.
+                          No message found.
                         </td>
                       </tr>
                     )}
@@ -378,4 +308,4 @@ const SliderManagement = () => {
   );
 };
 
-export default SliderManagement;
+export default Mission;
