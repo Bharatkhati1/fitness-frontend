@@ -6,13 +6,17 @@ import ConfirmationPopup from "../Popups/ConfirmationPopup";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
-  const [formData, setFormData] = useState({name:"", image:null, isActive:true})
+  const [formData, setFormData] = useState({
+    name: "",
+    image: null,
+    isActive: true,
+  });
   const [isEdit, setIsEdit] = useState(false);
-  const [selectedFileName, setSelectedFileName] = useState("")
+  const [selectedFileName, setSelectedFileName] = useState("");
   const [categories, setcategories] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const fileInputRef = useRef()
-      const selectedIdref = useRef(null)
+  const fileInputRef = useRef();
+  const selectedIdref = useRef(null);
 
   const fetchAllCategories = async () => {
     try {
@@ -29,7 +33,7 @@ const Categories = () => {
       toast.warning("Please enter a name.");
       return;
     }
-  
+
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
     formPayload.append("isActive", formData.isActive);
@@ -41,15 +45,15 @@ const Categories = () => {
       const url = isEdit
         ? adminApiRoutes.update_sk_category(selectedId)
         : adminApiRoutes.create_sk_category;
-  
+
       const method = isEdit ? adminAxios.put : adminAxios.post;
-  
+
       const response = await method(url, formPayload, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-  
+
       if (response.status === 200) {
         fetchAllCategories();
         onCancelEdit();
@@ -59,7 +63,6 @@ const Categories = () => {
           isLoading: false,
           autoClose: 3000,
         });
-        
       } else {
         toast.update(toastId, {
           render: error.response?.data?.message || "Submission failed.",
@@ -67,18 +70,16 @@ const Categories = () => {
           isLoading: false,
           autoClose: 3000,
         });
-        
       }
     } catch (error) {
       console.error("Something went wrong:", error);
       toast.error(`Failed to submit. ${error.response?.data?.message || ""}`);
     }
   };
-  
 
   const deleteCategory = async () => {
     try {
-      const idToDelete = selectedIdref.current;
+      const idToDelete = selectedIdref.current || selectedId;
       await adminAxios.delete(adminApiRoutes.delete_sk_category(idToDelete));
       toast.success("Deleted Successfully");
       fetchAllCategories();
@@ -91,7 +92,8 @@ const Categories = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
-    setFormData({name:"", image:null, isActive:true})
+    setFormData({ name: "", image: null, isActive: true });
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleFormDataChange = (e) => {
@@ -122,10 +124,9 @@ const Categories = () => {
                 <button onClick={() => onCancelEdit()}>Cancel Edit</button>
               )}
             </div>
-            
+
             <div className="card-body">
               <div className="row">
-
                 {/* Title  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -148,7 +149,8 @@ const Categories = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="consultant-image" className="form-label">
-                     Category Image {isEdit && !formData?.image && `: ${selectedFileName}`}
+                      Category Image{" "}
+                      {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="consultant-image"
@@ -156,7 +158,7 @@ const Categories = () => {
                       type="file"
                       ref={fileInputRef}
                       className="form-control"
-                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
                   </div>
@@ -241,12 +243,12 @@ const Categories = () => {
                     {categories.length > 0 ? (
                       categories.map((item, index) => (
                         <tr key={index}>
-                          <td>{index+1}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <Link to={item.image_url} target="_blank">
                               <img
                                 src={item.image_url}
-                                  crossorigin="anonymous"
+                                crossorigin="anonymous"
                                 alt="Consultant"
                                 style={{
                                   width: 50,
@@ -264,7 +266,9 @@ const Categories = () => {
                           <td>
                             <span
                               className={`badge ${
-                                item.isActive == "1" ? "bg-success" : "bg-danger"
+                                item.isActive == "1"
+                                  ? "bg-success"
+                                  : "bg-danger"
                               }`}
                             >
                               {item.isActive == "1" ? "Active" : "Inactive"}
@@ -278,11 +282,11 @@ const Categories = () => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
-                                    name:item.name,
-                                    image:null,
-                                    isActive:item.isActive,
-                                  })
-                                  setSelectedFileName(item.image)
+                                    name: item.name,
+                                    image: null,
+                                    isActive: item.isActive,
+                                  });
+                                  setSelectedFileName(item.image);
                                 }}
                               >
                                 <iconify-icon
@@ -299,9 +303,10 @@ const Categories = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="align-middle fs-18"
-                                    onClick={() =>
-                                      (selectedIdref.current = item.id)
-                                    }
+                                    onClick={() => {
+                                      selectedIdref.current = item.id;
+                                      setSelectedId(item.id);
+                                    }}
                                   ></iconify-icon>
                                 }
                               />

@@ -5567,3 +5567,9 @@ ul.FOLLOWUSlist.d-flex {
     background: rgb(0 0 0 / 19%);
     margin-bottom: -9px;
 }
+
+
+span.bannerup img {
+  width: 300px;
+  margin-left: -135px;
+}

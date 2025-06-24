@@ -10,6 +10,7 @@ import searchIcon from "../../../public/assets/img/searchIcon.png";
 import kichinbanner from "../../../public/assets/img/kichinbanner.png";
 import leftp from "../../../public/assets/img/leftp.png";
 import leftR from "../../../public/assets/img/rightp.png";
+import BannerUpper from "./smartkichinbtext.png";
 import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
@@ -19,6 +20,7 @@ import useDebounce from "../Hooks/useDebounce";
 import ficoninsta from "../../../public/assets/img/f-icon-insta.png";
 import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
 import { Link } from "react-router-dom";
+import userAxios from "../../utils/Api/userAxios";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -27,11 +29,11 @@ function Smartkitchen() {
     kicthenCategories = [],
     isLoggedIn,
     user,
+    contactUsDetails = {},
   } = useSelector((state) => state.auth);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
   const [search, setSearch] = useState("");
-  const [formData, setFormData] = useState({})
   const [category, setCategory] = useState(null);
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
@@ -122,19 +124,6 @@ function Smartkitchen() {
     }
   };
 
-  const fetchContactDetails = async () => {
-    try {
-      const res = await adminAxios.get(adminApiRoutes.get_contact_details);
-      setFormData(res.data.data);
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to fetch details");
-    }
-  };
-
-  useEffect(() => {
-    fetchContactDetails();
-  }, []);
-
   return (
     <>
       <EmailRequiredPopup
@@ -142,16 +131,17 @@ function Smartkitchen() {
         onClose={() => setOpenEmailRequiredPopup(false)}
         onGetRecipe={onGetRecipe}
       />
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner blogbanner smartkitchein-banner">
         <h3 className="blogbannertitle">recipe - method - knowledge</h3>
         <figure>
           <img src={kichinbanner} alt="Smart Kitchen Banner" />
         </figure>
-        <div className="container">
+
+        <div className="container ">
           <div className="innerbannerContent">
-            <h2>smart kitchen</h2>
-            <p>Cook Smart. Eat Right. Live Well.</p>
-        
+            <span className="bannerup">
+              <img src={BannerUpper} />
+            </span>
             <div className="searcwithbtn d-flex">
               <div className="SearchBox">
                 <input
@@ -180,28 +170,22 @@ function Smartkitchen() {
                 </a>
               </div>
             </div>
-     <div className="FOLLOWUS bannerfollow">
+            <div className="FOLLOWUS bannerfollow">
               <h3>follow us </h3>
               <ul className="FOLLOWUSlist d-flex">
                 <li>
-                  <Link to={formData?.kitchenInstagram}>
+                  <Link to={contactUsDetails?.kitchenInstagram}>
                     <img src={ficoninsta}></img>
                   </Link>
                 </li>
                 <li>
-                  <Link to={formData?.kitchenYoutube}>
+                  <Link to={contactUsDetails?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
                   </Link>
                 </li>
               </ul>
             </div>
-     
-
-            </div>
-                   
-       
-            
-        
+          </div>
         </div>
       </section>
 
@@ -316,13 +300,13 @@ function Smartkitchen() {
             <div className="FOLLOWUS">
               <h3>follow us </h3>
               <ul className="FOLLOWUSlist d-flex">
-              <li>
-                  <Link to={formData?.kitchenInstagram}>
+                <li>
+                  <Link to={contactUsDetails?.kitchenInstagram}>
                     <img src={ficoninsta}></img>
                   </Link>
                 </li>
                 <li>
-                  <Link to={formData?.kitchenYoutube}>
+                  <Link to={contactUsDetails?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
                   </Link>
                 </li>

@@ -499,6 +499,10 @@
   .cardcontent h3 {
     font-size: 28px;
   }
+  span.bannerup img {
+    width: 235px;
+    margin-left: -44px;
+  }
 }
 @media (min-width: 1366px) and (max-width: 1641px) {
   .circletagShapeBox {
@@ -1137,6 +1141,10 @@
   .Cardbody .col-md-6.mb-3 {
     margin-bottom: 15px !important;
   }
+  span.bannerup img {
+    width: 176px;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1767,6 +1775,11 @@
   .innovationlist figure img {
     height: 330px;
   }
+
+  .FOLLOWUS.bannerfollow {
+    bottom: 70px;
+    right: 20px;
+  }
 }
 @media (max-width: 767px) {
   .innerbanner figure img {
@@ -2333,6 +2346,13 @@
 
   .stayaheadbg h4 {
     font-size: 22px;
+  }
+  span.bannerup img {
+    width: 117px;
+  }
+
+  .FOLLOWUS.bannerfollow {
+    bottom: 53px;
   }
 }
 

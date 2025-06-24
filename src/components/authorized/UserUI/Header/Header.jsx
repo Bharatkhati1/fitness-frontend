@@ -26,7 +26,6 @@ const Header = () => {
       dispatch(authActions.setCartItems(res?.data?.data));
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.error);
     }
   };
 
