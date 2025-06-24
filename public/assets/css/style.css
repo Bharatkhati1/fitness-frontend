@@ -292,7 +292,6 @@ header .navbar-collapse .nav-link.active {
 }
 body .owl-carousel .owl-item .why-class img{
   width: 100% !important;
-  height: calc(100vh - 150px);
   object-fit: contain;
 }
 .Login-info {

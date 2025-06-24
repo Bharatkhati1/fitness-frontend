@@ -37,12 +37,25 @@ function Smartkitchen() {
   const [category, setCategory] = useState(null);
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
+  const [filterCategories, setFilterCategories] = useState([])
 
   const debouncedSearch = useDebounce(search, 400);
 
   useEffect(() => {
     dispatch(getKitchenData({ search: debouncedSearch, page, category, type }));
   }, [debouncedSearch, page, category, type]);
+
+  useEffect(() => {
+     if(type==""){
+      setFilterCategories(kicthenCategories)
+     }else if(type == "veg"){
+      const filtered = kicthenCategories?.filter((cat)=> cat.type == "veg")
+      setFilterCategories(filtered)
+     }else{
+      const filtered = kicthenCategories?.filter((cat)=> cat.type == "non-veg")
+      setFilterCategories(filtered)
+     }
+  }, [kicthenCategories, type]);
 
   useEffect(() => {
     dispatch(fetchKitchenCategories());
@@ -124,6 +137,7 @@ function Smartkitchen() {
     }
   };
 
+  console.log(filterCategories)
   return (
     <>
       <EmailRequiredPopup
@@ -192,7 +206,7 @@ function Smartkitchen() {
       {/* Category Slider */}
       <section className="SmartKichin">
         <div className="container">
-          <div className="SmartKichinslider">
+        { filterCategories&&filterCategories.length>0 && <div className="SmartKichinslider">
             <OwlCarousel
               className="owl-theme"
               dots={false}
@@ -200,7 +214,7 @@ function Smartkitchen() {
               nav
               margin={10}
             >
-              {kicthenCategories?.map((cat) => (
+              {filterCategories?.map((cat) => (
                 <div className="item" key={cat.id}>
                   <div
                     className={`SmartKichinbox ${
@@ -220,7 +234,7 @@ function Smartkitchen() {
                 </div>
               ))}
             </OwlCarousel>
-          </div>
+          </div>}
         </div>
       </section>
 

@@ -10,6 +10,7 @@ const Categories = () => {
     name: "",
     image: null,
     isActive: true,
+    type: "",
   });
   const [isEdit, setIsEdit] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -36,6 +37,7 @@ const Categories = () => {
 
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
+    formPayload.append("type", formData.type);
     formPayload.append("isActive", formData.isActive);
     if (formData.image) {
       formPayload.append("image", formData.image);
@@ -92,7 +94,7 @@ const Categories = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
-    setFormData({ name: "", image: null, isActive: true });
+    setFormData({ name: "", image: null, isActive: true , type:""});
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -142,6 +144,24 @@ const Categories = () => {
                       value={formData.name}
                       onChange={handleFormDataChange}
                     />
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label htmlFor="category-type" className="form-label">
+                      Type
+                    </label>
+                    <select
+                      id="category-type"
+                      className="form-control"
+                      name="type"
+                      value={formData.type}
+                      onChange={handleFormDataChange}
+                    >
+                      <option value="">Select type</option>
+                      <option value="veg">Veg</option>
+                      <option value="non-veg">Non-Veg</option>
+                    </select>
                   </div>
                 </div>
 
@@ -285,6 +305,7 @@ const Categories = () => {
                                     name: item.name,
                                     image: null,
                                     isActive: item.isActive,
+                                    type:item.type || "",
                                   });
                                   setSelectedFileName(item.image);
                                 }}
