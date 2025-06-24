@@ -13,7 +13,6 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 const Footer = () => {
-  
   const dispatch = useDispatch();
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth
@@ -135,11 +134,14 @@ const Footer = () => {
                   <li>
                     <img src={CallIcon} />
                     {contactUsDetails?.phone &&
-                      contactUsDetails.phone.split(",").slice(0,1).map((num, idx) => (
-                        <span key={idx} className="me-1">
-                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
-                        </span>
-                      ))}
+                      contactUsDetails.phone
+                        .split(",")
+                        .slice(0, 1)
+                        .map((num, idx) => (
+                          <span key={idx} className="me-1">
+                            <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                          </span>
+                        ))}
                   </li>
                   <li>
                     <img src={MesgIcon} />
@@ -177,9 +179,9 @@ const Footer = () => {
           <li>
             <Link to={"/refund-policy"}> Refund Policy</Link>
           </li>
-          {/* <li>
-            <Link> Cookie Settings</Link>
-          </li> */}
+          <li>
+            <Link to={"/site-map"}>Site Map</Link>
+          </li>
         </ul>
       </div>
     </footer>
