@@ -152,7 +152,7 @@ export const logoutUser = (isUser) => {
         window.open("/login-user", "_self", false);
       } else {
         localStorage.removeItem("isAdmin");
-        window.open("/", "_self", false);
+        window.open("/admin", "_self", false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);

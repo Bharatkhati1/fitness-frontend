@@ -8,9 +8,9 @@ import "../public/assets/css/custom.css";
 import "../public/assets/css/icons.min.css";
 import "../public/assets/css/vendor.min.css";
 import "../public/assets/js/vendor.js";
+import "./index.scss";
 
 import PageLoader from "./components/PageLoader/index.jsx";
-import "./index.scss";
 import LoginUser from "./components/unauthorized/LoginUser.jsx";
 import SignUpUser from "./components/unauthorized/SignupUser.jsx";
 import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
@@ -24,17 +24,17 @@ const ConsultantRoutes = lazy(() =>
 const PartnerRoutes = lazy(() =>
   import("./components/Routes/PartnerRoutes.jsx")
 );
-const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
-const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
+const UserRoutes = lazy(() =>
+  import("./components/Routes/UserRoutes.jsx")
+);
+const AdminRoutes = lazy(() =>
+  import("./components/Routes/AdminRoutes.jsx")
+);
 const ForgotPasswordForm = lazy(() =>
   import("./components/unauthorized/forgotPassword.jsx")
 );
 
-const ProtectedRoute = ({
-  condition,
-  redirectTo = "/login-user",
-  children,
-}) => {
+const ProtectedRoute = ({ condition, redirectTo, children }) => {
   return condition ? children : <Navigate to={redirectTo} replace />;
 };
 
@@ -43,8 +43,8 @@ const App = () => {
   const { isCheckingToken, type, isLoggedIn, userAccessToken } = useSelector(
     (state) => state.auth
   );
-
   const { pathname } = useLocation();
+
   const isAdmin =
     pathname.includes("/admin") ||
     pathname.includes("/b2b-partner") ||
@@ -54,13 +54,33 @@ const App = () => {
     localStorage.getItem("isAdmin") === "true"
   );
 
+  const getUserTypeFromPath = (pathname) => {
+    if (pathname.includes("/admin")) return "admin";
+    if (pathname.includes("/b2b-partner")) return "partner";
+    if (pathname.includes("/service-provider")) return "consultant";
+    return "user";
+  };
+
+  const getLoginPathForUserType = (type) => {
+    switch (type) {
+      case "admin":
+        return "/admin";
+      case "partner":
+        return "/b2b-partner";
+      case "consultant":
+        return "/service-provider";
+      default:
+        return "/login-user";
+    }
+  };
+
   useEffect(() => {
     let userType;
     if (pathname.includes("/admin")) {
       userType = "admin";
     } else if (pathname.includes("/b2b-partner")) {
       userType = "partner";
-    } else if(pathname.includes("/service-provider")) {
+    } else if (pathname.includes("/service-provider")) {
       userType = "consultant";
     } else {
       userType = "user";
@@ -78,21 +98,36 @@ const App = () => {
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/admin" element={<AdminLogin type="admin" route ="admin" />} />
-          <Route path="/b2b-partner" element={<AdminLogin type="partner" route="b2b-partner" />} />
+          <Route
+            path="/admin"
+            element={<AdminLogin type="admin" route="admin" />}
+          />
+          <Route
+            path="/b2b-partner"
+            element={<AdminLogin type="partner" route="b2b-partner" />}
+          />
           <Route
             path="/service-provider"
-            element={<AdminLogin type="consultant" route="service-provider"/>}
+            element={<AdminLogin type="consultant" route="service-provider" />}
           />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/login-user" element={<LoginUser />} />
-          <Route path="/login-user" element={<LoginUser />} />
           <Route path="/SignUpUser" element={<SignUpUser />} />
-          <Route path="/*" element={<UserRoutes />} />
+          <Route
+            path="/*"
+            element={
+              isAdmin ? (
+                <Navigate
+                  to={getLoginPathForUserType(getUserTypeFromPath(pathname))}
+                  replace
+                />
+              ) : (
+                <UserRoutes />
+              )
+            }
+          />
           <Route path="*" element={<Navigate replace to="/*" />} />
-
           <Route path="SiteMap" element={<SiteMap />} />
-
           <Route
             path="DiabetesHealthPakages"
             element={<DiabetesHealthPakages />}
@@ -106,14 +141,24 @@ const App = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-      <Route path="/admin" element={<AdminLogin type="admin" route ="admin" />} />
-        <Route path="/b2b-partner" element={<AdminLogin type="partner"  route="b2b-partner"  />} />
-        <Route path="/service-provider" element={<AdminLogin type="consultant"  route="service-provider" />} />
-        {userAccessToken.length == 0 && (
+        <Route
+          path="/admin"
+          element={<AdminLogin type="admin" route="admin" />}
+        />
+        <Route
+          path="/b2b-partner"
+          element={<AdminLogin type="partner" route="b2b-partner" />}
+        />
+        <Route
+          path="/service-provider"
+          element={<AdminLogin type="consultant" route="service-provider" />}
+        />
+
+        {userAccessToken.length === 0 && (
           <Route path="/login-user" element={<LoginUser />} />
         )}
 
-        {pathname.includes(`/admin`) && (
+        {pathname.includes("/admin") && (
           <Route
             path="/admin/*"
             element={
@@ -124,18 +169,21 @@ const App = () => {
           />
         )}
 
-        {pathname.includes(`/b2b-partner`) && (
+        {pathname.includes("/b2b-partner") && (
           <Route
             path="/b2b-partner/*"
             element={
-              <ProtectedRoute condition={isAdminLogined} redirectTo="/b2b-partner">
+              <ProtectedRoute
+                condition={isAdminLogined}
+                redirectTo="/b2b-partner"
+              >
                 <PartnerRoutes />
               </ProtectedRoute>
             }
           />
         )}
 
-        {pathname.includes(`/service-provider`) && (
+        {pathname.includes("/service-provider") && (
           <Route
             path="/service-provider/*"
             element={
@@ -149,7 +197,19 @@ const App = () => {
           />
         )}
 
-        <Route path="/*" element={<UserRoutes />} />
+        <Route
+          path="/*"
+          element={
+            isAdmin ? (
+              <Navigate
+                to={getLoginPathForUserType(getUserTypeFromPath(pathname))}
+                replace
+              />
+            ) : (
+              <UserRoutes />
+            )
+          }
+        />
       </Routes>
     </Suspense>
   );

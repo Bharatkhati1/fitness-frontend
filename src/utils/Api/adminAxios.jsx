@@ -43,7 +43,6 @@ adminAxios.interceptors.request.use(
           { type: "adminRefreshToken" },
           { withCredentials: true }
         );
-
         token = data?.accessToken;
         store.dispatch(
           authActions.loginUser({
@@ -55,7 +54,6 @@ adminAxios.interceptors.request.use(
         store.dispatch(authActions.setAdminAcccessToken(token));
       } catch {
         window.open("/admin", "_self");
-        return Promise.reject("Admin token refresh failed");
       }
     }
 
