@@ -296,7 +296,7 @@ export default function AddToBag() {
                   <div className="addtobabody p-0">
                     <div className="form-group mb-3">
                       <label>
-                        First Name<span className="validation">*</span>
+                        Name<span className="validation">*</span>
                       </label>
                       <input
                         type="text"

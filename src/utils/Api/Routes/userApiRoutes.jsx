@@ -106,7 +106,9 @@ const userApiRoutes = {
 
   add_testimonial:`/user/feedback`,
 
-  get_feedback_package:`/user/feedback-packages`
+  get_feedback_package:`/user/feedback-packages`,
+
+  update_profile_image:`/upload-profile-image`
   
 };
 

@@ -123,7 +123,7 @@ function PackageDetails() {
                         </h3>
                         {plan.description && (
                           <>
-                            <span>Package description:</span>
+                            <span>Variant description:</span>
                             <p
                               className="text-center"
                               dangerouslySetInnerHTML={{

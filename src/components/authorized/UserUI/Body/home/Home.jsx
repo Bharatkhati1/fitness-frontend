@@ -309,7 +309,7 @@ function Home() {
                         >
                           Join Now
                         </Link>
-                        <Link className="hvr-shutter-out-horizontal">
+                        <Link to={"/trial-7-days"} className="hvr-shutter-out-horizontal">
                           book a trial
                         </Link>
                       </div>
@@ -500,7 +500,7 @@ function Home() {
           />
         </div>
       </section>
-      <Whyus />
+      {/* <Whyus /> */}
       <section className="SmartKichin SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
