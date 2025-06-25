@@ -290,7 +290,7 @@ const ServiceManagement = () => {
                     <Ckeditor
                       text={serviceShortDescription}
                       setText={setServiceShortDescription}
-                      limit={220}
+                      limit={320}
                     />
                   </div>
                 </div>

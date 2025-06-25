@@ -302,7 +302,7 @@ const Events = () => {
                     setText={(text) =>
                       setFormData((prev) => ({ ...prev, description: text }))
                     }
-                    limit={220}
+                    limit={320}
                   />
                 </div>
               </div>

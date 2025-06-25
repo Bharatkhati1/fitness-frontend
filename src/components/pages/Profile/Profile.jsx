@@ -20,9 +20,11 @@ function Profile() {
   const [userPackages, setUserPackages] = useState([]);
   const [consultations, setConsultations] = useState([]);
   const [formData, setFormData] = useState({
-    firstName:"",
-    email:"",
-    phone:"",
+    firstName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
     age: "",
     gender: "",
     pincode: "",
@@ -44,9 +46,11 @@ function Profile() {
       const data = res.data.data;
       setProfileDetails(data);
       setFormData({
-        firstName:data.firstName,
-        email:data.email,
-        phone:data.phone,
+        firstName: data.firstName,
+        email: data.email,
+        address: data.address,
+        city: data.city,
+        phone: data.phone,
         age: data.age || "",
         gender: data.gender || "",
         pincode: data.pincode || "",
@@ -72,30 +76,29 @@ function Profile() {
       toast.error("Valid age is required");
       return false;
     }
-  
+
     if (!formData.gender) {
       toast.error("Gender is required");
       return false;
     }
-  
+
     if (formData.pincode && isNaN(formData.pincode)) {
       toast.error("Pincode must be numeric");
       return false;
     }
-  
+
     if (formData.weight && isNaN(formData.weight)) {
       toast.error("Weight must be numeric");
       return false;
     }
-  
+
     if (formData.height && isNaN(formData.height)) {
       toast.error("Height must be numeric");
       return false;
     }
-  
+
     return true;
   };
-  
 
   const handleSave = async () => {
     if (!validateForm()) return;
@@ -139,10 +142,10 @@ function Profile() {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-  
+
     const updatedFormData = new FormData();
     updatedFormData.append("user_image", file);
-  
+
     try {
       await userAxios.put(userApiRoutes.update_profile_image, updatedFormData, {
         headers: {
@@ -157,7 +160,7 @@ function Profile() {
       );
     }
   };
-  
+
   useEffect(() => {
     fetchProfileDetails();
     fetchPackages();

@@ -43,10 +43,11 @@ export default function AddToBag() {
   };
 
   const updateDiscountedPrice = (data) => {
+    console.log(data, cartItems)
     const updatedCartItem = cartItems.map((item) => ({
       ...item,
-      ...(data[item.id] || {}),
-      discountApplied: data.hasOwnProperty(item.id) ? true : false,
+      ...(data[item.PackagePlan.packageId] || {}),
+      discountApplied: data.hasOwnProperty(item.PackagePlan.packageId) ? true : false,
     }));
 
     setCartItems(updatedCartItem);

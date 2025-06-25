@@ -35,7 +35,7 @@ const CreateUpdatePackage = () => {
   const [selectedConsultantsId, setSelectedConsultantsId] = useState([]);
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [allConsultants, setAllConsultants] = useState([]);
 
   const [packageInclusions, setPackageInclusions] = useState([
@@ -43,7 +43,7 @@ const CreateUpdatePackage = () => {
   ]);
 
   const [packageVariants, setPackageVariants] = useState([
-    {duration: 0, price: "", description: "", image: null },
+    { duration: 0, price: "", description: "", image: null },
   ]);
 
   const fileInputRef = useRef(null);
@@ -131,9 +131,9 @@ const CreateUpdatePackage = () => {
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} package...`
     );
-    
+
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const url = isEdit
         ? adminApiRoutes.update_package(selectedPackageId)
         : adminApiRoutes.create_package;
@@ -168,8 +168,8 @@ const CreateUpdatePackage = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -255,7 +255,7 @@ const CreateUpdatePackage = () => {
     setSelectedConsultantsId(
       data.PackageConsultants?.map((cons) => {
         const matchedConsultant = conss.find((c) => c.id === cons.consultantId);
-        console.log(matchedConsultant,"matched")
+        console.log(matchedConsultant, "matched");
         return {
           value: matchedConsultant?.id,
           label: matchedConsultant?.name || "Unknown",
@@ -432,11 +432,12 @@ const CreateUpdatePackage = () => {
                 <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Long Description
+                      Short Description
                     </label>
                     <Ckeditor
-                      text={packageDesc}
-                      setText={(value) => setPackageDesc(value)}
+                      text={shortDescription}
+                      setText={(value) => setShortDescription(value)}
+                      limit={320}
                     />
                   </div>
                 </div>
@@ -445,12 +446,11 @@ const CreateUpdatePackage = () => {
                 <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
-                      Short Description
+                      Long Description
                     </label>
                     <Ckeditor
-                      text={shortDescription}
-                      setText={(value) => setShortDescription(value)}
-                      limit={220}
+                      text={packageDesc}
+                      setText={(value) => setPackageDesc(value)}
                     />
                   </div>
                 </div>
@@ -464,7 +464,6 @@ const CreateUpdatePackage = () => {
                         const matchedButton = ctaButtons.find(
                           (btn) => btn.name === option
                         );
-                        console.log(matchedButton);
                         const inputValue =
                           emailInputs[option] ??
                           matchedButton?.emails.join(", ") ??
