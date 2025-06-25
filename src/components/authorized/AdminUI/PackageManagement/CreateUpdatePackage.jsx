@@ -513,7 +513,7 @@ const CreateUpdatePackage = () => {
                               </div>
                             </div>
 
-                            {matchedButton &&
+                            {/* {matchedButton &&
                               matchedButton.name != "Know more" && (
                                 <div className="col-lg-6">
                                   <div className="email-new">
@@ -546,7 +546,7 @@ const CreateUpdatePackage = () => {
                                     />
                                   </div>
                                 </div>
-                              )}
+                              )} */}
                           </div>
                         );
                       })}

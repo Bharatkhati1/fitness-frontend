@@ -290,10 +290,8 @@ const ServiceManagement = () => {
                     <Ckeditor
                       text={serviceShortDescription}
                       setText={setServiceShortDescription}
+                      limit={10}
                     />
-                    {/* <small className="text-muted">
-                      {serviceShortDescription.length}/100 characters
-                    </small> */}
                   </div>
                 </div>
 
@@ -406,7 +404,7 @@ const ServiceManagement = () => {
                               </div>
                             </div>
 
-                            {matchedButton &&
+                            {/* {matchedButton &&
                               matchedButton.name != "Know more" && (
                                 <div className="col-lg-6">
                                   <div className="email-new">
@@ -439,7 +437,7 @@ const ServiceManagement = () => {
                                     />
                                   </div>
                                 </div>
-                              )}
+                              )} */}
                           </div>
                         );
                       })}

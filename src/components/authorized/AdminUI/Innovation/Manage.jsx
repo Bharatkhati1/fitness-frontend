@@ -376,6 +376,7 @@ const Manage = () => {
                           shortDescription: text,
                         }))
                       }
+                      
                     />
                   </div>
                 </div>

@@ -63,7 +63,7 @@ function Home() {
     contactFor: [],
   });
   const [sliders, setSliders] = useState([]);
-  const [whyus, setWhyus] = useState([])
+  const [whyus, setWhyus] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
@@ -116,7 +116,9 @@ function Home() {
 
   const getSliders = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_sliders("home-page"));
+      const response = await webAxios.get(
+        userApiRoutes.get_sliders("home-page")
+      );
       setSliders(response.data.data);
     } catch (error) {
       console.error(error);
@@ -203,12 +205,9 @@ function Home() {
     }
   };
 
-  
   const getMessages = async () => {
     try {
-      const response = await webAxios.get(
-        userApiRoutes.get_sliders("whyus")
-      );
+      const response = await webAxios.get(userApiRoutes.get_sliders("whyus"));
       setWhyus(response.data.data);
     } catch (error) {
       console.error(error);
@@ -248,7 +247,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getBlogs();
-    getMessages()
+    getMessages();
     dispatch(getKitchenData());
   }, []);
 
@@ -286,9 +285,15 @@ function Home() {
             nav={true}
             navText={[prevArrow, nextArrow]}
           >
-           <div className="why-class">
-                <img crossOrigin="annoymous" className="w-100"  src={whyus[0]?.image_url}  />
-                </div>
+            {whyus && whyus.length > 0 && (
+              <div className="why-class">
+                <img
+                  crossOrigin="annoymous"
+                  className="w-100"
+                  src={whyus[0]?.image_url}
+                />
+              </div>
+            )}
             {sliders.map((slider) => (
               <div>
                 <div className="container h-100">
@@ -327,7 +332,10 @@ function Home() {
                         >
                           Join Now
                         </Link>
-                        <Link to={"/trial-7-days"} className="hvr-shutter-out-horizontal">
+                        <Link
+                          to={"/trial-7-days"}
+                          className="hvr-shutter-out-horizontal"
+                        >
                           book a trial
                         </Link>
                       </div>
@@ -348,7 +356,6 @@ function Home() {
                 </div>
               </div>
             ))}
-              
           </OwlCarousel>
         )}
       </section>
@@ -569,21 +576,24 @@ function Home() {
             <img src={butterflyimg}></img>
           </span> */}
 
-         <div className="buttergroup"> <span className="butterflyone">
-            <img src={butterfly1}></img>
-          </span>
-          <span className="butterflytwo">
-            <img src={butterfly2}></img>
-          </span>
-          <span className="butterflythree">
-            <img src={butterfly3}></img>
-          </span>
-          <span className="butterflyfour">
-            <img src={butterfly4}></img>
-          </span>
-          <span className="butterflyfive">
-            <img src={butterfly5}></img>
-          </span></div>
+          <div className="buttergroup">
+            {" "}
+            <span className="butterflyone">
+              <img src={butterfly1}></img>
+            </span>
+            <span className="butterflytwo">
+              <img src={butterfly2}></img>
+            </span>
+            <span className="butterflythree">
+              <img src={butterfly3}></img>
+            </span>
+            <span className="butterflyfour">
+              <img src={butterfly4}></img>
+            </span>
+            <span className="butterflyfive">
+              <img src={butterfly5}></img>
+            </span>
+          </div>
 
           <div className="row">
             <div className="MuktiBoxLeft">
@@ -611,7 +621,10 @@ function Home() {
                   just one step away from availing the best solution.
                 </p>
 
-                <Link to={"/service-details/muktee:-a-deaddiction-program"} className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal">
+                <Link
+                  to={"/service-details/muktee:-a-deaddiction-program"}
+                  className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal"
+                >
                   know more
                 </Link>
               </div>

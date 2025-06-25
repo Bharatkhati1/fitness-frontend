@@ -75,7 +75,6 @@ function ServiceDetails() {
   </svg>
 `;
 
-console.log(packages)
   return (
     <>
       <section className="innerbanner">
@@ -175,7 +174,7 @@ console.log(packages)
             <div className="row servicedetaillisting">
               {Array.isArray(packages) &&
               packages.length > 0 &&
-              Array.isArray(packages[0]) ? (
+              Array.isArray(packages[0]) && (
                 <OwlCarousel
                   className="owl-theme"
                   autoplay={false}
@@ -257,11 +256,7 @@ console.log(packages)
                     </div>
                   ))}{" "}
                 </OwlCarousel>
-              ) : (
-                <div className="text-center py-5">
-                  <h5>No packages found.</h5>
-                </div>
-              )}
+              ) }
             </div>
           </div>
           <Whyus/>
