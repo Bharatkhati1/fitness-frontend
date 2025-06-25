@@ -24,8 +24,9 @@ export default function AddToBag() {
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
   const [apliedCode, setAppliedCode] = useState("");
-  const [loading, setLoading] = useState(false)
-  const [appliedCouponDetails, setAppliedCouponDetails] = useState("")
+  const [isDiscountapplied, setIsDiscountApllied] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [appliedCouponDetails, setAppliedCouponDetails] = useState("");
   const [discountPrice, setDiscountPrice] = useState(null);
   const [discountGet, setDiscounGet] = useState(0);
   const [appointmentData, setAppointmentData] = useState(null);
@@ -40,6 +41,17 @@ export default function AddToBag() {
       console.log(error);
     }
   };
+
+  const updateDiscountedPrice = (data) => {
+    const updatedCartItem = cartItems.map((item) => ({
+      ...item,
+      ...(data[item.id] || {}),
+      discountApplied: data.hasOwnProperty(item.id) ? true : false,
+    }));
+
+    setCartItems(updatedCartItem);
+  };
+
   const applyCoupon = async () => {
     try {
       const body =
@@ -54,13 +66,16 @@ export default function AddToBag() {
               totalAmount: appointmentData.consultantFees,
             };
       const res = await userAxios.post(userApiRoutes.apply_coupon, body);
-      setTotal(res.data.data.totalAmount);
-      setAppliedCouponDetails(res.data.data.coupon)
-      setDiscountPrice(res.data.data.discountedAmount);
-      setDiscounGet(res.data.data.discountApplied);
-      setAppliedCode(res.data.data.coupon.code);
-      toast.success(res.data.message);
+      if (type == "cart") {
+        updateDiscountedPrice(res.data.data);
+        const firstEntry = Object.entries(res?.data?.data)[0];
+        setAppliedCouponDetails(firstEntry[1]?.couponInfo ||"");
+        setAppliedCode(firstEntry[1]?.couponInfo?.couponCode);
+        setIsDiscountApllied(true);
+      }
+      toast.success(res?.data?.message);
     } catch (error) {
+      console.log(error)
       toast.error(
         error.response?.data?.error ||
           error.response?.data?.message ||
@@ -74,24 +89,24 @@ export default function AddToBag() {
       toast.error("No item in the cart!");
       return;
     }
-  
+
     if (type === "appointment" && !appointmentData) {
       toast.error("No appointment details found!");
       return;
     }
-  
+
     // Calculate final amount after discount
     const amountToPay =
       type === "cart"
         ? discountPrice || total
-        : (discountPrice || appointmentData.consultantFees);
-  
+        : discountPrice || appointmentData.consultantFees;
+
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
         amount: amountToPay,
       });
-       
+
       const { orderId, amount, currency } = res.data.data;
       const options = {
         key: "rzp_test_ENoX7bkuXjQBZc",
@@ -114,12 +129,12 @@ export default function AddToBag() {
             } else {
               const payload = {
                 ...appointmentData,
-                bookingCharge:discountPrice||appointmentData?.bookingCharge,
+                bookingCharge: discountPrice || appointmentData?.bookingCharge,
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                couponAppliedId:appliedCouponDetails?.couponAppliedId,
-                packageId:appointmentData.packageId|| 1,
+                couponAppliedId: appliedCouponDetails?.couponAppliedId,
+                pid: appointmentData.packageId || 1,
                 couponCode: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);
@@ -140,7 +155,7 @@ export default function AddToBag() {
               buttonText: "Back to Home",
               redirectUrl: "/",
             });
-            setLoading(false)
+            setLoading(false);
             setIsPaymentSuccessfull(true);
             fetchCartitems();
           } catch (err) {
@@ -151,7 +166,7 @@ export default function AddToBag() {
               isLoading: false,
               autoClose: 3000,
             });
-            setLoading(false)
+            setLoading(false);
           }
         },
         prefill: {
@@ -163,27 +178,29 @@ export default function AddToBag() {
           color: "#528FF0",
         },
       };
-  
+
       const razor = new window.Razorpay(options);
       razor.open();
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.error || "Payment initiation failed!");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   const removeCoupon = async () => {
     try {
-      const res = await userAxios.delete(
-        userApiRoutes.remove_coupon(apliedCode)
-      );
       setCoupon("");
       setDiscountPrice(null);
       setDiscounGet(0);
-      toast.success(res.data.message || "Coupon removed");
+      setIsDiscountApllied(false);
+      const updatedItems = cartItems.map((item) => ({
+        ...item,
+        discountApplied: false,
+        discountedAmount: null,
+      }));
+      setCartItems(updatedItems);
       fetchCartitems();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to remove coupon");
@@ -192,11 +209,25 @@ export default function AddToBag() {
 
   useEffect(() => {
     let sum = 0;
+    let discountget = 0;
+    let totalsum = 0;
     cartItems.forEach((item) => {
-      const price = parseFloat(item?.PackagePlan?.price || 0);
+      const price = item.discountApplied
+        ? parseFloat(item?.discountedAmount || 0)
+        : parseFloat(item?.PackagePlan?.price || 0);
+
+      const dig = item.discountApplied
+        ? parseFloat(item?.discountValue || 0)
+        : 0;
+
+      discountget += dig;
+      console.log("price", price);
       sum += price;
+      totalsum += parseFloat(item?.PackagePlan?.price || 0);
     });
-    setTotal(sum);
+    setTotal(totalsum);
+    setDiscounGet(discountget);
+    setDiscountPrice(sum);
   }, [cartItems]);
 
   useEffect(() => {
@@ -212,7 +243,7 @@ export default function AddToBag() {
 
   const renderCouponBox = () => (
     <div className="discoutBox mb-4 ">
-      {!discountPrice ? (
+      {!isDiscountapplied ? (
         <>
           <input
             className="form-control"
@@ -356,19 +387,32 @@ export default function AddToBag() {
                           {cartItems.map((item) => (
                             <li key={item.id}>
                               <figure>
-                                <img src={osproductimg1} />
+                                <img src={osproductimg1} alt="Product" />
                               </figure>
                               <figcaption>
                                 <h4>
                                   {item?.PackagePlan?.Package?.Service?.name} -{" "}
                                   {item?.PackagePlan?.duration} Months
                                 </h4>
+
                                 <span className="price-text">
-                                  ₹ {item?.PackagePlan?.price}
+                                  {item.discountApplied ? (
+                                    <>
+                                      <span className="text-muted text-decoration-line-through me-2">
+                                        ₹{item?.PackagePlan?.price}
+                                      </span>
+                                      <span className="text-success fw-bold">
+                                        ₹{item?.discountedAmount}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <>₹{item?.PackagePlan?.price}</>
+                                  )}
                                 </span>
                               </figcaption>
                             </li>
                           ))}
+
                           {cartItems.length === 0 && (
                             <li>
                               <b>No item found!</b>
@@ -386,7 +430,9 @@ export default function AddToBag() {
                           </li>
                           <li>
                             <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
+                            <b className="red-text ">
+                              - ₹{discountGet?.toFixed(2) || 0}
+                            </b>
                           </li>
                           <li>
                             <span>Total:</span>
@@ -438,10 +484,14 @@ export default function AddToBag() {
                             <span>Duration:</span>
                             <b>{appointmentData.consultantDuration} mins</b>
                           </li>
-                         {!appointmentData.isFollowUp &&<li>
-                            <span>Discount:</span>
-                            <b className="red-text ">- ₹{discountGet.toFixed(2) || 0}</b>
-                          </li>}
+                          {!appointmentData.isFollowUp && (
+                            <li>
+                              <span>Discount:</span>
+                              <b className="red-text ">
+                                - ₹{discountGet.toFixed(2) || 0}
+                              </b>
+                            </li>
+                          )}
                           <li>
                             <span>Total:</span>
                             <b>
@@ -462,7 +512,7 @@ export default function AddToBag() {
                         onClick={handlePayment}
                         disabled={loading}
                       >
-                       {loading ?"Please wait..." :"proceed to pay"}
+                        {loading ? "Please wait..." : "proceed to pay"}
                       </button>
                     </div>
                   </div>

@@ -450,6 +450,7 @@ const CreateUpdatePackage = () => {
                     <Ckeditor
                       text={shortDescription}
                       setText={(value) => setShortDescription(value)}
+                      limit={220}
                     />
                   </div>
                 </div>

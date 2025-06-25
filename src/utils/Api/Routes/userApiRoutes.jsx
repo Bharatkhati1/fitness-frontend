@@ -108,7 +108,9 @@ const userApiRoutes = {
 
   get_feedback_package:`/user/feedback-packages`,
 
-  update_profile_image:`/upload-profile-image`
+  update_profile_image:`/upload-profile-image`,
+
+  get_site_map:`/sitemap`
   
 };
 

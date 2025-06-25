@@ -3527,6 +3527,13 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
+.Diabetespageright ul li, .note-editable ul li {
+  list-style: disc;
+  text-align: start;
+  margin-left: 20px;
+}
+
+
 /* .col-xxl.taginforight {
   width: calc(100% - 171px);
 } */

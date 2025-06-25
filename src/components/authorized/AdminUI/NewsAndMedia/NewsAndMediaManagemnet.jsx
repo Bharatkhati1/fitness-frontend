@@ -280,6 +280,7 @@ const NewsAndMediaManagement = () => {
                     setText={(val) =>
                       handleInputChange("shortDescription", val)
                     }
+                    limit={220}
                   />
                 </div>
 

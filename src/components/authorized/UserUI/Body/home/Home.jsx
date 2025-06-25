@@ -43,7 +43,6 @@ import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
 import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
-import Whyus from "../Whyus";
 
 function Home() {
   const dispatch = useDispatch();

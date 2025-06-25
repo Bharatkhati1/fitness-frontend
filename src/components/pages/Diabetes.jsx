@@ -2,7 +2,7 @@ import shapeangelleft from "../../../public/assets/img/shapeangelleft.png";
 import React, { useState, useEffect } from "react";
 import DOMPurify from "dompurify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { webAxios } from "../../utils/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ function PackageDetails() {
   } = useSelector((state) => state.auth);
   const cartItemIds = cartItems?.map((item) => item.packagePlanId);
 
-  console.log(cartItems)
+  console.log(cartItems);
   const fetchPackageDetails = async () => {
     try {
       const response = await webAxios.get(
@@ -72,6 +72,11 @@ function PackageDetails() {
     }
   }, []);
 
+  const parsedActions = JSON.parse(details.actions || "[]");
+  const actionNames = parsedActions.map((action) => action.name);
+  const showButton = (label) => actionNames.includes(label);
+  const encodedId = btoa(details.id);
+
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
@@ -101,6 +106,25 @@ function PackageDetails() {
                     __html: details?.description,
                   }}
                 ></p>
+                <div className="btn-group-box justify-content-start">
+                  {showButton("Consult a Doctor") && (
+                    <Link
+                      to={`/experts/${details.slug}/doctor/${encodedId}`}
+                      className="btn btn-primary hvr-shutter-out-horizontal"
+                    >
+                      Consult a Doctor
+                    </Link>
+                  )}
+
+                  {showButton("Talk to a Therapist") && (
+                    <Link
+                      to={`/experts/${pkgSlug}/therapist/${encodedId}`}
+                      className="btn btn-primary hvr-shutter-out-horizontal"
+                    >
+                      Talk to a Therapist
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
 
