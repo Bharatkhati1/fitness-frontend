@@ -71,7 +71,7 @@ const TeamManagement = () => {
 
   const deleteTeamMember = async () => {
     try {
-      const idToDelete = selectedMemberIdRef.current;
+      const idToDelete = selectedMemberIdRef.current ||selectedMemberId;
       if (idToDelete) {
         await adminAxios.delete(adminApiRoutes.delete_team_member(idToDelete));
         toast.success("Deleted Successfully");

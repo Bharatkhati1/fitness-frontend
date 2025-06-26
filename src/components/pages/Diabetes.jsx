@@ -146,7 +146,7 @@ function PackageDetails() {
                 <h4>{details.name} Variants</h4>
               </div>
 
-              <div className="row">
+              <div className="row justify-content-center">
                 {details?.PackagePlans?.map((plan) => (
                   <div className={`col-md-${getLengthDiv()}`}>
                     <div className="DiabetesHealthcontent">
