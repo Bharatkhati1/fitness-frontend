@@ -1,7 +1,7 @@
 const userApiRoutes = {
   get_sliders:(slug)=>`/sliders?slug=${slug}`,
 
-  get_services: `/services`,
+  get_services: `/services?limit=1000`,
 
   get_blogs: ({ search = '', page = 1, limit = 10, category, order, type} = {}) => {
     const params = new URLSearchParams();

@@ -7,7 +7,7 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import userAxios from "../../utils/Api/userAxios";
 import { useSelector } from "react-redux";
 
-function BookAppoinmentdate({ consultant, packageId, isFollowUp }) {
+function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
   const { encodedId } = useParams();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -28,63 +28,6 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp }) {
     toast.error("Invalid consultant ID");
   }
 
-  // const handleAppointment = async () => {
-  //   if (!selectedDate || !selectedSlot ) {
-  //     toast.error("Please fill all required fields");
-  //     return;
-  //   }
-  //   try {
-  //     const res = await userAxios.post(userApiRoutes.create_order_razorpay, {
-  //       amount: consultant?.fees,
-  //     });
-
-  //     const { orderId, amount, currency } = res.data.data;
-  //     const options = {
-  //       key: "rzp_test_ENoX7bkuXjQBZc",
-  //       amount,
-  //       currency,
-  //       name: "Consultant booking",
-  //       description: "",
-  //       image: "/assets/img/logo.png",
-  //       order_id: orderId,
-  //       handler: async function (response) {
-  //         try {
-  //           const payload = {
-  //             consultantId: consultant.id,
-  //             consultantName: consultant?.name,
-  //             date: selectedDate,
-  //             startTime: selectedSlot?.start,
-  //             endTime: selectedSlot?.end,
-  //             razorpay_order_id: response.razorpay_order_id,
-  //             razorpay_payment_id: response.razorpay_payment_id,
-  //             razorpay_signature: response.razorpay_signature,
-  //           };
-  //           await userAxios.post(userApiRoutes.appointment_booking, payload);
-  //           toast.success("Booking successful!");
-  //           fetchAvailibilitySlots(consultant?.id)
-  //         } catch (err) {
-  //           console.log("verification err", err);
-  //           toast.error("Payment verification failed!");
-  //         }
-  //       },
-  //       prefill: {
-  //         name: `${user.firstName} ${user.lastName}`,
-  //         email: user.email,
-  //         contact: user.phone,
-  //       },
-  //       theme: {
-  //         color: "#528FF0",
-  //       },
-  //     };
-
-  //     const razor = new window.Razorpay(options);
-  //     razor.open();
-  //   } catch (error) {
-  //     console.log("last error", error);
-  //     toast.error(error.response?.data?.error || "Payment initiation failed!");
-  //   }
-  // };
-
   const handleAppointment = () => {
     if (!selectedDate || !selectedSlot) {
       toast.error("Please fill all required fields");
@@ -95,6 +38,7 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp }) {
       : consultant?.fees;
     const appointmentData = {
       packageId: packageId,
+      type:type,
       consultantId: consultant?.id,
       consultantName: consultant?.name,
       consultantImage: consultant?.image_url,

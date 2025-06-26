@@ -43,14 +43,28 @@ export default function AddToBag() {
   };
 
   const updateDiscountedPrice = (data) => {
-    console.log(data, cartItems)
-    const updatedCartItem = cartItems.map((item) => ({
-      ...item,
-      ...(data[item.PackagePlan.packageId] || {}),
-      discountApplied: data.hasOwnProperty(item.PackagePlan.packageId) ? true : false,
-    }));
+    if (type == "cart") {
+      const updatedCartItem = cartItems.map((item) => ({
+        ...item,
+        ...(data[item.PackagePlan.packageId] || {}),
+        discountApplied: data.hasOwnProperty(item.PackagePlan.packageId)
+          ? true
+          : false,
+      }));
 
-    setCartItems(updatedCartItem);
+      setCartItems(updatedCartItem);
+    } else {
+      const updatesAppintmentData = {
+        ...appointmentData,
+        ...(data[appointmentData?.packageId] || {}),
+        discountApplied: data.hasOwnProperty(appointmentData?.packageId)
+          ? true
+          : false,
+      };
+      setDiscountPrice(data[appointmentData?.packageId]?.discountedAmount);
+      setDiscounGet(data[appointmentData?.packageId]?.discountValue);
+      setAppointmentData(updatesAppintmentData);
+    }
   };
 
   const applyCoupon = async () => {
@@ -64,19 +78,18 @@ export default function AddToBag() {
           : {
               couponCode: coupon,
               type: "appointment",
+              pid: appointmentData.packageId,
               totalAmount: appointmentData.consultantFees,
             };
       const res = await userAxios.post(userApiRoutes.apply_coupon, body);
-      if (type == "cart") {
-        updateDiscountedPrice(res.data.data);
-        const firstEntry = Object.entries(res?.data?.data)[0];
-        setAppliedCouponDetails(firstEntry[1]?.couponInfo ||"");
-        setAppliedCode(firstEntry[1]?.couponInfo?.couponCode);
-        setIsDiscountApllied(true);
-      }
+      updateDiscountedPrice(res.data.data);
+      const firstEntry = Object.entries(res?.data?.data)[0];
+      setAppliedCouponDetails(firstEntry[1]?.couponInfo || "");
+      setAppliedCode(firstEntry[1]?.couponInfo?.couponCode);
+      setIsDiscountApllied(true);
       toast.success(res?.data?.message);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(
         error.response?.data?.error ||
           error.response?.data?.message ||
@@ -466,16 +479,24 @@ export default function AddToBag() {
                                 Time: {appointmentData.selectedSlot?.start} -{" "}
                                 {appointmentData.selectedSlot?.end}
                               </p>
-                              <p className="price-text">
-                                ₹ {appointmentData.consultantFees}
-                              </p>
+                              {appointmentData.discountApplied ? (
+                                <>
+                                  <span className="text-muted text-decoration-line-through me-2">
+                                    ₹ {appointmentData.consultantFees}
+                                  </span>
+                                  <span className="text-success fw-bold">
+                                    ₹{appointmentData?.discountedAmount}
+                                  </span>
+                                </>
+                              ) : (
+                                <p className="price-text">
+                                  ₹ {appointmentData.consultantFees}
+                                </p>
+                              )}
                             </figcaption>
                           </li>
                         </ul>
-
-                        {/* Coupon for Appointment */}
-                        {!appointmentData.isFollowUp && renderCouponBox()}
-
+                        {/* {!appointmentData.isFollowUp && appointmentData.type != "doctor"  && renderCouponBox()} */}
                         <ul className="Pricebrnkdownlist mt-3">
                           <li>
                             <span>Consultation Fees:</span>
@@ -497,7 +518,8 @@ export default function AddToBag() {
                             <span>Total:</span>
                             <b>
                               ₹{" "}
-                              {discountPrice || appointmentData.consultantFees}
+                              {appointmentData.discountedAmount ||
+                                appointmentData.consultantFees}
                             </b>
                           </li>
                         </ul>

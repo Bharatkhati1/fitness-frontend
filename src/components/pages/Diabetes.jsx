@@ -118,7 +118,7 @@ function PackageDetails() {
 
                   {showButton("Talk to a Therapist") && (
                     <Link
-                      to={`/experts/${pkgSlug}/therapist/${encodedId}`}
+                      to={`/experts/${details.Slug}/therapist/${encodedId}`}
                       className="btn btn-primary hvr-shutter-out-horizontal"
                     >
                       Talk to a Therapist
@@ -194,7 +194,7 @@ function PackageDetails() {
           <div className="PackageINclusion mt-5 pt-3 pb-5">
             <div className="container">
               <h3 className="pn-title text-center">
-                {details?.name} Management Package inclusions
+                {details?.name} Package inclusions
               </h3>
               <div className="row">
                 {details?.PackageInclusions?.map((inclusion) => (

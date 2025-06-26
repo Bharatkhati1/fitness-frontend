@@ -24,6 +24,7 @@ const ServiceManagement = () => {
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
+  const [isPublished, setIsPublished] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [ctaButtons, setCtaButtons] = useState([]);
@@ -32,7 +33,7 @@ const ServiceManagement = () => {
   const fileInputRef = useRef(null);
   const fileInputBannerRef = useRef(null);
   const storyImageRef = useRef(null);
-  const selectedIdref = useRef(null)
+  const selectedIdref = useRef(null);
 
   const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
@@ -59,6 +60,7 @@ const ServiceManagement = () => {
     formData.append("description", sliderHeading);
     formData.append("shortDescription", serviceShortDescription);
     formData.append("isActive", sliderStatus);
+    formData.append("isPublished", isPublished || false);
     sliderImage && formData.append("service_image", sliderImage);
     serviceBannerImage && formData.append("banner_image", serviceBannerImage);
     if (storyImage) formData.append("story_image", storyImage);
@@ -148,11 +150,12 @@ const ServiceManagement = () => {
     setSelectedBannerFileName("");
     setCtaButtons([]);
     setStoryImage(null);
+    setIsPublished("")
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-    if(storyImageRef){
-      storyImageRef.current.value = ""
+    if (storyImageRef) {
+      storyImageRef.current.value = "";
     }
   };
 
@@ -197,6 +200,7 @@ const ServiceManagement = () => {
     fetchAllServices();
   }, []);
 
+  console.log(isPublished)
   return (
     <>
       <div className="row">
@@ -234,11 +238,13 @@ const ServiceManagement = () => {
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
                       Service Banner Image{" "}
-                      {isEdit && !serviceBannerImage && ` : ${selectedBannerFileName}`}
+                      {isEdit &&
+                        !serviceBannerImage &&
+                        ` : ${selectedBannerFileName}`}
                     </label>
                     <input
                       type="file"
-                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputBannerRef}
                       className="form-control"
@@ -251,11 +257,12 @@ const ServiceManagement = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Service Image {isEdit && !sliderImage&& ` : ${selectedFileName}`}
+                      Service Image{" "}
+                      {isEdit && !sliderImage && ` : ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
-                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       id="service-image"
                       ref={fileInputRef}
                       className="form-control"
@@ -268,7 +275,8 @@ const ServiceManagement = () => {
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Story Image {isEdit && !storyImage && ` : ${storyImageName}`}
+                      Story Image{" "}
+                      {isEdit && !storyImage && ` : ${storyImageName}`}
                     </label>
                     <input
                       type="file"
@@ -326,25 +334,68 @@ const ServiceManagement = () => {
                         Active
                       </label>
                     </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="service-status"
-                        value={false}
-                        checked={sliderStatus == false}
-                        onChange={() => setSliderStatus(false)}
-                        id="status-inactive"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="status-inactive"
-                      >
-                        Inactive
-                      </label>
-                    </div>
+                    {
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="service-status"
+                          value={false}
+                          checked={sliderStatus == false}
+                          onChange={() => setSliderStatus(false)}
+                          id="status-inactive"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="status-inactive"
+                        >
+                          Inactive
+                        </label>
+                      </div>
+                    }
                   </div>
                 </div>
+
+                {/*Published Status */}
+                {sliderStatus == true && (
+                  <div className="col-lg-6">
+                    <p>Published Status</p>
+                    <div className="d-flex gap-2 align-items-center">
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          value={true}
+                          checked={isPublished == true}
+                          onChange={() => setIsPublished(true)}
+                          id="pub-status-active"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="pub-status-active"
+                        >
+                          Published
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          value={false}
+                          checked={isPublished == false}
+                          onChange={() => setIsPublished(false)}
+                          id="pub-status-inactive"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="pub-status-inactive"
+                        >
+                          Coming Soon
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* CTA button */}
                 <div className="col-xxl-6 col-lg-8">
@@ -464,7 +515,7 @@ const ServiceManagement = () => {
       <div className="row">
         <div className="d-flex justify-content-end mb-3">
           <input
-            className="w-50" 
+            className="w-50"
             placeholder="Search here"
             onChange={(e) => handleSearch(e.target.value)}
             style={{ marginLeft: "20px" }}
@@ -565,6 +616,7 @@ const ServiceManagement = () => {
                                             setCtaButtons(
                                               JSON.parse(service.actions) || []
                                             );
+                                            setIsPublished(service.isPublished)
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
@@ -581,8 +633,9 @@ const ServiceManagement = () => {
                                             setSelectedFileName(service.image);
                                             setSliderStatus(service.isActive);
                                             setStoryImageName(
-                                              data?.story_image
+                                              service?.story_image
                                             );
+                                            
                                           }}
                                         >
                                           <iconify-icon
@@ -600,7 +653,8 @@ const ServiceManagement = () => {
                                               icon="solar:trash-bin-minimalistic-2-broken"
                                               class="align-middle fs-18"
                                               onClick={() =>
-                                                (selectedIdref.current = service.id)
+                                                (selectedIdref.current =
+                                                  service.id)
                                               }
                                             ></iconify-icon>
                                           }

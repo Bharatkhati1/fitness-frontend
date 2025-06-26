@@ -438,13 +438,18 @@ function Home() {
                     return (
                       <div className="col-md-4" key={idx}>
                         <div className="OurServicesContent">
-                          <figure>
+                          <figure className="position-relative">
                             <img
                               crossOrigin="anonymous"
                               src={srv.image_url}
                               alt={srv.name}
+                              className="img-fluid"
                             />
+                           {!srv.isPublished && <span className="coming-soon-label">
+                              Coming Soon
+                            </span>}
                           </figure>
+
                           <figcaption>
                             <h3>{srv.name}</h3>
                             {srv.shortDescription && (
@@ -454,7 +459,7 @@ function Home() {
                                 }}
                               ></p>
                             )}
-                            <div className="gap-1 service-btn text-center d-flex">
+                           {srv.isPublished && <div className="gap-1 service-btn text-center d-flex">
                               {showButton("Know more") && (
                                 <Link
                                   to={`/service-details/${srv.name
@@ -483,7 +488,7 @@ function Home() {
                                   Contact our Helpline
                                 </a>
                               )}
-                            </div>
+                            </div>}
                           </figcaption>
                         </div>
                       </div>

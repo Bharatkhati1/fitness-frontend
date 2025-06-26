@@ -44,6 +44,7 @@ function BookAppoinment() {
     const packageId = atob(encodedId);
     return (
       <BookAppoinmentdate
+      type={type}
         isFollowUp={isFollowUp}
         consultant={selectedConsultant}
         packageId={packageId}

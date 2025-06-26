@@ -21,7 +21,6 @@ const CreateUpdatePackage = () => {
   const [shortDescription, setShortDescription] = useState("");
   const [packageStatus, setPackageStatus] = useState(true);
   const [emailNotification, setEmailNotification] = useState([]);
-  const [emailInput, setEmailInput] = useState("");
   const [packageBannerImage, setPackageBannerImage] = useState(null);
   const [selectedServiceTypeId, setSelectedServiecTypeId] = useState(null);
   const [selectedPackageId, setSelectedPackageId] = useState(null);

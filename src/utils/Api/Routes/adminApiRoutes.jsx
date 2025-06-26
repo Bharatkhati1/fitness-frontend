@@ -3,7 +3,7 @@ const adminApiRoutes = {
   upload_image: `/upload-image`,
 
   //SERVICE ROUTES
-  get_services: "/service",
+  get_services: "/service?limit=1000",
   create_service: "/service",
   update_service: (id) => `/service/${id}`,
   delete_service: (id) => `/service/${id}`,
