@@ -352,7 +352,7 @@ const LoginUser = () => {
                         }}
                       />
                     </a>
-                 <AppleLoginButton/>
+                 {/* <AppleLoginButton/> */}
                   </div>
                 </form>
               )}

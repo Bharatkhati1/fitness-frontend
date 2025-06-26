@@ -6,7 +6,7 @@ import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-export const Login = (userData, navigate, userType,route, isAdmin = false) => {
+export const Login = (userData, navigate, userType, route, isAdmin = false) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -37,7 +37,7 @@ export const Login = (userData, navigate, userType,route, isAdmin = false) => {
             user: { ...data?.user },
           })
         );
-        dispatch(authActions.setType(data.user.userType))
+        dispatch(authActions.setType(data.user.userType));
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
       } else {
@@ -51,7 +51,7 @@ export const Login = (userData, navigate, userType,route, isAdmin = false) => {
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-      
+
       localStorage.setItem("isAdmin", isAdmin);
       dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -88,7 +88,7 @@ export const getAccessToken = (isAdmin, userType) => {
           })
         );
         localStorage.setItem("isAdmin", isAdmin);
-        dispatch(authActions.setType(data.user.userType))
+        dispatch(authActions.setType(data.user.userType));
         dispatch(authActions.checkingUserToken(false));
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
@@ -113,6 +113,7 @@ export const getAccessToken = (isAdmin, userType) => {
 };
 
 export const logoutUser = (isUser) => {
+  console.log("isuser", isUser)
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
@@ -231,7 +232,8 @@ export const fetchAllProducts = ({ search = "", serviceId } = {}) => {
       const response = await webAxios.get(
         userApiRoutes.get_all_packages({ search, serviceId })
       );
-      dispatch(authActions.setAllPackages(response.data.data));
+      const filter = response.data.data?.filter((pkg) => pkg.id != 1);
+      dispatch(authActions.setAllPackages(filter));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch packages");
     }
@@ -279,7 +281,7 @@ export const handleSocialLoginGoogle = async (
         authActions.loginUser({
           isLoggedIn: true,
           isAdmin: isAdmin,
-          user: { ...data?.user }
+          user: { ...data?.user },
         })
       );
       dispatch(authActions.setUserDetails({ ...data?.user }));
@@ -317,8 +319,8 @@ export const AddToCart = (plainId, isBuyNow = false, navigate) => {
           isLoading: false,
           autoClose: 3000,
         });
-      }else{
-        navigate("/checkout/cart")
+      } else {
+        navigate("/checkout/cart");
       }
       return response?.data;
     } catch (error) {
@@ -340,8 +342,8 @@ export const fetchCartitems = async () => {
   return async (dispatch) => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
-      console.log(res.data.data)
-      dispatch(authActions.setCartItems(res.data.data||[]));
+      console.log(res.data.data);
+      dispatch(authActions.setCartItems(res.data.data || []));
     } catch (error) {
       toast.error(error.response.data.error);
     }

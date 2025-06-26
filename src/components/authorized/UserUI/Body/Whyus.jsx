@@ -6,8 +6,9 @@ import wuIcon4 from "../../../../../public/assets/img/wuIcon-4.png";
 import wuIcon5 from "../../../../../public/assets/img/wuIcon-5.png"
 const Whyus = () => {
   return (
-    <section className="WhyUs SectionSpace">
+    <section className="WhyUs SectionSpace mt-4">
     <div className="container">
+      <div class="PageTitle text-center"><h2>why us ?</h2></div>
       <div className="row justify-content-center g-4 g-sm-3">
         <div className="col-md-4 col-sm-6">
           <div className="WhyUsinner">

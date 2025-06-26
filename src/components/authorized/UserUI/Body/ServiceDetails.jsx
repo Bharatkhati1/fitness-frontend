@@ -162,7 +162,7 @@ function ServiceDetails() {
         </div>
       )}
 
-      <section className="sectionSpace servicedetail main-packge">
+      <section className="sectionSpace servicedetail main-packge pb-0">
         <div className="container">
           <div className="PageTitle text-center">
             {Array.isArray(packages) && packages.length > 0 && (
@@ -259,8 +259,10 @@ function ServiceDetails() {
               ) }
             </div>
           </div>
-          <Whyus/>
+        
         </div>
+
+          <Whyus/>
       </section>
 
       <Modal

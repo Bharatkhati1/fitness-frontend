@@ -13,6 +13,26 @@ import { Link, useParams } from "react-router-dom";
 export default function AddToBag() {
   const { type } = useParams();
   const { user } = useSelector((state) => state.auth);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    age: "",
+    gender: "",
+    pincode: "",
+    weight: "",
+    height: "",
+    chest: "",
+    waistCirumference: "",
+    neckCirumference: "",
+    dietPreference: "",
+    workoutPreference: "",
+    medicalCanditions: [],
+    medicalConditionDescription: "",
+    sportInjury: "",
+  });
   const [cartItems, setCartItems] = useState([]);
   const [thankYouContent, setThankYouContent] = useState({
     title: "Thank You !",
@@ -31,6 +51,36 @@ export default function AddToBag() {
   const [discountGet, setDiscounGet] = useState(0);
   const [appointmentData, setAppointmentData] = useState(null);
   const [ispaymentSuccessfull, setIsPaymentSuccessfull] = useState(false);
+
+  const fetchProfileDetails = async () => {
+    try {
+      const res = await userAxios.get(userApiRoutes.get_profile_details);
+      const data = res.data.data;
+      setFormData({
+        firstName: data.firstName,
+        email: data.email,
+        address: data.address,
+        city: data.city,
+        phone: data.phone,
+        age: data.age || "",
+        gender: data.gender || "",
+        pincode: data.pincode || "",
+        weight: data.UserDetail.weight || "",
+        height: data.UserDetail.height || "",
+        chest: data.UserDetail.chest || "",
+        waistCirumference: data.UserDetail.waistCirumference || "",
+        neckCirumference: data.UserDetail.neckCirumference || "",
+        dietPreference: data.UserDetail.dietPreference || "",
+        workoutPreference: data.UserDetail.workoutPreference || "",
+        medicalCanditions: data.UserDetail.medicalCanditions || [],
+        medicalConditionDescription:
+          data.UserDetail.medicalConditionDescription || "",
+        sportInjury: data.UserDetail.sportInjury || "",
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.error);
+    }
+  };
 
   const fetchCartitems = async () => {
     try {
@@ -245,6 +295,7 @@ export default function AddToBag() {
   }, [cartItems]);
 
   useEffect(() => {
+    fetchProfileDetails();
     if (type === "cart") {
       fetchCartitems();
     } else {
@@ -290,6 +341,24 @@ export default function AddToBag() {
       )}
     </div>
   );
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      await userAxios.put(userApiRoutes.update_profile, formData);
+      toast.success("Profile updated successfully");
+      fetchProfileDetails();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update profile");
+    }
+  };
 
   return (
     <>
@@ -338,16 +407,17 @@ export default function AddToBag() {
                     <h4>contact details</h4>
                   </div>
 
-                  <div className="addtobabody ">
+                  <div className="addtobabody">
                     <div className="form-group mb-3">
                       <label>
                         Name<span className="validation">*</span>
                       </label>
                       <input
                         type="text"
-                        value={user?.firstName}
+                        name="firstName"
+                        value={formData.firstName}
                         className="form-control"
-                        readOnly
+                        onChange={handleChange}
                       />
                     </div>
 
@@ -356,10 +426,11 @@ export default function AddToBag() {
                         Email ID<span className="validation">*</span>
                       </label>
                       <input
-                        type="text"
-                        value={user?.email}
+                        type="email"
+                        name="email"
+                        value={formData.email}
                         className="form-control"
-                        readOnly
+                        onChange={handleChange}
                       />
                     </div>
 
@@ -368,22 +439,34 @@ export default function AddToBag() {
                         Phone Number<span className="validation">*</span>
                       </label>
                       <input
-                        value={user?.phone}
+                        type="number"
+                        name="phone"
+                        value={formData.phone}
                         className="form-control"
-                        readOnly
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value.length <= 10) {
+                            setFormData((prev) => ({ ...prev, phone: value }));
+                          }
+                        }}
                       />
                     </div>
 
                     <div className="form-group mb-3">
-                      <label>
-                        Select Country<span className="validation">*</span>
-                      </label>
-                      <select className="form-select">
-                        <option selected>India</option>
-                        <option value="1">USA</option>
-                        <option value="2">UK</option>
-                      </select>
+                      <label>Address ;</label>
+                      <input
+                        type="text"
+                        name="address"
+                        value={formData.address}
+                        className="form-control"
+                        onChange={handleChange}
+                      />
                     </div>
+                    <form onSubmit={handleSave}>
+                      <button type="submit" className="btn btn-primary mt-2">
+                        Upadte Details
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>

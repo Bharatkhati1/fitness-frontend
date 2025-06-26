@@ -4028,6 +4028,7 @@ ul.ourapproachlist li:after {
   box-shadow: 0 4px 23px #00794652;
   padding: 40px 20px 20px;
   height: 100%;
+  background: #fff;
 }
 
 .WhyUsinner figure {
@@ -5588,4 +5589,8 @@ span.bannerup {
     margin-left: -135px;
     position: relative;
     top: 35px;
+}
+
+section.WhyUs.SectionSpace {
+    background: #F5F4F4;
 }

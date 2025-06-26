@@ -45,8 +45,7 @@ const Innovation = () => {
     formData.append("subHeading", "sh");
     formData.append("isActive", true);
     formData.append("slug", "innovation-page");
-    updatedData.image &&
-      formData.append("slider_image", updatedData.image);
+    updatedData.image && formData.append("slider_image", updatedData.image);
 
     try {
       let url = adminApiRoutes.update_slider(updatedData.id);
@@ -68,6 +67,14 @@ const Innovation = () => {
     setSelectedSlider(null);
   };
 
+  const handleSetPrimary = async (id) => {
+    try {
+      await adminAxios.put(adminApiRoutes.set_primary_slider(id));
+      fetchAllSliders();
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <>
       <EditModal
@@ -76,7 +83,6 @@ const Innovation = () => {
         onUpdate={handleModalUpdate}
         initialData={selectedSlider}
       />
-
       <div className="row">
         <div className="col-xl-12">
           <div className="card">
@@ -91,6 +97,7 @@ const Innovation = () => {
                       <th>ID</th>
                       <th>Image</th>
                       <th>Heading</th>
+                      <th>Set Primary</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -118,6 +125,14 @@ const Innovation = () => {
                             </Link>
                           </td>
                           <td>{slider.heading}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={slider.isPrimary || false}
+                              onChange={() => handleSetPrimary(slider.id)}
+                            />
+                          </td>
+
                           <td>
                             <div className="d-flex gap-2">
                               <button

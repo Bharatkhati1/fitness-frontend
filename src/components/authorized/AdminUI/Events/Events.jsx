@@ -119,7 +119,7 @@ const Events = () => {
 
   const deleteEvent = async () => {
     try {
-      const id = selectedIdRef.current;
+      const id = selectedIdRef.current || selectedId;
       await adminAxios.delete(adminApiRoutes.delete_events(id));
       toast.success("Event deleted successfully");
       fetchAllEvents();
