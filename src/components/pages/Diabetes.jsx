@@ -23,7 +23,6 @@ function PackageDetails() {
   } = useSelector((state) => state.auth);
   const cartItemIds = cartItems?.map((item) => item.packagePlanId);
 
-  console.log(cartItems);
   const fetchPackageDetails = async () => {
     try {
       const response = await webAxios.get(
@@ -80,6 +79,20 @@ function PackageDetails() {
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
+
+  const getLengthDiv = () => {
+    const len = details?.PackagePlans?.length;
+    switch (len) {
+      case 1:
+      case 2:
+        return 6;
+      case 3:
+        return 4;
+      default:
+        return 3;
+    }
+  };
+  
   return (
     <>
       <section className="Diabetespage InnerpageSpace pb-0">
@@ -128,14 +141,14 @@ function PackageDetails() {
               </div>
             </div>
 
-            <div className="DiabetesHealthPakages mt-4 mb-0">
+            <div className="DiabetesHealthPakages mt-4 mb-0 justify-content-center">
               <div class="InnerPageTitle text-center">
                 <h4>{details.name} Variants</h4>
               </div>
 
               <div className="row">
                 {details?.PackagePlans?.map((plan) => (
-                  <div className="col-md-3">
+                  <div className={`col-md-${getLengthDiv()}`}>
                     <div className="DiabetesHealthcontent">
                       <figure>
                         <img crossOrigin="anonymous" src={plan.image_url}></img>

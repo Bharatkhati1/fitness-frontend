@@ -165,7 +165,7 @@ function Testimonial() {
                     const user = rating.User || {};
                     const fullName = user.firstName || "Anonymous";
                     const profileImage = user.profilePicture
-                      ? `/path/to/images/${user.profilePicture}`
+                      ? `${user.profilePictureUrl}`
                       : userimg;
 
                     return (
@@ -184,7 +184,7 @@ function Testimonial() {
                           <p>{rating.description || "No feedback provided."}</p>
                           <div className="testiuser">
                             <figure>
-                              <img src={profileImage} alt={fullName} />
+                              <img crossOrigin="anonymous" src={profileImage} alt={fullName} />
                             </figure>
                             <figcaption>
                               <h4>{fullName}</h4>
