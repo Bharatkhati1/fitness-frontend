@@ -113,6 +113,7 @@ export const getAccessToken = (isAdmin, userType) => {
 };
 
 export const logoutUser = (isUser) => {
+  console.log("isuser", isUser)
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }

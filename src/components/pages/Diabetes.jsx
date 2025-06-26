@@ -105,7 +105,7 @@ function PackageDetails() {
         </span>
         {details ? (
           <div className="container">
-            <div className="row align-items-center">
+            <div className="row">
               <div className="col-md-5 Diabetespageleft">
                 <figure>
                   <img crossOrigin="anonymous" src={details?.image_url} />

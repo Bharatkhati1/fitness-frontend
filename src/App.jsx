@@ -91,7 +91,7 @@ const App = () => {
   useEffect(() => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
   }, [isCheckingToken]);
-
+  
   if (isCheckingToken) return <PageLoader />;
 
   if (!isLoggedIn) {
