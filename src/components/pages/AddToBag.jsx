@@ -119,7 +119,7 @@ export default function AddToBag() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 couponAppliedId:appliedCouponDetails?.couponAppliedId,
-                packageId:appointmentData.packageId,
+                packageId:appointmentData.packageId|| 1,
                 couponCode: discountPrice ? coupon : undefined,
               };
               await userAxios.post(userApiRoutes.appointment_booking, payload);
@@ -296,7 +296,7 @@ export default function AddToBag() {
                   <div className="addtobabody ">
                     <div className="form-group mb-3">
                       <label>
-                        First Name<span className="validation">*</span>
+                        Name<span className="validation">*</span>
                       </label>
                       <input
                         type="text"

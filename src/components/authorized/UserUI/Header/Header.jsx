@@ -10,12 +10,14 @@ import { authActions } from "../../../../store/auth";
 import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
-import ProfileIcon from "./Profile_icon.png"
+import ProfileIcon from "./Profile_icon.png";
 
 const Header = () => {
-  const { userAccessToken, isLoggedIn, cartItems =[] } = useSelector(
-    (state) => state.auth
-  );
+  const {
+    userAccessToken,
+    isLoggedIn,
+    cartItems = [],
+  } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -112,11 +114,13 @@ const Header = () => {
             <div className="Login-info d-flex align-items-center">
               <div onClick={() => handleCartNavigate()} className="carticon">
                 <img src={CartIcon} />
-                <span className="cart-item-count">{cartItems.length}</span>
+                {cartItems.length > 0 && (
+                  <span className="cart-item-count">{cartItems.length}</span>
+                )}
               </div>
               {userAccessToken.length > 0 ? (
                 <Link to="/profile" className="header-btn ">
-                  <img src={ProfileIcon} className="me-2"/> My Profile
+                  <img src={ProfileIcon} className="me-2" /> My Profile
                 </Link>
               ) : (
                 <Link to="/login-user" className="header-btn ">

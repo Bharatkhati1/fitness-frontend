@@ -74,7 +74,7 @@ const Ckeditor = ({ text, setText }) => {
           ["insert", ["link", "picture", "video"]],
           ["view", ["fullscreen", "codeview", "help"]],
         ],
-        fontSizes: ['8', '10', '12', '14', '16', '18', '20', '24', '28'], 
+        fontSizes: ['8', '10', '12', '14', '16', '18', '20', '24', '26', '28', '30', '32', '34', '36'], 
       }}
       value={text}
       onChange={onChange}

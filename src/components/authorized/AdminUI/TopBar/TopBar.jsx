@@ -14,7 +14,6 @@ const TopBar = () => {
     "/tools":"Tools"
   };
 
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const handleLogout = () => {

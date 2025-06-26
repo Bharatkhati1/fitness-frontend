@@ -17,8 +17,9 @@ const PackageManagement = () => {
   const fetchAllPackage = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_package);
-      setPackage(res.data.data);
-      setFilterPackages(res.data.data)
+      const filter = res.data.data.filter((res)=> res.id != 1)
+      setPackage(filter);
+      setFilterPackages(filter)
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);

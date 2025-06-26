@@ -273,7 +273,7 @@ const NewsAndMediaManagement = () => {
                 </div> */}
 
                 {/* Short Description */}
-                <div className="col-lg-6 mb-3">
+                <div className="col-lg-12 mb-3">
                   <label className="form-label">Short Description</label>
                   <Ckeditor
                     text={formData.shortDescription}
@@ -284,7 +284,7 @@ const NewsAndMediaManagement = () => {
                 </div>
 
                 {/* Long Description */}
-                <div className="col-lg-6 mb-3">
+                <div className="col-lg-12 mb-3">
                   <label className="form-label">Long Description</label>
                   <Ckeditor
                     text={formData.description}

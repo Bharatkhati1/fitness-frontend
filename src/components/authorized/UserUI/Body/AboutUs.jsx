@@ -34,6 +34,7 @@ function AboutUs() {
   const [team, setTeam] = useState([]);
   const [open, setOpen] = useState(false);
   const [cmsDetails, setCmsDetails] = useState({});
+  const [message, setMessage] = useState([]);
 
   const fetchAllTeam = async () => {
     try {
@@ -69,11 +70,24 @@ function AboutUs() {
     }
   };
 
+  const getMessages = async () => {
+    try {
+      const response = await webAxios.get(
+        userApiRoutes.get_sliders("misson")
+      );
+      setMessage(response.data.data);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch sliders");
+    }
+  };
+
   useEffect(() => {
     fetchAllTeam();
+    getMessages();
     getCmsDetail();
   }, []);
-  
+
   return (
     <>
       <JoinCommunity setOpen={setOpen} open={open} />
@@ -368,36 +382,20 @@ function AboutUs() {
           </div>
 
           <div className="row">
-            <div className="col-md-6">
-              <div className="messageCofoundersBg">
-                <figure>
-                  <img src={CofoundersIMG} />
-                </figure>
+            {message.map((msg) => (
+              <div className="col-md-6 mb-3">
+                <div className="messageCofoundersBg">
+                  <figure>
+                    <img crossOrigin="anonymous" src={msg.image_url} />
+                  </figure>
 
-                <figcaption>
-                  <h4>SHIVAM SINGH</h4>
-                  <p>
-                    Dedication and Honesty towards our client reflects our true
-                    culture of excellence
-                  </p>
-                </figcaption>
+                  <figcaption>
+                    <h4>{msg.name}</h4>
+                    <p>{msg.heading}</p>
+                  </figcaption>
+                </div>
               </div>
-            </div>
-            <div className="col-md-6">
-              <div className="messageCofoundersBg">
-                <figure>
-                  <img src={CofoundersIMG2} />
-                </figure>
-
-                <figcaption>
-                  <h4>RAHUL ARORA</h4>
-                  <p>
-                    I love how each member's profile showcases their unique
-                    skills and contributions to the company.
-                  </p>
-                </figcaption>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

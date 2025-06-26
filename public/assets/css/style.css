@@ -288,9 +288,12 @@ header .navbar-collapse .nav-link.active {
 .bannerSection {
   background: #f5f5f5 url(../img/slider-bg.png);
   background-repeat: no-repeat;
-  padding-top: 85px;
+  padding-top: 75px;
 }
-
+body .owl-carousel .owl-item .why-class img{
+  width: 100% !important;
+  object-fit: contain;
+}
 .Login-info {
   padding-left: 95px;
 }
@@ -1887,7 +1890,7 @@ ul.BottomFooterList li a {
 }
 
 body .owl-item .OurServicesContent figure img {
-  height: 260px;
+  height: 350px;
   width: 100% !important;
   background: #fff;
 }
@@ -5161,7 +5164,7 @@ ul.sitelistinner li a {
   color: #000000;
   font-weight: 600;
   margin-bottom: 5px !important;
-      text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .cardcontent p {

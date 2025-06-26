@@ -3,6 +3,7 @@ import Ckeditor from "../CkEditor/Ckeditor";
 
 const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
   const allValues = [
+    { value: 1, name: "1 Month" },
     { value: 3, name: "3 Months" },
     { value: 6, name: "6 Months" },
     { value: 9, name: "9 Months" },
@@ -24,14 +25,14 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 <h4 className="mb-0">Package Variant {index + 1}</h4>
               </div>
               <div className="col-auto">
-                {packageVariants.length > 1 && index !== 0 && (
+                {/* {packageVariants.length > 1 && index !== 0 && ( */}
                   <button
                     className="remove-btn-inclusion"
                     onClick={() => removeVariant(index)}
                   >
                     -
                   </button>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>

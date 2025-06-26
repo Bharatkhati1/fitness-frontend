@@ -20,6 +20,9 @@ function Profile() {
   const [userPackages, setUserPackages] = useState([]);
   const [consultations, setConsultations] = useState([]);
   const [formData, setFormData] = useState({
+    firstName:"",
+    email:"",
+    phone:"",
     age: "",
     gender: "",
     pincode: "",
@@ -41,6 +44,9 @@ function Profile() {
       const data = res.data.data;
       setProfileDetails(data);
       setFormData({
+        firstName:data.firstName,
+        email:data.email,
+        phone:data.phone,
         age: data.age || "",
         gender: data.gender || "",
         pincode: data.pincode || "",
@@ -137,24 +143,14 @@ function Profile() {
     const updatedFormData = new FormData();
     updatedFormData.append("user_image", file);
   
-    // Append other form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((v) => updatedFormData.append(`${key}[]`, v));
-      } else {
-        updatedFormData.append(key, value);
-      }
-    });
-  
     try {
-      await userAxios.put(userApiRoutes.update_profile, updatedFormData, {
+      await userAxios.put(userApiRoutes.update_profile_image, updatedFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-  
       toast.success("Profile image updated successfully");
-      fetchProfileDetails(); // Refresh profile
+      fetchProfileDetails();
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Failed to update profile image"

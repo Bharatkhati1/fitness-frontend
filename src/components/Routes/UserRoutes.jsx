@@ -30,6 +30,8 @@ import UpcomigDetails from "../pages/UpcomigDetails";
 import Innovation from "../pages/Innovation";
 import CartBag from "../pages/CartBag";
 import Profile from "../pages/Profile/Profile";
+import Trial from "../authorized/UserUI/Body/Trial";
+import SiteMap from "../pages/SiteMap";
 
 export default function UserRoutes() {
   const { userAccessToken } = useSelector((state) => state.auth);
@@ -56,7 +58,9 @@ export default function UserRoutes() {
             <Route path="/innovation" element={<Innovation />} />
             <Route path="/packages" element={<Home />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/trial-7-days" element={<Trial />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/site-map" element={<SiteMap />} />
             <Route path="/news-and-media" element={<NewsAndMedia />} />
             <Route path="/package/:slug" element={<PackageDetails />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

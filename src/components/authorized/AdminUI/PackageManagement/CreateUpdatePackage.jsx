@@ -429,7 +429,7 @@ const CreateUpdatePackage = () => {
                 </div>
 
                 {/* Package desciption */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Long Description
@@ -442,7 +442,7 @@ const CreateUpdatePackage = () => {
                 </div>
 
                 {/* Package desciption */}
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="mb-3">
                     <label htmlFor="service-des" className="form-label">
                       Short Description
