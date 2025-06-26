@@ -2424,16 +2424,14 @@ button.SearchBtn {
 }
 
 .SearchBox {
-  width: 827px;
+  width: 70%;
   position: relative;
   margin-top: 20px;
 }
 .searcwithbtn .SearchBox {
   margin-top: 0;
 }
-.searcwithbtn {
-  margin-top: 20px;
-}
+
 .Bytext span:after {
   position: absolute;
   left: 0;
@@ -5173,6 +5171,7 @@ ul.sitelistinner li a {
   color: #000000;
   font-weight: 600;
   margin-bottom: 5px !important;
+      text-transform: capitalize;
 }
 
 .cardcontent p {
@@ -5537,6 +5536,7 @@ background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(128,0,48,0.2
 
 ul.FOLLOWUSlist.d-flex {
     gap: 10px;
+    margin-bottom: 0;
 }
 
  .FOLLOWUS h3 {
@@ -5547,11 +5547,7 @@ ul.FOLLOWUSlist.d-flex {
     text-align: center;
 }
 
-.FOLLOWUS.bannerfollow {
-    position: absolute;
-    right: 0;
-    bottom: -11px;
-}
+
 
 .FOLLOWUS.bannerfollow h3 {
     color: #fff;
@@ -5577,16 +5573,19 @@ ul.FOLLOWUSlist.d-flex {
     font-style: italic;
     background: rgb(0 0 0 / 19%);
     margin-bottom: -9px;
-    left: 0;
-    right: 0;
-}
-
-.BlogDeatils .container {
-    position: relative;
 }
 
 
-span.bannerup img {
+span.bannerup  {
   width: 300px;
   margin-left: -135px;
+}
+
+span.bannerup img {
+    width: 335px;
+}
+span.bannerup {
+    margin-left: -135px;
+    position: relative;
+    top: 35px;
 }

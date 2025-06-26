@@ -45,7 +45,7 @@ function SiteMap() {
           <hr></hr>
 
           <ul className="sitelist">
-            {data.map(
+            {data?.services?.map(
               (details) =>
                 details.Packages.length > 0 && (
                   <li>
@@ -55,6 +55,103 @@ function SiteMap() {
                         {details.Packages.map((pkg) => (
                           <li>
                             <Link to={`/package/${pkg.slug}`}>{pkg.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Blogs</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.blogs?.map(
+              (details) =>
+                details.Blogs.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Blogs.map((pkg) => (
+                          <li>
+                            <Link to={`/blog/${pkg.slug}`}>{pkg.title}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>News</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.news?.map((details) => (
+               <li>
+               <div className="sitelistsec">
+                 <ul className="sitelistinner">
+                     <li>
+                     <Link to={`/blog/${details.Blogs[0].slug}`}>
+                       {details.Blogs[0].title}
+                     </Link>
+                   </li>
+                 </ul>
+               </div>
+             </li>
+          
+            ))}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Services</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.services?.map(
+              (details) =>
+                details.Packages.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Packages.map((pkg) => (
+                          <li>
+                            <Link to={`/package/${pkg.slug}`}>{pkg.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Smart Kitchen</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.smartKitchen?.map(
+              (details) =>
+                details.Items?.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Items.map((pkg) => (
+                          <li>
+                            <Link>{pkg.name}</Link>
                           </li>
                         ))}
                       </ul>

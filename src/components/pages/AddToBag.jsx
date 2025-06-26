@@ -338,7 +338,7 @@ export default function AddToBag() {
                     <h4>contact details</h4>
                   </div>
 
-                  <div className="addtobabody p-0">
+                  <div className="addtobabody ">
                     <div className="form-group mb-3">
                       <label>
                         Name<span className="validation">*</span>

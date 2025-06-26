@@ -156,48 +156,55 @@ function Smartkitchen() {
             <span className="bannerup">
               <img src={BannerUpper} />
             </span>
-            <div className="searcwithbtn d-flex">
-              <div className="SearchBox">
-                <input
-                  type="text"
-                  placeholder="Search here"
-                  className="form-control"
-                  value={search}
-                  onChange={handleSearchChange}
-                />
-                <button className="SearchBtn">
-                  <img src={searchIcon} />
-                </button>
+            <div className="row mt-3 align-items-end">
+              <div className="col  ">
+                <div className="searcwithbtn d-flex">
+                  <div className="SearchBox">
+                    <input
+                      type="text"
+                      placeholder="Search here"
+                      className="form-control"
+                      value={search}
+                      onChange={handleSearchChange}
+                    />
+                    <button className="SearchBtn">
+                      <img src={searchIcon} />
+                    </button>
+                  </div>
+                  <div className="btnserch d-flex align-items-center">
+                    <a
+                      className={`btn  ${type === "veg" ? "VegBtn" : ""}`}
+                      onClick={() => handleTypeClick("veg")}
+                    >
+                      Veg
+                    </a>
+                    <a
+                      className={`btn  ${type === "non-veg" ? "VegBtn" : ""}`}
+                      onClick={() => handleTypeClick("non-veg")}
+                    >
+                      non Veg
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="btnserch d-flex align-items-center">
-                <a
-                  className={`btn  ${type === "veg" ? "VegBtn" : ""}`}
-                  onClick={() => handleTypeClick("veg")}
-                >
-                  Veg
-                </a>
-                <a
-                  className={`btn  ${type === "non-veg" ? "VegBtn" : ""}`}
-                  onClick={() => handleTypeClick("non-veg")}
-                >
-                  non Veg
-                </a>
+
+              <div className="col-auto  ">
+                <div className="FOLLOWUS bannerfollow">
+                  <h3>follow us </h3>
+                  <ul className="FOLLOWUSlist d-flex">
+                    <li>
+                      <Link to={contactUsDetails?.kitchenInstagram}>
+                        <img src={ficoninsta}></img>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={contactUsDetails?.kitchenYoutube}>
+                        <img src={ficonyoutube}></img>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div className="FOLLOWUS bannerfollow">
-              <h3>follow us </h3>
-              <ul className="FOLLOWUSlist d-flex">
-                <li>
-                  <Link to={contactUsDetails?.kitchenInstagram}>
-                    <img src={ficoninsta}></img>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={contactUsDetails?.kitchenYoutube}>
-                    <img src={ficonyoutube}></img>
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -213,6 +220,23 @@ function Smartkitchen() {
               items={7}
               nav
               margin={10}
+              responsive={{
+                0: {
+                  items: 2, // 0px and up
+                },
+                481: {
+                  items: 3, // 0px and up
+                },
+                768: {
+                  items: 5, // 600px and up
+                },
+                992: {
+                  items: 6, // 600px and up
+                },
+                1200: {
+                  items: 7, // 1000px and up
+                },
+              }}
             >
               {filterCategories?.map((cat) => (
                 <div className="item" key={cat.id}>

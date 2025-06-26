@@ -25,8 +25,15 @@
     max-width: 1140px;
     padding: 0 15px;
   }
+
+  span.bannerup {
+    margin-left: 0;
+  }
 }
 @media (min-width: 1400px) {
+  span.bannerup {
+    margin-left: 0;
+  }
   .zigzagtextcontent {
     max-width: 1320px;
     padding: 0 15px;
@@ -524,11 +531,20 @@
 }
 
 @media (max-width: 1199px) {
+  span.bannerup {
+    margin-left: -20px;
+
+    top: 48px;
+  }
   .owl-theme .owl-nav {
     display: none !important;
   }
   .bannerSection {
     overflow: hidden;
+  }
+
+  .blogbannertitle {
+    font-size: 30px;
   }
   .bannerSectionInner figure:after {
     width: 400px;
@@ -858,9 +874,6 @@
   }
   .row.row-cols-5.SmartKichinlistrow {
     justify-content: center;
-  }
-  .SearchBox {
-    width: 600px;
   }
 
   .btnserch .btn {
@@ -1320,9 +1333,6 @@
   .bmiCalculatorBg {
     margin-top: 0;
   }
-  .SearchBox {
-    width: 500px;
-  }
 
   .col-xxl-2.col-sm-3.sortbyright select.form-select {
     font-size: 16px;
@@ -1779,6 +1789,23 @@
   .FOLLOWUS.bannerfollow {
     bottom: 70px;
     right: 20px;
+  }
+  .FOLLOWUSlist li {
+    width: 40px;
+    height: 40px;
+  }
+
+  ul.FOLLOWUSlist li img {
+    width: 19px;
+    position: relative;
+    top: -2px;
+  }
+
+  span.bannerup img {
+    width: 176px;
+    margin-left: 0;
+    position: relative;
+    top: -28px;
   }
 }
 @media (max-width: 767px) {
@@ -2354,6 +2381,11 @@
   .FOLLOWUS.bannerfollow {
     bottom: 53px;
   }
+
+  span.bannerup img {
+    position: relative;
+    top: -13px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -2819,6 +2851,51 @@
   .imgcardcontent h4 {
     font-size: 24px;
   }
+
+  .searcwithbtn {
+    flex-wrap: wrap;
+  }
+  .btnserch {
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .btnserch .btn {
+    width: 50%;
+    font-size: 13px;
+    margin-left: 0;
+  }
+
+  .SearchBox input {
+    height: 40px;
+    font-size: 14px;
+  }
+  .btnserch .btn {
+    height: 40px;
+  }
+  .blogbanner .innerbannerContent {
+    bottom: 12px;
+  }
+
+  .smartkitchein-banner .row.mt-3.align-items-end .col {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+  .smartkitchein-banner .col-auto {
+    display: none;
+  }
+  span.bannerup {
+    margin-left: 2px;
+    top: 29px;
+  }
+
+  .blogbannertitle {
+    top: 75px;
+  }
+
+  .carticon{    display: flex
+;
+    align-items: center;}
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -2927,12 +3004,10 @@
     width: 40%;
     margin-left: auto;
   }
-  .SearchBox {
-    width: 88%;
-  }
+
   .SearchBox input {
-    height: 45px;
-    font-size: 15px;
+          height: 40px;
+        font-size: 13px;
   }
   .apdinfo {
     flex-wrap: wrap;
@@ -3417,4 +3492,38 @@
   .imgsmcard img {
     height: 128px;
   }
+
+  span.bannerup img {
+    width: 82px;
+    margin-left: auto;
+    display: block;
+  }
+
+  .blogbannertitle {
+    font-size: 12px;
+  }
+  section.SmartKichin {
+    padding-bottom: 0;
+}
+
+.SmartKichinslider {
+    padding-top: 0;
+}
+
+.paginationfooter {
+    flex-wrap: wrap;
+}
+.FOLLOWUS {
+    flex: initial;
+    width: 100%;
+    padding: 20px 0;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+ul.FOLLOWUSlist {
+    justify-content: center;
+}
+
+.btn.btn-primary.xm-btn{font-size: 14px;}
 }
