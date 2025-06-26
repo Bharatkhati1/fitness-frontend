@@ -1890,7 +1890,7 @@ ul.BottomFooterList li a {
 }
 
 body .owl-item .OurServicesContent figure img {
-  height: 260px;
+  height: 350px;
   width: 100% !important;
   background: #fff;
 }
@@ -5171,7 +5171,7 @@ ul.sitelistinner li a {
   color: #000000;
   font-weight: 600;
   margin-bottom: 5px !important;
-      text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .cardcontent p {

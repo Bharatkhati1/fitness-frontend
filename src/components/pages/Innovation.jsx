@@ -131,33 +131,53 @@ function Innovation() {
         <div className="container">
           <div className="innovation">
             <div className="row g-1">
-              <div className="col-md-7">
-                <div className="imgcard">
-                  <img
-                    crossOrigin="anonymous"
-                    src={sliders[0]?.image_url}
-                  ></img>
-
-                  <div className="imgcardcontent">
-                    <h4>Intelligence. Innovation. Impact.</h4>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-5">
-                <div className="row g-1">
-                  {sliders?.slice(1, 5).map((img) => (
-                    <div className="col-md-6 ">
-                      <div className="imgsmcard">
-                        <img src={img.image_url} crossOrigin="anonymous"></img>
-                        <div className="imgsmcardcontent">
-                          <p>{img.heading}</p>
-                        </div>
+              {sliders && sliders.length > 0 && (
+                <>
+                  {/* Primary Slider (Left Section) */}
+                  <div className="col-md-7">
+                    <div className="imgcard">
+                      <img
+                        crossOrigin="anonymous"
+                        src={
+                          sliders.find((s) => s.isPrimary)?.image_url ||
+                          sliders[0]?.image_url
+                        }
+                        alt="Primary"
+                      />
+                      <div className="imgcardcontent">
+                        <h4>
+                          {sliders.find((s) => s.isPrimary)?.heading ||
+                            sliders[0]?.heading ||
+                            "Intelligence. Innovation. Impact."}
+                        </h4>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+
+                  {/* Other Sliders (Right Section) */}
+                  <div className="col-md-5">
+                    <div className="row g-1">
+                      {sliders
+                        .filter((s) => !s.isPrimary)
+                        .slice(0, 4)
+                        .map((img, idx) => (
+                          <div className="col-md-6" key={idx}>
+                            <div className="imgsmcard">
+                              <img
+                                src={img.image_url}
+                                crossOrigin="anonymous"
+                                alt={`Slider ${idx}`}
+                              />
+                              <div className="imgsmcardcontent">
+                                <p>{img.heading}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <div className="filtersBox innovationfilters">
