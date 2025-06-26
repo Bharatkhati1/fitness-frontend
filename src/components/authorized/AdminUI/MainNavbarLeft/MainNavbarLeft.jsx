@@ -104,7 +104,7 @@ const NavItems = {
         { name: "Job Applications", path: "applied-jobs" },
         { name: "Contact Details", path: "contact-details" },
         { name: "Privacy Policy", path: "privacy-policy" },
-        { name: "Return Policy", path: "return-policy" },
+        { name: "Refund Policy", path: "refund-policy" },
         { name: "Careers", path: "career" },
         { name: "Innovation", path: "innovation" },
       ],

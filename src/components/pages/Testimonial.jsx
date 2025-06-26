@@ -19,9 +19,13 @@ import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
 import JoinCommunity from "../authorized/UserUI/Body/Modals/JoinCommunity.jsx";
 import Whyus from "../authorized/UserUI/Body/Whyus.jsx";
+import { useSelector } from "react-redux";
 function Testimonial() {
+  const { allServices = [] } = useSelector((state) => state.auth);
   const [successStoriesTop, setSuccessStoriesTop] = useState([]);
   const [successStoriesBottom, setSuccessStoriesBottom] = useState([]);
+  const [alltestimonials, setAlltestimonials] = useState([]);
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [open, setOpen] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -29,7 +33,7 @@ function Testimonial() {
     email: "",
     phone: "",
     message: "",
-    type:"inquiry"
+    type: "inquiry",
   });
 
   const handleChange = (e) => {
@@ -40,6 +44,18 @@ function Testimonial() {
     }));
   };
 
+  const fetchtestimonials = async () => {
+    try {
+      const res = await webAxios.get(
+        userApiRoutes.get_testimonials(selectedServiceId, null)
+      );
+      setAlltestimonials(res.data.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await sendInquiry(formData);
@@ -48,7 +64,7 @@ function Testimonial() {
       email: "",
       phone: "",
       message: "",
-      type:"inquiry"
+      type: "inquiry",
     });
   };
   const fetchSuccessStories = async () => {
@@ -70,6 +86,10 @@ function Testimonial() {
     fetchSuccessStories();
   }, []);
 
+  useEffect(() => {
+    fetchtestimonials();
+  }, [selectedServiceId]);
+  console.log(alltestimonials);
   return (
     <>
       <JoinCommunity open={open} setOpen={setOpen} />
@@ -80,9 +100,20 @@ function Testimonial() {
         <div className="container">
           <div className="innerbannerContent">
             <h2>Transformation Stories</h2>
-            <p>
+            <p className="d-flex justify-content-between">
               Discover inspiring testimonials from our clients who transformed
               their fitness journeys with us.
+              <select
+                className="form-select w-25"
+                onChange={(e) => setSelectedServiceId(e.target.value)}
+              >
+                <option value="">Select Service</option>
+                {allServices.map((action, idx) => (
+                  <option key={idx} value={action.id}>
+                    {action.name}
+                  </option>
+                ))}
+              </select>
             </p>
           </div>
         </div>
@@ -115,133 +146,55 @@ function Testimonial() {
                   autoplay={true}
                   dots={false}
                   items={3}
+                  key={alltestimonials.length} 
                   autoplaySpeed={500}
                   autoplayTimeout={3000}
                   loop={true}
                   margin={20}
                   nav={true}
                   responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 2, // 600px and up
-                    },
-                    992: {
-                      items: 3, // 600px and up
-                    },
-                    1200: {
-                      items: 3, // 1000px and up
-                    },
+                    0: { items: 1 },
+                    481: { items: 1 },
+                    768: { items: 2 },
+                    992: { items: 3 },
+                    1200: { items: 3 },
                   }}
                 >
-                  <div class="item">
-                    <div className="clientcontentbg">
-                      <ul className="ratinglist d-flex">
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                      </ul>
-                      <p>
-                        I lost 15 kgs of fat in 5 months under coach Rahul. Also
-                        coach Shivam is such a sweet guy, pushed me often when I
-                        felt low.
-                      </p>
-                      <div className="testiuser">
-                        <figure>
-                          <img src={userimg}></img>
-                        </figure>
-                        <figcaption>
-                          <h4>Reshma V</h4>
-                          <p>Vishakhapatnam</p>
-                        </figcaption>
+                  {alltestimonials.map((rating, index) => {
+                    const filledStars = parseInt(rating.rating || 0);
+                    const user = rating.User || {};
+                    const fullName = user.firstName || "Anonymous";
+                    const profileImage = user.profilePicture
+                      ? `/path/to/images/${user.profilePicture}`
+                      : userimg;
+
+                    return (
+                      <div className="item" key={index}>
+                        <div className="clientcontentbg">
+                          <ul className="ratinglist d-flex">
+                            {[...Array(5)].map(
+                              (_, i) =>
+                                i < filledStars && (
+                                  <li key={i}>
+                                    <img src={fillstar} alt="star" />
+                                  </li>
+                                )
+                            )}
+                          </ul>
+                          <p>{rating.description || "No feedback provided."}</p>
+                          <div className="testiuser">
+                            <figure>
+                              <img src={profileImage} alt={fullName} />
+                            </figure>
+                            <figcaption>
+                              <h4>{fullName}</h4>
+                              <p>{rating?.Package?.name || ""}</p>
+                            </figcaption>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div className="clientcontentbg">
-                      <ul className="ratinglist d-flex">
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                      </ul>
-                      <p>
-                        I lost 15 kgs of fat in 5 months under coach Rahul. Also
-                        coach Shivam is such a sweet guy, pushed me often when I
-                        felt low.
-                      </p>
-                      <div className="testiuser">
-                        <figure>
-                          <img src={userimg2}></img>
-                        </figure>
-                        <figcaption>
-                          <h4>Michael Lee</h4>
-                          <p>New York</p>
-                        </figcaption>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div className="clientcontentbg">
-                      <ul className="ratinglist d-flex">
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                        <li>
-                          <img src={fillstar}></img>
-                        </li>
-                      </ul>
-                      <p>
-                        This program transformed my life! I feel stronger and
-                        more confident now.
-                      </p>
-                      <div className="testiuser">
-                        <figure>
-                          <img src={userimg3}></img>
-                        </figure>
-                        <figcaption>
-                          <h4>Emily Johnson</h4>
-                          <p>San Francisco</p>
-                        </figcaption>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </OwlCarousel>
               </div>
             </div>
@@ -287,7 +240,7 @@ function Testimonial() {
                   slidesToScroll: 1,
                 },
               },
-               {
+              {
                 breakpoint: 575,
                 settings: {
                   slidesToShow: 1,
@@ -329,7 +282,8 @@ function Testimonial() {
                     </div>
                   </div>
                   <h3 className="clientafterbeforetitle">
-                    {successStory.description || "12 months natural transformation"}
+                    {successStory.description ||
+                      "12 months natural transformation"}
                   </h3>
                 </div>
               </div>
@@ -365,7 +319,7 @@ function Testimonial() {
                   slidesToScroll: 1,
                 },
               },
-                {
+              {
                 breakpoint: 575,
                 settings: {
                   slidesToShow: 1,
@@ -412,7 +366,6 @@ function Testimonial() {
                 </div>
               </div>
             ))}
-
           </Slider>
 
           <div className="JoinNow text-center">
@@ -427,7 +380,7 @@ function Testimonial() {
           </div>
         </div>
       </section>
-      <Whyus/>
+      <Whyus />
       <div className="getintouchmain">
         <div className="container">
           <div className="getintouchinner">

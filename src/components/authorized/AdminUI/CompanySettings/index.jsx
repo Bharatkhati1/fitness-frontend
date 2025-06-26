@@ -24,7 +24,7 @@ const index = () => {
           <Route path="orders" element={<AllOrders/>} />
           <Route path="appointments" element={<AllAppointments />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="return-policy" element={<ReturnPolicy />} />
+          <Route path="refund-policy" element={<ReturnPolicy />} />
           <Route path="contact-details" element={<ContactDetails />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="career" element={<Careers />} />

@@ -376,6 +376,7 @@ const Manage = () => {
                           shortDescription: text,
                         }))
                       }
+                      limit={320}
                     />
                   </div>
                 </div>

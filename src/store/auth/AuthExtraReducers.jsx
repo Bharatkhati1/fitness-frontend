@@ -55,7 +55,7 @@ export const Login = (userData, navigate, userType,route, isAdmin = false) => {
       localStorage.setItem("isAdmin", isAdmin);
       dispatch(authActions.checkingUserToken(false));
       await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(isAdmin ? `/${route}/slider-management` : "/", {
+      navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
         replace: true,
       });
     } catch (error) {

@@ -6,19 +6,25 @@ import ConfirmationPopup from "../Popups/ConfirmationPopup";
 
 const Coupon = () => {
   const [formData, setFormData] = useState({
+    name: "",
     code: "",
     type: "flat",
     value: "",
-    expiry: "",
-    maxCount: "",
+    packageId: [],
     partnerId: "",
-    commission: "",
+    partnerCommission: "",
+    numberOfUsage: 0,
+    maxUsage: "",
+    isActiveDates: true,
+    startDate: "",
+    endDate: ""
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [coupons, setCoupons] = useState([]);
   const [partners, setPartners] = useState([]);
+  const [packages, setPackages] = useState([]);
   const selectedIdRef = useRef(null);
 
   const fetchCoupons = async () => {
@@ -38,13 +44,34 @@ const Coupon = () => {
       toast.error("Failed to fetch partners");
     }
   };
+
+  const fetchAllPackages = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_package);
+      setPackages(res.data.data);
+    } catch (error) {
+      toast.error("Failed to fetch packages");
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handlePackageSelection = (e) => {
+    const { value, checked } = e.target;
+    setFormData(prev => {
+      if (checked) {
+        return { ...prev, packageId: [...prev.packageId, value] };
+      } else {
+        return { ...prev, packageId: prev.packageId.filter(id => id !== value) };
+      }
+    });
+  };
+  
   const handleSubmit = async () => {
-    const requiredFields = ["code", "type", "value", "expiry"];
+    const requiredFields = ["name", "code", "type", "value"];
     const missingFields = requiredFields.filter((field) => !formData[field]);
 
     if (missingFields.length > 0) {
@@ -53,6 +80,12 @@ const Coupon = () => {
       );
       return;
     }
+    
+    if (new Date(formData.startDate) > new Date(formData.endDate)) {
+      toast.warning("End date must be after start date");
+      return;
+    }
+
     setIsLoading(true);
     const toastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} coupon...`
@@ -90,13 +123,18 @@ const Coupon = () => {
 
   const onCancelEdit = () => {
     setFormData({
+      name: "",
       code: "",
       type: "flat",
       value: "",
-      expiry: "",
+      packageId: [],
       partnerId: "",
-      maxCount: "",
-      commission: "",
+      partnerCommission: "",
+      numberOfUsage: 0,
+      maxUsage: "",
+      isActiveDates: true,
+      startDate: "",
+      endDate: ""
     });
     setSelectedId(null);
     setIsEdit(false);
@@ -118,8 +156,10 @@ const Coupon = () => {
   useEffect(() => {
     fetchCoupons();
     fetchAllPartners();
+    fetchAllPackages();
   }, []);
 
+  console.log(formData?.packageId, packages.map((p)=>p.id))
   return (
     <>
       {/* Form Section */}
@@ -134,6 +174,21 @@ const Coupon = () => {
             </div>
             <div className="card-body">
               <div className="row">
+                {/* Name */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Coupon Name*</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      placeholder="Enter coupon name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
                 {/* Code */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -180,22 +235,31 @@ const Coupon = () => {
                   </div>
                 </div>
 
-                {/* Expiry */}
-                <div className="col-lg-6">
+                {/* Packages */}
+                <div className="col-lg-12">
                   <div className="mb-3">
-                    <label className="form-label">Expiry Date*</label>
-                    <input
-                      type="date"
-                      style={{ textTransform: "uppercase" }}
-                      className="form-control"
-                      name="expiry"
-                      value={formData.expiry}
-                      onChange={handleInputChange}
-                    />
+                    <label className="form-label">Applicable Packages</label>
+                    <div className="d-flex flex-wrap gap-3">
+                      {packages.map((pkg) => (
+                        <div key={pkg.id} className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`package-${pkg.id}`}
+                            value={pkg.id}
+                            checked={formData.packageId.includes(pkg.id.toString())}
+                            onChange={handlePackageSelection}
+                          />
+                          <label className="form-check-label" htmlFor={`package-${pkg.id}`}>
+                            {pkg.name}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Partner  */}
+                {/* Partner */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Select Partner</label>
@@ -203,35 +267,30 @@ const Coupon = () => {
                       className="form-select"
                       name="partnerId"
                       value={formData.partnerId}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          partnerId: e.target.value,
-                        }))
-                      }
+                      onChange={handleInputChange}
                     >
-                      <option value="">Select category</option>
-                      {partners.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.name}
+                      <option value="">Select partner</option>
+                      {partners.map((partner) => (
+                        <option key={partner.id} value={partner.id}>
+                          {partner.name}
                         </option>
                       ))}
                     </select>
                   </div>
                 </div>
 
-                {/* Commission */}
+                {/* Partner Commission */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
-                      Partner Commission (Optional)
+                      Partner Commission (%)
                     </label>
                     <input
                       type="number"
                       className="form-control"
-                      name="commission"
+                      name="partnerCommission"
                       placeholder="Enter commission percentage (0-100)"
-                      value={formData.commission}
+                      value={formData.partnerCommission}
                       onChange={(e) => {
                         const value = e.target.value;
                         if (
@@ -244,41 +303,71 @@ const Coupon = () => {
                       min="0"
                       max="100"
                     />
-                    {formData.commission > 100 && (
-                      <div className="text-danger small mt-1">
-                        Commission cannot be more than 100%
-                      </div>
-                    )}
                   </div>
                 </div>
 
-                {/* Max Count */}
+                {/* Max Usage */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Max Count</label>
+                    <label className="form-label">Max Usage</label>
                     <input
                       type="number"
                       className="form-control"
-                      name="maxCount"
-                      placeholder="Enter max count (0-100)"
-                      value={formData.maxCount}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (
-                          value === "" ||
-                          (Number(value) >= 0 && Number(value) <= 100)
-                        ) {
-                          handleInputChange(e);
-                        }
-                      }}
-                      min="0"
-                      max="100"
+                      name="maxUsage"
+                      placeholder="Enter maximum usage count"
+                      value={formData.maxUsage}
+                      onChange={handleInputChange}
+                      min="1"
                     />
-                    {formData.commission > 100 && (
-                      <div className="text-danger small mt-1">
-                        Commission cannot be more than 100%
-                      </div>
-                    )}
+                  </div>
+                </div>
+
+                {/* Active Dates Toggle */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Use Active Dates</label>
+                    <div className="form-check form-switch">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        name="isActiveDates"
+                        checked={formData.isActiveDates}
+                        onChange={(e) => 
+                          setFormData(prev => ({...prev, isActiveDates: e.target.checked}))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Start Date */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Start Date*</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="startDate"
+                      value={formData.startDate}
+                      onChange={handleInputChange}
+                      disabled={!formData.isActiveDates}
+                    />
+                  </div>
+                </div>
+
+                {/* End Date */}
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">End Date*</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="endDate"
+                      value={formData.endDate}
+                      onChange={handleInputChange}
+                      disabled={!formData.isActiveDates}
+                    />
                   </div>
                 </div>
               </div>
@@ -310,12 +399,15 @@ const Coupon = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>Id</th>
+                      <th>Name</th>
                       <th>Code</th>
                       <th>Type</th>
                       <th>Value</th>
-                      <th>Expiry</th>
-                      <th>Partner ID</th>
+                      <th>Packages</th>
+                      <th>Partner</th>
                       <th>Commission</th>
+                      <th>Usage</th>
+                      <th>Dates</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -324,13 +416,25 @@ const Coupon = () => {
                       coupons.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
+                          <td>{item?.name}</td>
                           <td>{item?.code}</td>
                           <td>{item?.type}</td>
-                          <td>{item?.value}</td>
-                          <td>{new Date(item?.expiry).toLocaleDateString()}</td>
+                          <td>{item?.value}{item?.type === 'percent' ? '%' : ''}</td>
+                          <td>
+                            {item?.packageId?.length > 0 
+                              ? item.packageId.join(', ') 
+                              : 'All'}
+                          </td>
                           <td>{item?.partnerId || "-"}</td>
                           <td>
-                            {item?.commission ? `${item.commission}%` : "-"}
+                            {item?.partnerCommission ? `${item.partnerCommission}%` : "-"}
+                          </td>
+                          <td>
+                            {item?.numberOfUsage} / {item?.maxUsage || '∞'}
+                          </td>
+                          <td>
+                            {new Date(item?.startDate).toLocaleDateString()} - {' '}
+                            {new Date(item?.endDate).toLocaleDateString()}
                           </td>
                           <td>
                             <div className="d-flex gap-2">
@@ -340,13 +444,18 @@ const Coupon = () => {
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
+                                    name: item?.name,
                                     code: item?.code,
                                     type: item?.type,
-                                    maxCount: item?.maxCount || "",
                                     value: item?.value,
-                                    expiry: item?.expiry?.split("T")[0],
+                                    packageId: item?.CouponPackages?.map((data)=> `${data.packageId}`) || [],
                                     partnerId: item?.partnerId || "",
-                                    commission: item?.commission || "",
+                                    partnerCommission: item?.partnerCommission || "",
+                                    numberOfUsage: item?.numberOfUsage || 0,
+                                    maxUsage: item?.maxUsage || "",
+                                    isActiveDates: item?.isActiveDates !== false,
+                                    startDate: item?.startDate?.split("T")[0],
+                                    endDate: item?.endDate?.split("T")[0]
                                   });
                                 }}
                               >
@@ -376,7 +485,7 @@ const Coupon = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="8" className="text-center">
+                        <td colSpan="11" className="text-center">
                           No coupons found.
                         </td>
                       </tr>

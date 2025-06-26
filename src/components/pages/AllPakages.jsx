@@ -19,6 +19,7 @@ function AllPakages() {
     (state) => state.auth
   );
 
+  console.log(allPackages)
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 
@@ -166,6 +167,7 @@ function AllPakages() {
               <OwlCarousel
                 className="owl-theme"
                 autoplay={false}
+                key={JSON.stringify(allPackages?.map(p => p.id))}
                 dots={false}
                 items={3}
                 autoplaySpeed={500}

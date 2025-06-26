@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import axios from "axios";
-import AppleIcon from "../../../public/assets/img/AppleIcon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Login } from "../../store/auth/AuthExtraReducers";
@@ -14,6 +13,7 @@ import Footer from "../authorized/UserUI/Footer/Footer";
 import { webAxios } from "../../utils/constants";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { authActions } from "../../store/auth";
+import AppleLoginButton from "./AppleLogin";
 
 const LoginUser = () => {
   const dispatch = useDispatch();
@@ -352,10 +352,7 @@ const LoginUser = () => {
                         }}
                       />
                     </a>
-                    <a href="#">
-                      <img src={AppleIcon} alt="Apple icon" />
-                      login using apple
-                    </a>
+                 <AppleLoginButton/>
                   </div>
                 </form>
               )}

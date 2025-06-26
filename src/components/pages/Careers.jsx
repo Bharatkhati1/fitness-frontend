@@ -382,7 +382,7 @@ function Careers() {
                   margin={10}
                 >
                   {careersCms?.OptionalImages.map((img) => (
-                    <div className="item">
+                    <div className="item" data-merge="2">
                       <div>
                         <img crossOrigin="anonymous" src={img.image_url}></img>
                       </div>

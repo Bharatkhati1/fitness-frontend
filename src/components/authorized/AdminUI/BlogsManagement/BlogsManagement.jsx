@@ -374,7 +374,7 @@ const BlogsManagement = () => {
                     <label htmlFor="service-des" className="form-label">
                       Short Desciption
                     </label>
-                    <Ckeditor text={shortDesc} setText={setShortDesc} />
+                    <Ckeditor text={shortDesc} setText={setShortDesc} limit={320}/>
                   </div>
                 </div>
               </div>

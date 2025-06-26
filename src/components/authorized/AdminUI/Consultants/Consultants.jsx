@@ -32,6 +32,17 @@ const Consultants = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
+  const [selectedDays, setSelectedDays] = useState([]);
+
+  const handleDayToggle = (day) => {
+    console.log(day, selectedDays)
+    setSelectedDays(
+      (prev) =>
+        prev?.includes(day)
+          ? prev?.filter((d) => d !== day)
+          : [...prev, day] 
+    );
+  };
 
   const fetchAllConsultants = async () => {
     try {
@@ -72,6 +83,7 @@ const Consultants = () => {
     Object.entries(formData).forEach(([key, val]) => {
       if (val !== null && val !== undefined) payload.append(key, val);
     });
+    payload.append("dayAvailability",selectedDays)
 
     try {
       const url = isEdit
@@ -109,6 +121,7 @@ const Consultants = () => {
     setIsEdit(false);
     setSelectedConsultantID(null);
     setSelectedFileName("");
+    setSelectedDays([])
     setFormData({
       title: "",
       type: [],
@@ -273,7 +286,8 @@ const Consultants = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label htmlFor="consultant-image" className="form-label">
-                      Image {isEdit && !formData?.image && `: ${selectedFileName}`}
+                      Image{" "}
+                      {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="consultant-image"
@@ -325,6 +339,42 @@ const Consultants = () => {
                         Inactive
                       </label>
                     </div>
+                  </div>
+                </div>
+                
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Weekly Availability</label>
+                    <table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Day</th>
+                          <th>Available</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          "Sunday",
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                        ].map((day) => (
+                          <tr key={day}>
+                            <td>{day}</td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                checked={selectedDays?.includes(day)}
+                                onChange={() => handleDayToggle(day)}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -422,7 +472,7 @@ const Consultants = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
-                                  window.scrollTo(0, 0)
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
                                   setFormData({
@@ -444,6 +494,7 @@ const Consultants = () => {
                                     image: null,
                                     isActive: consultant.isActive,
                                   });
+                                  setSelectedDays(consultant?.dayAvailability||[])
                                   setSelectedFileName(consultant.image);
                                 }}
                               >

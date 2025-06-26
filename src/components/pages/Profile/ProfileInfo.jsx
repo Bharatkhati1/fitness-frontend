@@ -182,6 +182,26 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
             />
           </div>
           <div className="col-md-6 mb-3">
+            <label>Address (Pin Code / Zip Code)</label>
+            <input
+              type="text"
+              className="form-control"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
+            <label>City</label>
+            <input
+              type="text"
+              className="form-control"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-md-6 mb-3">
             <label>Gender*</label>
             <select
               className="form-select"

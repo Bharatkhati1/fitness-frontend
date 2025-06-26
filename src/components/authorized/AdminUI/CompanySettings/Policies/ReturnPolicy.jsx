@@ -88,7 +88,7 @@ const ReturnPolicy = () => {
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between">
             <h4 className="card-title">
-              {isEdit ? "Edit Return Policy" : "Return Policy"}
+              {isEdit ? "Edit Refund Policy" : "Refund Policy"}
             </h4>
             {isEdit && <button onClick={onCancelEdit}>Cancel Edit</button>}
           </div>

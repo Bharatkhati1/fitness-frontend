@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import sitemapbanner from "../../../public/assets/img/sitemapbanner.jpg";
+import { webAxios } from "../../utils/constants";
+import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function SiteMap() {
+  const [data, setData] = useState([]);
+  const fetchSiteMapdata = async () => {
+    try {
+      const res = await webAxios.get(userApiRoutes.get_site_map);
+      setData(res.data.data);
+    } catch (error) {
+      toast.error("Server Error");
+    }
+  };
+  useEffect(() => {
+    fetchSiteMapdata();
+  }, []);
+  console.log(data);
   return (
     <>
       <section className="innerbanner">
@@ -28,370 +45,120 @@ function SiteMap() {
           <hr></hr>
 
           <ul className="sitelist">
-            <li>
-              <div className="sitelistsec">
-                <h4>Fat Loss</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                   Workouts for Fat Loss
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Mental Health</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Muscle Gain</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Muktee: A Deaddiction Program</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Mother’s Care</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="sitelistsec">
-                <h4>Sexual Health</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Disease Management: Smart Health Package</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Injury Rehabilitation</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Abcf: The Ultimate Self Defence Guide</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li>
-              <div className="sitelistsec">
-                <h4>Alternative Medicine- Homeopathy</h4>
-
-                <ul className="sitelistinner">
-                  <li>
-                    <a>Workouts for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat-Burning Meal Plans</a>
-                  </li>
-                  <li>
-                    <a>Supplements for Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Home Fat Loss Programs</a>
-                  </li>
-                  <li>
-                    <a>Beginner Fat Loss Plans</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Women</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss for Men</a>
-                  </li>
-                  <li>
-                    <a>Fast Fat Loss Challenges</a>
-                  </li>
-                  <li>
-                    <a>Postpartum Fat Loss</a>
-                  </li>
-                  <li>
-                    <a>Fat Loss Myths & Tips</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            {data?.services?.map(
+              (details) =>
+                details.Packages.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Packages.map((pkg) => (
+                          <li>
+                            <Link to={`/package/${pkg.slug}`}>{pkg.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Blogs</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.blogs?.map(
+              (details) =>
+                details.Blogs.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Blogs.map((pkg) => (
+                          <li>
+                            <Link to={`/blog/${pkg.slug}`}>{pkg.title}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>News</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.news?.map((details) => (
+               <li>
+               <div className="sitelistsec">
+                 <ul className="sitelistinner">
+                     <li>
+                     <Link to={`/blog/${details.Blogs[0].slug}`}>
+                       {details.Blogs[0].title}
+                     </Link>
+                   </li>
+                 </ul>
+               </div>
+             </li>
+          
+            ))}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Services</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.services?.map(
+              (details) =>
+                details.Packages.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Packages.map((pkg) => (
+                          <li>
+                            <Link to={`/package/${pkg.slug}`}>{pkg.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
+        <div className="container">
+          <div class="PageTitle text-left mb-0">
+            <h2>Smart Kitchen</h2>
+          </div>
+          <hr></hr>
+          <ul className="sitelist">
+            {data?.smartKitchen?.map(
+              (details) =>
+                details.Items?.length > 0 && (
+                  <li>
+                    <div className="sitelistsec">
+                      <h4>{details.name}</h4>
+                      <ul className="sitelistinner">
+                        {details.Items.map((pkg) => (
+                          <li>
+                            <Link>{pkg.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </li>
+                )
+            )}
           </ul>
         </div>
       </div>

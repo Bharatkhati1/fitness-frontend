@@ -2858,7 +2858,7 @@ ul.userslink li a {
   width: 100%;
 }
 .servicedetaillisting figcaption h3 {
-  font-size: 38px;
+  font-size: 32px;
   color: #000000;
   font-weight: 700;
   text-transform: uppercase;
@@ -2885,7 +2885,7 @@ ul.userslink li a {
 }
 
 .servicedetaillisting figcaption {
-  background: url(../img/servicepetternImg.png);
+  /* background: url(../img/servicepetternImg.png); */
   padding: 20px 18px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -3420,8 +3420,8 @@ section.clientfeedback {
   margin-right: 3px;
 }
 
-.testiuser figure img {
-  width: 67px;
+.owl-carousel .owl-item .testiuser  figure img {
+  width: 67px !important;
   height: 67px;
   border-radius: 50%;
   object-fit: cover;
@@ -3525,6 +3525,13 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
+.Diabetespageright ul li, .note-editable ul li {
+  list-style: disc;
+  text-align: start;
+  margin-left: 20px;
+}
+
+
 /* .col-xxl.taginforight {
   width: calc(100% - 171px);
 } */

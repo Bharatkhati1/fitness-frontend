@@ -43,7 +43,6 @@ import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
 import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
-import Whyus from "../Whyus";
 
 function Home() {
   const dispatch = useDispatch();
@@ -63,7 +62,7 @@ function Home() {
     contactFor: [],
   });
   const [sliders, setSliders] = useState([]);
-  const [whyus, setWhyus] = useState([])
+  const [whyus, setWhyus] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
@@ -116,7 +115,9 @@ function Home() {
 
   const getSliders = async () => {
     try {
-      const response = await webAxios.get(userApiRoutes.get_sliders("home-page"));
+      const response = await webAxios.get(
+        userApiRoutes.get_sliders("home-page")
+      );
       setSliders(response.data.data);
     } catch (error) {
       console.error(error);
@@ -203,12 +204,9 @@ function Home() {
     }
   };
 
-  
   const getMessages = async () => {
     try {
-      const response = await webAxios.get(
-        userApiRoutes.get_sliders("whyus")
-      );
+      const response = await webAxios.get(userApiRoutes.get_sliders("whyus"));
       setWhyus(response.data.data);
     } catch (error) {
       console.error(error);
@@ -248,7 +246,7 @@ function Home() {
   useEffect(() => {
     getSliders();
     getBlogs();
-    getMessages()
+    getMessages();
     dispatch(getKitchenData());
   }, []);
 
@@ -286,9 +284,15 @@ function Home() {
             nav={true}
             navText={[prevArrow, nextArrow]}
           >
-           <div className="why-class">
-                <img crossOrigin="annoymous" className="w-100"  src={whyus[0]?.image_url}  />
-                </div>
+            {whyus && whyus.length > 0 && (
+              <div className="why-class">
+                <img
+                  crossOrigin="annoymous"
+                  className="w-100"
+                  src={whyus[0]?.image_url}
+                />
+              </div>
+            )}
             {sliders.map((slider) => (
               <div>
                 <div className="container h-100">
@@ -327,7 +331,10 @@ function Home() {
                         >
                           Join Now
                         </Link>
-                        <Link to={"/trial-7-days"} className="hvr-shutter-out-horizontal">
+                        <Link
+                          to={"/trial-7-days"}
+                          className="hvr-shutter-out-horizontal"
+                        >
                           book a trial
                         </Link>
                       </div>
@@ -348,7 +355,6 @@ function Home() {
                 </div>
               </div>
             ))}
-              
           </OwlCarousel>
         )}
       </section>
@@ -432,13 +438,18 @@ function Home() {
                     return (
                       <div className="col-md-4" key={idx}>
                         <div className="OurServicesContent">
-                          <figure>
+                          <figure className="position-relative">
                             <img
                               crossOrigin="anonymous"
                               src={srv.image_url}
                               alt={srv.name}
+                              className="img-fluid"
                             />
+                           {!srv.isPublished && <span className="coming-soon-label">
+                              Coming Soon
+                            </span>}
                           </figure>
+
                           <figcaption>
                             <h3>{srv.name}</h3>
                             {srv.shortDescription && (
@@ -448,7 +459,7 @@ function Home() {
                                 }}
                               ></p>
                             )}
-                            <div className="gap-1 service-btn text-center d-flex">
+                           {srv.isPublished && <div className="gap-1 service-btn text-center d-flex">
                               {showButton("Know more") && (
                                 <Link
                                   to={`/service-details/${srv.name
@@ -477,7 +488,7 @@ function Home() {
                                   Contact our Helpline
                                 </a>
                               )}
-                            </div>
+                            </div>}
                           </figcaption>
                         </div>
                       </div>
@@ -569,21 +580,24 @@ function Home() {
             <img src={butterflyimg}></img>
           </span> */}
 
-         <div className="buttergroup"> <span className="butterflyone">
-            <img src={butterfly1}></img>
-          </span>
-          <span className="butterflytwo">
-            <img src={butterfly2}></img>
-          </span>
-          <span className="butterflythree">
-            <img src={butterfly3}></img>
-          </span>
-          <span className="butterflyfour">
-            <img src={butterfly4}></img>
-          </span>
-          <span className="butterflyfive">
-            <img src={butterfly5}></img>
-          </span></div>
+          <div className="buttergroup">
+            {" "}
+            <span className="butterflyone">
+              <img src={butterfly1}></img>
+            </span>
+            <span className="butterflytwo">
+              <img src={butterfly2}></img>
+            </span>
+            <span className="butterflythree">
+              <img src={butterfly3}></img>
+            </span>
+            <span className="butterflyfour">
+              <img src={butterfly4}></img>
+            </span>
+            <span className="butterflyfive">
+              <img src={butterfly5}></img>
+            </span>
+          </div>
 
           <div className="row">
             <div className="MuktiBoxLeft">
@@ -611,7 +625,10 @@ function Home() {
                   just one step away from availing the best solution.
                 </p>
 
-                <Link to={"/service-details/muktee:-a-deaddiction-program"} className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal">
+                <Link
+                  to={"/service-details/muktee:-a-deaddiction-program"}
+                  className="btn btn-primary sm-btn mt-3 hvr-shutter-out-horizontal"
+                >
                   know more
                 </Link>
               </div>
@@ -801,7 +818,7 @@ function Home() {
 
                 <ul className="SoicalList">
                   <li>
-                    <a href={`${contactUsDetails?.instagram}`}>
+                    <a href={`${contactUsDetails?.instagram}`}>                                                                                                                                                                                       
                       <img src={InstaIcon}></img>
                     </a>
                   </li>

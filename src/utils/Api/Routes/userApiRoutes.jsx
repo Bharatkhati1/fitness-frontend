@@ -1,7 +1,7 @@
 const userApiRoutes = {
   get_sliders:(slug)=>`/sliders?slug=${slug}`,
 
-  get_services: `/services`,
+  get_services: `/services?limit=1000`,
 
   get_blogs: ({ search = '', page = 1, limit = 10, category, order, type} = {}) => {
     const params = new URLSearchParams();
@@ -108,7 +108,9 @@ const userApiRoutes = {
 
   get_feedback_package:`/user/feedback-packages`,
 
-  update_profile_image:`/upload-profile-image`
+  update_profile_image:`/upload-profile-image`,
+
+  get_site_map:`/sitemap`
   
 };
 
