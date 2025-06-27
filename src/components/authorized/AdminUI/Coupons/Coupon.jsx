@@ -403,7 +403,6 @@ const Coupon = () => {
                       <th>Code</th>
                       <th>Type</th>
                       <th>Value</th>
-                      <th>Packages</th>
                       <th>Partner</th>
                       <th>Commission</th>
                       <th>Max Usage</th>
@@ -420,11 +419,6 @@ const Coupon = () => {
                           <td>{item?.code}</td>
                           <td>{item?.type}</td>
                           <td>{item?.value}{item?.type === 'percent' ? '%' : ''}</td>
-                          <td>
-                            {item?.packageId?.length > 0 
-                              ? item.packageId.join(', ') 
-                              : 'All'}
-                          </td>
                           <td>{item?.partnerId || "-"}</td>
                           <td>
                             {item?.partnerCommission ? `${item.partnerCommission}%` : "-"}
