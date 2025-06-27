@@ -69,8 +69,6 @@ const App = () => {
         return "/b2b-partner";
       case "consultant":
         return "/service-provider";
-      default:
-        return "/login-user";
     }
   };
 
@@ -94,7 +92,9 @@ const App = () => {
   
   if (isCheckingToken) return <PageLoader />;
 
+  console.log("isAdmin", isAdmin)
   if (!isLoggedIn) {
+    console.log("inisde not logn")
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>

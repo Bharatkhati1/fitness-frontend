@@ -1,17 +1,21 @@
 import React from "react";
 import AppleLogin from "react-apple-login";
 import AppleIcon from "../../../public/assets/img/AppleIcon.png";
+import { jwtDecode } from "jwt-decode";
 
-const AppleLoginButton = () => {
+const AppleLoginButton = ({handleSocialLoginGoogle}) => {
   const handleAppleResponse = (response) => {
     console.log("Apple login response:", response);
+    const decoded = jwtDecode(response.authorization.id_token);
+    console.log("decoded", decoded);
+    handleSocialLoginGoogle(decoded)
   };
 
   return (
     <div>
       <AppleLogin
-        clientId="YOUR_CLIENT_ID"
-        redirectURI="YOUR_REDIRECT_URI"
+        clientId="com.thedailyfitness.web.login"
+        redirectURI="https://daily-fitness.24livehost.com/login-user"
         usePopup={true}
         callback={handleAppleResponse}
         scope="email name"

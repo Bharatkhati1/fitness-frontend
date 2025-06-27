@@ -143,7 +143,7 @@ function PackageDetails() {
 
             <div className="DiabetesHealthPakages mt-4 mb-0 justify-content-center">
               <div class="InnerPageTitle text-center">
-                <h4>{details.name} Variants</h4>
+                <h4>{details.name} package  Variants</h4>
               </div>
 
               <div className="row justify-content-center">

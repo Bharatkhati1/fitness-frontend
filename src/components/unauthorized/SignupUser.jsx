@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { jwtDecode } from "jwt-decode";
+import AppleLoginButton from "./AppleLogin";
 
 function SignUpUser() {
   const [step, setStep] = useState(1); // 1: email/password, 2: OTP input, 3: success
@@ -108,7 +109,7 @@ function SignUpUser() {
         await axios.post(`${GATEWAY_URL}/web/otp-verify`, {
           email: formData.email,
           otp: formData.otp,
-          userType:"user"
+          userType: "user",
         });
 
         toast.update(toastId, {
@@ -183,21 +184,21 @@ function SignUpUser() {
           <div className="fieldbox mb-3">
             <label>Your Whatsapp Number*</label>
             <div className="contactInput">
-            <span>+91</span>
-            <input
-              name="phoneNumber"
-              type="text"
-              className="form-control"
-              placeholder="Enter your number"
-              value={formData.phoneNumber}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (/^\d{0,10}$/.test(value)) {
-                  handleChange(e);
-                }
-              }}
-              required
-            />
+              <span>+91</span>
+              <input
+                name="phoneNumber"
+                type="text"
+                className="form-control"
+                placeholder="Enter your number"
+                value={formData.phoneNumber}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,10}$/.test(value)) {
+                    handleChange(e);
+                  }
+                }}
+                required
+              />
             </div>
           </div>
         </div>
@@ -369,10 +370,9 @@ function SignUpUser() {
                           }}
                         />
                       </a>
-                      <a className="mb-0" href="#">
-                        <img src={AppleIcon} alt="Apple" />
-                        login using apple
-                      </a>
+                      <AppleLoginButton
+                        handleSocialLoginGoogle={handleSocialLoginGoogle}
+                      />
                     </div>
                   </>
                 )}

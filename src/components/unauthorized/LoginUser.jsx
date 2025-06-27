@@ -82,7 +82,7 @@ const LoginUser = () => {
       if (resetStep === 1) {
         await axios.post(`${GATEWAY_URL}/web/forgot-password`, {
           email: resetEmail,
-          type:"user"
+          type: "user",
         });
         toast.success("OTP sent to your email!");
         await new Promise((res) => setTimeout(res, 500));
@@ -91,7 +91,7 @@ const LoginUser = () => {
         await axios.post(`${GATEWAY_URL}/web/otp-verify`, {
           email: resetEmail,
           otp: otp,
-          userType:"user"
+          userType: "user",
         });
         toast.success("Verification successful!");
         await new Promise((res) => setTimeout(res, 500));
@@ -101,7 +101,7 @@ const LoginUser = () => {
           email: resetEmail,
           new_password: newPassword,
           confirm_password: confirmPassword,
-          type:"user"
+          type: "user",
         });
         toast.success("Password reset successful. Please login.");
         setIsForgotPassword(false);
@@ -235,15 +235,19 @@ const LoginUser = () => {
         ...dataGoogle,
         profilePicture: dataGoogle?.picture,
       };
-      const { data } = await webAxios.post(userApiRoutes.social_login, payload, {
-        withCredentials: true,
-      });
-      console.log("data", data)
+      const { data } = await webAxios.post(
+        userApiRoutes.social_login,
+        payload,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("data", data);
       dispatch(
         authActions.loginUser({
           isLoggedIn: true,
           isAdmin: false,
-          user: { ...data?.user }
+          user: { ...data?.user },
         })
       );
       dispatch(authActions.setUserDetails({ ...data?.user }));
@@ -255,7 +259,7 @@ const LoginUser = () => {
         replace: true,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response.data.error);
     }
   };
@@ -352,7 +356,9 @@ const LoginUser = () => {
                         }}
                       />
                     </a>
-                 {/* <AppleLoginButton/> */}
+                    <AppleLoginButton
+                      handleSocialLoginGoogle={handleSocialLoginGoogle}
+                    />
                   </div>
                 </form>
               )}
