@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const TopBar = () => {
-
+  const navigate = useNavigate()
   const pathAndName = {
     "/service-management": "Service Management",
     "/slider-management": "Slider Management",
@@ -17,7 +17,7 @@ const TopBar = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logoutUser(false));
+    dispatch(logoutUser(false, navigate));
   };
   return (
     <header className="topbar">

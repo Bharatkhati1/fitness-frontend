@@ -10,12 +10,13 @@ import { useSelector } from "react-redux";
 function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
   const { encodedId } = useParams();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
   });
   const [selectedSlot, setSelectedSlot] = useState("");
+
   const [bookingId, setBookingId] = useState("");
   const [isfollowUpDiscountApplied, setIsFollowUpDiscountApplied] =
     useState(null);
@@ -38,7 +39,7 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
       : consultant?.fees;
     const appointmentData = {
       packageId: packageId,
-      type:type,
+      type: type,
       consultantId: consultant?.id,
       consultantName: consultant?.name,
       consultantImage: consultant?.image_url,
@@ -78,23 +79,25 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
         setIsFollowUpDiscountApplied(res.data?.data?.followUpDiscount);
       } else {
         toast.info(res.data.message);
-        setIsFollowUpDiscountApplied(null)
+        setIsFollowUpDiscountApplied(null);
       }
     } catch (error) {
       toast.error(error.response.data.error);
-      setIsFollowUpDiscountApplied(null)
+      setIsFollowUpDiscountApplied(null);
     }
   };
   const fetchAvailibilitySlots = async (id) => {
     try {
-      const res = await userAxios.get(
-        userApiRoutes.consultant_availibility_slots(id, selectedDate)
-      );
-      setSlots(res.data.data);
+        const res = await userAxios.get(
+          userApiRoutes.consultant_availibility_slots(id, selectedDate)
+        );
+        setSlots(res.data.data);
+      
     } catch (error) {
       console.error(error.response.data.error);
     }
   };
+
 
   useEffect(() => {
     setSelectedSlot("");
@@ -105,6 +108,7 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
 
   return (
     <section className="InnerpageSpace bookappoinmentdetail">
+     
       <div className="container">
         <div className="row">
           <div className="col-md-4 badetailleft">

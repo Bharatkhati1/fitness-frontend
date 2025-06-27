@@ -92,9 +92,7 @@ const App = () => {
   
   if (isCheckingToken) return <PageLoader />;
 
-  console.log("isAdmin", isAdmin)
   if (!isLoggedIn) {
-    console.log("inisde not logn")
     return (
       <Suspense fallback={<PageLoader />}>
         <Routes>

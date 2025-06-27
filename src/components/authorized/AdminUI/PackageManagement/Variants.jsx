@@ -26,12 +26,12 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
               </div>
               <div className="col-auto">
                 {/* {packageVariants.length > 1 && index !== 0 && ( */}
-                  <button
-                    className="remove-btn-inclusion"
-                    onClick={() => removeVariant(index)}
-                  >
-                    -
-                  </button>
+                <button
+                  className="remove-btn-inclusion"
+                  onClick={() => removeVariant(index)}
+                >
+                  -
+                </button>
                 {/* )} */}
               </div>
             </div>
@@ -83,34 +83,39 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
 
             {/* Variant Duration */}
             <div className="col-lg-6">
-              <label className="form-label" htmlFor={`variants-duration-${index}`}>
-                Duration
+              <label
+                className="form-label"
+                htmlFor={`variants-duration-${index}`}
+              >
+                Duration (in months)
               </label>
-              <select
+              <input
+                type="number"
                 id={`variants-duration-${index}`}
-                className="form-select"
+                className="form-control"
                 value={variant.duration}
+                max={12}
+                min={1}
                 onChange={(e) => {
-                  const duration = e.target.value;
+                  let duration = parseInt(e.target.value, 10);
+                  if (duration > 12) duration = 12;
+                  if (duration < 1 || isNaN(duration)) duration = "";
                   setPackageVariants((prev) =>
                     prev.map((item, idx) =>
                       idx === index ? { ...item, duration } : item
                     )
                   );
                 }}
-              >
-                <option value="">Select duration</option>
-                {allValues.map((val) => (
-                  <option key={val.value} value={val.value}>
-                    {val.name}
-                  </option>
-                ))}
-              </select>
+                placeholder="Enter duration (max 12)"
+              />
             </div>
 
             {/* Variant Description */}
             <div className="col-lg-12">
-              <label className="form-label" htmlFor={`variants-description-${index}`}>
+              <label
+                className="form-label"
+                htmlFor={`variants-description-${index}`}
+              >
                 Description
               </label>
               <Ckeditor

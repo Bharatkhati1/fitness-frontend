@@ -109,10 +109,10 @@ const Dashboard = () => {
                   <tbody>
                     {couponUsage.map((info) => (
                       <tr>
-                        <td>{info.couponCode}</td>
+                        <td>{info.Coupon.code}</td>
                         <td>{info.type}</td>
-                        <td>{info.discount}</td>
-                        <td>{info.comission}</td>
+                        <td>{info.couponDiscount}</td>
+                        <td>{info.partnerCommission}</td>
                         <td>{info.User.name}</td>
                       </tr>
                     ))}

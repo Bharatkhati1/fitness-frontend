@@ -11,9 +11,11 @@ import ProfileInfo from "./ProfileInfo";
 import ProfileMyPakages from "./ProfileMyPakages";
 import MyConsultation from "./MyConsultation";
 import MyTestimonails from "./MyTestimonails";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const fileInputRef = useRef(null);
   const [profileDetails, setProfileDetails] = useState({});
   const [selectedTab, setSelectedTab] = useState(0);
@@ -112,7 +114,7 @@ function Profile() {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser(true));
+    dispatch(logoutUser(true, navigate));
   };
 
   const fetchPackages = async () => {

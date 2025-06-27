@@ -406,7 +406,7 @@ const Coupon = () => {
                       <th>Packages</th>
                       <th>Partner</th>
                       <th>Commission</th>
-                      <th>Usage</th>
+                      <th>Max Usage</th>
                       <th>Dates</th>
                       <th>Actions</th>
                     </tr>
@@ -430,7 +430,7 @@ const Coupon = () => {
                             {item?.partnerCommission ? `${item.partnerCommission}%` : "-"}
                           </td>
                           <td>
-                            {item?.numberOfUsage} / {item?.maxUsage || '∞'}
+                           {item?.maxUsage || '∞'}
                           </td>
                           <td>
                             {new Date(item?.startDate).toLocaleDateString()} - {' '}

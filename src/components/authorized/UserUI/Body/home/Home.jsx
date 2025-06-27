@@ -43,6 +43,7 @@ import butterfly2 from "../../../../../../public/assets/img/butterfly2.png";
 import butterfly3 from "../../../../../../public/assets/img/butterfly3.png";
 import butterfly4 from "../../../../../../public/assets/img/butterfly4.png";
 import butterfly5 from "../../../../../../public/assets/img/butterfly5.png";
+import LoginModal from "../../../../unauthorized/Modal/LoginModal";
 
 function Home() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function Home() {
   const [blogs, setBlogs] = useState([]);
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
+
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
@@ -252,6 +254,7 @@ function Home() {
 
   return (
     <>
+
       <EmailRequiredPopup
         visible={openEmailRequiredPopup}
         onClose={() => setOpenEmailRequiredPopup(false)}
@@ -393,7 +396,7 @@ function Home() {
       <section className="OurServices bg-solid SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
-            <h2>OUR SERVICES</h2>
+            <h2 onClick={()=> setOpenLoginModal(true)}>OUR SERVICES</h2>
             <p>
               From fat loss solutions to strength, gain and disease management,
               we are committed to your holistic well-being as your true fitness

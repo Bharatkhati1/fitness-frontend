@@ -370,9 +370,11 @@ function SignUpUser() {
                           }}
                         />
                       </a>
-                      <AppleLoginButton
-                        handleSocialLoginGoogle={handleSocialLoginGoogle}
-                      />
+                      <a className="mb-0">
+                        <AppleLoginButton
+                          handleSocialLoginGoogle={handleSocialLoginGoogle}
+                        />
+                      </a>
                     </div>
                   </>
                 )}

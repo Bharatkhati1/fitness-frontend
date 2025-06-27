@@ -42,7 +42,6 @@ const CouponList = () => {
                     <tr>
                       <th>ID</th>
                       <th>Code</th>
-                      <th>Expiry</th>
                       <th>Type</th>
                       <th>Commission</th>
                       <th>Used By</th>
@@ -55,9 +54,8 @@ const CouponList = () => {
                       <tr>
                         <td>{index + 1}</td>
                         <td>{coupon.code}</td>
-                        <td>{coupon.expiry}</td>
                         <td>{coupon.type}</td>
-                        <td>{coupon.commission}</td>
+                        <td>{coupon.partnerCommission}</td>
                         <td>{coupon?.CouponUsages?.length || 0}</td>
                         <td>{moment(coupon.createdAt).format('DD-MM-YYYY HH:mm')}</td>
                         <td>

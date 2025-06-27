@@ -6,7 +6,7 @@ import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-export const Login = (userData, navigate, userType, route, isAdmin = false) => {
+export const Login = (userData, navigate, userType, route, isAdmin = false, isModal = false, onClose) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -53,11 +53,15 @@ export const Login = (userData, navigate, userType, route, isAdmin = false) => {
       }
 
       localStorage.setItem("isAdmin", isAdmin);
-      dispatch(authActions.checkingUserToken(false));
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
-        replace: true,
-      });
+      if(!isModal){
+        dispatch(authActions.checkingUserToken(false));
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
+          replace: true,
+        });
+      }else{
+        onClose()
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
@@ -112,7 +116,7 @@ export const getAccessToken = (isAdmin, userType) => {
   };
 };
 
-export const logoutUser = (isUser) => {
+export const logoutUser = (isUser, navigate) => {
   console.log("isuser", isUser)
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();

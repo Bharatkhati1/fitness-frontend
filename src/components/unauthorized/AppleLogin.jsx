@@ -21,7 +21,7 @@ const AppleLoginButton = ({handleSocialLoginGoogle}) => {
         scope="email name"
         responseMode="query"
         render={(renderProps) => (
-          <a onClick={renderProps.onClick}>
+          <a className="w-100" onClick={renderProps.onClick}>
             <img src={AppleIcon} alt="Apple icon" />
             login using apple
           </a>
