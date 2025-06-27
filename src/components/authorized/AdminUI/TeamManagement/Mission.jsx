@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const Mission = () => {
   const [sliderName, setSliderName] = useState("");
@@ -159,6 +160,7 @@ const Mission = () => {
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
                     />
+                     <ImageDimensionNote type="teamMessage" />
                   </div>
                 </div>
 

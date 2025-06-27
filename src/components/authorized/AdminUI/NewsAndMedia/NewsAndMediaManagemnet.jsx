@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const NewsAndMediaManagement = () => {
   const [formData, setFormData] = useState({
@@ -201,6 +202,7 @@ const NewsAndMediaManagement = () => {
                       handleInputChange("image", e.target.files[0])
                     }
                   />
+                  <ImageDimensionNote type="newsAndMedia" />
                 </div>
 
                 {/* Banner Image */}
@@ -218,6 +220,7 @@ const NewsAndMediaManagement = () => {
                       handleInputChange("bannerImage", e.target.files[0])
                     }
                   />
+                  <ImageDimensionNote type="innerBanner" />
                 </div>
 
                 {/* Category */}

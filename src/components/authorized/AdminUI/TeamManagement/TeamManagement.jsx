@@ -6,6 +6,7 @@ import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const TeamManagement = () => {
   const [memberName, setMemberName] = useState("");
@@ -71,7 +72,7 @@ const TeamManagement = () => {
 
   const deleteTeamMember = async () => {
     try {
-      const idToDelete = selectedMemberIdRef.current ||selectedMemberId;
+      const idToDelete = selectedMemberIdRef.current || selectedMemberId;
       if (idToDelete) {
         await adminAxios.delete(adminApiRoutes.delete_team_member(idToDelete));
         toast.success("Deleted Successfully");
@@ -147,6 +148,7 @@ const TeamManagement = () => {
                       className="form-control"
                       onChange={(e) => setMemberImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="teamAbout" />
                   </div>
                 </div>
 

@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const EventType = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,6 @@ const EventType = () => {
   };
 
   const handleSubmit = async () => {
-
     const formPayload = new FormData();
     formPayload.append("name", formData.title);
     formPayload.append("slug", "events");
@@ -124,9 +124,9 @@ const EventType = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  useEffect(()=>{
-   fetchAllCategories()
-  },[])
+  useEffect(() => {
+    fetchAllCategories();
+  }, []);
   return (
     <div className="row">
       <div className="col-lg-12">
@@ -161,7 +161,9 @@ const EventType = () => {
               {/* Image */}
               <div className="col-lg-6">
                 <div className="mb-3">
-                  <label className="form-label">Image {isEdit && !formData.image && `: ${preview}`}</label>
+                  <label className="form-label">
+                    Image {isEdit && !formData.image && `: ${preview}`}
+                  </label>
                   <input
                     type="file"
                     accept="image/*"
@@ -170,6 +172,7 @@ const EventType = () => {
                     ref={fileInputRef}
                     onChange={handleInputChange}
                   />
+                  <ImageDimensionNote type="eventType" />
                 </div>
               </div>
 
@@ -265,14 +268,14 @@ const EventType = () => {
                         <td>{item.name}</td>
                         <td className="w-50">{item.description}</td>
                         <td>
-                            <span
-                              className={`badge ${
-                                item.isActive == "1" ? "bg-success" : "bg-danger"
-                              }`}
-                            >
-                              {item.isActive == "1" ? "Active" : "Inactive"}
-                            </span>
-                          </td>
+                          <span
+                            className={`badge ${
+                              item.isActive == "1" ? "bg-success" : "bg-danger"
+                            }`}
+                          >
+                            {item.isActive == "1" ? "Active" : "Inactive"}
+                          </span>
+                        </td>
                         <td>
                           <button
                             className="btn btn-sm btn-soft-primary me-2"

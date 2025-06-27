@@ -4,6 +4,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import { Link } from "react-router-dom";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const Partners = () => {
   const [formData, setFormData] = useState({
@@ -161,6 +162,7 @@ const Partners = () => {
                         handleChange("image", e.target.files[0]);
                       }}
                     />
+                    <ImageDimensionNote type="partners" />
                   </div>
                 </div>
 

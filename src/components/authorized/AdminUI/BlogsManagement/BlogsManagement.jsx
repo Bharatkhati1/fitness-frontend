@@ -6,6 +6,7 @@ import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const BlogsManagement = () => {
   const [name, setName] = useState("");
@@ -203,6 +204,7 @@ const BlogsManagement = () => {
                       className="form-control"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
+                     <ImageDimensionNote type="innerBanner"/>
                   </div>
                 </div>
 
@@ -221,6 +223,7 @@ const BlogsManagement = () => {
                       className="form-control"
                       onChange={(e) => setBannerImage(e.target.files[0])}
                     />
+                     <ImageDimensionNote type="blogImage"/>
                   </div>
                 </div>
 

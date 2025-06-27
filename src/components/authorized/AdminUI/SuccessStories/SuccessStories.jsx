@@ -7,6 +7,7 @@ import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import TextArea from "antd/es/input/TextArea.js";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const SuccessStories = () => {
   const [description, setDescription] = useState("");
@@ -165,6 +166,7 @@ const SuccessStories = () => {
                       className="form-control"
                       onChange={(e) => setBeforeImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="successStory"/>
                   </div>
                 </div>
                 <div className="col-lg-6">
@@ -181,6 +183,7 @@ const SuccessStories = () => {
                       className="form-control"
                       onChange={(e) => setAfterImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="successStory"/>
                   </div>
                 </div>
                 {/* Description */}

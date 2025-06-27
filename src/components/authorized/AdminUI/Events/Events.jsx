@@ -5,6 +5,7 @@ import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { Link } from "react-router-dom";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const Events = () => {
   const [formData, setFormData] = useState({
@@ -252,6 +253,7 @@ const Events = () => {
                     ref={fileInputRef}
                     onChange={handleFileChange}
                   />
+                  <ImageDimensionNote type="event" />
                 </div>
               </div>
 
@@ -269,6 +271,7 @@ const Events = () => {
                     ref={bannerImageref}
                     onChange={handleBanneruplaod}
                   />
+                  <ImageDimensionNote type="innerBanner" />
                 </div>
               </div>
               {/* Status */}

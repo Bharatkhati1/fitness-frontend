@@ -9,6 +9,7 @@ import { Select } from "antd";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const { Option } = Select;
 
@@ -399,6 +400,7 @@ const CreateUpdatePackage = () => {
                       className="form-control"
                       onChange={(e) => setPakageImage(e.target.files[0])}
                     />
+                      <ImageDimensionNote type="packages" />
                   </div>
                 </div>
 

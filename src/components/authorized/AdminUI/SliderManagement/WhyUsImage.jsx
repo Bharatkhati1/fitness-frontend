@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const WhyUsImage = () => {
     const [sliderName, setSliderName] = useState("");
@@ -110,6 +111,7 @@ const WhyUsImage = () => {
                         className="form-control"
                         onChange={(e) => setSliderImage(e.target.files[0])}
                       />
+                      <ImageDimensionNote type="innerBanner"/>
                     </div>
                     <p>Preview:</p>
                     <img style={{width:"90px", height:"90px"}} crossOrigin="anonymous" src={sliders[0]?.image_url}/>

@@ -6,6 +6,7 @@ import { Select } from "antd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const Recepies = () => {
   const [formData, setFormData] = useState({
@@ -194,6 +195,7 @@ const Recepies = () => {
                        accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
+                     <ImageDimensionNote type="smartKitchen"/>
                   </div>
                 </div>
 

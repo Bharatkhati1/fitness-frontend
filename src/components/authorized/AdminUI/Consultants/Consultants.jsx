@@ -6,6 +6,7 @@ import { Select, TimePicker } from "antd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import dayjs from "dayjs";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const Consultants = () => {
   const [formData, setFormData] = useState({
@@ -298,6 +299,7 @@ const Consultants = () => {
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
+                    <ImageDimensionNote type="manageConsultant"/>
                   </div>
                 </div>
 

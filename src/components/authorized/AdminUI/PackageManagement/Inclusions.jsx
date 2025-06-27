@@ -1,5 +1,6 @@
 import React from "react";
 import Ckeditor from "../CkEditor/Ckeditor";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
   const removeInclusion = (index) => {
@@ -66,6 +67,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
                     );
                   }}
                 />
+                 <ImageDimensionNote type="inclusion" />
               </div>
 
               {/* Inclusion Description */}
