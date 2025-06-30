@@ -17,7 +17,6 @@ const LoginModal = ({ visible, onClose }) => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [disableLoginButton, setDisableLoginButton] = useState(false);
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -88,7 +87,7 @@ const LoginModal = ({ visible, onClose }) => {
   };
 
   return (
-    <Modal visible={visible} onCancel={onClose} footer={null} destroyOnClose>
+    <Modal title="Login" visible={visible} onCancel={onClose} footer={null} destroyOnClose>
       <form className="formBox" onSubmit={onLoginFormSubmit}>
         <div className="fieldbox mb-3">
           <label>Your Registered Email ID*</label>

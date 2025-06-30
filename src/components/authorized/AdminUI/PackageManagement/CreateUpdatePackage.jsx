@@ -135,11 +135,11 @@ const CreateUpdatePackage = () => {
     );
     // Append to formData only if valid
     if (packageVariantsSingle.length > 0) {
-      formData.append("singleVariantHeading", singleheading.trim());
+      formData.append("singleVariantHeading", singleheading);
     }
 
     if (packageVariantsCombo.length > 0) {
-      formData.append("comboVariantHeading", comboHeading.trim());
+      formData.append("comboVariantHeading", comboHeading);
     }
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)

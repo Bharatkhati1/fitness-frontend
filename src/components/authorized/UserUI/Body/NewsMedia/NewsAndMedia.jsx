@@ -189,20 +189,20 @@ function NewsAndMedia() {
               <div className="col-auto sortbyright">
                 <select className="form-select me-2">
                   <option value="">Filter</option>
-                  <option value="1">Recent</option>
+                  <option value="1">Newest</option>
                   <option value="2">Oldest</option>
                 </select>
                 <select
                   className="form-select"
                   onChange={(e) => {
                     const value = e.target.value;
-                    setSortBy(value === "2" ? "ASC" : "DESC");
+                    setSortBy(value == "2" ? "ASC" : "DESC");
                   }}
                 >
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1">Recent</option>
+                  <option value="1">Newest</option>
                   <option value="2">Oldest</option>
                 </select>
               </div>
@@ -231,11 +231,6 @@ function NewsAndMedia() {
                   </figure>
                   <figcaption>
                     <h3>{item.title}</h3>
-                    {/* <div className="Bytext">
-                      <span>
-                        {new Date(item.createdAt).toLocaleDateString("en-GB")}
-                      </span>
-                    </div> */}
                     <p
                       dangerouslySetInnerHTML={{
                         __html: item.shortDescription,

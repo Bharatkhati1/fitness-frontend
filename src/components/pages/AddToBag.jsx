@@ -350,6 +350,24 @@ export default function AddToBag() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+  
+    const { firstName, phone } = formData;
+  
+    if (!firstName?.trim()) {
+      toast.error("Please enter your name.");
+      return;
+    }
+  
+    if (!phone?.trim()) {
+      toast.error("Please enter your phone number.");
+      return;
+    }
+    
+    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+      toast.error("Phone number must be exactly 10 digits.");
+      return;
+    }
+  
     try {
       await userAxios.put(userApiRoutes.update_profile, formData);
       toast.success("Profile updated successfully");
@@ -358,7 +376,7 @@ export default function AddToBag() {
       toast.error(error.response?.data?.message || "Failed to update profile");
     }
   };
-
+  
   return (
     <>
       <section className="innerbanner">

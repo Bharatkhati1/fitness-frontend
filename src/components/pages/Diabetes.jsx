@@ -13,6 +13,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { authActions } from "../../store/auth";
+import LoginModal from "../unauthorized/Modal/LoginModal";
 
 function PackageDetails() {
   const { slug } = useParams();
@@ -26,6 +27,7 @@ function PackageDetails() {
   const cartItemIds = cartItems?.map((item) => item.packagePlanId);
   const [details, setDetails] = useState({});
   const [comboPlans, setComboPlans] = useState([]);
+  const [openLoginModal, setopenLoginModal] = useState(false)
   const [singlePlans, setSinglePlans] = useState([]);
 
   const fetchPackageDetails = async () => {
@@ -62,7 +64,7 @@ function PackageDetails() {
 
   const handleAddToCart = async (plainId) => {
     if (!isLoggedIn) {
-      toast.info("Please login first.");
+      setopenLoginModal(true)
       return;
     }
     dispatch(AddToCart(plainId, false));
@@ -73,7 +75,7 @@ function PackageDetails() {
 
   const handleBuyNow = async (id) => {
     if (!isLoggedIn) {
-      toast.info("Please login first.");
+      setopenLoginModal(true)
       return;
     }
     dispatch(AddToCart(id, true, navigate));
@@ -108,6 +110,7 @@ function PackageDetails() {
 
   return (
     <>
+    <LoginModal visible={openLoginModal} onClose={()=>setopenLoginModal(false)} />
       <section className="Diabetespage InnerpageSpace pb-0">
         <span className="daishape">
           <img src={shapeangelleft}></img>
@@ -160,7 +163,7 @@ function PackageDetails() {
               </div>
               {singlePlans?.length > 0 && (
                 <div className="justify-content-center mb-4">
-                  <h3 className="mt-3"><b>{details?.singleVariantHeading}</b></h3>
+                 {details?.singleVariantHeading != 'null' && <h3 className="mt-3"><b>{details?.singleVariantHeading|| ""}</b></h3>}
                   {Array.isArray(singlePlans) && singlePlans?.length > 0 && (
                     <OwlCarousel
                       className="owl-theme"
@@ -168,7 +171,7 @@ function PackageDetails() {
                       dots={true}
                       key={singlePlans.map((pkg) => pkg.id).join(",")+" "+ cartItemIds.join(",")}
                       loop={false}
-                      margin={10}
+                      margin={30}
                       nav={true}
                       navText={[prevArrow, nextArrow]}
                       autoplaySpeed={3000}
@@ -257,7 +260,7 @@ function PackageDetails() {
               )}
               {comboPlans?.length > 0 && (
                 <div className=" justify-content-center mb-4">
-                  <h3 className="mt-3"><b>{details?.comboVariantHeading}</b></h3>
+                 {details?.comboVariantHeading != 'null' && <h3 className="mt-3"><b>{details?.comboVariantHeading || ""}</b></h3>}
                   {Array.isArray(comboPlans) && comboPlans?.length > 0 && (
                     <OwlCarousel
                       className="owl-theme"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import trialImage from "./Trial.avif";
 import { toast } from "react-toastify";
 import { AddToCart } from "../../../../store/auth/AuthExtraReducers";
@@ -7,11 +7,14 @@ import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import LoginModal from "../../../unauthorized/Modal/LoginModal";
 
 const Trial = () => {
   const { cartItems = [], isLoggedIn } = useSelector((state) => state.auth);
   const cartItemIds = cartItems?.map((item) => item.packagePlanId);
+  const [openLogin, setOpenLogin] = useState(false)
   const dispatch = useDispatch();
+
   const fetchCartitems = async () => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
@@ -25,7 +28,7 @@ const Trial = () => {
 
   const handleAddToCart = async (plainId) => {
     if (!isLoggedIn) {
-      toast.info("Please login first.");
+      setOpenLogin(true)
       return;
     }
     dispatch(AddToCart(plainId, false));
@@ -34,6 +37,8 @@ const Trial = () => {
     }, 700);
   };
   return (
+    <>
+    <LoginModal visible={openLogin} onClose={()=> setOpenLogin(false)}/>
     <div
       className="container"
       style={{ marginTop: "170px", marginBottom: "89px" }}
@@ -76,7 +81,8 @@ const Trial = () => {
           </ol>
         </div>
       </div>
-    </div>
+    </div></>
+    
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,10 +7,10 @@ import CartIcon from "../../../../../public/assets/img/carticon.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../../store/auth";
-import { toast } from "react-toastify";
 import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import ProfileIcon from "./Profile_icon.png";
+import LoginModal from "../../../unauthorized/Modal/LoginModal";
 
 const Header = () => {
   const {
@@ -18,6 +18,7 @@ const Header = () => {
     isLoggedIn,
     cartItems = [],
   } = useSelector((state) => state.auth);
+    const [openLogin, setOpenLogin] = useState(false)
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Header = () => {
     if (userAccessToken && userAccessToken.length > 0) {
       navigate("/cart");
     } else {
-      toast.info("Please login first!");
+      setOpenLogin(true)
     }
   };
 
@@ -46,7 +47,9 @@ const Header = () => {
   }, []);
 
   return (
-    <header id="fixed-header" className="sticky">
+    <> 
+    <LoginModal visible={openLogin} onClose={()=> setOpenLogin(false)}/>
+     <header id="fixed-header" className="sticky">
       <div className="container">
         <div className="navInner d-flex justify-content-between align-items-center">
           <div className="navLeft">
@@ -131,7 +134,8 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </header>
+    </header></>
+  
   );
 };
 
