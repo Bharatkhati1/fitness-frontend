@@ -25,11 +25,6 @@ const JoinCommunity = ({ open, setOpen }) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const phoneRegex = /^[6-9]\d{9}$/;
-      if (!phoneRegex.test(formData.phone)) {
-        toast.error("Please enter a valid 10-digit phone number");
-        return;
-      }
       await sendInquiry(formData);
       setFormData({ name: "", email: "", phone: "", type:"community" });
       setOpen(false);
@@ -104,10 +99,15 @@ const JoinCommunity = ({ open, setOpen }) => {
                   <input
                     placeholder="Enter your contact number"
                     className="form-control"
-                    type="text"
+                    type="number"
                     name="phone"
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (/^\d{0,10}$/.test(val)) {
+                        handleChange(e); 
+                      }
+                    }}
                   />
                 </div>
               </div>

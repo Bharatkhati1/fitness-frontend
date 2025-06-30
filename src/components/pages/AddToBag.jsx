@@ -428,8 +428,8 @@ export default function AddToBag() {
                         type="email"
                         name="email"
                         value={formData.email}
+                        disabled={true}
                         className="form-control"
-                        onChange={handleChange}
                       />
                     </div>
 
