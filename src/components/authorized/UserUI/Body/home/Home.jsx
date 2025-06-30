@@ -516,17 +516,15 @@ function Home() {
           </div>
         </div>
         <div className="VideBox bg-black" ref={videoContainerRef}>
-          <video
-            ref={videoRef}
-            style={{ objectFit: "fill" }}
-            src="assets/video/01.mp4"
+          <iframe
             width="100%"
-            loop
             height="509"
-            controls={true}
-            muted
-            playsInline
-          />
+            src="https://www.youtube.com/embed/jSJ-9uB6pzo?autoplay=1&mute=1&loop=1&playlist=jSJ-9uB6pzo&controls=1&playsinline=1"
+            title="YouTube video"
+            frameBorder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </section>
       {/* <Whyus /> */}
@@ -817,17 +815,17 @@ function Home() {
 
                 <ul className="SoicalList">
                   <li>
-                    <a href={`${contactUsDetails?.instagram}`}>                                                                                                                                                                                       
+                    <a target="_blank" href={`${contactUsDetails?.instagram}`}>
                       <img src={InstaIcon}></img>
                     </a>
                   </li>
                   <li>
-                    <a href={`${contactUsDetails?.twitter}`}>
+                    <a target="_blank" href={`${contactUsDetails?.twitter}`}>
                       <img src={TwitterIcon}></img>
                     </a>
                   </li>
                   <li>
-                    <a href={`${contactUsDetails?.youtube}`}>
+                    <a target="_blank" href={`${contactUsDetails?.youtube}`}>
                       <img src={YoutUbeIcon}></img>
                     </a>
                   </li>
@@ -849,7 +847,12 @@ function Home() {
                       type="text"
                       name="name"
                       value={formData.name}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       placeholder="Enter your name"
                       className="form-control"
                       required
@@ -878,7 +881,7 @@ function Home() {
                         onChange={(e) => {
                           const val = e.target.value;
                           if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e); 
+                            handleChange(e);
                           }
                         }}
                         placeholder="Enter your contact number"
@@ -915,8 +918,8 @@ function Home() {
                             className="form-check-input"
                             type="checkbox"
                             id={`service-`}
-                            checked={formData.contactFor.includes('other')}
-                            onChange={() => handleServiceToggle('other')}
+                            checked={formData.contactFor.includes("other")}
+                            onChange={() => handleServiceToggle("other")}
                           />
                           <label
                             className="form-check-label"

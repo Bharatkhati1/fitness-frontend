@@ -6,7 +6,15 @@ import userAxios from "../../utils/Api/userAxios";
 import store from "..";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 
-export const Login = (userData, navigate, userType, route, isAdmin = false, isModal = false, onClose) => {
+export const Login = (
+  userData,
+  navigate,
+  userType,
+  route,
+  isAdmin = false,
+  isModal = false,
+  onClose
+) => {
   return async (dispatch) => {
     try {
       if (!navigator.onLine) {
@@ -53,14 +61,14 @@ export const Login = (userData, navigate, userType, route, isAdmin = false, isMo
       }
 
       localStorage.setItem("isAdmin", isAdmin);
-      if(!isModal){
+      if (!isModal) {
         dispatch(authActions.checkingUserToken(false));
         await new Promise((resolve) => setTimeout(resolve, 700));
         navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
           replace: true,
         });
-      }else{
-        onClose()
+      } else {
+        onClose();
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -225,16 +233,31 @@ export const fetchKitchenCategories = () => {
   };
 };
 
-export const fetchAllProducts = ({ search = "", serviceId } = {}) => {
+export const fetchAllProducts = ({
+  search = "",
+  serviceId,
+  page,
+  limit,
+  setTotalPages,
+  setTotalItems
+} = {}) => {
   return async (dispatch) => {
     if (typeof search !== "string") {
       console.error("Invalid search parameter:", search);
       return;
     }
+    const query = {
+      page,
+      limit,
+      search,
+      serviceId,
+    };
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_all_packages({ search, serviceId })
+        userApiRoutes.get_all_packages(query)
       );
+      setTotalPages(response.data.totalPages);
+      setTotalItems(response.data.totalItems)
       const filter = response.data.data?.filter((pkg) => pkg.id != 1);
       dispatch(authActions.setAllPackages(filter));
     } catch (error) {

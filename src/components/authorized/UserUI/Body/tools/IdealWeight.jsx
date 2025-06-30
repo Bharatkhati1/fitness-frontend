@@ -87,7 +87,17 @@ function Idealweight() {
                         type="number"
                         placeholder="Enter value"
                         value={height}
-                        onChange={(e) => setHeight(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setHeight(val);
+                            }
+                          }
+                        }}
                       />
 
                       <Form.Select

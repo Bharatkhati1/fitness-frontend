@@ -78,7 +78,7 @@ const FatLoass = () => {
 
       setResult(fatPercentage.toFixed(1));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setIsInvalid("Invalid input. Please check your values.");
       setResult("--");
     }
@@ -156,7 +156,17 @@ const FatLoass = () => {
                         type="number"
                         placeholder="Enter value"
                         value={height}
-                        onChange={(e) => setHeight(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setHeight(val);
+                            }
+                          }
+                        }}
                       />
                       <Form.Select
                         value={heightUnit}
@@ -178,7 +188,18 @@ const FatLoass = () => {
                         type="number"
                         placeholder="Enter value"
                         value={waist}
-                        onChange={(e) => setWaist(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setWaist(val);
+                            }
+                          }
+                        }}
                       />
                       <Form.Select
                         value={waistUnit}
@@ -200,7 +221,18 @@ const FatLoass = () => {
                         type="number"
                         placeholder="Enter value"
                         value={neck}
-                        onChange={(e) => setNeck(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setNeck(val);
+                            }
+                          }
+                        }}
                       />
                       <Form.Select
                         value={neckUnit}
@@ -222,7 +254,18 @@ const FatLoass = () => {
                         type="number"
                         placeholder="Enter value"
                         value={hip}
-                        onChange={(e) => setHip(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setNeck(val);
+                            }
+                          }
+                        }}
                         disabled={gender === "male"}
                       />
                       <Form.Select
@@ -254,39 +297,41 @@ const FatLoass = () => {
               </div>
             </div>
 
-           {result&&<div className="col-md-6 ps-4">
-              <div className="calulaterResult calulaterDiet">
-                <h4 className="mb-3">Result</h4>
-                <div className="ResultBox">
-                  <div className="ResultBoxinner-left">
-                    {result ? (
-                      <>
-                        <p>
-                          Based on the information provided, your estimated body
-                          fat percentage using the U.S. Navy Body Fat Formula
-                          is:
-                        </p>
-                        <span className="day-text">{result} %</span>
-                      </>
-                    ) : (
-                      <p className="dash-class">--</p>
-                    )}
-                    <ul className="optinallyList">
-                      <li>Optionally, compare to standard ranges:</li>
-                      <li>◦ Men: 10–20% (average)</li>
-                      <li>◦ Women: 18–28% (average)</li>
-                    </ul>
-                    <p className="smallNote">
-                      Disclaimer: This is an estimate. For precise results,
-                      consult a professional.
-                    </p>
-                    <figure className="Diet3">
-                      <img src={Diet3} alt="Diet visual" />
-                    </figure>
+            {result && (
+              <div className="col-md-6 ps-4">
+                <div className="calulaterResult calulaterDiet">
+                  <h4 className="mb-3">Result</h4>
+                  <div className="ResultBox">
+                    <div className="ResultBoxinner-left">
+                      {result ? (
+                        <>
+                          <p>
+                            Based on the information provided, your estimated
+                            body fat percentage using the U.S. Navy Body Fat
+                            Formula is:
+                          </p>
+                          <span className="day-text">{result} %</span>
+                        </>
+                      ) : (
+                        <p className="dash-class">--</p>
+                      )}
+                      <ul className="optinallyList">
+                        <li>Optionally, compare to standard ranges:</li>
+                        <li>◦ Men: 10–20% (average)</li>
+                        <li>◦ Women: 18–28% (average)</li>
+                      </ul>
+                      <p className="smallNote">
+                        Disclaimer: This is an estimate. For precise results,
+                        consult a professional.
+                      </p>
+                      <figure className="Diet3">
+                        <img src={Diet3} alt="Diet visual" />
+                      </figure>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>}
+            )}
           </div>
         </div>
       </section>

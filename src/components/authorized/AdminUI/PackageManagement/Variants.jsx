@@ -1,15 +1,8 @@
 import React from "react";
 import Ckeditor from "../CkEditor/Ckeditor";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
-  const allValues = [
-    { value: 1, name: "1 Month" },
-    { value: 3, name: "3 Months" },
-    { value: 6, name: "6 Months" },
-    { value: 9, name: "9 Months" },
-    { value: 12, name: "12 Months" },
-  ];
-
   const removeVariant = (index) => {
     const updatedVariants = packageVariants.filter((_, idx) => idx !== index);
     setPackageVariants(updatedVariants);
@@ -57,6 +50,7 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                   );
                 }}
               />
+                 <ImageDimensionNote type="variant" />
             </div>
 
             {/* Variant Price */}
@@ -127,6 +121,7 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                     )
                   );
                 }}
+                limit={320}
               />
             </div>
           </div>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const SliderManagement = () => {
@@ -99,6 +100,31 @@ const SliderManagement = () => {
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+  };
+
+  const handleDragEnd = async (result) => {
+    if (!result.destination) return;
+    const reordered = Array.from(sliders);
+    const [movedItem] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, movedItem);
+    setSliders(reordered);
+    const reordeObj = reordered.map((order, index) => ({
+      id: order.id,
+      order: index + 1,
+    }));
+    try {
+      // Send the new order to the backend
+      await adminAxios.put(adminApiRoutes.update_slider_sequence, {
+        sequences: reordeObj,
+      });
+      fetchAllSliders();
+      toast.success("Service order updated successfully");
+    } catch (error) {
+      console.error("Failed to update order:", error);
+      toast.error("Failed to update service order");
+      // Revert to the original order if the API call fails
+      fetchAllSliders();
     }
   };
 
@@ -279,97 +305,127 @@ const SliderManagement = () => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {filterService.length > 0 ? (
-                      filterService.map((slider, index) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>
-                            <Link target="_blank" to={slider.image_url}>
-                              {" "}
-                              <img
-                                crossorigin="anonymous"
-                                src={slider.image_url}
-                                alt="Slider"
-                                style={{
-                                  width: "50px",
-                                  height: "50px",
-                                  objectFit: "contain",
-                                  border: "1px solid #eee",
-                                }}
-                                onError={(e) => {
-                                  console.error(
-                                    "Image failed to load:",
-                                    slider.image_url
-                                  );
-                                }}
-                              />
-                            </Link>
-                          </td>
-                          <td>{slider.name}</td>
-                          <td>{slider.heading}</td>
-                          <td
-                            dangerouslySetInnerHTML={{
-                              __html: slider.subHeading,
-                            }}
-                          ></td>
-                          <td>
-                            <span
-                              className={`badge ${
-                                slider.isActive ? "bg-success" : "bg-danger"
-                              }`}
-                            >
-                              {slider.isActive ? "Active" : "Inactive"}
-                            </span>
-                          </td>
-                          <td>
-                            <div className="d-flex gap-2">
-                              <button
-                                className="btn btn-soft-primary btn-sm"
-                                onClick={() => {
-                                  window.scrollTo(0, 0);
-                                  setIsEdit(true);
-                                  setSelectedSliderId(slider.id);
-                                  setSliderName(slider.name);
-                                  setSliderHeading(slider.heading);
-                                  setSliderSubheading(slider.subHeading);
-                                  setSelectedFileName(slider.image);
-                                  setSliderStatus(slider.isActive);
-                                }}
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    {filterService.length > 0 && (
+                      <Droppable droppableId={"droppable"} direction="vertical">
+                        {(provided) => (
+                          <tbody
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                          >
+                            {filterService.map((slider, index) => (
+                              <Draggable
+                                key={slider.id.toString()}
+                                draggableId={slider.id.toString()}
+                                index={index}
                               >
-                                <iconify-icon
-                                  icon="solar:pen-2-broken"
-                                  class="align-middle fs-18"
-                                ></iconify-icon>
-                              </button>
-
-                              <ConfirmationPopup
-                                bodyText="Are you sure you want to delete this Slider ?"
-                                title="Delete Slider "
-                                onOk={() => deleteSlider()}
-                                buttonText={
-                                  <iconify-icon
-                                    icon="solar:trash-bin-minimalistic-2-broken"
-                                    class="align-middle fs-18"
-                                    onClick={() => {
-                                      selectedIdref.current = slider.id;
-                                      setSelectedSliderId(slider.id);
+                                {(provided) => (
+                                  <tr
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={{
+                                      ...provided.draggableProps.style,
+                                      display: "table-row",
                                     }}
-                                  ></iconify-icon>
-                                }
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="6" className="text-center">
-                          No sliders found.
-                        </td>
-                      </tr>
+                                  >
+                                    <td>{index + 1}</td>
+                                    <td>
+                                      <Link
+                                        target="_blank"
+                                        to={slider.image_url}
+                                      >
+                                        {" "}
+                                        <img
+                                          crossorigin="anonymous"
+                                          src={slider.image_url}
+                                          alt="Slider"
+                                          style={{
+                                            width: "50px",
+                                            height: "50px",
+                                            objectFit: "contain",
+                                            border: "1px solid #eee",
+                                          }}
+                                          onError={(e) => {
+                                            console.error(
+                                              "Image failed to load:",
+                                              slider.image_url
+                                            );
+                                          }}
+                                        />
+                                      </Link>
+                                    </td>
+                                    <td>{slider.name}</td>
+                                    <td>{slider.heading}</td>
+                                    <td
+                                      dangerouslySetInnerHTML={{
+                                        __html: slider.subHeading,
+                                      }}
+                                    ></td>
+                                    <td>
+                                      <span
+                                        className={`badge ${
+                                          slider.isActive
+                                            ? "bg-success"
+                                            : "bg-danger"
+                                        }`}
+                                      >
+                                        {slider.isActive
+                                          ? "Active"
+                                          : "Inactive"}
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <div className="d-flex gap-2">
+                                        <button
+                                          className="btn btn-soft-primary btn-sm"
+                                          onClick={() => {
+                                            window.scrollTo(0, 0);
+                                            setIsEdit(true);
+                                            setSelectedSliderId(slider.id);
+                                            setSliderName(slider.name);
+                                            setSliderHeading(slider.heading);
+                                            setSliderSubheading(
+                                              slider.subHeading
+                                            );
+                                            setSelectedFileName(slider.image);
+                                            setSliderStatus(slider.isActive);
+                                          }}
+                                        >
+                                          <iconify-icon
+                                            icon="solar:pen-2-broken"
+                                            class="align-middle fs-18"
+                                          ></iconify-icon>
+                                        </button>
+
+                                        <ConfirmationPopup
+                                          bodyText="Are you sure you want to delete this Slider ?"
+                                          title="Delete Slider "
+                                          onOk={() => deleteSlider()}
+                                          buttonText={
+                                            <iconify-icon
+                                              icon="solar:trash-bin-minimalistic-2-broken"
+                                              class="align-middle fs-18"
+                                              onClick={() => {
+                                                selectedIdref.current =
+                                                  slider.id;
+                                                setSelectedSliderId(slider.id);
+                                              }}
+                                            ></iconify-icon>
+                                          }
+                                        />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
                     )}
-                  </tbody>
+                  </DragDropContext>
                 </table>
               </div>
             </div>

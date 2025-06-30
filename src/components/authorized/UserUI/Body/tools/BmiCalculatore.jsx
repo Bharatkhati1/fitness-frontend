@@ -26,10 +26,10 @@ function BmiCalculator() {
       heightM = heightM * 0.0254;
     }
 
-  if (!weightKg || !heightM || heightM <= 0 || weightKg <= 0) {
-    setError("Please enter valid height and weight values.");
-    return;
-  }
+    if (!weightKg || !heightM || heightM <= 0 || weightKg <= 0) {
+      setError("Please enter valid height and weight values.");
+      return;
+    }
 
     const bmiValue = weightKg / (heightM * heightM);
     setBmi(bmiValue.toFixed(1));
@@ -99,12 +99,24 @@ function BmiCalculator() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
+                        inputMode="decimal"
                         value={height}
-                        onChange={(e) => setHeight(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setHeight(val);
+                            }
+                          }
+                        }}
                         placeholder="Enter value"
-                         min="1"
                       />
+
                       <Form.Select
                         value={heightUnit}
                         onChange={(e) => setHeightUnit(e.target.value)}
@@ -120,12 +132,23 @@ function BmiCalculator() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
+                        inputMode="decimal"
                         value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setWeight(val);
+                            }
+                          }
+                        }}
                         placeholder="Enter value"
-                         min="1"
                       />
+
                       <Form.Select
                         value={weightUnit}
                         onChange={(e) => setWeightUnit(e.target.value)}
@@ -135,69 +158,70 @@ function BmiCalculator() {
                       </Form.Select>
                     </div>
                   </div>
-
                 </div>
-                
-                  <div className="calculateButton text-center mt-3">
-                   { error&&<p style={{color:"orange"}}>{error}</p>}
-                    <button
-                      className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
-                      type="button"
-                      onClick={calculateBMI}
-                    >
-                      Calculate your BMI
-                    </button>
-                  </div>
+
+                <div className="calculateButton text-center mt-3">
+                  {error && <p style={{ color: "orange" }}>{error}</p>}
+                  <button
+                    className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
+                    type="button"
+                    onClick={calculateBMI}
+                  >
+                    Calculate your BMI
+                  </button>
+                </div>
               </div>
             </div>
 
-         {  bmi&& <div className="col-md-5 ms-auto">
-              <div className="calulaterResult">
-                <div className="calulaterResultHead">
-                  <h3>Result</h3>
-                </div>
+            {bmi && (
+              <div className="col-md-5 ms-auto">
+                <div className="calulaterResult">
+                  <div className="calulaterResultHead">
+                    <h3>Result</h3>
+                  </div>
 
-                <div className="calulaterResultBody">
-                  <ul className="wightList">
-                    <li>
-                      <figure>
-                        <img src={wightImg1} />
-                      </figure>
-                      <h4>&#60; 18.5</h4>
-                    </li>
-                    <li>
-                      <figure>
-                        <img src={wightImg2} />
-                      </figure>
-                      <h4>18.5 - 24.9</h4>
-                    </li>
-                    <li>
-                      <figure>
-                        <img src={wightImg3} />
-                      </figure>
-                      <h4>25.0 - 29.9</h4>
-                    </li>
-                    <li>
-                      <figure>
-                        <img src={wightImg4} />
-                      </figure>
-                      <h4>=&#62;30.0</h4>
-                    </li>
-                  </ul>
+                  <div className="calulaterResultBody">
+                    <ul className="wightList">
+                      <li>
+                        <figure>
+                          <img src={wightImg1} />
+                        </figure>
+                        <h4>&#60; 18.5</h4>
+                      </li>
+                      <li>
+                        <figure>
+                          <img src={wightImg2} />
+                        </figure>
+                        <h4>18.5 - 24.9</h4>
+                      </li>
+                      <li>
+                        <figure>
+                          <img src={wightImg3} />
+                        </figure>
+                        <h4>25.0 - 29.9</h4>
+                      </li>
+                      <li>
+                        <figure>
+                          <img src={wightImg4} />
+                        </figure>
+                        <h4>=&#62;30.0</h4>
+                      </li>
+                    </ul>
 
-                  <div className="yourBmi">
-                    <span className="d-inline-block">Your BMI:</span>
-                    {bmi ? (
-                      <span className={getCategoryColorClass(category)}>
-                        {bmi} <b>({category})</b>
-                      </span>
-                    ) : (
-                      <span className="dash-class"> -- </span>
-                    )}
+                    <div className="yourBmi">
+                      <span className="d-inline-block">Your BMI:</span>
+                      {bmi ? (
+                        <span className={getCategoryColorClass(category)}>
+                          {bmi} <b>({category})</b>
+                        </span>
+                      ) : (
+                        <span className="dash-class"> -- </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>}
+            )}
           </div>
         </div>
       </section>

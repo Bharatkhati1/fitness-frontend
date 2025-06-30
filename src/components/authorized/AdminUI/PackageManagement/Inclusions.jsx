@@ -82,6 +82,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
                       )
                     );
                   }}
+                  limit={320}
                 />
               </div>
 

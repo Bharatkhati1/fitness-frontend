@@ -6,6 +6,7 @@ import Calender from "../authorized/UserUI/Calender";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import userAxios from "../../utils/Api/userAxios";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
   const { encodedId } = useParams();
@@ -88,16 +89,14 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
   };
   const fetchAvailibilitySlots = async (id) => {
     try {
-        const res = await userAxios.get(
-          userApiRoutes.consultant_availibility_slots(id, selectedDate)
-        );
-        setSlots(res.data.data);
-      
+      const res = await userAxios.get(
+        userApiRoutes.consultant_availibility_slots(id, selectedDate)
+      );
+      setSlots(res.data.data);
     } catch (error) {
       console.error(error.response.data.error);
     }
   };
-
 
   useEffect(() => {
     setSelectedSlot("");
@@ -108,7 +107,6 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
 
   return (
     <section className="InnerpageSpace bookappoinmentdetail">
-     
       <div className="container">
         <div className="row">
           <div className="col-md-4 badetailleft">
@@ -147,8 +145,12 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
                 <h5>appointment details:</h5>
                 <ul className="adlistinfo d-flex">
                   <li>
-                    <h4>date:</h4>
-                    <span>{selectedDate || "--"}</span>
+                    <h4>Date:</h4>
+                    <span>
+                      {selectedDate
+                        ? moment(selectedDate).format("DD-MM-YYYY")
+                        : "--"}
+                    </span>
                   </li>
                   <li>
                     <h4>time:</h4>
