@@ -1366,7 +1366,7 @@ ul.BottomFooterList,
 }
 
 .innerbanner:after {
-  background: rgb(0 0 0 / 50%);
+  background:rgb(0 0 0 / 50%);
   position: absolute;
   left: 0;
   right: 0;
