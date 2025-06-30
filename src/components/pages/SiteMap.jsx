@@ -18,7 +18,6 @@ function SiteMap() {
   useEffect(() => {
     fetchSiteMapdata();
   }, []);
-  console.log(data);
   return (
     <>
       <section className="innerbanner">

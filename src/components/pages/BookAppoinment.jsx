@@ -4,12 +4,16 @@ import { toast } from "react-toastify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { webAxios } from "../../utils/constants";
 import BookAppoinmentdate from "./BookAppoinmentdate";
+import LoginModal from "../unauthorized/Modal/LoginModal";
+import { useSelector } from "react-redux";
 
 function BookAppoinment() {
   const { encodedId, type } = useParams();
   const [details, setDetails] = useState([]);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [selectedConsultant, setSelectedConsultant] = useState(null);
   const [isFollowUp, setIsFollowUp] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   useEffect(() => {
     if (!encodedId) return;
@@ -40,19 +44,25 @@ function BookAppoinment() {
     fetchProductConsultantDetails();
   }, [encodedId]);
 
+  const handleModalclose = () => {
+    setOpenLoginModal(false);
+  };
+
   if (selectedConsultant) {
     const packageId = atob(encodedId);
     return (
       <BookAppoinmentdate
-      type={type}
+        type={type}
         isFollowUp={isFollowUp}
         consultant={selectedConsultant}
         packageId={packageId}
       />
     );
   }
+
   return (
     <>
+      <LoginModal visible={openLoginModal} onClose={handleModalclose} />
       <section className="fixspace bookappoinment">
         <div class="OurTEAMhead text-center">
           <span>HEALTH CONSULTATION</span>
@@ -101,15 +111,23 @@ function BookAppoinment() {
                       <p>{cons?.description}</p>
                       <div className="d-flex justify-content-start gap-3">
                         <a
-                          onClick={() => setSelectedConsultant(cons)}
+                          onClick={() =>
+                            isLoggedIn
+                              ? setSelectedConsultant(cons)
+                              : setOpenLoginModal(true)
+                          }
                           className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
                         >
                           make an appointment
                         </a>
                         <a
                           onClick={() => {
-                            setIsFollowUp(true);
-                            setSelectedConsultant(cons);
+                            !isLoggedIn
+                              ? setSelectedConsultant(cons)
+                              : (() => {
+                                  setIsFollowUp(true);
+                                  setSelectedConsultant(cons);
+                                })();
                           }}
                           className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
                         >

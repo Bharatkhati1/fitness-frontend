@@ -21,7 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
+const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, profileDetails }) => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const numericFields = [
@@ -44,6 +44,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
         return { ...prev, medicalCanditions: updatedConditions };
       });
     } else {
+      setProfileDetails((prev) => ({ ...prev, [name]: value }))
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
@@ -71,17 +72,18 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
     "neckCirumference",
   ];
 
-  const sortedMeasurements = [...(profileDetails.physicalMeasurement || [])].sort(
+  const sortedMeasurements = [
+    ...(profileDetails.physicalMeasurement || []),
+  ].sort(
     (a, b) => new Date(a.createdAt || a.date) - new Date(b.createdAt || b.date)
   );
-  
+
   const labels = sortedMeasurements.map((item) =>
     moment(item.createdAt || item.date).isValid()
       ? moment(item.createdAt || item.date).format("DD MMM YYYY")
       : "Invalid Date"
   );
-  
-  
+
   const chartData = {
     labels,
     datasets: measurementFields.map((field, i) => ({
@@ -93,7 +95,6 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
       tension: 0.4,
     })),
   };
-  
 
   const chartDataWeight = {
     labels,
@@ -106,7 +107,6 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
       tension: 0.4,
     })),
   };
-  
 
   const chartOptionsWeight = {
     responsive: true,
@@ -120,7 +120,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
       },
     },
   };
-  
+
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -141,24 +141,25 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
           <h3>Basic Details</h3>
         </div>
         <div className="Cardbody row">
-        <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-3">
             <label>Name*</label>
             <input
               type="text"
               className="form-control"
               name="firstName"
-              value={formData.firstName}
+              value={profileDetails.firstName}
               onChange={handleChange}
             />
           </div>
-        <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-3">
             <label>Email*</label>
             <input
               type="email"
               className="form-control"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={profileDetails.email}
+              // onChange={handleChange}
+              disabled={true}
             />
           </div>
           <div className="col-md-6 mb-3">
@@ -167,7 +168,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
               type="number"
               className="form-control"
               name="phone"
-              value={formData.phone}
+              value={profileDetails.phone}
               onChange={handleChange}
             />
           </div>
@@ -177,7 +178,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
               type="number"
               className="form-control"
               name="age"
-              value={formData.age}
+              value={profileDetails.age}
               onChange={handleChange}
             />
           </div>
@@ -306,32 +307,35 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
               </div>
             </div>
           </div>
-         {profileDetails?.physicalMeasurement?.length > 0 && <div className="chart-section mt-4">
-            <h3>Measurement Trends</h3>
-            <div style={{ width: "100%", maxWidth: "100%" }}>
-           <Line
-  data={chartDataWeight}
-  options={{
-    ...chartOptionsWeight,
-    responsive: true,
-    maintainAspectRatio: false,
-  }}
-  height={350}
-/>
-
+          {profileDetails?.physicalMeasurement?.length > 0 && (
+            <div className="chart-section mt-4">
+              <h3>Measurement Trends</h3>
+              <div style={{ width: "100%", maxWidth: "100%" }}>
+                <Line
+                  data={chartDataWeight}
+                  options={{
+                    ...chartOptionsWeight,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                  }}
+                  height={350}
+                />
+              </div>
+              <div
+                style={{ width: "100%", maxWidth: "100%", marginTop: "60px" }}
+              >
+                <Line
+                  data={chartData}
+                  options={{
+                    ...chartOptions,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                  }}
+                  height={350}
+                />
+              </div>
             </div>
-            <div style={{ width: "100%", maxWidth: "100%", marginTop: "60px" }}>
-              <Line
-                data={chartData}
-                options={{
-                  ...chartOptions,
-                  responsive: true,
-                  maintainAspectRatio: false,
-                }}
-                height={350}
-              />
-            </div>
-          </div>}
+          )}
         </div>
       </div>
 

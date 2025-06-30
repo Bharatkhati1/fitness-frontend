@@ -19,7 +19,6 @@ function AllPakages() {
     (state) => state.auth
   );
 
-  console.log(allPackages)
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
 

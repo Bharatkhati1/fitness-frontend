@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PageLoader from "../PageLoader";
 import "./unAuthorized.scss";
+import GymRightImg from "./gym-main.jpg"
 import EyeIcon from "../../../public/assets/img/eye-icon.png";
 import { Login } from "../../store/auth/AuthExtraReducers";
 
@@ -18,6 +19,7 @@ const AdminLogin = ({ type, route }) => {
     password: "",
     remember: false,
   });
+  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -58,6 +60,7 @@ const AdminLogin = ({ type, route }) => {
       );
     }
   };
+
   return (
     <>
       {disableLoginButton ? (
@@ -169,7 +172,7 @@ const AdminLogin = ({ type, route }) => {
                 <div className="card h-100 mb-0 overflow-hidden">
                   <div className="d-flex flex-column h-100">
                     <img
-                      src="https://ithemeslab.com/sitetemplate/befit/male/assets/images/slider-show/s-5.jpg"
+                      src={GymRightImg}
                       alt=""
                       className="w-100 h-100 cover-page"
                     />

@@ -4,6 +4,8 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import { Link } from "react-router-dom";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
+import AddAmountModal from "../Popups/AddAmountModal";
 
 const Partners = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,7 @@ const Partners = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [openDebitModal, setOpenDebitModal] = useState(false);
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
 
@@ -35,7 +38,9 @@ const Partners = () => {
       const res = await adminAxios.get(
         adminApiRoutes.get_master_category("partners")
       );
-      const activeCategories = res.data?.data.filter((item)=> item.isActive == true);
+      const activeCategories = res.data?.data.filter(
+        (item) => item.isActive == true
+      );
       setAllCategories(activeCategories);
     } catch (error) {
       toast.error("Failed to fetch categories");
@@ -121,6 +126,12 @@ const Partners = () => {
 
   return (
     <>
+      <AddAmountModal
+        visible={openDebitModal}
+        onCancel={() => setOpenDebitModal(false)}
+        selectedId={selectedId}
+        type="partner"
+      />
       <div className="row">
         <div className="col-lg-12">
           <div className={`card ${isEdit && "editing"}`}>
@@ -150,7 +161,8 @@ const Partners = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
-                      Partner Image {isEdit && !formData.image && `: ${selectedFileName}`}
+                      Partner Image{" "}
+                      {isEdit && !formData.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       type="file"
@@ -161,6 +173,7 @@ const Partners = () => {
                         handleChange("image", e.target.files[0]);
                       }}
                     />
+                    <ImageDimensionNote type="partners" />
                   </div>
                 </div>
 
@@ -282,6 +295,15 @@ const Partners = () => {
                           <td>{partner.Master.name || partner.categoryId}</td>
                           <td>
                             <div className="d-flex gap-2">
+                              <button
+                                className="btn btn-soft-primary btn-sm"
+                                onClick={() => {
+                                  setSelectedId(partner.id);
+                                  setOpenDebitModal(true);
+                                }}
+                              >
+                                Pay
+                              </button>
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {

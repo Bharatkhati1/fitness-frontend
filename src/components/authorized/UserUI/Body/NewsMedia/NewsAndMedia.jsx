@@ -4,7 +4,6 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import BannerImag from "../../../../../../public/assets/img/new-media-banner.png";
 import searchIcon from "../../../../../../public/assets/img/searchIcon.png";
-import readMoreimg from "../../../../../../public/assets/img/ReadMoreicon.png";
 import leftp from "../../../../../../public/assets/img/leftp.png";
 import leftR from "../../../../../../public/assets/img/rightp.png";
 import { webAxios } from "../../../../../utils/constants";
@@ -61,6 +60,35 @@ function NewsAndMedia() {
     }
   };
 
+  const getPaginationRange = () => {
+    const delta = 1;
+    const range = [];
+    const rangeWithDots = [];
+    let left = currentPage - delta;
+    let right = currentPage + delta;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= left && i <= right)) {
+        range.push(i);
+      }
+    }
+
+    let l;
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l > 2) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
+
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -68,7 +96,7 @@ function NewsAndMedia() {
   };
 
   const handleSelectCategory = (id) => {
-    setSearchTerm("")
+    setSearchTerm("");
     setSelectedCategory(id);
     setCurrentPage(1);
   };
@@ -99,7 +127,10 @@ function NewsAndMedia() {
                 placeholder="Search here"
                 className="form-control"
                 value={searchTerm}
-                onChange={(e) =>{ setSelectedCategory("all");setSearchTerm(e.target.value)}}
+                onChange={(e) => {
+                  setSelectedCategory("all");
+                  setSearchTerm(e.target.value);
+                }}
               />
               <button className="SearchBtn">
                 <img src={searchIcon} alt="Search" />
@@ -139,7 +170,9 @@ function NewsAndMedia() {
                               <li
                                 key={cat.id}
                                 className={
-                                  selectedCategory === cat.id ? "active px-2" : "px-2"
+                                  selectedCategory === cat.id
+                                    ? "active px-2"
+                                    : "px-2"
                                 }
                                 onClick={() => handleSelectCategory(cat.id)}
                               >
@@ -154,17 +187,11 @@ function NewsAndMedia() {
                 </div>
               </div>
               <div className="col-auto sortbyright">
-
-                 <select  className="form-select me-2">
-
-                     <option value="">
-                    Filter
-                  </option>
+                <select className="form-select me-2">
+                  <option value="">Filter</option>
                   <option value="1">Recent</option>
                   <option value="2">Oldest</option>
-
-
-                  </select>
+                </select>
                 <select
                   className="form-select"
                   onChange={(e) => {
@@ -178,8 +205,6 @@ function NewsAndMedia() {
                   <option value="1">Recent</option>
                   <option value="2">Oldest</option>
                 </select>
-
-                 
               </div>
             </div>
           </div>
@@ -193,9 +218,11 @@ function NewsAndMedia() {
               newsItems.map((item) => (
                 <div className="col-md-6 OurHealthBlogContent" key={item.id}>
                   <figure>
-                    {item?.BlogCategory?.name &&<div className="OurBlogsTag">
-                      {item?.BlogCategory?.name}
-                    </div>}
+                    {item?.BlogCategory?.name && (
+                      <div className="OurBlogsTag">
+                        {item?.BlogCategory?.name}
+                      </div>
+                    )}
                     <img
                       crossOrigin="anonymous"
                       src={item.image_url}
@@ -215,7 +242,7 @@ function NewsAndMedia() {
                       }}
                     ></p>
                     <Link
-                       className="btn btn-primary max-width mt-1"
+                      className="btn btn-primary max-width mt-1"
                       to={`/news-media/${item.slug}`}
                     >
                       Read More
@@ -233,6 +260,7 @@ function NewsAndMedia() {
           {newsItems.length > 0 && (
             <div className="paginationBox d-flex justify-content-center">
               <ul className="pagination">
+                {/* Previous Button */}
                 <li
                   className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
                 >
@@ -240,24 +268,32 @@ function NewsAndMedia() {
                     className="page-link"
                     onClick={() => handlePageChange(currentPage - 1)}
                   >
-                    <img src={leftp} />
+                    <img src={leftp} alt="Previous" />
                   </button>
                 </li>
-                {Array.from({ length: totalPages }, (_, i) => (
+
+                {/* Dynamic Page Numbers */}
+                {getPaginationRange().map((page, index) => (
                   <li
+                    key={index}
                     className={`page-item ${
-                      currentPage === i + 1 ? "active" : ""
-                    }`}
-                    key={i + 1}
+                      page === currentPage ? "active" : ""
+                    } ${page === "..." ? "disabled" : ""}`}
                   >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(i + 1)}
-                    >
-                      {i + 1}
-                    </button>
+                    {page === "..." ? (
+                      <span className="page-link">...</span>
+                    ) : (
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </button>
+                    )}
                   </li>
                 ))}
+
+                {/* Next Button */}
                 <li
                   className={`page-item ${
                     currentPage === totalPages ? "disabled" : ""
@@ -267,7 +303,7 @@ function NewsAndMedia() {
                     className="page-link"
                     onClick={() => handlePageChange(currentPage + 1)}
                   >
-                    <img src={leftR} />
+                    <img src={leftR} alt="Next" />
                   </button>
                 </li>
               </ul>

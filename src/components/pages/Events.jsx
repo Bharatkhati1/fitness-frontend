@@ -218,7 +218,6 @@ export default function Events() {
     fetchCmsEvents();
   }, []);
 
-  console.log(formData)
   return (
     <>
       <div className="EventsBanner spacetop">

@@ -6,6 +6,7 @@ import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const BlogsManagement = () => {
   const [name, setName] = useState("");
@@ -25,6 +26,7 @@ const BlogsManagement = () => {
   const [bannerImage, setBannerImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [filteredData, setfilteredData] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const fileInputRef = useRef(null);
   const bannerImgref = useRef(null);
@@ -34,6 +36,7 @@ const BlogsManagement = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_blogs("blogs"));
       setBlogs(res.data.data);
+      setfilteredData(res.data.data);
     } catch (error) {
       console.error("Failed to fetch sliders:", error);
       toast.error(error.response.data.message);
@@ -130,6 +133,17 @@ const BlogsManagement = () => {
     }
   };
 
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = blogs.filter((val) =>
+        val.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setfilteredData(filterValue);
+    } else {
+      setfilteredData(blogs);
+    }
+  };
+
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
@@ -152,6 +166,7 @@ const BlogsManagement = () => {
       bannerImgref.current.value = "";
     }
   };
+
   useEffect(() => {
     fetchAllBlogs();
     fetchAllCategories();
@@ -203,6 +218,7 @@ const BlogsManagement = () => {
                       className="form-control"
                       onChange={(e) => setImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="innerBanner" />
                   </div>
                 </div>
 
@@ -221,6 +237,7 @@ const BlogsManagement = () => {
                       className="form-control"
                       onChange={(e) => setBannerImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="blogImage" />
                   </div>
                 </div>
 
@@ -374,7 +391,11 @@ const BlogsManagement = () => {
                     <label htmlFor="service-des" className="form-label">
                       Short Desciption
                     </label>
-                    <Ckeditor text={shortDesc} setText={setShortDesc} limit={320}/>
+                    <Ckeditor
+                      text={shortDesc}
+                      setText={setShortDesc}
+                      limit={320}
+                    />
                   </div>
                 </div>
               </div>
@@ -396,6 +417,14 @@ const BlogsManagement = () => {
       </div>
 
       <div className="row">
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50"
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -416,8 +445,8 @@ const BlogsManagement = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {blogs.length > 0 ? (
-                      blogs.map((item, index) => (
+                    {filteredData.length > 0 ? (
+                      filteredData.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>

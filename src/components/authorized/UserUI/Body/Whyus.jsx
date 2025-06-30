@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import wuIcon1 from "../../../../../public/assets/img/wuIcon-1.png";
 import wuIcon2 from "../../../../../public/assets/img/wuIcon-2.png";
 import wuIcon3 from "../../../../../public/assets/img/wuIcon-3.png";
 import wuIcon4 from "../../../../../public/assets/img/wuIcon-4.png";
-import wuIcon5 from "../../../../../public/assets/img/wuIcon-5.png"
+import wuIcon5 from "../../../../../public/assets/img/wuIcon-5.png";
 const Whyus = () => {
   return (
     <section className="WhyUs SectionSpace mt-4">
@@ -76,4 +76,4 @@ const Whyus = () => {
   )
 }
 
-export default Whyus
+export default Whyus;

@@ -35,7 +35,7 @@ function Blogs() {
       const query = {
         page,
         limit,
-        type:"blogs",
+        type: "blogs",
         order: sortBy,
         ...(category !== "all" && { category }),
         ...(search && { search }),
@@ -61,6 +61,35 @@ function Blogs() {
         error.response?.data?.message || "Failed to fetch categories"
       );
     }
+  };
+
+  const getPaginationRange = () => {
+    const delta = 1;
+    const range = [];
+    const rangeWithDots = [];
+    let left = currentPage - delta;
+    let right = currentPage + delta;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= left && i <= right)) {
+        range.push(i);
+      }
+    }
+
+    let l;
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l > 2) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
   };
 
   const handlePageChange = (page) => {
@@ -121,7 +150,7 @@ function Blogs() {
                     <div className="row">
                       <div className="col-xxl-auto col-sm-auto taginfoleft">
                         <li
-                        style={{zIndex:"1000"}}
+                          style={{ zIndex: "1000" }}
                           className={selectedCategory == "all" ? "active" : ""}
                           onClick={(e) => handleSelectCategory("all")}
                         >
@@ -181,9 +210,9 @@ function Blogs() {
                   className="form-select"
                   onChange={(e) => {
                     const value = e.target.value;
-                    if (value === "1") {
+                    if (value == "1") {
                       setSortBy("ASC");
-                    } else if (value === "2") {
+                    } else if (value == "2") {
                       setSortBy("DESC");
                     }
                   }}
@@ -191,7 +220,7 @@ function Blogs() {
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1  ">Recent</option>
+                  <option value="1">Newest</option>
                   <option value="2">Oldest</option>
                 </select>
               </div>
@@ -207,9 +236,11 @@ function Blogs() {
               blogs.map((blog) => (
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>
                   <figure>
-                   { blog?.BlogCategory?.name?.length>0&&<div className="OurBlogsTag">
-                      {blog?.BlogCategory?.name || "Health"}
-                    </div>}
+                    {blog?.BlogCategory?.name?.length > 0 && (
+                      <div className="OurBlogsTag">
+                        {blog?.BlogCategory?.name || "Health"}
+                      </div>
+                    )}
                     <img
                       crossOrigin="anonymous"
                       src={blog.image_url}
@@ -230,7 +261,9 @@ function Blogs() {
                             .
                           </>
                         ) : null}
-                        {blog.readTime != "null" && <> {blog.readTime} min read</>}
+                        {blog.readTime != "null" && (
+                          <> {blog.readTime} min read</>
+                        )}
                       </span>
                     </div>
                     <p
@@ -259,6 +292,7 @@ function Blogs() {
           {blogs.length > 0 && (
             <div className="paginationBox d-flex justify-content-center">
               <ul className="pagination">
+                {/* Previous Button */}
                 <li
                   className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
                 >
@@ -266,24 +300,32 @@ function Blogs() {
                     className="page-link"
                     onClick={() => handlePageChange(currentPage - 1)}
                   >
-                    <img src={leftp} />
+                    <img src={leftp} alt="Previous" />
                   </button>
                 </li>
-                {Array.from({ length: totalPages }, (_, i) => (
+
+                {/* Dynamic Page Numbers */}
+                {getPaginationRange().map((page, index) => (
                   <li
+                    key={index}
                     className={`page-item ${
-                      currentPage === i + 1 ? "active" : ""
-                    }`}
-                    key={i + 1}
+                      page === currentPage ? "active" : ""
+                    } ${page === "..." ? "disabled" : ""}`}
                   >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(i + 1)}
-                    >
-                      {i + 1}
-                    </button>
+                    {page === "..." ? (
+                      <span className="page-link">...</span>
+                    ) : (
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </button>
+                    )}
                   </li>
                 ))}
+
+                {/* Next Button */}
                 <li
                   className={`page-item ${
                     currentPage === totalPages ? "disabled" : ""
@@ -293,7 +335,7 @@ function Blogs() {
                     className="page-link"
                     onClick={() => handlePageChange(currentPage + 1)}
                   >
-                    <img src={leftR} />
+                    <img src={leftR} alt="Next" />
                   </button>
                 </li>
               </ul>

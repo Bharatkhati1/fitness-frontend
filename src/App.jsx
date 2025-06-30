@@ -54,10 +54,10 @@ const App = () => {
     localStorage.getItem("isAdmin") === "true"
   );
 
-  const getUserTypeFromPath = (pathname) => {
-    if (pathname.includes("/admin")) return "admin";
-    if (pathname.includes("/b2b-partner")) return "partner";
-    if (pathname.includes("/service-provider")) return "consultant";
+  const getUserTypeFromPath = (path) => {
+    if (path.includes("/admin")) return "admin";
+    if (path.includes("/b2b-partner")) return "partner";
+    if (path.includes("/service-provider")) return "consultant";
     return "user";
   };
 
@@ -75,89 +75,33 @@ const App = () => {
   };
 
   useEffect(() => {
-    let userType;
-    if (pathname.includes("/admin")) {
-      userType = "admin";
-    } else if (pathname.includes("/b2b-partner")) {
-      userType = "partner";
-    } else if (pathname.includes("/service-provider")) {
-      userType = "consultant";
-    } else {
-      userType = "user";
-    }
+    const userType = getUserTypeFromPath(pathname);
     dispatch(getAccessToken(isAdmin, userType));
   }, [dispatch, type, isAdmin]);
 
   useEffect(() => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
   }, [isCheckingToken]);
-  
-  if (isCheckingToken) return <PageLoader />;
 
-  if (!isLoggedIn) {
-    return (
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route
-            path="/admin"
-            element={<AdminLogin type="admin" route="admin" />}
-          />
-          <Route
-            path="/b2b-partner"
-            element={<AdminLogin type="partner" route="b2b-partner" />}
-          />
-          <Route
-            path="/service-provider"
-            element={<AdminLogin type="consultant" route="service-provider" />}
-          />
-          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="/login-user" element={<LoginUser />} />
-          <Route path="/SignUpUser" element={<SignUpUser />} />
-          <Route
-            path="/*"
-            element={
-              isAdmin ? (
-                <Navigate
-                  to={getLoginPathForUserType(getUserTypeFromPath(pathname))}
-                  replace
-                />
-              ) : (
-                <UserRoutes />
-              )
-            }
-          />
-          <Route path="*" element={<Navigate replace to="/*" />} />
-          <Route path="SiteMap" element={<SiteMap />} />
-          <Route
-            path="DiabetesHealthPakages"
-            element={<DiabetesHealthPakages />}
-          />
-          <Route path="Testimonial" element={<Testimonial />} />
-        </Routes>
-      </Suspense>
-    );
-  }
+  if (isCheckingToken) return <PageLoader />;
 
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route
-          path="/admin"
-          element={<AdminLogin type="admin" route="admin" />}
-        />
-        <Route
-          path="/b2b-partner"
-          element={<AdminLogin type="partner" route="b2b-partner" />}
-        />
-        <Route
-          path="/service-provider"
-          element={<AdminLogin type="consultant" route="service-provider" />}
-        />
+        {/* Shared Public Routes */}
+        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+        <Route path="/login-user" element={<LoginUser />} />
+        <Route path="/SignUpUser" element={<SignUpUser />} />
+        <Route path="/SiteMap" element={<SiteMap />} />
+        <Route path="/DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
+        <Route path="/Testimonial" element ={<Testimonial />} />
 
-        {userAccessToken.length === 0 && (
-          <Route path="/login-user" element={<LoginUser />} />
-        )}
+        {/* Login Pages for Admin/Partner/Consultant */}
+        <Route path="/admin" element={<AdminLogin type="admin" route="admin" />} />
+        <Route path="/b2b-partner" element={<AdminLogin type="partner" route="b2b-partner" />} />
+        <Route path="/service-provider" element={<AdminLogin type="consultant" route="service-provider" />} />
 
+        {/* Protected Admin Routes */}
         {pathname.includes("/admin") && (
           <Route
             path="/admin/*"
@@ -169,38 +113,44 @@ const App = () => {
           />
         )}
 
+        {/* Protected Partner Routes */}
         {pathname.includes("/b2b-partner") && (
           <Route
             path="/b2b-partner/*"
             element={
-              <ProtectedRoute
-                condition={isAdminLogined}
-                redirectTo="/b2b-partner"
-              >
+              <ProtectedRoute condition={isAdminLogined} redirectTo="/b2b-partner">
                 <PartnerRoutes />
               </ProtectedRoute>
             }
           />
         )}
 
+        {/* Protected Consultant Routes */}
         {pathname.includes("/service-provider") && (
           <Route
             path="/service-provider/*"
             element={
-              <ProtectedRoute
-                condition={isAdminLogined}
-                redirectTo="/service-provider"
-              >
+              <ProtectedRoute condition={isAdminLogined} redirectTo="/service-provider">
                 <ConsultantRoutes />
               </ProtectedRoute>
             }
           />
         )}
 
+        {/* Default Catch-All Routing */}
         <Route
           path="/*"
           element={
-            isAdmin ? (
+            !isLoggedIn ? (
+              isAdmin ? (
+                <Navigate
+                  to={getLoginPathForUserType(getUserTypeFromPath(pathname))}
+                  replace
+                />
+              ) : (
+                <UserRoutes />
+              )
+            ) : isAdmin ? (
               <Navigate
                 to={getLoginPathForUserType(getUserTypeFromPath(pathname))}
                 replace
@@ -210,9 +160,12 @@ const App = () => {
             )
           }
         />
+
+        <Route path="*" element={<Navigate to="/*" replace />} />
       </Routes>
     </Suspense>
   );
 };
+
 
 export default App;

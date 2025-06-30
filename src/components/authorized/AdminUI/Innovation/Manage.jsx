@@ -5,6 +5,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { Link } from "react-router-dom";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const Manage = () => {
   const [formData, setFormData] = useState({
@@ -21,11 +22,11 @@ const Manage = () => {
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [image, setImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [allinnovation, setAllInnovation] = useState([]);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [banneImagName, setBannerUImageName] = useState("")
+  const [banneImagName, setBannerUImageName] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [allCategories, setAllCategories] = useState([]);
 
@@ -70,7 +71,7 @@ const Manage = () => {
       toast.warning("Please select an image.");
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     const submissionData = new FormData();
     submissionData.append("title", formData.title);
     submissionData.append("description", formData.longDescription);
@@ -82,7 +83,8 @@ const Manage = () => {
     submissionData.append("categoryId", formData.categoryId);
     submissionData.append("shortDescription", formData.shortDescription);
     if (image) submissionData.append("blog_image", image);
-    if (formData.bannerImage) submissionData.append("banner_image", formData.bannerImage);
+    if (formData.bannerImage)
+      submissionData.append("banner_image", formData.bannerImage);
 
     const loadingToastId = toast.loading(
       `${isEdit ? "Updating" : "Creating"} Innovation...`
@@ -123,8 +125,8 @@ const Manage = () => {
         isLoading: false,
         autoClose: 3000,
       });
-    }finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -136,15 +138,15 @@ const Manage = () => {
       author: "",
       categoryId: "",
       readTime: "",
-      bannerImage:null,
+      bannerImage: null,
       isActive: true,
       date: "",
     });
     setImage(null);
     setSelectedId(null);
-    setBannerUImageName("")
+    setBannerUImageName("");
     setIsEdit(false);
-    if( bannerImgRef.current) bannerImgRef.current.value = "";
+    if (bannerImgRef.current) bannerImgRef.current.value = "";
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -222,8 +224,8 @@ const Manage = () => {
                     />
                   </div>
                 </div>
-                    
-                  {/* Read time  */}
+
+                {/* Read time  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Read Time (0–60 min)</label>
@@ -250,7 +252,9 @@ const Manage = () => {
                 {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">Image {isEdit && !image && ` : ${selectedFileName}`}</label>
+                    <label className="form-label">
+                      Image {isEdit && !image && ` : ${selectedFileName}`}
+                    </label>
                     <input
                       type="file"
                       className="form-control"
@@ -258,20 +262,31 @@ const Manage = () => {
                       ref={fileInputRef}
                       onChange={(e) => setImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="innovationManage" />
                   </div>
                 </div>
 
                 {/* Banner Image  */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label"> Banner Image {isEdit && !formData.bannerImage && ` : ${banneImagName}`}</label>
+                    <label className="form-label">
+                      {" "}
+                      Banner Image{" "}
+                      {isEdit && !formData.bannerImage && ` : ${banneImagName}`}
+                    </label>
                     <input
                       type="file"
                       className="form-control"
                       accept="image/*"
                       ref={bannerImgRef}
-                      onChange={(e) => setFormData((prev)=> ({...prev , bannerImage:e.target.files[0]}))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          bannerImage: e.target.files[0],
+                        }))
+                      }
                     />
+                    <ImageDimensionNote type="innerBanner" />
                   </div>
                 </div>
 
@@ -396,12 +411,15 @@ const Manage = () => {
                     />
                   </div>
                 </div>
-
               </div>
             </div>
 
             <div className="card-footer border-top">
-              <button className="btn btn-primary" onClick={handleSubmit} disabled={isLoading}>
+              <button
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
                 {isEdit ? "Update" : "Create"}
               </button>
             </div>
@@ -489,11 +507,11 @@ const Manage = () => {
                                     longDescription: item.description || "",
                                     isActive: item.isActive ?? true,
                                     author: item.auther || "",
-                                    bannerImage:null,
+                                    bannerImage: null,
                                     date: item.date || "",
                                     readTime: item.readTime || "",
                                   });
-                                  setBannerUImageName(item.bannerImage)
+                                  setBannerUImageName(item.bannerImage);
                                   setSelectedFileName(item.image);
                                 }}
                               >

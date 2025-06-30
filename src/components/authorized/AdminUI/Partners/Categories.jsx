@@ -110,8 +110,6 @@ const Categories = () => {
     fetchAllCategories();
   }, []);
 
-  console.log(formData)
-
   return (
     <>
       <div className="row">

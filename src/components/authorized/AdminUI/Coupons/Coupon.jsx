@@ -17,7 +17,8 @@ const Coupon = () => {
     maxUsage: "",
     isActiveDates: true,
     startDate: "",
-    endDate: ""
+    endDate: "", 
+    isActive:false
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -134,7 +135,8 @@ const Coupon = () => {
       maxUsage: "",
       isActiveDates: true,
       startDate: "",
-      endDate: ""
+      endDate: "",
+      isActive:false
     });
     setSelectedId(null);
     setIsEdit(false);
@@ -159,7 +161,6 @@ const Coupon = () => {
     fetchAllPackages();
   }, []);
 
-  console.log(formData?.packageId, packages.map((p)=>p.id))
   return (
     <>
       {/* Form Section */}
@@ -370,6 +371,47 @@ const Coupon = () => {
                     />
                   </div>
                 </div>
+
+                    {/* Status */}
+                    <div className="col-lg-6">
+                  <label className="form-label d-block">Status</label>
+                  <div className="d-flex gap-3">
+                    <div className="form-check">
+                      <input
+                        id="consultant-status-active"
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={true}
+                        checked={formData.isActive == true}
+                        onChange={()=> setFormData((prev)=> ({...prev, isActive:true}))}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="consultant-status-active"
+                      >
+                        Active
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        id="consultant-status-inactive"
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={false}
+                        checked={formData.isActive == false}
+                        onChange={()=> setFormData((prev)=> ({...prev, isActive:false}))}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="consultant-status-inactive"
+                      >
+                        Inactive
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -403,10 +445,9 @@ const Coupon = () => {
                       <th>Code</th>
                       <th>Type</th>
                       <th>Value</th>
-                      <th>Packages</th>
                       <th>Partner</th>
                       <th>Commission</th>
-                      <th>Usage</th>
+                      <th>Max Usage</th>
                       <th>Dates</th>
                       <th>Actions</th>
                     </tr>
@@ -420,17 +461,12 @@ const Coupon = () => {
                           <td>{item?.code}</td>
                           <td>{item?.type}</td>
                           <td>{item?.value}{item?.type === 'percent' ? '%' : ''}</td>
-                          <td>
-                            {item?.packageId?.length > 0 
-                              ? item.packageId.join(', ') 
-                              : 'All'}
-                          </td>
                           <td>{item?.partnerId || "-"}</td>
                           <td>
                             {item?.partnerCommission ? `${item.partnerCommission}%` : "-"}
                           </td>
                           <td>
-                            {item?.numberOfUsage} / {item?.maxUsage || '∞'}
+                           {item?.maxUsage || '∞'}
                           </td>
                           <td>
                             {new Date(item?.startDate).toLocaleDateString()} - {' '}
@@ -441,6 +477,7 @@ const Coupon = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0)
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
@@ -455,7 +492,8 @@ const Coupon = () => {
                                     maxUsage: item?.maxUsage || "",
                                     isActiveDates: item?.isActiveDates !== false,
                                     startDate: item?.startDate?.split("T")[0],
-                                    endDate: item?.endDate?.split("T")[0]
+                                    endDate: item?.endDate?.split("T")[0],
+                                    isActive:item?.isActive
                                   });
                                 }}
                               >

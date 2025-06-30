@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const NewsAndMediaManagement = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ const NewsAndMediaManagement = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [filteredData, setfilteredData] = useState([])
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
   const bannerImageRef = useRef(null);
@@ -34,6 +36,7 @@ const NewsAndMediaManagement = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_blogs("news-media"));
       setArticles(res.data.data);
+      setfilteredData(res.data.data)
     } catch (error) {
       console.error("Failed to fetch articles:", error);
       toast.error(error.response?.data?.message);
@@ -135,6 +138,17 @@ const NewsAndMediaManagement = () => {
     }
   };
 
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = articles.filter((val) =>
+        val.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setfilteredData(filterValue);
+    } else {
+      setfilteredData(articles);
+    }
+  };
+
   const resetForm = () => {
     setIsEdit(false);
     setSelectedId(null);
@@ -201,6 +215,7 @@ const NewsAndMediaManagement = () => {
                       handleInputChange("image", e.target.files[0])
                     }
                   />
+                  <ImageDimensionNote type="newsAndMedia" />
                 </div>
 
                 {/* Banner Image */}
@@ -218,6 +233,7 @@ const NewsAndMediaManagement = () => {
                       handleInputChange("bannerImage", e.target.files[0])
                     }
                   />
+                  <ImageDimensionNote type="innerBanner" />
                 </div>
 
                 {/* Category */}
@@ -332,6 +348,14 @@ const NewsAndMediaManagement = () => {
 
       {/* Table */}
       <div className="row mt-4">
+      <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50"
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -352,8 +376,8 @@ const NewsAndMediaManagement = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {articles.length ? (
-                      articles.map((item, index) => (
+                    {filteredData.length ? (
+                      filteredData.map((item, index) => (
                         <tr key={item.id}>
                           <td>{index + 1}</td>
                           <td>

@@ -9,19 +9,24 @@ import { useDispatch } from "react-redux";
 import { AddToCart } from "../../store/auth/AuthExtraReducers";
 import { useSelector } from "react-redux";
 import userAxios from "../../utils/Api/userAxios";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 import { authActions } from "../../store/auth";
 
 function PackageDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [details, setDetails] = useState({});
   const {
     cartItems = [],
     isLoggedIn,
     userAccessToken,
   } = useSelector((state) => state.auth);
   const cartItemIds = cartItems?.map((item) => item.packagePlanId);
+  const [details, setDetails] = useState({});
+  const [comboPlans, setComboPlans] = useState([]);
+  const [singlePlans, setSinglePlans] = useState([]);
 
   const fetchPackageDetails = async () => {
     try {
@@ -29,6 +34,15 @@ function PackageDetails() {
         userApiRoutes.get_package_details(slug)
       );
       setDetails(response.data.data);
+      const singlePlansFiltered = response.data.data.PackagePlans.filter(
+        (plan) => plan.type == "single" || plan.type == ""
+      );
+      const comboLansFiltered = response.data.data.PackagePlans.filter(
+        (plan) => plan.type == "combo"
+      );
+
+      setComboPlans(comboLansFiltered);
+      setSinglePlans(singlePlansFiltered);
     } catch (error) {
       setDetails(null);
       toast.error(error.response.data.message);
@@ -65,34 +79,33 @@ function PackageDetails() {
     dispatch(AddToCart(id, true, navigate));
   };
 
+  const parsedActions = JSON.parse(details.actions || "[]");
+  const actionNames = parsedActions.map((action) => action.name);
+  const showButton = (label) => actionNames.includes(label);
+  const encodedId = btoa(details.id);
+
+  const prevArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.60766 31.7776L18.7502 45.9201L22.2852 42.3851L9.91016 30.0101L22.2852 17.6351L18.7502 14.1001L4.60766 28.2426C4.13898 28.7114 3.87569 29.3472 3.87569 30.0101C3.87569 30.673 4.13898 31.3088 4.60766 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
+
+  const nextArrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
+  </svg>
+`;
+
   useEffect(() => {
     if (userAccessToken && userAccessToken.length > 0) {
       fetchCartitems();
     }
   }, []);
 
-  const parsedActions = JSON.parse(details.actions || "[]");
-  const actionNames = parsedActions.map((action) => action.name);
-  const showButton = (label) => actionNames.includes(label);
-  const encodedId = btoa(details.id);
-
   useEffect(() => {
     fetchPackageDetails();
   }, [slug]);
 
-  const getLengthDiv = () => {
-    const len = details?.PackagePlans?.length;
-    switch (len) {
-      case 1:
-      case 2:
-        return 6;
-      case 3:
-        return 4;
-      default:
-        return 3;
-    }
-  };
-  
   return (
     <>
       <section className="Diabetespage InnerpageSpace pb-0">
@@ -105,7 +118,7 @@ function PackageDetails() {
         </span>
         {details ? (
           <div className="container">
-            <div className="row">
+            <div className="row mb-4">
               <div className="col-md-5 Diabetespageleft">
                 <figure>
                   <img crossOrigin="anonymous" src={details?.image_url} />
@@ -141,61 +154,206 @@ function PackageDetails() {
               </div>
             </div>
 
-            <div className="DiabetesHealthPakages mt-4 mb-0 justify-content-center">
+           { details?.PackagePlans?.length> 0&& <div className="DiabetesHealthPakages mt-4 mb-0 justify-content-center">
               <div class="InnerPageTitle text-center">
-                <h4>{details.name} Variants</h4>
+                <h4>{details.name} package Variants</h4>
               </div>
+              {singlePlans?.length > 0 && (
+                <div className="justify-content-center mb-4">
+                  <h3 className="mt-3"><b>{details?.singleVariantHeading}</b></h3>
+                  {Array.isArray(singlePlans) && singlePlans?.length > 0 && (
+                    <OwlCarousel
+                      className="owl-theme"
+                      autoplay={false}
+                      dots={true}
+                      key={singlePlans.map((pkg) => pkg.id).join(",")}
+                      loop={false}
+                      margin={30}
+                      nav={true}
+                      navText={[prevArrow, nextArrow]}
+                      autoplaySpeed={3000}
+                      autoplayTimeout={9000}
+                      responsive={{
+                        0: {
+                          items: 1,
+                        },
+                        576: {
+                          items: 1,
+                        },
+                        768: {
+                          items: 2,
+                        },
+                        992: {
+                          items: 3,
+                        },
+                        1200: {
+                          items: 4,
+                        },
+                        1400: {
+                          items:
+                            singlePlans?.length === 1 || singlePlans.length == 2
+                              ? 2
+                              : singlePlans?.length === 3
+                              ? 3
+                              : 4,
+                        },
+                      }}
+                    >
+                      {singlePlans
+                        ?.sort((a, b) => a.duration - b.duration)
+                        .map((plan) => (
+                          <div>
+                            <div className="DiabetesHealthcontent">
+                              <figure>
+                                <img
+                                  crossOrigin="anonymous"
+                                  src={plan.image_url}
+                                ></img>
+                              </figure>
 
-              <div className="row justify-content-center">
-                {details?.PackagePlans?.map((plan) => (
-                  <div className={`col-md-${getLengthDiv()}`}>
-                    <div className="DiabetesHealthcontent">
-                      <figure>
-                        <img crossOrigin="anonymous" src={plan.image_url}></img>
-                      </figure>
+                              <figcaption>
+                                <h3>
+                                  ₹{plan.price} | {plan.duration} months
+                                </h3>
+                                {plan.description && (
+                                  <>
+                                    <span>Variant description:</span>
+                                    <p
+                                      className="text-center"
+                                      dangerouslySetInnerHTML={{
+                                        __html: plan?.description,
+                                      }}
+                                    ></p>
+                                  </>
+                                )}
 
-                      <figcaption>
-                        <h3>
-                          ₹{plan.price} | {plan.duration} months
-                        </h3>
-                        {plan.description && (
-                          <>
-                            <span>Variant description:</span>
-                            <p
-                              className="text-center"
-                              dangerouslySetInnerHTML={{
-                                __html: plan?.description,
-                              }}
-                            ></p>
-                          </>
-                        )}
+                                <div className="btnbox text-center">
+                                  <a
+                                    onClick={() => handleBuyNow(plan.id)}
+                                    className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
+                                  >
+                                    buy now
+                                  </a>
+                                  <a
+                                    onClick={() =>
+                                      cartItemIds.includes(plan.id)
+                                        ? navigate("/cart")
+                                        : handleAddToCart(plan.id)
+                                    }
+                                    className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                  >
+                                    {cartItemIds.includes(plan.id)
+                                      ? `Go to cart`
+                                      : `add to bag`}
+                                  </a>
+                                </div>
+                              </figcaption>
+                            </div>
+                          </div>
+                        ))}
+                    </OwlCarousel>
+                  )}
+                </div>
+              )}
+              {comboPlans?.length > 0 && (
+                <div className=" justify-content-center mb-4">
+                  <h3 className="mt-3"><b>{details?.comboVariantHeading}</b></h3>
+                  {Array.isArray(comboPlans) && comboPlans?.length > 0 && (
+                    <OwlCarousel
+                      className="owl-theme"
+                      autoplay={false}
+                      dots={true}
+                      items={4}
+                      key={comboPlans.map((pkg) => pkg.id).join(",")}
+                      loop={false}
+                      margin={10}
+                      nav={true}
+                      navText={[prevArrow, nextArrow]}
+                      autoplaySpeed={3000}
+                      autoplayTimeout={9000}
+                      responsive={{
+                        0: {
+                          items: 1,
+                        },
+                        576: {
+                          items: 1,
+                        },
+                        768: {
+                          items: 2,
+                        },
+                        992: {
+                          items: 3,
+                        },
+                        1200: {
+                          items: 4,
+                        },
+                        1400: {
+                          items:
+                          comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
+                        },
+                      }}
+                    >
+                      {comboPlans
+                        ?.sort((a, b) => a.duration - b.duration)
+                        .map((plan) => (
+                          <div >
+                            <div className="DiabetesHealthcontent">
+                              <figure>
+                                <img
+                                  crossOrigin="anonymous"
+                                  src={plan.image_url}
+                                ></img>
+                              </figure>
 
-                        <div className="btnbox text-center">
-                          <a
-                            onClick={() => handleBuyNow(plan.id)}
-                            className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
-                          >
-                            buy now
-                          </a>
-                          <a
-                            onClick={() =>
-                              cartItemIds.includes(plan.id)
-                                ? navigate("/cart")
-                                : handleAddToCart(plan.id)
-                            }
-                            className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                          >
-                            {cartItemIds.includes(plan.id)
-                              ? `Go to cart`
-                              : `add to bag`}
-                          </a>
-                        </div>
-                      </figcaption>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                              <figcaption>
+                                <h3>
+                                  ₹{plan.price} | {plan.duration} months
+                                </h3>
+                                {plan.description && (
+                                  <>
+                                    <span>Variant description:</span>
+                                    <p
+                                      className="text-center"
+                                      dangerouslySetInnerHTML={{
+                                        __html: plan?.description,
+                                      }}
+                                    ></p>
+                                  </>
+                                )}
+
+                                <div className="btnbox text-center">
+                                  <a
+                                    onClick={() => handleBuyNow(plan.id)}
+                                    className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
+                                  >
+                                    buy now
+                                  </a>
+                                  <a
+                                    onClick={() =>
+                                      cartItemIds.includes(plan.id)
+                                        ? navigate("/cart")
+                                        : handleAddToCart(plan.id)
+                                    }
+                                    className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                  >
+                                    {cartItemIds.includes(plan.id)
+                                      ? `Go to cart`
+                                      : `add to bag`}
+                                  </a>
+                                </div>
+                              </figcaption>
+                            </div>
+                          </div>
+                        ))}
+                    </OwlCarousel>
+                  )}
+                </div>
+              )}
+            </div>}
           </div>
         ) : (
           <div className="col-12 text-center py-5">
@@ -203,7 +361,7 @@ function PackageDetails() {
           </div>
         )}
 
-        {details && (
+        {details?.PackageInclusions?.length > 0 && (
           <div className="PackageINclusion mt-5 pt-3 pb-5">
             <div className="container">
               <h3 className="pn-title text-center">

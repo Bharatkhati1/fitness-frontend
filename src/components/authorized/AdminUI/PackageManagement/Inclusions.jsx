@@ -1,5 +1,6 @@
 import React from "react";
 import Ckeditor from "../CkEditor/Ckeditor";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
   const removeInclusion = (index) => {
@@ -66,6 +67,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
                     );
                   }}
                 />
+                 <ImageDimensionNote type="inclusion" />
               </div>
 
               {/* Inclusion Description */}
@@ -85,7 +87,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
 
               {/* Status */}
               <div className="col-lg-6">
-                <p>Package Status</p>
+                <p>Inclusion Status</p>
                 <div className="d-flex gap-2 align-items-center">
                   <div className="form-check">
                     <input

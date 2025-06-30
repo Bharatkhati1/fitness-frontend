@@ -4,6 +4,7 @@ import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
 import { Link } from "react-router-dom";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
 const Categories = () => {
   const [formData, setFormData] = useState({
@@ -94,7 +95,7 @@ const Categories = () => {
   const onCancelEdit = () => {
     setIsEdit(false);
     setSelectedId(null);
-    setFormData({ name: "", image: null, isActive: true , type:""});
+    setFormData({ name: "", image: null, isActive: true, type: "" });
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -181,6 +182,7 @@ const Categories = () => {
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
+                    <ImageDimensionNote type="smartCategory" />
                   </div>
                 </div>
 
@@ -305,7 +307,7 @@ const Categories = () => {
                                     name: item.name,
                                     image: null,
                                     isActive: item.isActive,
-                                    type:item.type || "",
+                                    type: item.type || "",
                                   });
                                   setSelectedFileName(item.image);
                                 }}

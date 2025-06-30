@@ -8,6 +8,7 @@ import "./services.scss";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const ServiceManagement = () => {
   const [sliderName, setSliderName] = useState("");
@@ -200,7 +201,6 @@ const ServiceManagement = () => {
     fetchAllServices();
   }, []);
 
-  console.log(isPublished)
   return (
     <>
       <div className="row">
@@ -250,6 +250,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setServiceBannerImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote  type="innerBanner"/>
                   </div>
                 </div>
 
@@ -268,6 +269,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
                     />
+                     <ImageDimensionNote  type="service"/>
                   </div>
                 </div>
 
@@ -286,6 +288,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setStoryImage(e.target.files[0])}
                     />
+                     <ImageDimensionNote  type="storyImage"/>
                   </div>
                 </div>
 

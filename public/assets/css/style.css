@@ -2963,7 +2963,7 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .product-list figcaption h3 {
-  font-size: 24px;
+  font-size: 22px;
   color: #000000;
   font-weight: 600;
   margin-bottom: 20px;
@@ -3097,8 +3097,6 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .Diabetespageright p {
-  font-size: 16px;
-  font-weight: 400;
   border-radius: 5px;
   color: #2a2a2a;
 }
@@ -3144,9 +3142,9 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .DiabetesHealthcontent figcaption {
-  box-shadow: 0 4px 9px rgb(0 0 0 / 25%);
-  border: 1px solid rgb(0 0 0 / 23%);
-  padding: 12px 10px 25px;
+    box-shadow: 0 4px 9px rgb(0 0 0 / 10%);
+    border: 1px solid rgb(0 0 0 / 23%);
+    padding: 12px 10px 25px;
 }
 
 .DiabetesHealthcontent figcaption h3 {
@@ -3189,10 +3187,14 @@ ul.Packagedescriptionlist {
   position: absolute;
 }
 
-.DiabetesHealthcontent figure img {
+.owl-carousel .owl-item .DiabetesHealthcontent figure img {
   height: 234px;
-  width: 100%;
+  width: 100% !important;
   object-fit: cover;
+}
+
+.DiabetesHealthcontent figcaption ul {
+    min-height: 160px;
 }
 
 .blogbannertitle {

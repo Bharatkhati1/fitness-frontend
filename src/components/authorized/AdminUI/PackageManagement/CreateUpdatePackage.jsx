@@ -9,6 +9,7 @@ import { Select } from "antd";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 
 const { Option } = Select;
 
@@ -41,9 +42,16 @@ const CreateUpdatePackage = () => {
     { name: "", description: "", image: null, is_active: true },
   ]);
 
-  const [packageVariants, setPackageVariants] = useState([
-    { duration: 0, price: "", description: "", image: null },
+  const [packageVariantsSingle, setPackageVariantsSingle] = useState([
+    { duration: 0, price: "", description: "", image: null, type: "single" },
   ]);
+
+  const [packageVariantsCombo, setPackageVariantsCombo] = useState([
+    { duration: 0, price: "", description: "", image: null, type: "combo" },
+  ]);
+
+  const [comboHeading, setComboheading] = useState("");
+  const [singleheading, setSingleHeading] = useState("");
 
   const fileInputRef = useRef(null);
   const fileInputRef2 = useRef(null);
@@ -80,16 +88,30 @@ const CreateUpdatePackage = () => {
       }
     }
 
-    // Validate package variants
-    for (let i = 0; i < packageVariants.length; i++) {
-      const variant = packageVariants[i];
+    // Validate package Single variants
+    for (let i = 0; i < packageVariantsSingle.length; i++) {
+      const variant = packageVariantsSingle[i];
       if (
         !variant.duration ||
         !variant.price ||
         !variant.description ||
         (!variant.image && !isEdit)
       ) {
-        toast.warning(`Please fill all fields for Variant #${i + 1}`);
+        toast.warning(`Please fill all fields for Single Variant #${i + 1}`);
+        return;
+      }
+    }
+
+    // Validate package Combo variants
+    for (let i = 0; i < packageVariantsCombo.length; i++) {
+      const variant = packageVariantsCombo[i];
+      if (
+        !variant.duration ||
+        !variant.price ||
+        !variant.description ||
+        (!variant.image && !isEdit)
+      ) {
+        toast.warning(`Please fill all fields for Combo Variant #${i + 1}`);
         return;
       }
     }
@@ -98,7 +120,10 @@ const CreateUpdatePackage = () => {
     formData.append("name", packageName);
     formData.append("description", packageDesc);
     formData.append("is_active", packageStatus);
-    formData.append("package_plans", JSON.stringify(packageVariants));
+    formData.append(
+      "package_plans",
+      JSON.stringify([...packageVariantsSingle, ...packageVariantsCombo])
+    );
     formData.append("package_inclusions", JSON.stringify(packageInclusions));
     formData.append("shortDescription", shortDescription);
     formData.append("notification_emails", emailNotification);
@@ -108,7 +133,14 @@ const CreateUpdatePackage = () => {
       "consultant",
       selectedConsultantsId.map((val) => val.value)
     );
+    // Append to formData only if valid
+    if (packageVariantsSingle.length > 0) {
+      formData.append("singleVariantHeading", singleheading.trim());
+    }
 
+    if (packageVariantsCombo.length > 0) {
+      formData.append("comboVariantHeading", comboHeading.trim());
+    }
     if (packageImage) formData.append("package_image", packageImage);
     if (packageBannerImage)
       formData.append("package_banner", packageBannerImage);
@@ -120,10 +152,17 @@ const CreateUpdatePackage = () => {
       }
     }
 
-    // Append images for variants
-    for (let i = 0; i < packageVariants.length; i++) {
-      if (packageVariants[i].image) {
-        formData.append(`package_plan_${i}`, packageVariants[i].image);
+    let k =0;
+    // Append images for Single variants
+    for (let i = 0; i < packageVariantsSingle.length; i++) {
+      if (packageVariantsSingle[i].image) {
+        formData.append(`package_plan_${k++}`, packageVariantsSingle[i].image);
+      }
+    }
+    // Append images for Combo variants
+    for (let i = 0; i < packageVariantsCombo.length; i++) {
+      if (packageVariantsCombo[i].image) {
+        formData.append(`package_plan_${k++}`, packageVariantsCombo[i].image);
       }
     }
 
@@ -185,12 +224,30 @@ const CreateUpdatePackage = () => {
     setShortDescription("");
     setSelectedFileName(null);
     setSelectedConsultantsId([]);
-
+    setComboheading("");
+    setSingleHeading("");
     setPackageInclusions([
       { name: "", description: "", image: null, is_active: true },
     ]);
-    setPackageVariants([
-      { name: "", duration: 0, price: "", description: "", image: null },
+    setPackageVariantsCombo([
+      {
+        name: "",
+        duration: 0,
+        price: "",
+        description: "",
+        image: null,
+        type: "combo",
+      },
+    ]);
+    setPackageVariantsSingle([
+      {
+        name: "",
+        duration: 0,
+        price: "",
+        description: "",
+        image: null,
+        type: "single",
+      },
     ]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -220,8 +277,11 @@ const CreateUpdatePackage = () => {
     ]);
   };
 
-  const onAddVariant = () => {
-    const isValid = packageVariants.every(
+  const onAddVariant = (type) => {
+    const pack =
+      type == "single" ? packageVariantsSingle : packageVariantsCombo;
+
+    const isValid = pack.every(
       (item) =>
         item.duration > 0 &&
         item.price.toString().trim() !== "" &&
@@ -233,11 +293,23 @@ const CreateUpdatePackage = () => {
       toast.error("Please fill all variant fields before adding a new one.");
       return;
     }
-
-    setPackageVariants([
-      ...packageVariants,
-      { duration: 0, price: "", description: "", image: null },
-    ]);
+    if (type == "single") {
+      setPackageVariantsSingle([
+        ...pack,
+        {
+          duration: 0,
+          price: "",
+          description: "",
+          image: null,
+          type: "single",
+        },
+      ]);
+    } else {
+      setPackageVariantsCombo([
+        ...pack,
+        { duration: 0, price: "", description: "", image: null, type: "combo" },
+      ]);
+    }
   };
 
   const initPackageEditForm = (data, conss) => {
@@ -254,7 +326,6 @@ const CreateUpdatePackage = () => {
     setSelectedConsultantsId(
       data.PackageConsultants?.map((cons) => {
         const matchedConsultant = conss.find((c) => c.id === cons.consultantId);
-        console.log(matchedConsultant, "matched");
         return {
           value: matchedConsultant?.id,
           label: matchedConsultant?.name || "Unknown",
@@ -284,9 +355,22 @@ const CreateUpdatePackage = () => {
           price: plan.price || "",
           description: plan.description || "",
           image: plan.image || null,
+          type: plan.type || "single",
         }))
-      : [{ name: "", duration: 0, price: "", description: "", image: null }];
-    setPackageVariants(variants);
+      : [
+          {
+            name: "",
+            duration: 0,
+            price: "",
+            description: "",
+            image: null,
+            type: "single",
+          },
+        ];
+    setSingleHeading(data.singleVariantHeading);
+    setComboheading(data.comboVariantHeading);
+    setPackageVariantsSingle(variants.filter((vdar) => vdar.type == "single"));
+    setPackageVariantsCombo(variants.filter((vdar) => vdar.type == "combo"));
     setIsEdit(true);
   };
 
@@ -399,6 +483,7 @@ const CreateUpdatePackage = () => {
                       className="form-control"
                       onChange={(e) => setPakageImage(e.target.files[0])}
                     />
+                    <ImageDimensionNote type="packages" />
                   </div>
                 </div>
 
@@ -612,13 +697,44 @@ const CreateUpdatePackage = () => {
 
             <div className="card-body">
               <p className="title">
-                Package Variants
-                <button onClick={() => onAddVariant()}>+</button>
+                {packageVariantsSingle.length > 0 ? (
+                  <input
+                    width="400px"
+                    value={singleheading}
+                    placeholder="Enter single variant name"
+                    onChange={(e) => setSingleHeading(e.target.value)}
+                  />
+                ) : (
+                  "Package Single Variant"
+                )}
+                <button onClick={() => onAddVariant("single")}>+</button>
               </p>
               <Variants
                 isEdit={isEdit}
-                packageVariants={packageVariants}
-                setPackageVariants={setPackageVariants}
+                packageVariants={packageVariantsSingle}
+                setPackageVariants={setPackageVariantsSingle}
+                type="single"
+              />
+            </div>
+
+            <div className="card-body">
+              <p className="title">
+                {packageVariantsCombo.length > 0 ? (
+                  <input
+                    value={comboHeading}
+                    placeholder="Enter combo variant name"
+                    onChange={(e) => setComboheading(e.target.value)}
+                  />
+                ) : (
+                  "Package Combo Variant"
+                )}
+                <button onClick={() => onAddVariant("combo")}>+</button>
+              </p>
+              <Variants
+                isEdit={isEdit}
+                packageVariants={packageVariantsCombo}
+                setPackageVariants={setPackageVariantsCombo}
+                type="combo"
               />
             </div>
 
