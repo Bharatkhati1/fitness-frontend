@@ -183,10 +183,15 @@ function ContactUs() {
                       <input
                         name="phone"
                         value={formData.phone}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,10}$/.test(val)) {
+                            handleChange(e); 
+                          }
+                        }}
                         placeholder="Enter your contact number"
                         className="form-control greyin"
-                        type="tel"
+                        type="number"
                       />
                     </div>
                   </div>
@@ -212,6 +217,23 @@ function ContactUs() {
                           </div>
                         </li>
                       ))}
+                      <li >
+                          <div className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={`check`}
+                              checked={formData.contactFor.includes("other")}
+                              onChange={() => handleCheckboxChange('other')}
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor={`check`}
+                            >
+                              Other
+                            </label>
+                          </div>
+                        </li>
                     </ul>
                   </div>
                   <div className="col-md-12">

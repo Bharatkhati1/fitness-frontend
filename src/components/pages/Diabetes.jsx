@@ -166,7 +166,7 @@ function PackageDetails() {
                       className="owl-theme"
                       autoplay={false}
                       dots={true}
-                      key={singlePlans.map((pkg) => pkg.id).join(",")}
+                      key={singlePlans.map((pkg) => pkg.id).join(",")+" "+ cartItemIds.join(",")}
                       loop={false}
                       margin={30}
                       nav={true}
@@ -264,7 +264,7 @@ function PackageDetails() {
                       autoplay={false}
                       dots={true}
                       items={4}
-                      key={comboPlans.map((pkg) => pkg.id).join(",")}
+                      key={comboPlans.map((pkg) => pkg.id).join(",")+" "+ cartItemIds.join(",")}
                       loop={false}
                       margin={10}
                       nav={true}

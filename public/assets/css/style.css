@@ -290,7 +290,7 @@ header .navbar-collapse .nav-link.active {
   background-repeat: no-repeat;
   padding-top: 75px;
 }
-body .owl-carousel .owl-item .why-class img{
+body .owl-carousel .owl-item .why-class img {
   width: 100% !important;
   object-fit: contain;
 }
@@ -477,15 +477,15 @@ body .heartBeatImg {
 .owl-p {
   font-size: 16px;
   color: #1e1e1e;
-      text-transform: capitalize;
-    font-weight: 600;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 
 .bannerSectionLeft ul li {
-      color: #1e1e1e;
-    text-transform: capitalize;
-    font-weight: 600;
-    font-size: 16px;
+  color: #1e1e1e;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .owl-dots .owl-dot.active span {
@@ -650,7 +650,7 @@ body .heartBeatImg {
     rgba(0, 0, 0, 0.5) 0,
     rgba(255, 255, 255, 0.5) 100%
   );
-  padding:35px 25px;
+  padding: 35px 25px;
 }
 
 .PosterContent h2 {
@@ -1371,7 +1371,7 @@ ul.BottomFooterList,
 }
 
 .innerbanner:after {
-  background:rgb(0 0 0 / 50%);
+  background: rgb(0 0 0 / 50%);
   position: absolute;
   left: 0;
   right: 0;
@@ -2542,15 +2542,15 @@ span.tag-info {
 }
 
 .filtersBoxInner select.form-select {
-    min-width: 120px;
-    border: 1px solid #800030;
-    height: 46px;
-    border-radius: 5px;
-    color: #800030;
-    font-weight: 600;
-    background-color: #f6edf0;
-    font-size: 18px;
-    padding: 0 15px;
+  min-width: 120px;
+  border: 1px solid #800030;
+  height: 46px;
+  border-radius: 5px;
+  color: #800030;
+  font-weight: 600;
+  background-color: #f6edf0;
+  font-size: 18px;
+  padding: 0 15px;
 }
 
 .col-xxl-auto.col-sm-auto.taginfoleft {
@@ -2560,8 +2560,6 @@ span.tag-info {
 .filtersBoxInner {
   justify-content: space-between;
 }
-
-
 
 .taginfolist {
   margin-bottom: 0;
@@ -3147,9 +3145,9 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .DiabetesHealthcontent figcaption {
-    box-shadow: 0 4px 9px rgb(0 0 0 / 10%);
-    border: 1px solid rgb(0 0 0 / 23%);
-    padding: 12px 10px 25px;
+  box-shadow: 0 4px 9px rgb(0 0 0 / 10%);
+  border: 1px solid rgb(0 0 0 / 23%);
+  padding: 12px 10px 25px;
 }
 
 .DiabetesHealthcontent figcaption h3 {
@@ -3199,7 +3197,7 @@ ul.Packagedescriptionlist {
 }
 
 .DiabetesHealthcontent figcaption ul {
-    min-height: 160px;
+  min-height: 160px;
 }
 
 .blogbannertitle {
@@ -3427,7 +3425,7 @@ section.clientfeedback {
   margin-right: 3px;
 }
 
-.owl-carousel .owl-item .testiuser  figure img {
+.owl-carousel .owl-item .testiuser figure img {
   width: 67px !important;
   height: 67px;
   border-radius: 50%;
@@ -3532,12 +3530,12 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
-.Diabetespageright ul li, .note-editable ul li {
+.Diabetespageright ul li,
+.note-editable ul li {
   list-style: disc;
   text-align: start;
   margin-left: 20px;
 }
-
 
 /* .col-xxl.taginforight {
   width: calc(100% - 171px);
@@ -3685,10 +3683,10 @@ section.clientfeedback {
 }
 
 .ant-modal.custom-modal .modalbody span {
-    color: #007946;
-    font-size: 18px;
-    font-weight: 600;
-    text-transform: capitalize;
+  color: #007946;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
 .ant-modal.custom-modal .form-group > label {
@@ -3831,16 +3829,16 @@ button.ant-modal-close:hover {
 }
 
 .Deleteicon {
-    border: 1px solid #00000033;
-    width: 29px;
-    height: 31px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    border-radius: 2px;
+  border: 1px solid #00000033;
+  width: 29px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-radius: 2px;
 }
 .discoutBox {
   display: flex;
@@ -4083,9 +4081,9 @@ ul.ourapproachlist li:after {
 }
 
 .CarrerShape1 {
-    position: absolute;
-    right: -165px;
-    top: -332px;
+  position: absolute;
+  right: -165px;
+  top: -332px;
 }
 
 .CarrerShape2 {
@@ -5434,12 +5432,12 @@ button.btn.btn-danger {
 }
 
 .btn.btn-secondy {
-   background: #800030 !important;
-    border-radius: 10px;
-    min-width: 240px;
-    font-size: 16px;
-    font-weight: 600;
-    overflow: hidden;
+  background: #800030 !important;
+  border-radius: 10px;
+  min-width: 240px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
 }
 
 table.table tr th {
@@ -5477,127 +5475,131 @@ table.table {
   margin-bottom: 0;
 }
 
-
 .getintouchinner .getintouchinnerleft figure img {
-    width: 90%;
-    height: 350px;
-    border-radius: 10px;
-    object-fit: cover;
+  width: 90%;
+  height: 350px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.formmodal  .form-group input.form-control{ line-height: 1.9;}
+.formmodal .form-group input.form-control {
+  line-height: 1.9;
+}
 
-.sortbyright .form-select{
-    background-image: url(../img/filterarrow.png);
+.sortbyright .form-select {
+  background-image: url(../img/filterarrow.png);
 }
 
 .findYourfitinner .job-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 68px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 68px;
 }
 
 .ourvalue {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .DiabetesHealthcontent .btnbox {
-    width: 65%;
-    margin: auto;
+  width: 65%;
+  margin: auto;
 }
 
 .cardprofile {
-    position: relative;
+  position: relative;
 }
 
 .SmartKichinslider {
-    padding: 30px 0;
+  padding: 30px 0;
 }
 
 .paginationfooter .container {
-    position: relative;
+  position: relative;
 }
 
 .paginationBox.d-flex.justify-content-center {
-    flex: 11;
+  flex: 11;
 }
 
 .FOLLOWUS {
-    flex: 1;
+  flex: 1;
 }
 
 .FOLLOWUSlist li {
-    width: 56px;
-    height: 56px;
-/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,800030+100&1+0,0.25+100,0.12+100 */
-background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(128,0,48,0.22) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  width: 56px;
+  height: 56px;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,800030+100&1+0,0.25+100,0.12+100 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(128, 0, 48, 0.22) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 ul.FOLLOWUSlist.d-flex {
-    gap: 10px;
-    margin-bottom: 0;
+  gap: 10px;
+  margin-bottom: 0;
 }
 
- .FOLLOWUS h3 {
-    font-size: 16px;
-    color: #1E1E1E;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
+.FOLLOWUS h3 {
+  font-size: 16px;
+  color: #1e1e1e;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
 }
-
-
 
 .FOLLOWUS.bannerfollow h3 {
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 700;
-     font-size: 16px;
-      text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
 }
 
-.FOLLOWUS.bannerfollow  .FOLLOWUSlist li{ background: #fff; cursor: pointer;}
+.FOLLOWUS.bannerfollow .FOLLOWUSlist li {
+  background: #fff;
+  cursor: pointer;
+}
 .imgsmcard {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .imgsmcardcontent {
-    position: absolute;
-    bottom: 0;
-    color: #fff;
-    padding: 10px 16px 0;
-    font-size: 18px;
-    font-weight: 600;
-    font-style: italic;
-    background: rgb(0 0 0 / 19%);
-    margin-bottom: -9px;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  padding: 10px 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+  background: rgb(0 0 0 / 19%);
+  margin-bottom: -9px;
 }
 
-
-span.bannerup  {
+span.bannerup {
   width: 300px;
   margin-left: -135px;
 }
 
 span.bannerup img {
-    width: 335px;
+  width: 335px;
 }
 span.bannerup {
-    margin-left: -135px;
-    position: relative;
-    top: 35px;
+  margin-left: -135px;
+  position: relative;
+  top: 35px;
 }
 
 section.WhyUs.SectionSpace {
-    background: #F5F4F4;
+  background: #f5f4f4;
 }
