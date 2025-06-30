@@ -98,13 +98,6 @@ function Home() {
       type: "inquiry",
     };
 
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (formData?.phone?.length != 0) {
-      if (!phoneRegex.test(formData?.phone)) {
-        toast.error("Please enter a valid 10-digit phone number");
-        return;
-      }
-    }
     await sendInquiry(payload);
     setFormData({
       name: "",
@@ -882,9 +875,15 @@ function Home() {
                         type="number"
                         name="phone"
                         value={formData.phone}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,10}$/.test(val)) {
+                            handleChange(e); 
+                          }
+                        }}
                         placeholder="Enter your contact number"
                         className="form-control"
+                        maxLength={10}
                       />
                     </div>
                   </div>
@@ -910,6 +909,23 @@ function Home() {
                           </div>
                         </li>
                       ))}
+                      <li>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`service-`}
+                            checked={formData.contactFor.includes('other')}
+                            onChange={() => handleServiceToggle('other')}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`service-`}
+                          >
+                            Other
+                          </label>
+                        </div>
+                      </li>
                     </ul>
                   </div>
                   <div className="col-md-12">

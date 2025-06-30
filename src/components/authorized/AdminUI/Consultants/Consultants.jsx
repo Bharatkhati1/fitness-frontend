@@ -7,6 +7,7 @@ import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import dayjs from "dayjs";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
+import AddAmountModal from "../Popups/AddAmountModal.jsx";
 
 const Consultants = () => {
   const [formData, setFormData] = useState({
@@ -34,13 +35,11 @@ const Consultants = () => {
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
   const [selectedDays, setSelectedDays] = useState([]);
+  const [openDebitModal, setOpenDebitModal] = useState(false);
 
   const handleDayToggle = (day) => {
-    setSelectedDays(
-      (prev) =>
-        prev?.includes(day)
-          ? prev?.filter((d) => d !== day)
-          : [...prev, day] 
+    setSelectedDays((prev) =>
+      prev?.includes(day) ? prev?.filter((d) => d !== day) : [...prev, day]
     );
   };
 
@@ -83,7 +82,7 @@ const Consultants = () => {
     Object.entries(formData).forEach(([key, val]) => {
       if (val !== null && val !== undefined) payload.append(key, val);
     });
-    payload.append("dayAvailability",selectedDays)
+    payload.append("dayAvailability", selectedDays);
 
     try {
       const url = isEdit
@@ -121,7 +120,7 @@ const Consultants = () => {
     setIsEdit(false);
     setSelectedConsultantID(null);
     setSelectedFileName("");
-    setSelectedDays([])
+    setSelectedDays([]);
     setFormData({
       title: "",
       type: [],
@@ -147,6 +146,12 @@ const Consultants = () => {
 
   return (
     <>
+      <AddAmountModal
+        visible={openDebitModal}
+        onCancel={() => setOpenDebitModal(false)}
+        selectedId={selectedConsultantID}
+        type="consultant"
+      />
       {/* Form Section */}
       <div className="row">
         <div className="col-lg-12">
@@ -298,7 +303,7 @@ const Consultants = () => {
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
-                    <ImageDimensionNote type="manageConsultant"/>
+                    <ImageDimensionNote type="manageConsultant" />
                   </div>
                 </div>
 
@@ -342,7 +347,7 @@ const Consultants = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">Weekly Availability</label>
@@ -473,6 +478,15 @@ const Consultants = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  setSelectedConsultantID(consultant.id);
+                                  setOpenDebitModal(true);
+                                }}
+                              >
+                                Pay
+                              </button>
+                              <button
+                                className="btn btn-soft-primary btn-sm"
+                                onClick={() => {
                                   window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
@@ -495,7 +509,9 @@ const Consultants = () => {
                                     image: null,
                                     isActive: consultant.isActive,
                                   });
-                                  setSelectedDays(consultant?.dayAvailability||[])
+                                  setSelectedDays(
+                                    consultant?.dayAvailability || []
+                                  );
                                   setSelectedFileName(consultant.image);
                                 }}
                               >

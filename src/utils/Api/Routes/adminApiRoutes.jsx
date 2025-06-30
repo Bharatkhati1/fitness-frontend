@@ -131,8 +131,10 @@ const adminApiRoutes = {
   //ALL ORDERS AND APPOINTMENTS ADMIN
   get_all_orders:`/orders`,
   get_all_appointments:`/appointments`,
+  get_testimonials:`/feedbacks`,
 
-  get_testimonials:`/feedbacks`
+  //PAY PARTNER/CONSULTANTS
+  add_debit:(type)=>`/add-debit/${type}`
 };
 
 export default adminApiRoutes;

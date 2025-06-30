@@ -17,7 +17,8 @@ const Coupon = () => {
     maxUsage: "",
     isActiveDates: true,
     startDate: "",
-    endDate: ""
+    endDate: "", 
+    isActive:false
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -134,7 +135,8 @@ const Coupon = () => {
       maxUsage: "",
       isActiveDates: true,
       startDate: "",
-      endDate: ""
+      endDate: "",
+      isActive:false
     });
     setSelectedId(null);
     setIsEdit(false);
@@ -369,6 +371,47 @@ const Coupon = () => {
                     />
                   </div>
                 </div>
+
+                    {/* Status */}
+                    <div className="col-lg-6">
+                  <label className="form-label d-block">Status</label>
+                  <div className="d-flex gap-3">
+                    <div className="form-check">
+                      <input
+                        id="consultant-status-active"
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={true}
+                        checked={formData.isActive == true}
+                        onChange={()=> setFormData((prev)=> ({...prev, isActive:true}))}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="consultant-status-active"
+                      >
+                        Active
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        id="consultant-status-inactive"
+                        className="form-check-input"
+                        type="radio"
+                        name="isActive"
+                        value={false}
+                        checked={formData.isActive == false}
+                        onChange={()=> setFormData((prev)=> ({...prev, isActive:false}))}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="consultant-status-inactive"
+                      >
+                        Inactive
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -449,7 +492,8 @@ const Coupon = () => {
                                     maxUsage: item?.maxUsage || "",
                                     isActiveDates: item?.isActiveDates !== false,
                                     startDate: item?.startDate?.split("T")[0],
-                                    endDate: item?.endDate?.split("T")[0]
+                                    endDate: item?.endDate?.split("T")[0],
+                                    isActive:item?.isActive
                                   });
                                 }}
                               >

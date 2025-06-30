@@ -220,7 +220,7 @@ function Blogs() {
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1">Recent</option>
+                  <option value="1">Newest</option>
                   <option value="2">Oldest</option>
                 </select>
               </div>

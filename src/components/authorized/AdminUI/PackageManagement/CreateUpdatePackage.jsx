@@ -75,17 +75,6 @@ const CreateUpdatePackage = () => {
       return;
     }
 
-    // Validate required headings for selected variants
-    if (packageVariantsCombo.length > 0 && comboHeading == "") {
-      toast.warning("Please fill combo variant heading.");
-      return;
-    }
-
-    if (packageVariantsSingle.length > 0 && singleheading == "") {
-      toast.warning("Please fill single variant heading.");
-      return;
-    }
-
     // Validate package inclusions
     for (let i = 0; i < packageInclusions.length; i++) {
       const inclusion = packageInclusions[i];
@@ -164,7 +153,7 @@ const CreateUpdatePackage = () => {
     }
 
     let k =0;
-    // Append images for SIngle variants
+    // Append images for Single variants
     for (let i = 0; i < packageVariantsSingle.length; i++) {
       if (packageVariantsSingle[i].image) {
         formData.append(`package_plan_${k++}`, packageVariantsSingle[i].image);
