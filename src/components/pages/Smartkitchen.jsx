@@ -137,7 +137,6 @@ function Smartkitchen() {
     }
   };
 
-  console.log(filterCategories)
   return (
     <>
       <EmailRequiredPopup

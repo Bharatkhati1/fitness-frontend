@@ -36,7 +36,6 @@ const Consultants = () => {
   const [selectedDays, setSelectedDays] = useState([]);
 
   const handleDayToggle = (day) => {
-    console.log(day, selectedDays)
     setSelectedDays(
       (prev) =>
         prev?.includes(day)

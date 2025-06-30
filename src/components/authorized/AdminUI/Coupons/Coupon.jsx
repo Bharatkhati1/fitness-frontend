@@ -159,7 +159,6 @@ const Coupon = () => {
     fetchAllPackages();
   }, []);
 
-  console.log(formData?.packageId, packages.map((p)=>p.id))
   return (
     <>
       {/* Form Section */}
@@ -435,6 +434,7 @@ const Coupon = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0, 0)
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({

@@ -82,8 +82,7 @@ const AboutUs = () => {
       useEffect(() => {
         fetchPPDetails();
       }, []);
-    
-      console.log(formData)
+  
       return (
         <div className="row">
           <div className="col-lg-12">

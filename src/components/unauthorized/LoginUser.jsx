@@ -242,7 +242,6 @@ const LoginUser = () => {
           withCredentials: true,
         }
       );
-      console.log("data", data);
       dispatch(
         authActions.loginUser({
           isLoggedIn: true,

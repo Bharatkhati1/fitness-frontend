@@ -5,9 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 const AppleLoginButton = ({handleSocialLoginGoogle}) => {
   const handleAppleResponse = (response) => {
-    console.log("Apple login response:", response);
     const decoded = jwtDecode(response.authorization.id_token);
-    console.log("decoded", decoded);
     handleSocialLoginGoogle(decoded)
   };
 

@@ -201,7 +201,6 @@ const ServiceManagement = () => {
     fetchAllServices();
   }, []);
 
-  console.log(isPublished)
   return (
     <>
       <div className="row">

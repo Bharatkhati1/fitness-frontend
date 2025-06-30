@@ -124,7 +124,6 @@ function Innovation() {
     getCmsDetail();
     getSliders();
   }, []);
-  console.log(sliders);
   return (
     <>
       <div className="innerSpace mt-4">

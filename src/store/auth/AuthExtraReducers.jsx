@@ -55,7 +55,7 @@ export const Login = (userData, navigate, userType, route, isAdmin = false, isMo
       localStorage.setItem("isAdmin", isAdmin);
       if(!isModal){
         dispatch(authActions.checkingUserToken(false));
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 700));
         navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
           replace: true,
         });
@@ -117,7 +117,6 @@ export const getAccessToken = (isAdmin, userType) => {
 };
 
 export const logoutUser = (isUser, navigate) => {
-  console.log("isuser", isUser)
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
@@ -346,7 +345,6 @@ export const fetchCartitems = async () => {
   return async (dispatch) => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
-      console.log(res.data.data);
       dispatch(authActions.setCartItems(res.data.data || []));
     } catch (error) {
       toast.error(error.response.data.error);

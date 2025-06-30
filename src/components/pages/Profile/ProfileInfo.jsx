@@ -21,7 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
+const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, profileDetails }) => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const numericFields = [
@@ -44,6 +44,7 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
         return { ...prev, medicalCanditions: updatedConditions };
       });
     } else {
+      setProfileDetails((prev) => ({ ...prev, [name]: value }))
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
@@ -133,7 +134,6 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
     },
   };
 
-  console.log(formData);
   return (
     <>
       <div className="CardBbox mb-4">
@@ -158,7 +158,8 @@ const ProfileInfo = ({ handleSave, formData, setFormData, profileDetails }) => {
               className="form-control"
               name="email"
               value={profileDetails.email}
-              onChange={handleChange}
+              // onChange={handleChange}
+              disabled={true}
             />
           </div>
           <div className="col-md-6 mb-3">

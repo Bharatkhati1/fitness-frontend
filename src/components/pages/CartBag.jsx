@@ -29,7 +29,6 @@ export default function CartBag() {
     try {
       const res = await userAxios.delete(userApiRoutes.remove_from_cart(id));
       const result   = await fetchCartitems();
-      console.log("res", result)
       dispatch(authActions.setCartItems(result))
       toast.success(res.data.message);
     } catch (error) {
@@ -43,7 +42,6 @@ export default function CartBag() {
       const price = parseFloat(item?.PackagePlan?.price || 0);
       sum += price;
     });
-    console.log("sum", sum);
     setTotal(sum);
   }, [cartItems]);
 

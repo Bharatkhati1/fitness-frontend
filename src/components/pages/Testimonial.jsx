@@ -89,7 +89,6 @@ function Testimonial() {
   useEffect(() => {
     fetchtestimonials();
   }, [selectedServiceId]);
-  console.log(alltestimonials);
   return (
     <>
       <JoinCommunity open={open} setOpen={setOpen} />

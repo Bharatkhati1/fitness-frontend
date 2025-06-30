@@ -5,7 +5,6 @@ import calendericon from "../../../../public/assets/img/calendericon.png";
 import durationicon from "../../../../public/assets/img/durationicon.png";
 
 function MyConsultation({ consultations }) {
-  console.log(consultations);
   return (
     <>
       <div className="CardBody">

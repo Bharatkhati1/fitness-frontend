@@ -254,7 +254,6 @@ function Home() {
 
   return (
     <>
-
       <EmailRequiredPopup
         visible={openEmailRequiredPopup}
         onClose={() => setOpenEmailRequiredPopup(false)}
@@ -287,15 +286,6 @@ function Home() {
             nav={true}
             navText={[prevArrow, nextArrow]}
           >
-            {whyus && whyus.length > 0 && (
-              <div className="why-class">
-                <img
-                  crossOrigin="annoymous"
-                  className="w-100"
-                  src={whyus[0]?.image_url}
-                />
-              </div>
-            )}
             {sliders.map((slider) => (
               <div>
                 <div className="container h-100">
@@ -358,6 +348,15 @@ function Home() {
                 </div>
               </div>
             ))}
+            {whyus && whyus.length > 0 && (
+              <div className="why-class">
+                <img
+                  crossOrigin="annoymous"
+                  className="w-100"
+                  src={whyus[0]?.image_url}
+                />
+              </div>
+            )}
           </OwlCarousel>
         )}
       </section>
@@ -371,7 +370,7 @@ function Home() {
               </span>
 
               <h2>
-                We’re not just another weight loss website we’re your &nbsp;
+                We’re Not Just Another Weight Loss Website We’re Your &nbsp;
                 <span>HEALTH UNIVERSE</span>
               </h2>
               <p>
@@ -396,7 +395,7 @@ function Home() {
       <section className="OurServices bg-solid SectionSpace">
         <div className="container">
           <div className="PageTitle text-center">
-            <h2 onClick={()=> setOpenLoginModal(true)}>OUR SERVICES</h2>
+            <h2 onClick={() => setOpenLoginModal(true)}>OUR SERVICES</h2>
             <p>
               From fat loss solutions to strength, gain and disease management,
               we are committed to your holistic well-being as your true fitness
@@ -448,9 +447,11 @@ function Home() {
                               alt={srv.name}
                               className="img-fluid"
                             />
-                           {!srv.isPublished && <span className="coming-soon-label">
-                              Coming Soon
-                            </span>}
+                            {!srv.isPublished && (
+                              <span className="coming-soon-label">
+                                Coming Soon
+                              </span>
+                            )}
                           </figure>
 
                           <figcaption>
@@ -462,36 +463,38 @@ function Home() {
                                 }}
                               ></p>
                             )}
-                           {srv.isPublished && <div className="gap-1 service-btn text-center d-flex">
-                              {showButton("Know more") && (
-                                <Link
-                                  to={`/service-details/${srv.name
-                                    .toLowerCase()
-                                    .replace(/\s+/g, "-")}`}
-                                  className=" mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
-                                >
-                                  Know more
-                                </Link>
-                              )}
+                            {srv.isPublished && (
+                              <div className="gap-1 service-btn text-center d-flex">
+                                {showButton("Know more") && (
+                                  <Link
+                                    to={`/service-details/${srv.name
+                                      .toLowerCase()
+                                      .replace(/\s+/g, "-")}`}
+                                    className=" mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                  >
+                                    Know more
+                                  </Link>
+                                )}
 
-                              {showButton("Talk to an Expert") && (
-                                <a
-                                  href="#GetInTouch"
-                                  className="btn btn-primary hvr-shutter-out-horizontal w-100"
-                                >
-                                  Talk to an Expert
-                                </a>
-                              )}
+                                {showButton("Talk to an Expert") && (
+                                  <a
+                                    href="#GetInTouch"
+                                    className="btn btn-primary hvr-shutter-out-horizontal w-100"
+                                  >
+                                    Talk to an Expert
+                                  </a>
+                                )}
 
-                              {showButton("Contact our Helpline") && (
-                                <a
-                                  href="#GetInTouch"
-                                  className="btn btn-primary  hvr-shutter-out-horizontal w-100"
-                                >
-                                  Contact our Helpline
-                                </a>
-                              )}
-                            </div>}
+                                {showButton("Contact our Helpline") && (
+                                  <a
+                                    href="#GetInTouch"
+                                    className="btn btn-primary  hvr-shutter-out-horizontal w-100"
+                                  >
+                                    Contact our Helpline
+                                  </a>
+                                )}
+                              </div>
+                            )}
                           </figcaption>
                         </div>
                       </div>

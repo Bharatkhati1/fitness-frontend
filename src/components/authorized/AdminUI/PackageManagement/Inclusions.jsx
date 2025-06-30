@@ -87,7 +87,7 @@ const Inclusions = ({ isEdit, packageInclusions, setPackageInclusions }) => {
 
               {/* Status */}
               <div className="col-lg-6">
-                <p>Package Status</p>
+                <p>Inclusion Status</p>
                 <div className="d-flex gap-2 align-items-center">
                   <div className="form-check">
                     <input

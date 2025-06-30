@@ -49,7 +49,6 @@ function MyTestimonails() {
     const matchingEntry = packages.find(
       (item) => item.PackagePlan?.Package?.id == selectedService
     );
-    console.log(selectedService, matchingEntry, packages);
     const serviceId = matchingEntry?.PackagePlan?.Package?.Service?.id || null;
     const payload = {
       rating: selectedRating,

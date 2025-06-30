@@ -21,6 +21,7 @@ function Profile() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [userPackages, setUserPackages] = useState([]);
   const [consultations, setConsultations] = useState([]);
+  const [firstName , setFirstName] = useState("")
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -47,6 +48,7 @@ function Profile() {
       const res = await userAxios.get(userApiRoutes.get_profile_details);
       const data = res.data.data;
       setProfileDetails(data);
+      setFirstName(data.firstName)
       setFormData({
         firstName: data.firstName,
         email: data.email,
@@ -105,7 +107,7 @@ function Profile() {
   const handleSave = async () => {
     if (!validateForm()) return;
     try {
-      await userAxios.put(userApiRoutes.update_profile, formData);
+      await userAxios.put(userApiRoutes.update_profile, {...formData, firstName: profileDetails.firstName, email: profileDetails.email });
       toast.success("Profile updated successfully");
       fetchProfileDetails();
     } catch (error) {
@@ -201,7 +203,7 @@ function Profile() {
           </div>
           <div className="col">
             <div className="cardcontent">
-              <h3>Hello {profileDetails?.firstName || "User"}!</h3>
+              <h3>Hello {firstName|| "User"}!</h3>
               <p>Everything about you, your journey, and your progress — all in one calm, curated space.</p>
               <div className="tabscardbox d-flex justify-content-between align-items-center mt-3">
                 <ul className="tabslist">
@@ -240,6 +242,7 @@ function Profile() {
       </div>
       {selectedTab == 0 && (
         <ProfileInfo
+        setProfileDetails={setProfileDetails}
           profileDetails={profileDetails}
           formData={formData}
           setFormData={setFormData}

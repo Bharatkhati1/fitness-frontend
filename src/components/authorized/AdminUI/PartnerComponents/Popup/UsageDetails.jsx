@@ -29,7 +29,7 @@ const UsageDetails = ({ open, setOpen, selectedCouponUsage=[] }) => {
                   <td>{index + 1}</td>
                   <td>{item.User.name}</td>
                   <td>{moment(item.createdAt).format('DD-MM-YYYY HH:mm')}</td>
-                  <td>₹{Number(item.discount).toFixed(2)}</td>
+                  <td>₹{Number(item.couponDiscount).toFixed(2)}</td>
                 </tr>
               ))
             )}

@@ -38,7 +38,6 @@ const Innovation = () => {
 
   const handleModalUpdate = async (updatedData) => {
     // You can send the updated data to backend here
-    console.log("Updated slider:", updatedData);
     const formData = new FormData();
     formData.append("name", "name");
     formData.append("heading", updatedData.heading);

@@ -285,7 +285,6 @@ export default function AddToBag() {
         : 0;
 
       discountget += dig;
-      console.log("price", price);
       sum += price;
       totalsum += parseFloat(item?.PackagePlan?.price || 0);
     });
