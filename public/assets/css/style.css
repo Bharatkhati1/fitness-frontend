@@ -629,7 +629,7 @@ body .heartBeatImg {
 .PosterSec {
   background: url(../img/posterSec.png);
   background-repeat: no-repeat;
-  height: 361px;
+  height: 547px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -638,7 +638,7 @@ body .heartBeatImg {
 }
 
 .PosterContent {
-  max-width: 840px;
+  max-width: 970px;
   margin: auto;
   background: linear-gradient(
     to bottom,
