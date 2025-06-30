@@ -2858,7 +2858,7 @@ ul.userslink li a {
   width: 100%;
 }
 .servicedetaillisting figcaption h3 {
-  font-size: 38px;
+  font-size: 32px;
   color: #000000;
   font-weight: 700;
   text-transform: uppercase;
@@ -2885,7 +2885,7 @@ ul.userslink li a {
 }
 
 .servicedetaillisting figcaption {
-  background: url(../img/servicepetternImg.png);
+  /* background: url(../img/servicepetternImg.png); */
   padding: 20px 18px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -3418,8 +3418,8 @@ section.clientfeedback {
   margin-right: 3px;
 }
 
-.testiuser figure img {
-  width: 67px;
+.owl-carousel .owl-item .testiuser  figure img {
+  width: 67px !important;
   height: 67px;
   border-radius: 50%;
   object-fit: cover;
@@ -4026,6 +4026,7 @@ ul.ourapproachlist li:after {
   box-shadow: 0 4px 23px #00794652;
   padding: 40px 20px 20px;
   height: 100%;
+  background: #fff;
 }
 
 .WhyUsinner figure {
@@ -5586,4 +5587,8 @@ span.bannerup {
     margin-left: -135px;
     position: relative;
     top: 35px;
+}
+
+section.WhyUs.SectionSpace {
+    background: #F5F4F4;
 }

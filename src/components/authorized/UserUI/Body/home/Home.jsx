@@ -817,7 +817,7 @@ function Home() {
 
                 <ul className="SoicalList">
                   <li>
-                    <a href={`${contactUsDetails?.instagram}`}>
+                    <a href={`${contactUsDetails?.instagram}`}>                                                                                                                                                                                       
                       <img src={InstaIcon}></img>
                     </a>
                   </li>
