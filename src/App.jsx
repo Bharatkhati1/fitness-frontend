@@ -81,9 +81,9 @@ const App = () => {
 
   useEffect(() => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
-  }, [isCheckingToken]);
+  }, [isCheckingToken, isAdmin]);
 
-  if (isCheckingToken) return <PageLoader />;
+  // if (isCheckingToken) return <PageLoader />;
 
   return (
     <Suspense fallback={<PageLoader />}>

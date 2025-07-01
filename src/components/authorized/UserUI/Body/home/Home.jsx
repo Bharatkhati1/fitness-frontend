@@ -213,7 +213,7 @@ function Home() {
   const handleSlideChange = (event) => {
     const currentIndex = event.item.index;
     const targetElement = document.getElementById("services");
-    if (targetElement && currentIndex !==0) {
+    if (targetElement && currentIndex > 0) {
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };

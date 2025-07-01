@@ -38,6 +38,7 @@ const Inquiry = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Contact</th>
+                 {type=='inquiry'&& <th>Service</th>}
                   <th>Message</th>
                 </tr>
               </thead>
@@ -49,6 +50,7 @@ const Inquiry = () => {
                       <td>{item?.name}</td>
                       <td>{item.email || "-"}</td>
                       <td>{item?.phone}</td>
+                      {type=='inquiry'&&<td>{item?.Service?.map((serv)=> serv.name)?.join(", ")}</td>}
                       <td>{item.message || "-"}</td>
                     </tr>
                   ))
