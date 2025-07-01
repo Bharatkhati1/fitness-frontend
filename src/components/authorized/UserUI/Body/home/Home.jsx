@@ -225,7 +225,7 @@ function Home() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         } else {
           video.pause();
           // video.currentTime = 0;
@@ -262,22 +262,17 @@ function Home() {
         onGetRecipe={onGetRecipe}
       />
       <section className="bannerSection">
-        <span className="shapeImgLeft">
-          <img src={ShapeLeft} />
-        </span>
-        <span className="shapeImgRight">
-          <img src={ShapeRight} />
-        </span>
-
-        <div className="circletagShapeBox">
-          <img className="heartBeatImg" src={heartbeat} alt="" />
-          <span className="circletagShape">
-            <img src={Tagcircle} />
-          </span>
+        <div className="container position-relative">
+          <div className="circletagShapeBox">
+            <img className="heartBeatImg" src={heartbeat} alt="" />
+            <span className="circletagShape">
+              <img src={Tagcircle} />
+            </span>
+          </div>
         </div>
         {sliders.length > 0 && (
           <OwlCarousel
-            autoplay={false}
+            autoplay={true}
             dots={true}
             items={1}
             className="owl-theme"
@@ -288,69 +283,86 @@ function Home() {
             nav={true}
             navText={[prevArrow, nextArrow]}
           >
-            {sliders.map((slider) => (
-              <div>
-                <div className="container h-100">
-                  <div className="row align-items-center">
-                    <div className="col-md-6 bannerSectionLeft pe-0">
-                      <span className="BestTag">
-                        <img src={TagCheckIcon} />
-                        The Best in Town
-                      </span>
-                      <h1 className="mb-1">{slider.heading}</h1>
-                      <div className="owl-p">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: slider.subHeading,
-                          }}
-                        ></div>
-                      </div>
-                      <ul className="ClientListinfo d-flex">
-                        <li>
-                          <div className="ClientInfo">
-                            <b>150+</b>
-                            <p>Happy Clients</p>
+            {sliders.map((slider) => {
+              const options = slider.options ? slider.options.split(",") : [];
+              const showClients = options.includes("Clients");
+              const showExperience = options.includes("Experience");
+              const showAnyClientInfo = showClients || showExperience;
+              return (
+                <div className="slider-box">
+                  <div className="slider-image">
+                    <img
+                      crossOrigin="annoymous"
+                      src={slider.image_url}
+                    />
+                  </div>
+                  <div className="container h-100">
+                    <div className="row align-items-center h-100">
+                      <div className="col-lg-6 bannerSectionLeft pe-0">
+
+
+                        {options.includes("Badge") && (
+                          <span className="BestTag">
+                            <img src={TagCheckIcon} alt="Check" />
+                            The Best in Town
+                          </span>
+                        )}
+
+
+                        <h1 className="mb-1">{slider.heading}</h1>
+                        {slider.subHeading && (
+                          <div className="owl-p">
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: slider.subHeading,
+                              }}
+                            ></div>
                           </div>
-                        </li>
-                        <li>
-                          <div className="ClientInfo">
-                            <b>15</b>
-                            <p>Years of Experience</p>
-                          </div>
-                        </li>
-                      </ul>
-                      <div className="BannerBtn d-flex">
-                        <Link
-                          className="hvr-shutter-out-horizontal"
-                          to={"/all-packages"}
-                        >
-                          Join Now
-                        </Link>
-                        <Link
-                          to={"/trial-7-days"}
-                          className="hvr-shutter-out-horizontal"
-                        >
-                          book a trial
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="col-md-6 bannerSectionRight ps-5 justify-content-end">
-                      <div className="bannerSectionInner">
-                        <div class="item">
-                          <figure>
-                            <img
-                              crossOrigin="annoymous"
-                              src={slider.image_url}
-                            />
-                          </figure>
+                        )}
+
+                        {showAnyClientInfo && (
+                          <ul className="ClientListinfo d-flex">
+                            {showClients && (
+                              <li>
+                                <div className="ClientInfo">
+                                  <b>150+</b>
+                                  <p>Happy Clients</p>
+                                </div>
+                              </li>
+                            )}
+                            {showExperience && (
+                              <li>
+                                <div className="ClientInfo">
+                                  <b>15</b>
+                                  <p>Years of Experience</p>
+                                </div>
+                              </li>
+                            )}
+                          </ul>
+                        )}
+
+
+                        <div className="BannerBtn d-flex">
+                          <Link
+                            className="hvr-shutter-out-horizontal"
+                            to={"/all-packages"}
+                          >
+                            Join Now
+                          </Link>
+                          <Link
+                            to={"/trial-7-days"}
+                            className="hvr-shutter-out-horizontal"
+                          >
+                            book a trial
+                          </Link>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            {whyus && whyus.length > 0 && (
+              )
+            })}
+            {/* {whyus && whyus.length > 0 && (
               <div className="why-class">
                 <img
                   crossOrigin="annoymous"
@@ -358,7 +370,7 @@ function Home() {
                   src={whyus[0]?.image_url}
                 />
               </div>
-            )}
+            )} */}
           </OwlCarousel>
         )}
       </section>
@@ -394,7 +406,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="OurServices bg-solid SectionSpace"  id="services">
+      <section className="OurServices bg-solid SectionSpace" id="services">
         <div className="container">
           <div className="PageTitle text-center">
             <h2 onClick={() => setOpenLoginModal(true)}>OUR SERVICES</h2>
@@ -405,8 +417,8 @@ function Home() {
             </p>
           </div>
           {Array.isArray(services) &&
-          services.length > 0 &&
-          Array.isArray(services[0]) ? (
+            services.length > 0 &&
+            Array.isArray(services[0]) ? (
             <OwlCarousel
               className="owl-theme"
               autoplay={false}

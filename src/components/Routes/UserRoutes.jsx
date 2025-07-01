@@ -34,7 +34,7 @@ import Trial from "../authorized/UserUI/Body/Trial";
 import SiteMap from "../pages/SiteMap";
 
 export default function UserRoutes() {
-  const { userAccessToken } = useSelector((state) => state.auth);
+  const  userAccessToken  = useSelector((state) => state.auth.userAccessToken);
 
   const ProtectedRoute = ({ condition, redirectTo = "/", children }) => {
     return condition ? children : <Navigate to={redirectTo} replace />;

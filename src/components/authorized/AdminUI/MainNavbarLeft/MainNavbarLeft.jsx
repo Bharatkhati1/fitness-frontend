@@ -6,7 +6,7 @@ const NavItems = {
   admin: [
     { id: 1, name: "Slider Management", path: "slider-management", subMenu: [
       { name: "Manage", path: "manage" },
-      { name: "Why Us Image", path: "why-us-image" },
+      // { name: "Why Us Image", path: "why-us-image" },
     ], },
     {
       id: 2,

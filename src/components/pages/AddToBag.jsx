@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import addtobagbg from "../../../public/assets/img/addtobagbg.png";
 import osproductimg1 from "../../../public/assets/img/osproductimg1.png";
 import deleteicon from "../../../public/assets/img/deleteicon.png";
@@ -15,7 +15,7 @@ import { authActions } from "../../store/auth";
 export default function AddToBag() {
   const { type } = useParams();
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.auth);
+  const  user  = useSelector((state) => state.auth.user);
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -36,6 +36,7 @@ export default function AddToBag() {
     medicalConditionDescription: "",
     sportInjury: "",
   });
+  const fetchedRef = useRef(false);
   const [cartItems, setCartItems] = useState([]);
   const [thankYouContent, setThankYouContent] = useState({
     title: "Thank You !",
@@ -69,7 +70,7 @@ export default function AddToBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
-      // dispatch(authActions.setCartItems(res.data.data))
+      dispatch(authActions.setCartItems(res.data.data));
     } catch (error) {
       setCartItems([]);
       console.log(error);

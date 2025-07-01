@@ -10,7 +10,7 @@ const index = () => {
       <Routes>
         <Route index element={<Navigate to="recepies" replace />} />
         <Route path="manage" element={<SliderManagement />} />
-        <Route path="why-us-image" element={<WhyUsImage />} />
+        {/* <Route path="why-us-image" element={<WhyUsImage />} /> */}
         <Route path="/" element={<Navigate replace to="manage" />} />
       </Routes>
     </Suspense>

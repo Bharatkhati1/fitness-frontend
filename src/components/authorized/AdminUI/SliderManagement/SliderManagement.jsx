@@ -36,16 +36,13 @@ const SliderManagement = () => {
   };
   
   const handleSubmit = async () => {
-    if (!sliderImage && !isEdit) {
-      toast.warning("Please fill all required select an image.");
-      return;
-    }
     const formData = new FormData();
     formData.append("name", sliderName);
     formData.append("heading", sliderHeading);
     formData.append("subHeading", sliderSubheading);
     formData.append("isActive", sliderStatus);
     formData.append("slug", "home-page");
+    formData.append("isPrimary", false);
     formData.append("options", selectedIncludes);
     sliderImage && formData.append("slider_image", sliderImage);
 
