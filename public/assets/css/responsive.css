@@ -201,6 +201,10 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
+  .PosterSec {
+    height: 400px;
+  }
+
   .OurServices.bg-solid {
     padding-bottom: 0;
   }
@@ -1158,6 +1162,12 @@
     width: 176px;
     margin-left: 0;
   }
+
+  .PosterSec {
+    padding: 50px 0;
+    background-position: center;
+    height: auto;
+  }
 }
 
 @media (max-width: 991px) {
@@ -2012,7 +2022,7 @@
 
   .AboutBannerContent {
     margin-bottom: 15px;
-}
+  }
   .badetailleft figure img {
     width: 100%;
     height: 636px;
@@ -2396,7 +2406,9 @@
   .OurServicesRow .col-md-4 {
     width: 100%;
   }
-
+  .OurServicesContent figcaption p {
+    min-height: auto;
+  }
   .AboutInfo .col-md-5.text-left figure img {
     width: 300px;
   }
@@ -2897,9 +2909,10 @@
     top: 75px;
   }
 
-  .carticon{    display: flex
-;
-    align-items: center;}
+  .carticon {
+    display: flex;
+    align-items: center;
+  }
 }
 @media (max-width: 480px) {
   a.navbar-brand img {
@@ -3010,8 +3023,8 @@
   }
 
   .SearchBox input {
-          height: 40px;
-        font-size: 13px;
+    height: 40px;
+    font-size: 13px;
   }
   .apdinfo {
     flex-wrap: wrap;
@@ -3508,26 +3521,28 @@
   }
   section.SmartKichin {
     padding-bottom: 0;
-}
+  }
 
-.SmartKichinslider {
+  .SmartKichinslider {
     padding-top: 0;
-}
+  }
 
-.paginationfooter {
+  .paginationfooter {
     flex-wrap: wrap;
-}
-.FOLLOWUS {
+  }
+  .FOLLOWUS {
     flex: initial;
     width: 100%;
     padding: 20px 0;
     justify-content: center;
     text-align: center;
     align-items: center;
-}
-ul.FOLLOWUSlist {
+  }
+  ul.FOLLOWUSlist {
     justify-content: center;
-}
+  }
 
-.btn.btn-primary.xm-btn{font-size: 14px;}
+  .btn.btn-primary.xm-btn {
+    font-size: 14px;
+  }
 }

@@ -273,7 +273,7 @@ function Home() {
             dots={true}
             items={1}
             className="owl-theme"
-            autoplaySpeed={1000}
+            autoplaySpeed={500}
             autoplayTimeout={5000}
             loop
             margin={0}

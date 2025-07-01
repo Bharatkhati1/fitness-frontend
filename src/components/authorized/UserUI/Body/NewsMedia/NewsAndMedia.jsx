@@ -19,7 +19,7 @@ function NewsAndMedia() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("ASC");
+  const [sortBy, setSortBy] = useState("DESC");
   const limit = 10;
 
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
@@ -187,23 +187,23 @@ function NewsAndMedia() {
                 </div>
               </div>
               <div className="col-auto sortbyright">
-                <select className="form-select me-2">
+                {/* <select className="form-select me-2">
                   <option value="">Filter</option>
                   <option value="1">Newest</option>
                   <option value="2">Oldest</option>
-                </select>
+                </select> */}
                 <select
                   className="form-select"
                   onChange={(e) => {
                     const value = e.target.value;
-                    setSortBy(value == "2" ? "ASC" : "DESC");
+                    setSortBy(value == "1" ? "ASC" : "DESC");
                   }}
                 >
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1">Newest</option>
-                  <option value="2">Oldest</option>
+                  <option value="2">Newest</option>
+                  <option value="1">Oldest</option>
                 </select>
               </div>
             </div>

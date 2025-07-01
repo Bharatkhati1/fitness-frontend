@@ -13,7 +13,7 @@ function DiabetesHealthPakages() {
             <h4>DIABETES HEALTH PACKAGEs</h4>
           </div>
 
-          <div className="row">
+          <div className="row ">
             <div className="col-md-3">
               <div className="DiabetesHealthcontent">
                 <figure>

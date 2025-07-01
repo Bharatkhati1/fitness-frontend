@@ -20,7 +20,7 @@ function Blogs() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("ASC");
+  const [sortBy, setSortBy] = useState("DESC");
   const limit = 10;
 
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
@@ -220,8 +220,8 @@ function Blogs() {
                   <option value="" disabled selected>
                     Sort By
                   </option>
-                  <option value="1">Newest</option>
-                  <option value="2">Oldest</option>
+                  <option value="2">Newest</option>
+                  <option value="1">Oldest</option>
                 </select>
               </div>
             </div>
