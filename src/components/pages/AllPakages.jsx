@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import searchIcon from "../../../public/assets/img/searchIcon.png";
-import OwlCarousel from "react-owl-carousel";
+import leftp from "../../../public/assets/img/leftp.png";
+import leftR from "../../../public/assets/img/rightp.png";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import allpakagesbg from "../../../public/assets/img/allpakagesbg.png";
@@ -21,9 +22,13 @@ function AllPakages() {
 
   const [search, setSearch] = useState("");
   const [serviceId, setServiceId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItekms, setTotalItems] = useState(0);
 
   const debouncedSearch = useDebounce(search, 400);
   const debouncedServiceId = useDebounce(serviceId, 400);
+  const limit = 9;
 
   const settings = {
     dots: false,
@@ -53,14 +58,53 @@ function AllPakages() {
     return str;
   };
 
+  const getPaginationRange = () => {
+    const delta = 1;
+    const range = [];
+    const rangeWithDots = [];
+    let left = currentPage - delta;
+    let right = currentPage + delta;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= left && i <= right)) {
+        range.push(i);
+      }
+    }
+
+    let l;
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l > 2) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   useEffect(() => {
     dispatch(
       fetchAllProducts({
         search: debouncedSearch,
         serviceId: debouncedServiceId,
+        page:currentPage,
+        limit,
+        setTotalPages,
+        setTotalItems
       })
     );
-  }, [debouncedSearch, debouncedServiceId, dispatch]);
+  }, [debouncedSearch, currentPage, debouncedServiceId, dispatch]);
 
   return (
     <>
@@ -161,26 +205,10 @@ function AllPakages() {
 
         <div className="productslists">
           <div className="container">
-            <h4 className="producttitle">{allPackages.length} Package</h4>
-            {Array.isArray(allPackages) && allPackages.length > 0 && (
-              <OwlCarousel
-                className="owl-theme"
-                autoplay={false}
-                key={JSON.stringify(allPackages?.map(p => p.id))}
-                dots={false}
-                items={3}
-                autoplaySpeed={500}
-                autoplayTimeout={3000}
-                margin={20}
-                nav={true}
-                responsive={{
-                  0: { items: 1 },
-                  481: { items: 2 },
-                  768: { items: 2 },
-                  992: { items: 3 },
-                  1200: { items: 3 },
-                }}
-              >
+            <h4 className="producttitle">{totalPages *limit} Package</h4>
+
+            {Array.isArray(allPackages) && allPackages.length > 0 ? (
+              <div className="row">
                 {allPackages.map((pkg) => {
                   let parsedActions = [];
 
@@ -197,13 +225,17 @@ function AllPakages() {
                     parsedActions.some((act) => act.name === label);
 
                   return (
-                    <div key={pkg.id} className="item">
-                      <div className="product-list">
+                    <div
+                      key={pkg.id}
+                      className="col-12 col-sm-6 col-md-4 mb-4 d-flex align-items-stretch"
+                    >
+                      <div className="product-list w-100">
                         <figure>
                           <img
                             crossOrigin="anonymous"
                             src={pkg.image_url}
                             alt={pkg.name}
+                            className="img-fluid"
                           />
                         </figure>
 
@@ -251,14 +283,64 @@ function AllPakages() {
                     </div>
                   );
                 })}
-              </OwlCarousel>
-            )}
-
-            {allPackages?.length == 0 && (
+              </div>
+            ) : (
               <div className="col-12 text-center py-5">
                 <h5>No package found.</h5>
               </div>
             )}
+                   {allPackages.length > 0 && (
+                        <div className="paginationBox d-flex justify-content-center">
+                          <ul className="pagination">
+                            {/* Previous Button */}
+                            <li
+                              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                            >
+                              <button
+                                className="page-link"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                              >
+                                <img src={leftp} alt="Previous" />
+                              </button>
+                            </li>
+            
+                            {/* Dynamic Page Numbers */}
+                            {getPaginationRange().map((page, index) => (
+                              <li
+                                key={index}
+                                className={`page-item ${
+                                  page === currentPage ? "active" : ""
+                                } ${page === "..." ? "disabled" : ""}`}
+                              >
+                                {page === "..." ? (
+                                  <span className="page-link">...</span>
+                                ) : (
+                                  <button
+                                    className="page-link"
+                                    onClick={() => handlePageChange(page)}
+                                  >
+                                    {page}
+                                  </button>
+                                )}
+                              </li>
+                            ))}
+            
+                            {/* Next Button */}
+                            <li
+                              className={`page-item ${
+                                currentPage === totalPages ? "disabled" : ""
+                              }`}
+                            >
+                              <button
+                                className="page-link"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                              >
+                                <img src={leftR} alt="Next" />
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
           </div>
         </div>
       </section>

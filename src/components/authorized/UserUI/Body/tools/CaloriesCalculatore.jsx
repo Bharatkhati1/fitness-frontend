@@ -105,7 +105,14 @@ function CaloriesCalculatore() {
                         type="number"
                         placeholder="Enter your age"
                         value={age}
-                        onChange={(e) => setAge(Number(e.target.value))}
+                        min="0"
+                        max="999"
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,3}$/.test(val)) {
+                            setAge(Number(val));
+                          }
+                        }}
                       />
                     </div>
                   </div>
@@ -145,8 +152,20 @@ function CaloriesCalculatore() {
                         className="form-control"
                         type="number"
                         placeholder="Enter height"
+                        inputMode="decimal"
                         value={height}
-                        onChange={(e) => setHeight(Number(e.target.value))}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setHeight(val);
+                            }
+                          }
+                        }}
                       />
                       <Form.Select
                         value={heightUnit}
@@ -165,9 +184,20 @@ function CaloriesCalculatore() {
                       <input
                         className="form-control"
                         type="number"
+                        inputMode="decimal"
                         placeholder="Enter weight"
                         value={weight}
-                        onChange={(e) => setWeight(Number(e.target.value))}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                            const [intPart, decPart] = val.split(".");
+                            const totalDigits =
+                              (intPart || "").length + (decPart || "").length;
+                            if (totalDigits <= 5) {
+                              setWeight(val);
+                            }
+                          }
+                        }}
                       />
                       <Form.Select
                         value={weightUnit}
@@ -206,7 +236,7 @@ function CaloriesCalculatore() {
                   </div>
                 </div>
                 <div className="calculateButton text-center mt-3">
-                { error&&<p style={{color:"orange"}}>{error}</p>}
+                  {error && <p style={{ color: "orange" }}>{error}</p>}
 
                   <button
                     className="btn btn-primary sm-btn hvr-shutter-out-horizontal"

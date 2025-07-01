@@ -122,7 +122,7 @@ function BookAppoinment() {
                         </a>
                         <a
                           onClick={() => {
-                            !isLoggedIn
+                            isLoggedIn
                               ? setSelectedConsultant(cons)
                               : (() => {
                                   setIsFollowUp(true);

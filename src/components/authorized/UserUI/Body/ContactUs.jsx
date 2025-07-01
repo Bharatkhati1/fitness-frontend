@@ -120,17 +120,17 @@ function ContactUs() {
                     <h5>SOCIAL MEDIA</h5>
                     <ul className="userslink d-flex justify-content-center">
                       <li>
-                        <a href={`${contactUsDetails?.instagram}`}>
+                        <a href={`${contactUsDetails?.instagram}`}  target="_blank">
                           <img src={Ginstaicon} />
                         </a>
                       </li>
                       <li>
-                        <a href={`${contactUsDetails?.twitter}`}>
+                        <a  target="_blank" href={`${contactUsDetails?.twitter}`}>
                           <img src={Gtweeter} />
                         </a>
                       </li>
                       <li>
-                        <a href={`${contactUsDetails?.youtube}`}>
+                        <a target="_blank" href={`${contactUsDetails?.youtube}`}>
                           <img src={cyoutubeIcon} />
                         </a>
                       </li>
@@ -157,7 +157,12 @@ function ContactUs() {
                     <input
                       name="name"
                       value={formData.name}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       placeholder="Enter your first name"
                       className="form-control greyin"
                       type="text"

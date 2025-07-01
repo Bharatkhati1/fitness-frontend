@@ -56,27 +56,7 @@ export default function AddToBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_profile_details);
       const data = res.data.data;
-      setFormData({
-        firstName: data.firstName,
-        email: data.email,
-        address: data.address,
-        city: data.city,
-        phone: data.phone,
-        age: data.age || "",
-        gender: data.gender || "",
-        pincode: data.pincode || "",
-        weight: data.UserDetail.weight || "",
-        height: data.UserDetail.height || "",
-        chest: data.UserDetail.chest || "",
-        waistCirumference: data.UserDetail.waistCirumference || "",
-        neckCirumference: data.UserDetail.neckCirumference || "",
-        dietPreference: data.UserDetail.dietPreference || "",
-        workoutPreference: data.UserDetail.workoutPreference || "",
-        medicalCanditions: data.UserDetail.medicalCanditions || [],
-        medicalConditionDescription:
-          data.UserDetail.medicalConditionDescription || "",
-        sportInjury: data.UserDetail.sportInjury || "",
-      });
+      setFormData((prev)=> ({...prev, ...data}));
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -340,6 +320,7 @@ export default function AddToBag() {
       )}
     </div>
   );
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -350,6 +331,24 @@ export default function AddToBag() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+  
+    const { firstName, phone } = formData;
+  
+    if (!firstName?.trim()) {
+      toast.error("Please enter your name.");
+      return;
+    }
+  
+    if (!phone?.trim()) {
+      toast.error("Please enter your phone number.");
+      return;
+    }
+    
+    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+      toast.error("Phone number must be exactly 10 digits.");
+      return;
+    }
+  
     try {
       await userAxios.put(userApiRoutes.update_profile, formData);
       toast.success("Profile updated successfully");
@@ -358,7 +357,8 @@ export default function AddToBag() {
       toast.error(error.response?.data?.message || "Failed to update profile");
     }
   };
-
+  
+  console.log(formData)
   return (
     <>
       <section className="innerbanner">

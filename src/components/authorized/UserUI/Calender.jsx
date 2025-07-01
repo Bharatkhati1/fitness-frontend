@@ -18,6 +18,9 @@ const Calender = ({ onDateSelect }) => {
     <div style={wrapperStyle}>
       <Calendar
         fullscreen={false}
+        disabledDate={(current) => {
+          return current && current < dayjs().startOf('day');
+        }}
         onSelect={(value) => {
           const formattedDate = value.format('YYYY-MM-DD');
           onDateSelect(formattedDate);

@@ -41,17 +41,17 @@ const Footer = () => {
 
               <ul className="SoicalList mt-3">
                 <li>
-                  <a href={`${contactUsDetails?.instagram}`}>
+                  <a target="_blank" href={`${contactUsDetails?.instagram}`}>
                     <img src={InstaIcon}></img>
                   </a>
                 </li>
                 <li>
-                  <a href={`${contactUsDetails?.twitter}`}>
+                  <a target="_blank" href={`${contactUsDetails?.twitter}`}>
                     <img src={TwitterIcon}></img>
                   </a>
                 </li>
                 <li>
-                  <a href={`${contactUsDetails?.youtube}`}>
+                  <a target="_blank" href={`${contactUsDetails?.youtube}`}>
                     <img src={YoutUbeIcon}></img>
                   </a>
                 </li>

@@ -17,8 +17,8 @@ const Coupon = () => {
     maxUsage: "",
     isActiveDates: true,
     startDate: "",
-    endDate: "", 
-    isActive:false
+    endDate: "",
+    isActive: false,
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,15 +62,18 @@ const Coupon = () => {
 
   const handlePackageSelection = (e) => {
     const { value, checked } = e.target;
-    setFormData(prev => {
+    setFormData((prev) => {
       if (checked) {
         return { ...prev, packageId: [...prev.packageId, value] };
       } else {
-        return { ...prev, packageId: prev.packageId.filter(id => id !== value) };
+        return {
+          ...prev,
+          packageId: prev.packageId.filter((id) => id !== value),
+        };
       }
     });
   };
-  
+
   const handleSubmit = async () => {
     const requiredFields = ["name", "code", "type", "value"];
     const missingFields = requiredFields.filter((field) => !formData[field]);
@@ -81,7 +84,7 @@ const Coupon = () => {
       );
       return;
     }
-    
+
     if (new Date(formData.startDate) > new Date(formData.endDate)) {
       toast.warning("End date must be after start date");
       return;
@@ -136,7 +139,7 @@ const Coupon = () => {
       isActiveDates: true,
       startDate: "",
       endDate: "",
-      isActive:false
+      isActive: false,
     });
     setSelectedId(null);
     setIsEdit(false);
@@ -248,10 +251,15 @@ const Coupon = () => {
                             type="checkbox"
                             id={`package-${pkg.id}`}
                             value={pkg.id}
-                            checked={formData.packageId.includes(pkg.id.toString())}
+                            checked={formData.packageId.includes(
+                              pkg.id.toString()
+                            )}
                             onChange={handlePackageSelection}
                           />
-                          <label className="form-check-label" htmlFor={`package-${pkg.id}`}>
+                          <label
+                            className="form-check-label"
+                            htmlFor={`package-${pkg.id}`}
+                          >
                             {pkg.name}
                           </label>
                         </div>
@@ -283,9 +291,7 @@ const Coupon = () => {
                 {/* Partner Commission */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label className="form-label">
-                      Partner Commission (%)
-                    </label>
+                    <label className="form-label">Partner Commission (%)</label>
                     <input
                       type="number"
                       className="form-control"
@@ -334,8 +340,11 @@ const Coupon = () => {
                         role="switch"
                         name="isActiveDates"
                         checked={formData.isActiveDates}
-                        onChange={(e) => 
-                          setFormData(prev => ({...prev, isActiveDates: e.target.checked}))
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            isActiveDates: e.target.checked,
+                          }))
                         }
                       />
                     </div>
@@ -372,8 +381,8 @@ const Coupon = () => {
                   </div>
                 </div>
 
-                    {/* Status */}
-                    <div className="col-lg-6">
+                {/* Status */}
+                <div className="col-lg-6">
                   <label className="form-label d-block">Status</label>
                   <div className="d-flex gap-3">
                     <div className="form-check">
@@ -384,7 +393,9 @@ const Coupon = () => {
                         name="isActive"
                         value={true}
                         checked={formData.isActive == true}
-                        onChange={()=> setFormData((prev)=> ({...prev, isActive:true}))}
+                        onChange={() =>
+                          setFormData((prev) => ({ ...prev, isActive: true }))
+                        }
                       />
                       <label
                         className="form-check-label"
@@ -401,7 +412,9 @@ const Coupon = () => {
                         name="isActive"
                         value={false}
                         checked={formData.isActive == false}
-                        onChange={()=> setFormData((prev)=> ({...prev, isActive:false}))}
+                        onChange={() =>
+                          setFormData((prev) => ({ ...prev, isActive: false }))
+                        }
                       />
                       <label
                         className="form-check-label"
@@ -449,6 +462,7 @@ const Coupon = () => {
                       <th>Commission</th>
                       <th>Max Usage</th>
                       <th>Dates</th>
+                      <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -460,24 +474,39 @@ const Coupon = () => {
                           <td>{item?.name}</td>
                           <td>{item?.code}</td>
                           <td>{item?.type}</td>
-                          <td>{item?.value}{item?.type === 'percent' ? '%' : ''}</td>
+                          <td>
+                            {item?.value}
+                            {item?.type === "percent" ? "%" : ""}
+                          </td>
                           <td>{item?.partnerId || "-"}</td>
                           <td>
-                            {item?.partnerCommission ? `${item.partnerCommission}%` : "-"}
+                            {item?.partnerCommission
+                              ? `${item.partnerCommission}%`
+                              : "-"}
                           </td>
+                          <td>{item?.maxUsage || "∞"}</td>
                           <td>
-                           {item?.maxUsage || '∞'}
-                          </td>
-                          <td>
-                            {new Date(item?.startDate).toLocaleDateString()} - {' '}
+                            {new Date(item?.startDate).toLocaleDateString()} -{" "}
                             {new Date(item?.endDate).toLocaleDateString()}
+                          </td>
+                          <td>
+                            {" "}
+                            <span
+                              className={`badge ${
+                                item.isActive == "1"
+                                  ? "bg-success"
+                                  : "bg-danger"
+                              }`}
+                            >
+                              {item.isActive == "1" ? "Active" : "Inactive"}
+                            </span>
                           </td>
                           <td>
                             <div className="d-flex gap-2">
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
-                                  window.scrollTo(0, 0)
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
@@ -485,15 +514,20 @@ const Coupon = () => {
                                     code: item?.code,
                                     type: item?.type,
                                     value: item?.value,
-                                    packageId: item?.CouponPackages?.map((data)=> `${data.packageId}`) || [],
+                                    packageId:
+                                      item?.CouponPackages?.map(
+                                        (data) => `${data.packageId}`
+                                      ) || [],
                                     partnerId: item?.partnerId || "",
-                                    partnerCommission: item?.partnerCommission || "",
+                                    partnerCommission:
+                                      item?.partnerCommission || "",
                                     numberOfUsage: item?.numberOfUsage || 0,
                                     maxUsage: item?.maxUsage || "",
-                                    isActiveDates: item?.isActiveDates !== false,
+                                    isActiveDates:
+                                      item?.isActiveDates !== false,
                                     startDate: item?.startDate?.split("T")[0],
                                     endDate: item?.endDate?.split("T")[0],
-                                    isActive:item?.isActive
+                                    isActive: item?.isActive,
                                   });
                                 }}
                               >

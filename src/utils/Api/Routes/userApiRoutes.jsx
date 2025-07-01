@@ -43,10 +43,12 @@ const userApiRoutes = {
 
   download_recipe:(id)=>`/smart-kitchen-recipe/${id}`,
 
-  get_all_packages: ({ search = '', serviceId } = {}) => {
+  get_all_packages: ({ search = '', serviceId, page=1, limit=10 } = {}) => {
     const params = new URLSearchParams();
     if (search) params.append("search", search);
     if (serviceId) params.append("serviceId", serviceId);
+    if (page) params.append("page", page);
+    if (limit) params.append("limit", limit);
     return `/package${params.toString() ? '?' + params.toString() : ''}`;
   },
 
