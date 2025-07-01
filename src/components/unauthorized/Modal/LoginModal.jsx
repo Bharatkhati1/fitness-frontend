@@ -87,7 +87,13 @@ const LoginModal = ({ visible, onClose }) => {
   };
 
   return (
-    <Modal title="Login" visible={visible} onCancel={onClose} footer={null} destroyOnClose>
+    <Modal
+      title="Login"
+      visible={visible}
+      onCancel={onClose}
+      footer={null}
+      destroyOnClose
+    >
       <form className="formBox" onSubmit={onLoginFormSubmit}>
         <div className="fieldbox mb-3">
           <label>Your Registered Email ID*</label>
@@ -145,25 +151,29 @@ const LoginModal = ({ visible, onClose }) => {
 
         <span className="or-text">Or</span>
 
-        <div className="SocialUsers d-flex justify-content-between gap-3">
+        <div className="SocialUsers d-flex flex-column gap-3">
           {/* Google Login Button */}
-          <div className="SocialButton w-100 text-center">
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                const decoded = jwtDecode(credentialResponse.credential);
-                handleSocialLoginGoogle(decoded);
-              }}
-              onError={() => {
-                toast.error("Login Failed: Server Error");
-              }}
-            />
+          <div className="SocialButton w-100">
+            <div className="btn-wrapper">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  const decoded = jwtDecode(credentialResponse.credential);
+                  handleSocialLoginGoogle(decoded);
+                }}
+                onError={() => {
+                  toast.error("Login Failed: Server Error");
+                }}
+              />
+            </div>
           </div>
 
           {/* Apple Login Button */}
-          <div className="SocialButton w-100 text-center">
-            <AppleLoginButton
-              handleSocialLoginGoogle={handleSocialLoginGoogle}
-            />
+          <div className="SocialButton w-100">
+            <div className="btn-wrapper">
+              <AppleLoginButton
+                handleSocialLoginGoogle={handleSocialLoginGoogle}
+              />
+            </div>
           </div>
         </div>
       </form>

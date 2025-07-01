@@ -189,124 +189,6 @@ function PackageDetails() {
                 <div class="InnerPageTitle text-center">
                   <h4>{details.name} package Variants</h4>
                 </div>
-                {singlePlans?.length > 0 && (
-                  <div className="justify-content-center mb-4">
-                    {details?.singleVariantHeading != "null" && (
-                      <h3 className="mt-3">
-                        <b>{details?.singleVariantHeading || ""}</b>
-                      </h3>
-                    )}
-                    {Array.isArray(singlePlans) && singlePlans?.length > 0 && (
-                      <OwlCarousel
-                        className={`owl-theme ${
-                          singlePlans.length == 1 ? `single-crousol` : ""
-                        }`}
-                        autoplay={false}
-                        dots={true}
-                        key={
-                          singlePlans.map((pkg) => pkg.id).join(",") +
-                          " " +
-                          cartItemIds.join(",")
-                        }
-                        loop={false}
-                        margin={30}
-                        nav={true}
-                        navText={[prevArrow, nextArrow]}
-                        autoplaySpeed={3000}
-                        autoplayTimeout={9000}
-                        responsive={{
-                          0: {
-                            items: 1,
-                          },
-                          576: {
-                            items: 1,
-                          },
-                          768: {
-                            items: 2,
-                          },
-                          992: {
-                            items:
-                            comboPlans?.length === 1 || comboPlans.length == 2
-                              ? 2
-                              : comboPlans?.length === 3
-                              ? 3
-                              : 4,
-                          },
-                          1200: {
-                            items:
-                            comboPlans?.length === 1 || comboPlans.length == 2
-                              ? 2
-                              : comboPlans?.length === 3
-                              ? 3
-                              : 4,
-                          },
-                          1400: {
-                            items:
-                              singlePlans?.length === 1 ||
-                              singlePlans.length == 2
-                                ? 2
-                                : singlePlans?.length === 3
-                                ? 3
-                                : 4,
-                          },
-                        }}
-                      >
-                        {singlePlans
-                          ?.sort((a, b) => a.duration - b.duration)
-                          .map((plan) => (
-                            <div>
-                              <div className="DiabetesHealthcontent">
-                                <figure>
-                                  <img
-                                    crossOrigin="anonymous"
-                                    src={plan.image_url}
-                                  ></img>
-                                </figure>
-
-                                <figcaption className="plan-card">
-                                  <h3>
-                                    ₹{plan.price} | {plan.duration} months
-                                  </h3>
-                                  {plan.description && (
-                                    <>
-                                      <span>Variant description:</span>
-                                      <p
-                                        className="text-center"
-                                        dangerouslySetInnerHTML={{
-                                          __html: plan?.description,
-                                        }}
-                                      ></p>
-                                    </>
-                                  )}
-
-                                  <div className="btnbox text-center">
-                                    <a
-                                      onClick={() => handleBuyNow(plan.id)}
-                                      className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
-                                    >
-                                      buy now
-                                    </a>
-                                    <a
-                                      onClick={() =>
-                                        cartItemIds.includes(plan.id)
-                                          ? navigate("/cart")
-                                          : handleAddToCart(plan.id)
-                                      }
-                                      className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                                    >
-                                      {cartItemIds.includes(plan.id)
-                                        ? `Go to cart`
-                                        : `add to bag`}
-                                    </a>
-                                  </div>
-                                </figcaption>
-                              </div>
-                            </div>
-                          ))}
-                      </OwlCarousel>
-                    )}
-                  </div>
-                )}
                 {comboPlans?.length > 0 && (
                   <div className=" justify-content-center mb-4">
                     {details?.comboVariantHeading != "null" && (
@@ -425,6 +307,125 @@ function PackageDetails() {
                     )}
                   </div>
                 )}
+                {singlePlans?.length > 0 && (
+                  <div className="justify-content-center mb-4">
+                    {details?.singleVariantHeading != "null" && (
+                      <h3 className="mt-3">
+                        <b>{details?.singleVariantHeading || ""}</b>
+                      </h3>
+                    )}
+                    {Array.isArray(singlePlans) && singlePlans?.length > 0 && (
+                      <OwlCarousel
+                        className={`owl-theme ${
+                          singlePlans.length == 1 ? `single-crousol` : ""
+                        }`}
+                        autoplay={false}
+                        dots={true}
+                        key={
+                          singlePlans.map((pkg) => pkg.id).join(",") +
+                          " " +
+                          cartItemIds.join(",")
+                        }
+                        loop={false}
+                        margin={30}
+                        nav={true}
+                        navText={[prevArrow, nextArrow]}
+                        autoplaySpeed={3000}
+                        autoplayTimeout={9000}
+                        responsive={{
+                          0: {
+                            items: 1,
+                          },
+                          576: {
+                            items: 1,
+                          },
+                          768: {
+                            items: 2,
+                          },
+                          992: {
+                            items:
+                            comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
+                          },
+                          1200: {
+                            items:
+                            comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
+                          },
+                          1400: {
+                            items:
+                              singlePlans?.length === 1 ||
+                              singlePlans.length == 2
+                                ? 2
+                                : singlePlans?.length === 3
+                                ? 3
+                                : 4,
+                          },
+                        }}
+                      >
+                        {singlePlans
+                          ?.sort((a, b) => a.duration - b.duration)
+                          .map((plan) => (
+                            <div>
+                              <div className="DiabetesHealthcontent">
+                                <figure>
+                                  <img
+                                    crossOrigin="anonymous"
+                                    src={plan.image_url}
+                                  ></img>
+                                </figure>
+
+                                <figcaption className="plan-card">
+                                  <h3>
+                                    ₹{plan.price} | {plan.duration} months
+                                  </h3>
+                                  {plan.description && (
+                                    <>
+                                      <span>Variant description:</span>
+                                      <p
+                                        className="text-center"
+                                        dangerouslySetInnerHTML={{
+                                          __html: plan?.description,
+                                        }}
+                                      ></p>
+                                    </>
+                                  )}
+
+                                  <div className="btnbox text-center">
+                                    <a
+                                      onClick={() => handleBuyNow(plan.id)}
+                                      className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
+                                    >
+                                      buy now
+                                    </a>
+                                    <a
+                                      onClick={() =>
+                                        cartItemIds.includes(plan.id)
+                                          ? navigate("/cart")
+                                          : handleAddToCart(plan.id)
+                                      }
+                                      className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                    >
+                                      {cartItemIds.includes(plan.id)
+                                        ? `Go to cart`
+                                        : `add to bag`}
+                                    </a>
+                                  </div>
+                                </figcaption>
+                              </div>
+                            </div>
+                          ))}
+                      </OwlCarousel>
+                    )}
+                  </div>
+                )}
+            
               </div>
             )}
           </div>

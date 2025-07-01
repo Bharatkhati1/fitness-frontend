@@ -478,7 +478,7 @@ const Coupon = () => {
                             {item?.value}
                             {item?.type === "percent" ? "%" : ""}
                           </td>
-                          <td>{item?.partnerId || "-"}</td>
+                          <td>{item?.Partner?.name || "-"}</td>
                           <td>
                             {item?.partnerCommission
                               ? `${item.partnerCommission}%`

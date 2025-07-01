@@ -12,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
-const AddToBag = () => {
+export default function AddToBag() {
   const { type } = useParams();
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
@@ -636,5 +636,3 @@ const AddToBag = () => {
     </>
   );
 }
-
-export default AddToBag
