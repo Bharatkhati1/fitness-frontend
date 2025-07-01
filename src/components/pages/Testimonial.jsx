@@ -378,7 +378,7 @@ function Testimonial() {
 
             <a
               onClick={() => setOpen(true)}
-              className="btn btn-primary max-btn bg-white "
+              className="btn btn-primary max-btn bg-white rainboweffects "
             >
               join now
             </a>

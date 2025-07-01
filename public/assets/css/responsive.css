@@ -201,6 +201,9 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
+
+
+  .btn.btn-primary.xm-btn{    font-size: 15px;}
   .PosterSec {
     height: 400px;
   }
@@ -1170,6 +1173,10 @@
     background-position: center;
     height: auto;
   }
+  .btn.btn-primary.xm-btn {
+   
+    font-size: 15px;
+}
 }
 
 @media (max-width: 991px) {

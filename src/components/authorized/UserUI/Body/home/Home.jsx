@@ -210,6 +210,14 @@ function Home() {
     }
   };
 
+  const handleSlideChange = (event) => {
+    const currentIndex = event.item.index;
+    const targetElement = document.getElementById("services");
+    if (targetElement && currentIndex > 0) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -275,7 +283,7 @@ function Home() {
             className="owl-theme"
             autoplaySpeed={500}
             autoplayTimeout={5000}
-            loop
+            loop={true}
             margin={0}
             nav={true}
             navText={[prevArrow, nextArrow]}
@@ -386,7 +394,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="OurServices bg-solid SectionSpace">
+      <section className="OurServices bg-solid SectionSpace"  id="services">
         <div className="container">
           <div className="PageTitle text-center">
             <h2 onClick={() => setOpenLoginModal(true)}>OUR SERVICES</h2>
@@ -410,10 +418,11 @@ function Home() {
               ref={owlRef}
               navText={[prevArrow, nextArrow]}
               autoplaySpeed={3000}
+              onChanged={handleSlideChange}
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index}>
+                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index} >
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {
@@ -729,7 +738,7 @@ function Home() {
             <p>
               We are a dedicated team of nutritionists, doctors, yoga
               instructors, and strength training coaches committed to your
-              health and wellness journey.
+              health and<br></br> wellness journey.
             </p>
             <Link
               to={"/about-us#MeetOurFamily"}
@@ -788,7 +797,13 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-md-6 GetIntouchLeft">
-              <div className="ContactUs">
+           
+           <div className="contactimgbox">
+              <figure>
+                <img src={ContactUs}></img>
+              </figure>
+
+                 <div className="ContactUs">
                 <h3>Contact Us</h3>
                 <p>
                   Reach out to us for personalized health guidance and
@@ -833,9 +848,9 @@ function Home() {
                   </li>
                 </ul>
               </div>
-              <figure>
-                <img src={ContactUs}></img>
-              </figure>
+
+
+              </div>
             </div>
             <div className="col-md-6 GetIntouchRight">
               <form onSubmit={handleSubmit}>

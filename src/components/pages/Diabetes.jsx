@@ -44,7 +44,7 @@ function PackageDetails() {
       );
 
       setComboPlans(comboLansFiltered);
-      setSinglePlans(singlePlansFiltered.slice(0,1));
+      setSinglePlans(singlePlansFiltered);
     } catch (error) {
       setDetails(null);
       toast.error(error.response.data.message);
@@ -225,7 +225,12 @@ function PackageDetails() {
                             items: 2,
                           },
                           992: {
-                            items: 3,
+                            items:
+                            comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
                           },
                           1200: {
                             items:
@@ -339,7 +344,12 @@ function PackageDetails() {
                             items: 2,
                           },
                           992: {
-                            items: 3,
+                            items:
+                            comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
                           },
                           1200: {
                             items:

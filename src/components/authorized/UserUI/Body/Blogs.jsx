@@ -266,11 +266,13 @@ function Blogs() {
                         )}
                       </span>
                     </div>
-                    <p
+                    <div className="contentlinkmain">
+                      <div className="contentlink"
+                
                       dangerouslySetInnerHTML={{
                         __html: blog.shortDescription,
                       }}
-                    ></p>
+                  />
                     <Link
                       style={{ color: "green" }}
                       to={`/blog/${blog.title
@@ -279,6 +281,7 @@ function Blogs() {
                     >
                       Read More <img src={readMoreimg} />
                     </Link>
+                    </div>
                   </figcaption>
                 </div>
               ))

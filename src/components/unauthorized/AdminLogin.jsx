@@ -63,9 +63,6 @@ const AdminLogin = ({ type, route }) => {
 
   return (
     <>
-      {disableLoginButton ? (
-        <PageLoader />
-      ) : (
         <div className="d-flex flex-column h-100 p-3 login-page">
           <div className="d-flex flex-column flex-grow-1">
             <div className="row h-100">
@@ -157,8 +154,9 @@ const AdminLogin = ({ type, route }) => {
                             <button
                               className="btn btn-soft-primary"
                               type="submit"
+                              disabled={disableLoginButton}
                             >
-                              Sign In
+                              {disableLoginButton?'Please Wait ... ':'Sign In'}
                             </button>
                           </div>
                         </form>
@@ -182,7 +180,6 @@ const AdminLogin = ({ type, route }) => {
             </div>
           </div>
         </div>
-      )}
     </>
   );
 };

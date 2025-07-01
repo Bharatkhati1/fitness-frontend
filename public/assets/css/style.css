@@ -493,10 +493,11 @@ body .heartBeatImg {
 }
 
 .AboutInfo h2 {
-  font-size: 32px;
+  font-size: 31px;
   font-weight: 700;
   margin-bottom: 27px;
   color: var(--primary-color);
+      line-height: 1.4;
 }
 
 .AboutInfo h2 span {
@@ -910,8 +911,9 @@ textarea.form-control {
 }
 
 .col-md-6.GetIntouchRight {
-  position: relative;
-  top: 25px;
+    position: relative;
+    top: 0;
+    padding-top: 15px;
 }
 
 .form-checkList {
@@ -925,18 +927,14 @@ textarea.form-control {
 }
 
 .ContactUs {
-  background: linear-gradient(
-    to bottom,
-    rgba(167, 167, 167, 1) 0%,
-    rgba(255, 255, 255, 0.5) 100%
-  );
-  padding: 20px 20px;
-  position: absolute;
-  width: 320px;
-  margin: auto;
-  left: 40px;
-  top: 85px;
-  border-radius: 8px;
+    background: linear-gradient(to bottom, rgba(167, 167, 167, 1) 0%, rgba(255, 255, 255, 0.5) 100%);
+    padding: 20px 15px;
+    position: absolute;
+    width: 300px;
+    margin: auto;
+    left: 30px;
+    top: 30px;
+    border-radius: 8px;
 }
 
 .ContactUs h3 {
@@ -1843,7 +1841,13 @@ ul.optinallyList {
 
 .GetIntouchLeft {
   display: flex;
-  align-items: flex-end;
+  /* align-items: flex-end; */
+}
+.col-md-6.GetIntouchRight {
+    padding-top: 40px;
+}
+.GetIntouch .row {
+    align-items: flex-end;
 }
 
 .ContactInfoFooter li a {
@@ -5626,9 +5630,50 @@ section.WhyUs.SectionSpace {
  .form-checkList  label.form-check-label {
     margin-bottom: 0 !important;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 400 !important;
 }
 
 .contactuspage  .form-control::placeholder,.getintouchmain  .form-control::placeholder{ font-weight: 400; color: #00000099;}
 
+.contactimgbox {
+    position: relative;
+}
 
+.GetIntouch {
+    padding-top: 25px;
+}
+
+
+
+.contentlink {
+    font-size: 18px;
+    color: #1e1e1e;
+    font-weight: 400;
+    margin-bottom: 0;
+    line-height: 1.5;
+       display: inline;
+}
+
+.contentlinkmain a {
+    font-size: 18px;
+}
+
+
+.rainboweffects {
+    background-image: linear-gradient(90deg, #ffffff 0%, rgb(128 0 48 / 29%) 49%, #ffffff 80%) ! IMPORTANT;
+    /* animation: slidebg 5s linear infinite; */
+    animation-name: slidebg;
+    animation-iteration-count: infinite;
+    animation-duration: 4s;
+    -webkit-transition: all 0.9s ease;
+    -moz-transition: all 0.9s ease;
+    -o-transition: all 0.9s ease;
+    transition: all 0.9s ease;
+    animation-direction: alternate;
+}
+
+@keyframes slidebg {
+  to {
+    background-position:20vw;
+  }
+}

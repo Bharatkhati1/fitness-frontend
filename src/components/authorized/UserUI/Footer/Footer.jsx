@@ -18,6 +18,14 @@ const Footer = () => {
     (state) => state.auth
   );
 
+  const toTitleCase = (str) =>
+    str
+      ?.toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+      
   useEffect(() => {
     dispatch(getServicesForUser());
     dispatch(getContactusDetails());
@@ -71,7 +79,7 @@ const Footer = () => {
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`}
                       >
-                        {service.name}
+                        {toTitleCase(service.name)}
                       </Link>
                     </li>
                   ))}

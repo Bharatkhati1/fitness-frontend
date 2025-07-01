@@ -24,7 +24,7 @@ function AllPakages() {
   const [serviceId, setServiceId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalItekms, setTotalItems] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
 
   const debouncedSearch = useDebounce(search, 400);
   const debouncedServiceId = useDebounce(serviceId, 400);
@@ -98,10 +98,10 @@ function AllPakages() {
       fetchAllProducts({
         search: debouncedSearch,
         serviceId: debouncedServiceId,
-        page:currentPage,
+        page: currentPage,
         limit,
         setTotalPages,
-        setTotalItems
+        setTotalItems,
       })
     );
   }, [debouncedSearch, currentPage, debouncedServiceId, dispatch]);
@@ -205,7 +205,7 @@ function AllPakages() {
 
         <div className="productslists">
           <div className="container">
-            <h4 className="producttitle">{totalPages *limit} Package</h4>
+            <h4 className="producttitle">{totalItems} Package</h4>
 
             {Array.isArray(allPackages) && allPackages.length > 0 ? (
               <div className="row">
@@ -289,58 +289,60 @@ function AllPakages() {
                 <h5>No package found.</h5>
               </div>
             )}
-                   {allPackages.length > 0 && (
-                        <div className="paginationBox d-flex justify-content-center">
-                          <ul className="pagination">
-                            {/* Previous Button */}
-                            <li
-                              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-                            >
-                              <button
-                                className="page-link"
-                                onClick={() => handlePageChange(currentPage - 1)}
-                              >
-                                <img src={leftp} alt="Previous" />
-                              </button>
-                            </li>
-            
-                            {/* Dynamic Page Numbers */}
-                            {getPaginationRange().map((page, index) => (
-                              <li
-                                key={index}
-                                className={`page-item ${
-                                  page === currentPage ? "active" : ""
-                                } ${page === "..." ? "disabled" : ""}`}
-                              >
-                                {page === "..." ? (
-                                  <span className="page-link">...</span>
-                                ) : (
-                                  <button
-                                    className="page-link"
-                                    onClick={() => handlePageChange(page)}
-                                  >
-                                    {page}
-                                  </button>
-                                )}
-                              </li>
-                            ))}
-            
-                            {/* Next Button */}
-                            <li
-                              className={`page-item ${
-                                currentPage === totalPages ? "disabled" : ""
-                              }`}
-                            >
-                              <button
-                                className="page-link"
-                                onClick={() => handlePageChange(currentPage + 1)}
-                              >
-                                <img src={leftR} alt="Next" />
-                              </button>
-                            </li>
-                          </ul>
-                        </div>
+            {allPackages.length > 0 && (
+              <div className="paginationBox d-flex justify-content-center">
+                <ul className="pagination">
+                  {/* Previous Button */}
+                  <li
+                    className={`page-item ${
+                      currentPage === 1 ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                      <img src={leftp} alt="Previous" />
+                    </button>
+                  </li>
+
+                  {/* Dynamic Page Numbers */}
+                  {getPaginationRange().map((page, index) => (
+                    <li
+                      key={index}
+                      className={`page-item ${
+                        page === currentPage ? "active" : ""
+                      } ${page === "..." ? "disabled" : ""}`}
+                    >
+                      {page === "..." ? (
+                        <span className="page-link">...</span>
+                      ) : (
+                        <button
+                          className="page-link"
+                          onClick={() => handlePageChange(page)}
+                        >
+                          {page}
+                        </button>
                       )}
+                    </li>
+                  ))}
+
+                  {/* Next Button */}
+                  <li
+                    className={`page-item ${
+                      currentPage === totalPages ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                      <img src={leftR} alt="Next" />
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -18,9 +18,11 @@ const SliderManagement = () => {
   const [sliderImage, setSliderImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [sliders, setSliders] = useState([]);
+  const [selectedIncludes, setSelectedIncludes] = useState([]);
   const [filterService, setFilterServices] = useState([]);
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
+  const includeOptions = ["Badge", "Experience", "Clients"];
 
   const fetchAllSliders = async () => {
     try {
@@ -32,7 +34,7 @@ const SliderManagement = () => {
       toast.error(error.response.data.message);
     }
   };
-
+  
   const handleSubmit = async () => {
     if (!sliderImage && !isEdit) {
       toast.warning("Please fill all required select an image.");
@@ -44,6 +46,7 @@ const SliderManagement = () => {
     formData.append("subHeading", sliderSubheading);
     formData.append("isActive", sliderStatus);
     formData.append("slug", "home-page");
+    formData.append("options", selectedIncludes);
     sliderImage && formData.append("slider_image", sliderImage);
 
     try {
@@ -73,6 +76,14 @@ const SliderManagement = () => {
     }
   };
 
+  const handleIncludeChange = (value) => {
+    setSelectedIncludes((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
+  };
+
   const deleteSlider = async () => {
     try {
       const idToDelete = selectedIdref.current || selectedSliderId;
@@ -97,6 +108,7 @@ const SliderManagement = () => {
     setSliderSubheading("");
     setSliderStatus(true);
     setSliderImage(null);
+    setSelectedIncludes([]);
     setSelectedFileName(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -220,9 +232,35 @@ const SliderManagement = () => {
                   </div>
                 </div>
 
+                {/* Include */}
+                <div className="col-lg-6">
+                  <label className="form-label">Include</label>
+                  <div className="d-flex flex-wrap gap-2 align-items-center">
+                    {includeOptions.map((option) => (
+                      <div key={option} className="form-check">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id={`include-${option}`}
+                          checked={selectedIncludes.includes(option)}
+                          onChange={() => handleIncludeChange(option)}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor={`include-${option}`}
+                        >
+                          {option}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Status */}
                 <div className="col-lg-6">
-                  <p>Slider Status</p>
+                  <label htmlFor="slider-heading" className="form-label">
+                    Status
+                  </label>
                   <div className="d-flex gap-2 align-items-center">
                     <div className="form-check">
                       <input
@@ -388,6 +426,15 @@ const SliderManagement = () => {
                                             setSliderSubheading(
                                               slider.subHeading
                                             );
+                                            setSelectedIncludes(
+                                              typeof slider?.options ===
+                                                "string"
+                                                ? slider.options
+                                                    .split(",")
+                                                    .map((item) => item.trim())
+                                                : []
+                                            );
+
                                             setSelectedFileName(slider.image);
                                             setSliderStatus(slider.isActive);
                                           }}

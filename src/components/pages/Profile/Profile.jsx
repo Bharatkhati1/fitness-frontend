@@ -56,7 +56,6 @@ function Profile() {
   };
 
   const validateForm = () => {
-    console.log(formData)
     if (!formData.firstName || formData.firstName.trim() === "") {
       toast.error("First name is required");
       return false;
