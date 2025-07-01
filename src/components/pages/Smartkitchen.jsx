@@ -37,7 +37,7 @@ function Smartkitchen() {
   const [category, setCategory] = useState(null);
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
-  const [filterCategories, setFilterCategories] = useState([])
+  const [filterCategories, setFilterCategories] = useState([]);
 
   const debouncedSearch = useDebounce(search, 400);
 
@@ -46,15 +46,17 @@ function Smartkitchen() {
   }, [debouncedSearch, page, category, type]);
 
   useEffect(() => {
-     if(type==""){
-      setFilterCategories(kicthenCategories)
-     }else if(type == "veg"){
-      const filtered = kicthenCategories?.filter((cat)=> cat.type == "veg")
-      setFilterCategories(filtered)
-     }else{
-      const filtered = kicthenCategories?.filter((cat)=> cat.type == "non-veg")
-      setFilterCategories(filtered)
-     }
+    if (type == "") {
+      setFilterCategories(kicthenCategories);
+    } else if (type == "veg") {
+      const filtered = kicthenCategories?.filter((cat) => cat.type == "veg");
+      setFilterCategories(filtered);
+    } else {
+      const filtered = kicthenCategories?.filter(
+        (cat) => cat.type == "non-veg"
+      );
+      setFilterCategories(filtered);
+    }
   }, [kicthenCategories, type]);
 
   useEffect(() => {
@@ -62,7 +64,11 @@ function Smartkitchen() {
   }, []);
 
   const handleCategoryClick = (catId) => {
-    setCategory(catId);
+    if (category == catId) {
+      setCategory(null);
+    } else {
+      setCategory(catId);
+    }
     setPage(1);
   };
 
@@ -212,58 +218,62 @@ function Smartkitchen() {
       {/* Category Slider */}
       <section className="SmartKichin">
         <div className="container">
-        { filterCategories&&filterCategories.length>0 && <div className="SmartKichinslider">
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={7}
-              nav
-              margin={10}
-              responsive={{
-                0: {
-                  items: 2, // 0px and up
-                },
-                481: {
-                  items: 3, // 0px and up
-                },
-                768: {
-                  items: 5, // 600px and up
-                },
-                992: {
-                  items: 6, // 600px and up
-                },
-                1200: {
-                  items: 7, // 1000px and up
-                },
-              }}
-            >
-              {filterCategories?.map((cat) => (
-                <div className="item" key={cat.id}>
-                  <div
-                    className={`SmartKichinbox ${
-                      category === cat.id ? "active" : ""
-                    }`}
-                    onClick={() => handleCategoryClick(cat.id)}
-                  >
-                    <figure>
-                      <img
-                        crossOrigin="anonymous"
-                        src={cat.image_url}
-                        alt={cat.name}
-                      />
-                    </figure>
-                    <p>{cat.name}</p>
+          {filterCategories && filterCategories.length > 0 && (
+            <div className="SmartKichinslider">
+              <OwlCarousel
+                className="owl-theme"
+                dots={false}
+                items={7}
+                nav
+                key={filterCategories?.map((val) => val?.id).join(",")}
+                margin={10}
+                responsive={{
+                  0: {
+                    items: 2, // 0px and up
+                  },
+                  481: {
+                    items: 3, // 0px and up
+                  },
+                  768: {
+                    items: 5, // 600px and up
+                  },
+                  992: {
+                    items: 6, // 600px and up
+                  },
+                  1200: {
+                    items: 7, // 1000px and up
+                  },
+                }}
+              >
+                {filterCategories?.map((cat) => (
+                  <div className="item" key={cat.id}>
+                    <div
+                      className={`SmartKichinbox`}
+                      onClick={() => handleCategoryClick(cat.id)}
+                    >
+                      <figure>
+                        <img
+                          className={` ${
+                            category == cat.id ? "active-image" : ""
+                          }`}
+                          crossOrigin="anonymous"
+                          src={cat.image_url}
+                          alt={cat.name}
+                        />
+                      </figure>
+                      <p>{cat.name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
-          </div>}
+                ))}
+              </OwlCarousel>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Recipe Cards */}
       <section className="SmartKichinlist">
-        <div className="container">
+        <div className="container"><h3>{kitchenData.length} Recipe</h3>
           <div className="row row-cols-5 SmartKichinlistrow">
             {kitchenData?.length > 0 ? (
               kitchenData?.map((item) => (

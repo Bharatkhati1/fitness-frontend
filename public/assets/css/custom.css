@@ -283,3 +283,20 @@ select.form-control {
    display: flex !important;
    justify-content: center;
 }
+
+.SmartKichinslider{
+  border:2px solid transparent;
+}
+.SmartKichinslider .active-image{
+  border:2px solid #800030;
+} 
+.SmartKichinlist h3{
+  margin-top: -25px;
+  font-size: 27px;
+  color: #007946;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+.FOLLOWUS{
+  margin-bottom: 20px;
+}

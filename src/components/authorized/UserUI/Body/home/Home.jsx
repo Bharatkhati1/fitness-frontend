@@ -210,6 +210,14 @@ function Home() {
     }
   };
 
+  const handleSlideChange = (event) => {
+    const currentIndex = event.item.index;
+    const targetElement = document.getElementById("services");
+    if (targetElement && currentIndex !==0) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -275,7 +283,7 @@ function Home() {
             className="owl-theme"
             autoplaySpeed={500}
             autoplayTimeout={5000}
-            loop
+            loop={true}
             margin={0}
             nav={true}
             navText={[prevArrow, nextArrow]}
@@ -364,7 +372,7 @@ function Home() {
               </span>
 
               <h2>
-                We’re Not Just Another Weight Loss Website We’re Your &nbsp;
+                We’re Not Just Another Weight Loss <br></br>Website We’re Your &nbsp;
                 <span>HEALTH UNIVERSE</span>
               </h2>
               <p>
@@ -386,7 +394,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="OurServices bg-solid SectionSpace">
+      <section className="OurServices bg-solid SectionSpace"  id="services">
         <div className="container">
           <div className="PageTitle text-center">
             <h2 onClick={() => setOpenLoginModal(true)}>OUR SERVICES</h2>
@@ -410,10 +418,11 @@ function Home() {
               ref={owlRef}
               navText={[prevArrow, nextArrow]}
               autoplaySpeed={3000}
+              onChanged={handleSlideChange}
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index}>
+                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index} >
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {

@@ -9,9 +9,12 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import Thankyouimg from "../../../public/assets/img/Thankyouimg.png";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 export default function AddToBag() {
   const { type } = useParams();
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -66,6 +69,7 @@ export default function AddToBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
+      dispatch(authActions.setCartItems(res.data.data))
     } catch (error) {
       setCartItems([]);
       console.log(error);
@@ -358,7 +362,6 @@ export default function AddToBag() {
     }
   };
   
-  console.log(formData)
   return (
     <>
       <section className="innerbanner">
