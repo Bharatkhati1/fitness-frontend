@@ -697,6 +697,27 @@ const CreateUpdatePackage = () => {
 
             <div className="card-body">
               <p className="title">
+                {packageVariantsCombo.length > 0 ? (
+                  <input
+                    value={comboHeading}
+                    placeholder="Enter combo variant name"
+                    onChange={(e) => setComboheading(e.target.value)}
+                  />
+                ) : (
+                  "Package Combo Variant"
+                )}
+                <button onClick={() => onAddVariant("combo")}>+</button>
+              </p>
+              <Variants
+                isEdit={isEdit}
+                packageVariants={packageVariantsCombo}
+                setPackageVariants={setPackageVariantsCombo}
+                type="combo"
+              />
+            </div>
+            
+            <div className="card-body">
+              <p className="title">
                 {packageVariantsSingle.length > 0 ? (
                   <input
                     width="400px"
@@ -714,27 +735,6 @@ const CreateUpdatePackage = () => {
                 packageVariants={packageVariantsSingle}
                 setPackageVariants={setPackageVariantsSingle}
                 type="single"
-              />
-            </div>
-
-            <div className="card-body">
-              <p className="title">
-                {packageVariantsCombo.length > 0 ? (
-                  <input
-                    value={comboHeading}
-                    placeholder="Enter combo variant name"
-                    onChange={(e) => setComboheading(e.target.value)}
-                  />
-                ) : (
-                  "Package Combo Variant"
-                )}
-                <button onClick={() => onAddVariant("combo")}>+</button>
-              </p>
-              <Variants
-                isEdit={isEdit}
-                packageVariants={packageVariantsCombo}
-                setPackageVariants={setPackageVariantsCombo}
-                type="combo"
               />
             </div>
 

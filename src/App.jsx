@@ -24,12 +24,8 @@ const ConsultantRoutes = lazy(() =>
 const PartnerRoutes = lazy(() =>
   import("./components/Routes/PartnerRoutes.jsx")
 );
-const UserRoutes = lazy(() =>
-  import("./components/Routes/UserRoutes.jsx")
-);
-const AdminRoutes = lazy(() =>
-  import("./components/Routes/AdminRoutes.jsx")
-);
+const UserRoutes = lazy(() => import("./components/Routes/UserRoutes.jsx"));
+const AdminRoutes = lazy(() => import("./components/Routes/AdminRoutes.jsx"));
 const ForgotPasswordForm = lazy(() =>
   import("./components/unauthorized/forgotPassword.jsx")
 );
@@ -40,9 +36,10 @@ const ProtectedRoute = ({ condition, redirectTo, children }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { isCheckingToken, type, isLoggedIn, userAccessToken } = useSelector(
-    (state) => state.auth
-  );
+  const type = useSelector((state) => state.auth.type);
+  const isCheckingToken = useSelector((state) => state.auth.isCheckingToken);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const { pathname } = useLocation();
 
   const isAdmin =
@@ -93,13 +90,25 @@ const App = () => {
         <Route path="/login-user" element={<LoginUser />} />
         <Route path="/SignUpUser" element={<SignUpUser />} />
         <Route path="/SiteMap" element={<SiteMap />} />
-        <Route path="/DiabetesHealthPakages" element={<DiabetesHealthPakages />} />
-        <Route path="/Testimonial" element ={<Testimonial />} />
+        <Route
+          path="/DiabetesHealthPakages"
+          element={<DiabetesHealthPakages />}
+        />
+        <Route path="/Testimonial" element={<Testimonial />} />
 
         {/* Login Pages for Admin/Partner/Consultant */}
-        <Route path="/admin" element={<AdminLogin type="admin" route="admin" />} />
-        <Route path="/b2b-partner" element={<AdminLogin type="partner" route="b2b-partner" />} />
-        <Route path="/service-provider" element={<AdminLogin type="consultant" route="service-provider" />} />
+        <Route
+          path="/admin"
+          element={<AdminLogin type="admin" route="admin" />}
+        />
+        <Route
+          path="/b2b-partner"
+          element={<AdminLogin type="partner" route="b2b-partner" />}
+        />
+        <Route
+          path="/service-provider"
+          element={<AdminLogin type="consultant" route="service-provider" />}
+        />
 
         {/* Protected Admin Routes */}
         {pathname.includes("/admin") && (
@@ -118,7 +127,10 @@ const App = () => {
           <Route
             path="/b2b-partner/*"
             element={
-              <ProtectedRoute condition={isAdminLogined} redirectTo="/b2b-partner">
+              <ProtectedRoute
+                condition={isAdminLogined}
+                redirectTo="/b2b-partner"
+              >
                 <PartnerRoutes />
               </ProtectedRoute>
             }
@@ -130,7 +142,10 @@ const App = () => {
           <Route
             path="/service-provider/*"
             element={
-              <ProtectedRoute condition={isAdminLogined} redirectTo="/service-provider">
+              <ProtectedRoute
+                condition={isAdminLogined}
+                redirectTo="/service-provider"
+              >
                 <ConsultantRoutes />
               </ProtectedRoute>
             }
@@ -166,6 +181,5 @@ const App = () => {
     </Suspense>
   );
 };
-
 
 export default App;
