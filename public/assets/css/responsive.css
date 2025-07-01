@@ -416,7 +416,8 @@
     font-size: 12px;
   }
   .product-list figcaption h3 {
-    font-size: 18px;
+    font-size: 20px;
+        min-height: 48px;
   }
 
   .price span {
@@ -864,6 +865,7 @@
   }
   .textlink a {
     font-size: 14px;
+    display: block;
   }
 
   .JoinourhealthContent h3 {
@@ -3545,4 +3547,6 @@
   .btn.btn-primary.xm-btn {
     font-size: 14px;
   }
+
+  .getintouchinner .getintouchinnerleft figure img{height: auto;}
 }

@@ -404,7 +404,7 @@ function Testimonial() {
                 <form onSubmit={handleSubmit}>
                   <div className="row GetIntouchinnerright">
                     <div className="col-md-6 mb-3">
-                      <label>Full Name*</label>
+                      <label>Your First Name*</label>
                       <input
                         name="name"
                         value={formData.name}
@@ -414,14 +414,14 @@ function Testimonial() {
                             handleChange(e);
                           }
                         }}
-                        placeholder="Enter your full name"
+                        placeholder="Enter your first name"
                         className="form-control greyin"
                         type="text"
                         required
                       />
                     </div>
 
-                    <div className="col-md-6 mb-3">
+                    {/* <div className="col-md-6 mb-3">
                       <label>Phone Number</label>
                       <input
                         name="phone"
@@ -436,15 +436,17 @@ function Testimonial() {
                         className="form-control greyin"
                         type="number"
                       />
-                    </div>
+                    </div> */}
 
-                    <div className="col-md-12 mb-3">
-                      <label>Email ID*</label>
+                    <div className="col-md-6 mb-3"></div>
+
+                    <div className="col-md-6 mb-3">
+                      <label>Your Email ID*</label>
                       <input
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
+                        placeholder="Enter your email id"
                         className="form-control greyin"
                         type="email"
                         required
@@ -452,13 +454,13 @@ function Testimonial() {
                     </div>
 
                     <div className="col-md-12">
-                      <label>Message</label>
+                      <label>Your Message</label>
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
                         className="form-control greyin"
-                        placeholder="Type your message here"
+                        placeholder="Share your message here"
                       />
                     </div>
 
