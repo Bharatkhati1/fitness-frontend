@@ -10,6 +10,7 @@
 figure {
   margin-bottom: 0 !important;
 }
+
 h1,
 h2,
 h3,
@@ -18,6 +19,7 @@ h5,
 h6 {
   font-family: "Open Sans", sans-serif !important;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -286,14 +288,46 @@ header .navbar-collapse .nav-link.active {
 }
 
 .bannerSection {
-  background: #f5f5f5 url(../img/slider-bg.png);
+  /* background: #f5f5f5 url(../img/slider-bg.png); */
   background-repeat: no-repeat;
   padding-top: 75px;
 }
+
+.slider-box {
+  height: 100%;
+}
+
+.bannerSection .owl-theme .owl-dots {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bannerSection .owl-carousel .owl-item {
+  height: 100%;
+  aspect-ratio: 2.23 / 1;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 2.23 / 1;
+  width: 100%;
+}
+
 body .owl-carousel .owl-item .why-class img {
   width: 100% !important;
   object-fit: contain;
 }
+
 .Login-info {
   padding-left: 95px;
 }
@@ -326,7 +360,8 @@ body .owl-carousel .owl-item .why-class img {
 
 .owl-p ul li {
   position: relative;
-  padding-left: 24px; /* Leave space for the icon */
+  padding-left: 24px;
+  /* Leave space for the icon */
   margin-bottom: 10px;
 }
 
@@ -356,9 +391,11 @@ body .owl-carousel .owl-item .why-class img {
   min-width: 165px;
   justify-content: center;
 }
+
 .bookappoinmentl {
   height: 100%;
 }
+
 .bookappoinmentl figure {
   height: 100%;
 }
@@ -394,11 +431,6 @@ body .owl-carousel .owl-item .why-class img {
   border-right: 0;
 }
 
-.circletagShapeBox {
-  position: absolute;
-  right: 70px;
-  top: 165px;
-}
 
 .header-btn:hover {
   opacity: 0.8;
@@ -585,9 +617,11 @@ body .heartBeatImg {
 .WhyChoose {
   position: relative;
 }
+
 .note-btn-group .dropdown-toggle::after {
   display: none;
 }
+
 .WhyChoose:after {
   background: url(../img/whychoosePettern.png);
   position: absolute;
@@ -645,11 +679,9 @@ body .heartBeatImg {
 .PosterContent {
   max-width: 970px;
   margin: auto;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.5) 0,
-    rgba(255, 255, 255, 0.5) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.5) 0,
+      rgba(255, 255, 255, 0.5) 100%);
   padding: 35px 25px;
 }
 
@@ -925,11 +957,9 @@ textarea.form-control {
 }
 
 .ContactUs {
-  background: linear-gradient(
-    to bottom,
-    rgba(167, 167, 167, 1) 0%,
-    rgba(255, 255, 255, 0.5) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(167, 167, 167, 1) 0%,
+      rgba(255, 255, 255, 0.5) 100%);
   padding: 20px 20px;
   position: absolute;
   width: 320px;
@@ -1042,8 +1072,7 @@ footer {
 }
 
 .ContactInfoFooter li img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%)
-    hue-rotate(112deg) brightness(102%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%) hue-rotate(112deg) brightness(102%) contrast(97%);
 }
 
 .FooterSubscribe h2 {
@@ -1204,11 +1233,9 @@ header.sticky {
 }
 
 .formBox {
-  background: linear-gradient(
-    to bottom,
-    rgb(237 237 237 / 64%) 0%,
-    rgb(219 219 219 / 58%) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgb(237 237 237 / 64%) 0%,
+      rgb(219 219 219 / 58%) 100%);
   box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
   border-radius: 8px;
   padding: 30px 45px 35px;
@@ -1358,9 +1385,11 @@ ul.BottomFooterList,
 .innerbanner {
   position: relative;
 }
+
 .innerbanner .container {
   position: relative;
 }
+
 .innerbannerContent {
   padding: 0 15px;
   position: absolute;
@@ -1585,8 +1614,8 @@ ul.wightList figure {
   left: -9999px;
 }
 
-.radioList [type="radio"]:checked + label,
-.radioList [type="radio"]:not(:checked) + label {
+.radioList [type="radio"]:checked+label,
+.radioList [type="radio"]:not(:checked)+label {
   position: relative;
   padding-left: 41px;
   cursor: pointer;
@@ -1596,8 +1625,8 @@ ul.wightList figure {
   font-weight: 400;
 }
 
-.radioList [type="radio"]:checked + label:before,
-.radioList [type="radio"]:not(:checked) + label:before {
+.radioList [type="radio"]:checked+label:before,
+.radioList [type="radio"]:not(:checked)+label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1609,8 +1638,8 @@ ul.wightList figure {
   background: #fff;
 }
 
-.radioList [type="radio"]:checked + label:after,
-.radioList [type="radio"]:not(:checked) + label:after {
+.radioList [type="radio"]:checked+label:after,
+.radioList [type="radio"]:not(:checked)+label:after {
   content: "";
   width: 13px;
   height: 13px;
@@ -1624,19 +1653,19 @@ ul.wightList figure {
   right: 0;
 }
 
-.radioList [type="radio"]:not(:checked) + label:after {
+.radioList [type="radio"]:not(:checked)+label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-.radioList [type="radio"]:checked + label:after {
+.radioList [type="radio"]:checked+label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-.radioList [type="radio"]:checked + label:before {
+.radioList [type="radio"]:checked+label:before {
   border: 1px solid #800030;
 }
 
@@ -2240,11 +2269,9 @@ section.OurTEAM {
 }
 
 .OurTeamsrowsL figure:after {
-  background: linear-gradient(
-    to right,
-    rgba(0, 121, 70, 0.49) 0%,
-    rgba(226, 226, 226, 0.17) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 121, 70, 0.49) 0%,
+      rgba(226, 226, 226, 0.17) 100%);
   content: "";
   position: absolute;
   left: 0;
@@ -2255,6 +2282,7 @@ section.OurTEAM {
   margin: auto;
   z-index: -1;
 }
+
 /* .main-packge .owl-nav button.owl-prev {
   left: -35px;
 }x */
@@ -2318,12 +2346,10 @@ section.OurTEAM {
 
 .OurTeamsrows:nth-child(even) figure:after {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e2e2e2+0,007946+99&0.17+0,0.49+100 */
-  background: linear-gradient(
-    to right,
-    rgba(226, 226, 226, 0.17) 0%,
-    rgba(0, 121, 70, 0.49) 99%,
-    rgba(0, 121, 70, 0.49) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(226, 226, 226, 0.17) 0%,
+      rgba(0, 121, 70, 0.49) 99%,
+      rgba(0, 121, 70, 0.49) 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
@@ -2433,6 +2459,7 @@ button.SearchBtn {
   position: relative;
   margin-top: 20px;
 }
+
 .searcwithbtn .SearchBox {
   margin-top: 0;
 }
@@ -2606,6 +2633,7 @@ ul.pagination {
 .OurHealthBlogContent a {
   cursor: pointer;
 }
+
 button.owl-prev span {
   color: transparent;
   background: url(../img//owlleft.png);
@@ -2698,16 +2726,16 @@ button.owl-next span {
 .BlogDeatils img {
   width: 100%;
 }
+
 .BlogDeatils {
   position: relative;
 }
+
 section.BlogDeatils:after {
-  background: linear-gradient(
-    to bottom,
-    hsl(0deg 0% 100% / 0%) 0%,
-    rgba(29, 29, 29, 0.8) 98%,
-    rgba(29, 29, 29, 0.81) 100%
-  );
+  background: linear-gradient(to bottom,
+      hsl(0deg 0% 100% / 0%) 0%,
+      rgba(29, 29, 29, 0.8) 98%,
+      rgba(29, 29, 29, 0.81) 100%);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -2761,6 +2789,7 @@ section.BlogDeatils:after {
   text-transform: uppercase;
   margin-bottom: 15px;
 }
+
 .contactinfobox a {
   font-size: 18px;
   color: #007946;
@@ -2813,6 +2842,7 @@ ul.userslink li a {
 .greyin {
   background: #f1f1f1 !important;
 }
+
 .userslink {
   margin-bottom: 0;
 }
@@ -2850,6 +2880,7 @@ ul.userslink li a {
   word-break: break-word;
   min-height: 108px;
 }
+
 .our-approach h2 {
   position: absolute;
   color: #fff;
@@ -2857,9 +2888,11 @@ ul.userslink li a {
   left: 0;
   right: 0;
 }
+
 .our-approach img {
   width: 100%;
 }
+
 .servicedetaillisting figcaption h3 {
   font-size: 32px;
   color: #000000;
@@ -2879,6 +2912,7 @@ ul.userslink li a {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .btn-group-box .btn {
   width: 49%;
 }
@@ -2901,9 +2935,11 @@ ul.userslink li a {
 .row.servicedetaillisting .col-md-6 {
   margin-bottom: 30px;
 }
+
 .allpakages .item {
   padding: 15px 0;
 }
+
 .servicelist p {
   margin-bottom: 0;
   font-size: 14px;
@@ -2914,6 +2950,7 @@ ul.userslink li a {
   justify-content: center;
   align-items: center;
 }
+
 .servicelist {
   cursor: pointer;
   border: 2px solid transparent;
@@ -2934,6 +2971,7 @@ ul.userslink li a {
   justify-content: center;
   margin-bottom: 6px !important;
 }
+
 .package-image img {
   width: 32px !important;
   max-width: 32px !important;
@@ -2998,10 +3036,12 @@ body .owl-carousel .owl-item .product-list figure img {
 .Browseservice {
   margin-bottom: 45px;
 }
+
 .active-selected-service {
   border: 2px solid saddlebrown;
   border-radius: 8px;
 }
+
 .btnserch .btn {
   height: 58px;
   background: #ffffff;
@@ -3013,12 +3053,10 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .btn.VegBtn {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.14) 95%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.14) 95%,
+      rgba(0, 0, 0, 0.1) 100%);
 }
 
 .SmartKichinlist .col {
@@ -3103,6 +3141,7 @@ body .owl-carousel .owl-item .product-list figure img {
   border-radius: 5px;
   color: #2a2a2a;
 }
+
 .Diabetespageleft figure {
   position: relative;
 }
@@ -3179,6 +3218,7 @@ ul.Packagedescriptionlist {
   padding-top: 22px;
   padding-bottom: 10px;
 }
+
 .Packagedescriptionlist li:after {
   width: 4px;
   height: 4px;
@@ -3408,7 +3448,7 @@ ul.Packagedescriptionlist {
   align-items: center;
 }
 
-.clientcontentbg > p {
+.clientcontentbg>p {
   font-size: 15px;
   color: #2a2a2a;
   font-weight: 600;
@@ -3438,9 +3478,11 @@ section.clientfeedback {
   margin-bottom: 4px;
   color: #2a2a2a;
 }
+
 .testiuser figcaption {
   padding-left: 10px;
 }
+
 .testiuser figcaption p {
   font-size: 11px;
   font-weight: 400;
@@ -3457,11 +3499,9 @@ section.clientfeedback {
 }
 
 .clientfeedbackslider .owl-carousel:after {
-  background: linear-gradient(
-    to right,
-    rgb(246 237 240 / 48%) 0%,
-    rgb(255 255 255) 100%
-  );
+  background: linear-gradient(to right,
+      rgb(246 237 240 / 48%) 0%,
+      rgb(255 255 255) 100%);
   content: "";
   position: absolute;
   right: 0;
@@ -3498,6 +3538,7 @@ section.clientfeedback {
 .CleintSuccess .slick-list {
   margin-bottom: 30px;
 }
+
 .Clientbefore h4 {
   font-size: 18px;
   color: #ffffff;
@@ -3530,6 +3571,7 @@ section.clientfeedback {
   padding-left: 30px;
   padding-right: 85px;
 }
+
 .Diabetespageright ul li,
 .note-editable ul li {
   list-style: disc;
@@ -3546,19 +3588,19 @@ section.clientfeedback {
   display: flex;
   justify-content: flex-end;
 }
+
 .filterOwl .owl-nav button.owl-prev span {
   left: -109px;
 }
+
 .CleintSuccess {
   position: relative;
 }
 
 .CleintSuccess:after {
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.4) 20%,
-    rgb(66 158 130) 67%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.4) 20%,
+      rgb(66 158 130) 67%);
   position: absolute;
   left: 0;
   right: 0;
@@ -3594,14 +3636,12 @@ section.clientfeedback {
 }
 
 .CleintSuccess .slick-list:after,
-.CleintSuccess .slick-list:before {
-}
+.CleintSuccess .slick-list:before {}
+
 .CleintSuccess .slick-list:after {
-  background: linear-gradient(
-    -90deg,
-    rgb(66 158 130) 0%,
-    rgba(230, 230, 230, 0) 100%
-  );
+  background: linear-gradient(-90deg,
+      rgb(66 158 130) 0%,
+      rgba(230, 230, 230, 0) 100%);
   content: "";
   position: absolute;
   right: 0;
@@ -3610,16 +3650,15 @@ section.clientfeedback {
   height: 100%;
   width: 12%;
 }
+
 .CleintSuccess .slick-list:after {
   backdrop-filter: blur(0.2px);
 }
 
 .CleintSuccess .slick-list::before {
-  background: linear-gradient(
-    90deg,
-    rgb(66 158 130) 0%,
-    rgba(230, 230, 230, 0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgb(66 158 130) 0%,
+      rgba(230, 230, 230, 0) 100%);
   content: "";
   position: absolute;
   left: 0;
@@ -3673,7 +3712,7 @@ section.clientfeedback {
   padding: 20px 40px 40px;
 }
 
-.ant-modal.custom-modal .modalbody > p {
+.ant-modal.custom-modal .modalbody>p {
   font-size: 18px;
   color: #000000;
   margin-bottom: 0;
@@ -3689,7 +3728,7 @@ section.clientfeedback {
   text-transform: capitalize;
 }
 
-.ant-modal.custom-modal .form-group > label {
+.ant-modal.custom-modal .form-group>label {
   text-transform: capitalize;
   font-size: 16px;
   margin-bottom: 8px;
@@ -3733,11 +3772,14 @@ section.clientfeedback {
 button.ant-modal-close:hover {
   background: none !important;
 }
+
 .circletagShapeBox {
   position: absolute;
-  right: 360px;
-  top: 235px;
+  right: 0px;
+  top: 130px;
+  z-index: 999;
 }
+
 .GetIntouch .form-checkList li {
   margin-right: 30px;
   width: auto;
@@ -3747,17 +3789,21 @@ button.ant-modal-close:hover {
 .service-btn a {
   min-width: 190px;
 }
+
 .note-btn-group.btn-group .note-dropdown-menu {
   padding: 12px !important;
   width: 250px;
 }
+
 .note-btn-group.btn-group.open .note-dropdown-menu {
   display: block !important;
 }
+
 .addtobagleft {
   background: #e9e9e940;
   border-radius: 10px;
 }
+
 .addtobabody {
   padding: 30px 30px;
 }
@@ -3766,6 +3812,7 @@ button.ant-modal-close:hover {
   padding: 20px 20px;
   border-bottom: 1px solid #cccccc;
 }
+
 .addtobaghead h4 {
   font-size: 20px;
   margin-bottom: 0;
@@ -3784,6 +3831,7 @@ button.ant-modal-close:hover {
   box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
   border-radius: 10px;
 }
+
 .addtobagright {
   border: 1px solid #00000033;
   border-radius: 10px;
@@ -3792,11 +3840,13 @@ button.ant-modal-close:hover {
 .ordersummarylist li {
   display: flex;
 }
+
 .ordersummarylist figcaption {
   padding-left: 20px;
   position: relative;
   flex: 1;
 }
+
 .addtobagleft input.form-control,
 .addtobagleft select.form-select {
   color: #000;
@@ -3805,11 +3855,13 @@ button.ant-modal-close:hover {
   border-radius: 10px;
   height: 45px;
 }
+
 .ordersummarylist figcaption h4 {
   font-size: 18px;
   color: #000000ba;
   font-weight: 700;
 }
+
 .ordersummarylist figure img {
   width: 120px;
   height: 120px;
@@ -3840,10 +3892,12 @@ button.ant-modal-close:hover {
   top: 5px;
   border-radius: 2px;
 }
+
 .discoutBox {
   display: flex;
   position: relative;
 }
+
 img.tagicon {
   position: absolute;
   left: 15px;
@@ -3861,6 +3915,7 @@ img.tagicon {
   flex: 1;
   padding-left: 55px;
 }
+
 button.applybtn {
   background: #000000;
   color: #fff;
@@ -3879,6 +3934,7 @@ button.applybtn {
   margin-bottom: 15px;
   border-bottom: 1px solid #000000;
 }
+
 .Pricebrnkdownlist li span {
   font-size: 17px;
   color: #000000;
@@ -3893,6 +3949,7 @@ button.applybtn {
 .Pricebrnkdownlist li .red-text {
   color: #ff1414;
 }
+
 .Browseservice button.owl-next span,
 .Browseservice button.owl-prev span {
   top: 33px;
@@ -3925,6 +3982,7 @@ ul.ourapproachlist span {
   z-index: 9;
   position: relative;
 }
+
 .content {
   padding: 0 25px;
   text-transform: capitalize;
@@ -3951,6 +4009,7 @@ ul.ourapproachlist li:after {
   top: 41px;
   width: 100%;
 }
+
 /* .our-approachmain {
     background: url(../img//our-approach-bg.png);
 } */
@@ -3973,12 +4032,14 @@ ul.ourapproachlist li:after {
   padding: 48px 0 40px;
   text-align: center;
 }
+
 .MuktiBoxLeft {
   position: absolute !important;
   left: -38px;
   top: -1px;
   width: 50% !important;
 }
+
 .butterflyshape {
   position: absolute;
   right: 60px;
@@ -4017,6 +4078,7 @@ ul.ourapproachlist li:after {
   width: 100%;
   border-radius: 10px;
 }
+
 .Clientbefore {
   width: 50%;
 }
@@ -4158,6 +4220,7 @@ span.transicon {
 .Trasnform .PageTitle h2 {
   text-transform: capitalize;
 }
+
 .Trasnform {
   padding-top: 70px;
   padding-bottom: 60px;
@@ -4283,6 +4346,7 @@ span.transicon {
   color: #1e1e1e;
   font-size: 14px;
 }
+
 .zigzagtext h3 {
   background: linear-gradient(to bottom, #ffffff 0%, #71c5a2 100%);
   -webkit-background-clip: text;
@@ -4305,6 +4369,7 @@ span.transicon {
   top: 78px;
   margin: auto;
 }
+
 .zigzagtext {
   padding: 20px 0;
 }
@@ -4312,10 +4377,12 @@ span.transicon {
 .zigzagtext h3 {
   margin-bottom: 0;
 }
+
 .whyparthnerlist figure {
   position: relative;
   margin-left: 10px;
 }
+
 .whyparthnerlist figure:after {
   background: #00794673;
   width: 66px;
@@ -4533,6 +4600,7 @@ ul.whyparthnerlist li {
 .Pasteventsslider .owl-item.center .item {
   border-radius: 16px;
 }
+
 .Pasteventsslider .owl-item.center .eventstext {
   opacity: 1;
   position: absolute;
@@ -4547,9 +4615,11 @@ ul.whyparthnerlist li {
   font-weight: 600;
   padding: 5px 10px;
 }
+
 .Pasteventsslider .owl-item .eventstext {
   opacity: 0;
 }
+
 .Pasteventsslider .owl-item.active.center .item {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
@@ -4574,6 +4644,7 @@ ul.whyparthnerlist li {
   -o-transition: 1s;
   transition: 1s;
 }
+
 .pasteventbox {
   width: 100%;
 }
@@ -4581,6 +4652,7 @@ ul.whyparthnerlist li {
 .Pasteventsslider .owl-item.center .item .pasteventbox img {
   width: 100% !important;
 }
+
 .Pasteventsslider .owl-item .item .pasteventbox img {
   /* -webkit-transition: 0.3s;
   -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
@@ -4601,21 +4673,22 @@ ul.whyparthnerlist li {
   height: 350px;
   object-fit: cover;
 }
+
 .Pasteventsslider .owl-carousel .owl-stage {
   align-items: center;
   display: flex;
 }
 
 .Pasteventsslider .owl-item .item {
-  transform: translate3d(
-    0,
-    0,
-    0
-  ); /* DO NOT REMEMBER WHERE TU PUT THIS, SEARCH FOR 3D ACCELERATION */
+  transform: translate3d(0,
+      0,
+      0);
+  /* DO NOT REMEMBER WHERE TU PUT THIS, SEARCH FOR 3D ACCELERATION */
   transform: scale(0.6);
 
   transition: all 0.25s ease-in-out;
-  margin: 50px 0; /* OVERWRITE PLUGIN MARGIN */
+  margin: 50px 0;
+  /* OVERWRITE PLUGIN MARGIN */
 }
 
 .Pastevents .PageTitle b {
@@ -4625,6 +4698,7 @@ ul.whyparthnerlist li {
   margin-bottom: 5px;
   display: block;
 }
+
 .postbtn {
   margin-top: -57px;
   z-index: 1;
@@ -4639,10 +4713,12 @@ ul.whyparthnerlist li {
   background: #f7f7f7;
   padding: 35px 0px;
 }
+
 .whyattentbox {
   text-align: center;
   padding: 0 40px;
 }
+
 .whyattentbox h4 {
   font-size: 20px;
   color: #1e1e1e;
@@ -4686,9 +4762,11 @@ ul.whyparthnerlist li {
 .typeseventsbox figcaption {
   padding: 20px 20px;
 }
+
 .typeofevents {
   padding-top: 70px;
 }
+
 .gotquestionsbg {
   background: #dafff121;
   padding: 20px 60px;
@@ -4709,6 +4787,7 @@ ul.whyparthnerlist li {
   color: #1e1e1e;
   font-weight: 600;
 }
+
 .gotquestionscontent {
   padding-right: 60px;
 }
@@ -4721,9 +4800,11 @@ ul.whyparthnerlist li {
 .typeofevents .owl-stage-outer {
   padding-bottom: 20px;
 }
+
 .Pasteventsslider .owl-nav button.owl-prev {
   left: 30px;
 }
+
 .Pasteventsslider .owl-nav button.owl-next {
   right: 30px;
 }
@@ -4763,8 +4844,8 @@ ul.whyparthnerlist li {
   padding: 0 3px !important;
 }
 
-.OurServicesContent p > p,
-.OurServicesContent p + p {
+.OurServicesContent p>p,
+.OurServicesContent p+p {
   min-height: auto;
 }
 
@@ -4855,6 +4936,7 @@ ul.whyparthnerlist li {
   text-transform: uppercase;
   font-weight: 800;
 }
+
 .imgcardcontent {
   position: absolute;
   bottom: 0;
@@ -5111,6 +5193,7 @@ ul.sitelistinner li {
   column-span: 2;
   margin-top: 20px;
 }
+
 .sitelist-title h4 {
   margin-bottom: 0 !important;
 }
@@ -5221,11 +5304,9 @@ ul.sitelistinner li a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(192, 192, 192, 1) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(192, 192, 192, 1) 100%);
   cursor: pointer;
   border: 0;
 }
@@ -5244,6 +5325,7 @@ ul.sitelistinner li a {
   font-weight: 700;
   margin-bottom: 0;
 }
+
 .cardhead {
   border-bottom: 1px solid #d4d4d4;
   padding-bottom: 20px;
@@ -5532,11 +5614,10 @@ table.table {
   width: 56px;
   height: 56px;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,800030+100&1+0,0.25+100,0.12+100 */
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(128, 0, 48, 0.22) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(128, 0, 48, 0.22) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
   display: flex;
   align-items: center;
@@ -5569,6 +5650,7 @@ ul.FOLLOWUSlist.d-flex {
   background: #fff;
   cursor: pointer;
 }
+
 .imgsmcard {
   position: relative;
   overflow: hidden;
@@ -5594,6 +5676,7 @@ span.bannerup {
 span.bannerup img {
   width: 335px;
 }
+
 span.bannerup {
   margin-left: -135px;
   position: relative;

@@ -1,6 +1,7 @@
 .zigzagtextcontent {
   padding: 0 20px;
 }
+
 @media (min-width: 576px) {
   .zigzagtextcontent {
     max-width: 540px;
@@ -14,26 +15,66 @@
     padding: 0 15px;
   }
 }
+
 @media (min-width: 992px) {
   .zigzagtextcontent {
     max-width: 960px;
     padding: 0 15px;
   }
+
+  .BestTag {
+    max-width: 172px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding: 8px 0;
+  }
 }
+
+.owl-p {
+  margin: 24px 0;
+}
+
+@media (max-width: 1200px) {
+
+
+
+  .bannerSectionLeft ul li,
+  .owl-p {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .ClientListinfo {
+    margin: 15px 0 !important;
+  }
+}
+
 @media (min-width: 1200px) {
   .zigzagtextcontent {
     max-width: 1140px;
     padding: 0 15px;
   }
 
+
+
+
+
   span.bannerup {
     margin-left: 0;
   }
 }
+
 @media (min-width: 1400px) {
+  .circletagShape img {
+    width: 90px;
+  }
+
   span.bannerup {
     margin-left: 0;
   }
+
   .zigzagtextcontent {
     max-width: 1320px;
     padding: 0 15px;
@@ -80,6 +121,7 @@
   .WhyUsinner h4 {
     font-size: 20px;
   }
+
   .AboutInfoLeft p {
     font-size: 16px;
   }
@@ -104,6 +146,7 @@
   .calculatebody {
     width: 100%;
   }
+
   .taginfo {
     right: 0;
     top: 60px;
@@ -116,9 +159,11 @@
   .imgcardcontent h4 {
     font-size: 30px;
   }
+
   .stayaheadbg h4 {
     font-size: 34px;
   }
+
   .stayaheadbg span {
     font-size: 22px;
   }
@@ -126,6 +171,7 @@
   .stayaheadbg p {
     font-size: 18px;
   }
+
   .stayaheadbg p {
     font-size: 18px;
   }
@@ -133,17 +179,19 @@
   .contactinfobox a {
     font-size: 16px;
   }
+
   .contactinfobox a {
     font-size: 16px;
   }
 
-  .clientcontentbg > p {
+  .clientcontentbg>p {
     min-height: 90px;
   }
 
   .EventsBannercontent h3 {
     font-size: 43px;
   }
+
   .contactinfobox {
     padding: 25px 10px;
   }
@@ -168,6 +216,7 @@
   .tabslist {
     gap: 10px;
   }
+
   .pakageheadtitle h4 {
     font-size: 20px;
   }
@@ -187,6 +236,7 @@
   .pakageheadtitle h4 {
     font-size: 22px;
   }
+
   .Carrerbannerleft p {
     font-size: 16px;
   }
@@ -214,6 +264,7 @@
     z-index: 9;
     position: relative;
   }
+
   .OurServicesContent figcaption h3 {
     font-size: 20px;
   }
@@ -238,8 +289,9 @@
   .Login-info.d-flex.align-items-center {
     padding-left: 30px;
   }
+
   .bannerSectionLeft h1 {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   .innerbanner figure img {
@@ -249,6 +301,7 @@
   .innerbannerContent h2 {
     font-size: 28px;
   }
+
   .innerbannerContent p {
     font-size: 16px;
   }
@@ -261,6 +314,7 @@
   section.InnnerPage.bmiCalculator.InnerSpace .col-md-5 {
     width: 44%;
   }
+
   ul.wightList h4 {
     font-size: 18px;
   }
@@ -283,8 +337,8 @@
     height: 50px;
   }
 
-  .radioList [type="radio"]:checked + label,
-  .radioList [type="radio"]:not(:checked) + label {
+  .radioList [type="radio"]:checked+label,
+  .radioList [type="radio"]:not(:checked)+label {
     font-size: 18px;
   }
 
@@ -303,6 +357,7 @@
   .OurVisionMissionTitle p {
     font-size: 15px;
   }
+
   .VisionMissionList {
     padding-top: 140px;
   }
@@ -311,9 +366,11 @@
     flex-direction: row-reverse;
     align-items: center;
   }
+
   .OurTEAMhead h2 {
     font-size: 32px;
   }
+
   .OurTEAMhead span {
     font-size: 18px;
   }
@@ -326,6 +383,7 @@
   .AboutBannerContent h3 {
     font-size: 32px;
   }
+
   ul.whoareList li {
     width: 38%;
   }
@@ -350,6 +408,7 @@
   .messageCofoundersTitle {
     margin-bottom: 48px;
   }
+
   .messageCofoundersTitle h2 {
     font-size: 30px;
   }
@@ -361,6 +420,7 @@
   .MoreProfessional span img {
     width: 145px;
   }
+
   ul.whoareList li {
     padding-right: 70px;
   }
@@ -390,15 +450,19 @@
     font-size: 18px;
     margin-bottom: 15px;
   }
+
   .pn-title {
     font-size: 32px;
   }
+
   .Packagecontent figcaption h4 {
     font-size: 20px;
   }
+
   ul.whoareList li figcaption h3 {
     font-size: 22px;
   }
+
   .Packagecontent figcaption p {
     font-size: 14px;
   }
@@ -415,6 +479,7 @@
   .servicelist p {
     font-size: 12px;
   }
+
   .product-list figcaption h3 {
     font-size: 18px;
   }
@@ -422,9 +487,11 @@
   .price span {
     font-size: 24px;
   }
+
   body .owl-carousel .owl-item .product-list figure img {
     height: 350px;
   }
+
   .bpheadleft h4 {
     font-size: 28px;
   }
@@ -452,9 +519,11 @@
   .badetailright .pricetime {
     font-size: 26px;
   }
+
   .slottitle {
     font-size: 18px;
   }
+
   .baheadtitle {
     margin-bottom: 10px;
   }
@@ -495,6 +564,7 @@
   .blogbannertitle {
     font-size: 14px;
   }
+
   .SmartKichinbox p {
     font-size: 16px;
   }
@@ -510,29 +580,14 @@
   .cardcontent h3 {
     font-size: 28px;
   }
+
   span.bannerup img {
     width: 235px;
     margin-left: -44px;
   }
 }
-@media (min-width: 1366px) and (max-width: 1641px) {
-  .circletagShapeBox {
-    position: absolute;
-    right: 135px;
-    top: 215px;
-  }
-}
-@media (min-width: 1640px) and (max-width: 1680px) {
-  .circletagShapeBox {
-    right: 250px;
-  }
-}
 
-@media (min-width: 1200px) and (max-width: 1366px) {
-  .circletagShapeBox {
-    right: 35px;
-  }
-}
+
 
 @media (max-width: 1199px) {
   span.bannerup {
@@ -540,9 +595,11 @@
 
     top: 48px;
   }
+
   .owl-theme .owl-nav {
     display: none !important;
   }
+
   .bannerSection {
     overflow: hidden;
   }
@@ -550,20 +607,25 @@
   .blogbannertitle {
     font-size: 30px;
   }
+
   .bannerSectionInner figure:after {
     width: 400px;
     height: 400px;
   }
+
   .Login-info {
     padding-left: 10px;
   }
+
   header .navbar-nav .nav-link {
     font-size: 14px;
     padding: 0 11px !important;
   }
+
   .header-btn {
     min-width: 135px;
   }
+
   .bannerSectionLeft h1 {
     font-size: 30px;
     margin-bottom: 30px;
@@ -573,6 +635,7 @@
     font-weight: 700;
     font-size: 16px;
   }
+
   .circletagShape img {
     width: 63px;
   }
@@ -581,19 +644,24 @@
     padding-top: 35px;
     padding-bottom: 50px;
   }
+
   .OurServicesRow .col-md-4 {
     margin-bottom: 20px;
     padding: 0 10px;
   }
+
   .VideBox iframe {
     width: 65%;
   }
+
   .SmartKichin .PageTitle p {
     padding: 0 180px;
   }
+
   .SmartKichinContent figcaption {
     width: 90%;
   }
+
   .SmartKichinContent figcaption h3 {
     font-size: 20px;
   }
@@ -601,42 +669,54 @@
   .OurHealthBlogContent figcaption h3 {
     font-size: 20px;
   }
+
   .PageTitle {
     margin-bottom: 35px;
   }
+
   .trailofferList li {
     font-size: 13px;
     margin-bottom: 18px;
     padding-bottom: 18px;
   }
+
   .OurServicesContent .btn {
     width: 100%;
     margin-bottom: 10px;
   }
+
   .OurServicesContent .btn:last-child {
     margin-bottom: 0;
   }
+
   .SmartKichinContent figcaption p {
     font-size: 14px;
   }
+
   .PosterContent h2 {
     font-size: 22px;
   }
+
   .PageTitle p {
     font-size: 15px;
   }
+
   .form-checkList li {
     width: 46%;
   }
+
   .GetIntouchRight .col-md-6.mb-3 {
     margin-bottom: 15px !important;
   }
+
   .GetIntouchRight {
     padding-bottom: 30px;
   }
+
   .AboutInfo h2 {
     font-size: 28px;
   }
+
   .AboutInfoLeft p {
     font-size: 18px;
   }
@@ -644,6 +724,7 @@
   .menuRows {
     margin-top: 50px;
   }
+
   .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent {
     width: 50%;
   }
@@ -671,12 +752,15 @@
   .innerbanner figure img {
     height: 355px;
   }
+
   .innerbannerContent h2 {
     font-size: 32px;
   }
+
   .innerbannerContent p {
     font-size: 14px;
   }
+
   .ToolsPageBox h4 {
     font-size: 24px;
   }
@@ -684,6 +768,7 @@
   .ToolsPageBox p {
     font-size: 14px;
   }
+
   .circletagShapeBox {
     right: 30px;
     top: 191px;
@@ -726,34 +811,38 @@
     height: 48px;
   }
 
-  .radioList [type="radio"]:checked + label,
-  .radioList [type="radio"]:not(:checked) + label {
+  .radioList [type="radio"]:checked+label,
+  .radioList [type="radio"]:not(:checked)+label {
     font-size: 16px;
   }
 
-  .radioList [type="radio"]:checked + label:before,
-  .radioList [type="radio"]:not(:checked) + label:before {
+  .radioList [type="radio"]:checked+label:before,
+  .radioList [type="radio"]:not(:checked)+label:before {
     width: 25px;
     height: 25px;
   }
 
-  .radioList [type="radio"]:checked + label:after,
-  .radioList [type="radio"]:not(:checked) + label:after {
+  .radioList [type="radio"]:checked+label:after,
+  .radioList [type="radio"]:not(:checked)+label:after {
     width: 13px;
     height: 13px;
     top: 6px;
     left: 6px;
   }
+
   .calculaField label {
     font-size: 14px;
   }
+
   .ResultBox {
     flex-wrap: wrap;
     width: 100%;
   }
+
   .ResultBox-right {
     width: 148px;
   }
+
   .ResultBox-left {
     width: 100%;
     flex: initial;
@@ -767,6 +856,7 @@
     height: 48px;
     font-size: 16px;
   }
+
   .baheadtitle h3 {
     font-size: 32px;
   }
@@ -774,6 +864,7 @@
   .baheadtitle p {
     font-size: 18px;
   }
+
   .badetailright .pricetime {
     font-size: 28px;
   }
@@ -801,6 +892,7 @@
   .slottimelist li {
     width: 29%;
   }
+
   .slottitle {
     font-size: 18px;
   }
@@ -808,9 +900,11 @@
   .adlistinfo li h4 {
     font-size: 16px;
   }
+
   .adlistinfo li span {
     font-size: 16px;
   }
+
   .AboutBanner {
     background-size: cover;
     height: 465px;
@@ -821,18 +915,23 @@
     width: 31%;
     padding-right: 20px;
   }
+
   .AboutBannerContent h3 {
     font-size: 32px;
   }
+
   .OurTEAMhead h2 {
     font-size: 32px;
   }
+
   .OurTEAMhead span {
     font-size: 18px;
   }
+
   .OurTEAMhead p br {
     display: none;
   }
+
   .bpheadleft h4 {
     font-size: 28px;
   }
@@ -844,9 +943,11 @@
   .pricetime {
     font-size: 20px;
   }
+
   .bookappoinmentbody p {
     font-size: 16px;
   }
+
   .product-list figcaption {
     padding: 20px 22px 30px;
   }
@@ -862,6 +963,7 @@
   .servicedetaillisting figcaption h3 {
     font-size: 28px;
   }
+
   .textlink a {
     font-size: 14px;
   }
@@ -873,9 +975,11 @@
   .JoinourhealthContent p {
     font-size: 16px;
   }
+
   .row.row-cols-5.SmartKichinlistrow .col {
     width: 25%;
   }
+
   .row.row-cols-5.SmartKichinlistrow {
     justify-content: center;
   }
@@ -886,6 +990,7 @@
     text-align: center;
     line-height: 1.1;
   }
+
   span.tag-info {
     font-size: 13px;
   }
@@ -893,9 +998,11 @@
   .bannerSection .owl-nav {
     display: none;
   }
+
   .product-list figcaption h3 {
     font-size: 18px;
   }
+
   .price span {
     font-size: 24px;
   }
@@ -903,6 +1010,7 @@
   .servicelist p {
     font-size: 14px;
   }
+
   .allpakages button.owl-next span,
   .allpakages button.owl-prev span {
     background-size: 11px;
@@ -912,6 +1020,7 @@
   .allpakages button.owl-next span {
     right: 6px;
   }
+
   .allpakages button.owl-prev span {
     left: 6px;
   }
@@ -919,12 +1028,15 @@
   .InnerPageTitle h4 {
     font-size: 24px;
   }
+
   .InnerPageTitle {
     margin-bottom: 30px;
   }
+
   .BlogDeatils .innerbannerContent h2 {
     font-size: 32px;
   }
+
   .contentbox p {
     font-size: 16px;
   }
@@ -932,6 +1044,7 @@
   .content {
     padding: 0px 10px;
   }
+
   .PackageINclusion .pn-title {
     font-size: 28px;
   }
@@ -939,6 +1052,7 @@
   .Diabetespageleft figure img {
     height: 445px;
   }
+
   .DiabetesHealthcontent figcaption h3 {
     font-size: 18px;
   }
@@ -946,6 +1060,7 @@
   .DiabetesHealthPakages .col-md-3 {
     width: 33%;
   }
+
   .Packagecontent figcaption h4 {
     font-size: 18px;
   }
@@ -953,10 +1068,12 @@
   .Diabetespageright h3 {
     font-size: 28px;
   }
+
   .PackageINclusion .pn-title {
     font-size: 28px;
     margin-bottom: 10px;
   }
+
   .Packagecontent figcaption p {
     font-size: 14px;
   }
@@ -969,6 +1086,7 @@
   .Browseservice button.owl-prev span {
     top: 40px;
   }
+
   body .owl-carousel .owl-item .product-list figure img {
     height: 200px;
   }
@@ -983,9 +1101,11 @@
   .addtobag .col-md-6 {
     width: 50%;
   }
+
   .addtobag .col-md-5.ms-auto {
     width: 47%;
   }
+
   .ordersummarylist .price-text {
     font-size: 20px;
   }
@@ -994,6 +1114,7 @@
     width: 100px;
     height: 100px;
   }
+
   .discoutBox input.form-control {
     font-size: 15px;
   }
@@ -1009,14 +1130,16 @@
   .addtobaghead h4 {
     font-size: 18px;
   }
+
   .testiuser figcaption h4 {
     font-size: 16px;
   }
-  .clientcontentbg > p {
+
+  .clientcontentbg>p {
     min-height: 80px;
   }
 
-  .clientcontentbg > p {
+  .clientcontentbg>p {
     font-size: 12px;
   }
 
@@ -1024,7 +1147,7 @@
     height: 50px;
   }
 
-  .clientcontentbg > p {
+  .clientcontentbg>p {
     min-height: 75px;
   }
 
@@ -1047,9 +1170,11 @@
   .stayaheadbg h4 {
     font-size: 28px;
   }
+
   .service-btn {
     flex-wrap: wrap;
   }
+
   .OurServicesContent figcaption h3 {
     font-size: 18px;
   }
@@ -1069,6 +1194,7 @@
   div#upcomingevent {
     padding-bottom: 0;
   }
+
   .whyattentbox h4 {
     font-size: 14px;
   }
@@ -1084,6 +1210,7 @@
   .zigzagtext h3 {
     font-size: 45px;
   }
+
   .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
     width: 86%;
   }
@@ -1091,6 +1218,7 @@
   .MuktiBoxLeft {
     display: none;
   }
+
   .MuktiBox .col-md-6.ms-auto {
     width: 100%;
   }
@@ -1133,6 +1261,7 @@
   span.CarrerShape1 img {
     width: 231px;
   }
+
   .Trasnformbox .col-md-3 {
     width: 50%;
   }
@@ -1144,9 +1273,11 @@
   ul.tabslist {
     flex-wrap: wrap;
   }
+
   .tabscardbox {
     align-items: flex-start !important;
   }
+
   .logoutbtn {
     min-width: 140px;
   }
@@ -1158,6 +1289,7 @@
   .Cardbody .col-md-6.mb-3 {
     margin-bottom: 15px !important;
   }
+
   span.bannerup img {
     width: 176px;
     margin-left: 0;
@@ -1176,7 +1308,7 @@
     line-height: 0.1;
   }
 
-  .clientcontentbg > p {
+  .clientcontentbg>p {
     font-size: 13px;
   }
 
@@ -1187,22 +1319,27 @@
   .ToolsPageBox {
     padding: 25px 50px;
   }
+
   header .navbar-nav .nav-link.active:after {
     display: none;
   }
+
   header .navbar-nav .nav-link {
     padding: 7px 17px !important;
     color: #fff;
   }
+
   .circletagShapeBox {
     right: 27px;
     top: 128px;
   }
+
   .navbar-collapse.show {
     margin-left: 0;
     left: 0;
     transition: 0.5s;
   }
+
   .navbar-collapse {
     background-color: #000;
     height: 100vh;
@@ -1214,26 +1351,33 @@
     width: 227px;
     z-index: 9;
   }
+
   .navRight {
     flex-direction: row-reverse;
   }
+
   .bannerSectionLeft h1 {
     font-size: 20px;
   }
+
   .ClientListinfo li {
     padding-right: 20px;
     margin-right: 20px;
   }
+
   .ClientListinfo {
     margin-bottom: 20px;
   }
+
   .bannerSectionLeft h1 {
     margin-bottom: 22px;
   }
+
   .bannerSectionInner figure:after {
     width: 300px;
     height: 300px;
   }
+
   .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent {
     width: 50%;
   }
@@ -1241,12 +1385,15 @@
   .col-xl.col-md-12.order-xl-2.order-3.menuRows {
     margin-top: 30px;
   }
+
   footer {
     padding-top: 25px;
   }
+
   .BottomFooter {
     margin-top: 30px;
   }
+
   button.navbar-toggler {
     background: #000;
     padding: 0;
@@ -1256,15 +1403,19 @@
     margin-left: 9px;
     opacity: 1;
   }
+
   button.navbar-toggler.collapsed span {
     filter: brightness(0) invert(1);
   }
+
   nav.navbar.navbar-expand-lg.navbar-light {
     padding: 0;
   }
+
   header {
     padding: 10px 0;
   }
+
   .ClientInfo p {
     font-size: 14px;
     margin-bottom: 0;
@@ -1274,12 +1425,15 @@
     font-size: 16px;
     height: 45px;
   }
+
   .ClientInfo b {
     font-size: 24px;
   }
+
   .OurServicesRow .col-md-4 {
     width: 50%;
   }
+
   .OurServicesContent figcaption h3 {
     font-size: 20px;
   }
@@ -1287,6 +1441,7 @@
   .SmartKichinContent figcaption h3 {
     font-size: 18px;
   }
+
   .btn {
     height: 40px;
   }
@@ -1321,9 +1476,11 @@
     width: 90%;
     margin: auto;
   }
+
   .bannerSectionInner {
     margin-bottom: -28px;
   }
+
   .bannerSectionInner figure:after {
     display: none;
   }
@@ -1340,6 +1497,7 @@
   .InnnerPage.bmiCalculator .col-md-5.ms-auto {
     width: 100%;
   }
+
   .bmiCalculatorBg {
     margin-top: 0;
   }
@@ -1347,12 +1505,15 @@
   .col-xxl-2.col-sm-3.sortbyright select.form-select {
     font-size: 16px;
   }
+
   .OurBlogs .OurHealthBlogContent figcaption {
     padding: 0 15px;
   }
+
   .col-md-6.OurHealthBlogContent p {
     font-size: 16px;
   }
+
   .row.slotdatebox {
     flex-wrap: wrap;
   }
@@ -1360,16 +1521,20 @@
   .col-md-6.slotdateboxleft {
     width: 100%;
   }
+
   .col-md-6.slotdateboxright {
     width: 100%;
     border-left: 0;
   }
+
   .col-md-4.badetailleft {
     width: 40%;
   }
+
   .col-md-8.badetailright {
     width: 60%;
   }
+
   .badetailright .pricetime {
     font-size: 22px;
   }
@@ -1377,9 +1542,11 @@
   .slottimelist {
     margin-bottom: 0;
   }
+
   .InnerpageSpace {
     padding-top: 100px;
   }
+
   ul.whoareList li {
     width: 50%;
   }
@@ -1387,6 +1554,7 @@
   .AboutBanner {
     background-position: left;
   }
+
   .bpheadleft h4 {
     font-size: 23px;
   }
@@ -1394,19 +1562,24 @@
   .bpheadleft {
     width: 100%;
   }
+
   .bookappoinmenthead {
     flex-wrap: wrap;
   }
+
   .pricetime {
     font-size: 20px;
     margin-top: 10px;
   }
+
   .bookappoinmentbody p {
     font-size: 14px;
   }
+
   .bookappoinmentbody h5 {
     font-size: 20px;
   }
+
   .fixspace {
     padding-top: 64px;
   }
@@ -1422,6 +1595,7 @@
   .btn-group-box .btn {
     width: 100%;
   }
+
   .textlink {
     flex-wrap: wrap;
     line-height: 0.7;
@@ -1430,10 +1604,12 @@
   .getintouchinner .row.align-items-center {
     flex-direction: column;
   }
+
   .getintouchinner .col-md-6 {
     width: 100%;
     margin-bottom: 20px;
   }
+
   .row.GetIntouchinnerright {
     border-left: 0;
     padding-left: 0;
@@ -1442,9 +1618,11 @@
   .row.GetIntouchinnerright .col-md-6:nth-child(even) {
     display: none;
   }
+
   .col-md-6.getintouchinnerleft figure img {
     width: 100%;
   }
+
   .JoinourhealthContent {
     right: 0;
     bottom: 0;
@@ -1454,6 +1632,7 @@
   .Joinourhealth {
     height: 400px;
   }
+
   section.InnerpageSpace.bgpettern {
     padding-bottom: 0;
   }
@@ -1470,6 +1649,7 @@
   .row.row-cols-5.SmartKichinlistrow figure img {
     width: 100%;
   }
+
   .row.row-cols-5.SmartKichinlistrow figcaption h4 {
     height: auto;
   }
@@ -1485,6 +1665,7 @@
   .OurServices .col-md-4 {
     width: 50%;
   }
+
   .FitnessJourneyContent h4 {
     font-size: 26px;
   }
@@ -1493,9 +1674,11 @@
     font-size: 26px;
     margin-bottom: 20px;
   }
+
   .FitnessJourneyInner .link-text {
     font-size: 14px;
   }
+
   .JoinSubTitle {
     font-size: 16px;
     margin-top: 25px;
@@ -1516,6 +1699,7 @@
   section.OurTEAM {
     padding-top: 35px;
   }
+
   .col-md-4.OurTeamsrowsL {
     width: 50%;
   }
@@ -1523,13 +1707,16 @@
   .col-md-8.OurTeamsrowsR {
     width: 50%;
   }
+
   .OurTeamsrowsL figure img {
     width: 240px;
     height: 240px;
   }
+
   .OurTeamsrowsR h4 {
     font-size: 22px;
   }
+
   .OurTeamsrowsR p {
     font-size: 14px;
   }
@@ -1537,6 +1724,7 @@
   .OurTeamsrowsR span {
     font-size: 18px;
   }
+
   .OurTeamsrowsL figure:after {
     height: 165px;
   }
@@ -1548,18 +1736,23 @@
   section.MoreProfessional span img {
     width: 120px;
   }
+
   .MoreProfessional p {
     font-size: 24px;
   }
+
   .messageCofoundersTitle {
     margin-bottom: 40px;
   }
+
   .messageCofoundersTitle h2 {
     font-size: 32px;
   }
+
   .messageCofoundersBg figcaption {
     padding: 0 0;
   }
+
   .messageCofoundersBg figcaption p {
     font-size: 16px;
   }
@@ -1577,6 +1770,7 @@
   ul.ourapproachlist li::after {
     top: 35px;
   }
+
   .DiabetesHealthPakages .col-md-3 {
     width: 50%;
   }
@@ -1598,6 +1792,7 @@
     font-size: 14px;
     margin-bottom: 6px;
   }
+
   .addtobag .col-md-6 {
     width: 100%;
     margin-bottom: 20px;
@@ -1618,6 +1813,7 @@
   .clienttrusted img {
     width: 112px;
   }
+
   .JoinNow h4 {
     font-size: 32px;
   }
@@ -1625,6 +1821,7 @@
   .clientafterbefore {
     padding: 22px 20px 15px;
   }
+
   .CleintSuccess:after {
     width: 400px;
     height: 400px;
@@ -1641,9 +1838,11 @@
   .EventsBannercontent p {
     font-size: 16px;
   }
+
   .upcomingbox figcaption {
     padding: 20px 0;
   }
+
   .Pasteventsslider .owl-carousel .owl-item .item .pasteventbox img {
     height: 160px;
   }
@@ -1655,24 +1854,31 @@
   .Pasteventsslider .owl-nav button.owl-prev {
     left: 0;
   }
+
   .Pasteventsslider .owl-nav button.owl-next {
     right: 0;
   }
+
   .Pasteventsslider {
     margin-top: -30px;
   }
+
   .typeseventsbox p {
     font-size: 14px;
   }
+
   .owl-carousel .owl-item .typeseventsbox figure img {
     height: 380px;
   }
+
   .gotquestionscontent h4 {
     font-size: 35px;
   }
+
   .gotquestionscontent p {
     font-size: 14px;
   }
+
   .upcomingbox {
     padding: 20px 15px;
   }
@@ -1688,6 +1894,7 @@
   .eventsbtn .btn.btn-primary {
     font-size: 13px;
   }
+
   .owl-carousel .owl-item .upcomingbox figure img {
     height: 254px;
   }
@@ -1695,6 +1902,7 @@
   .whypartner .col {
     order: 1;
   }
+
   .whypartner .col-md-4.text-center {
     width: 100%;
   }
@@ -1706,6 +1914,7 @@
   .whyparthnerlist.whyp-odd li {
     flex-direction: column-reverse;
   }
+
   .whyparthnerlist.whyp-odd figure {
     margin-left: 0;
     margin-right: 0;
@@ -1716,9 +1925,9 @@
     margin-bottom: 15px !important;
   }
 
-  .row.align-items-center {
+  /* .row.align-items-center {
     align-items: flex-start !important;
-  }
+  } */
 
   .centerImg img {
     height: 385px;
@@ -1728,9 +1937,11 @@
   .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
     width: auto;
   }
+
   .GetIntouch {
     padding-top: 55px;
   }
+
   .filtersBoxInner .col-xxl-10.col-md-9.col-xl-10.col-sm-9 {
     width: 94%;
   }
@@ -1758,6 +1969,7 @@
   .wearecontent p {
     font-size: 14px;
   }
+
   .Deleteicon {
     top: 32px;
   }
@@ -1765,9 +1977,11 @@
   .ordersummarylist figcaption h4 {
     font-size: 16px;
   }
+
   .wearecontent a {
     z-index: 9;
   }
+
   .wearecontent .btn.sm-btn {
     min-width: 200px;
   }
@@ -1776,6 +1990,7 @@
     height: 300px;
     margin-top: 20px;
   }
+
   .imgcard img {
     height: 350px;
   }
@@ -1783,15 +1998,19 @@
   .imgsmcard img {
     height: 172px;
   }
+
   .filtersBox {
     padding-bottom: 0;
   }
+
   hr.dashed-text {
     margin: 15px 0 20px;
   }
+
   .innovationlist h3 {
     font-size: 20px;
   }
+
   .innovationlist figure img {
     height: 330px;
   }
@@ -1800,6 +2019,7 @@
     bottom: 70px;
     right: 20px;
   }
+
   .FOLLOWUSlist li {
     width: 40px;
     height: 40px;
@@ -1818,26 +2038,33 @@
     top: -28px;
   }
 }
+
 @media (max-width: 767px) {
   .innerbanner figure img {
     height: 280px;
   }
+
   .innerbannerContent {
     bottom: 10px;
   }
+
   .col-md-6.bannerSectionLeft.pe-0 {
     width: 50%;
   }
+
   .innerbannerContent h2 {
     font-size: 26px;
   }
+
   .innerbannerContent p {
     font-size: 14px;
   }
+
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
     width: 50%;
     padding-left: 0 !important;
   }
+
   .BestTag {
     margin-bottom: 14px;
     max-width: 186px;
@@ -1859,6 +2086,7 @@
   .ClientInfo p {
     font-size: 10px;
   }
+
   .ClientInfo b {
     font-size: 20px;
   }
@@ -1889,6 +2117,7 @@
   .OurServices .OurServicesRow {
     width: 100%;
   }
+
   .btn {
     font-size: 12px;
   }
@@ -1963,12 +2192,15 @@
     text-align: center;
     padding-left: 0;
   }
+
   .ToolsPageBox {
     padding: 25px 30px;
   }
+
   .ToolsPageBox .row {
     flex-direction: column-reverse;
   }
+
   .ToolsPageBox figure img {
     width: 100%;
     height: 209px;
@@ -1978,6 +2210,7 @@
   .ToolsPageBox:nth-child(odd) .row {
     flex-direction: column-reverse;
   }
+
   .ToolsPageBox:nth-child(odd) .row .col-md-8 {
     padding-left: 0px !important;
     text-align: center;
@@ -1998,6 +2231,7 @@
   .innerbannerContent {
     padding: 0 12px;
   }
+
   ul.radioList li {
     margin-right: 0;
   }
@@ -2005,6 +2239,7 @@
   .SearchBox {
     width: 100%;
   }
+
   .filtersBoxInner select.form-select {
     width: 115px;
   }
@@ -2012,9 +2247,11 @@
   .col-xxl-2.col-sm-3.sortbyright select.form-select {
     font-size: 14px;
   }
+
   .col-md-4.badetailleft {
     width: 100%;
   }
+
   .col-md-8.badetailright {
     width: 100%;
     margin-top: 10px;
@@ -2023,6 +2260,7 @@
   .AboutBannerContent {
     margin-bottom: 15px;
   }
+
   .badetailleft figure img {
     width: 100%;
     height: 636px;
@@ -2030,9 +2268,11 @@
     object-position: center;
     margin-bottom: 10px;
   }
+
   .OurTEAMhead h2 {
     font-size: 24px;
   }
+
   .OurTEAMhead p {
     font-size: 14px;
   }
@@ -2044,6 +2284,7 @@
   .price span {
     font-size: 22px;
   }
+
   .product-list figcaption h3 {
     margin-bottom: 12px;
     font-size: 14px;
@@ -2058,6 +2299,7 @@
   .producttitle {
     margin-bottom: 25px;
   }
+
   .btn-group-box .btn {
     width: 49%;
   }
@@ -2065,6 +2307,7 @@
   .contactinfo .col-md-4 {
     margin-bottom: 20px;
   }
+
   .getintouchinnerleft h4 {
     font-size: 26px;
   }
@@ -2073,20 +2316,24 @@
     font-size: 28px;
     margin-bottom: 20px;
   }
+
   .JoinourhealthContent .btn.btn-primary {
     min-width: 335px;
     height: 59px;
     font-size: 16px;
     margin-top: 15px;
   }
+
   .row.row-cols-5.SmartKichinlistrow figcaption h4 {
     height: 50px;
   }
+
   .blogbannertitle {
     font-size: 14px;
     top: 88px;
     margin-bottom: 0;
   }
+
   .innerbannerContent h2 {
     font-size: 24px;
     margin-bottom: 0;
@@ -2102,6 +2349,7 @@
   .AboutInfo .col-md-5.text-left img {
     width: 275px;
   }
+
   .FitnessJourneyContent {
     padding: 0 20px;
     width: 100%;
@@ -2115,9 +2363,11 @@
     object-fit: cover;
     height: 270px;
   }
+
   .FitnessJourneyInner .btn-primary {
     min-width: 165px;
   }
+
   .messageCofoundersTitle h2 {
     font-size: 26px;
   }
@@ -2125,12 +2375,15 @@
   .BlogDeatils figure img {
     height: 400px;
   }
+
   .BlogDeatils .innerbannerContent h2 {
     font-size: 28px;
   }
+
   .contentbox {
     margin-bottom: 30px;
   }
+
   .heighlighttext {
     font-size: 28px;
   }
@@ -2149,6 +2402,7 @@
     height: 55px;
     font-size: 21px;
   }
+
   ul.ourapproachlist li::after {
     top: 29px;
   }
@@ -2156,15 +2410,19 @@
   .col-md-6.Diabetespageright {
     margin-top: 30px;
   }
+
   .PackageINclusion .pn-title {
     font-size: 24px;
   }
+
   .col-md-4.Packagecontent {
     width: 50%;
   }
+
   .Diabetespageleft figure img {
     height: 300px;
   }
+
   .Diabetespageright h3 {
     font-size: 26px;
     margin-bottom: 12px;
@@ -2173,10 +2431,12 @@
   .col-md-6.bannerSectionLeft.pe-0 {
     padding-right: 20px !important;
   }
+
   .bannerSection .BannerBtn a {
     font-size: 12px;
     height: 40px;
   }
+
   body .owl-carousel .owl-item .bannerSectionInner figure img {
     margin: 0;
     height: auto;
@@ -2205,6 +2465,7 @@
   .clientafterbeforetitle {
     font-size: 14px;
   }
+
   .JoinNow h4 {
     font-size: 24px;
   }
@@ -2222,6 +2483,7 @@
     width: 100%;
     object-fit: cover;
   }
+
   .clienttrusted {
     padding-right: 0;
     margin-top: -10px;
@@ -2230,12 +2492,15 @@
   .InnerPageTitle.mb-xxl-4.col-xl-3.col-2 {
     width: 100%;
   }
+
   .ThankyouModal h4 {
     font-size: 85px;
   }
+
   .ThankyouModal p {
     font-size: 20px;
   }
+
   .EventsBannercontent h3 {
     font-size: 32px;
   }
@@ -2245,6 +2510,7 @@
     -ms-transform: scale(1.2);
     transform: scale(1.1);
   }
+
   .Pasteventsslider .owl-item.active.center .item {
     height: 200px;
   }
@@ -2257,17 +2523,21 @@
     flex-direction: column-reverse;
     text-align: center;
   }
+
   .gotquestionscontent {
     padding-right: 0;
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   .gotquestions {
     margin-top: 0;
   }
+
   .zigzagtext h3 {
     font-size: 26px;
   }
+
   .whyparthnerlist figcaption h4 {
     font-size: 16px;
     min-height: 40px;
@@ -2276,9 +2546,11 @@
     display: flex;
     justify-content: center;
   }
+
   span.circleshape {
     display: none;
   }
+
   .SectionSpace {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -2288,24 +2560,30 @@
     padding-bottom: 30px;
     margin-bottom: 30px;
   }
+
   .ordersummarylist .price-text {
     font-size: 18px;
   }
+
   .Carrerbanner .row {
     flex-direction: column-reverse;
   }
+
   .Carrerbannerright img {
     width: 70%;
     margin: auto;
     display: block;
     margin-bottom: 30px;
   }
+
   .wearecontent h3 {
     font-size: 34px;
   }
+
   .wearecontent p {
     font-size: 11px;
   }
+
   .ourvaluebox {
     padding: 20px 12px 20px 45px;
     margin: 10px 0;
@@ -2315,6 +2593,7 @@
   .ourvalueinner .gy-5 {
     --bs-gutter-y: 0;
   }
+
   .ourvaluebox {
     margin-top: 0 !important;
   }
@@ -2322,6 +2601,7 @@
   .ourvalueinner {
     padding-top: 30px;
   }
+
   .ourcluture .owl-carousel .owl-item img {
     height: 200px;
   }
@@ -2330,6 +2610,7 @@
     font-size: 26px;
     margin-bottom: 10px !important;
   }
+
   .Carrerbannerleft p {
     font-size: 14px;
     padding-right: 20px;
@@ -2344,23 +2625,26 @@
     font-size: 16px;
   }
 
-  .ant-modal.custom-modal .modalbody > p {
+  .ant-modal.custom-modal .modalbody>p {
     font-size: 16px;
   }
 
   .ourvaluebox.mt-5 {
     margin-top: 0 !important;
   }
+
   .Carduserinfo .row {
     flex-direction: column;
     text-align: center;
   }
+
   .cardprofile {
     width: 165px;
     height: 165px;
     margin: auto;
     margin-bottom: 25px;
   }
+
   .pakageheadtitle span {
     font-size: 13px;
   }
@@ -2368,6 +2652,7 @@
   .pakageheadtitle h4 {
     font-size: 18px;
   }
+
   table.table {
     white-space: nowrap;
   }
@@ -2388,6 +2673,7 @@
   .stayaheadbg h4 {
     font-size: 22px;
   }
+
   span.bannerup img {
     width: 117px;
   }
@@ -2406,9 +2692,11 @@
   .OurServicesRow .col-md-4 {
     width: 100%;
   }
+
   .OurServicesContent figcaption p {
     min-height: auto;
   }
+
   .AboutInfo .col-md-5.text-left figure img {
     width: 300px;
   }
@@ -2420,10 +2708,12 @@
     margin-bottom: 0;
     padding-left: 15px;
   }
+
   .col-md-6.bannerSectionLeft.pe-0 {
     margin-top: 45px;
     margin-bottom: 20px;
   }
+
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
     position: absolute;
     right: 0;
@@ -2437,6 +2727,7 @@
     padding-right: 60px !important;
     width: 100%;
   }
+
   .circletagShape {
     top: -33px;
   }
@@ -2459,13 +2750,16 @@
   .col-xl.col-md-12.order-xl-2.order-3.menuRows {
     order: 2 !important;
   }
+
   .col-lg-2.col-sm-6.order-md-1.order-1.FooterContent .ps-3 {
     padding-left: 0 !important;
   }
+
   .col-md.col-sm-6.FooterContent {
     margin-bottom: 20px;
     width: 50%;
   }
+
   .header-btn {
     min-width: 120px;
     font-size: 12px;
@@ -2495,11 +2789,9 @@
   }
 
   .formBox {
-    background: linear-gradient(
-      to bottom,
-      rgb(237 237 237 / 64%) 0%,
-      rgb(219 219 219) 100%
-    );
+    background: linear-gradient(to bottom,
+        rgb(237 237 237 / 64%) 0%,
+        rgb(219 219 219) 100%);
 
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
@@ -2533,6 +2825,7 @@
     width: 25%;
     margin-left: auto;
   }
+
   .taginfolist li {
     height: 43px;
     padding: 18px 40px;
@@ -2541,20 +2834,25 @@
   .sortbyright {
     margin-top: 20px;
   }
+
   .baheadtitle h3 {
     font-size: 26px;
   }
+
   .baheadtitle {
     margin-bottom: 0;
   }
+
   .OurTEAMhead h2 {
     font-size: 22px;
   }
+
   .OurTEAMhead span {
     font-size: 16px;
     margin-bottom: 8px !important;
     display: block;
   }
+
   button.owl-prev span {
     left: 0px;
     top: 45px;
@@ -2565,14 +2863,17 @@
     margin: auto;
     margin-bottom: 30px;
   }
+
   .servicedetaillisting figcaption h3 {
     font-size: 26px;
   }
+
   .btn-group-box .btn {
     width: 49%;
     height: auto;
     padding: 12px 0;
   }
+
   .PosterContent p {
     font-size: 16px;
   }
@@ -2580,9 +2881,11 @@
   .AboutBannerContent h3 {
     font-size: 26px;
   }
+
   ul.whoareList li figcaption h3 {
     font-size: 20px;
   }
+
   .OurVisionMissionTitle p {
     font-size: 14px;
   }
@@ -2590,23 +2893,29 @@
   .OurMVBGcontent {
     font-size: 26px;
   }
+
   .col-md-4.OurTeamsrowsL {
     width: 100%;
   }
+
   .col-md-8.OurTeamsrowsR {
     width: 100%;
     margin-top: 25px;
     text-align: center;
   }
+
   .messageCofounders .col-md-6 {
     margin-bottom: 15px;
   }
+
   .price span {
     font-size: 18px;
   }
+
   .product-list figcaption {
     padding: 20px 15px 30px;
   }
+
   .producttitle {
     font-size: 22px;
   }
@@ -2614,6 +2923,7 @@
   .OurBlogs .OurHealthBlogContent figure img {
     height: auto;
   }
+
   .BlogDeatils .innerbannerContent h2 {
     font-size: 24px;
   }
@@ -2657,6 +2967,7 @@
   button.owl-next svg {
     width: 16px;
   }
+
   button.owl-prev svg {
     width: 16px;
   }
@@ -2664,9 +2975,11 @@
   .infobox.infoboxLeft {
     top: -6px;
   }
+
   .infobox h4 {
     font-size: 20px;
   }
+
   .infobox span {
     font-size: 14px;
   }
@@ -2698,9 +3011,11 @@
   .ThankyouModal .btn-primary {
     margin-top: 20px !important;
   }
+
   .EventsBannercontent {
     max-width: 80%;
   }
+
   .EventsBannercontent h3 {
     font-size: 26px;
   }
@@ -2721,15 +3036,18 @@
   .upcomingevents .btn.max-btn {
     min-width: auto !important;
   }
+
   .events-btn a {
     width: 50%;
     min-width: auto !important;
     font-size: 11px;
     text-align: center;
   }
+
   .events-btn {
     margin-top: 10px !important;
   }
+
   .typeofevents .owl-carousel.owl-theme {
     width: 80%;
     margin: auto;
@@ -2739,6 +3057,7 @@
     width: 85%;
     margin: auto;
   }
+
   .gotquestionsbg {
     padding: 20px 40px;
   }
@@ -2751,6 +3070,7 @@
   .whypartner .col-md-4.text-center {
     display: none;
   }
+
   .whypartner .col {
     order: 1;
     width: 100%;
@@ -2762,10 +3082,12 @@
     padding: 10px 0;
     flex-direction: column-reverse;
   }
+
   .whypartner {
     padding-top: 45px;
     padding-bottom: 0;
   }
+
   .getintouchinnerleft h4 {
     font-size: 24px;
   }
@@ -2782,9 +3104,11 @@
     padding-left: 30px;
     padding-right: 30px;
   }
+
   .filterOwl .owl-nav button.owl-prev span {
     left: -102px;
   }
+
   .filterOwl button.owl-next span {
     right: 20px;
     top: 47px !important;
@@ -2798,6 +3122,7 @@
     font-size: 13px;
     padding: 0 30px;
   }
+
   .Trasnformboxbox figure {
     margin-bottom: 14px !important;
   }
@@ -2813,6 +3138,7 @@
   .findYourfitinner p {
     font-size: 14px !important;
   }
+
   .cardcontent h3 {
     font-size: 26px;
   }
@@ -2828,9 +3154,11 @@
   ul.tabslist li {
     width: 48%;
   }
+
   .tabscardbox {
     justify-content: center !important;
   }
+
   .tabslist {
     justify-content: center;
   }
@@ -2838,6 +3166,7 @@
   .CardBbox {
     padding: 30px 30px;
   }
+
   .cardhead h3 {
     font-size: 18px;
   }
@@ -2845,6 +3174,7 @@
   .tabscardbox {
     justify-content: center !important;
   }
+
   .cardhead {
     flex-wrap: wrap;
   }
@@ -2856,6 +3186,7 @@
   button.update-meas-btn {
     margin-top: 10px;
   }
+
   .pakagebody span {
     font-size: 14px;
   }
@@ -2871,11 +3202,13 @@
   .searcwithbtn {
     flex-wrap: wrap;
   }
+
   .btnserch {
     width: 100%;
     margin-top: 10px;
     gap: 10px;
   }
+
   .btnserch .btn {
     width: 50%;
     font-size: 13px;
@@ -2886,9 +3219,11 @@
     height: 40px;
     font-size: 14px;
   }
+
   .btnserch .btn {
     height: 40px;
   }
+
   .blogbanner .innerbannerContent {
     bottom: 12px;
   }
@@ -2897,9 +3232,11 @@
     width: 100%;
     flex: 0 0 100%;
   }
+
   .smartkitchein-banner .col-auto {
     display: none;
   }
+
   span.bannerup {
     margin-left: 2px;
     top: 29px;
@@ -2914,10 +3251,12 @@
     align-items: center;
   }
 }
+
 @media (max-width: 480px) {
   a.navbar-brand img {
     width: 100px;
   }
+
   .header-btn {
     min-width: 107px;
     font-size: 11px;
@@ -2925,6 +3264,7 @@
     height: 30px;
     margin-left: 5px;
   }
+
   span.shapeImgLeft img {
     width: 116px;
   }
@@ -3013,6 +3353,7 @@
   .calculateButton.text-center.mt-3 {
     margin-top: 0 !important;
   }
+
   .calculateHead {
     padding: 20px 20px;
   }
@@ -3026,18 +3367,23 @@
     height: 40px;
     font-size: 13px;
   }
+
   .apdinfo {
     flex-wrap: wrap;
   }
+
   .appoinmentsdetails {
     margin-top: 22px;
   }
+
   .apdinfo {
     margin-top: 15px;
   }
+
   .InnerpageSpace {
     padding-top: 70px;
   }
+
   .badetailleft figure img {
     height: 354px;
   }
@@ -3045,6 +3391,7 @@
   .OurTEAMhead h2 {
     font-size: 18px;
   }
+
   .btn.max-width {
     font-size: 16px;
   }
@@ -3052,6 +3399,7 @@
   .bookappoinmentl figure img {
     width: 97%;
   }
+
   .btn-group-box .btn {
     width: 100%;
   }
@@ -3066,6 +3414,7 @@
   .getintouchinner {
     padding: 25px 20px;
   }
+
   .getintouchinnerleft h4 {
     font-size: 22px;
   }
@@ -3089,6 +3438,7 @@
   span.circleshape img {
     width: 85px;
   }
+
   .OurServices {
     padding-top: 30px;
     padding-bottom: 25px;
@@ -3146,6 +3496,7 @@
   .col-md-8.OurTeamsrowsR {
     margin-top: 15px;
   }
+
   .messageCofoundersTitle {
     margin-bottom: 20px;
   }
@@ -3157,15 +3508,19 @@
   .OurVisionMissionTitle {
     padding: 25px 10px 20px;
   }
+
   .Browseservice {
     width: 85%;
   }
+
   .productslists {
     padding: 0 20px;
   }
+
   .allpakages button.owl-next span {
     right: -2px;
   }
+
   .allpakages button.owl-prev span {
     left: -2px;
   }
@@ -3183,13 +3538,16 @@
     left: 0;
     top: 56px;
   }
+
   .BlogDeatils figure img {
     height: 260px;
   }
+
   .BlogDeatils .innerbannerContent h2 {
     font-size: 20px;
     margin-bottom: 10px;
   }
+
   .heighlighttext {
     font-size: 24px;
     line-height: 1.2;
@@ -3198,9 +3556,11 @@
   .contentbox h4 {
     font-size: 18px;
   }
+
   .contentbox p {
     font-size: 14px;
   }
+
   .heighlighttext {
     margin-bottom: 20px;
   }
@@ -3213,9 +3573,11 @@
   .Bytext span {
     font-size: 11px;
   }
+
   .heighlighttext {
     font-size: 22px;
   }
+
   .row.row-cols-5.SmartKichinlistrow .col {
     width: 100%;
   }
@@ -3248,13 +3610,16 @@
     padding-top: 40px;
     padding-bottom: 40px;
   }
+
   .SmartKichin {
     padding-top: 35px;
     padding-bottom: 50px;
   }
+
   .SmartKichinContent figcaption h3 {
     margin-bottom: 15px;
   }
+
   .OurHealthBlogContent figcaption h3 {
     font-size: 16px;
   }
@@ -3289,6 +3654,7 @@
     flex: inherit;
     margin-bottom: 10px;
   }
+
   button.applybtn {
     font-size: 14px;
     height: 44px;
@@ -3308,9 +3674,11 @@
     text-align: center;
     line-height: 1.4;
   }
+
   .clientfeedback .InnerPageTitle {
     text-align: center;
   }
+
   .JoinNow {
     margin-top: 35px;
     padding: 0 20px;
@@ -3325,6 +3693,7 @@
     width: 100%;
     object-fit: cover;
   }
+
   .WhyUsinner p {
     font-size: 14px;
   }
@@ -3332,6 +3701,7 @@
   .ThankyouModal h4 {
     font-size: 53px;
   }
+
   .ThankyouModal p {
     font-size: 16px;
   }
@@ -3344,6 +3714,7 @@
     width: 100% !important;
     flex: auto;
   }
+
   .whyattentevent .col {
     width: 100% !important;
     flex: auto;
@@ -3361,9 +3732,11 @@
   .EventsBanner {
     height: 440px;
   }
+
   .EventsBannercontent p {
     font-size: 14px;
   }
+
   .gotquestionsbg {
     padding: 20px 20px;
   }
@@ -3379,9 +3752,11 @@
   .zigzagtext {
     padding: 14px 0;
   }
+
   .innerbanner figure img {
     height: 224px;
   }
+
   .partnerssecbox h3 {
     font-size: 14px;
   }
@@ -3389,6 +3764,7 @@
   .col-md-6.bannerSectionRight.ps-5.justify-content-end {
     display: none;
   }
+
   .ordersummarylist .Deleteicon {
     top: auto;
     bottom: 0;
@@ -3402,6 +3778,7 @@
   .wearehiringInner .row .col:first-child {
     display: none;
   }
+
   .wearehiringInner .col {
     width: 100%;
     text-align: center;
@@ -3414,6 +3791,7 @@
   .wearecontent h3 {
     font-size: 48px;
   }
+
   .wearecontent {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -3432,6 +3810,7 @@
     padding: 12px 4px;
     font-size: 12px;
   }
+
   .Carduserinfo.pt-4.mb-4 {
     padding-top: 0 !important;
   }
@@ -3449,18 +3828,23 @@
   .editprofile {
     right: 0;
   }
+
   .cardcontent h3 {
     font-size: 22px;
   }
+
   .cardcontent p {
     font-size: 16px;
   }
+
   .logoutbtn {
     font-size: 12px;
   }
+
   .CardBbox {
     padding: 25px 20px;
   }
+
   ul.BottomFooterList li a {
     font-size: 11px;
   }
@@ -3469,6 +3853,7 @@
     padding-left: 0;
     margin-left: 0;
   }
+
   .tabscardbox {
     justify-content: center !important;
     align-items: center !important;
@@ -3519,6 +3904,7 @@
   .blogbannertitle {
     font-size: 12px;
   }
+
   section.SmartKichin {
     padding-bottom: 0;
   }
@@ -3530,6 +3916,7 @@
   .paginationfooter {
     flex-wrap: wrap;
   }
+
   .FOLLOWUS {
     flex: initial;
     width: 100%;
@@ -3538,11 +3925,55 @@
     text-align: center;
     align-items: center;
   }
+
   ul.FOLLOWUSlist {
     justify-content: center;
   }
 
   .btn.btn-primary.xm-btn {
     font-size: 14px;
+  }
+}
+
+@media (max-width:576px) {
+  .owl-p ul li {
+    font-size: 12px;
+  }
+
+  .bannerSectionLeft h1 {
+    font-size: 16px;
+  }
+
+  .ClientListinfo {
+    margin: 10px 0 !important;
+  }
+}
+
+@media (max-width:992px) {
+  .bannerSection .owl-carousel .owl-item {
+    aspect-ratio: inherit;
+  }
+
+  .bannerSection .owl-theme .owl-dots {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .BestTag {
+    margin-top: 24px;
+    background: #eee;
+  }
+
+  .circletagShapeBox {
+    display: none;
+  }
+
+  .circletagShapeBox {
+    right: 10%;
+    top: 54px;
+  }
+
+  .slider-image {
+    position: static;
   }
 }
