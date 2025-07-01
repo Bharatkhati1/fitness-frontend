@@ -88,8 +88,8 @@ const LoginModal = ({ visible, onClose }) => {
 
   return (
     <Modal
-      title="Login"
-      visible={visible}
+      title={(<h3>Login</h3>)}
+      open={visible}
       onCancel={onClose}
       footer={null}
       destroyOnClose
@@ -151,30 +151,20 @@ const LoginModal = ({ visible, onClose }) => {
 
         <span className="or-text">Or</span>
 
-        <div className="SocialUsers d-flex flex-column gap-3">
-          {/* Google Login Button */}
-          <div className="SocialButton w-100">
-            <div className="btn-wrapper">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  const decoded = jwtDecode(credentialResponse.credential);
-                  handleSocialLoginGoogle(decoded);
-                }}
-                onError={() => {
-                  toast.error("Login Failed: Server Error");
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Apple Login Button */}
-          <div className="SocialButton w-100">
-            <div className="btn-wrapper">
-              <AppleLoginButton
-                handleSocialLoginGoogle={handleSocialLoginGoogle}
-              />
-            </div>
-          </div>
+        <div className="SocialUsers">
+          <a className="GoogleUser">
+            {" "}
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                const decoded = jwtDecode(credentialResponse.credential);
+                handleSocialLoginGoogle(decoded);
+              }}
+              onError={() => {
+                toast.error("Login Failed: Server Error");
+              }}
+            />
+          </a>
+          <AppleLoginButton handleSocialLoginGoogle={handleSocialLoginGoogle} />
         </div>
       </form>
     </Modal>

@@ -36,9 +36,14 @@ const Trial = () => {
       fetchCartitems();
     }, 700);
   };
+
+  const handleLoginModalClose =()=>{
+    toast.success("Login successfully.")
+    setOpenLogin(false)
+  }
   return (
     <>
-    <LoginModal visible={openLogin} onClose={()=> setOpenLogin(false)}/>
+    <LoginModal visible={openLogin} onClose={()=>handleLoginModalClose() }/>
     <div
       className="container"
       style={{ marginTop: "170px", marginBottom: "89px" }}
