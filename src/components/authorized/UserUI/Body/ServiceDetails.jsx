@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { Link, useParams } from "react-router-dom";
 import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
@@ -23,6 +23,7 @@ function ServiceDetails() {
   const [open, setOpen] = useState(false);
   const [packages, setPackages] = useState([]);
   const { allServices = [] } = useSelector((state) => state.auth);
+  const owlRef = useRef(null)
 
   const fetchServiceDetails = async () => {
     try {
@@ -47,9 +48,6 @@ function ServiceDetails() {
     fetchServiceDetails();
   }, [slug]);
 
-  const showModal = () => {
-    setOpen(true);
-  };
 
   const handleOk = () => {
     setLoading(true);
@@ -74,6 +72,15 @@ function ServiceDetails() {
     <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3923 31.7776L11.2498 45.9201L7.71484 42.3851L20.0898 30.0101L7.71484 17.6351L11.2498 14.1001L25.3923 28.2426C25.861 28.7114 26.1243 29.3472 26.1243 30.0101C26.1243 30.673 25.861 31.3088 25.3923 31.7776Z" fill="#2A2A2A"/>
   </svg>
 `;
+
+const handleSlideChange = (event) => {
+  const currentIndex = event.item.index;
+  const targetElement = document.getElementById("services");
+  if (targetElement && currentIndex > 0) {
+    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 
   return (
     <>
@@ -162,7 +169,7 @@ function ServiceDetails() {
         </div>
       )}
 
-      <section className="sectionSpace servicedetail main-packge pb-0">
+      <section className="sectionSpace servicedetail main-packge pb-0"  id="services">
         <div className="container">
           <div className="PageTitle text-center">
             {Array.isArray(packages) && packages.length > 0 && (
@@ -180,11 +187,13 @@ function ServiceDetails() {
                   autoplay={false}
                   dots={true}
                   items={1}
+                  ref={owlRef}
                   margin={10}
                   nav={true}
                   navText={[prevArrow, nextArrow]}
                   autoplaySpeed={3000}
                   autoplayTimeout={9000}
+                  onChanged={handleSlideChange}
                 >
                   {packages?.map((group, index) => (
                     <div className="row" key={index}>

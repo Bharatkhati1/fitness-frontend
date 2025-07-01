@@ -3123,7 +3123,7 @@ body .owl-carousel .owl-item .product-list figure img {
 
 .Diabetespageleft figure img {
   width: 600px;
-  /* height: 672px; */
+  height: 672px;
   object-fit: cover;
   border-radius: 10px;
 }

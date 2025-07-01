@@ -227,11 +227,11 @@ function PackageDetails() {
                           },
                           992: {
                             items:
-                            comboPlans?.length === 1 || comboPlans.length == 2
-                              ? 2
-                              : comboPlans?.length === 3
-                              ? 3
-                              : 4,
+                              comboPlans?.length === 1 || comboPlans.length == 2
+                                ? 2
+                                : comboPlans?.length === 3
+                                ? 3
+                                : 4,
                           },
                           1200: {
                             items:
@@ -255,7 +255,7 @@ function PackageDetails() {
                           ?.sort((a, b) => a.duration - b.duration)
                           .map((plan) => (
                             <div>
-                              <div className="DiabetesHealthcontent ">
+                              <div className="DiabetesHealthcontent">
                                 <figure>
                                   <img
                                     crossOrigin="anonymous"
@@ -263,41 +263,46 @@ function PackageDetails() {
                                   ></img>
                                 </figure>
 
-                                <figcaption className="plan-card" s>
-                                  <h3>
-                                    ₹{plan.price} | {plan.duration} months
-                                  </h3>
-                                  {plan.description && (
-                                    <>
-                                      <span>Variant description:</span>
-                                      <p
-                                        className="text-center"
-                                        dangerouslySetInnerHTML={{
-                                          __html: plan?.description,
-                                        }}
-                                      ></p>
-                                    </>
-                                  )}
-
-                                  <div className="btnbox text-center">
-                                    <a
-                                      onClick={() => handleBuyNow(plan.id)}
-                                      className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
-                                    >
-                                      buy now
-                                    </a>
-                                    <a
-                                      onClick={() =>
-                                        cartItemIds.includes(plan.id)
-                                          ? navigate("/cart")
-                                          : handleAddToCart(plan.id)
-                                      }
-                                      className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                                    >
-                                      {cartItemIds.includes(plan.id)
-                                        ? `Go to cart`
-                                        : `add to bag`}
-                                    </a>
+                                <figcaption className="plan-card">
+                                  <div className="row h-100 ">
+                                    <div className="col-12">
+                                      <h3>
+                                        ₹{plan.price} | {plan.duration} months
+                                      </h3>
+                                      {plan.description && (
+                                        <>
+                                          <span>Variant description:</span>
+                                          <p
+                                            className="text-center"
+                                            dangerouslySetInnerHTML={{
+                                              __html: plan?.description,
+                                            }}
+                                          ></p>
+                                        </>
+                                      )}
+                                    </div>
+                                    <div className="col-12 align-content-end">
+                                      <div className="btnbox text-center">
+                                        <a
+                                          onClick={() => handleBuyNow(plan.id)}
+                                          className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
+                                        >
+                                          buy now
+                                        </a>
+                                        <a
+                                          onClick={() =>
+                                            cartItemIds.includes(plan.id)
+                                              ? navigate("/cart")
+                                              : handleAddToCart(plan.id)
+                                          }
+                                          className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                        >
+                                          {cartItemIds.includes(plan.id)
+                                            ? `Go to cart`
+                                            : `add to bag`}
+                                        </a>
+                                      </div>
+                                    </div>
                                   </div>
                                 </figcaption>
                               </div>
@@ -344,19 +349,19 @@ function PackageDetails() {
                           },
                           992: {
                             items:
-                            comboPlans?.length === 1 || comboPlans.length == 2
-                              ? 2
-                              : comboPlans?.length === 3
-                              ? 3
-                              : 4,
+                              comboPlans?.length === 1 || comboPlans.length == 2
+                                ? 2
+                                : comboPlans?.length === 3
+                                ? 3
+                                : 4,
                           },
                           1200: {
                             items:
-                            comboPlans?.length === 1 || comboPlans.length == 2
-                              ? 2
-                              : comboPlans?.length === 3
-                              ? 3
-                              : 4,
+                              comboPlans?.length === 1 || comboPlans.length == 2
+                                ? 2
+                                : comboPlans?.length === 3
+                                ? 3
+                                : 4,
                           },
                           1400: {
                             items:
@@ -382,40 +387,45 @@ function PackageDetails() {
                                 </figure>
 
                                 <figcaption className="plan-card">
-                                  <h3>
-                                    ₹{plan.price} | {plan.duration} months
-                                  </h3>
-                                  {plan.description && (
-                                    <>
-                                      <span>Variant description:</span>
-                                      <p
-                                        className="text-center"
-                                        dangerouslySetInnerHTML={{
-                                          __html: plan?.description,
-                                        }}
-                                      ></p>
-                                    </>
-                                  )}
-
-                                  <div className="btnbox text-center">
-                                    <a
-                                      onClick={() => handleBuyNow(plan.id)}
-                                      className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
-                                    >
-                                      buy now
-                                    </a>
-                                    <a
-                                      onClick={() =>
-                                        cartItemIds.includes(plan.id)
-                                          ? navigate("/cart")
-                                          : handleAddToCart(plan.id)
-                                      }
-                                      className="btn btn-primary w-100 hvr-shutter-out-horizontal"
-                                    >
-                                      {cartItemIds.includes(plan.id)
-                                        ? `Go to cart`
-                                        : `add to bag`}
-                                    </a>
+                                  <div className="row h-100 ">
+                                    <div className="col-12">
+                                      <h3>
+                                        ₹{plan.price} | {plan.duration} months
+                                      </h3>
+                                      {plan.description && (
+                                        <>
+                                          <span>Variant description:</span>
+                                          <p
+                                            className="text-center"
+                                            dangerouslySetInnerHTML={{
+                                              __html: plan?.description,
+                                            }}
+                                          ></p>
+                                        </>
+                                      )}
+                                    </div>
+                                    <div className="col-12 align-content-end">
+                                      <div className="btnbox text-center">
+                                        <a
+                                          onClick={() => handleBuyNow(plan.id)}
+                                          className="btn btn-primary w-100   mb-1 hvr-shutter-out-horizontal"
+                                        >
+                                          buy now
+                                        </a>
+                                        <a
+                                          onClick={() =>
+                                            cartItemIds.includes(plan.id)
+                                              ? navigate("/cart")
+                                              : handleAddToCart(plan.id)
+                                          }
+                                          className="btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                        >
+                                          {cartItemIds.includes(plan.id)
+                                            ? `Go to cart`
+                                            : `add to bag`}
+                                        </a>
+                                      </div>
+                                    </div>
                                   </div>
                                 </figcaption>
                               </div>
@@ -425,7 +435,6 @@ function PackageDetails() {
                     )}
                   </div>
                 )}
-            
               </div>
             )}
           </div>

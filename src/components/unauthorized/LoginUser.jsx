@@ -340,7 +340,11 @@ const LoginUser = () => {
 
                   <span className="or-text">Or</span>
 
-                  <div className="SocialUsers">
+                  
+                </form>
+
+              )}
+              <div className="SocialUsers">
                     <a className="GoogleUser">
                       {" "}
                       <GoogleLogin
@@ -359,8 +363,6 @@ const LoginUser = () => {
                       handleSocialLoginGoogle={handleSocialLoginGoogle}
                     />
                   </div>
-                </form>
-              )}
             </div>
           </div>
         </div>

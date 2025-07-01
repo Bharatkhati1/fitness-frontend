@@ -20,7 +20,7 @@ import useDebounce from "../Hooks/useDebounce";
 import ficoninsta from "../../../public/assets/img/f-icon-insta.png";
 import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
 import { Link } from "react-router-dom";
-import userAxios from "../../utils/Api/userAxios";
+import Slider from "react-slick";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -143,6 +143,22 @@ function Smartkitchen() {
     }
   };
 
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 2,
+    arrows: true,
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 4 } },
+      { breakpoint: 992, settings: { slidesToShow: 4 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 481, settings: { slidesToShow: 1 } },
+      { breakpoint: 0, settings: { slidesToShow: 1 } },
+    ],
+  };
+
   return (
     <>
       <EmailRequiredPopup
@@ -220,42 +236,16 @@ function Smartkitchen() {
         <div className="container">
           {filterCategories && filterCategories.length > 0 && (
             <div className="SmartKichinslider">
-              <OwlCarousel
-                className="owl-theme"
-                dots={false}
-                items={7}
-                nav
-                key={filterCategories?.map((val) => val?.id).join(",")}
-                margin={10}
-                responsive={{
-                  0: {
-                    items: 2, // 0px and up
-                  },
-                  481: {
-                    items: 3, // 0px and up
-                  },
-                  768: {
-                    items: 5, // 600px and up
-                  },
-                  992: {
-                    items: 6, // 600px and up
-                  },
-                  1200: {
-                    items: 7, // 1000px and up
-                  },
-                }}
-              >
-                {filterCategories?.map((cat) => (
+              <Slider {...settings}>
+                {filterCategories.map((cat) => (
                   <div className="item" key={cat.id}>
                     <div
-                      className={`SmartKichinbox`}
+                      className="SmartKichinbox"
                       onClick={() => handleCategoryClick(cat.id)}
                     >
                       <figure>
                         <img
-                          className={` ${
-                            category == cat.id ? "active-image" : ""
-                          }`}
+                          className={category === cat.id ? "active-image" : ""}
                           crossOrigin="anonymous"
                           src={cat.image_url}
                           alt={cat.name}
@@ -265,7 +255,7 @@ function Smartkitchen() {
                     </div>
                   </div>
                 ))}
-              </OwlCarousel>
+              </Slider>
             </div>
           )}
         </div>
@@ -273,7 +263,8 @@ function Smartkitchen() {
 
       {/* Recipe Cards */}
       <section className="SmartKichinlist">
-        <div className="container"><h3>{kitchenData.length} Recipe</h3>
+        <div className="container">
+          <h3>{kitchenData.length} Recipe</h3>
           <div className="row row-cols-5 SmartKichinlistrow">
             {kitchenData?.length > 0 ? (
               kitchenData?.map((item) => (
