@@ -384,7 +384,7 @@ function Home() {
               </span>
 
               <h2>
-                We’re Not Just Another Weight Loss <br></br>Website We’re Your &nbsp;
+                We’re Not Just Another Weight Loss Website We’re Your &nbsp;
                 <span>HEALTH UNIVERSE</span>
               </h2>
               <p>
@@ -750,7 +750,7 @@ function Home() {
             <p>
               We are a dedicated team of nutritionists, doctors, yoga
               instructors, and strength training coaches committed to your
-              health and wellness journey.
+              health and<br></br> wellness journey.
             </p>
             <Link
               to={"/about-us#MeetOurFamily"}
@@ -809,7 +809,13 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-md-6 GetIntouchLeft">
-              <div className="ContactUs">
+           
+           <div className="contactimgbox">
+              <figure>
+                <img src={ContactUs}></img>
+              </figure>
+
+                 <div className="ContactUs">
                 <h3>Contact Us</h3>
                 <p>
                   Reach out to us for personalized health guidance and
@@ -854,9 +860,9 @@ function Home() {
                   </li>
                 </ul>
               </div>
-              <figure>
-                <img src={ContactUs}></img>
-              </figure>
+
+
+              </div>
             </div>
             <div className="col-md-6 GetIntouchRight">
               <form onSubmit={handleSubmit}>

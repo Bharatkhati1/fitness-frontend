@@ -11,7 +11,6 @@ import JoinCommunity from "./Modals/JoinCommunity";
 import { sendInquiry } from "../../../../store/auth/AuthExtraReducers";
 import { toast } from "react-toastify";
 
-
 function ContactUs() {
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth
@@ -48,7 +47,7 @@ function ContactUs() {
     const payload = {
       ...formData,
       contactFor: formData.contactFor.join(", "),
-      type:"inquiry"
+      type: "inquiry",
     };
 
     await sendInquiry(payload);
@@ -120,17 +119,26 @@ function ContactUs() {
                     <h5>SOCIAL MEDIA</h5>
                     <ul className="userslink d-flex justify-content-center">
                       <li>
-                        <a href={`${contactUsDetails?.instagram}`}  target="_blank">
+                        <a
+                          href={`${contactUsDetails?.instagram}`}
+                          target="_blank"
+                        >
                           <img src={Ginstaicon} />
                         </a>
                       </li>
                       <li>
-                        <a  target="_blank" href={`${contactUsDetails?.twitter}`}>
+                        <a
+                          target="_blank"
+                          href={`${contactUsDetails?.twitter}`}
+                        >
                           <img src={Gtweeter} />
                         </a>
                       </li>
                       <li>
-                        <a target="_blank" href={`${contactUsDetails?.youtube}`}>
+                        <a
+                          target="_blank"
+                          href={`${contactUsDetails?.youtube}`}
+                        >
                           <img src={cyoutubeIcon} />
                         </a>
                       </li>
@@ -141,9 +149,12 @@ function ContactUs() {
             </div>
           </div>
 
-          <form className="getintouchinner" onSubmit={handleSubmit}>
-            <div className="row align-items-center">
-              <div className="col-md-6 getintouchinnerleft">
+          <form
+            className="getintouchinner contactuspage"
+            onSubmit={handleSubmit}
+          >
+            <div className="row ">
+              <div className="col-md-6 getintouchinnerleft pt-5">
                 <h4>Get in Touch with Us</h4>
                 <p>We'd love to hear from you! Contact us anytime.</p>
                 <figure>
@@ -153,7 +164,7 @@ function ContactUs() {
               <div className="col-md-6">
                 <div className="row GetIntouchinnerright">
                   <div className="col-md-6 mb-3">
-                    <label>First Name*</label>
+                    <label>Your Name*</label>
                     <input
                       name="name"
                       value={formData.name}
@@ -163,14 +174,17 @@ function ContactUs() {
                           handleChange(e);
                         }
                       }}
-                      placeholder="Enter your first name"
+                      placeholder="Enter your name"
                       className="form-control greyin"
                       type="text"
                       required
                     />
                   </div>
+
+                  <div className="col-md-6 mb-3"></div>
+
                   <div className="col-md-6 mb-3">
-                    <label>Email ID*</label>
+                    <label>Your Email ID*</label>
                     <input
                       name="email"
                       value={formData.email}
@@ -181,8 +195,9 @@ function ContactUs() {
                       required
                     />
                   </div>
+                  <div className="col-md-6 mb-3"></div>
                   <div className="col-md-6 mb-3">
-                    <label>Contact Number</label>
+                    <label>Your Contact Number</label>
                     <div className="contactInput">
                       <span className="greyin">+91</span>
                       <input
@@ -191,7 +206,7 @@ function ContactUs() {
                         onChange={(e) => {
                           const val = e.target.value;
                           if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e); 
+                            handleChange(e);
                           }
                         }}
                         placeholder="Enter your contact number"
@@ -222,23 +237,20 @@ function ContactUs() {
                           </div>
                         </li>
                       ))}
-                      <li >
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={`check`}
-                              checked={formData.contactFor.includes("other")}
-                              onChange={() => handleCheckboxChange('other')}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={`check`}
-                            >
-                              Other
-                            </label>
-                          </div>
-                        </li>
+                      <li>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`check`}
+                            checked={formData.contactFor.includes("other")}
+                            onChange={() => handleCheckboxChange("other")}
+                          />
+                          <label className="form-check-label" htmlFor={`check`}>
+                            Other
+                          </label>
+                        </div>
+                      </li>
                     </ul>
                   </div>
                   <div className="col-md-12">

@@ -251,6 +251,9 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
+
+
+  .btn.btn-primary.xm-btn{    font-size: 15px;}
   .PosterSec {
     height: 400px;
   }
@@ -481,7 +484,8 @@
   }
 
   .product-list figcaption h3 {
-    font-size: 18px;
+    font-size: 20px;
+        min-height: 48px;
   }
 
   .price span {
@@ -966,6 +970,7 @@
 
   .textlink a {
     font-size: 14px;
+    display: block;
   }
 
   .JoinourhealthContent h3 {
@@ -1300,6 +1305,10 @@
     background-position: center;
     height: auto;
   }
+  .btn.btn-primary.xm-btn {
+   
+    font-size: 15px;
+}
 }
 
 @media (max-width: 991px) {
@@ -3933,6 +3942,8 @@
   .btn.btn-primary.xm-btn {
     font-size: 14px;
   }
+
+  .getintouchinner .getintouchinnerleft figure img{height: auto;}
 }
 
 @media (max-width:576px) {
