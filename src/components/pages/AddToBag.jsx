@@ -12,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 
-export default function AddToBag() {
+const AddToBag = () => {
   const { type } = useParams();
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
@@ -69,7 +69,7 @@ export default function AddToBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);
       setCartItems(res.data.data);
-      dispatch(authActions.setCartItems(res.data.data))
+      // dispatch(authActions.setCartItems(res.data.data))
     } catch (error) {
       setCartItems([]);
       console.log(error);
@@ -205,6 +205,7 @@ export default function AddToBag() {
             });
             setLoading(false);
             setIsPaymentSuccessfull(true);
+            console.log("heey test ")
             fetchCartitems();
           } catch (err) {
             console.error(err);
@@ -249,6 +250,7 @@ export default function AddToBag() {
         discountedAmount: null,
       }));
       setCartItems(updatedItems);
+      console.log("remove")
       fetchCartitems();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to remove coupon");
@@ -280,6 +282,7 @@ export default function AddToBag() {
   useEffect(() => {
     fetchProfileDetails();
     if (type === "cart") {
+      console.log("cart")
       fetchCartitems();
     } else {
       const storedData = localStorage.getItem("appointmentData");
@@ -486,7 +489,7 @@ export default function AddToBag() {
                           {cartItems.map((item) => (
                             <li key={item.id}>
                               <figure>
-                                <img src={osproductimg1} alt="Product" />
+                                <img crossorigin="anonymous" src={item?.PackagePlan?.image_url} alt="Product" />
                               </figure>
                               <figcaption>
                                 <h4>
@@ -633,3 +636,5 @@ export default function AddToBag() {
     </>
   );
 }
+
+export default AddToBag

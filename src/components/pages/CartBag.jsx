@@ -75,7 +75,7 @@ export default function CartBag() {
                   {cartItems.map((item) => (
                     <li key={item.id}>
                       <figure>
-                        <img src={osproductimg1} />
+                        <img  crossorigin="anonymous" src={item?.PackagePlan?.image_url} />
                       </figure>
                       <figcaption>
                         <h4>
