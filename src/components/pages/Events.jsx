@@ -227,12 +227,12 @@ export default function Events() {
             <p>{eventCms.description}</p>
 
             <div className="events-btn text-center mt-4">
-              <a
+              {/* <a
                 href="#upcomingevent"
                 className="btn btn-primary max-btn me-3 hvr-shutter-out-horizontal"
               >
                 view upcoming events
-              </a>
+              </a> */}
               <a
                 onClick={showModal}
                 className="btn btn-primary max-btn hvr-shutter-out-horizontal"
@@ -269,10 +269,10 @@ export default function Events() {
                     items: 2, // 600px and up
                   },
                   992: {
-                    items: 2, // 600px and up
+                    items: 3, // 600px and up
                   },
                   1200: {
-                    items: 2, // 1000px and up
+                    items: 3, // 1000px and up
                   },
                 }}
               >
@@ -704,7 +704,12 @@ export default function Events() {
                   <input
                     name="name"
                     value={formDataContact.name}
-                    onChange={handleChangeContact}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (/^[A-Za-z\s]*$/.test(value)) {
+                        handleChangeContact(e);
+                      }
+                    }}
                     placeholder="Enter your first name"
                     className="form-control greyin"
                     type="text"
@@ -730,10 +735,15 @@ export default function Events() {
                     <input
                       name="phone"
                       value={formDataContact.phone}
-                      onChange={handleChangeContact}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^\d{0,10}$/.test(val)) {
+                          handleChangeContact(e); 
+                        }
+                      }}
                       placeholder="Enter your contact number"
                       className="form-control greyin"
-                      type="tel"
+                      type="number"
                     />
                   </div>
                 </div>

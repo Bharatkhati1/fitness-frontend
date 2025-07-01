@@ -67,22 +67,27 @@ const JoinCommunity = ({ open, setOpen }) => {
           <div className="row formmodal mt-4 align-items-center">
             <div className="col-md-5 me-auto">
               <div className="form-group mb-2">
-                <label>First Name*</label>
+                <label>Your Full Name*</label>
                 <input
-                  placeholder="Enter your first name"
+                  placeholder="Enter Your Full Name"
                   className="form-control"
                   type="text"
                   name="name"
                   value={formData.name}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^[A-Za-z\s]*$/.test(value)) {
+                      handleChange(e);
+                    }
+                  }}
                   required
                 />
               </div>
 
               <div className="form-group mb-2">
-                <label>Email ID*</label>
+                <label>Your Email ID*</label>
                 <input
-                  placeholder="Enter your email id"
+                  placeholder="Enter Your Email Id"
                   className="form-control"
                   type="email"
                   name="email"
@@ -93,11 +98,11 @@ const JoinCommunity = ({ open, setOpen }) => {
               </div>
 
               <div className="form-group mb-2">
-                <label>Your contact number:</label>
+                <label>Your Contact Number:</label>
                 <div className="contactInput">
-                  <span>+91</span>
+                  <span style={{color:"black", fontWeight:"500", fontSize:"14px"}}>+91</span>
                   <input
-                    placeholder="Enter your contact number"
+                    placeholder="Enter 10-Digit Mobile Number"
                     className="form-control"
                     type="number"
                     name="phone"

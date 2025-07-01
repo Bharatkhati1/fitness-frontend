@@ -62,8 +62,8 @@ export const Login = (
 
       localStorage.setItem("isAdmin", isAdmin);
       if (!isModal) {
-        dispatch(authActions.checkingUserToken(false));
         await new Promise((resolve) => setTimeout(resolve, 700));
+        dispatch(authActions.checkingUserToken(false));
         navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
           replace: true,
         });

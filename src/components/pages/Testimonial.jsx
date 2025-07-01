@@ -6,9 +6,7 @@ import testimonialsbanner from "../../../public/assets/img/testimonialsbanner.pn
 import trustedImg from "../../../public/assets/img/trustedImg.svg";
 import clinetfeedbacimg from "../../../public/assets/img/clinetfeedbacimg.png";
 import fillstar from "../../../public/assets/img/fillstar.png";
-import userimg from "../../../public/assets/img/userimg.png";
-import userimg2 from "../../../public/assets/img/userimg2.png";
-import userimg3 from "../../../public/assets/img/userimg3.png";
+import AvtarImage from "./images/Avtar.png";
 import usertouch from "../../../public/assets/img/usertouch.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -145,7 +143,7 @@ function Testimonial() {
                   autoplay={true}
                   dots={false}
                   items={3}
-                  key={alltestimonials.length} 
+                  key={alltestimonials.length}
                   autoplaySpeed={500}
                   autoplayTimeout={3000}
                   loop={true}
@@ -165,7 +163,7 @@ function Testimonial() {
                     const fullName = user.firstName || "Anonymous";
                     const profileImage = user.profilePicture
                       ? `${user.profilePictureUrl}`
-                      : userimg;
+                      : AvtarImage;
 
                     return (
                       <div className="item" key={index}>
@@ -183,7 +181,15 @@ function Testimonial() {
                           <p>{rating.description || "No feedback provided."}</p>
                           <div className="testiuser">
                             <figure>
-                              <img crossOrigin="anonymous" src={profileImage} alt={fullName} />
+                              <img
+                                crossOrigin="anonymous"
+                                src={profileImage}
+                                alt={fullName}
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = AvtarImage;
+                                }}
+                              />
                             </figure>
                             <figcaption>
                               <h4>{fullName}</h4>
@@ -402,7 +408,12 @@ function Testimonial() {
                       <input
                         name="name"
                         value={formData.name}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (/^[A-Za-z\s]*$/.test(value)) {
+                            handleChange(e);
+                          }
+                        }}
                         placeholder="Enter your full name"
                         className="form-control greyin"
                         type="text"
@@ -415,10 +426,15 @@ function Testimonial() {
                       <input
                         name="phone"
                         value={formData.phone}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,10}$/.test(val)) {
+                            handleChange(e);
+                          }
+                        }}
                         placeholder="Enter your phone number"
                         className="form-control greyin"
-                        type="text"
+                        type="number"
                       />
                     </div>
 

@@ -44,7 +44,7 @@ function PackageDetails() {
       );
 
       setComboPlans(comboLansFiltered);
-      setSinglePlans(singlePlansFiltered);
+      setSinglePlans(singlePlansFiltered.slice(0,1));
     } catch (error) {
       setDetails(null);
       toast.error(error.response.data.message);
@@ -198,7 +198,9 @@ function PackageDetails() {
                     )}
                     {Array.isArray(singlePlans) && singlePlans?.length > 0 && (
                       <OwlCarousel
-                        className="owl-theme"
+                        className={`owl-theme ${
+                          singlePlans.length == 1 ? `single-crousol` : ""
+                        }`}
                         autoplay={false}
                         dots={true}
                         key={
@@ -226,7 +228,12 @@ function PackageDetails() {
                             items: 3,
                           },
                           1200: {
-                            items: 4,
+                            items:
+                            comboPlans?.length === 1 || comboPlans.length == 2
+                              ? 2
+                              : comboPlans?.length === 3
+                              ? 3
+                              : 4,
                           },
                           1400: {
                             items:
@@ -304,7 +311,9 @@ function PackageDetails() {
                     )}
                     {Array.isArray(comboPlans) && comboPlans?.length > 0 && (
                       <OwlCarousel
-                        className="owl-theme"
+                        className={`owl-theme ${
+                          comboPlans.length == 1 ? `single-crousol` : ""
+                        }`}
                         autoplay={false}
                         dots={true}
                         items={4}
@@ -333,7 +342,12 @@ function PackageDetails() {
                             items: 3,
                           },
                           1200: {
-                            items: 4,
+                            items:
+                              comboPlans?.length === 1 || comboPlans.length == 2
+                                ? 2
+                                : comboPlans?.length === 3
+                                ? 3
+                                : 4,
                           },
                           1400: {
                             items:

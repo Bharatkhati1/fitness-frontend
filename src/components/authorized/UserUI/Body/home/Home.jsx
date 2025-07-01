@@ -68,6 +68,7 @@ function Home() {
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
 
+  const owlRef = useRef(null)
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
@@ -406,12 +407,13 @@ function Home() {
               loop={false}
               margin={10}
               nav={true}
+              ref={owlRef}
               navText={[prevArrow, nextArrow]}
               autoplaySpeed={3000}
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row g-4 g-sm-3" key={index}>
+                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index}>
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {

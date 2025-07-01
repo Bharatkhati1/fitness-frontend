@@ -300,7 +300,12 @@ function BusinessParthner() {
                     <label>Business Name*</label>
                     <input
                       name="name"
-                     
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^[A-Za-z\s]*$/.test(value)) {
+                          handleChange(e);
+                        }
+                      }}
                       placeholder="Enter your business name"
                       className="form-control greyin"
                       type="text"
@@ -328,10 +333,15 @@ function BusinessParthner() {
                       <input
                         name="phone"
                         value={formData.phone}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (/^\d{0,10}$/.test(val)) {
+                            handleChange(e); 
+                          }
+                        }}
                         placeholder="Enter your contact number"
                         className="form-control greyin"
-                        type="tel"
+                        type="number"
                       />
                     </div>
                   </div>
