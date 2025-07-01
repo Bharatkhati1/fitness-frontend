@@ -132,11 +132,16 @@ function PackageDetails() {
     return () => window.removeEventListener("resize", equalizeCardHeights);
   }, [singlePlans, comboPlans]);
 
+     const handleLoginModalClose =()=>{
+        toast.success("Login successfully.")
+        setOpenLogin(false)
+      }
+      
   return (
     <>
       <LoginModal
         visible={openLoginModal}
-        onClose={() => setopenLoginModal(false)}
+        onClose={() => handleLoginModalClose()}
       />
       <section className="Diabetespage InnerpageSpace pb-0">
         <span className="daishape">

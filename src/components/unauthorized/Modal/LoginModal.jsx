@@ -89,7 +89,7 @@ const LoginModal = ({ visible, onClose }) => {
   return (
     <Modal
       title={(<h3>Login</h3>)}
-      visible={visible}
+      open={visible}
       onCancel={onClose}
       footer={null}
       destroyOnClose

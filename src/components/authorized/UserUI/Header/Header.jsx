@@ -11,6 +11,7 @@ import userAxios from "../../../../utils/Api/userAxios";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import ProfileIcon from "./Profile_icon.png";
 import LoginModal from "../../../unauthorized/Modal/LoginModal";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const {
@@ -46,9 +47,13 @@ const Header = () => {
     }
   }, []);
 
+    const handleLoginModalClose =()=>{
+      toast.success("Login successfully.")
+      setOpenLogin(false)
+    }
   return (
     <> 
-    <LoginModal visible={openLogin} onClose={()=> setOpenLogin(false)}/>
+    <LoginModal visible={openLogin} onClose={()=> handleLoginModalClose()}/>
      <header id="fixed-header" className="sticky">
       <div className="container">
         <div className="navInner d-flex justify-content-between align-items-center">
