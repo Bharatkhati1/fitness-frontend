@@ -3022,12 +3022,12 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .product-list figcaption h3 {
-    font-size: 24px;
+    font-size: 21px;
     color: #000000;
     font-weight: 700;
     margin-bottom: 20px;
     text-transform: uppercase;
-    min-height: 60px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4045,9 +4045,10 @@ ul.ourapproachlist li:after {
 }
 
 .MuktiBox {
-  background: #000000;
-  position: relative;
-  overflow: hidden;
+    background: #040404;
+    position: relative;
+    overflow: hidden;
+    height: 547px;
 }
 
 .MuktiBoxRight {
@@ -5771,4 +5772,8 @@ section.WhyUs.SectionSpace {
   to {
     background-position:20vw;
   }
+}
+
+.MuktiBoxLeft img {
+    height: 547px;
 }
