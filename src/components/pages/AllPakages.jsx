@@ -126,11 +126,11 @@ function AllPakages() {
           card.style.height = `${maxHeight}px`;
         });
       };
-      setTimeout(equalizeCardHeights, 300);
+      setTimeout(equalizeCardHeights, 200);
   
       window.addEventListener("resize", equalizeCardHeights);
       return () => window.removeEventListener("resize", equalizeCardHeights);
-    }, []);
+    }, [currentPage]);
 
   return (
     <>
