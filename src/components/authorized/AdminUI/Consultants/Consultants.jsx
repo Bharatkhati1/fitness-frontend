@@ -25,6 +25,7 @@ const Consultants = () => {
     dailyEnd: "",
     image: null,
     status: true,
+    platformFee: 0,
   });
 
   const [allConsultants, setAllConsultants] = useState([]);
@@ -107,7 +108,7 @@ const Consultants = () => {
 
   const deleteConsultant = async () => {
     try {
-      const idToDelete = selectedIdref.current;
+      const idToDelete = selectedIdref.current || selectedConsultantID;
       await adminAxios.delete(adminApiRoutes.delete_consultant(idToDelete));
       toast.success("Deleted successfully");
       fetchAllConsultants();
@@ -217,6 +218,11 @@ const Consultants = () => {
                     type: "number",
                   },
                   { label: "Price", name: "fees", type: "number" },
+                  {
+                    label: "Platform Fees",
+                    name: "platformFee",
+                    type: "numbers",
+                  },
                   { label: "Time (minutes)", name: "duration", type: "number" },
                   { label: "Overview", name: "description", type: "text" },
                 ].map(({ label, name, type }) => (
@@ -307,6 +313,41 @@ const Consultants = () => {
                   </div>
                 </div>
 
+                <div className="col-lg-6">
+                  <div className="mb-3">
+                    <label className="form-label">Weekly Availability</label>
+                    <table className="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Day</th>
+                          <th>Available</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          "Sunday",
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                        ].map((day) => (
+                          <tr key={day}>
+                            <td>{day}</td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                checked={selectedDays?.includes(day)}
+                                onChange={() => handleDayToggle(day)}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 {/* Status */}
                 <div className="col-lg-6">
                   <label className="form-label d-block">Status</label>
@@ -345,42 +386,6 @@ const Consultants = () => {
                         Inactive
                       </label>
                     </div>
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Weekly Availability</label>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Day</th>
-                          <th>Available</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          "Sunday",
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
-                          "Friday",
-                          "Saturday",
-                        ].map((day) => (
-                          <tr key={day}>
-                            <td>{day}</td>
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={selectedDays?.includes(day)}
-                                onChange={() => handleDayToggle(day)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>
@@ -508,6 +513,7 @@ const Consultants = () => {
                                     dailyEnd: consultant.dailyEnd,
                                     image: null,
                                     isActive: consultant.isActive,
+                                    platformFee: consultant.platformFee,
                                   });
                                   setSelectedDays(
                                     consultant?.dayAvailability || []
@@ -529,7 +535,8 @@ const Consultants = () => {
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
                                     onClick={() =>
-                                      (selectedIdref.current = consultant.id)
+                                      {(selectedIdref.current = consultant.id)
+                                      setSelectedConsultantID(consultant.id);}
                                     }
                                   />
                                 }
