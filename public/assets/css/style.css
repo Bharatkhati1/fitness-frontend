@@ -967,6 +967,16 @@ textarea.form-control {
     left: 30px;
     top: 30px;
     border-radius: 8px;
+  /* background: linear-gradient(to bottom,
+      rgba(167, 167, 167, 1) 0%,
+      rgba(255, 255, 255, 0.5) 100%);
+  padding: 20px 20px;
+  position: absolute;
+  width: 320px;
+  margin: auto;
+  left: 40px;
+  top: 85px;
+  border-radius: 8px; */
 }
 
 .ContactUs h3 {
@@ -3012,12 +3022,12 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .product-list figcaption h3 {
-    font-size: 24px;
+    font-size: 21px;
     color: #000000;
     font-weight: 700;
     margin-bottom: 20px;
     text-transform: uppercase;
-    min-height: 60px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4035,9 +4045,10 @@ ul.ourapproachlist li:after {
 }
 
 .MuktiBox {
-  background: #000000;
-  position: relative;
-  overflow: hidden;
+    background: #040404;
+    position: relative;
+    overflow: hidden;
+    height: 547px;
 }
 
 .MuktiBoxRight {
@@ -5761,4 +5772,8 @@ section.WhyUs.SectionSpace {
   to {
     background-position:20vw;
   }
+}
+
+.MuktiBoxLeft img {
+    height: 547px;
 }

@@ -35,9 +35,6 @@
 }
 
 @media (max-width: 1200px) {
-
-
-
   .bannerSectionLeft ul li,
   .owl-p {
     font-size: 14px;
@@ -56,10 +53,6 @@
     max-width: 1140px;
     padding: 0 15px;
   }
-
-
-
-
 
   span.bannerup {
     margin-left: 0;
@@ -184,7 +177,7 @@
     font-size: 16px;
   }
 
-  .clientcontentbg>p {
+  .clientcontentbg > p {
     min-height: 90px;
   }
 
@@ -251,11 +244,13 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
-
-
-  .btn.btn-primary.xm-btn{    font-size: 15px;}
+  .MuktiBox,
   .PosterSec {
-    height: 400px;
+    height: 484px;
+  }
+
+  .btn.btn-primary.xm-btn {
+    font-size: 15px;
   }
 
   .OurServices.bg-solid {
@@ -340,8 +335,8 @@
     height: 50px;
   }
 
-  .radioList [type="radio"]:checked+label,
-  .radioList [type="radio"]:not(:checked)+label {
+  .radioList [type="radio"]:checked + label,
+  .radioList [type="radio"]:not(:checked) + label {
     font-size: 18px;
   }
 
@@ -485,7 +480,7 @@
 
   .product-list figcaption h3 {
     font-size: 20px;
-        min-height: 48px;
+    min-height: 48px;
   }
 
   .price span {
@@ -590,8 +585,6 @@
     margin-left: -44px;
   }
 }
-
-
 
 @media (max-width: 1199px) {
   span.bannerup {
@@ -815,19 +808,19 @@
     height: 48px;
   }
 
-  .radioList [type="radio"]:checked+label,
-  .radioList [type="radio"]:not(:checked)+label {
+  .radioList [type="radio"]:checked + label,
+  .radioList [type="radio"]:not(:checked) + label {
     font-size: 16px;
   }
 
-  .radioList [type="radio"]:checked+label:before,
-  .radioList [type="radio"]:not(:checked)+label:before {
+  .radioList [type="radio"]:checked + label:before,
+  .radioList [type="radio"]:not(:checked) + label:before {
     width: 25px;
     height: 25px;
   }
 
-  .radioList [type="radio"]:checked+label:after,
-  .radioList [type="radio"]:not(:checked)+label:after {
+  .radioList [type="radio"]:checked + label:after,
+  .radioList [type="radio"]:not(:checked) + label:after {
     width: 13px;
     height: 13px;
     top: 6px;
@@ -1140,11 +1133,11 @@
     font-size: 16px;
   }
 
-  .clientcontentbg>p {
+  .clientcontentbg > p {
     min-height: 80px;
   }
 
-  .clientcontentbg>p {
+  .clientcontentbg > p {
     font-size: 12px;
   }
 
@@ -1152,7 +1145,7 @@
     height: 50px;
   }
 
-  .clientcontentbg>p {
+  .clientcontentbg > p {
     min-height: 75px;
   }
 
@@ -1306,9 +1299,12 @@
     height: auto;
   }
   .btn.btn-primary.xm-btn {
-   
     font-size: 15px;
-}
+  }
+
+  .MuktiBox {
+    height: auto;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1317,7 +1313,7 @@
     line-height: 0.1;
   }
 
-  .clientcontentbg>p {
+  .clientcontentbg > p {
     font-size: 13px;
   }
 
@@ -2634,7 +2630,7 @@
     font-size: 16px;
   }
 
-  .ant-modal.custom-modal .modalbody>p {
+  .ant-modal.custom-modal .modalbody > p {
     font-size: 16px;
   }
 
@@ -2798,9 +2794,11 @@
   }
 
   .formBox {
-    background: linear-gradient(to bottom,
-        rgb(237 237 237 / 64%) 0%,
-        rgb(219 219 219) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgb(237 237 237 / 64%) 0%,
+      rgb(219 219 219) 100%
+    );
 
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
@@ -3943,10 +3941,12 @@
     font-size: 14px;
   }
 
-  .getintouchinner .getintouchinnerleft figure img{height: auto;}
+  .getintouchinner .getintouchinnerleft figure img {
+    height: auto;
+  }
 }
 
-@media (max-width:576px) {
+@media (max-width: 576px) {
   .owl-p ul li {
     font-size: 12px;
   }
@@ -3960,7 +3960,7 @@
   }
 }
 
-@media (max-width:992px) {
+@media (max-width: 992px) {
   .bannerSection .owl-carousel .owl-item {
     aspect-ratio: inherit;
   }

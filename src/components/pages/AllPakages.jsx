@@ -106,6 +106,32 @@ function AllPakages() {
     );
   }, [debouncedSearch, currentPage, debouncedServiceId, dispatch]);
 
+
+
+    useEffect(() => {
+      const equalizeCardHeights = () => {
+        const cards = document.querySelectorAll(".card-height");
+        let maxHeight = 0;
+  
+        cards.forEach((card) => {
+          card.style.height = "auto";
+        });
+  
+        cards.forEach((card) => {
+          const height = card.offsetHeight;
+          if (height > maxHeight) maxHeight = height;
+        });
+  
+        cards.forEach((card) => {
+          card.style.height = `${maxHeight}px`;
+        });
+      };
+      setTimeout(equalizeCardHeights, 300);
+  
+      window.addEventListener("resize", equalizeCardHeights);
+      return () => window.removeEventListener("resize", equalizeCardHeights);
+    }, []);
+
   return (
     <>
       <section className="innerbanner blogbanner">
@@ -239,10 +265,11 @@ function AllPakages() {
                           />
                         </figure>
 
-                        <figcaption>
-                          <h3 className="text-center">{pkg.name}</h3>
+                        <figcaption className="card-height">
+                          <div className="row h-100 ">
+                         <div className="col-12"><h3 className="text-center">{pkg.name}</h3></div> 
 
-                          <div className="btnbox text-center d-flex flex-column gap-2 mt-2">
+                        <div className="col-12 align-content-end">  <div className="btnbox text-center d-flex flex-column gap-2 mt-2">
                             {showButton("Know more") && (
                               <Link
                                 to={`/package/${pkg.name
@@ -278,6 +305,7 @@ function AllPakages() {
                               </Link>
                             )}
                           </div>
+                          </div></div> 
                         </figcaption>
                       </div>
                     </div>

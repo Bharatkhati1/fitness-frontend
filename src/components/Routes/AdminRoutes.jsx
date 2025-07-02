@@ -15,12 +15,11 @@ import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateU
 import CompanySetting from "../authorized/AdminUI/CompanySettings/index"
 import Innovation from "../authorized/AdminUI/Innovation/index"
 import NewsAndMedia from "../authorized/AdminUI/NewsAndMedia/index"
-import InquiresMain from "../authorized/AdminUI/Inquiry";
 import PartnersManagement from "../authorized/AdminUI/Partners";
 import Careers from "../authorized/AdminUI/Careers/Careers";
 import EventManagement from "../authorized/AdminUI/Events/index"
 import Coupon from "../authorized/AdminUI/Coupons/Coupon";
-import { useSelector } from "react-redux";
+import Inquiry from "../authorized/AdminUI/Inquiry/Inquiry";
 
 export default function AdminRoutes() {
   return (
@@ -44,7 +43,7 @@ export default function AdminRoutes() {
           <Route path="partner-management/*" element={<PartnersManagement />} />
           <Route path="careers" element={<Careers />} />
           <Route path="coupon" element={<Coupon />} />
-          <Route path="inquiries/*" element={<InquiresMain/>} />
+          <Route path="inquiries" element={<Inquiry/>} />
           <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
           <Route path="*" element={<Navigate replace to={`/admin/slider-management`} />} />
         </Route>

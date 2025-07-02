@@ -277,7 +277,7 @@ const ServiceManagement = () => {
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="service-image" className="form-label">
-                      Story Image{" "}
+                      Our Approach Image{" "}
                       {isEdit && !storyImage && ` : ${storyImageName}`}
                     </label>
                     <input
