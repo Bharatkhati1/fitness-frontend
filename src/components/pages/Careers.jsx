@@ -42,6 +42,7 @@ function Careers() {
   const [careersCms, setCareersCms] = useState({});
   const [selectedJob, setSelectedJob] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [centerIndex, setCenterIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -154,6 +155,16 @@ function Careers() {
         autoClose: 3000,
       });
     }
+  };
+
+  const handleChanged = (event) => {
+    const visibleStartIndex = event.item.index;
+    const itemsPerSlide = event.page.size;
+
+    // If center mode is enabled, calculate the center index
+    const calculatedCenterIndex =
+      visibleStartIndex + Math.floor(itemsPerSlide / 2);
+    setCenterIndex(calculatedCenterIndex);
   };
 
   useEffect(() => {
@@ -376,15 +387,19 @@ function Careers() {
                 <OwlCarousel
                   className="owl-theme"
                   dots={false}
-                  items={4}
-                  merge={true}
+                  startPosition={1}
+                  items={3}
                   nav={true}
-                  margin={10}
+                  center={true}
+                  key={careersCms?.OptionalImages?.map((i) => i.id)?.join(",")}
                 >
-                  {careersCms?.OptionalImages.map((img) => (
-                    <div className="item" data-merge="2">
+                  {careersCms?.OptionalImages.map((img, index) => (
+                    <div className="item" key={img.id}>
                       <div>
-                        <img crossOrigin="anonymous" src={img.image_url}></img>
+                        <img
+                          crossOrigin="anonymous"
+                          src={img.image_url}
+                        />
                       </div>
                     </div>
                   ))}

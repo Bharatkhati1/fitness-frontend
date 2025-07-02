@@ -309,3 +309,16 @@ select.form-control {
   color: white;
   margin-top: 20px;
 }
+body .ourcluture .owl-carousel .owl-item .first-slider{
+  width: 40% !important 
+}
+
+
+body .ourcluture .owl-carousel .owl-item.active img{
+  transform: scale(0.85); /* shrink side items */
+  transition: transform 0.3s ease;
+}
+body .ourcluture .owl-carousel .owl-item.active.center{
+  width:25% !important; /* full size for center item */
+  z-index: 2; 
+}
