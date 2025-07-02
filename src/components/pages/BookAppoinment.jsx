@@ -45,6 +45,9 @@ function BookAppoinment() {
   }, [encodedId]);
 
   const handleModalclose = () => {
+    if (isLoggedIn) {
+      toast.success("Login successfully.");
+    }
     setOpenLoginModal(false);
   };
 

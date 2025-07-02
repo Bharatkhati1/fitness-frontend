@@ -244,10 +244,10 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
-  .MuktiBox,
+  /* .MuktiBox,
   .PosterSec {
     height: 484px;
-  }
+  } */
 
   .btn.btn-primary.xm-btn {
     font-size: 15px;
