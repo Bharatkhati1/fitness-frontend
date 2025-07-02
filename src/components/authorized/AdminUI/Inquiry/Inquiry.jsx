@@ -35,7 +35,7 @@ const Inquiry = () => {
       label: "Community",
     },
     {
-      key: "event-registration", 
+      key: "event-registration",
       label: "Event Registration",
     },
   ];
@@ -44,14 +44,52 @@ const Inquiry = () => {
     setActiveTab(key);
   };
 
+  const handleDownloadReport = async () => {
+    setLoading(true);
+    try {
+      const res = await adminAxios.get(adminApiRoutes.export_inquiry(activeTab));
+      const csvContent = res.data;
+
+      if (!csvContent) {
+        toast.error("No data to download.");
+        return;
+      }
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `inquiry-report-${activeTab}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response?.data?.error || "Server Error!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-      <Tabs
-        activeKey={activeTab}
-        items={items}
-        onChange={onChange}
-        className="px-3 pt-2"
-      />
+      <div className="d-flex justify-content-between align-item-end">
+        <Tabs
+          activeKey={activeTab}
+          items={items}
+          onChange={onChange}
+          className="px-3 pt-2"
+        />
+        <button
+          className="download-report-btn"
+          onClick={() => handleDownloadReport()}
+        >
+          EXPORT DATA
+        </button>
+      </div>
       <div className="row">
         <div className="col-xl-12">
           <div className="card">

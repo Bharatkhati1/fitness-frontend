@@ -93,7 +93,7 @@ const CouponList = () => {
                             {type === "Percentage" ? `${value}%` : `₹${value}`}
                           </td>
                           <td>
-                            {numberOfUsage}/{maxUsage}
+                            {CouponUsages?.length}/{maxUsage}
                           </td>
                           <td>{associated}</td>
                           <td>{partnerCommission || 0}%</td>

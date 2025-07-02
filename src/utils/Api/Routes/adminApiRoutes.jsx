@@ -115,6 +115,7 @@ const adminApiRoutes = {
   //INQUIRIES ROUTES
   get_all_inquiry: (type) => `/inquiries/${type}`,
   get_applied_jobs:`/jobs/applied`,
+  export_inquiry:(type)=>`/export-inquiries/${type}`,
 
   //USER HANDLE ROUTES
   get_all_users: `/users`,

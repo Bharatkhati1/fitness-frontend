@@ -31,63 +31,37 @@ const Ledger = () => {
               <table className="table align-middle mb-0 table-hover table-centered">
                 <thead className="bg-light-subtle">
                   <tr>
-                    <th>#</th>
-                    <th>Order ID</th>
-                    <th>Coupon Name</th>
-                    <th>Coupon Code</th>
-                    <th>Coupon Used Date</th>
-                    <th>Associated With</th>
+                    <th>ID</th>
                     <th>Type</th>
-                    <th>Partner Commission (%)</th>
-                    <th>Received Amount (₹)</th>
+                    <th>Amount</th>
+                    <th>Comment</th>
+                    <th>Created At</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions?.transactions?.map((transaction, index) => {
-                    const {
-                      orderId,
-                      couponName,
-                      couponCode,
-                      usedAt,
-                      associatedService,
-                      associatedPackage,
-                      type,
-                      partnerCommission,
-                      receivedAmount,
-                    } = transaction;
-
-                    // Prefer service name if available, fallback to package name
-                    const associatedWith =
-                      associatedService?.name || associatedPackage?.name || "-";
-
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{orderId || "N/A"}</td>
-                        <td>{couponName || "N/A"}</td>
-                        <td>{couponCode || "N/A"}</td>
-                        <td>
-                          {usedAt
-                            ? moment(usedAt).format("DD-MM-YYYY HH:mm")
-                            : "N/A"}
-                        </td>
-                        <td>{associatedWith}</td>
-                        <td>
-                          <span
-                            className={`badge ${
-                              type?.toLowerCase() === "credit"
-                                ? "bg-success"
-                                : "bg-danger"
-                            }`}
-                          >
-                            {type}
-                          </span>
-                        </td>
-                        <td>{partnerCommission || 0}%</td>
-                        <td>₹{receivedAmount?.toFixed(2) || "0.00"}</td>
-                      </tr>
-                    );
-                  })}
+                  {transactions?.transactions?.map((transaction, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>
+                        <span
+                          className={`badge ${
+                            transaction.type == "credit"
+                              ? "bg-success"
+                              : "bg-danger"
+                          }`}
+                        >
+                          {transaction.type}
+                        </span>
+                      </td>
+                      <td>{transaction.amount}</td>
+                      <td>{transaction.comment}</td>
+                      <td>
+                        {moment(transaction.createdAt).format(
+                          "DD-MM-YYYY HH:mm"
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
