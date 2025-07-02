@@ -126,11 +126,19 @@ function AllPakages() {
           card.style.height = `${maxHeight}px`;
         });
       };
+<<<<<<< HEAD
       setTimeout(equalizeCardHeights, 300);
   
       window.addEventListener("resize", equalizeCardHeights);
       return () => window.removeEventListener("resize", equalizeCardHeights);
     }, []);
+=======
+      setTimeout(equalizeCardHeights, 200);
+  
+      window.addEventListener("resize", equalizeCardHeights);
+      return () => window.removeEventListener("resize", equalizeCardHeights);
+    }, [currentPage]);
+>>>>>>> 6bf9159460907831e2086ddc1826ece2710247a4
 
   return (
     <>

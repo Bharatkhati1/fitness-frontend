@@ -503,39 +503,41 @@ const Coupon = () => {
                           </td>
                           <td>
                             <div className="d-flex gap-2">
-                              <button
-                                className="btn btn-soft-primary btn-sm"
-                                onClick={() => {
-                                  window.scrollTo(0, 0);
-                                  setIsEdit(true);
-                                  setSelectedId(item.id);
-                                  setFormData({
-                                    name: item?.name,
-                                    code: item?.code,
-                                    type: item?.type,
-                                    value: item?.value,
-                                    packageId:
-                                      item?.CouponPackages?.map(
-                                        (data) => `${data.packageId}`
-                                      ) || [],
-                                    partnerId: item?.partnerId || "",
-                                    partnerCommission:
-                                      item?.partnerCommission || "",
-                                    numberOfUsage: item?.numberOfUsage || 0,
-                                    maxUsage: item?.maxUsage || "",
-                                    isActiveDates:
-                                      item?.isActiveDates !== false,
-                                    startDate: item?.startDate?.split("T")[0],
-                                    endDate: item?.endDate?.split("T")[0],
-                                    isActive: item?.isActive,
-                                  });
-                                }}
-                              >
-                                <iconify-icon
-                                  icon="solar:pen-2-broken"
-                                  class="align-middle fs-18"
-                                />
-                              </button>
+                              {new Date(item.startDate) > new Date() && (
+                                <button
+                                  className="btn btn-soft-primary btn-sm"
+                                  onClick={() => {
+                                    window.scrollTo(0, 0);
+                                    setIsEdit(true);
+                                    setSelectedId(item.id);
+                                    setFormData({
+                                      name: item?.name,
+                                      code: item?.code,
+                                      type: item?.type,
+                                      value: item?.value,
+                                      packageId:
+                                        item?.CouponPackages?.map(
+                                          (data) => `${data.packageId}`
+                                        ) || [],
+                                      partnerId: item?.partnerId || "",
+                                      partnerCommission:
+                                        item?.partnerCommission || "",
+                                      numberOfUsage: item?.numberOfUsage || 0,
+                                      maxUsage: item?.maxUsage || "",
+                                      isActiveDates:
+                                        item?.isActiveDates !== false,
+                                      startDate: item?.startDate?.split("T")[0],
+                                      endDate: item?.endDate?.split("T")[0],
+                                      isActive: item?.isActive,
+                                    });
+                                  }}
+                                >
+                                  <iconify-icon
+                                    icon="solar:pen-2-broken"
+                                    class="align-middle fs-18"
+                                  />
+                                </button>
+                              )}
 
                               <ConfirmationPopup
                                 bodyText="Are you sure you want to delete this coupon?"

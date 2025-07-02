@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../../../public/assets/img/footerLogo.png";
 
-const NavItems = {
+export const NavItems = {
   admin: [
     { id: 1, name: "Slider Management", path: "slider-management", subMenu: [
       { name: "Manage", path: "manage" },
@@ -55,12 +55,7 @@ const NavItems = {
     {
       id: 9,
       name: "Inquiries",
-      path: "inquiries",
-      subMenu: [
-        { name: "Community", path: "community" },
-        { name: "Inquiry", path: "inquiry" },
-        { name: "Event Registration", path: "event-registration" },
-      ],
+      path: "inquiries"
     },
     {
       id: 10,

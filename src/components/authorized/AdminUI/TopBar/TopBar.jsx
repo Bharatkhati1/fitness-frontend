@@ -1,24 +1,47 @@
 import React from "react";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
-import userImage from "../../../../../public/assets/images/users/avatar-1.jpg"
+import userImage from "../../../../../public/assets/images/users/avatar-1.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { NavItems } from "../MainNavbarLeft/MainNavbarLeft";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const TopBar = () => {
-  const navigate = useNavigate()
-  const pathAndName = {
-    "/service-management": "Service Management",
-    "/slider-management": "Slider Management",
-    "/package-management":"Package Management",
-    "/tools":"Tools"
-  };
-
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutUser(false, navigate));
   };
+  let type = "";
+  if (pathname.includes("/admin")) {
+    type = "admin";
+  } else if (pathname.includes("/b2b-partner")) {
+    type = "b2b-partner";
+  } else if (pathname.includes("/service-provider")) {
+    type = "service-provider";
+  }
+  // Function to extract display name from NavItems
+  const getTitleFromNavItems = (pathname) => {
+    const segments = pathname.split("/").filter(Boolean); // Remove empty strings
+    const mainPath = segments[1];
+    const subPath = segments[2];
+
+    const navList = NavItems[type] || [];
+    console.log(mainPath);
+    for (const item of navList) {
+      if (item.path === mainPath) {
+        if (item.subMenu && subPath) {
+          const subItem = item.subMenu.find((s) => s.path === subPath);
+          return subItem ? `${item.name} / ${subItem.name}` : item.name;
+        }
+        return item.name;
+      }
+    }
+    return "Dashboard";
+  };
+
+  const pageTitle = getTitleFromNavItems(pathname);
   return (
     <header className="topbar">
       <div className="container-fluid">
@@ -34,14 +57,16 @@ const TopBar = () => {
             </div>
 
             <div className="topbar-item">
-              <h4 className="fw-bold topbar-button pe-none text-uppercase mb-0">
-                {pathAndName[pathname]}
+              <h4
+                className="fw-bold topbar-button pe-none text-uppercase mb-0"
+                style={{ marginLeft: "280px" }}
+              >
+                {pageTitle}
               </h4>
             </div>
           </div>
 
           <div className="d-flex align-items-center gap-1">
-
             <div className="dropdown topbar-item">
               <a
                 type="button"
@@ -71,7 +96,6 @@ const TopBar = () => {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>

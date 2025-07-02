@@ -300,3 +300,12 @@ select.form-control {
 .FOLLOWUS{
   margin-bottom: 20px;
 }
+.download-report-btn{
+  height: 40px;
+  padding: 8px 13px;
+  background-color: #800030;
+  border: none;
+  border-radius: 13px;
+  color: white;
+  margin-top: 20px;
+}
