@@ -531,16 +531,19 @@ function Home() {
             </p>
           </div>
         </div>
-        <div className="VideBox bg-black" ref={videoContainerRef}>
-          <iframe
+           <div className="VideBox bg-black" ref={videoContainerRef}>
+          <video
+            ref={videoRef}
+            style={{ objectFit: "fill" }}
+            src="https://daily-fitness-api.24livehost.com/uploads/video/videoplayback.mp4"
             width="100%"
+            loop
+            crossOrigin="anonymous"
             height="509"
-            src="https://www.youtube.com/embed/jSJ-9uB6pzo?autoplay=1&mute=1&loop=1&playlist=jSJ-9uB6pzo&controls=1&playsinline=1"
-            title="YouTube video"
-            frameBorder="0"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+            controls={true}
+            muted
+            playsInline
+          />
         </div>
       </section>
       {/* <Whyus /> */}
@@ -957,7 +960,7 @@ function Home() {
                       onChange={handleChange}
                       className="form-control"
                       placeholder="Type your message here"
-                      required
+                      required={formData.contactFor.includes("other")}
                     />
                   </div>
                   <div className="col-md-12 text-center">

@@ -35,7 +35,7 @@ function AllPakages() {
     infinite: true,
     speed: 500,
     slidesToShow: 6,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     arrows: true,
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 4 } },

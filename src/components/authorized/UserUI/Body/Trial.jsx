@@ -38,7 +38,9 @@ const Trial = () => {
   };
 
   const handleLoginModalClose =()=>{
-    toast.success("Login successfully.")
+    if(isLoggedIn){
+      toast.success("Login successfully.")
+    }
     setOpenLogin(false)
   }
   return (

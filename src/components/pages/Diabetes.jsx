@@ -132,11 +132,13 @@ function PackageDetails() {
     return () => window.removeEventListener("resize", equalizeCardHeights);
   }, [singlePlans, comboPlans]);
 
-     const handleLoginModalClose =()=>{
-        toast.success("Login successfully.")
-        setOpenLogin(false)
-      }
-      
+  const handleLoginModalClose = () => {
+    if (isLoggedIn) {
+      toast.success("Login successfully.");
+    }
+    setOpenLogin(false);
+  };
+
   return (
     <>
       <LoginModal

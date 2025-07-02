@@ -114,8 +114,8 @@
 .Browseservice {
   display: flex;
 }
-.slick-prev {
-  left: -205px !important;
+.Browseservice .slick-prev {
+  left: -205px;
 }
 
 .booked-slot {

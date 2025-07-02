@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import addtobagbg from "../../../public/assets/img/addtobagbg.png";
-import osproductimg1 from "../../../public/assets/img/osproductimg1.png";
-import deleteicon from "../../../public/assets/img/deleteicon.png";
 import discoutimg from "../../../public/assets/img/discoutimg.png";
 import userAxios from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
@@ -36,7 +34,6 @@ export default function AddToBag() {
     medicalConditionDescription: "",
     sportInjury: "",
   });
-  const fetchedRef = useRef(false);
   const [cartItems, setCartItems] = useState([]);
   const [thankYouContent, setThankYouContent] = useState({
     title: "Thank You !",
@@ -73,6 +70,7 @@ export default function AddToBag() {
       dispatch(authActions.setCartItems(res.data.data));
     } catch (error) {
       setCartItems([]);
+      dispatch(authActions.setCartItems([]));
       console.log(error);
     }
   };
