@@ -237,21 +237,20 @@ function ContactUs() {
                           </div>
                         </li>
                       ))}
-                      <li>
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`check`}
-                            checked={formData.contactFor.includes("other")}
-                            onChange={() => handleCheckboxChange("other")}
-                          />
-                          <label className="form-check-label" htmlFor={`check`}>
-                            Other
-                          </label>
-                        </div>
-                      </li>
+                     
                     </ul>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`service-`}
+                        checked={formData.contactFor.includes("other")}
+                        onChange={() => handleServiceToggle("other")}
+                      />
+                      <label className="form-check-label" htmlFor={`service-`}>
+                        Others
+                      </label>
+                    </div>
                   </div>
                   <div className="col-md-12">
                     <label>Message</label>

@@ -68,7 +68,7 @@ function Home() {
   const [openEmailRequiredPopup, setOpenEmailRequiredPopup] = useState(false);
   const [selectedRecipeId, setSelectedRecipeId] = useState("");
 
-  const owlRef = useRef(null)
+  const owlRef = useRef(null);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
@@ -124,7 +124,7 @@ function Home() {
   const getBlogs = async () => {
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_blogs({ limit: 4 })
+        userApiRoutes.get_blogs({ limit: 4, type:"blogs" })
       );
       setBlogs(response.data.data);
     } catch (error) {
@@ -225,7 +225,7 @@ function Home() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => { });
+          video.play().catch(() => {});
         } else {
           video.pause();
           // video.currentTime = 0;
@@ -291,23 +291,17 @@ function Home() {
               return (
                 <div className="slider-box">
                   <div className="slider-image">
-                    <img
-                      crossOrigin="annoymous"
-                      src={slider.image_url}
-                    />
+                    <img crossOrigin="annoymous" src={slider.image_url} />
                   </div>
                   <div className="container h-100">
                     <div className="row align-items-center h-100">
                       <div className="col-lg-6 bannerSectionLeft pe-0">
-
-
                         {options.includes("Badge") && (
                           <span className="BestTag">
                             <img src={TagCheckIcon} alt="Check" />
                             The Best in Town
                           </span>
                         )}
-
 
                         <h1 className="mb-1">{slider.heading}</h1>
                         {slider.subHeading && (
@@ -341,7 +335,6 @@ function Home() {
                           </ul>
                         )}
 
-
                         <div className="BannerBtn d-flex">
                           <Link
                             className="hvr-shutter-out-horizontal"
@@ -360,7 +353,7 @@ function Home() {
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
             {/* {whyus && whyus.length > 0 && (
               <div className="why-class">
@@ -417,8 +410,8 @@ function Home() {
             </p>
           </div>
           {Array.isArray(services) &&
-            services.length > 0 &&
-            Array.isArray(services[0]) ? (
+          services.length > 0 &&
+          Array.isArray(services[0]) ? (
             <OwlCarousel
               className="owl-theme"
               autoplay={false}
@@ -434,7 +427,7 @@ function Home() {
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index} >
+                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index}>
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {
@@ -809,59 +802,60 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-md-6 GetIntouchLeft">
-           
-           <div className="contactimgbox">
-              <figure>
-                <img src={ContactUs}></img>
-              </figure>
+              <div className="contactimgbox">
+                <figure>
+                  <img src={ContactUs}></img>
+                </figure>
 
-                 <div className="ContactUs">
-                <h3>Contact Us</h3>
-                <p>
-                  Reach out to us for personalized health guidance and
-                  consultation with our expert team at DailyFitness.
-                </p>
+                <div className="ContactUs">
+                  <h3>Contact Us</h3>
+                  <p>
+                    Reach out to us for personalized health guidance and
+                    consultation with our expert team at DailyFitness.
+                  </p>
 
-                <ul className="ContactInfoList">
-                  <li>
-                    <img src={CallIcon}></img>
-                    {contactUsDetails?.phone &&
-                      contactUsDetails.phone.split(",").map((num, idx) => (
-                        <span key={idx} className="me-2">
-                          <a href={`tel:${num.trim()}`}>{num.trim()}</a>
-                          {idx < contactUsDetails.phone.split(",").length - 1 &&
-                            " . "}
-                        </span>
-                      ))}
-                  </li>
-                  <li>
-                    <img src={MsgeIcon}></img>
-                    <a href={`mailto:${contactUsDetails?.email}`}>
-                      {contactUsDetails?.email}
-                    </a>
-                  </li>
-                </ul>
+                  <ul className="ContactInfoList">
+                    <li>
+                      <img src={CallIcon}></img>
+                      {contactUsDetails?.phone &&
+                        contactUsDetails.phone.split(",").map((num, idx) => (
+                          <span key={idx} className="me-2">
+                            <a href={`tel:${num.trim()}`}>{num.trim()}</a>
+                            {idx <
+                              contactUsDetails.phone.split(",").length - 1 &&
+                              " . "}
+                          </span>
+                        ))}
+                    </li>
+                    <li>
+                      <img src={MsgeIcon}></img>
+                      <a href={`mailto:${contactUsDetails?.email}`}>
+                        {contactUsDetails?.email}
+                      </a>
+                    </li>
+                  </ul>
 
-                <ul className="SoicalList">
-                  <li>
-                    <a target="_blank" href={`${contactUsDetails?.instagram}`}>
-                      <img src={InstaIcon}></img>
-                    </a>
-                  </li>
-                  <li>
-                    <a target="_blank" href={`${contactUsDetails?.twitter}`}>
-                      <img src={TwitterIcon}></img>
-                    </a>
-                  </li>
-                  <li>
-                    <a target="_blank" href={`${contactUsDetails?.youtube}`}>
-                      <img src={YoutUbeIcon}></img>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-
+                  <ul className="SoicalList">
+                    <li>
+                      <a
+                        target="_blank"
+                        href={`${contactUsDetails?.instagram}`}
+                      >
+                        <img src={InstaIcon}></img>
+                      </a>
+                    </li>
+                    <li>
+                      <a target="_blank" href={`${contactUsDetails?.twitter}`}>
+                        <img src={TwitterIcon}></img>
+                      </a>
+                    </li>
+                    <li>
+                      <a target="_blank" href={`${contactUsDetails?.youtube}`}>
+                        <img src={YoutUbeIcon}></img>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="col-md-6 GetIntouchRight">
@@ -941,24 +935,19 @@ function Home() {
                           </div>
                         </li>
                       ))}
-                      <li>
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id={`service-`}
-                            checked={formData.contactFor.includes("other")}
-                            onChange={() => handleServiceToggle("other")}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={`service-`}
-                          >
-                            Other
-                          </label>
-                        </div>
-                      </li>
-                    </ul>
+                    </ul>{" "}
+                    <div className="form-check" style={{marginTop:"-14px"}}>
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id={`service-`}
+                        checked={formData.contactFor.includes("other")}
+                        onChange={() => handleServiceToggle("other")}
+                      />
+                      <label className="form-check-label" htmlFor={`service-`}>
+                        Others
+                      </label>
+                    </div>
                   </div>
                   <div className="col-md-12">
                     <label>Message</label>
