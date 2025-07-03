@@ -173,18 +173,17 @@ const Coupon = () => {
 
   const onChange = (key) => {
     setActiveTab(key);
-    setSelectedPartner(""); // Reset partner filter when changing tabs
+    setSelectedPartner("");
   };
 
-  // Filter coupons based on active tab and selected partner
   const filteredCoupons = coupons.filter((coupon) => {
     if (activeTab === "global") {
-      return !coupon.partnerId; // Show only coupons with no partner
+      return !coupon.partnerId;
     } else if (activeTab === "partner") {
       if (selectedPartner) {
-        return coupon.partnerId === parseInt(selectedPartner); // Filter by selected partner
+        return coupon.partnerId === parseInt(selectedPartner);
       }
-      return coupon.partnerId; // Show all partner coupons if no partner selected
+      return coupon.partnerId;
     }
     return true;
   });
