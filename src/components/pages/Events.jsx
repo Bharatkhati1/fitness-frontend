@@ -319,7 +319,7 @@ export default function Events() {
 
                           <li>
                             <img src={calendericon4}></img>{" "}
-                            <span>{event.spots}</span>
+                            <span>{event.spots - event?.spotLimit} spots left</span>
                           </li>
                         </ul>
 
