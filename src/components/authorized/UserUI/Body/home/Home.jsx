@@ -523,7 +523,7 @@ function Home() {
         <div className="container">
           <div className="PageTitle text-center">
             <h2>
-              What we Offer :<span>Empower Your Health</span>
+              What we Offer: <span>Empower Your Health</span>
             </h2>
             <p>
               Transform your wellness journey with expert guidance and

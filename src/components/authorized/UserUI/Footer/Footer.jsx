@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FooterLogo from "../../../../../public/assets/img/footerLogo.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
@@ -9,14 +9,17 @@ import { Link } from "react-router-dom";
 import {
   getContactusDetails,
   getServicesForUser,
+  sendInquiry,
 } from "../../../../store/auth/AuthExtraReducers";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const Footer = () => {
   const dispatch = useDispatch();
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth
   );
+  const [email, setEmail] = useState("");
 
   const toTitleCase = (str) =>
     str
@@ -25,7 +28,29 @@ const Footer = () => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-      
+  const handleSubmit = async () => {
+    const trimmedEmail = email.trim();
+    console.log(trimmedEmail);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    const payload = {
+      email: trimmedEmail,
+      type: "news-letter",
+    };
+
+    try {
+      await sendInquiry(payload);
+      setEmail("");
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
   useEffect(() => {
     dispatch(getServicesForUser());
     dispatch(getContactusDetails());
@@ -166,11 +191,16 @@ const Footer = () => {
             <div className="FooterSubscribe">
               <h2>Enter Your Email ID*</h2>
               <input
-                type="text"
+                type="email"
+                value={email}
                 className="form-control"
                 placeholder="Enter your email id"
+                onChange={(e) => setEmail(e.target.value)}
               ></input>
-              <button className="btn btn-primary mt-2 ml-1 hvr-shutter-out-horizontal">
+              <button
+                onClick={() => handleSubmit()}
+                className="btn btn-primary mt-2 ml-1 hvr-shutter-out-horizontal"
+              >
                 subscribe for better health
               </button>
             </div>
