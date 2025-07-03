@@ -34,7 +34,7 @@ const Ledger = () => {
                     <th>ID</th>
                     <th>Type</th>
                     <th>Amount</th>
-                    <th>Comment</th>
+                    <th>Description</th>
                     <th>Created At</th>
                   </tr>
                 </thead>
@@ -42,7 +42,15 @@ const Ledger = () => {
                   {transactions?.map((transaction, index) => (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{transaction.type}</td>
+                      <td>   <span
+                          className={`badge ${
+                            transaction.type == "credit"
+                              ? "bg-success"
+                              : "bg-danger"
+                          }`}
+                        >
+                          {transaction.type}
+                        </span></td>
                       <td>₹{transaction.amount}</td>
                       <td>{transaction.comment}</td>
                       <td>{moment(transaction.createdAt).format('DD-MM-YYYY HH:mm')}</td>

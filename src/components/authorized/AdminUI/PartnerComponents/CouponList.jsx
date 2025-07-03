@@ -74,7 +74,6 @@ const CouponList = () => {
                         totalEarnings,
                       } = coupon;
 
-                      // Get associated entity names
                       const associated =
                         CouponPackages?.map((p) => p?.package?.name).join(
                           ", "
@@ -83,7 +82,11 @@ const CouponList = () => {
                           ", "
                         ) ||
                         "-";
-
+                        const sum = coupon?.CouponUsages?.reduce(
+                          (total, data) => total + Number(data.partnerCommission || 0),
+                          0
+                        );
+                    
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
@@ -107,7 +110,7 @@ const CouponList = () => {
                                 )} - ${moment(endDate).format("DD/MM/YYYY")}`
                               : "N/A"}
                           </td>
-                          <td>₹{totalEarnings?.toFixed(2) || "0.00"}</td>
+                          <td>₹{sum || "0.00"}</td>
                           <td>
                             <span
                               className={`badge ${

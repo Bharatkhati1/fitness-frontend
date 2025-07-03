@@ -38,7 +38,7 @@ export default function Events() {
   const [eventCms, setEventCms] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openContactUsModal, setOpenContactusModal] = useState(false);
-  const carouselRef = useRef();
+  const carouselRef = useRef(1);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -119,6 +119,7 @@ export default function Events() {
     }));
   };
 
+  console.log(carouselRef)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -285,7 +286,6 @@ export default function Events() {
                           src={event.image_url}
                         ></img>
                       </figure>
-
                       <figcaption>
                         <h4>{event.title}</h4>
 
@@ -318,7 +318,7 @@ export default function Events() {
 
                           <li>
                             <img src={calendericon4}></img>{" "}
-                            <span>{event.spots}</span>
+                            <span>{event.spots - event?.spotLimit} spots left</span>
                           </li>
                         </ul>
 
@@ -383,9 +383,11 @@ export default function Events() {
                     dots={false}
                     items={3}
                     nav={true}
+                    key={pastevents.map((i)=> i.id)?.join(",")}
                     margin={20}
                     ref={carouselRef}
-                    center={true}
+                    startPosition={1} 
+                    center={pastevents.length > 2}
                     onChanged={(e) => {
                       carouselRef.current = e.item.index;
                     }}

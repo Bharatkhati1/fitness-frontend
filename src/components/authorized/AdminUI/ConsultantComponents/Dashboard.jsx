@@ -15,7 +15,7 @@ const Dashboard = () => {
   const Cards = [
     {
       name: "Current Balance",
-      value: `₹${user?.earning|| "0.00"}`,
+      value: `₹${user?.earning || "0.00"}`,
     },
     {
       name: "Total Income",
@@ -30,7 +30,7 @@ const Dashboard = () => {
       value: appointment?.todayAppointments?.length || 0,
     },
   ];
-  
+
   const fetchAppointments = async () => {
     try {
       const res = await adminAxios.get(
@@ -95,6 +95,7 @@ const Dashboard = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>Booking Id</th>
+                      <th>User name</th>
                       <th>Amount</th>
                       <th>Earning</th>
                       <th>Start</th>
@@ -102,36 +103,34 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tbody>
-                      {appointment?.todayAppointments?.length > 0 ? (
-                        appointment.todayAppointments.map((data, index) => (
-                          <tr key={index}>
-                            <td>{data?.bookingId}</td>
-                            <td>₹{data?.amount?.toFixed(2)}</td>
-                            <td>₹{data?.consultantEarning?.toFixed(2)}</td>
-                            <td>
-                              {new Date(data?.bookingStart).toLocaleTimeString(
-                                [],
-                                { hour: "2-digit", minute: "2-digit" }
-                              )}
-                            </td>
-                            <td>
-                              {new Date(data?.bookingEnd).toLocaleTimeString(
-                                [],
-                                { hour: "2-digit", minute: "2-digit" }
-                              )}
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr>
-                       <td colSpan="6" className="text-center">
-                            No appointments today.
+                    {appointment?.todayAppointments?.length > 0 ? (
+                      appointment.todayAppointments.map((data, index) => (
+                        <tr key={index}>
+                          <td>{data?.bookingId}</td>
+                          <td>{data?.User?.name}</td>
+                          <td>₹{data?.amount}</td>
+                          <td>₹{data?.consultantEarning}</td>
+                          <td>
+                            {new Date(data?.bookingStart).toLocaleTimeString(
+                              [],
+                              { hour: "2-digit", minute: "2-digit" }
+                            )}
                           </td>
-                          
+                          <td>
+                            {new Date(data?.bookingEnd).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </td>
                         </tr>
-                      )}
-                    </tbody>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6" className="text-center">
+                          No appointments today.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

@@ -124,7 +124,7 @@ function Home() {
   const getBlogs = async () => {
     try {
       const response = await webAxios.get(
-        userApiRoutes.get_blogs({ limit: 4, type:"blogs" })
+        userApiRoutes.get_blogs({ limit: 4, type: "blogs" })
       );
       setBlogs(response.data.data);
     } catch (error) {
@@ -531,7 +531,7 @@ function Home() {
             </p>
           </div>
         </div>
-           <div className="VideBox bg-black" ref={videoContainerRef}>
+        <div className="VideBox bg-black" ref={videoContainerRef}>
           <video
             ref={videoRef}
             style={{ objectFit: "fill" }}
@@ -939,7 +939,7 @@ function Home() {
                         </li>
                       ))}
                     </ul>{" "}
-                    <div className="form-check" style={{marginTop:"-14px"}}>
+                    <div className="form-check" style={{ marginTop: "-14px" }}>
                       <input
                         className="form-check-input"
                         type="checkbox"

@@ -127,18 +127,24 @@ function AllPakages() {
         });
       };
 <<<<<<< HEAD
+<<<<<<< HEAD
       setTimeout(equalizeCardHeights, 300);
   
       window.addEventListener("resize", equalizeCardHeights);
       return () => window.removeEventListener("resize", equalizeCardHeights);
     }, []);
 =======
+=======
+>>>>>>> f7d8c8d3cc84cd288e7d7fd3d718035d3ff9899e
       setTimeout(equalizeCardHeights, 200);
   
       window.addEventListener("resize", equalizeCardHeights);
       return () => window.removeEventListener("resize", equalizeCardHeights);
     }, [currentPage]);
+<<<<<<< HEAD
 >>>>>>> 6bf9159460907831e2086ddc1826ece2710247a4
+=======
+>>>>>>> f7d8c8d3cc84cd288e7d7fd3d718035d3ff9899e
 
   return (
     <>

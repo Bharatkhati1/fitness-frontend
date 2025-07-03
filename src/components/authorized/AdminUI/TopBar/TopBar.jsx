@@ -28,7 +28,6 @@ const TopBar = () => {
     const subPath = segments[2];
 
     const navList = NavItems[type] || [];
-    console.log(mainPath);
     for (const item of navList) {
       if (item.path === mainPath) {
         if (item.subMenu && subPath) {
