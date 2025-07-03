@@ -49,7 +49,7 @@ function Profile() {
       const data = res.data.data;
       setProfileDetails(data);
       setFirstName(data.firstName)
-      setFormData((prev)=> ({...prev, ...data}));
+      setFormData((prev)=> ({...prev, ...data, ...data?.UserDetail}));
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -94,7 +94,6 @@ function Profile() {
     return true;
   };
   
-
   const handleSave = async () => {
     if (!validateForm()) return;
     try {

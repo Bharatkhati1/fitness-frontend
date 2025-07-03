@@ -124,11 +124,11 @@ const adminApiRoutes = {
   //PARTNER COMPONENT ROUTES
   get_partner_coupon:`/partner-coupons`,
   get_coupon_usage:`/partner-coupon-usage`,
-  partner_payment_history:`/partner-payment-history`,
+  partner_payment_history:(id)=>`/partner-payment-history?partnerId=${id}`,
 
   //CONSULTANT COMPONENT ROUTES
   get_consultant_appointments:`/consultant-appointments`,
-  consultant_payment_history:`/consultant-appointments-payment`,
+  consultant_payment_history:(id)=>`/consultant-appointments-payment?consultantId=${id}`,
   
   //ALL ORDERS AND APPOINTMENTS ADMIN
   get_all_orders:`/orders`,

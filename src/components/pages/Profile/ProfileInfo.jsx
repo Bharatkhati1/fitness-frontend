@@ -28,6 +28,7 @@ const ProfileInfo = ({
   setFormData,
   profileDetails,
 }) => {
+  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const numericFields = [
@@ -411,11 +412,11 @@ const ProfileInfo = ({
           </div>
 
           <div className="col-md-12 mb-3">
-            <label>Medical Conditions</label>
+            <label>Pre-existing Medical Conditions (if any)</label>
             <div className="d-flex flex-wrap gap-3">
               {[
                 "Diabetes",
-                "Hypertension",
+                "Hypertension (High BP)",
                 "Thyroid",
                 "PCOS/PCOD",
                 "Others",
@@ -451,7 +452,7 @@ const ProfileInfo = ({
             />
           </div>
           <div className="col-md-12">
-            <label>Sports Injury</label>
+            <label>Pre-existing Sports Injury (If Yes, please describe)</label>
             <input
               type="text"
               className="form-control"

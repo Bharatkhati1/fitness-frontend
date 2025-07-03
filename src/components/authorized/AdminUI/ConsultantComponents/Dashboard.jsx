@@ -5,7 +5,7 @@ import adminAxios from "../../../../utils/Api/adminAxios";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const { user } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
   const [transactionHistory, setTransactionHistory] = useState({});
   const [appointment, setAppointments] = useState({
     allAppointments: [],
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const PaymentHistory = async () => {
     try {
       const res = await adminAxios.get(
-        adminApiRoutes.consultant_payment_history
+        adminApiRoutes.consultant_payment_history(user.id)
       );
       setTransactionHistory(res.data);
     } catch (error) {

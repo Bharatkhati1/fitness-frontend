@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const { user } = useSelector((state)=> state.auth)
+  const  user  = useSelector((state)=> state.auth.user)
   const [transactionHistory, setTransactionHistory] = useState({});
   const [couponUsage, setCouponUsage] = useState([]);
   const [partnerCoupons, setPartnerCoupons] = useState([]);
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   const fetchTransactionHistory = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.partner_payment_history);
+      const res = await adminAxios.get(adminApiRoutes.partner_payment_history(user.id));
       setTransactionHistory(res.data.data);
     } catch (error) {
       toast.error(error.response.data.error);

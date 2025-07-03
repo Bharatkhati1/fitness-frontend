@@ -3,13 +3,16 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const Ledger = () => {
   const [transactions, setTransactions] = useState([]);
-
+  const user = useSelector((state) => state.auth.user);
   const fetchTransactionHistory = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.partner_payment_history);
+      const res = await adminAxios.get(
+        adminApiRoutes.partner_payment_history(user.id)
+      );
       setTransactions(res.data.data);
     } catch (error) {
       toast.error(error.response.data.error);
