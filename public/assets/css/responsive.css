@@ -2694,12 +2694,15 @@
 }
 
 @media (max-width: 575px) {
+  body .owl-item .OurServicesContent figure img {
+    height: auto;}
   .OurServicesRow .col-md-4 {
     width: 100%;
   }
 
   .OurServicesContent figcaption p {
     min-height: auto;
+    height: auto;
   }
 
   .AboutInfo .col-md-5.text-left figure img {
