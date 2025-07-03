@@ -21,7 +21,13 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, profileDetails }) => {
+const ProfileInfo = ({
+  handleSave,
+  formData,
+  setProfileDetails,
+  setFormData,
+  profileDetails,
+}) => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const numericFields = [
@@ -44,7 +50,7 @@ const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, prof
         return { ...prev, medicalCanditions: updatedConditions };
       });
     } else {
-      setProfileDetails((prev) => ({ ...prev, [name]: value }))
+      setProfileDetails((prev) => ({ ...prev, [name]: value }));
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
@@ -146,9 +152,15 @@ const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, prof
             <input
               type="text"
               className="form-control"
+              placeholder="Enter your full name"
               name="firstName"
               value={profileDetails.firstName}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
             />
           </div>
           <div className="col-md-6 mb-3">
@@ -163,27 +175,55 @@ const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, prof
             />
           </div>
           <div className="col-md-6 mb-3">
-            <label>Phone*</label>
-            <input
-              type="number"
-              className="form-control"
-              name="phone"
-              value={profileDetails.phone}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="col-md-6 mb-3">
             <label>Age*</label>
             <input
               type="number"
               className="form-control"
               name="age"
+              placeholder="Enter your age"
               value={profileDetails.age}
-              onChange={handleChange}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (/^\d{0,3}$/.test(val)) {
+                  handleChange({ target: { name: "age", value: val } });
+                }
+              }}
             />
           </div>
           <div className="col-md-6 mb-3">
-            <label>Address (Pin Code / Zip Code)</label>
+            <label>Gender*</label>
+            <select
+              className="form-select"
+              name="gender"
+              placeholder="Select your gender"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div className="col-md-6 mb-3">
+            <label>Contact Number*</label>
+            <input
+              type="number"
+              className="form-control"
+              name="phone"
+              placeholder="Enter 10-digit number"
+              value={profileDetails.phone}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (/^\d{0,10}$/.test(val)) {
+                  handleChange(e);
+                }
+              }}
+            />
+          </div>
+
+          <div className="col-md-6 mb-3">
+            <label>Address </label>
             <input
               type="text"
               className="form-control"
@@ -199,31 +239,27 @@ const ProfileInfo = ({ handleSave, formData,setProfileDetails, setFormData, prof
               className="form-control"
               name="city"
               value={formData.city}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  handleChange(e);
+                }
+              }}
             />
           </div>
           <div className="col-md-6 mb-3">
-            <label>Gender*</label>
-            <select
-              className="form-select"
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-            >
-              <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div className="col-md-6 mb-3">
-            <label>Pincode</label>
+            <label>Pin Code / Zip Code</label>
             <input
               type="number"
               className="form-control"
               name="pincode"
               value={formData.pincode}
-              onChange={handleChange}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (/^\d{0,6}$/.test(val)) {
+                  handleChange(e);
+                }
+              }}
             />
           </div>
         </div>

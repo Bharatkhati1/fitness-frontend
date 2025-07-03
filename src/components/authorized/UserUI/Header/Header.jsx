@@ -19,7 +19,9 @@ const Header = () => {
     isLoggedIn,
     cartItems = [],
   } = useSelector((state) => state.auth);
-    const [openLogin, setOpenLogin] = useState(false)
+  const [openLogin, setOpenLogin] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ const Header = () => {
     if (userAccessToken && userAccessToken.length > 0) {
       navigate("/cart");
     } else {
-      setOpenLogin(true)
+      setOpenLogin(true);
     }
   };
 
@@ -47,102 +49,113 @@ const Header = () => {
     }
   }, []);
 
-    const handleLoginModalClose =()=>{
-    if(isLoggedIn){
-        toast.success("Login successfully.")
-      }
-      setOpenLogin(false)
+  const handleLoginModalClose = () => {
+    if (isLoggedIn) {
+      toast.success("Login successfully.");
     }
+    setOpenLogin(false);
+  };
   return (
-    <> 
-    <LoginModal visible={openLogin} onClose={()=> handleLoginModalClose()}/>
-     <header id="fixed-header" className="sticky">
-      <div className="container">
-        <div className="navInner d-flex justify-content-between align-items-center">
-          <div className="navLeft">
-            <Navbar.Brand as={Link} to="/">
-              <img src={Logo} />
-            </Navbar.Brand>
-          </div>
-          <div className="navRight d-flex align-items-center">
-            <Navbar expand="lg">
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="">
-                  <Nav.Link
-                    as={Link}
-                    to="/"
-                    className={pathname.length == 1 && `active`}
-                  >
-                    Home
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to={"/about-us"}
-                    className={pathname.includes("/about-us") && `active`}
-                  >
-                    About Us
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to={"/all-packages"}
-                    className={pathname.includes("/all-packages") && `active`}
-                  >
-                    Packages
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to="/tools"
-                    className={pathname.includes("/tools") && `active`}
-                  >
-                    Tools
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to={"/testimonials"}
-                    className={pathname.includes("/testimonials") && `active`}
-                  >
-                    Testimonials
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to={"/blogs"}
-                    className={pathname.includes("/blogs") && `active`}
-                  >
-                    Blogs
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    to={"/contact-us"}
-                    className={pathname.includes("/contact-us") && `active`}
-                  >
-                    Contact Us
-                  </Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
-            <div className="Login-info d-flex align-items-center">
-              <div onClick={() => handleCartNavigate()} className="carticon">
-                <img src={CartIcon} />
-                {cartItems.length > 0 && (
-                  <span className="cart-item-count">{cartItems.length}</span>
+    <>
+      <LoginModal visible={openLogin} onClose={() => handleLoginModalClose()} />
+      <header id="fixed-header" className="sticky">
+        <div className="container">
+          <div className="navInner d-flex justify-content-between align-items-center">
+            <div className="navLeft">
+              <Navbar.Brand as={Link} to="/">
+                <img src={Logo} />
+              </Navbar.Brand>
+            </div>
+            <div className="navRight d-flex align-items-center">
+              <Navbar
+                expand="lg"
+                expanded={expanded}
+                onToggle={() => setExpanded(!expanded)}
+              >
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="">
+                    <Nav.Link
+                      as={Link}
+                      to="/"
+                      onClick={() => setExpanded(false)}
+                      className={pathname.length == 1 && `active`}
+                    >
+                      Home
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/about-us"}
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/about-us") && `active`}
+                    >
+                      About Us
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/all-packages"}
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/all-packages") && `active`}
+                    >
+                      Packages
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to="/tools"
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/tools") && `active`}
+                    >
+                      Tools
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/testimonials"}
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/testimonials") && `active`}
+                    >
+                      Testimonials
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/blogs"}
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/blogs") && `active`}
+                    >
+                      Blogs
+                    </Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/contact-us"}
+                      onClick={() => setExpanded(false)}
+                      className={pathname.includes("/contact-us") && `active`}
+                    >
+                      Contact Us
+                    </Nav.Link>
+                  </Nav>
+                </Navbar.Collapse>
+              </Navbar>
+              <div className="Login-info d-flex align-items-center">
+                <div onClick={() => handleCartNavigate()} className="carticon">
+                  <img src={CartIcon} />
+                  {cartItems.length > 0 && (
+                    <span className="cart-item-count">{cartItems.length}</span>
+                  )}
+                </div>
+                {userAccessToken.length > 0 ? (
+                  <Link to="/profile" className="header-btn ">
+                    <img src={ProfileIcon} className="me-2" /> My Profile
+                  </Link>
+                ) : (
+                  <Link to="/login-user" className="header-btn ">
+                    Login / Register
+                  </Link>
                 )}
               </div>
-              {userAccessToken.length > 0 ? (
-                <Link to="/profile" className="header-btn ">
-                  <img src={ProfileIcon} className="me-2" /> My Profile
-                </Link>
-              ) : (
-                <Link to="/login-user" className="header-btn ">
-                  Login / Register
-                </Link>
-              )}
             </div>
           </div>
         </div>
-      </div>
-    </header></>
-  
+      </header>
+    </>
   );
 };
 

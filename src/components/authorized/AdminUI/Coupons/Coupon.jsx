@@ -18,7 +18,7 @@ const Coupon = () => {
     isActiveDates: true,
     startDate: "",
     endDate: "",
-    isActive: false,
+    isActive: true,
   });
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

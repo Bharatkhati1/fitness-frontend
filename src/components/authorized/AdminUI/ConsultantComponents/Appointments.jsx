@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Appointments = () => {
   const [appointment, setAppointments] = useState([]);
+  const user  = useSelector((state) => state.auth.user);
 
   const fetchAppointments = async () => {
     try {
@@ -32,8 +34,10 @@ const Appointments = () => {
                 <thead className="bg-light-subtle">
                   <tr>
                     <th>Booking Id</th>
+                    <th>User name</th>
                     <th>Amount</th>
                     <th>Earning</th>
+                    <th>Duration(min)</th>
                     <th>Start</th>
                     <th>End</th>
                   </tr>
@@ -42,8 +46,10 @@ const Appointments = () => {
                   {appointment?.allAppointments?.map((data, index) => (
                          <tr>
                          <td>{data.bookingId}</td>
+                         <td>{data?.User?.name}</td>
                          <td>₹{data.amount}</td>
                          <td>₹{data.consultantEarning}</td>
+                         <td>{user.duration}</td>
                          <td>{data.bookingStart}</td>
                          <td>{data.bookingEnd}</td>
                        </tr>

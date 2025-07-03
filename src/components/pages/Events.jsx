@@ -286,7 +286,6 @@ export default function Events() {
                           src={event.image_url}
                         ></img>
                       </figure>
-
                       <figcaption>
                         <h4>{event.title}</h4>
 
