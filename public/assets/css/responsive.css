@@ -3258,9 +3258,6 @@
   }
 }
 
-
-
-
 @media (max-width: 992px) {
   .bannerSection .owl-carousel .owl-item {
     aspect-ratio: inherit;
@@ -3296,8 +3293,6 @@
   section.SmartKichin.SectionSpace {
     padding-bottom: 30px;
   }
-
- 
 }
 
 @media (max-width: 576px) {
@@ -3315,13 +3310,13 @@
 
   .innerbannerContent p {
     flex-wrap: wrap;
-}
-select.form-select.w-25 {
+  }
+  select.form-select.w-25 {
     width: 100% !important;
     margin-top: 15px;
-}
+  }
 
-   .innerbannerContent {
+  .innerbannerContent {
     position: static;
   }
 
@@ -3355,11 +3350,10 @@ select.form-select.w-25 {
   .innerbannerContent p {
     color: #000;
   }
-    .innerbannerContent {
+  .innerbannerContent {
     padding: 0;
     padding-top: 20px;
   }
-
 }
 
 @media (max-width: 480px) {
@@ -4045,7 +4039,6 @@ select.form-select.w-25 {
     height: auto;
   }
 
-
   .product-list figure img {
     height: auto;
   }
@@ -4066,8 +4059,6 @@ select.form-select.w-25 {
   .product-list figure img {
     height: auto;
   }
-
-
 
   .bpheadleft p {
     font-size: 14px;
@@ -4094,9 +4085,8 @@ select.form-select.w-25 {
 
   .innerbannerContent h2 {
     color: #000;
-            margin-bottom: 10px;
+    margin-bottom: 10px;
   }
-
 
   .ToolsPageBox figure img {
     height: auto;
@@ -4124,9 +4114,18 @@ select.form-select.w-25 {
     padding-top: 0;
   }
 
-
   .calculatebody ul.radioList li {
     margin-right: 20px;
-}
+  }
 
+  .blogbanner .innerbannerContent {
+    width: 90%;
+    margin: auto;
+    position: absolute;
+  }
+
+  .SmartKichinslider .slick-prev,
+  .SmartKichinslider .slick-next {
+    display: none !important;
+  }
 }

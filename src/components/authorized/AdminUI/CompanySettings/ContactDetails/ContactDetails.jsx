@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const ContactDetails = () => {
   const [isEdit, setIsEdit] = useState(false);
+  const [isEdit1, setIsEdit1] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -16,11 +17,13 @@ const ContactDetails = () => {
     youtube: "",
     kitchenYoutube: "",
     kitchenInstagram: "",
+    kitchenTwitter: "",
   });
 
   const onCancelEdit = () => {
+    setIsEdit1(false);
     setIsEdit(false);
-    fetchContactDetails(); // Reset form with saved data
+    fetchContactDetails();
   };
 
   const handleChange = (e) => {
@@ -28,8 +31,12 @@ const ContactDetails = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    if (!isEdit) return setIsEdit(true);
+  const handleSubmit = async (value) => {
+    if (value == 0) {
+      if (!isEdit) return setIsEdit(true);
+    } else {
+      if (!isEdit1) return setIsEdit1(true);
+    }
 
     try {
       const response = await adminAxios.post(
@@ -38,6 +45,7 @@ const ContactDetails = () => {
       );
       toast.success(response.data.message || "Updated successfully");
       setIsEdit(false);
+      setIsEdit1(false);
     } catch (error) {
       toast.error(error.response?.data?.message || "Update failed");
     }
@@ -56,7 +64,7 @@ const ContactDetails = () => {
     fetchContactDetails();
   }, []);
 
-  const renderInput = (label, name, placeholder = "") => (
+  const renderInput = (label, name, placeholder = "", value) => (
     <div className="col-lg-6 mb-3" key={name}>
       <label htmlFor={name} className="form-label">
         {label}
@@ -69,50 +77,98 @@ const ContactDetails = () => {
         placeholder={placeholder}
         value={formData[name]}
         onChange={handleChange}
-        readOnly={!isEdit}
+        readOnly={value == 0 ? !isEdit : !isEdit1}
       />
     </div>
   );
 
-  const socialFields = [
+  const normalFields = [
+    { label: "Email", name: "email", placeholder: "Enter email" },
+    { label: "Phone", name: "phone", placeholder: "Enter phone number" },
+    { label: "Address", name: "address", placeholder: "Enter address" },
     { label: "Instagram", name: "instagram" },
     { label: "Facebook", name: "facebook" },
     { label: "LinkedIn", name: "linkedin" },
     { label: "Twitter", name: "twitter" },
     { label: "YouTube", name: "youtube" },
-    { label: "Kitchen Instagram", name: "kitchenInstagram" },
-    { label: "Kitchen YouTube", name: "kitchenYoutube" },
+  ];
+
+  const smartKitchenFields = [
+    { label: "Smart Kitchen Instagram", name: "kitchenInstagram" },
+    { label: "Smart Kitchen YouTube", name: "kitchenYoutube" },
+    { label: "Smart Kitchen Twitter", name: "kitchenTwitter" },
   ];
 
   return (
     <div className="row">
-      <div className="col-lg-12">
+      {/* Normal Details Card */}
+      <div className="col-lg-12 mb-4">
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between align-items-center">
             <h4 className="card-title">
               {isEdit ? "Edit Contact Details" : "Contact Details"}
             </h4>
             {isEdit && (
-              <button className="btn btn-sm btn-outline-secondary" onClick={onCancelEdit}>
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                onClick={onCancelEdit}
+              >
                 Cancel Edit
               </button>
             )}
           </div>
-
           <div className="card-body">
             <div className="row">
-              {renderInput("Email", "email", "Enter email")}
-              {renderInput("Phone", "phone", "Enter phone number")}
-              {renderInput("Address", "address", "Enter address")}
-              {socialFields.map((field) =>
-                renderInput(field.label, field.name, `Enter ${field.label.toLowerCase()} link`)
+              {normalFields.map((field) =>
+                renderInput(
+                  field.label,
+                  field.name,
+                  field.placeholder ||
+                    `Enter ${field.label.toLowerCase()} link`,
+                  0
+                )
               )}
             </div>
           </div>
-
           <div className="card-footer text-end border-top">
-            <button className="btn btn-primary" onClick={handleSubmit}>
+            <button className="btn btn-primary" onClick={() => handleSubmit(0)}>
               {isEdit ? "Update Changes" : "Edit"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Smart Kitchen Details Card */}
+      <div className="col-lg-12">
+        <div className={`card ${isEdit1 ? "editing" : ""}`}>
+          <div className="card-header d-flex justify-content-between align-items-center">
+            <h4 className="card-title">
+              {isEdit1 ? "Edit Smart Kitchen Details" : "Smart Kitchen Details"}
+            </h4>
+            {isEdit1 && (
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                onClick={onCancelEdit}
+              >
+                Cancel Edit
+              </button>
+            )}
+          </div>
+          <div className="card-body">
+            <div className="row">
+              {smartKitchenFields.map((field) =>
+                renderInput(
+                  field.label,
+                  field.name,
+                  `Enter ${field.label.toLowerCase()} link`,
+                  1
+                )
+              )}
+            </div>
+          </div>
+          <div className="card-footer text-end border-top">
+            <button className="btn btn-primary" onClick={() => handleSubmit(1)}>
+              {isEdit1 ? "Update Changes" : "Edit"}
             </button>
           </div>
         </div>

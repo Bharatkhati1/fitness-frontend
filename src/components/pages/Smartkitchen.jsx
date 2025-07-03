@@ -156,8 +156,8 @@ function Smartkitchen() {
       { breakpoint: 1200, settings: { slidesToShow: 4 } },
       { breakpoint: 992, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 481, settings: { slidesToShow: 1 } },
-      { breakpoint: 0, settings: { slidesToShow: 1 } },
+      { breakpoint: 481, settings: { slidesToShow: 2 } },
+      { breakpoint: 0, settings: { slidesToShow: 2 } },
     ],
   };
 

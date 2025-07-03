@@ -76,6 +76,7 @@ const adminApiRoutes = {
   create_consultant_leave: `/consultant-leave`,
   update_consultant_leave: (id) => `/consultant-leave/${id}`,
   delete_consultant_leave: (id) => `/consultant-leave/${id}`,
+  update_availibility:(id)=>`/consultant-availability/${id}`,
 
   //SMART KITCHEN CATEGORIES
   get_sk_categories: `/item-category`,
@@ -124,11 +125,11 @@ const adminApiRoutes = {
   //PARTNER COMPONENT ROUTES
   get_partner_coupon:`/partner-coupons`,
   get_coupon_usage:`/partner-coupon-usage`,
-  partner_payment_history:`/partner-payment-history`,
+  partner_payment_history:(id)=>id?`/partner-payment-history?partnerId=${id}`:`/partner-payment-history`,
 
   //CONSULTANT COMPONENT ROUTES
   get_consultant_appointments:`/consultant-appointments`,
-  consultant_payment_history:`/consultant-appointments-payment`,
+  consultant_payment_history:(id)=>id ?`/consultant-appointments-payment?consultantId=${id}`:`/consultant-appointments-payment`,
   
   //ALL ORDERS AND APPOINTMENTS ADMIN
   get_all_orders:`/orders`,

@@ -94,6 +94,7 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
       );
       setSlots(res.data.data);
     } catch (error) {
+      setSlots([]);
       console.error(error.response.data.error);
     }
   };
@@ -215,6 +216,7 @@ function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
                       {slot.start}
                     </li>
                   ))}
+                  {slots.length == 0&&<li style={{width:"300px"}}>No slot availabile</li>}
                 </ul>
               </div>
             </div>
