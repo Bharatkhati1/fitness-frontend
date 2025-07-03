@@ -523,7 +523,7 @@ function Home() {
         <div className="container">
           <div className="PageTitle text-center">
             <h2>
-              What we Offer :<span>Empower Your Health</span>
+              What we Offer: <span>Empower Your Health</span>
             </h2>
             <p>
               Transform your wellness journey with expert guidance and
@@ -700,7 +700,7 @@ function Home() {
               health and fitness.
             </p>
           </div>
-          <div className="row OurHealthBlogRows g-5 g-sm-4  justify-content-center">
+          <div className="row OurHealthBlogRows g-lg-5 g-3  justify-content-center">
             {blogs.map((blog) => (
               <div className="col-lg-5 col-md-6  OurHealthBlogContent">
                 <figure>

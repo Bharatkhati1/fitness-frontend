@@ -47,7 +47,7 @@ const Dashboard = () => {
       const res = await adminAxios.get(
         adminApiRoutes.consultant_payment_history
       );
-      setTransactionHistory(res.data.data);
+      setTransactionHistory(res.data);
     } catch (error) {
       toast.error(error.response.data.error);
     }

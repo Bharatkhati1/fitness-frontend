@@ -38,6 +38,10 @@ const Inquiry = () => {
       key: "event-registration",
       label: "Event Registration",
     },
+    {
+      key: "news-latter",
+      label: "News Letter",
+    },
   ];
 
   const onChange = (key) => {
@@ -47,7 +51,9 @@ const Inquiry = () => {
   const handleDownloadReport = async () => {
     setLoading(true);
     try {
-      const res = await adminAxios.get(adminApiRoutes.export_inquiry(activeTab));
+      const res = await adminAxios.get(
+        adminApiRoutes.export_inquiry(activeTab)
+      );
       const csvContent = res.data;
 
       if (!csvContent) {
@@ -65,9 +71,8 @@ const Inquiry = () => {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response?.data?.error || "Server Error!");
     } finally {
       setLoading(false);
@@ -83,12 +88,14 @@ const Inquiry = () => {
           onChange={onChange}
           className="px-3 pt-2"
         />
-        <button
-          className="download-report-btn"
-          onClick={() => handleDownloadReport()}
-        >
-          EXPORT DATA
-        </button>
+        {activeTab != "news-latter" && (
+          <button
+            className="download-report-btn"
+            onClick={() => handleDownloadReport()}
+          >
+            EXPORT DATA
+          </button>
+        )}
       </div>
       <div className="row">
         <div className="col-xl-12">
@@ -102,10 +109,12 @@ const Inquiry = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
+                      {activeTab != "news-latter" && <th>Name</th>}
                       <th>Email</th>
-                      <th>Contact</th>
-                      {activeTab === "inquiry" && <th>Service</th>}
+                      {activeTab != "news-latter" && <th>Contact</th>}
+                      {activeTab == "inquiry" && activeTab != "news-latter" && (
+                        <th>Service</th>
+                      )}
                       <th>Message</th>
                     </tr>
                   </thead>
@@ -123,9 +132,9 @@ const Inquiry = () => {
                       inquiries.map((item, index) => (
                         <tr key={item.id}>
                           <td>{index + 1}</td>
-                          <td>{item?.name}</td>
+                          {activeTab != "news-latter" && <td>{item?.name}</td>}
                           <td>{item.email || "-"}</td>
-                          <td>{item?.phone}</td>
+                          {activeTab != "news-latter" && <td>{item?.phone}</td>}
                           {activeTab === "inquiry" && (
                             <td>
                               {item?.Service?.map((serv) => serv.name)?.join(
@@ -133,7 +142,19 @@ const Inquiry = () => {
                               )}
                             </td>
                           )}
-                          <td>{item.message || "-"}</td>
+                          {activeTab != "news-latter" && (
+                            <td>{item.message || "-"}</td>
+                          )}
+                          {activeTab == "news-latter" && (
+                            <td>
+                              <a
+                                style={{ color: "#1677ff"}}
+                                href={`mailto:${item?.email}`}
+                              >
+                                Contact
+                              </a>
+                            </td>
+                          )}
                         </tr>
                       ))
                     ) : (

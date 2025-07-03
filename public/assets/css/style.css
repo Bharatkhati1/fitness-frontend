@@ -5791,3 +5791,21 @@ section.WhyUs.SectionSpace {
     transform: scale(1.3);
     transition: 0.8s;
 }
+
+.linkedinimg img {
+    width: 28px;
+    vertical-align: text-bottom;
+}
+
+.FOLLOWUSlist {
+    margin-bottom: 0 !important;
+}
+
+.FOLLOWUSlist  .linkedinicon img {
+    width: 27px;
+    vertical-align: sub;
+}
+
+.FOLLOWUS.bannerfollow {
+    margin-bottom: 0;
+}

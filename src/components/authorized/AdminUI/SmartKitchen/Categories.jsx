@@ -301,6 +301,7 @@ const Categories = () => {
                               <button
                                 class="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  window.scrollTo(0,0)
                                   setIsEdit(true);
                                   setSelectedId(item.id);
                                   setFormData({
