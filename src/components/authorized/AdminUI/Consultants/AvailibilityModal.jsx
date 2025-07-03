@@ -14,7 +14,12 @@ const defaultAvailability = {
   Saturday: { available: false, startTime: "", endTime: "" },
 };
 
-const AvailibilityModal = ({ isModalOpen, setIsModalOpen, consultant, fetchAllConsultants }) => {
+const AvailibilityModal = ({
+  isModalOpen,
+  setIsModalOpen,
+  consultant,
+  fetchAllConsultants,
+}) => {
   const [availability, setAvailability] = useState(defaultAvailability);
 
   useEffect(() => {
@@ -84,7 +89,7 @@ const AvailibilityModal = ({ isModalOpen, setIsModalOpen, consultant, fetchAllCo
       await adminAxios.put(adminApiRoutes.update_availibility(consultant.id), {
         availability: availabilityPayload,
       });
-      fetchAllConsultants()
+      fetchAllConsultants();
       toast.success("Availability updated successfully");
       setIsModalOpen(false);
     } catch (error) {
@@ -107,7 +112,6 @@ const AvailibilityModal = ({ isModalOpen, setIsModalOpen, consultant, fetchAllCo
     >
       <div className="col-lg-12">
         <div className="mb-3">
-          <label className="form-label">Weekly Availability</label>
           <table className="table table-bordered">
             <thead>
               <tr>
@@ -118,42 +122,59 @@ const AvailibilityModal = ({ isModalOpen, setIsModalOpen, consultant, fetchAllCo
               </tr>
             </thead>
             <tbody>
-              {Object.keys(availability).map((day) => (
-                <tr key={day}>
-                  <td>{day}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={availability[day].available}
-                      onChange={() => handleToggle(day)}
-                    />
-                  </td>
-                  <td>
-                    {availability[day].available && (
+              {Object.keys(availability).map((day) => {
+                const { available, startTime, endTime } = availability[day];
+                const isInvalidTime =
+                  available && startTime && endTime && startTime >= endTime;
+                const isMissingTime = available && (!startTime || !endTime);
+
+                return (
+                  <tr key={day}>
+                    <td>{day}</td>
+                    <td>
                       <input
-                        type="time"
-                        value={availability[day].startTime}
-                        onChange={(e) =>
-                          handleTimeChange(day, "startTime", e.target.value)
-                        }
-                        className="form-control"
+                        type="checkbox"
+                        checked={available}
+                        onChange={() => handleToggle(day)}
                       />
-                    )}
-                  </td>
-                  <td>
-                    {availability[day].available && (
-                      <input
-                        type="time"
-                        value={availability[day].endTime}
-                        onChange={(e) =>
-                          handleTimeChange(day, "endTime", e.target.value)
-                        }
-                        className="form-control"
-                      />
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td>
+                      {available && (
+                        <input
+                          type="time"
+                          value={startTime}
+                          onChange={(e) =>
+                            handleTimeChange(day, "startTime", e.target.value)
+                          }
+                          className={`form-control ${
+                            isMissingTime && !startTime ? "is-invalid" : ""
+                          }`}
+                        />
+                      )}
+                    </td>
+                    <td>
+                      {available && (
+                        <input
+                          type="time"
+                          value={endTime}
+                          onChange={(e) =>
+                            handleTimeChange(day, "endTime", e.target.value)
+                          }
+                          className={`form-control ${
+                            isMissingTime && !endTime
+                              ? "is-invalid"
+                              : isInvalidTime
+                              ? "is-invalid"
+                              : ""
+                          }`}
+                          min={startTime || undefined}
+                          disabled={!startTime}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
+import { Select, Tabs } from "antd";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
@@ -20,8 +21,20 @@ const Coupon = () => {
     endDate: "",
     isActive: true,
   });
+  const items = [
+    {
+      key: "global",
+      label: "Global Coupons",
+    },
+    {
+      key: "partner",
+      label: "Partner Coupons",
+    },
+  ];
   const [isEdit, setIsEdit] = useState(false);
+  const [activeTab, setActiveTab] = useState("global");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedPartner, setSelectedPartner] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   const [coupons, setCoupons] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -157,6 +170,24 @@ const Coupon = () => {
       toast.error(error?.response?.data?.message || "Delete failed");
     }
   };
+
+  const onChange = (key) => {
+    setActiveTab(key);
+    setSelectedPartner(""); // Reset partner filter when changing tabs
+  };
+
+  // Filter coupons based on active tab and selected partner
+  const filteredCoupons = coupons.filter((coupon) => {
+    if (activeTab === "global") {
+      return !coupon.partnerId; // Show only coupons with no partner
+    } else if (activeTab === "partner") {
+      if (selectedPartner) {
+        return coupon.partnerId === parseInt(selectedPartner); // Filter by selected partner
+      }
+      return coupon.partnerId; // Show all partner coupons if no partner selected
+    }
+    return true;
+  });
 
   useEffect(() => {
     fetchCoupons();
@@ -444,9 +475,50 @@ const Coupon = () => {
       {/* Table Section */}
       <div className="row mt-4">
         <div className="col-xl-12">
+          <div
+            className="d-flex justify-content-between "
+            style={{ alignItems: "center" }}
+          >
+            <Tabs
+              activeKey={activeTab}
+              items={items}
+              onChange={onChange}
+              className="px-3 pt-2"
+            />
+            {activeTab == "partner" && (
+              <select
+                className="select-partner-coupon"
+                name="partnerId"
+                value={selectedPartner}
+                onChange={(e) => setSelectedPartner(e.target.value)}
+              >
+                <option value="">All Partners</option>
+                {partners.map((partner) => (
+                  <option key={partner.id} value={partner.id}>
+                    {partner.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
-              <h4 className="card-title">All Coupons</h4>
+              <h4 className="card-title">Coupons List</h4>
+              <div>
+                {activeTab === "global" && (
+                  <span className="text-muted">Showing global coupons</span>
+                )}
+                {activeTab === "partner" && selectedPartner && (
+                  <span className="text-muted">
+                    Showing coupons for selected partner
+                  </span>
+                )}
+                {activeTab === "partner" && !selectedPartner && (
+                  <span className="text-muted">
+                    Showing all partner coupons
+                  </span>
+                )}
+              </div>
             </div>
             <div className="card-body p-0">
               <div className="table-responsive">
@@ -467,8 +539,8 @@ const Coupon = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {coupons.length > 0 ? (
-                      coupons.map((item, index) => (
+                    {filteredCoupons.length > 0 ? (
+                      filteredCoupons.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{item?.name}</td>

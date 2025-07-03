@@ -41,16 +41,6 @@ const Consultants = () => {
   const [openDebitModal, setOpenDebitModal] = useState(false);
   const [openWeeklyModa, setOpenWeeklyModal] = useState(false);
 
-  const handleTimeChange = (day, field, value) => {
-    setAvailability((prev) => ({
-      ...prev,
-      [day]: {
-        ...prev[day],
-        [field]: value,
-      },
-    }));
-  };
-
   const fetchAllConsultants = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_consultants);

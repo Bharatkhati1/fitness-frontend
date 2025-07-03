@@ -322,3 +322,10 @@ body .ourcluture .owl-carousel .owl-item.active.center{
   width:25% !important; /* full size for center item */
   z-index: 2; 
 }
+
+.select-partner-coupon{
+  height: 45px !important;
+}
+.select-partner-coupon {
+  appearance: auto !important; 
+}

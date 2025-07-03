@@ -19003,7 +19003,14 @@ body .btn-soft-primary {
   --bs-btn-disabled-bg: #ff6c2f;
   --bs-btn-disabled-border-color: #ff6c2f;
   --bs-btn-focus-shadow-rgb: 0 0 0 $btn-focus-width rgba($bg, 0.5);
+
+
+
 }
+body .btn{
+height: 40px;
+font-size: 11px;
+padding: 13px 10px;}
 
 .btn-soft-secondary {
   --bs-btn-color: #5d7186;
@@ -19019,6 +19026,7 @@ body .btn-soft-primary {
   --bs-btn-disabled-bg: #5d7186;
   --bs-btn-disabled-border-color: #5d7186;
   --bs-btn-focus-shadow-rgb: 0 0 0 $btn-focus-width rgba($bg, 0.5);
+  
 }
 
 .btn-soft-success {
@@ -24960,4 +24968,9 @@ p.no-span::after {
   background: #fff;
   padding: 6px;
   border-radius: 5px;
+}
+
+
+.table tbody tr:last-child td {
+  padding-bottom: 15px;
 }
