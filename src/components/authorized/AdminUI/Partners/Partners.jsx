@@ -161,7 +161,7 @@ const Partners = () => {
                 <div className="col-lg-6">
                   <div className="mb-3">
                     <label className="form-label">
-                      Partner Image{" "}
+                      Partner Logo
                       {isEdit && !formData.image && `: ${selectedFileName}`}
                     </label>
                     <input
@@ -260,7 +260,7 @@ const Partners = () => {
                   <thead className="bg-light-subtle">
                     <tr>
                       <th>Id</th>
-                      <th>Image</th>
+                      <th>Logo</th>
                       <th>Name</th>
                       <th>Email</th>
                       <th>Category</th>

@@ -93,6 +93,7 @@ export const NavItems = {
       subMenu: [
         { name: "All Users", path: "users" },
         { name: "Orders", path: "orders" },
+        { name: "Payment History", path: "payment-history" },
         { name: "Testimonials", path: "testimonials" },
         { name: "Appointments", path: "appointments" },
         { name: "About Us", path: "about-us" },

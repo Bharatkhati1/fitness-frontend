@@ -125,11 +125,11 @@ const adminApiRoutes = {
   //PARTNER COMPONENT ROUTES
   get_partner_coupon:`/partner-coupons`,
   get_coupon_usage:`/partner-coupon-usage`,
-  partner_payment_history:(id)=>`/partner-payment-history?partnerId=${id}`,
+  partner_payment_history:(id)=>id?`/partner-payment-history?partnerId=${id}`:`/partner-payment-history`,
 
   //CONSULTANT COMPONENT ROUTES
   get_consultant_appointments:`/consultant-appointments`,
-  consultant_payment_history:(id)=>`/consultant-appointments-payment?consultantId=${id}`,
+  consultant_payment_history:(id)=>id ?`/consultant-appointments-payment?consultantId=${id}`:`/consultant-appointments-payment`,
   
   //ALL ORDERS AND APPOINTMENTS ADMIN
   get_all_orders:`/orders`,
