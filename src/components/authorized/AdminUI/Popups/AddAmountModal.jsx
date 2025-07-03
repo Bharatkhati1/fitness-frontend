@@ -25,7 +25,7 @@ const AddAmountModal = ({ visible, onCancel, selectedId, type }) => {
 
   const handleCancel = () => {
     form.resetFields();
-    
+    onCancel();
   };
 
   return (

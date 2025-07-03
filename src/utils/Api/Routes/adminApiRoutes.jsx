@@ -76,6 +76,7 @@ const adminApiRoutes = {
   create_consultant_leave: `/consultant-leave`,
   update_consultant_leave: (id) => `/consultant-leave/${id}`,
   delete_consultant_leave: (id) => `/consultant-leave/${id}`,
+  update_availibility:(id)=>`/consultant-availability/${id}`,
 
   //SMART KITCHEN CATEGORIES
   get_sk_categories: `/item-category`,

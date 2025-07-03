@@ -290,9 +290,9 @@ const Partners = () => {
                               />
                             </Link>
                           </td>
-                          <td>{partner.name}</td>
-                          <td>{partner.email}</td>
-                          <td>{partner.Master.name || partner.categoryId}</td>
+                          <td>{partner?.name}</td>
+                          <td>{partner?.email}</td>
+                          <td>{partner.Master?.name || partner.categoryId}</td>
                           <td>
                             <div className="d-flex gap-2">
                               <button

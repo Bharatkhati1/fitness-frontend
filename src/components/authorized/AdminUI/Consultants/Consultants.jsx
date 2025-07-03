@@ -8,6 +8,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import dayjs from "dayjs";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
 import AddAmountModal from "../Popups/AddAmountModal.jsx";
+import AvailibilityModal from "./AvailibilityModal.jsx";
 
 const Consultants = () => {
   const [formData, setFormData] = useState({
@@ -32,16 +33,22 @@ const Consultants = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedConsultantID, setSelectedConsultantID] = useState(null);
+  const [selectedConsultant, setSelectedConsultant] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
   const [selectedDays, setSelectedDays] = useState([]);
   const [openDebitModal, setOpenDebitModal] = useState(false);
+  const [openWeeklyModa, setOpenWeeklyModal] = useState(false);
 
-  const handleDayToggle = (day) => {
-    setSelectedDays((prev) =>
-      prev?.includes(day) ? prev?.filter((d) => d !== day) : [...prev, day]
-    );
+  const handleTimeChange = (day, field, value) => {
+    setAvailability((prev) => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        [field]: value,
+      },
+    }));
   };
 
   const fetchAllConsultants = async () => {
@@ -63,13 +70,6 @@ const Consultants = () => {
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
-  };
-
-  const handleTimeChange = (name, time) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: time ? time.format("HH:mm:ss") : "",
-    }));
   };
 
   const handleSubmit = async () => {
@@ -152,6 +152,12 @@ const Consultants = () => {
         onCancel={() => setOpenDebitModal(false)}
         selectedId={selectedConsultantID}
         type="consultant"
+      />
+      <AvailibilityModal
+        isModalOpen={openWeeklyModa}
+        setIsModalOpen={setOpenWeeklyModal}
+        consultant={selectedConsultant}
+        fetchAllConsultants={fetchAllConsultants}
       />
       {/* Form Section */}
       <div className="row">
@@ -247,52 +253,6 @@ const Consultants = () => {
                   </div>
                 ))}
 
-                {/* Daily Start Time */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Daily Start Time</label>
-                    <TimePicker
-                      className="w-100"
-                      format="HH:mm"
-                      size="large"
-                      value={
-                        formData.dailyStart
-                          ? dayjs(formData.dailyStart, "HH:mm:ss")
-                          : null
-                      }
-                      onChange={(time) => handleTimeChange("dailyStart", time)}
-                      placeholder="Select start time"
-                      minuteStep={15}
-                      hourStep={1}
-                      secondStep={60} // Disable seconds selection
-                      showNow={false}
-                    />
-                  </div>
-                </div>
-
-                {/* Daily End Time */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Daily End Time</label>
-                    <TimePicker
-                      className="w-100"
-                      size="large"
-                      format="HH:mm"
-                      value={
-                        formData.dailyEnd
-                          ? dayjs(formData.dailyEnd, "HH:mm:ss")
-                          : null
-                      }
-                      onChange={(time) => handleTimeChange("dailyEnd", time)}
-                      placeholder="Select end time"
-                      minuteStep={15}
-                      hourStep={1}
-                      secondStep={60} // Disable seconds selection
-                      showNow={false}
-                    />
-                  </div>
-                </div>
-
                 {/* Image Upload */}
                 <div className="col-lg-6">
                   <div className="mb-3">
@@ -313,41 +273,6 @@ const Consultants = () => {
                   </div>
                 </div>
 
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Weekly Availability</label>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Day</th>
-                          <th>Available</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          "Sunday",
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
-                          "Friday",
-                          "Saturday",
-                        ].map((day) => (
-                          <tr key={day}>
-                            <td>{day}</td>
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={selectedDays?.includes(day)}
-                                onChange={() => handleDayToggle(day)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
                 {/* Status */}
                 <div className="col-lg-6">
                   <label className="form-label d-block">Status</label>
@@ -492,6 +417,15 @@ const Consultants = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
+                                  setSelectedConsultant(consultant);
+                                  setOpenWeeklyModal(true);
+                                }}
+                              >
+                                Availibilty
+                              </button>
+                              <button
+                                className="btn btn-soft-primary btn-sm"
+                                onClick={() => {
                                   window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedConsultantID(consultant.id);
@@ -534,10 +468,10 @@ const Consultants = () => {
                                   <iconify-icon
                                     icon="solar:trash-bin-minimalistic-2-broken"
                                     class="fs-18"
-                                    onClick={() =>
-                                      {(selectedIdref.current = consultant.id)
-                                      setSelectedConsultantID(consultant.id);}
-                                    }
+                                    onClick={() => {
+                                      selectedIdref.current = consultant.id;
+                                      setSelectedConsultantID(consultant.id);
+                                    }}
                                   />
                                 }
                               />
