@@ -126,7 +126,7 @@ function AllPakages() {
           card.style.height = `${maxHeight}px`;
         });
       };
-      setTimeout(equalizeCardHeights, 200);
+      setTimeout(equalizeCardHeights, 300);
   
       window.addEventListener("resize", equalizeCardHeights);
       return () => window.removeEventListener("resize", equalizeCardHeights);

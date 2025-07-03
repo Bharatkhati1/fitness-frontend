@@ -22,6 +22,8 @@ import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
+import twitterbox from "../../../public/assets/img/twitterbox.png"
+
 function Smartkitchen() {
   const dispatch = useDispatch();
   const {
@@ -154,8 +156,8 @@ function Smartkitchen() {
       { breakpoint: 1200, settings: { slidesToShow: 4 } },
       { breakpoint: 992, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 481, settings: { slidesToShow: 1 } },
-      { breakpoint: 0, settings: { slidesToShow: 1 } },
+      { breakpoint: 481, settings: { slidesToShow: 2 } },
+      { breakpoint: 0, settings: { slidesToShow: 2 } },
     ],
   };
 
@@ -214,6 +216,7 @@ function Smartkitchen() {
                   <h3>follow us </h3>
                   <ul className="FOLLOWUSlist d-flex">
                     <li>
+
                       <Link to={contactUsDetails?.kitchenInstagram}>
                         <img src={ficoninsta}></img>
                       </Link>
@@ -221,6 +224,11 @@ function Smartkitchen() {
                     <li>
                       <Link to={contactUsDetails?.kitchenYoutube}>
                         <img src={ficonyoutube}></img>
+                      </Link>
+                    </li>
+                      <li>
+                      <Link to={contactUsDetails?.kitchenYoutube} className="linkedinicon">
+                         <img src={twitterbox} />
                       </Link>
                     </li>
                   </ul>
@@ -264,7 +272,7 @@ function Smartkitchen() {
       {/* Recipe Cards */}
       <section className="SmartKichinlist">
         <div className="container">
-          <h3>{kitchenData.length} Recipe</h3>
+          <h3 className="SmartKichinlistitle">{kitchenData.length} Recipe</h3>
           <div className="row row-cols-5 SmartKichinlistrow">
             {kitchenData?.length > 0 ? (
               kitchenData?.map((item) => (
@@ -347,6 +355,14 @@ function Smartkitchen() {
                   <Link to={contactUsDetails?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
                   </Link>
+
+                  
+                </li>
+
+                <li>
+                    <Link to={contactUsDetails?.kitchenYoutube} className="linkedinicon">
+                         <img src={twitterbox} />
+                      </Link>
                 </li>
               </ul>
             </div>

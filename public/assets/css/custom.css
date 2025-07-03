@@ -290,12 +290,12 @@ select.form-control {
 .SmartKichinslider .active-image{
   border:2px solid #800030;
 } 
-.SmartKichinlist h3{
-  margin-top: -25px;
+.SmartKichinlist .SmartKichinlistitle{
+ 
   font-size: 27px;
   color: #007946;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .FOLLOWUS{
   margin-bottom: 20px;

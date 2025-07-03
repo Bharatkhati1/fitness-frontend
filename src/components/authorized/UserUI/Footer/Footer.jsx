@@ -6,6 +6,9 @@ import YoutUbeIcon from "../../../../../public/assets/img/YoutubeIcon.png";
 import CallIcon from "../../../../../public/assets/img/callIcon.png";
 import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png";
 import { Link } from "react-router-dom";
+
+
+import linkedinblack from "../../../../../public/assets/img/linkedinblack.png";
 import {
   getContactusDetails,
   getServicesForUser,
@@ -86,6 +89,12 @@ const Footer = () => {
                 <li>
                   <a target="_blank" href={`${contactUsDetails?.youtube}`}>
                     <img src={YoutUbeIcon}></img>
+                  </a>
+                </li>
+
+                  <li>
+                  <a className="linkedinicon" target="_blank" href={`${contactUsDetails?.youtube}`}>
+                    <img src={linkedinblack}></img>
                   </a>
                 </li>
               </ul>

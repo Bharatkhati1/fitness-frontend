@@ -244,10 +244,10 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1680px) {
-  .MuktiBox,
+  /* .MuktiBox,
   .PosterSec {
     height: 484px;
-  }
+  } */
 
   .btn.btn-primary.xm-btn {
     font-size: 15px;
@@ -2694,12 +2694,16 @@
 }
 
 @media (max-width: 575px) {
+  body .owl-item .OurServicesContent figure img {
+    height: auto;
+  }
   .OurServicesRow .col-md-4 {
     width: 100%;
   }
 
   .OurServicesContent figcaption p {
     min-height: auto;
+    height: auto;
   }
 
   .AboutInfo .col-md-5.text-left figure img {
@@ -3107,11 +3111,6 @@
     top: 0;
   }
 
-  .SectionSpace .container {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
   .filterOwl .owl-nav button.owl-prev span {
     left: -102px;
   }
@@ -3259,6 +3258,104 @@
   }
 }
 
+@media (max-width: 992px) {
+  .bannerSection .owl-carousel .owl-item {
+    aspect-ratio: inherit;
+  }
+
+  .bannerSection .owl-theme .owl-dots {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .BestTag {
+    margin-top: 24px;
+    background: #eee;
+  }
+
+  .circletagShapeBox {
+    display: none;
+  }
+
+  .circletagShapeBox {
+    right: 10%;
+    top: 54px;
+  }
+
+  .slider-image {
+    position: static;
+  }
+
+  .SmartKichinContent figure img {
+    height: auto;
+  }
+
+  section.SmartKichin.SectionSpace {
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .owl-p ul li {
+    font-size: 12px;
+  }
+
+  .bannerSectionLeft h1 {
+    font-size: 16px;
+  }
+
+  .ClientListinfo {
+    margin: 10px 0 !important;
+  }
+
+  .innerbannerContent p {
+    flex-wrap: wrap;
+  }
+  select.form-select.w-25 {
+    width: 100% !important;
+    margin-top: 15px;
+  }
+
+  .innerbannerContent {
+    position: static;
+  }
+
+  .innerbanner:after {
+    background: rgb(0 0 0 / 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  .innerbanner figure {
+    position: relative;
+  }
+  .innerbanner figure:after {
+    background: rgb(0 0 0 / 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+  }
+
+  .innerbannerContent p {
+    color: #000;
+  }
+  .innerbannerContent {
+    padding: 0;
+    padding-top: 20px;
+  }
+}
+
 @media (max-width: 480px) {
   a.navbar-brand img {
     width: 100px;
@@ -3301,13 +3398,13 @@
   }
 
   .OurHealthBlogContent figure img {
-    height: 170px;
+    height: auto;
   }
 
   .ContactUs {
-    width: 67%;
+    width: 100%;
 
-    left: 15px;
+    left: 0px;
     top: 13px;
   }
 
@@ -3405,6 +3502,7 @@
 
   .bookappoinmentl figure img {
     width: 97%;
+    height: auto;
   }
 
   .btn-group-box .btn {
@@ -3518,10 +3616,6 @@
 
   .Browseservice {
     width: 85%;
-  }
-
-  .productslists {
-    padding: 0 20px;
   }
 
   .allpakages button.owl-next span {
@@ -3944,47 +4038,94 @@
   .getintouchinner .getintouchinnerleft figure img {
     height: auto;
   }
-}
 
-@media (max-width: 576px) {
-  .owl-p ul li {
-    font-size: 12px;
+  .product-list figure img {
+    height: auto;
   }
 
-  .bannerSectionLeft h1 {
-    font-size: 16px;
+  .product-list figcaption h3 {
+    min-height: auto;
+    display: flex;
   }
 
-  .ClientListinfo {
-    margin: 10px 0 !important;
-  }
-}
-
-@media (max-width: 992px) {
-  .bannerSection .owl-carousel .owl-item {
-    aspect-ratio: inherit;
+  .product-list .row.h-100 {
+    height: auto !important;
   }
 
-  .bannerSection .owl-theme .owl-dots {
-    position: static;
-    margin-top: 12px;
+  .product-list figcaption {
+    height: auto !important;
   }
 
-  .BestTag {
-    margin-top: 24px;
-    background: #eee;
+  .product-list figure img {
+    height: auto;
   }
 
-  .circletagShapeBox {
-    display: none;
+  .bpheadleft p {
+    font-size: 14px;
   }
 
-  .circletagShapeBox {
-    right: 10%;
-    top: 54px;
+  .bookappoinmentbody .justify-content-start {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0 !important;
   }
 
-  .slider-image {
-    position: static;
+  .bookappoinmentbody .justify-content-start a {
+    width: 100%;
+  }
+
+  .bookappoinmentr {
+    padding: 30px 40px 30px;
+  }
+
+  .bpheadleft h4 {
+    font-size: 20px;
+  }
+
+  .innerbannerContent h2 {
+    color: #000;
+    margin-bottom: 10px;
+  }
+
+  .ToolsPageBox figure img {
+    height: auto;
+  }
+
+  .InnerSpace {
+    padding: 30px 0;
+  }
+
+  .calculatebody {
+    width: 100%;
+  }
+
+  .calculatebody {
+    width: 100%;
+  }
+
+  .calculateButton .btn.btn-primary {
+    min-width: 100%;
+    font-size: 14px;
+  }
+
+  .calculateButton {
+    padding: 20px 20px;
+    padding-top: 0;
+  }
+
+  .calculatebody ul.radioList li {
+    margin-right: 20px;
+  }
+
+  .blogbanner .innerbannerContent {
+    width: 90%;
+    margin: auto;
+    position: absolute;
+  }
+
+  .SmartKichinslider .slick-prev,
+  .SmartKichinslider .slick-next {
+    display: none !important;
   }
 }

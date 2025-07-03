@@ -11,6 +11,8 @@ import JoinCommunity from "./Modals/JoinCommunity";
 import { sendInquiry } from "../../../../store/auth/AuthExtraReducers";
 import { toast } from "react-toastify";
 
+import linkedin from "../../../../../public/assets/img/linkedin.png"
+
 function ContactUs() {
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth
@@ -140,6 +142,19 @@ function ContactUs() {
                           href={`${contactUsDetails?.youtube}`}
                         >
                           <img src={cyoutubeIcon} />
+                        </a>
+                      </li>
+
+
+                       <li>
+                        <a
+                          target="_blank"
+                          // href={#}
+                          className="linkedinimg"
+                        >
+
+                            <img src={linkedin} />
+                         
                         </a>
                       </li>
                     </ul>
