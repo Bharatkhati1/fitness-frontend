@@ -29,7 +29,7 @@ import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { sendInquiry } from "../../store/auth/AuthExtraReducers.jsx";
-const { Option } = Select
+const { Option } = Select;
 export default function Events() {
   const navigate = useNavigate();
   const [eventType, setEventTypes] = useState([]);
@@ -119,7 +119,7 @@ export default function Events() {
     }));
   };
 
-  console.log(carouselRef)
+  console.log(carouselRef);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -132,7 +132,7 @@ export default function Events() {
       email: formData.email,
       phone: formData.mobile,
       itemId: formData.eventId,
-      type : "event-registration"
+      type: "event-registration",
     };
 
     const toastId = toast.loading("Submitting your details...");
@@ -318,7 +318,9 @@ export default function Events() {
 
                           <li>
                             <img src={calendericon4}></img>{" "}
-                            <span>{event.spots - event?.spotLimit} spots left</span>
+                            <span>
+                              {event.spots - event?.spotLimit} spots left
+                            </span>
                           </li>
                         </ul>
 
@@ -341,7 +343,7 @@ export default function Events() {
                               setFormData((prev) => ({
                                 ...prev,
                                 eventId: event.id,
-                                eventTime:event.time
+                                eventTime: event.time,
                               }));
                               showModal();
                             }}
@@ -383,10 +385,10 @@ export default function Events() {
                     dots={false}
                     items={3}
                     nav={true}
-                    key={pastevents.map((i)=> i.id)?.join(",")}
+                    key={pastevents.map((i) => i.id)?.join(",")}
                     margin={20}
                     ref={carouselRef}
-                    startPosition={1} 
+                    startPosition={1}
                     center={pastevents.length > 2}
                     onChanged={(e) => {
                       carouselRef.current = e.item.index;
@@ -665,7 +667,23 @@ export default function Events() {
                   required
                 />
                 <label className="form-check-label " htmlFor="termsAccepted">
-                  I accept the Terms and Conditions
+                  I accept the{" "}
+                  <a
+                    style={{ color: "#0d6efd" }}
+                    href="https://daily-fitness.24livehost.com/terms-conditions"
+                    target="_blank"
+                  >
+                    Terms & Conditions
+                  </a>{" "}
+                  and
+                  <a
+                    style={{ color: "#0d6efd" }}
+                    href="https://daily-fitness.24livehost.com/privacy-policy"
+                    target="_blank"
+                  >
+                    {" "}
+                    Privacy Policy
+                  </a>
                 </label>
               </div>
 
@@ -740,7 +758,7 @@ export default function Events() {
                       onChange={(e) => {
                         const val = e.target.value;
                         if (/^\d{0,10}$/.test(val)) {
-                          handleChangeContact(e); 
+                          handleChangeContact(e);
                         }
                       }}
                       placeholder="Enter your contact number"

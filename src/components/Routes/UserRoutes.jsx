@@ -32,6 +32,7 @@ import CartBag from "../pages/CartBag";
 import Profile from "../pages/Profile/Profile";
 import Trial from "../authorized/UserUI/Body/Trial";
 import SiteMap from "../pages/SiteMap";
+import TermAndConditions from "../authorized/UserUI/Body/TermAndConditions";
 
 export default function UserRoutes() {
   const  userAccessToken  = useSelector((state) => state.auth.userAccessToken);
@@ -65,6 +66,7 @@ export default function UserRoutes() {
             <Route path="/package/:slug" element={<PackageDetails />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/terms-conditions" element={<TermAndConditions />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events-details/:slug" element={<UpcomigDetails type="event"/>} />
             <Route path="/innovation-details/:slug" element={<UpcomigDetails />} />

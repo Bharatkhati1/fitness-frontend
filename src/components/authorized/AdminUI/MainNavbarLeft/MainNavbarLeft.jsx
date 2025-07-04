@@ -101,6 +101,7 @@ export const NavItems = {
         { name: "Job Applications", path: "applied-jobs" },
         { name: "Contact Details", path: "contact-details" },
         { name: "Privacy Policy", path: "privacy-policy" },
+        { name: "Terms & Conditions", path: "terms-conditions" },
         { name: "Refund Policy", path: "refund-policy" },
         { name: "Careers", path: "career" },
         { name: "Innovation", path: "innovation" },
