@@ -1,7 +1,7 @@
 import React from "react";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
 import userImage from "../../../../../public/assets/images/users/avatar-1.jpg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { NavItems } from "../MainNavbarLeft/MainNavbarLeft";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -21,6 +21,8 @@ const TopBar = () => {
   } else if (pathname.includes("/service-provider")) {
     type = "service-provider";
   }
+
+
   // Function to extract display name from NavItems
   const getTitleFromNavItems = (pathname) => {
     const segments = pathname.split("/").filter(Boolean); // Remove empty strings
@@ -86,6 +88,10 @@ const TopBar = () => {
               </a>
               <div className="dropdown-menu dropdown-menu-end">
                 <h6 className="dropdown-header">Welcome!</h6>
+                <Link className="dropdown-item" to="/admin/profile">
+                  <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
+                  <span className="align-middle">Profile</span>
+                </Link>
                 <button
                   className="dropdown-item text-danger"
                   onClick={() => handleLogout()}

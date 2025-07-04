@@ -18,6 +18,7 @@ const ContactDetails = () => {
     kitchenYoutube: "",
     kitchenInstagram: "",
     kitchenTwitter: "",
+    script:"",
   });
 
   const onCancelEdit = () => {
@@ -106,7 +107,7 @@ const ContactDetails = () => {
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between align-items-center">
             <h4 className="card-title">
-              {isEdit ? "Edit Contact Details" : "Contact Details"}
+              {isEdit ? "Edit Daily Fitness Links" : "Daily Fitness Links"}
             </h4>
             {isEdit && (
               <button
@@ -128,19 +129,6 @@ const ContactDetails = () => {
                   0
                 )
               )}
-              <div className="col-lg-12 mb-3">
-                <label className="form-label">Google Script</label>
-                <textarea
-                  type="text"
-                  id="script"
-                  name="script"
-                  className="form-control"
-                  value={formData.script}
-                  onChange={handleChange}
-                  readOnly={!isEdit}
-                  style={{ minHeight: "130px", resize: "vertical" }}
-                />
-              </div>
             </div>
           </div>
           <div className="card-footer text-end border-top">
@@ -156,7 +144,7 @@ const ContactDetails = () => {
         <div className={`card ${isEdit1 ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between align-items-center">
             <h4 className="card-title">
-              {isEdit1 ? "Edit Smart Kitchen Details" : "Smart Kitchen Details"}
+              {isEdit1 ? "Edit Smart Kitchen Links" : "Smart Kitchen Links"}
             </h4>
             {isEdit1 && (
               <button

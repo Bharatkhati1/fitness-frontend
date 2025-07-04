@@ -238,8 +238,8 @@ function AllPakages() {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     version="1.1"
-                    width="30"
-                    height="30"
+                    width="40"
+                    height="40"
                     x="0"
                     y="0"
                     viewBox="0 0 24 24"
@@ -264,8 +264,8 @@ function AllPakages() {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     version="1.1"
-                    width="30"
-                    height="30"
+                    width="40"
+                    height="40"
                     x="0"
                     y="0"
                     viewBox="0 0 6.35 6.35"

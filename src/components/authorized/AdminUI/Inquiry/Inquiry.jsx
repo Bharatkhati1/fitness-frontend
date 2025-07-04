@@ -1,4 +1,4 @@
-import React, { act, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
