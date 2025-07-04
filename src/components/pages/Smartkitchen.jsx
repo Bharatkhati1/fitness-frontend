@@ -275,7 +275,7 @@ function Smartkitchen() {
       <section className="SmartKichinlist">
         <div className="container">
           <h3 className="SmartKichinlistitle">{kitchenData.length} Recipes</h3>
-          <div className="row row-cols-5 SmartKichinlistrow">
+          <div className="row row-cols-4 SmartKichinlistrow">
             {kitchenData?.length > 0 ? (
               kitchenData?.map((item) => (
                 <div className="col" key={item.id}>

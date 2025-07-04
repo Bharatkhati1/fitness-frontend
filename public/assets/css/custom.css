@@ -359,3 +359,7 @@ outline: none !important;
   justify-content: center;
   color: #ffffff;
 }
+
+.custom-modal  label.form-check-label.event-register{
+  font-size: 14px;
+}
