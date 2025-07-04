@@ -187,7 +187,7 @@ export default function Events() {
     e.preventDefault();
     const payload = {
       ...formDataContact,
-      type: "event",
+      type: "event-inquiry",
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formDataContact.phone)) {

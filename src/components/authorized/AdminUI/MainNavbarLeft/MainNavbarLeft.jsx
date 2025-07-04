@@ -50,6 +50,7 @@ export const NavItems = {
       subMenu: [
         { name: "Recepies", path: "recepies" },
         { name: "Category", path: "category" },
+        { name: "Tags", path: "tags" },
       ],
     },
     {

@@ -36,6 +36,7 @@ function BusinessParthner() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    contactFor: "",
     phone: "",
     message: "",
   });
@@ -61,6 +62,7 @@ function BusinessParthner() {
     await sendInquiry(payload);
     setFormData({
       name: "",
+      contactFor: "",
       email: "",
       phone: "",
       message: "",
@@ -213,7 +215,6 @@ function BusinessParthner() {
             <div className="medicalpartners">
               {category?.Partners && category.Partners.length > 0 && (
                 <>
-                 
                   <div class="PageTitle text-center">
                     <h2>{category.name}</h2>
                   </div>
@@ -224,23 +225,23 @@ function BusinessParthner() {
                     merge={true}
                     nav={true}
                     margin={30}
-                          responsive={{
-                    0: {
-                      items: 1, // 0px and up
-                    },
-                    481: {
-                      items: 1, // 0px and up
-                    },
-                    768: {
-                      items: 3, // 600px and up
-                    },
-                    992: {
-                      items: 4, // 600px and up
-                    },
-                    1200: {
-                      items: 4, // 1000px and up
-                    },
-              }}
+                    responsive={{
+                      0: {
+                        items: 1, // 0px and up
+                      },
+                      481: {
+                        items: 1, // 0px and up
+                      },
+                      768: {
+                        items: 3, // 600px and up
+                      },
+                      992: {
+                        items: 4, // 600px and up
+                      },
+                      1200: {
+                        items: 4, // 1000px and up
+                      },
+                    }}
                   >
                     {category.Partners.map((ptr) => (
                       <>
@@ -299,20 +300,21 @@ function BusinessParthner() {
                   <div className="col-md-6 mb-3">
                     <label>Business Name*</label>
                     <input
-                      name="name"
+                      name="contactFor"
                       onChange={(e) => {
                         const value = e.target.value;
                         if (/^[A-Za-z\s]*$/.test(value)) {
                           handleChange(e);
                         }
                       }}
+                      value={formData.contactFor}
                       placeholder="Enter your business name"
                       className="form-control greyin"
                       type="text"
                       required
                     />
                   </div>
-                    <div className="col-md-6 ">&nbsp;</div>
+                  <div className="col-md-6 ">&nbsp;</div>
                   <div className="col-md-6 mb-3">
                     <label>Your Email ID*</label>
                     <input
@@ -325,7 +327,7 @@ function BusinessParthner() {
                       required
                     />
                   </div>
-                   <div className="col-md-6 ">&nbsp;</div>
+                  <div className="col-md-6 ">&nbsp;</div>
                   <div className="col-md-6 mb-3">
                     <label>Your Contact Number*</label>
                     <div className="contactInput">
@@ -336,7 +338,7 @@ function BusinessParthner() {
                         onChange={(e) => {
                           const val = e.target.value;
                           if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e); 
+                            handleChange(e);
                           }
                         }}
                         placeholder="Enter your contact number"

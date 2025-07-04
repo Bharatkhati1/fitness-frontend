@@ -16,9 +16,10 @@ const Recepies = () => {
     image: null,
     type: null,
     categoryId: null,
+    tagId: null,
     isActive: true,
   });
- 
+
   const [allReceipes, setAllReceipes] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,9 +27,10 @@ const Recepies = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedPdfName, setSelectedPdfname] = useState("");
   const [allCategories, setAllCategories] = useState([]);
+  const [tags, setTags] = useState([]);
   const fileInputRef = useRef(null);
   const pdfInputRef = useRef(null);
-  const selectedIdref = useRef(null)
+  const selectedIdref = useRef(null);
 
   const fetchAllReciepe = async () => {
     try {
@@ -51,19 +53,19 @@ const Recepies = () => {
 
   const handleFormDataChange = (e) => {
     const { name, value, type, files } = e.target;
-  
+
     if (type === "file") {
       const file = files[0];
       if (!file) return;
-  
+
       // Check for PDF file if the input name is "recipe"
       if (name === "recipe") {
         if (file.type !== "application/pdf") {
-          e.target.value = ""; 
+          e.target.value = "";
           return;
         }
       }
-  
+
       setFormData((prev) => ({ ...prev, [name]: file }));
       setSelectedFileName(file.name || "");
     } else if (type === "radio") {
@@ -72,7 +74,18 @@ const Recepies = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-  
+
+  const fetchAllTags = async () => {
+    try {
+      const res = await adminAxios.get(
+        adminApiRoutes.get_master_category("tags")
+      );
+      setTags(res.data.data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      toast.error(error.response?.data?.message || "Fetch error");
+    }
+  };
 
   const handleSubmit = async () => {
     if (!formData.image && !isEdit) {
@@ -137,12 +150,13 @@ const Recepies = () => {
       categoryId: null,
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
-    if(pdfInputRef.current ) pdfInputRef.current.value = "";
+    if (pdfInputRef.current) pdfInputRef.current.value = "";
   };
 
   useEffect(() => {
     fetchAllReciepe();
     fetchAllCategories();
+    fetchAllTags();
   }, []);
   return (
     <>
@@ -184,7 +198,8 @@ const Recepies = () => {
                 <div className="col-lg-4">
                   <div className="mb-3">
                     <label htmlFor="receipe-image" className="form-label">
-                      Image {isEdit && !formData?.image && `: ${selectedFileName}`}
+                      Image{" "}
+                      {isEdit && !formData?.image && `: ${selectedFileName}`}
                     </label>
                     <input
                       id="receipe-image"
@@ -192,10 +207,10 @@ const Recepies = () => {
                       type="file"
                       ref={fileInputRef}
                       className="form-control"
-                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
+                      accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       onChange={handleFormDataChange}
                     />
-                     <ImageDimensionNote type="smartKitchen"/>
+                    <ImageDimensionNote type="smartKitchen" />
                   </div>
                 </div>
 
@@ -216,6 +231,29 @@ const Recepies = () => {
                       {allCategories.map((category) => (
                         <Option key={category.id} value={category.id}>
                           {category.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <label className="form-label">Tags</label>
+                    <Select
+                      allowClear
+                      size="large"
+                      style={{ width: "100%" }}
+                      placeholder="Select Category"
+                      value={formData.tagId}
+                      onChange={(value) =>
+                        setFormData((prev) => ({ ...prev, tagId: value }))
+                      }
+                    >
+                      {tags.map((tg) => (
+                        <Option key={tg.id} value={tg.id}>
+                          {tg.name}
                         </Option>
                       ))}
                     </Select>
@@ -337,6 +375,7 @@ const Recepies = () => {
                       <th>Name</th>
                       <th>Recipe type</th>
                       <th>Category</th>
+                      <th>Tag</th>
                       <th>Description</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -368,6 +407,7 @@ const Recepies = () => {
                           <td>{recipe.name}</td>
                           <td>{recipe.type}</td>
                           <td>{recipe.ItemCategory.name}</td>
+                          <td>{recipe?.Master?.name||'-'}</td>
                           <td>{recipe.description}</td>
                           <td>
                             <span
@@ -383,7 +423,7 @@ const Recepies = () => {
                               <button
                                 className="btn btn-soft-primary btn-sm"
                                 onClick={() => {
-                                  window.scrollTo(0,0)
+                                  window.scrollTo(0, 0);
                                   setIsEdit(true);
                                   setSelectedReciepeID(recipe.id);
                                   setFormData({
@@ -393,9 +433,10 @@ const Recepies = () => {
                                     type: recipe.type,
                                     categoryId: recipe.categoryId,
                                     recipe: null,
+                                    tagId:recipe.tagId,
                                     isActive: recipe.isActive,
                                   });
-                                  setSelectedPdfname(recipe.recipe)
+                                  setSelectedPdfname(recipe.recipe);
                                   setSelectedFileName(recipe.image);
                                 }}
                               >

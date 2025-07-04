@@ -3,6 +3,7 @@ import PageLoader from "../../../PageLoader";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Recepies from "./Recepies";
 import Categories from "./Categories";
+import Tags from "./Tags";
 
 const index = () => {
   return (
@@ -11,6 +12,7 @@ const index = () => {
         <Route index element={<Navigate to="recepies" replace />} />
         <Route path="recepies" element={<Recepies />} />
         <Route path="category" element={<Categories />} />
+        <Route path="tags" element={<Tags />} />
         <Route path="/" element={<Navigate replace to="recepies" />} />
       </Routes>
     </Suspense>
