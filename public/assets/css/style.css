@@ -1941,6 +1941,10 @@ ul.BottomFooterList li a {
   width: auto !important;
 }
 
+body .main-packge .owl-item figure img {
+height: auto  !important;
+aspect-ratio: 1 / .7;
+}
 body .owl-item .OurServicesContent figure img {
   height: 250px;
   width: 100% !important;

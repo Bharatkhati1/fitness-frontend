@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import userAxios from "../../../utils/Api/userAxios";
 import userApiRoutes from "../../../utils/Api/Routes/userApiRoutes";
 import { useDispatch } from "react-redux";
+import Avtar from "../images/Avtar.png"
 import { logoutUser } from "../../../store/auth/AuthExtraReducers";
 import ProfileInfo from "./ProfileInfo";
 import ProfileMyPakages from "./ProfileMyPakages";
@@ -170,10 +171,10 @@ function Profile() {
               <figure>
                 <img
                   crossOrigin="anonymous"
-                  src={profileDetails?.profilePictureUrl || profileuserimg}
+                  src={profileDetails?.profilePictureUrl || Avtar}
                   alt="profile"
                   onError={(e) => {
-                    e.target.src = profileuserimg;
+                    e.target.src = Avtar;
                   }}
                 />
               </figure>

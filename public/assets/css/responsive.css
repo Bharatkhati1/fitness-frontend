@@ -4128,4 +4128,7 @@
   .SmartKichinslider .slick-next {
     display: none !important;
   }
+
+  .SmartKichinlistrow figure img {
+    height: auto;}
 }
