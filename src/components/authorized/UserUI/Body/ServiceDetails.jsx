@@ -177,7 +177,7 @@ const handleSlideChange = (event) => {
             )}
           </div>
 
-          <div className="px-xxl-0 px-3">
+          <div className="">
             <div className="row servicedetaillisting">
               {Array.isArray(packages) &&
               packages.length > 0 &&

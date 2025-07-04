@@ -2944,7 +2944,7 @@
   }
 
   ul.ourapproachlist li {
-    width: 70%;
+    width: 100%;
     flex: 0;
     margin: auto;
   }
@@ -3060,12 +3060,12 @@
   }
 
   .typeofevents .owl-carousel.owl-theme {
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
 
   .gotquestionsbg {
-    width: 85%;
+    width: 100%;
     margin: auto;
   }
 
@@ -3354,6 +3354,10 @@
     padding: 0;
     padding-top: 20px;
   }
+
+      .row.row-cols-5.SmartKichinlistrow figcaption h4 {
+        height: auto;
+    }
 }
 
 @media (max-width: 480px) {
@@ -4130,5 +4134,43 @@
   }
 
   .SmartKichinlistrow figure img {
-    height: auto;}
+    height: auto;
+  }
+
+  .contentlink {
+    font-size: 14px;
+  }
+
+  .contentlinkmain a {
+    font-size: 14px;
+  }
+
+  .PageTitle {
+    padding-bottom: 0 !important;
+  }
+
+  .our-approachmain .PageTitle h2 {
+    font-size: 20px;
+  }
+
+  ul.ourapproachlist li:after {
+    border-bottom: 4px dashed #fff;
+  }
+
+  .ourapproachlist .content p {
+    font-size: 14px;
+  }
+
+ .EventsBannercontent  .hvr-shutter-out-horizontal {
+    text-align: center;
+    margin: auto;
+}
+
+.SmartKichinlistrow figcaption p {
+        height: auto;
+    }
+
+
+
+
 }

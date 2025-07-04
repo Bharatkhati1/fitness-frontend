@@ -329,3 +329,6 @@ body .ourcluture .owl-carousel .owl-item.active.center{
 .select-partner-coupon {
   appearance: auto !important; 
 }
+.ant-tabs-tab-btn{
+outline: none !important;
+}

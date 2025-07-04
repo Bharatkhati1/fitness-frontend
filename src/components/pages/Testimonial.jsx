@@ -90,7 +90,7 @@ function Testimonial() {
   return (
     <>
       <JoinCommunity open={open} setOpen={setOpen} />
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner">
         <figure>
           <img src={testimonialsbanner} />
         </figure>
