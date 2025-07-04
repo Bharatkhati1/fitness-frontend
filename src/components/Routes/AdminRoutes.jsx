@@ -6,20 +6,21 @@ import ServiceManagement from "../authorized/AdminUI/ServiceManagement/ServiceMa
 import PackageManagement from "../authorized/AdminUI/PackageManagement/PackageManagement";
 import SuccessStories from "../authorized/AdminUI/SuccessStories/SuccessStories";
 import Blogs from "../authorized/AdminUI/BlogsManagement/index";
-import SmartKitchen from "../authorized/AdminUI/SmartKitchen/index"
+import SmartKitchen from "../authorized/AdminUI/SmartKitchen/index";
 import { Suspense } from "react";
 import PageLoader from "../PageLoader";
 import TeamManagement from "../authorized/AdminUI/TeamManagement/index";
 import Consultants from "../authorized/AdminUI/Consultants/index";
 import CreateUpdatePackage from "../authorized/AdminUI/PackageManagement/CreateUpdatePackage";
-import CompanySetting from "../authorized/AdminUI/CompanySettings/index"
-import Innovation from "../authorized/AdminUI/Innovation/index"
-import NewsAndMedia from "../authorized/AdminUI/NewsAndMedia/index"
+import CompanySetting from "../authorized/AdminUI/CompanySettings/index";
+import Innovation from "../authorized/AdminUI/Innovation/index";
+import NewsAndMedia from "../authorized/AdminUI/NewsAndMedia/index";
 import PartnersManagement from "../authorized/AdminUI/Partners";
 import Careers from "../authorized/AdminUI/Careers/Careers";
-import EventManagement from "../authorized/AdminUI/Events/index"
+import EventManagement from "../authorized/AdminUI/Events/index";
 import Coupon from "../authorized/AdminUI/Coupons/Coupon";
 import Inquiry from "../authorized/AdminUI/Inquiry/Inquiry";
+import Profile from "../authorized/AdminUI/Profile/profile";
 
 export default function AdminRoutes() {
   return (
@@ -28,9 +29,19 @@ export default function AdminRoutes() {
         <Route element={<MainLayouts />}>
           <Route index element={<Navigate to="slider-management" replace />} />
           <Route path="slider-management/*" element={<SliderManagement />} />
-          <Route path="service-management/services" element={<ServiceManagement />} />
-          <Route path="service-management/packages" element={<PackageManagement />} />
-          <Route path="service-management/create-update-package" element={<CreateUpdatePackage />} />
+          <Route path="profile" element={<Profile />} />
+          <Route
+            path="service-management/services"
+            element={<ServiceManagement />}
+          />
+          <Route
+            path="service-management/packages"
+            element={<PackageManagement />}
+          />
+          <Route
+            path="service-management/create-update-package"
+            element={<CreateUpdatePackage />}
+          />
           <Route path="success-stories" element={<SuccessStories />} />
           <Route path="team-management/*" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
@@ -43,9 +54,15 @@ export default function AdminRoutes() {
           <Route path="partner-management/*" element={<PartnersManagement />} />
           <Route path="careers" element={<Careers />} />
           <Route path="coupon" element={<Coupon />} />
-          <Route path="inquiries" element={<Inquiry/>} />
-          <Route path="service-management/*" element={<Navigate replace to="service-management/services" />} />
-          <Route path="*" element={<Navigate replace to={`/admin/slider-management`} />} />
+          <Route path="inquiries" element={<Inquiry />} />
+          <Route
+            path="service-management/*"
+            element={<Navigate replace to="service-management/services" />}
+          />
+          <Route
+            path="*"
+            element={<Navigate replace to={`/admin/slider-management`} />}
+          />
         </Route>
       </Routes>
     </Suspense>

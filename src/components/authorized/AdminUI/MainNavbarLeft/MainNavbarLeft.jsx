@@ -6,7 +6,6 @@ export const NavItems = {
   admin: [
     { id: 1, name: "Slider Management", path: "slider-management", subMenu: [
       { name: "Manage", path: "manage" },
-      // { name: "Why Us Image", path: "why-us-image" },
     ], },
     {
       id: 2,
@@ -98,8 +97,6 @@ export const NavItems = {
         { name: "Testimonials", path: "testimonials" },
         { name: "Appointments", path: "appointments" },
         { name: "About Us", path: "about-us" },
-        { name: "Job Applications", path: "applied-jobs" },
-        { name: "Contact Details", path: "contact-details" },
         { name: "Privacy Policy", path: "privacy-policy" },
         { name: "Terms & Conditions", path: "terms-conditions" },
         { name: "Refund Policy", path: "refund-policy" },
