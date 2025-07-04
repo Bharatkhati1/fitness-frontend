@@ -113,7 +113,7 @@ function Blogs() {
 
   return (
     <>
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner">
         <figure>
           <img src={HealthBg} />
         </figure>
@@ -225,9 +225,9 @@ function Blogs() {
         </div>
       </div>
 
-      <div className="OurBlogs">
+      <div className="OurBlogs  mt-lg-0 mt-3">
         <div className="container">
-          <div className="row g-5">
+          <div className="row g-lg-5 g-3">
             {blogs.length > 0 ? (
               blogs.map((blog) => (
                 <div className="col-md-6 OurHealthBlogContent" key={blog.id}>

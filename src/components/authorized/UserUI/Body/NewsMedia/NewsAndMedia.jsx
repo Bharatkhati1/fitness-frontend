@@ -111,7 +111,7 @@ function NewsAndMedia() {
 
   return (
     <>
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner ">
         <figure>
           <img src={BannerImag} alt="Banner" />
         </figure>
@@ -223,9 +223,9 @@ function NewsAndMedia() {
         </div >
       </div >
 
-      <div className="OurBlogs">
+      <div className="OurBlogs mt-lg-0 mt-4">
         <div className="container">
-          <div className="row g-5">
+          <div className="row g-lg-5 g-3">
             {newsItems.length > 0 ? (
               newsItems.map((item) => (
                 <div className="col-md-6 OurHealthBlogContent" key={item.id}>

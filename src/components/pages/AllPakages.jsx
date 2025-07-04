@@ -134,7 +134,7 @@ function AllPakages() {
 
   return (
     <>
-      <section className="innerbanner blogbanner">
+      <section className="innerbanner">
         <figure>
           <img src={allpakagesbg} />
         </figure>

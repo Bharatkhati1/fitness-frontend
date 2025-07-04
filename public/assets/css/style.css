@@ -431,7 +431,6 @@ body .owl-carousel .owl-item .why-class img {
   border-right: 0;
 }
 
-
 .header-btn:hover {
   opacity: 0.8;
 }
@@ -529,7 +528,7 @@ body .heartBeatImg {
   font-weight: 700;
   margin-bottom: 27px;
   color: var(--primary-color);
-      line-height: 1.4;
+  line-height: 1.4;
 }
 
 .AboutInfo h2 span {
@@ -680,9 +679,11 @@ body .heartBeatImg {
 .PosterContent {
   max-width: 970px;
   margin: auto;
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.5) 0,
-      rgba(255, 255, 255, 0.5) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0,
+    rgba(255, 255, 255, 0.5) 100%
+  );
   padding: 35px 25px;
 }
 
@@ -943,9 +944,9 @@ textarea.form-control {
 }
 
 .col-md-6.GetIntouchRight {
-    position: relative;
-    top: 0;
-    padding-top: 15px;
+  position: relative;
+  top: 0;
+  padding-top: 15px;
 }
 
 .form-checkList {
@@ -959,14 +960,18 @@ textarea.form-control {
 }
 
 .ContactUs {
-    background: linear-gradient(to bottom, rgba(167, 167, 167, 1) 0%, rgba(255, 255, 255, 0.5) 100%);
-    padding: 20px 15px;
-    position: absolute;
-    width: 300px;
-    margin: auto;
-    left: 30px;
-    top: 30px;
-    border-radius: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(167, 167, 167, 1) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  padding: 20px 15px;
+  position: absolute;
+  width: 300px;
+  margin: auto;
+  left: 30px;
+  top: 30px;
+  border-radius: 8px;
   /* background: linear-gradient(to bottom,
       rgba(167, 167, 167, 1) 0%,
       rgba(255, 255, 255, 0.5) 100%);
@@ -1082,7 +1087,8 @@ footer {
 }
 
 .ContactInfoFooter li img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%) hue-rotate(112deg) brightness(102%) contrast(97%);
+  filter: brightness(0) saturate(100%) invert(40%) sepia(94%) saturate(551%)
+    hue-rotate(112deg) brightness(102%) contrast(97%);
 }
 
 .FooterSubscribe h2 {
@@ -1243,9 +1249,11 @@ header.sticky {
 }
 
 .formBox {
-  background: linear-gradient(to bottom,
-      rgb(237 237 237 / 64%) 0%,
-      rgb(219 219 219 / 58%) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgb(237 237 237 / 64%) 0%,
+    rgb(219 219 219 / 58%) 100%
+  );
   box-shadow: 0 4px 4px rgb(0 0 0 / 15%);
   border-radius: 8px;
   padding: 30px 45px 35px;
@@ -1626,8 +1634,8 @@ ul.wightList figure {
   left: -9999px;
 }
 
-.radioList [type="radio"]:checked+label,
-.radioList [type="radio"]:not(:checked)+label {
+.radioList [type="radio"]:checked + label,
+.radioList [type="radio"]:not(:checked) + label {
   position: relative;
   padding-left: 41px;
   cursor: pointer;
@@ -1637,8 +1645,8 @@ ul.wightList figure {
   font-weight: 400;
 }
 
-.radioList [type="radio"]:checked+label:before,
-.radioList [type="radio"]:not(:checked)+label:before {
+.radioList [type="radio"]:checked + label:before,
+.radioList [type="radio"]:not(:checked) + label:before {
   content: "";
   position: absolute;
   left: 0;
@@ -1650,8 +1658,8 @@ ul.wightList figure {
   background: #fff;
 }
 
-.radioList [type="radio"]:checked+label:after,
-.radioList [type="radio"]:not(:checked)+label:after {
+.radioList [type="radio"]:checked + label:after,
+.radioList [type="radio"]:not(:checked) + label:after {
   content: "";
   width: 13px;
   height: 13px;
@@ -1665,19 +1673,19 @@ ul.wightList figure {
   right: 0;
 }
 
-.radioList [type="radio"]:not(:checked)+label:after {
+.radioList [type="radio"]:not(:checked) + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-.radioList [type="radio"]:checked+label:after {
+.radioList [type="radio"]:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-.radioList [type="radio"]:checked+label:before {
+.radioList [type="radio"]:checked + label:before {
   border: 1px solid #800030;
 }
 
@@ -1885,10 +1893,10 @@ ul.optinallyList {
   /* align-items: flex-end; */
 }
 .col-md-6.GetIntouchRight {
-    padding-top: 40px;
+  padding-top: 40px;
 }
 .GetIntouch .row {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .ContactInfoFooter li a {
@@ -2291,9 +2299,11 @@ section.OurTEAM {
 }
 
 .OurTeamsrowsL figure:after {
-  background: linear-gradient(to right,
-      rgba(0, 121, 70, 0.49) 0%,
-      rgba(226, 226, 226, 0.17) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 121, 70, 0.49) 0%,
+    rgba(226, 226, 226, 0.17) 100%
+  );
   content: "";
   position: absolute;
   left: 0;
@@ -2368,10 +2378,12 @@ section.OurTEAM {
 
 .OurTeamsrows:nth-child(even) figure:after {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e2e2e2+0,007946+99&0.17+0,0.49+100 */
-  background: linear-gradient(to right,
-      rgba(226, 226, 226, 0.17) 0%,
-      rgba(0, 121, 70, 0.49) 99%,
-      rgba(0, 121, 70, 0.49) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(226, 226, 226, 0.17) 0%,
+    rgba(0, 121, 70, 0.49) 99%,
+    rgba(0, 121, 70, 0.49) 100%
+  );
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
@@ -2754,10 +2766,12 @@ button.owl-next span {
 }
 
 section.BlogDeatils:after {
-  background: linear-gradient(to bottom,
-      hsl(0deg 0% 100% / 0%) 0%,
-      rgba(29, 29, 29, 0.8) 98%,
-      rgba(29, 29, 29, 0.81) 100%);
+  background: linear-gradient(
+    to bottom,
+    hsl(0deg 0% 100% / 0%) 0%,
+    rgba(29, 29, 29, 0.8) 98%,
+    rgba(29, 29, 29, 0.81) 100%
+  );
   position: absolute;
   bottom: 0;
   left: 0;
@@ -2950,9 +2964,9 @@ ul.userslink li a {
   background-repeat: no-repeat;
 }
 
-.row.servicedetaillisting {
+/* .row.servicedetaillisting {
   margin-top: 50px;
-}
+} */
 
 .row.servicedetaillisting .col-md-6 {
   margin-bottom: 30px;
@@ -3026,15 +3040,15 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .product-list figcaption h3 {
-    font-size: 21px;
-    color: #000000;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    min-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 21px;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .price {
@@ -3079,10 +3093,12 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .btn.VegBtn {
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.14) 95%,
-      rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.14) 95%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
 }
 
 .SmartKichinlist .col {
@@ -3474,7 +3490,7 @@ ul.Packagedescriptionlist {
   align-items: center;
 }
 
-.clientcontentbg>p {
+.clientcontentbg > p {
   font-size: 15px;
   color: #2a2a2a;
   font-weight: 600;
@@ -3525,9 +3541,11 @@ section.clientfeedback {
 }
 
 .clientfeedbackslider .owl-carousel:after {
-  background: linear-gradient(to right,
-      rgb(246 237 240 / 48%) 0%,
-      rgb(255 255 255) 100%);
+  background: linear-gradient(
+    to right,
+    rgb(246 237 240 / 48%) 0%,
+    rgb(255 255 255) 100%
+  );
   content: "";
   position: absolute;
   right: 0;
@@ -3624,9 +3642,11 @@ section.clientfeedback {
 }
 
 .CleintSuccess:after {
-  background: radial-gradient(circle,
-      rgba(255, 255, 255, 0.4) 20%,
-      rgb(66 158 130) 67%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 20%,
+    rgb(66 158 130) 67%
+  );
   position: absolute;
   left: 0;
   right: 0;
@@ -3662,12 +3682,15 @@ section.clientfeedback {
 }
 
 .CleintSuccess .slick-list:after,
-.CleintSuccess .slick-list:before {}
+.CleintSuccess .slick-list:before {
+}
 
 .CleintSuccess .slick-list:after {
-  background: linear-gradient(-90deg,
-      rgb(66 158 130) 0%,
-      rgba(230, 230, 230, 0) 100%);
+  background: linear-gradient(
+    -90deg,
+    rgb(66 158 130) 0%,
+    rgba(230, 230, 230, 0) 100%
+  );
   content: "";
   position: absolute;
   right: 0;
@@ -3682,9 +3705,11 @@ section.clientfeedback {
 }
 
 .CleintSuccess .slick-list::before {
-  background: linear-gradient(90deg,
-      rgb(66 158 130) 0%,
-      rgba(230, 230, 230, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgb(66 158 130) 0%,
+    rgba(230, 230, 230, 0) 100%
+  );
   content: "";
   position: absolute;
   left: 0;
@@ -3738,7 +3763,7 @@ section.clientfeedback {
   padding: 20px 40px 40px;
 }
 
-.ant-modal.custom-modal .modalbody>p {
+.ant-modal.custom-modal .modalbody > p {
   font-size: 18px;
   color: #000000;
   margin-bottom: 0;
@@ -3754,7 +3779,7 @@ section.clientfeedback {
   text-transform: capitalize;
 }
 
-.ant-modal.custom-modal .form-group>label {
+.ant-modal.custom-modal .form-group > label {
   text-transform: capitalize;
   font-size: 16px;
   margin-bottom: 8px;
@@ -3988,7 +4013,7 @@ button.applybtn {
 }
 
 .SmartKichinlistrow figure img {
-  height: 165px;
+  height: 210px;
   object-fit: cover;
   width: 100%;
 }
@@ -4049,10 +4074,10 @@ ul.ourapproachlist li:after {
 }
 
 .MuktiBox {
-    background: #040404;
-    position: relative;
-    overflow: hidden;
-    height: 547px;
+  background: #040404;
+  position: relative;
+  overflow: hidden;
+  height: 547px;
 }
 
 .MuktiBoxRight {
@@ -4594,14 +4619,14 @@ ul.whyparthnerlist li {
 }
 
 .upcomingbox figcaption > p {
-    color: #1e1e1e;
-    font-size: 13px;
-    min-height: 100px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  color: #1e1e1e;
+  font-size: 13px;
+  min-height: 100px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Pasteventsslider .owl-carousel .owl-item .upcomingbox figure img {
@@ -4713,9 +4738,7 @@ ul.whyparthnerlist li {
 }
 
 .Pasteventsslider .owl-item .item {
-  transform: translate3d(0,
-      0,
-      0);
+  transform: translate3d(0, 0, 0);
   /* DO NOT REMEMBER WHERE TU PUT THIS, SEARCH FOR 3D ACCELERATION */
   transform: scale(0.6);
 
@@ -4877,8 +4900,8 @@ ul.whyparthnerlist li {
   padding: 0 3px !important;
 }
 
-.OurServicesContent p>p,
-.OurServicesContent p+p {
+.OurServicesContent p > p,
+.OurServicesContent p + p {
   min-height: auto;
 }
 
@@ -5333,9 +5356,11 @@ ul.sitelistinner li a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(192, 192, 192, 1) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(192, 192, 192, 1) 100%
+  );
   cursor: pointer;
   border: 0;
 }
@@ -5643,9 +5668,11 @@ table.table {
   width: 56px;
   height: 56px;
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,800030+100&1+0,0.25+100,0.12+100 */
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(128, 0, 48, 0.22) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(128, 0, 48, 0.22) 100%
+  );
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
   display: flex;
@@ -5716,96 +5743,110 @@ section.WhyUs.SectionSpace {
   background: #f5f4f4;
 }
 
-
 .product-list figure img {
-    height: 420px;
-    object-fit: cover;
-    width: 100%;
+  height: 420px;
+  object-fit: cover;
+  width: 100%;
 }
 
- .form-checkList  label.form-check-label {
-    margin-bottom: 0 !important;
-    font-size: 14px;
-    font-weight: 400 !important;
+.form-checkList label.form-check-label {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+  font-weight: 400 !important;
 }
 
-.contactuspage  .form-control::placeholder,.getintouchmain  .form-control::placeholder{ font-weight: 400; color: #00000099;}
+.contactuspage .form-control::placeholder,
+.getintouchmain .form-control::placeholder {
+  font-weight: 400;
+  color: #00000099;
+}
 
 .contactimgbox {
-    position: relative;
+  position: relative;
 }
 
 .GetIntouch {
-    padding-top: 25px;
+  padding-top: 25px;
 }
 
-
-
 .contentlink {
-    font-size: 18px;
-    color: #1e1e1e;
-    font-weight: 400;
-    margin-bottom: 0;
-    line-height: 1.5;
-       display: inline;
+  font-size: 18px;
+  color: #1e1e1e;
+  font-weight: 400;
+  margin-bottom: 0;
+  line-height: 1.5;
+  display: inline;
 }
 
 .contentlinkmain a {
-    font-size: 18px;
+  font-size: 18px;
 }
 
-
 .rainboweffects {
-    background-image: linear-gradient(90deg, #ffffff 0%, rgb(128 0 48 / 29%) 49%, #ffffff 80%) ! IMPORTANT;
-    /* animation: slidebg 5s linear infinite; */
-    animation-name: slidebg;
-    animation-iteration-count: infinite;
-    animation-duration: 4s;
-    -webkit-transition: all 0.9s ease;
-    -moz-transition: all 0.9s ease;
-    -o-transition: all 0.9s ease;
-    transition: all 0.9s ease;
-    animation-direction: alternate;
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    rgb(128 0 48 / 29%) 49%,
+    #ffffff 80%
+  ) !important;
+  /* animation: slidebg 5s linear infinite; */
+  animation-name: slidebg;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  -webkit-transition: all 0.9s ease;
+  -moz-transition: all 0.9s ease;
+  -o-transition: all 0.9s ease;
+  transition: all 0.9s ease;
+  animation-direction: alternate;
 }
 
 @keyframes slidebg {
   to {
-    background-position:20vw;
+    background-position: 20vw;
   }
 }
 
 .MuktiBoxLeft img {
-    height: 547px;
+  height: 547px;
 }
-.SmartKichinContent figure{ overflow: hidden;}
+.SmartKichinContent figure {
+  overflow: hidden;
+}
 .SmartKichinContent figure img {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition: 0.3sease-in-out;
-    transition: 0.3sease-in-out;
-    transition: 0.8s;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3sease-in-out;
+  transition: 0.3sease-in-out;
+  transition: 0.8s;
 }
 
 .SmartKichinContent:hover img {
-    -webkit-transform: scale(1.3);
-    transform: scale(1.3);
-    transition: 0.8s;
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+  transition: 0.8s;
 }
 
 .linkedinimg img {
-    width: 28px;
-    vertical-align: text-bottom;
+  width: 28px;
+  vertical-align: text-bottom;
 }
 
 .FOLLOWUSlist {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-.FOLLOWUSlist  .linkedinicon img {
-    width: 27px;
-    vertical-align: sub;
+.FOLLOWUSlist .linkedinicon img {
+  width: 27px;
+  vertical-align: sub;
 }
 
 .FOLLOWUS.bannerfollow {
-    margin-bottom: 0;
+  margin-bottom: 0;
+}
+
+.row.row-cols-4.SmartKichinlistrow .col h4 {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
