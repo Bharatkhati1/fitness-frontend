@@ -55,6 +55,11 @@ function ProfileMyPakages({ userPackages }) {
             </div>
           </div>
         ))}
+        {userPackages.length == 0 && (
+          <div className="col-12 text-center py-5">
+            <h5 className="mb-5 mt-4">No data found.</h5>
+          </div>
+        )}
       </div>
     </>
   );

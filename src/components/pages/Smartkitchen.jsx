@@ -161,7 +161,6 @@ function Smartkitchen() {
     ],
   };
 
-  console.log(contactUsDetails)
   return (
     <>
       <EmailRequiredPopup

@@ -91,7 +91,6 @@ const ContactDetails = () => {
     { label: "LinkedIn", name: "linkedin" },
     { label: "Twitter", name: "twitter" },
     { label: "YouTube", name: "youtube" },
-    { label: "Google Script", name: "script" },
   ];
 
   const smartKitchenFields = [
@@ -129,6 +128,19 @@ const ContactDetails = () => {
                   0
                 )
               )}
+              <div className="col-lg-12 mb-3">
+                <label className="form-label">Google Script</label>
+                <textarea
+                  type="text"
+                  id="script"
+                  name="script"
+                  className="form-control"
+                  value={formData.script}
+                  onChange={handleChange}
+                  readOnly={!isEdit}
+                  style={{ minHeight: "130px", resize: "vertical" }}
+                />
+              </div>
             </div>
           </div>
           <div className="card-footer text-end border-top">

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import userAxios from "../../../utils/Api/userAxios";
 import userApiRoutes from "../../../utils/Api/Routes/userApiRoutes";
 import { useDispatch } from "react-redux";
-import Avtar from "../images/Avtar.png"
+import Avtar from "../images/Avtar.png";
 import { logoutUser } from "../../../store/auth/AuthExtraReducers";
 import ProfileInfo from "./ProfileInfo";
 import ProfileMyPakages from "./ProfileMyPakages";
@@ -16,13 +16,13 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [profileDetails, setProfileDetails] = useState({});
   const [selectedTab, setSelectedTab] = useState(0);
   const [userPackages, setUserPackages] = useState([]);
   const [consultations, setConsultations] = useState([]);
-  const [firstName , setFirstName] = useState("")
+  const [firstName, setFirstName] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -49,8 +49,8 @@ function Profile() {
       const res = await userAxios.get(userApiRoutes.get_profile_details);
       const data = res.data.data;
       setProfileDetails(data);
-      setFirstName(data.firstName)
-      setFormData((prev)=> ({...prev, ...data, ...data?.UserDetail}));
+      setFirstName(data.firstName);
+      setFormData((prev) => ({ ...prev, ...data, ...data?.UserDetail }));
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -61,44 +61,52 @@ function Profile() {
       toast.error("First name is required");
       return false;
     }
-  
+
     if (!formData.age || isNaN(formData.age) || Number(formData.age) <= 0) {
       toast.error("Valid age is required");
       return false;
     }
-  
-    if (!formData.phone || formData.phone.trim().length !== 10 || !/^\d{10}$/.test(formData.phone)) {
+
+    if (
+      !formData.phone ||
+      formData.phone.trim().length !== 10 ||
+      !/^\d{10}$/.test(formData.phone)
+    ) {
       toast.error("Valid 10-digit phone number is required");
       return false;
     }
-  
+
     if (!formData.gender) {
       toast.error("Gender is required");
       return false;
     }
-  
+
     if (formData.pincode && isNaN(formData.pincode)) {
       toast.error("Pincode must be numeric");
       return false;
     }
-  
+
     if (formData.weight && isNaN(formData.weight)) {
       toast.error("Weight must be numeric");
       return false;
     }
-  
+
     if (formData.height && isNaN(formData.height)) {
       toast.error("Height must be numeric");
       return false;
     }
-  
+
     return true;
   };
-  
+
   const handleSave = async () => {
     if (!validateForm()) return;
     try {
-      await userAxios.put(userApiRoutes.update_profile, {...formData, firstName: profileDetails.firstName, email: profileDetails.email });
+      await userAxios.put(userApiRoutes.update_profile, {
+        ...formData,
+        firstName: profileDetails.firstName,
+        email: profileDetails.email,
+      });
       toast.success("Profile updated successfully");
       fetchProfileDetails();
     } catch (error) {
@@ -194,8 +202,11 @@ function Profile() {
           </div>
           <div className="col">
             <div className="cardcontent">
-              <h3>Hello {firstName|| "User"}!</h3>
-              <p>Everything about you, your journey, and your progress — all in one calm, curated space.</p>
+              <h3>Hello {firstName || "User"}!</h3>
+              <p>
+                Everything about you, your journey, and your progress — all in
+                one calm, curated space.
+              </p>
               <div className="tabscardbox d-flex justify-content-between align-items-center mt-3">
                 <ul className="tabslist">
                   <li
@@ -233,7 +244,7 @@ function Profile() {
       </div>
       {selectedTab == 0 && (
         <ProfileInfo
-        setProfileDetails={setProfileDetails}
+          setProfileDetails={setProfileDetails}
           profileDetails={profileDetails}
           formData={formData}
           setFormData={setFormData}
