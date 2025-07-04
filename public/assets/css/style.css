@@ -2602,9 +2602,9 @@ span.tag-info {
   padding: 0 15px;
 }
 
-.col-xxl-auto.col-sm-auto.taginfoleft {
+/* .col-xxl-auto.col-sm-auto.taginfoleft {
   padding-right: 0;
-}
+} */
 
 .filtersBoxInner {
   justify-content: space-between;
@@ -2672,7 +2672,7 @@ button.owl-next span {
   width: 14px;
   height: 23px;
   position: absolute;
-  right: 0;
+  right: 12px;
   top: 45px;
 }
 
@@ -3605,9 +3605,9 @@ section.clientfeedback {
   margin-left: 20px;
 }
 
-/* .col-xxl.taginforight {
-  width: calc(100% - 171px);
-} */
+.col-xxl.taginforight {
+  width: calc(100% - 270px);
+}
 
 .sortbyright {
   text-align: revert;
@@ -5262,22 +5262,18 @@ ul.sitelistinner li a {
   width: auto !important;
 }
 
-.col-xxl.col-sm.taginforight {
+/* .col-xxl.col-sm.taginforight {
   padding-left: 126px;
-}
+} */
 
-.col-xxl-auto.col-sm-auto.taginfoleft {
+/* .col-xxl-auto.col-sm-auto.taginfoleft {
   position: absolute;
   left: 45px;
-}
+} */
 
-.filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
-  width: 88%;
-}
 
 .taginfolist {
   margin-bottom: 0;
-  margin-left: 45px;
 }
 
 .OurHealthBlog {

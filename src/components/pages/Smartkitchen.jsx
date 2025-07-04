@@ -274,12 +274,17 @@ function Smartkitchen() {
       {/* Recipe Cards */}
       <section className="SmartKichinlist">
         <div className="container">
-          <h3 className="SmartKichinlistitle">{kitchenData.length} Recipe</h3>
+          <h3 className="SmartKichinlistitle">{kitchenData.length} Recipes</h3>
           <div className="row row-cols-5 SmartKichinlistrow">
             {kitchenData?.length > 0 ? (
               kitchenData?.map((item) => (
                 <div className="col" key={item.id}>
                   <figure>
+                    {item?.Master?.name?.length > 0 && (
+                      <div className="smartkictchentag">
+                        {item?.Master?.name || ""}
+                      </div>
+                    )}
                     <img
                       crossOrigin="anonymous"
                       src={item.image_url}

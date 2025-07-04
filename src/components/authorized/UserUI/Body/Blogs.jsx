@@ -143,88 +143,84 @@ function Blogs() {
       <div className="filtersBox">
         <div className="container">
           <div className="filtersBoxInner">
-            <div className="row">
-              <div className="col-xxl-10 col-md-9 col-xl-10 col-sm-9">
-                <div className="filterOwl">
-                  <ul className="taginfolist ">
-                    <div className="row">
-                      <div className="col-xxl-auto col-sm-auto taginfoleft">
-                        <li
-                          style={{ zIndex: "1000" }}
-                          className={selectedCategory == "all" ? "active" : ""}
-                          onClick={(e) => handleSelectCategory("all")}
-                        >
-                          <span className="tag-info">All</span>
-                        </li>
-                      </div>
-                      <div className="col-xxl col-sm  taginforight">
-                        {categories.length > 0 && (
-                          <OwlCarousel
-                            className="owl-theme"
-                            autoplay={false}
-                            margin={12}
-                            dots={false}
-                            items={5}
-                            autoWidth={true}
-                            nav
-                            responsive={{
-                              0: {
-                                items: 2, // 0px and up
-                              },
-                              481: {
-                                items: 3, // 0px and up
-                              },
-                              768: {
-                                items: 4, // 600px and up
-                              },
-                              992: {
-                                items: 5, // 600px and up
-                              },
-                              1200: {
-                                items: 7, // 1000px and up
-                              },
+            <div className="filterOwl">
+              <ul className="taginfolist ps-4">
+                <div className="row">
+                  <div className="col-xxl-auto col-sm-auto taginfoleft pe-0">
+                    <li
+                      style={{ zIndex: "1000" }}
+                      className={selectedCategory == "all" ? "active" : ""}
+                      onClick={(e) => handleSelectCategory("all")}
+                    >
+                      <span className="tag-info">All</span>
+                    </li>
+                  </div>
+                  <div className="col-xxl col-sm  taginforight pe-4">
+                    {categories.length > 0 && (
+                      <OwlCarousel
+                        className="owl-theme"
+                        autoplay={false}
+                        margin={12}
+                        dots={false}
+                        items={5}
+                        nav
+                        responsive={{
+                          0: {
+                            items: 1, // 0px and up
+                          },
+                          481: {
+                            items: 2, // 0px and up
+                          },
+                          768: {
+                            items: 3, // 600px and up
+                          },
+                          992: {
+                            items: 4, // 600px and up
+                          },
+                          1200: {
+                            items: 5, // 1000px and up
+                          },
+                        }}
+                      >
+                        {categories.map((cat) => (
+                          <li
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
+                            onClick={() => {
+                              setSearchTerm("");
+                              handleSelectCategory(cat.id);
                             }}
                           >
-                            {categories.map((cat) => (
-                              <li
-                                className={
-                                  selectedCategory === cat.id ? "active" : ""
-                                }
-                                onClick={() => {
-                                  setSearchTerm("");
-                                  handleSelectCategory(cat.id);
-                                }}
-                              >
-                                <span className="tag-info">{cat.name}</span>
-                              </li>
-                            ))}
-                          </OwlCarousel>
-                        )}
-                      </div>
-                    </div>
-                  </ul>
+                            <span className="tag-info">{cat.name}</span>
+                          </li>
+                        ))}
+                      </OwlCarousel>
+                    )}
+                  </div>
+                  <div className="col-auto sortbyright">
+                    <select
+                      className="form-select"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value == "1") {
+                          setSortBy("ASC");
+                        } else if (value == "2") {
+                          setSortBy("DESC");
+                        }
+                      }}
+                    >
+                      <option value="" disabled selected>
+                        Sort By
+                      </option>
+                      <option value="2">Newest</option>
+                      <option value="1">Oldest</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-xxl-2 col-md-3 col-xl-2 col-sm-3 sortbyright">
-                <select
-                  className="form-select"
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value == "1") {
-                      setSortBy("ASC");
-                    } else if (value == "2") {
-                      setSortBy("DESC");
-                    }
-                  }}
-                >
-                  <option value="" disabled selected>
-                    Sort By
-                  </option>
-                  <option value="2">Newest</option>
-                  <option value="1">Oldest</option>
-                </select>
-              </div>
+              </ul>
             </div>
+
           </div>
         </div>
       </div>
@@ -268,19 +264,19 @@ function Blogs() {
                     </div>
                     <div className="contentlinkmain">
                       <div className="contentlink"
-                
-                      dangerouslySetInnerHTML={{
-                        __html: blog.shortDescription,
-                      }}
-                  />
-                    <Link
-                      style={{ color: "green" }}
-                      to={`/blog/${blog.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                    >
-                      Read More <img src={readMoreimg} />
-                    </Link>
+
+                        dangerouslySetInnerHTML={{
+                          __html: blog.shortDescription,
+                        }}
+                      />
+                      <Link
+                        style={{ color: "green" }}
+                        to={`/blog/${blog.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        Read More <img src={readMoreimg} />
+                      </Link>
                     </div>
                   </figcaption>
                 </div>
@@ -311,9 +307,8 @@ function Blogs() {
                 {getPaginationRange().map((page, index) => (
                   <li
                     key={index}
-                    className={`page-item ${
-                      page === currentPage ? "active" : ""
-                    } ${page === "..." ? "disabled" : ""}`}
+                    className={`page-item ${page === currentPage ? "active" : ""
+                      } ${page === "..." ? "disabled" : ""}`}
                   >
                     {page === "..." ? (
                       <span className="page-link">...</span>
@@ -330,9 +325,8 @@ function Blogs() {
 
                 {/* Next Button */}
                 <li
-                  className={`page-item ${
-                    currentPage === totalPages ? "disabled" : ""
-                  }`}
+                  className={`page-item ${currentPage === totalPages ? "disabled" : ""
+                    }`}
                 >
                   <button
                     className="page-link"

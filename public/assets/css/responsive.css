@@ -1209,9 +1209,9 @@
     font-size: 45px;
   }
 
-  .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
+  /* .filtersBox .owl-carousel.owl-theme.owl-loaded.owl-drag {
     width: 86%;
-  }
+  } */
 
   .MuktiBoxLeft {
     display: none;
@@ -1225,9 +1225,9 @@
     display: block !important;
   }
 
-  .col-auto.sortbyright {
+  /* .col-auto.sortbyright {
     margin: 20px auto 0;
-  }
+  } */
 
   .formBox .btn.btn-link {
     color: #000 !important;
