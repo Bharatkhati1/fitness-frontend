@@ -143,73 +143,85 @@ function NewsAndMedia() {
       <div className="filtersBox">
         <div className="container">
           <div className="filtersBoxInner">
-            <div className="row g-5">
-              <div className="col-md col-sm-9">
-                <div className="filterOwl">
-                  <ul className="taginfolist">
-                    <div className="row">
-                      <div className="col-xxl-auto col-sm-auto taginfoleft">
-                        <li
-                          className={selectedCategory === "all" ? "active" : ""}
-                          onClick={() => handleSelectCategory("all")}
-                        >
-                          <span className="tag-info">All</span>
-                        </li>
-                      </div>
-                      <div className="col-xxl col-sm taginforight">
-                        {categories.length > 0 && (
-                          <OwlCarousel
-                            className="owl-theme"
-                            autoplay={false}
-                            margin={10}
-                            dots={false}
-                            autoWidth
-                            nav={true}
+            <div className="filterOwl">
+              <div className="taginfolist ps-4">
+                <div className="row">
+                  <div className="col-xxl-auto col-sm-auto taginfoleft pe-0">
+                    <li
+                      className={selectedCategory === "all" ? "active" : ""}
+                      onClick={() => handleSelectCategory("all")}
+                    >
+                      <span className="tag-info">All</span>
+                    </li>
+                  </div>
+                  <div className="col-xxl col-sm taginforight pe-4">
+                    {categories.length > 0 && (
+                      <OwlCarousel
+                        className="owl-theme"
+                        autoplay={false}
+                        margin={10}
+                        dots={false}
+                        items={5}
+                        responsive={{
+                          0: {
+                            items: 1
+                          },
+                          767: {
+                            items: 2
+                          },
+                          976: {
+                            items: 3
+                          },
+                          1200: {
+                            items: 4
+                          },
+                          1400: {
+                            items: 4
+                          },
+                          1600: {
+                            items: 5
+                          },
+                        }
+                        }
+                        nav={true}
+                      >
+                        {categories.map((cat) => (
+                          <li
+                            key={cat.id}
+                            className={
+                              selectedCategory === cat.id
+                                ? "active px-2"
+                                : "px-2"
+                            }
+                            onClick={() => handleSelectCategory(cat.id)}
                           >
-                            {categories.map((cat) => (
-                              <li
-                                key={cat.id}
-                                className={
-                                  selectedCategory === cat.id
-                                    ? "active px-2"
-                                    : "px-2"
-                                }
-                                onClick={() => handleSelectCategory(cat.id)}
-                              >
-                                <span className="tag-info">{cat.name}</span>
-                              </li>
-                            ))}
-                          </OwlCarousel>
-                        )}
-                      </div>
-                    </div>
-                  </ul>
+                            <span className="tag-info">{cat.name}</span>
+                          </li>
+                        ))}
+                      </OwlCarousel>
+                    )}
+                  </div>
+                  <div className="col-auto sortbyright">
+                    <select
+                      className="form-select"
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setSortBy(value == "1" ? "ASC" : "DESC");
+                      }}
+                    >
+                      <option value="" disabled selected>
+                        Sort By
+                      </option>
+                      <option value="2">Newest</option>
+                      <option value="1">Oldest</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-auto sortbyright">
-                {/* <select className="form-select me-2">
-                  <option value="">Filter</option>
-                  <option value="1">Newest</option>
-                  <option value="2">Oldest</option>
-                </select> */}
-                <select
-                  className="form-select"
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setSortBy(value == "1" ? "ASC" : "DESC");
-                  }}
-                >
-                  <option value="" disabled selected>
-                    Sort By
-                  </option>
-                  <option value="2">Newest</option>
-                  <option value="1">Oldest</option>
-                </select>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
 
       <div className="OurBlogs">
         <div className="container">
@@ -271,9 +283,8 @@ function NewsAndMedia() {
                 {getPaginationRange().map((page, index) => (
                   <li
                     key={index}
-                    className={`page-item ${
-                      page === currentPage ? "active" : ""
-                    } ${page === "..." ? "disabled" : ""}`}
+                    className={`page-item ${page === currentPage ? "active" : ""
+                      } ${page === "..." ? "disabled" : ""}`}
                   >
                     {page === "..." ? (
                       <span className="page-link">...</span>
@@ -290,9 +301,8 @@ function NewsAndMedia() {
 
                 {/* Next Button */}
                 <li
-                  className={`page-item ${
-                    currentPage === totalPages ? "disabled" : ""
-                  }`}
+                  className={`page-item ${currentPage === totalPages ? "disabled" : ""
+                    }`}
                 >
                   <button
                     className="page-link"
