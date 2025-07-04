@@ -437,7 +437,7 @@ function Careers() {
                       onClick={() => {
                         showModal();
                         setFormData((prev) => ({ ...prev, role: job.title }));
-                        setSelectedJob(job.ID);
+                        setSelectedJob(job.id);
                       }}
                     >
                       apply now

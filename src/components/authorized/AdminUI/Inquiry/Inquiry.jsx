@@ -106,21 +106,6 @@ const Inquiry = () => {
         render: (item) =>
           item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-",
       },
-      {
-        key: "action",
-        label: "Action",
-        render: (item) =>
-          item?.email ? (
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
-            >
-              Send Mail
-            </button>
-          ) : (
-            "-"
-          ),
-      },
     ],
     bussiness: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
