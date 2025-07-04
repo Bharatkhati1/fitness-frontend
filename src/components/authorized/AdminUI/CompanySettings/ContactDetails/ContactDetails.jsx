@@ -91,6 +91,7 @@ const ContactDetails = () => {
     { label: "LinkedIn", name: "linkedin" },
     { label: "Twitter", name: "twitter" },
     { label: "YouTube", name: "youtube" },
+    { label: "Google Script", name: "script" },
   ];
 
   const smartKitchenFields = [

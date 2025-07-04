@@ -123,7 +123,7 @@ function Profile() {
   const fetchConsultantions = async () => {
     try {
       const res = await userAxios.get(userApiRoutes.user_consultation);
-      const data = res.data.data;
+      const data = res.data.data.reverse();
       setConsultations(data);
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to fetch profile");

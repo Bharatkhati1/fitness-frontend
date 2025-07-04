@@ -38,6 +38,7 @@ const App = () => {
   const dispatch = useDispatch();
   const type = useSelector((state) => state.auth.type);
   const isCheckingToken = useSelector((state) => state.auth.isCheckingToken);
+  const contactUsDetails = useSelector((state) => state.auth.contactUsDetails);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const { pathname } = useLocation();
@@ -70,6 +71,22 @@ const App = () => {
         return "/login-user";
     }
   };
+
+  const addScriptToHead = (src, id = "external-script") => {
+    if (document.getElementById(id)) return;
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.id = id;
+    script.async = true;
+    document.head.appendChild(script);
+  };
+
+  useEffect(() => {
+    if (contactUsDetails && contactUsDetails?.script?.length>0) {
+      addScriptToHead(contactUsDetails.script);
+    }
+  }, [contactUsDetails]);
 
   useEffect(() => {
     const userType = getUserTypeFromPath(pathname);
