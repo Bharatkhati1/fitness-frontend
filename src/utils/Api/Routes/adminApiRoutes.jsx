@@ -15,14 +15,15 @@ const adminApiRoutes = {
   create_package: "/package",
   update_package: (packageId) => `/package/${packageId}`,
   delete_package: (packageId) => `/package/${packageId}`,
+  update_packages_sequence: `/package-sequence`,
 
   //SLIDER ROUTES
-  get_sliders:(slug)=> `/slider?slug=${slug}`,
+  get_sliders: (slug) => `/slider?slug=${slug}`,
   create_slider: "/slider",
   update_slider: (sliderId) => `/slider/${sliderId}`,
   delete_slider: (sliderId) => `/slider/${sliderId}`,
-  set_primary_slider:(id)=> `/slider-primary/${id}`,
-  update_slider_sequence:`/slider-sequence`,
+  set_primary_slider: (id) => `/slider-primary/${id}`,
+  update_slider_sequence: `/slider-sequence`,
 
   //SUCCESS STORIES
   get_success_stories: "/success-story",
@@ -37,7 +38,7 @@ const adminApiRoutes = {
   delete_category: (categoryId) => `/blog-category/${categoryId}`,
 
   //BLOG ROUTES
-  get_blogs:(slug)=> `/blog?type=${slug}&limit=1000`,
+  get_blogs: (slug) => `/blog?type=${slug}&limit=1000`,
   create_blog: "/blog",
   update_blog: (blogId) => `/blog/${blogId}`,
   delete_blog: (blogId) => `/blog/${blogId}`,
@@ -72,11 +73,13 @@ const adminApiRoutes = {
 
   //CONSULTANTS LEAVES ROUTES
   get_consultant_leaves: (consultantId) =>
-    consultantId ? `/consultant-leave?consultantId=${consultantId}` : `/consultant-leave`,  
+    consultantId
+      ? `/consultant-leave?consultantId=${consultantId}`
+      : `/consultant-leave`,
   create_consultant_leave: `/consultant-leave`,
   update_consultant_leave: (id) => `/consultant-leave/${id}`,
   delete_consultant_leave: (id) => `/consultant-leave/${id}`,
-  update_availibility:(id)=>`/consultant-availability/${id}`,
+  update_availibility: (id) => `/consultant-availability/${id}`,
 
   //SMART KITCHEN CATEGORIES
   get_sk_categories: `/item-category`,
@@ -101,44 +104,51 @@ const adminApiRoutes = {
   get_all_partners: "/partners",
   update_partner: (id) => `/partners/${id}`,
   delete_partner: (id) => `/partners/${id}`,
-  
+
   //MASTERS CATEGORY ROUTES
   create_master_category: "/masters",
-  get_master_category:(slug)=> `/masters?slug=${slug}`,
+  get_master_category: (slug) => `/masters?slug=${slug}`,
   update_master_category: (id) => `/masters/${id}`,
   delete_master_category: (id) => `/masters/${id}`,
 
   //POLICIES ROUTES
   get_policy_details: (slug) => `/cms/${slug}`,
   update_policy: (id) => `/cms/${id}`,
-  delete_optional_images:(id)=>`/cms-optional-image/${id}`,
+  delete_optional_images: (id) => `/cms-optional-image/${id}`,
 
   //INQUIRIES ROUTES
   get_all_inquiry: (type) => `/inquiries/${type}`,
-  get_applied_jobs:`/jobs/applied`,
-  export_inquiry:(type)=>`/export-inquiries/${type}`,
+  get_applied_jobs: (type) =>
+    type ? `/jobs/applied?type=${type}` : `/jobs/applied`,
+  export_inquiry: (type) => `/export-inquiries/${type}`,
 
   //USER HANDLE ROUTES
   get_all_users: `/users`,
   update_status: (id) => `/users/${id}`,
 
   //PARTNER COMPONENT ROUTES
-  get_partner_coupon:`/partner-coupons`,
-  get_coupon_usage:`/partner-coupon-usage`,
-  partner_payment_history:(id)=>id?`/partner-payment-history?partnerId=${id}`:`/partner-payment-history`,
+  get_partner_coupon: `/partner-coupons`,
+  get_coupon_usage: `/partner-coupon-usage`,
+  partner_payment_history: (id) =>
+    id
+      ? `/partner-payment-history?partnerId=${id}`
+      : `/partner-payment-history`,
 
   //CONSULTANT COMPONENT ROUTES
-  get_consultant_appointments:`/consultant-appointments`,
-  consultant_payment_history:(id)=>id ?`/consultant-appointments-payment?consultantId=${id}`:`/consultant-appointments-payment`,
-  
+  get_consultant_appointments: `/consultant-appointments`,
+  consultant_payment_history: (id) =>
+    id
+      ? `/consultant-appointments-payment?consultantId=${id}`
+      : `/consultant-appointments-payment`,
+
   //ALL ORDERS AND APPOINTMENTS ADMIN
-  get_all_orders:`/orders`,
-  get_all_appointments:`/appointments`,
-  get_testimonials:`/feedbacks`,
-  update_testimonialStatus:(id)=>`/feedbacks/${id}`,
+  get_all_orders: `/orders`,
+  get_all_appointments: `/appointments`,
+  get_testimonials: `/feedbacks`,
+  update_testimonialStatus: (id) => `/feedbacks/${id}`,
 
   //PAY PARTNER/CONSULTANTS
-  add_debit:(type)=>`/add-debit/${type}`
+  add_debit: (type) => `/add-debit/${type}`,
 };
 
 export default adminApiRoutes;

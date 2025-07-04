@@ -238,8 +238,23 @@ function SignUpUser() {
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="termsCheck">
-              I agree to the{" "}
-              <a href="#">Terms & Conditions and Privacy Policy</a>
+              I accept the{" "}
+              <a
+                style={{ color: "#0d6efd" }}
+                href="https://daily-fitness.24livehost.com/terms-conditions"
+                target="_blank"
+              >
+                Terms & Conditions
+              </a>{" "}
+              and
+              <a
+                style={{ color: "#0d6efd" }}
+                href="https://daily-fitness.24livehost.com/privacy-policy"
+                target="_blank"
+              >
+                {" "}
+                Privacy Policy
+              </a>
             </label>
           </div>
         </div>

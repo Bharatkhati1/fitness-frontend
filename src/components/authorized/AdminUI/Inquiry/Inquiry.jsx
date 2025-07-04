@@ -106,21 +106,6 @@ const Inquiry = () => {
         render: (item) =>
           item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-",
       },
-      {
-        key: "action",
-        label: "Action",
-        render: (item) =>
-          item?.email ? (
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
-            >
-              Send Mail
-            </button>
-          ) : (
-            "-"
-          ),
-      },
     ],
     bussiness: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
@@ -228,7 +213,7 @@ const Inquiry = () => {
 
   const fetchAppliedJobs = async () => {
     try {
-      const res = await adminAxios.get(adminApiRoutes.get_applied_jobs);
+      const res = await adminAxios.get(adminApiRoutes.get_applied_jobs("list"));
       setInquiries(res.data.data);
     } catch (error) {
       toast.error(error.response.data);
@@ -285,9 +270,13 @@ const Inquiry = () => {
   const handleDownloadReport = async () => {
     setLoading(true);
     try {
-      const res = await adminAxios.get(
-        adminApiRoutes.export_inquiry(activeTab)
-      );
+      let res;
+      if (activeTab == "applied-jobs") {
+        res = await adminAxios.get(adminApiRoutes.get_applied_jobs("export"));
+      } else {
+        res = await adminAxios.get(adminApiRoutes.export_inquiry(activeTab));
+      }
+
       const csvContent = res.data;
 
       if (!csvContent) {
@@ -324,14 +313,12 @@ const Inquiry = () => {
           onChange={onChange}
           className="px-3 pt-2"
         />
-        {activeTab != "news-latter" && (
-          <button
-            className="download-report-btn"
-            onClick={() => handleDownloadReport()}
-          >
-            EXPORT DATA
-          </button>
-        )}
+        <button
+          className="download-report-btn"
+          onClick={() => handleDownloadReport()}
+        >
+          EXPORT DATA
+        </button>
       </div>
       <div className="row">
         <div className="col-xl-12">

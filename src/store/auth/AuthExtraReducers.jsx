@@ -258,7 +258,7 @@ export const fetchAllProducts = ({
       );
       setTotalPages(response.data.totalPages);
       setTotalItems(response.data.totalItems)
-      const filter = response.data.data?.filter((pkg) => pkg.id != 1);
+      const filter = response.data.data;
       dispatch(authActions.setAllPackages(filter));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch packages");

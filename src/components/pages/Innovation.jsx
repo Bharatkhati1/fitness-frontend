@@ -180,56 +180,51 @@ function Innovation() {
             </div>
           </div>
           <div className="filtersBox innovationfilters">
-            <div className="container">
-              <div className="filtersBoxInner">
-                <div className="row">
-                  <div className="col-xxl-12 col-md-12 col-xl-12 col-sm-12">
-                    <div className="filterOwl">
-                      <ul className="taginfolist ">
-                        <div className="row">
-                          <div className="col-xxl-auto col-sm-auto taginfoleft">
+            <div className="filtersBoxInner">
+              <div className="filterOwl">
+                <ul className="taginfolist ps-4 ">
+                  <div className="row">
+                    <div className="col-xxl-auto col-sm-auto taginfoleft pe-0">
+                      <li
+                        className={
+                          selectedCategory === "all" ? "active" : ""
+                        }
+                        onClick={() => handleSelectCategory("all")}
+                      >
+                        <span className="tag-info">All</span>
+                      </li>
+                    </div>
+                    <div className="col-xxl col-sm  taginforight">
+                      {categories.length > 0 && (
+                        <OwlCarousel
+                          className="owl-theme"
+                          autoplay={false}
+                          margin={10}
+                          dots={false}
+                          nav
+                          autoWidth
+                        >
+                          {categories.map((cat) => (
                             <li
                               className={
-                                selectedCategory === "all" ? "active" : ""
+                                selectedCategory === cat.id
+                                  ? "active px-2"
+                                  : "px-2"
                               }
-                              onClick={() => handleSelectCategory("all")}
+                              onClick={() => {
+                                handleSelectCategory(cat.id);
+                              }}
                             >
-                              <span className="tag-info">All</span>
+                              <span className="tag-info">{cat.name}</span>
                             </li>
-                          </div>
-                          <div className="col-xxl col-sm  taginforight">
-                            {categories.length > 0 && (
-                              <OwlCarousel
-                                className="owl-theme"
-                                autoplay={false}
-                                margin={10}
-                                dots={false}
-                                nav
-                                autoWidth
-                              >
-                                {categories.map((cat) => (
-                                  <li
-                                    className={
-                                      selectedCategory === cat.id
-                                        ? "active px-2"
-                                        : "px-2"
-                                    }
-                                    onClick={() => {
-                                      handleSelectCategory(cat.id);
-                                    }}
-                                  >
-                                    <span className="tag-info">{cat.name}</span>
-                                  </li>
-                                ))}
-                              </OwlCarousel>
-                            )}
-                          </div>
-                        </div>
-                      </ul>
+                          ))}
+                        </OwlCarousel>
+                      )}
                     </div>
                   </div>
-                </div>
+                </ul>
               </div>
+
             </div>
           </div>
           {innovation.length > 0 ? (

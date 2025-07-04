@@ -13,6 +13,7 @@ import AllAppointments from "./Appointments";
 import Testimonials from "./Testimonials";
 import AboutUs from "./AboutUs";
 import PaymentHistory from "./PaymentHistory";
+import TermConditions from "./Policies/TermConditions";
 
 const index = () => {
   return (
@@ -27,6 +28,7 @@ const index = () => {
           <Route path="appointments" element={<AllAppointments />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="refund-policy" element={<ReturnPolicy />} />
+          <Route path="terms-conditions" element={<TermConditions />} />
           <Route path="contact-details" element={<ContactDetails />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="career" element={<Careers />} />
