@@ -73,6 +73,7 @@ const Profile = () => {
   useEffect(() => {
     fetchContactDetails();
   }, []);
+  
   return (
     <div>
       <Tabs
