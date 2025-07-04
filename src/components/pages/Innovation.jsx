@@ -262,7 +262,7 @@ function Innovation() {
                     ></p>
 
                     <Link
-                      className="btn btn-primary max-width"
+                      className="btn btn-primary max-width hvr-shutter-out-horizontal"
                       to={`/innovation-details/${inov.slug}`}
                     >
                       Read More
@@ -294,7 +294,7 @@ function Innovation() {
                   the latest, every step of the way.
                 </p>
 
-                <a className="btn btn-primary max-width" onClick={showModal}>
+                <a className="btn btn-primary max-width hvr-shutter-out-horizontal" onClick={showModal}>
                   subscribe to our newsletter
                 </a>
               </div>

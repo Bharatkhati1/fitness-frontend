@@ -7,7 +7,6 @@ import CallIcon from "../../../../../public/assets/img/callIcon.png";
 import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png";
 import { Link } from "react-router-dom";
 
-
 import linkedinblack from "../../../../../public/assets/img/linkedinblack.png";
 import {
   getContactusDetails,
@@ -91,9 +90,8 @@ const Footer = () => {
                     <img src={YoutUbeIcon}></img>
                   </a>
                 </li>
-
-                  <li>
-                  <a className="linkedinicon" target="_blank" href={`${contactUsDetails?.youtube}`}>
+                <li>
+                  <a target="_blank" href={`${contactUsDetails?.linkedin}`}>
                     <img src={linkedinblack}></img>
                   </a>
                 </li>

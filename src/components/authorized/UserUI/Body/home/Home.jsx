@@ -535,7 +535,7 @@ function Home() {
           <video
             ref={videoRef}
             style={{ objectFit: "fill" }}
-            src="https://daily-fitness-api.24livehost.com/uploads/video/videoplayback.mp4"
+            src="https://daily-fitness-api.24livehost.com/uploads/video/homepage_video.MP4"
             width="100%"
             loop
             crossOrigin="anonymous"

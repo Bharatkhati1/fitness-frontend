@@ -81,10 +81,10 @@ function PackageDetails() {
     dispatch(AddToCart(id, true, navigate));
   };
 
-  const parsedActions = JSON.parse(details.actions || "[]");
+  const parsedActions = JSON.parse(details?.actions || "[]");
   const actionNames = parsedActions.map((action) => action.name);
   const showButton = (label) => actionNames.includes(label);
-  const encodedId = btoa(details.id);
+  const encodedId = btoa(details?.id);
 
   const prevArrow = `
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60" viewBox="0 0 30 60" fill="none">

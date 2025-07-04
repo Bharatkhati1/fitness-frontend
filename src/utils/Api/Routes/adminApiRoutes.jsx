@@ -135,6 +135,7 @@ const adminApiRoutes = {
   get_all_orders:`/orders`,
   get_all_appointments:`/appointments`,
   get_testimonials:`/feedbacks`,
+  update_testimonialStatus:(id)=>`/feedbacks/${id}`,
 
   //PAY PARTNER/CONSULTANTS
   add_debit:(type)=>`/add-debit/${type}`

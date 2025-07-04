@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
@@ -8,6 +8,211 @@ const Inquiry = () => {
   const [inquiries, setInquiries] = useState([]);
   const [activeTab, setActiveTab] = useState("inquiry");
   const [loading, setLoading] = useState(false);
+  const tabColumnMap = {
+    inquiry: [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Contact" },
+      {
+        key: "service",
+        label: "Service",
+        render: (item) => item?.Service?.map((s) => s.name).join(", ") || "-",
+      },
+      { key: "message", label: "Message" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    testimonial: [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "message", label: "Message" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    community: [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Contact" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    "applied-jobs": [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      {
+        key: "resume_url",
+        label: "Resume",
+        render: (item) =>
+          item?.resume_url?.length > 0 ? (
+            <a
+              href={item.resume_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "blue", textDecoration: "underline" }}
+            >
+              Resume
+            </a>
+          ) : (
+            "N/A"
+          ),
+      },
+      { key: "name", label: "Name" },
+      { key: "dob", label: "DOB" },
+      { key: "role", label: "Role" },
+      {
+        key: "createdAt",
+        label: "Date",
+        render: (item) =>
+          item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-",
+      },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    bussiness: [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "contactFor", label: "Bussiness Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Contact" },
+      { key: "message", label: "Message" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    "event-registration": [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Contact" },
+      {
+        key: "Event.title",
+        label: "Event Name",
+        render: (item) => <>{item?.Event?.title}</>,
+      },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    "event-inquiry": [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "phone", label: "Contact" },
+      { key: "message", label: "Message" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+    "news-latter": [
+      { key: "id", label: "ID", render: (_, __, i) => i + 1 },
+      { key: "email", label: "Email" },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => window.open(`mailto:${item.email}`)}
+            >
+              Send Mail
+            </button>
+          ) : (
+            "-"
+          ),
+      },
+    ],
+  };
 
   const fetchInquiries = async (type) => {
     setLoading(true);
@@ -21,22 +226,51 @@ const Inquiry = () => {
     }
   };
 
+  const fetchAppliedJobs = async () => {
+    try {
+      const res = await adminAxios.get(adminApiRoutes.get_applied_jobs);
+      setInquiries(res.data.data);
+    } catch (error) {
+      toast.error(error.response.data);
+    }
+  };
+
   useEffect(() => {
-    fetchInquiries(activeTab);
+    if (activeTab == "applied-jobs") {
+      fetchAppliedJobs();
+    } else {
+      fetchInquiries(activeTab);
+    }
   }, [activeTab]);
 
   const items = [
     {
       key: "inquiry",
-      label: "Inquiries",
+      label: "Get in Touch",
+    },
+    {
+      key: "testimonial",
+      label: "Testimonial Form",
     },
     {
       key: "community",
-      label: "Community",
+      label: "Community Form",
+    },
+    {
+      key: "applied-jobs",
+      label: "Careers",
+    },
+    {
+      key: "bussiness",
+      label: "Business Partners",
     },
     {
       key: "event-registration",
       label: "Event Registration",
+    },
+    {
+      key: "event-inquiry",
+      label: "Event Enquiry",
     },
     {
       key: "news-latter",
@@ -79,6 +313,8 @@ const Inquiry = () => {
     }
   };
 
+  const columns = tabColumnMap[activeTab] || [];
+
   return (
     <>
       <div className="d-flex justify-content-between align-item-end">
@@ -108,61 +344,34 @@ const Inquiry = () => {
                 <table className="table align-middle mb-0 table-hover table-centered">
                   <thead className="bg-light-subtle">
                     <tr>
-                      <th>ID</th>
-                      {activeTab != "news-latter" && <th>Name</th>}
-                      <th>Email</th>
-                      {activeTab != "news-latter" && <th>Contact</th>}
-                      {activeTab == "inquiry" && activeTab != "news-latter" && (
-                        <th>Service</th>
-                      )}
-                      <th>Message</th>
+                      {columns.map((col) => (
+                        <th key={col.key}>{col.label}</th>
+                      ))}
                     </tr>
                   </thead>
+
                   <tbody>
                     {loading ? (
                       <tr>
-                        <td
-                          colSpan={activeTab === "inquiry" ? 6 : 5}
-                          className="text-center"
-                        >
+                        <td colSpan={columns.length} className="text-center">
                           Loading...
                         </td>
                       </tr>
                     ) : inquiries.length > 0 ? (
                       inquiries.map((item, index) => (
                         <tr key={item.id}>
-                          <td>{index + 1}</td>
-                          {activeTab != "news-latter" && <td>{item?.name}</td>}
-                          <td>{item.email || "-"}</td>
-                          {activeTab != "news-latter" && <td>{item?.phone}</td>}
-                          {activeTab === "inquiry" && (
-                            <td>
-                              {item?.Service?.map((serv) => serv.name)?.join(
-                                ", "
-                              )}
+                          {columns.map((col) => (
+                            <td key={col.key}>
+                              {col.render
+                                ? col.render(item, col.key, index)
+                                : item[col.key] || "-"}
                             </td>
-                          )}
-                          {activeTab != "news-latter" && (
-                            <td>{item.message || "-"}</td>
-                          )}
-                          {activeTab == "news-latter" && (
-                            <td>
-                              <a
-                                style={{ color: "#1677ff"}}
-                                href={`mailto:${item?.email}`}
-                              >
-                                Contact
-                              </a>
-                            </td>
-                          )}
+                          ))}
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td
-                          colSpan={activeTab === "inquiry" ? 6 : 5}
-                          className="text-center"
-                        >
+                        <td colSpan={columns.length} className="text-center">
                           No data found.
                         </td>
                       </tr>

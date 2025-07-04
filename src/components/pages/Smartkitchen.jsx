@@ -22,7 +22,7 @@ import ficonyoutube from "../../../public/assets/img/f-icon-youtube.png";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
-import twitterbox from "../../../public/assets/img/twitterbox.png"
+import twitterbox from "../../../public/assets/img/twitterbox.png";
 
 function Smartkitchen() {
   const dispatch = useDispatch();
@@ -216,7 +216,6 @@ function Smartkitchen() {
                   <h3>follow us </h3>
                   <ul className="FOLLOWUSlist d-flex">
                     <li>
-
                       <Link to={contactUsDetails?.kitchenInstagram}>
                         <img src={ficoninsta}></img>
                       </Link>
@@ -226,9 +225,12 @@ function Smartkitchen() {
                         <img src={ficonyoutube}></img>
                       </Link>
                     </li>
-                      <li>
-                      <Link to={contactUsDetails?.kitchenYoutube} className="linkedinicon">
-                         <img src={twitterbox} />
+                    <li>
+                      <Link
+                        to={contactUsDetails?.kitchenTwitter}
+                        className="linkedinicon"
+                      >
+                        <img src={twitterbox} />
                       </Link>
                     </li>
                   </ul>
@@ -355,14 +357,15 @@ function Smartkitchen() {
                   <Link to={contactUsDetails?.kitchenYoutube}>
                     <img src={ficonyoutube}></img>
                   </Link>
-
-                  
                 </li>
 
                 <li>
-                    <Link to={contactUsDetails?.kitchenYoutube} className="linkedinicon">
-                         <img src={twitterbox} />
-                      </Link>
+                  <Link
+                    to={contactUsDetails?.kitchenTwitter}
+                    className="linkedinicon"
+                  >
+                    <img src={twitterbox} />
+                  </Link>
                 </li>
               </ul>
             </div>

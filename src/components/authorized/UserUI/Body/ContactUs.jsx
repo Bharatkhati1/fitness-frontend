@@ -11,7 +11,7 @@ import JoinCommunity from "./Modals/JoinCommunity";
 import { sendInquiry } from "../../../../store/auth/AuthExtraReducers";
 import { toast } from "react-toastify";
 
-import linkedin from "../../../../../public/assets/img/linkedin.png"
+import linkedin from "../../../../../public/assets/img/linkedin.png";
 
 function ContactUs() {
   const { allServices = [], contactUsDetails = {} } = useSelector(
@@ -144,17 +144,13 @@ function ContactUs() {
                           <img src={cyoutubeIcon} />
                         </a>
                       </li>
-
-
-                       <li>
+                      <li>
                         <a
                           target="_blank"
-                          // href={#}
+                          href={`${contactUsDetails?.linkedin}`}
                           className="linkedinimg"
                         >
-
-                            <img src={linkedin} />
-                         
+                          <img src={linkedin} />
                         </a>
                       </li>
                     </ul>
@@ -252,7 +248,6 @@ function ContactUs() {
                           </div>
                         </li>
                       ))}
-                     
                     </ul>
                     <div className="form-check">
                       <input

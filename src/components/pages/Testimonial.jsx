@@ -31,7 +31,7 @@ function Testimonial() {
     email: "",
     phone: "",
     message: "",
-    type: "inquiry",
+    type: "testimonial",
   });
 
   const handleChange = (e) => {
@@ -62,7 +62,7 @@ function Testimonial() {
       email: "",
       phone: "",
       message: "",
-      type: "inquiry",
+      type: "testimonial",
     });
   };
   const fetchSuccessStories = async () => {
