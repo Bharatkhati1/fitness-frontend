@@ -39,7 +39,7 @@ const TopBar = () => {
         return item.name;
       }
     }
-    return "Dashboard";
+    return "Profile";
   };
 
   const pageTitle = getTitleFromNavItems(pathname);
