@@ -15,6 +15,7 @@ const adminApiRoutes = {
   create_package: "/package",
   update_package: (packageId) => `/package/${packageId}`,
   delete_package: (packageId) => `/package/${packageId}`,
+  update_packages_sequence: `/package-sequence`,
 
   //SLIDER ROUTES
   get_sliders: (slug) => `/slider?slug=${slug}`,
