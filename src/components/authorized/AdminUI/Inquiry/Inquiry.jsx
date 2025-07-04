@@ -28,12 +28,21 @@ const Inquiry = () => {
   const items = [
     {
       key: "inquiry",
-      label: "Inquiries",
+      label: "Get in Touch",
+    },
+    {
+      key: "testimonial",
+      label: "Testimonial Form",
     },
     {
       key: "community",
-      label: "Community",
+      label: "Community Form",
     },
+    {
+      key: "bussiness",
+      label: "Business Partners",
+    },
+
     {
       key: "event-registration",
       label: "Event Registration",
@@ -148,7 +157,7 @@ const Inquiry = () => {
                           {activeTab == "news-latter" && (
                             <td>
                               <a
-                                style={{ color: "#1677ff"}}
+                                style={{ color: "#1677ff" }}
                                 href={`mailto:${item?.email}`}
                               >
                                 Contact

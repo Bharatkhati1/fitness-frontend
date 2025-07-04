@@ -187,7 +187,7 @@ export default function Events() {
     e.preventDefault();
     const payload = {
       ...formDataContact,
-      type: "inquiry",
+      type: "event",
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formDataContact.phone)) {
@@ -636,7 +636,7 @@ export default function Events() {
                 <label>Select Event</label>
                 <select
                   className="form-control"
-                  name="eventName"
+                  name="eventId"
                   value={formData.eventId}
                   onChange={handleChange}
                 >

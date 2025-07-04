@@ -51,7 +51,7 @@ function BusinessParthner() {
     e.preventDefault();
     const payload = {
       ...formData,
-      type: "inquiry",
+      type: "bussiness",
     };
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(formData.phone)) {
