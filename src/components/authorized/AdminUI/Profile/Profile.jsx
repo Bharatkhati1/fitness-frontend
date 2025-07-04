@@ -6,7 +6,7 @@ import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState(3);
+  const [activeTab, setActiveTab] = useState(2);
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -73,41 +73,46 @@ const Profile = () => {
   useEffect(() => {
     fetchContactDetails();
   }, []);
-  
+
   return (
-    <div>
+    <div style={{height:"calc(100vh - 179px)"}}>
       <Tabs
         activeKey={activeTab}
         items={items}
         onChange={onChange}
         className="px-3 pt-2"
       />
-      {activeTab == 2 && <ContactDetails />}
-      {activeTab == 3 && (
-        <div className="card">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-lg-12 mb-3">
-                <label className="form-label">Google Script</label>
-                <textarea
-                  type="text"
-                  id="script"
-                  name="script"
-                  className="form-control"
-                  value={formData.script}
-                  onChange={handleChange}
-                  style={{ minHeight: "130px", resize: "vertical" }}
-                />
+      <div className="profile-admin-container">
+        {activeTab == 2 && <ContactDetails />}
+        {activeTab == 3 && (
+          <div className="card">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-lg-12 mb-3">
+                  <label className="form-label">Google Script</label>
+                  <textarea
+                    type="text"
+                    id="script"
+                    name="script"
+                    className="form-control"
+                    value={formData.script}
+                    onChange={handleChange}
+                    style={{ minHeight: "130px", resize: "vertical" }}
+                  />
+                </div>
               </div>
             </div>
+            <div className="card-footer text-end border-top">
+              <button
+                className="btn btn-primary"
+                onClick={() => handleSubmit(0)}
+              >
+                {"Update Changes"}
+              </button>
+            </div>
           </div>
-          <div className="card-footer text-end border-top">
-            <button className="btn btn-primary" onClick={() => handleSubmit(0)}>
-              {"Update Changes"}
-            </button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

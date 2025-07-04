@@ -363,3 +363,8 @@ outline: none !important;
 .custom-modal  label.form-check-label.event-register{
   font-size: 14px;
 }
+.profile-admin-container{
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 27px);
+}
