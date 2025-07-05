@@ -128,7 +128,7 @@ function AllPakages() {
 
     window.addEventListener("resize", equalizeCardHeights);
     return () => window.removeEventListener("resize", equalizeCardHeights);
-  }, [currentPage]);
+  }, [currentPage, allPackages]);
 
   return (
     <>
@@ -233,142 +233,143 @@ function AllPakages() {
 
             {Array.isArray(allPackages) && allPackages.length > 0 ? (
               <div className="position-relative">
-               <div className="arrowrleft">
-               
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    width="30"
-                    height="30"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 24 24"
-                    style={{ enableBackground: "new 0 0 512 512" }}
-                    className=""
-                  >
-                    <g>
-                      <path
-                        d="M15 19a1 1 0 0 1-.71-.29l-6-6a1 1 0 0 1 0-1.41l6-6a1 1 0 0 1 1.41 1.41L10.41 12l5.29 5.29A1 1 0 0 1 15 19z"
-                        data-name="17"
-                        fill="#000000"
-                        opacity="1"
-                        data-original="#000000"
-                        className=""
-                      />
-                    </g>
-                  </svg>
+                <div className="arrowrleft">
+                  {currentPage > 1 && (
+                    <svg
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      width="30"
+                      height="30"
+                      x="0"
+                      y="0"
+                      viewBox="0 0 24 24"
+                      style={{ enableBackground: "new 0 0 512 512" }}
+                      className=""
+                    >
+                      <g>
+                        <path
+                          d="M15 19a1 1 0 0 1-.71-.29l-6-6a1 1 0 0 1 0-1.41l6-6a1 1 0 0 1 1.41 1.41L10.41 12l5.29 5.29A1 1 0 0 1 15 19z"
+                          data-name="17"
+                          fill="#000000"
+                          opacity="1"
+                          data-original="#000000"
+                          className=""
+                        />
+                      </g>
+                    </svg>
+                  )}
                 </div>
 
                 <div className="arrowrright">
-                 
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    width="30"
-                    height="30"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 6.35 6.35"
-                    style={{ enableBackground: "new 0 0 512 512" }}
-                    className=""
-                  >
-                    <g>
-                      <path
-                        d="M2.258 1.315a.265.265 0 0 0-.174.469L3.703 3.17l-1.62 1.386a.265.265 0 1 0 .345.4L4.28 3.373a.265.265 0 0 0 0-.403L2.428 1.382a.265.265 0 0 0-.17-.067z"
-                        fill="#000000"
-                        opacity="1"
-                        data-original="#000000"
-                        className=""
-                      />
-                    </g>
-                  </svg>
-                </div>
-              <div className="row productslistsrow">
-               
-
-              
-                {allPackages.map((pkg) => {
-                  let parsedActions = [];
-
-                  try {
-                    const raw =
-                      typeof pkg.actions === "string" ? pkg.actions : "[]";
-                    const parsed = JSON.parse(raw);
-                    parsedActions = Array.isArray(parsed) ? parsed : [];
-                  } catch (err) {
-                    console.warn("Invalid JSON for actions:", pkg.actions);
-                  }
-
-                  const showButton = (label) =>
-                    parsedActions.some((act) => act.name === label);
-
-                  return (
-                    <div
-                      key={pkg.id}
-                      className="col-12 col-sm-6 col-md-4 mb-4 d-flex align-items-stretch"
+                  {currentPage < totalPages && (
+                    <svg
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      width="30"
+                      height="30"
+                      x="0"
+                      y="0"
+                      viewBox="0 0 6.35 6.35"
+                      style={{ enableBackground: "new 0 0 512 512" }}
+                      className=""
                     >
-                      <div className="product-list w-100">
-                        <figure>
-                          <img
-                            crossOrigin="anonymous"
-                            src={pkg.image_url}
-                            alt={pkg.name}
-                            className="img-fluid"
-                          />
-                        </figure>
+                      <g>
+                        <path
+                          d="M2.258 1.315a.265.265 0 0 0-.174.469L3.703 3.17l-1.62 1.386a.265.265 0 1 0 .345.4L4.28 3.373a.265.265 0 0 0 0-.403L2.428 1.382a.265.265 0 0 0-.17-.067z"
+                          fill="#000000"
+                          opacity="1"
+                          data-original="#000000"
+                          className=""
+                        />
+                      </g>
+                    </svg>
+                  )}
+                </div>
+                <div className="row productslistsrow">
+                  {allPackages.map((pkg) => {
+                    let parsedActions = [];
 
-                        <figcaption className="card-height">
-                          <div className="row h-100 ">
-                            <div className="col-12">
-                              <h3 className="text-center">{pkg.name}</h3>
-                            </div>
+                    try {
+                      const raw =
+                        typeof pkg.actions === "string" ? pkg.actions : "[]";
+                      const parsed = JSON.parse(raw);
+                      parsedActions = Array.isArray(parsed) ? parsed : [];
+                    } catch (err) {
+                      console.warn("Invalid JSON for actions:", pkg.actions);
+                    }
 
-                            <div className="col-12 align-content-end">
-                              {" "}
-                              <div className="btnbox text-center d-flex flex-column gap-2 mt-2">
-                                {showButton("Know more") && (
-                                  <Link
-                                    to={`/package/${pkg.name
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-")}`}
-                                    className="btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Know More
-                                  </Link>
-                                )}
-                                {showButton("Consult a Doctor") && (
-                                  <Link
-                                    to={`/experts/${pkg.name
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-")}/doctor/${btoa(
-                                      pkg.id
-                                    )}`}
-                                    className="btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Consult a Doctor
-                                  </Link>
-                                )}
-                                {showButton("Talk to a Therapist") && (
-                                  <Link
-                                    to={`/experts/${pkg.name
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-")}/therapist/${btoa(
-                                      pkg.id
-                                    )}`}
-                                    className="btn btn-primary hvr-shutter-out-horizontal"
-                                  >
-                                    Talk to a Therapist
-                                  </Link>
-                                )}
+                    const showButton = (label) =>
+                      parsedActions.some((act) => act.name === label);
+
+                    return (
+                      <div
+                        key={pkg.id}
+                        className="col-12 col-sm-6 col-md-4 mb-4 d-flex align-items-stretch"
+                      >
+                        <div className="product-list w-100">
+                          <figure>
+                            <img
+                              crossOrigin="anonymous"
+                              src={pkg.image_url}
+                              alt={pkg.name}
+                              className="img-fluid"
+                            />
+                          </figure>
+
+                          <figcaption className="card-height">
+                            <div className="row h-100 ">
+                              <div className="col-12">
+                                <h3 className="text-center">{pkg.name}</h3>
+                              </div>
+
+                              <div className="col-12 align-content-end">
+                                {" "}
+                                <div className="btnbox text-center d-flex flex-column gap-2 mt-2">
+                                  {showButton("Know more") && (
+                                    <Link
+                                      to={`/package/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Know More
+                                    </Link>
+                                  )}
+                                  {showButton("Consult a Doctor") && (
+                                    <Link
+                                      to={`/experts/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}/doctor/${btoa(
+                                        pkg.id
+                                      )}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Consult a Doctor
+                                    </Link>
+                                  )}
+                                  {showButton("Talk to a Therapist") && (
+                                    <Link
+                                      to={`/experts/${pkg.name
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}/therapist/${btoa(
+                                        pkg.id
+                                      )}`}
+                                      className="btn btn-primary hvr-shutter-out-horizontal"
+                                    >
+                                      Talk to a Therapist
+                                    </Link>
+                                  )}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </figcaption>
+                          </figcaption>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
               </div>
             ) : (
               <div className="col-12 text-center py-5">
