@@ -43,7 +43,7 @@ const Ledger = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions?.map((transaction, index) => (
+                  {transactions?.transactions?.map((transaction, index) => (
                     <tr>
                       <td>{index + 1}</td>
                       <td>

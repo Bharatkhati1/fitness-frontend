@@ -287,6 +287,7 @@ function Home() {
               const options = slider.options ? slider.options.split(",") : [];
               const showClients = options.includes("Clients");
               const showExperience = options.includes("Experience");
+              const showButtons = options.includes("Buttons");
               const showAnyClientInfo = showClients || showExperience;
               return (
                 <div className="slider-box">
@@ -335,7 +336,7 @@ function Home() {
                           </ul>
                         )}
 
-                        <div className="BannerBtn d-flex">
+                       { showButtons &&<div className="BannerBtn d-flex">
                           <Link
                             className="hvr-shutter-out-horizontal"
                             to={"/all-packages"}
@@ -348,7 +349,7 @@ function Home() {
                           >
                             book a trial
                           </Link>
-                        </div>
+                        </div>}
                       </div>
                     </div>
                   </div>
