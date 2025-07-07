@@ -95,15 +95,41 @@ export const NavItems = {
       ],
     },
 
+    // Events & Innovation Group (NEW GROUP ADDED)
+    innovation: {
+      groupName: "Events & Innovation",
+      items: [
+        {
+          id: 10,
+          name: "Event management",
+          path: "event-management",
+          subMenu: [
+            { name: "Event", path: "event" },
+            { name: "Event Type", path: "type" },
+            { name: "Event Header", path: "header" },
+          ],
+        },
+        {
+          id: 11,
+          name: "Innovation",
+          path: "innovation",
+          subMenu: [
+            { name: "Manage", path: "manage" },
+            { name: "Category", path: "category" },
+          ],
+        },
+      ],
+    },
+
     // System Group
     system: {
       groupName: "System Settings",
       items: [
-        { id: 11, name: "Inquiries", path: "inquiries" },
-        { id: 12, name: "Careers", path: "careers" },
-        { id: 13, name: "Coupons", path: "coupon" },
+        { id: 12, name: "Inquiries", path: "inquiries" },
+        { id: 13, name: "Careers", path: "careers" },
+        { id: 14, name: "Coupons", path: "coupon" },
         {
-          id: 10,
+          id: 15,
           name: "Company Settings",
           path: "company-settings",
           subMenu: [
@@ -116,12 +142,15 @@ export const NavItems = {
             { name: "Privacy Policy", path: "privacy-policy" },
             { name: "Terms & Conditions", path: "terms-conditions" },
             { name: "Refund Policy", path: "refund-policy" },
+            { name: "Careers", path: "career" },
+            { name: "Innovation", path: "innovation" },
           ],
         },
       ],
     },
   },
 
+  // B2B Partner Group
   "b2b-partner": {
     main: {
       groupName: "Partner Dashboard",
@@ -133,6 +162,7 @@ export const NavItems = {
     },
   },
 
+  // Service Provider Group
   "service-provider": {
     main: {
       groupName: "Provider Dashboard",

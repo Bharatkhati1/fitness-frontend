@@ -116,7 +116,7 @@ const Careers = () => {
       <div className="card">
         <div className="card-header d-flex justify-content-between align-items-center">
           <h4 className="card-title">
-            {isEdit ? "Edit Career" : "Create Career"}
+            {isEdit ? "Edit Job" : "Create Job"}
           </h4>
           {isEdit && (
             <button className="btn btn-sm btn-secondary" onClick={handleCancel}>
