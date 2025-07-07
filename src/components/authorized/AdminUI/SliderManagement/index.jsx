@@ -8,9 +8,8 @@ const index = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route index element={<Navigate to="recepies" replace />} />
+        <Route index element={<Navigate to="manage" replace />} />
         <Route path="manage" element={<SliderManagement />} />
-        {/* <Route path="why-us-image" element={<WhyUsImage />} /> */}
         <Route path="/" element={<Navigate replace to="manage" />} />
       </Routes>
     </Suspense>

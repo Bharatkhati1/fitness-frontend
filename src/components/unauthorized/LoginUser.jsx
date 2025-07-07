@@ -82,7 +82,7 @@ const LoginUser = () => {
       if (resetStep === 1) {
         await axios.post(`${GATEWAY_URL}/web/forgot-password`, {
           email: resetEmail,
-          type: "user",
+          userType: "user",
         });
         toast.success("OTP sent to your email!");
         await new Promise((res) => setTimeout(res, 500));
@@ -101,7 +101,7 @@ const LoginUser = () => {
           email: resetEmail,
           new_password: newPassword,
           confirm_password: confirmPassword,
-          type: "user",
+          userType: "user",
         });
         toast.success("Password reset successful. Please login.");
         setIsForgotPassword(false);

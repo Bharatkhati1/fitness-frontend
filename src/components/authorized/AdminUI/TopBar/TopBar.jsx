@@ -22,25 +22,40 @@ const TopBar = () => {
     type = "service-provider";
   }
 
-
+  const getUserType = () => {
+    if (pathname.includes("/admin")) return "admin";
+    if (pathname.includes("/b2b-partner")) return "b2b-partner";
+    if (pathname.includes("/service-provider")) return "service-provider";
+    return "";
+  };
   // Function to extract display name from NavItems
   const getTitleFromNavItems = (pathname) => {
-    const segments = pathname.split("/").filter(Boolean); // Remove empty strings
+    const userType = getUserType();
+    if (!userType) return "Profil";
+    
+    const segments = pathname.split("/").filter(Boolean);
+    if (segments.length < 2) return "Dashboard";
+    
     const mainPath = segments[1];
     const subPath = segments[2];
-
-    const navList = NavItems[type] || [];
-    for (const item of navList) {
-      if (item.path === mainPath) {
-        if (item.subMenu && subPath) {
-          const subItem = item.subMenu.find((s) => s.path === subPath);
-          return subItem ? `${item.name} / ${subItem.name}` : item.name;
+    const navGroups = NavItems[userType];
+    
+    if (!navGroups) return "Dashboard";
+    
+    for (const group of Object.values(navGroups)) {
+      const foundItem = group.items.find(item => item.path === mainPath);
+      if (foundItem) {
+        if (foundItem.subMenu && subPath) {
+          const subItem = foundItem.subMenu.find(s => s.path === subPath);
+          return subItem ? `${foundItem.name} / ${subItem.name}` : foundItem.name;
         }
-        return item.name;
+        return foundItem.name;
       }
     }
+    
     return "Profile";
   };
+
 
   const pageTitle = getTitleFromNavItems(pathname);
   return (
