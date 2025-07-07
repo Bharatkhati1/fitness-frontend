@@ -103,7 +103,7 @@ const TopBar = () => {
               </a>
               <div className="dropdown-menu dropdown-menu-end">
                 <h6 className="dropdown-header">Welcome!</h6>
-                <Link className="dropdown-item" to="/admin/profile">
+                <Link className="dropdown-item" to={`/${type}/profile`}>
                   <i className="bx bx-user-circle text-muted fs-18 align-middle me-1"></i>
                   <span className="align-middle">Profile</span>
                 </Link>

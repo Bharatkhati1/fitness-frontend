@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GATEWAY_URL } from "../../../../utils/constants";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const BasicInfo = ({ user }) => {
   const [passwords, setPasswords] = useState({
@@ -259,6 +260,7 @@ const GeneralInfo = () => {
 };
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
+  const { pathname } = useLocation();
   const [activeTab, setActiveTab] = useState(0);
   const [formData, setFormData] = useState({
     email: "",
@@ -274,23 +276,30 @@ const Profile = () => {
     kitchenTwitter: "",
   });
 
+  let type = "";
+  if (pathname.includes("/admin")) {
+    type = "admin";
+  } else if (pathname.includes("/b2b-partner")) {
+    type = "b2b-partner";
+  } else if (pathname.includes("/service-provider")) {
+    type = "service-provider";
+  }
+
   const items = [
     {
       key: 0,
       label: "Profile",
     },
-    {
-      key: 1,
-      label: "General Info",
-    },
-    {
-      key: 2,
-      label: "Social Media Links",
-    },
-    {
-      key: 3,
-      label: "Integrations",
-    },
+    ...(type == "admin"
+      ? [
+          {
+            key: 1,
+            label: "General Info",
+          },
+          { key: 2, label: "Social Media Links" },
+          { key: 3, label: "Integrations" },
+        ]
+      : []),
   ];
 
   const handleChange = (e) => {
@@ -337,9 +346,9 @@ const Profile = () => {
       />
       <div className="profile-admin-container">
         {activeTab == 0 && <BasicInfo user={user} />}
-        {activeTab == 1 && <GeneralInfo />}
-        {activeTab == 2 && <ContactDetails />}
-        {activeTab == 3 && (
+        {activeTab == 1 && type == "admin" &&  <GeneralInfo />}
+        {activeTab == 2 && type == "admin" && <ContactDetails />}
+        {activeTab == 3 && type == "admin" && (
           <div className="card">
             <div className="card-body">
               <div className="row">

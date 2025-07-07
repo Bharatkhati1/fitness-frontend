@@ -45,7 +45,6 @@ export const Login = (
             user: { ...data?.user },
           })
         );
-        dispatch(authActions.setType(data.user.userType));
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
       } else {
@@ -59,7 +58,7 @@ export const Login = (
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-
+      dispatch(authActions.setType(userType));
       localStorage.setItem("isAdmin", isAdmin);
       if (!isModal) {
         await new Promise((resolve) => setTimeout(resolve, 700));
@@ -100,7 +99,6 @@ export const getAccessToken = (isAdmin, userType) => {
           })
         );
         localStorage.setItem("isAdmin", isAdmin);
-        dispatch(authActions.setType(data.user.userType));
         dispatch(authActions.checkingUserToken(false));
         dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
         dispatch(authActions.setAdminDetails({ ...data?.user }));
@@ -116,6 +114,7 @@ export const getAccessToken = (isAdmin, userType) => {
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
+      dispatch(authActions.setType(userType));
     } catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
