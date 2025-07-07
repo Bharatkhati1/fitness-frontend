@@ -651,7 +651,7 @@ export default function Events() {
                 </select>
               </div>
 
-              <div className="form-check mb-1 mt-4">
+              <div className="form-check mb-1 mt-4 d-flex">
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -666,7 +666,7 @@ export default function Events() {
                   }
                   required
                 />
-                <label className="form-check-label " htmlFor="termsAccepted">
+                <label className="form-check-label event-register" htmlFor="termsAccepted">
                   I accept the{" "}
                   <a
                     style={{ color: "#0d6efd" }}
