@@ -198,7 +198,7 @@ export const getServicesForUser = () => {
 export const getKitchenData = ({
   search = "",
   page = 1,
-  limit = 10,
+  limit = 8,
   category,
   type,
 } = {}) => {

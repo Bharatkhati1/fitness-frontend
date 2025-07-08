@@ -60,17 +60,12 @@ const CouponList = () => {
                         code,
                         type,
                         value,
-                        numberOfUsage,
                         maxUsage,
-                        partnerCommission,
                         createdAt,
                         startDate,
                         endDate,
                         isActive,
                         CouponUsages,
-                        CouponPackages,
-                        CouponServices,
-                        totalEarnings,
                       } = coupon;
 
                       const sum = coupon?.CouponUsages?.reduce(

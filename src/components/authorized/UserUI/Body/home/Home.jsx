@@ -558,7 +558,7 @@ function Home() {
             </p>
           </div>
           <div className="row g-4 g-sm-3">
-            {kitchenData.slice(0, 3).map((data) => (
+            {kitchenData?.items?.slice(0, 3).map((data) => (
               <div className="col-md-4 SmartKichinContent">
                 <figure>
                   <img
