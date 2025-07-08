@@ -9,11 +9,12 @@ import Thankyouimg from "../../../public/assets/img/Thankyouimg.png";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import { formatINRCurrency } from "../../utils/constants";
 
 export default function AddToBag() {
   const { type } = useParams();
-  const dispatch = useDispatch()
-  const  user  = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -57,7 +58,7 @@ export default function AddToBag() {
     try {
       const res = await userAxios.get(userApiRoutes.get_profile_details);
       const data = res.data.data;
-      setFormData((prev)=> ({...prev, ...data}));
+      setFormData((prev) => ({ ...prev, ...data }));
     } catch (error) {
       toast.error(error.response?.data?.error);
     }
@@ -204,7 +205,6 @@ export default function AddToBag() {
             });
             setLoading(false);
             setIsPaymentSuccessfull(true);
-            console.log("heey test ")
             fetchCartitems();
           } catch (err) {
             console.error(err);
@@ -249,7 +249,6 @@ export default function AddToBag() {
         discountedAmount: null,
       }));
       setCartItems(updatedItems);
-      console.log("remove")
       fetchCartitems();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to remove coupon");
@@ -262,7 +261,9 @@ export default function AddToBag() {
     let totalsum = 0;
     cartItems.forEach((item) => {
       const price = item.discountApplied
-        ? parseFloat(item?.discountedAmount || 0)
+        ? parseFloat(
+            item?.PackagePlan?.price - Number(appliedCouponDetails?.value || 0)|| 0
+          )
         : parseFloat(item?.PackagePlan?.price || 0);
 
       const dig = item.discountApplied
@@ -281,7 +282,7 @@ export default function AddToBag() {
   useEffect(() => {
     fetchProfileDetails();
     if (type === "cart") {
-      console.log("cart")
+      console.log("cart");
       fetchCartitems();
     } else {
       const storedData = localStorage.getItem("appointmentData");
@@ -337,24 +338,24 @@ export default function AddToBag() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-  
+
     const { firstName, phone } = formData;
-  
+
     if (!firstName?.trim()) {
       toast.error("Please enter your name.");
       return;
     }
-  
+
     if (!phone?.trim()) {
       toast.error("Please enter your phone number.");
       return;
     }
-    
+
     if (phone.length !== 10 || !/^\d+$/.test(phone)) {
       toast.error("Phone number must be exactly 10 digits.");
       return;
     }
-  
+
     try {
       await userAxios.put(userApiRoutes.update_profile, formData);
       toast.success("Profile updated successfully");
@@ -363,7 +364,7 @@ export default function AddToBag() {
       toast.error(error.response?.data?.message || "Failed to update profile");
     }
   };
-  
+
   return (
     <>
       <section className="innerbanner">
@@ -488,7 +489,11 @@ export default function AddToBag() {
                           {cartItems.map((item) => (
                             <li key={item.id}>
                               <figure>
-                                <img crossorigin="anonymous" src={item?.PackagePlan?.image_url} alt="Product" />
+                                <img
+                                  crossorigin="anonymous"
+                                  src={item?.PackagePlan?.image_url}
+                                  alt="Product"
+                                />
                               </figure>
                               <figcaption>
                                 <h4>
@@ -500,14 +505,20 @@ export default function AddToBag() {
                                   {item.discountApplied ? (
                                     <>
                                       <span className="text-muted text-decoration-line-through me-2">
-                                        ₹{item?.PackagePlan?.price}
+                                        {formatINRCurrency(
+                                          item?.PackagePlan?.price
+                                        )}
                                       </span>
                                       <span className="text-success fw-bold">
-                                        ₹{item?.discountedAmount}
+                                        ₹{item?.PackagePlan?.price - Number(appliedCouponDetails?.value || 0)|| 0}
                                       </span>
                                     </>
                                   ) : (
-                                    <>₹{item?.PackagePlan?.price}</>
+                                    <>
+                                      {formatINRCurrency(
+                                        item?.PackagePlan?.price
+                                      )}
+                                    </>
                                   )}
                                 </span>
                               </figcaption>

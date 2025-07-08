@@ -277,7 +277,7 @@ function Home() {
             items={1}
             className="owl-theme"
             autoplaySpeed={500}
-            autoplayTimeout={5000}
+            autoplayTimeout={8000}
             loop={true}
             margin={0}
             nav={true}

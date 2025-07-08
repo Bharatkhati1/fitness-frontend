@@ -392,6 +392,7 @@ const Coupon = () => {
                       value={formData.startDate}
                       onChange={handleInputChange}
                       disabled={!formData.isActiveDates}
+                      min={new Date().toISOString().split("T")[0]} // today's date
                     />
                   </div>
                 </div>
@@ -407,6 +408,10 @@ const Coupon = () => {
                       value={formData.endDate}
                       onChange={handleInputChange}
                       disabled={!formData.isActiveDates}
+                      min={
+                        formData.startDate ||
+                        new Date().toISOString().split("T")[0]
+                      } // not before start date
                     />
                   </div>
                 </div>

@@ -22,7 +22,7 @@ const Testimonials = () => {
     try {
       setLoadingId(id);
       await adminAxios.put(adminApiRoutes.update_testimonialStatus(id), {
-        status: status, 
+        status: status,
       });
       toast.success(`Testimonial ${status.toLowerCase()} successfully.`);
       fetchTestimonials();
@@ -86,7 +86,7 @@ const Testimonials = () => {
                           ) : item.isApproved === "Pending" ? (
                             <>
                               <button
-                                className="btn btn-soft-primary btn-sm me-2"
+                                className="btn btn-sm btn-primary me-2"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Approved")
                                 }
@@ -94,7 +94,7 @@ const Testimonials = () => {
                                 Approve
                               </button>
                               <button
-                                className="btn btn-sm btn-danger"
+                                className="btn btn-soft-primary"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Rejected")
                                 }
@@ -103,7 +103,14 @@ const Testimonials = () => {
                               </button>
                             </>
                           ) : (
-                            <span className="text-muted">No actions</span>
+                            <button
+                              className="btn btn-sm btn-danger"
+                              onClick={() =>
+                                handleApproveReject(item.id, "Pending")
+                              }
+                            >
+                              UnApprove
+                            </button>
                           )}
                         </td>
                       </tr>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "antd";
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
@@ -140,25 +142,37 @@ const AvailibilityModal = ({
                     </td>
                     <td>
                       {available && (
-                        <input
-                          type="time"
-                          value={startTime}
-                          onChange={(e) =>
-                            handleTimeChange(day, "startTime", e.target.value)
+                        <TimePicker
+                          format="HH:mm"
+                          minuteStep={15}
+                          value={startTime ? dayjs(startTime, "HH:mm") : null}
+                          onChange={(time) =>
+                            handleTimeChange(
+                              day,
+                              "startTime",
+                              time?.format("HH:mm")
+                            )
                           }
                           className={`form-control ${
                             isMissingTime && !startTime ? "is-invalid" : ""
                           }`}
+                          inputReadOnly
+                          allowClear={false}
                         />
                       )}
                     </td>
                     <td>
                       {available && (
-                        <input
-                          type="time"
-                          value={endTime}
-                          onChange={(e) =>
-                            handleTimeChange(day, "endTime", e.target.value)
+                        <TimePicker
+                          format="HH:mm"
+                          minuteStep={15}
+                          value={endTime ? dayjs(endTime, "HH:mm") : null}
+                          onChange={(time) =>
+                            handleTimeChange(
+                              day,
+                              "endTime",
+                              time?.format("HH:mm")
+                            )
                           }
                           className={`form-control ${
                             isMissingTime && !endTime
@@ -167,7 +181,8 @@ const AvailibilityModal = ({
                               ? "is-invalid"
                               : ""
                           }`}
-                          min={startTime || undefined}
+                          inputReadOnly
+                          allowClear={false}
                           disabled={!startTime}
                         />
                       )}

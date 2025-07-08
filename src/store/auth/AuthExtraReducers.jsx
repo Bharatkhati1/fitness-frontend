@@ -63,7 +63,7 @@ export const Login = (
       if (!isModal) {
         await new Promise((resolve) => setTimeout(resolve, 700));
         dispatch(authActions.checkingUserToken(false));
-        navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
+        navigate(isAdmin ? `/${route}/service-management/services` : "/", {
           replace: true,
         });
       } else {
@@ -137,7 +137,7 @@ export const logoutUser = (isUser, navigate) => {
     const type = isUser ? "userRefreshToken" : "adminRefreshToken";
     dispatch(authActions.setLoginButtonDisable(true));
     const fetchData = async () => {
-      await userAxios
+      await webAxios
         .post(
           `/logout`,
           { type },

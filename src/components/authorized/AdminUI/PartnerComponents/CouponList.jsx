@@ -45,8 +45,7 @@ const CouponList = () => {
                       <th>Coupon Code</th>
                       <th>Discount</th>
                       <th>Usage</th>
-                      <th>Associated Package/Service</th>
-                      <th>Partner Commission (%)</th>
+                      <th>Associated Package</th>
                       <th>Date</th>
                       <th>Validity</th>
                       <th>Total Earnings</th>
@@ -74,11 +73,12 @@ const CouponList = () => {
                         totalEarnings,
                       } = coupon;
 
-                        const sum = coupon?.CouponUsages?.reduce(
-                          (total, data) => total + Number(data.partnerCommission || 0),
-                          0
-                        );
-                    
+                      const sum = coupon?.CouponUsages?.reduce(
+                        (total, data) =>
+                          total + Number(data.partnerCommission || 0),
+                        0
+                      );
+
                       return (
                         <tr key={index}>
                           <td>{index + 1}</td>
@@ -90,8 +90,11 @@ const CouponList = () => {
                           <td>
                             {CouponUsages?.length}/{maxUsage}
                           </td>
-                          <td>{coupon?.Package?.name} | {coupon?.Package?.Service?.name}</td>
-                          <td>{partnerCommission || 0}%</td>
+                          <td>
+                            {coupon?.CouponPackages?.map(
+                              (item) => item.Package.name
+                            ).join(", ")}
+                          </td>
                           <td>
                             {moment(createdAt).format("DD-MM-YYYY HH:mm")}
                           </td>

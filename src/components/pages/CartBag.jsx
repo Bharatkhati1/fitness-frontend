@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import { formatINRCurrency } from "../../utils/constants";
 
 export default function CartBag() {
   const navigate = useNavigate()
@@ -83,7 +84,7 @@ export default function CartBag() {
                           {item?.PackagePlan?.duration} Months
                         </h4>
                         <span className="price-text">
-                         <span style={{color:"black", fontSize:"13px"}}>Price :</span>  ₹ {item?.PackagePlan?.price}
+                         <span style={{color:"black", fontSize:"13px"}}>Price :</span>   {formatINRCurrency(item?.PackagePlan?.price)}
                         </span>
                         <a
                           onClick={() => removeFromCart(item.id)}

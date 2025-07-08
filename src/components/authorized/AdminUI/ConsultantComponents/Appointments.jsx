@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const Appointments = () => {
   const [appointment, setAppointments] = useState([]);
-  const user  = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
 
   const fetchAppointments = async () => {
     try {
@@ -17,7 +17,7 @@ const Appointments = () => {
     } catch (error) {
       toast.error(error.response.data.error);
     }
-  }; 
+  };
   useEffect(() => {
     fetchAppointments();
   }, []);
@@ -36,7 +36,7 @@ const Appointments = () => {
                     <th>Booking Id</th>
                     <th>User name</th>
                     <th>Amount</th>
-                    <th>Associated Service|Package</th>
+                    <th>Associated Package</th>
                     <th>Earning</th>
                     <th>Duration(min)</th>
                     <th>Start</th>
@@ -45,16 +45,20 @@ const Appointments = () => {
                 </thead>
                 <tbody>
                   {appointment?.allAppointments?.map((data, index) => (
-                         <tr>
-                         <td>{data.bookingId}</td>
-                         <td>{data?.User?.name}</td>
-                         <td>₹{data.amount}</td>
-                         <td>{data?.Package?.name} | {data?.Package?.Service?.name}</td>
-                         <td>₹{data.consultantEarning}</td>
-                         <td>{user.duration}</td>
-                         <td>{data.bookingStart}</td>
-                         <td>{data.bookingEnd}</td>
-                       </tr>
+                    <tr>
+                      <td>{data.bookingId}</td>
+                      <td>{data?.User?.name}</td>
+                      <td>₹{data.amount}</td>
+                      <td>
+                        {data?.CouponPackages?.map(
+                          (item) => item.Package.name
+                        ).join(", ")}{" "}
+                      </td>
+                      <td>₹{data.consultantEarning}</td>
+                      <td>{user.duration}</td>
+                      <td>{data.bookingStart}</td>
+                      <td>{data.bookingEnd}</td>
+                    </tr>
                   ))}
                 </tbody>
               </table>

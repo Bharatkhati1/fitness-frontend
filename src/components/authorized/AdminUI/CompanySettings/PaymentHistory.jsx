@@ -78,8 +78,8 @@ const PaymentHistory = () => {
               setSelectedPartner("");
             }}
             items={[
-              { key: "consultant", label: "All Consultants" },
-              { key: "partner", label: "All Partners" },
+              { key: "consultant", label: "All Service Providers" },
+              { key: "partner", label: "All B2B Partners" },
             ]}
           />
 
@@ -128,6 +128,10 @@ const PaymentHistory = () => {
                   <tr>
                     <th>ID</th>
                     <th>Type</th>
+                    {activeTab === "partner" && <th>B2B Partner Name</th>}
+                    {activeTab === "consultant" && (
+                      <th>Service Provider Name</th>
+                    )}
                     <th>Amount</th>
                     <th>Description</th>
                     <th>Created At</th>
@@ -150,6 +154,12 @@ const PaymentHistory = () => {
                           </span>
                         </td>
                         <td>₹{transaction.amount}</td>
+                        {activeTab === "partner" && (
+                          <td>{transaction?.Partner?.name || "-"}</td>
+                        )}
+                        {activeTab === "consultant" && (
+                          <td>{transaction?.Consultant?.name || "-"}</td>
+                        )}
                         <td>{transaction.comment || "-"}</td>
                         <td>
                           {moment(transaction.createdAt).format(

@@ -215,7 +215,7 @@ const Consultants = () => {
                   },
                   { label: "Price", name: "fees", type: "number" },
                   {
-                    label: "Platform Fees",
+                    label: "Platform Fees (%)",
                     name: "platformFee",
                     type: "numbers",
                   },
@@ -411,7 +411,7 @@ const Consultants = () => {
                                   setOpenWeeklyModal(true);
                                 }}
                               >
-                                Availibilty
+                                Availability
                               </button>
                               <button
                                 className="btn btn-soft-primary btn-sm"

@@ -16,11 +16,14 @@ import CompanySetting from "../authorized/AdminUI/CompanySettings/index";
 import Innovation from "../authorized/AdminUI/Innovation/index";
 import NewsAndMedia from "../authorized/AdminUI/NewsAndMedia/index";
 import PartnersManagement from "../authorized/AdminUI/Partners";
-import Careers from "../authorized/AdminUI/Careers/Careers";
+import Careers from "../authorized/AdminUI/Careers/index";
 import EventManagement from "../authorized/AdminUI/Events/index";
 import Coupon from "../authorized/AdminUI/Coupons/Coupon";
 import Inquiry from "../authorized/AdminUI/Inquiry/Inquiry";
 import Profile from "../authorized/AdminUI/Profile/profile";
+import PaymentHistory from "../authorized/AdminUI/CompanySettings/PaymentHistory";
+import Testimonials from "../authorized/AdminUI/TestimonialManagement/index";
+import AboutUs from "../authorized/AdminUI/AboutUsPages/index";
 
 export default function AdminRoutes() {
   return (
@@ -42,18 +45,20 @@ export default function AdminRoutes() {
             path="service-management/create-update-package"
             element={<CreateUpdatePackage />}
           />
-          <Route path="success-stories" element={<SuccessStories />} />
+          <Route path="about-us-page/*" element={<AboutUs />} />
           <Route path="team-management/*" element={<TeamManagement />} />
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="smart-kitchen/*" element={<SmartKitchen />} />
           <Route path="consultants/*" element={<Consultants />} />
           <Route path="innovation/*" element={<Innovation />} />
+          <Route path="payment-history" element={<PaymentHistory />} />
+          <Route path="testimonials-management/*" element={<Testimonials />} />
           <Route path="company-settings/*" element={<CompanySetting />} />
           <Route path="news-media/*" element={<NewsAndMedia />} />
           <Route path="event-management/*" element={<EventManagement />} />
           <Route path="partner-management/*" element={<PartnersManagement />} />
-          <Route path="careers" element={<Careers />} />
-          <Route path="coupon" element={<Coupon />} />
+          <Route path="career-page/*" element={<Careers />} />
+          <Route path="coupons" element={<Coupon />} />
           <Route path="inquiries" element={<Inquiry />} />
           <Route
             path="service-management/*"

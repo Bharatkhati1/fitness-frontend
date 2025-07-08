@@ -10,7 +10,7 @@ import { GATEWAY_URL } from "../../../../utils/constants";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-const BasicInfo = ({ user }) => {
+const BasicInfo = ({ user, type }) => {
   const [passwords, setPasswords] = useState({
     newPassword: "",
     confirmPassword: "",
@@ -43,11 +43,10 @@ const BasicInfo = ({ user }) => {
         email: user.email,
         new_password: passwords.newPassword,
         confirm_password: passwords.confirmPassword,
-        userType: "admin",
+        userType: type,
       });
       toast.success(res.data.message);
       setPasswords({
-        // oldPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
@@ -69,7 +68,6 @@ const BasicInfo = ({ user }) => {
               name="name"
               className="form-control"
               value={user?.firstName || ""}
-              readOnly
             />
           </div>
           <div className="col-lg-6 mb-3">
@@ -89,6 +87,9 @@ const BasicInfo = ({ user }) => {
         </div>
       </div>
       <div className="card">
+        <div className="card-header">
+          <h4 className="card-title">Change Password</h4>
+        </div>
         <div className="card-body">
           <div className="col-lg-6 mb-3 position-relative">
             <label className="form-label">New Password</label>
@@ -141,7 +142,7 @@ const BasicInfo = ({ user }) => {
   );
 };
 
-const GeneralInfo = () => {
+const GeneralInfo = ({type}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -280,9 +281,9 @@ const Profile = () => {
   if (pathname.includes("/admin")) {
     type = "admin";
   } else if (pathname.includes("/b2b-partner")) {
-    type = "b2b-partner";
+    type = "partner";
   } else if (pathname.includes("/service-provider")) {
-    type = "service-provider";
+    type = "consultant";
   }
 
   const items = [
@@ -345,8 +346,8 @@ const Profile = () => {
         className="px-3 pt-2"
       />
       <div className="profile-admin-container">
-        {activeTab == 0 && <BasicInfo user={user} />}
-        {activeTab == 1 && type == "admin" &&  <GeneralInfo />}
+        {activeTab == 0 && <BasicInfo user={user} type={type}/>}
+        {activeTab == 1 && type == "admin" && <GeneralInfo type={type} />}
         {activeTab == 2 && type == "admin" && <ContactDetails />}
         {activeTab == 3 && type == "admin" && (
           <div className="card">
