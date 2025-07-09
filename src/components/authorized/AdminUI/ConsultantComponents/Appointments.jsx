@@ -36,7 +36,7 @@ const Appointments = () => {
                     <th>Booking Id</th>
                     <th>User name</th>
                     <th>Amount</th>
-                    <th>Associated Package</th>
+                    <th>Associated Package | Service</th>
                     <th>Earning</th>
                     <th>Duration(min)</th>
                     <th>Start</th>
@@ -50,9 +50,7 @@ const Appointments = () => {
                       <td>{data?.User?.name}</td>
                       <td>₹{data.amount}</td>
                       <td>
-                        {data?.CouponPackages?.map(
-                          (item) => item.Package.name
-                        ).join(", ")}{" "}
+                        {data?.Package?.name} | {data?.Package?.Service?.name}
                       </td>
                       <td>₹{data.consultantEarning}</td>
                       <td>{user.duration}</td>

@@ -480,7 +480,7 @@ function Home() {
                                     to={`/service-details/${srv.name
                                       .toLowerCase()
                                       .replace(/\s+/g, "-")}`}
-                                    className=" mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                    className="mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
                                   >
                                     Know more
                                   </Link>

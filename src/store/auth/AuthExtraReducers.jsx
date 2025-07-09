@@ -123,7 +123,7 @@ export const getAccessToken = (isAdmin, userType) => {
   };
 };
 
-export const logoutUser = (isUser, navigate) => {
+export const logoutUser = (isUser, userType) => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
@@ -163,7 +163,7 @@ export const logoutUser = (isUser, navigate) => {
         window.open("/login-user", "_self", false);
       } else {
         localStorage.removeItem("isAdmin");
-        window.open("/admin", "_self", false);
+        window.open(`/${userType}`, "_self", false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -238,7 +238,7 @@ export const fetchAllProducts = ({
   page,
   limit,
   setTotalPages,
-  setTotalItems
+  setTotalItems,
 } = {}) => {
   return async (dispatch) => {
     if (typeof search !== "string") {
@@ -256,7 +256,7 @@ export const fetchAllProducts = ({
         userApiRoutes.get_all_packages(query)
       );
       setTotalPages(response.data.totalPages);
-      setTotalItems(response.data.totalItems)
+      setTotalItems(response.data.totalItems);
       const filter = response.data.data;
       dispatch(authActions.setAllPackages(filter));
     } catch (error) {

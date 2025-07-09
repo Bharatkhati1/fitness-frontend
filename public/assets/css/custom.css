@@ -368,3 +368,9 @@ outline: none !important;
   overflow-x: hidden;
   height: calc(100% - 27px);
 }
+.OurHealthBlogContent figure img{
+  border-radius: 8px;
+}
+.SmartKichinContent figure img{
+  border-radius: 4px;
+}
