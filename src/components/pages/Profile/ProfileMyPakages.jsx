@@ -14,7 +14,7 @@ function ProfileMyPakages({ userPackages }) {
               <div className="row">
                 <div className="col">
                   <div className="pakageheadtitle">
-                    <h4>{pkg.planName}</h4>
+                    <h4>{pkg.PackagePlan?.package?.name}</h4>
                     <span>{pkg?.serviceName}</span>
                   </div>
                 </div>
@@ -45,12 +45,12 @@ function ProfileMyPakages({ userPackages }) {
                     Start: {moment(pkg.startDate).format("DD MMM YYYY")}
                   </span>
                 </div>
-                <div className="col d-flex align-items-center">
+                {pkg.endDate &&<div className="col d-flex align-items-center">
                   <figure className="me-1">
                     <img src={calendericon} />
                   </figure>
                   <span>End: {moment(pkg.endDate).format("DD MMM YYYY")}</span>
-                </div>
+                </div>}
               </div>
             </div>
           </div>

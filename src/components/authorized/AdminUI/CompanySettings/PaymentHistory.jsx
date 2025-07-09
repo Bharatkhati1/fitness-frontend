@@ -8,7 +8,7 @@ import { Tabs } from "antd";
 const PaymentHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [activeTab, setActiveTab] = useState("consultant");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [consultants, setConsultants] = useState([]);
   const [partners, setPartners] = useState([]);
 
@@ -37,7 +37,7 @@ const PaymentHistory = () => {
   // Fetch transactions
   const fetchTransactions = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       if (activeTab === "consultant") {
         const res = await adminAxios.get(
           adminApiRoutes.consultant_payment_history(selectedConsultant || null)
@@ -51,8 +51,8 @@ const PaymentHistory = () => {
       }
     } catch (error) {
       toast.error("Failed to fetch transactions");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 

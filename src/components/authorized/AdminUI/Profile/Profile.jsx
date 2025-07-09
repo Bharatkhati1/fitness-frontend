@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Tabs } from "antd";
 import ContactDetails from "../CompanySettings/ContactDetails/ContactDetails";
 import { toast } from "react-toastify";
@@ -11,25 +11,57 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const BasicInfo = ({ user, type }) => {
+  const profileImgref = useRef(null);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+  });
+
+  const [profileImage, setProfileImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
   const [passwords, setPasswords] = useState({
     newPassword: "",
     confirmPassword: "",
+    currentPassword: "",
   });
 
   const [showPassword, setShowPassword] = useState({
     new: false,
     confirm: false,
+    current: false,
   });
 
-  const toggleVisibility = (field) => {
-    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
+  // Sync props with local state on mount or when user changes
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        firstName: user.firstName || "",
+        email: user.email || "",
+      });
+      setPreviewImage(user.image || null);
+    }
+  }, [user]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
   const handlePasswordChange = (e) => {
     setPasswords({ ...passwords, [e.target.name]: e.target.value });
   };
 
+  const toggleVisibility = (field) => {
+    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
+
   const handlePasswordSubmit = async () => {
-    if (!passwords.newPassword || !passwords.confirmPassword) {
+    if (!passwords.newPassword || !passwords.confirmPassword || !passwords.currentPassword) {
       toast.error("Please fill in all password fields.");
       return;
     }
@@ -38,10 +70,12 @@ const BasicInfo = ({ user, type }) => {
       toast.error("New Password and Confirm Password do not match.");
       return;
     }
+
     try {
       const res = await axios.post(`${GATEWAY_URL}/web/change-password`, {
-        email: user.email,
+        email: formData.email,
         new_password: passwords.newPassword,
+        current_password: passwords.currentPassword,
         confirm_password: passwords.confirmPassword,
         userType: type,
       });
@@ -49,27 +83,44 @@ const BasicInfo = ({ user, type }) => {
       setPasswords({
         newPassword: "",
         confirmPassword: "",
+        currentPassword: "",
       });
     } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
+      toast.error(error?.response?.data?.message || "Something went wrong");
     }
+  };
+
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleProfileSubmit = () => {
+    // Collect formData and profileImage for submission
+    console.log("Profile Updated Data:", { ...formData, profileImage });
+    toast.success("Profile data collected for update.");
   };
 
   return (
     <>
+      {/* Profile Info Card */}
       <div className="card">
-        <div className="card-body">
+        <div className="card-body row">
           <div className="col-lg-6 mb-3">
             <label className="form-label">Name</label>
             <input
               type="text"
               id="name"
-              name="name"
+              name="firstName"
               className="form-control"
-              value={user?.firstName || ""}
+              value={formData.firstName}
+              onChange={handleInputChange}
             />
           </div>
+
           <div className="col-lg-6 mb-3">
             <label className="form-label">Email</label>
             <input
@@ -77,21 +128,72 @@ const BasicInfo = ({ user, type }) => {
               id="email"
               name="email"
               className="form-control"
-              value={user?.email || ""}
+              value={formData.email}
               disabled
             />
           </div>
+
+          <div className="col-lg-6 mb-3">
+            <label className="form-label">Profile Picture</label>
+            <input
+              type="file"
+              accept="image/*"
+              ref={profileImgref}
+              className="form-control"
+              onChange={handleProfileImageChange}
+            />
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt="Profile"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  objectFit: "cover",
+                  border: "1px solid #eee",
+                  marginTop: "10px",
+                }}
+              />
+            )}
+          </div>
+
           <div className="text-start border-top pt-3">
-            <button className="btn btn-primary">Update Changes</button>
+            <button className="btn btn-primary" onClick={handleProfileSubmit}>
+              Update Changes
+            </button>
           </div>
         </div>
       </div>
-      <div className="card">
+
+      {/* Password Change Card */}
+      <div className="card mt-4">
         <div className="card-header">
           <h4 className="card-title">Change Password</h4>
         </div>
-        <div className="card-body">
-          <div className="col-lg-6 mb-3 position-relative">
+        <div className="card-body row">
+          {/* Current Password */}
+          <div className="col-lg-6 mb-3">
+            <label className="form-label">Current Password</label>
+            <div className="input-group">
+              <input
+                type={showPassword.current ? "text" : "password"}
+                className="form-control"
+                name="currentPassword"
+                value={passwords.currentPassword}
+                onChange={handlePasswordChange}
+              />
+              <span
+                className="input-group-text"
+                onClick={() => toggleVisibility("current")}
+                style={{ cursor: "pointer" }}
+              >
+                {showPassword.current ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+          </div>
+
+          {/* New Password */}
+          <div className="col-lg-6 mb-3">
             <label className="form-label">New Password</label>
             <div className="input-group">
               <input
@@ -103,15 +205,16 @@ const BasicInfo = ({ user, type }) => {
               />
               <span
                 className="input-group-text"
-                style={{ cursor: "pointer" }}
                 onClick={() => toggleVisibility("new")}
+                style={{ cursor: "pointer" }}
               >
                 {showPassword.new ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
           </div>
 
-          <div className="col-lg-6 mb-3 position-relative">
+          {/* Confirm Password */}
+          <div className="col-lg-6 mb-3">
             <label className="form-label">Confirm Password</label>
             <div className="input-group">
               <input
@@ -123,8 +226,8 @@ const BasicInfo = ({ user, type }) => {
               />
               <span
                 className="input-group-text"
-                style={{ cursor: "pointer" }}
                 onClick={() => toggleVisibility("confirm")}
+                style={{ cursor: "pointer" }}
               >
                 {showPassword.confirm ? <FaEyeSlash /> : <FaEye />}
               </span>
@@ -142,7 +245,7 @@ const BasicInfo = ({ user, type }) => {
   );
 };
 
-const GeneralInfo = ({type}) => {
+const GeneralInfo = ({ type }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -346,7 +449,7 @@ const Profile = () => {
         className="px-3 pt-2"
       />
       <div className="profile-admin-container">
-        {activeTab == 0 && <BasicInfo user={user} type={type}/>}
+        {activeTab == 0 && <BasicInfo user={user} type={type} />}
         {activeTab == 1 && type == "admin" && <GeneralInfo type={type} />}
         {activeTab == 2 && type == "admin" && <ContactDetails />}
         {activeTab == 3 && type == "admin" && (

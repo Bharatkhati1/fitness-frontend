@@ -58,7 +58,7 @@ export const Login = (
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-      dispatch(authActions.setType(userType));
+      dispatch(authActions.setType(data?.user?.userType));
       localStorage.setItem("isAdmin", isAdmin);
       if (!isModal) {
         await new Promise((resolve) => setTimeout(resolve, 700));
@@ -114,9 +114,16 @@ export const getAccessToken = (isAdmin, userType) => {
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-      dispatch(authActions.setType(userType));
+      dispatch(authActions.setType(data?.user?.userType));
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (
+        error.response.data.error ==
+        "Your account is De-Activated. Please Contact Administrator"
+      ) {
+        window.location.href = `/`;
+      } else {
+        toast.error(error?.response?.data?.message);
+      }
     } finally {
       dispatch(authActions.checkingUserToken(false));
     }
