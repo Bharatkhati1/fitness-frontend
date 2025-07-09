@@ -3,145 +3,232 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../../../../public/assets/img/footerLogo.png";
 
 export const NavItems = {
-  admin: [
-    { id: 1, name: "Slider Management", path: "slider-management", subMenu: [
-      { name: "Manage", path: "manage" },
-    ], },
-    {
-      id: 2,
-      name: "Service Management",
-      path: "service-management",
-      subMenu: [
-        { name: "Services", path: "services" },
-        { name: "Packages", path: "packages" },
+  admin: {
+    // Content Management Group
+    content: {
+      groupName: "Content Management",
+      items: [
+        {
+          id: 1,
+          name: "Slider Management",
+          path: "slider-management",
+        },
+        {
+          id: 2,
+          name: "Blog Management",
+          path: "blog-management",
+          subMenu: [
+            { name: "Blogs", path: "blog" },
+            { name: "Category", path: "category" },
+          ],
+        },
+        {
+          id: 3,
+          name: "News and Media",
+          path: "news-media",
+          subMenu: [
+            { name: "Manage", path: "manage" },
+            { name: "Category", path: "category" },
+          ],
+        },
       ],
     },
-    {
-      id: 4,
-      name: "Blog Management",
-      path: "blog-management",
-      subMenu: [
-        { name: "Blogs", path: "blog" },
-        { name: "Category", path: "category" },
+
+    // Services Group
+    services: {
+      groupName: "Services",
+      items: [
+        {
+          id: 4,
+          name: "Service Management",
+          path: "service-management",
+          subMenu: [
+            { name: "Services", path: "services" },
+            { name: "Packages", path: "packages" },
+          ],
+        },
+        {
+          id: 5,
+          name: "Smart Kitchen",
+          path: "smart-kitchen",
+          subMenu: [
+            { name: "Recepies", path: "recepies" },
+            { name: "Category", path: "category" },
+            { name: "Tags", path: "tags" },
+          ],
+        },
+        { id: 6, name: "Success Story", path: "success-stories" },
       ],
     },
-    { id: 5, name: "Success Story", path: "success-stories" },
-    {
-      id: 6, name: "Team Management", path: "team-management" ,
-      subMenu: [
-        { name: "Team", path: "manage" },
-        { name: "Message", path: "message" },
+
+    // Team & Partners Group
+    team: {
+      groupName: "Team & Partners",
+      items: [
+        {
+          id: 7,
+          name: "Team Management",
+          path: "team-management",
+          subMenu: [
+            { name: "Team", path: "manage" },
+            { name: "Message", path: "message" },
+          ],
+        },
+        {
+          id: 8,
+          name: "Consultant",
+          path: "consultants",
+          subMenu: [
+            { name: "Manage Consultant", path: "manage" },
+            { name: "Manage Leaves", path: "leaves" },
+          ],
+        },
+        {
+          id: 9,
+          name: "Partner Management",
+          path: "partner-management",
+          subMenu: [
+            { name: "Partners", path: "partners" },
+            { name: "Category", path: "category" },
+          ],
+        },
       ],
     },
-    {
-      id: 7,
-      name: "Consultant",
-      path: "consultants",
-      subMenu: [
-        { name: "Manage Consultant", path: "manage" },
-        { name: "Manage Leaves", path: "leaves" },
+
+    // Events & Innovation Group (NEW GROUP ADDED)
+    innovation: {
+      groupName: "Events & Innovation",
+      items: [
+        {
+          id: 10,
+          name: "Event management",
+          path: "event-management",
+          subMenu: [
+            { name: "Event", path: "event" },
+            { name: "Event Type", path: "type" },
+            { name: "Event Header", path: "header" },
+          ],
+        },
+        {
+          id: 11,
+          name: "Innovation",
+          path: "innovation",
+          subMenu: [
+            { name: "Manage", path: "manage" },
+            { name: "Category", path: "category" },
+          ],
+        },
       ],
     },
-    {
-      id: 8,
-      name: "Smart Kitchen",
-      path: "smart-kitchen",
-      subMenu: [
-        { name: "Recepies", path: "recepies" },
-        { name: "Category", path: "category" },
-        { name: "Tags", path: "tags" },
+
+    // System Group
+    system: {
+      groupName: "System Settings",
+      items: [
+        { id: 12, name: "Inquiries", path: "inquiries" },
+        { id: 13, name: "Careers", path: "careers" },
+        { id: 14, name: "Coupons", path: "coupon" },
+        {
+          id: 15,
+          name: "Company Settings",
+          path: "company-settings",
+          subMenu: [
+            { name: "All Users", path: "users" },
+            { name: "Orders", path: "orders" },
+            { name: "Payment History", path: "payment-history" },
+            { name: "Testimonials", path: "testimonials" },
+            { name: "Appointments", path: "appointments" },
+            { name: "About Us", path: "about-us" },
+            { name: "Privacy Policy", path: "privacy-policy" },
+            { name: "Terms & Conditions", path: "terms-conditions" },
+            { name: "Refund Policy", path: "refund-policy" },
+            { name: "Careers", path: "career" },
+            { name: "Innovation", path: "innovation" },
+          ],
+        },
       ],
     },
-    {
-      id: 9,
-      name: "Inquiries",
-      path: "inquiries"
-    },
-    {
-      id: 10,
-      name: "Partner Management",
-      path: "partner-management",
-      subMenu: [
-        { name: "Partners", path: "partners" },
-        { name: "Category", path: "category" },
+  },
+
+  // B2B Partner Group
+  "b2b-partner": {
+    main: {
+      groupName: "Partner Dashboard",
+      items: [
+        { id: 1, name: "Dashboard", path: "dashboard" },
+        { id: 2, name: "Coupon List", path: "coupons" },
+        { id: 3, name: "Ledger", path: "ledger" },
       ],
     },
-    {
-      id: 11,
-      name: "Event management",
-      path: "event-management",
-      subMenu: [
-        { name: "Event", path: "event" },
-        { name: "Event Type", path: "type" },
-        { name: "Event Header", path: "header" },
+  },
+
+  // Service Provider Group
+  "service-provider": {
+    main: {
+      groupName: "Provider Dashboard",
+      items: [
+        { id: 1, name: "Dashboard", path: "dashboard" },
+        { id: 2, name: "Appointments", path: "appointment" },
+        { id: 3, name: "Ledger", path: "ledger" },
       ],
     },
-    { id: 12, name: "Careers", path: "careers" },
-    {
-      id: 13,
-      name: "News and Media",
-      path: "news-media",
-      subMenu: [
-        { name: "Manage", path: "manage" },
-        { name: "Category", path: "category" },
-      ],
-    },
-    {
-      id: 14,
-      name: "Company Settings",
-      path: "company-settings",
-      subMenu: [
-        { name: "All Users", path: "users" },
-        { name: "Orders", path: "orders" },
-        { name: "Payment History", path: "payment-history" },
-        { name: "Testimonials", path: "testimonials" },
-        { name: "Appointments", path: "appointments" },
-        { name: "About Us", path: "about-us" },
-        { name: "Privacy Policy", path: "privacy-policy" },
-        { name: "Terms & Conditions", path: "terms-conditions" },
-        { name: "Refund Policy", path: "refund-policy" },
-        { name: "Careers", path: "career" },
-        { name: "Innovation", path: "innovation" },
-      ],
-    },
-    {
-      id: 14,
-      name: "Innovation",
-      path: "innovation",
-      subMenu: [
-        { name: "Manage", path: "manage" },
-        { name: "Category", path: "category" },
-      ],
-    },
-    {
-      id: 15,
-      name: "Coupons",
-      path: "coupon",
-    },
-  ],
-  "b2b-partner": [
-    { id: 1, name: "Dashboard", path: "dashboard" },
-    { id: 2, name: "Coupon List", path: "coupons" },
-    { id: 3, name: "Ledger", path: "ledger" },
-  ],
-  "service-provider": [
-    { id: 1, name: "Dashboard", path: "dashboard" },
-    { id: 2, name: "Appointments", path: "appointment" },
-    { id: 3, name: "Ledger", path: "ledger" },
-  ],
+  },
+};
+
+const NavItem = ({ item, userType, pathname }) => {
+  const isParentActive = pathname.includes(item.path);
+  const basePath = `/${userType}/${item.path}`;
+
+  return (
+    <li className="nav-item">
+      <Link
+        to={item.subMenu ? `${basePath}/${item.subMenu[0].path}` : basePath}
+        className={`nav-link ${isParentActive ? "active" : ""}`}
+      >
+        <span className="nav-icon">
+          <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
+        </span>
+        <span className="nav-text">{item.name}</span>
+      </Link>
+
+      {item.subMenu && isParentActive && (
+        <div className="collapse show">
+          <ul className="nav sub-navbar-nav">
+            {item.subMenu.map((sub, index) => {
+              const isSubActive = pathname.includes(sub.path);
+              return (
+                <li
+                  className={`sub-nav-item ${isSubActive ? "active" : ""}`}
+                  key={index}
+                >
+                  <Link
+                    to={`${basePath}/${sub.path}`}
+                    className={`sub-nav-link ${isSubActive ? "active" : ""}`}
+                  >
+                    {sub.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </li>
+  );
 };
 
 const MainNavbarLeft = () => {
   const { pathname } = useLocation();
 
-  let type = "";
-  if (pathname.includes("/admin")) {
-    type = "admin";
-  } else if (pathname.includes("/b2b-partner")) {
-    type = "b2b-partner";
-  } else if (pathname.includes("/service-provider")) {
-    type = "service-provider";
-  }
+  const userType = pathname.includes("/admin")
+    ? "admin"
+    : pathname.includes("/b2b-partner")
+    ? "b2b-partner"
+    : pathname.includes("/service-provider")
+    ? "service-provider"
+    : "";
+
+  const navGroups = NavItems[userType];
 
   return (
     <div className="main-nav">
@@ -152,56 +239,22 @@ const MainNavbarLeft = () => {
       </div>
 
       <div className="scrollbar" data-simplebar>
-        <ul className="navbar-nav" id="navbar-nav">
-          <li className="menu-title">General</li>
-          {NavItems[type]?.map((item) => {
-            const isParentActive = pathname.includes(item.path);
-            return (
-              <li className="nav-item" key={item.id}>
-                <Link
-                  to={
-                    item.subMenu
-                      ? `/${type}/${item.path}/${item.subMenu[0].path}`
-                      : `/${type}/${item.path}`
-                  }
-                  className={`nav-link ${isParentActive ? "active" : ""}`}
-                >
-                  <span className="nav-icon">
-                    <iconify-icon icon="solar:widget-5-bold-duotone"></iconify-icon>
-                  </span>
-                  <span className="nav-text">{item.name}</span>
-                </Link>
-
-                {item.subMenu && isParentActive && (
-                  <div className="collapse show" id={`sidebar-${item.path}`}>
-                    <ul className="nav sub-navbar-nav">
-                      {item.subMenu.map((sub, index) => {
-                        const isSubActive = pathname.includes(sub.path);
-                        return (
-                          <li
-                            className={`sub-nav-item ${
-                              isSubActive ? "active" : ""
-                            }`}
-                            key={index}
-                          >
-                            <Link
-                              to={`/${type}/${item.path}/${sub.path}`}
-                              className={`sub-nav-link ${
-                                isSubActive ? "active" : ""
-                              }`}
-                            >
-                              {sub.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        {navGroups &&
+          Object.entries(navGroups).map(([groupKey, group]) => (
+            <React.Fragment key={groupKey}>
+              <div className="menu-title">{group.groupName}</div>
+              <ul className="navbar-nav" id="navbar-nav">
+                {group.items.map((item) => (
+                  <NavItem
+                    key={item.id}
+                    item={item}
+                    userType={userType}
+                    pathname={pathname}
+                  />
+                ))}
+              </ul>
+            </React.Fragment>
+          ))}
       </div>
     </div>
   );

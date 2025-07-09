@@ -35,10 +35,11 @@ const Ledger = () => {
                 <thead className="bg-light-subtle">
                   <tr>
                     <th>ID</th>
-                    <th>Type</th>
-                    <th>Amount</th>
+                    <th>Date</th>
                     <th>Description</th>
-                    <th>Created At</th>
+                    <th>Credit</th>
+                    <th>Debit</th>
+                    <th>Line Balance</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -46,23 +47,22 @@ const Ledger = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>
-                        <span
-                          className={`badge ${
-                            transaction.type == "credit"
-                              ? "bg-success"
-                              : "bg-danger"
-                          }`}
-                        >
-                          {transaction.type}
-                        </span>
-                      </td>
-                      <td>{transaction.amount}</td>
-                      <td>{transaction.comment}</td>
-                      <td>
                         {moment(transaction.createdAt).format(
                           "DD-MM-YYYY HH:mm"
                         )}
                       </td>
+                      <td>{transaction.comment}</td>
+                      <td>
+                        {transaction.type == "credit"
+                          ? `₹${transaction.amount}`
+                          : "-"}
+                      </td>
+                      <td>
+                        {transaction.type != "credit"
+                          ? `₹${transaction.amount}`
+                          : "-"}
+                      </td>
+                      <td>{transaction?.currentBalance}</td>
                     </tr>
                   ))}
                 </tbody>

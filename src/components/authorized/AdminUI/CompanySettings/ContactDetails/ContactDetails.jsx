@@ -18,7 +18,7 @@ const ContactDetails = () => {
     kitchenYoutube: "",
     kitchenInstagram: "",
     kitchenTwitter: "",
-    script:"",
+    script: "",
   });
 
   const onCancelEdit = () => {
@@ -84,9 +84,6 @@ const ContactDetails = () => {
   );
 
   const normalFields = [
-    { label: "Email", name: "email", placeholder: "Enter email" },
-    { label: "Phone", name: "phone", placeholder: "Enter phone number" },
-    { label: "Address", name: "address", placeholder: "Enter address" },
     { label: "Instagram", name: "instagram" },
     { label: "Facebook", name: "facebook" },
     { label: "LinkedIn", name: "linkedin" },

@@ -22,7 +22,7 @@ const SliderManagement = () => {
   const [filterService, setFilterServices] = useState([]);
   const fileInputRef = useRef(null);
   const selectedIdref = useRef(null);
-  const includeOptions = ["Badge", "Experience", "Clients"];
+  const includeOptions = ["Badge", "Experience", "Clients", 'Buttons'];
 
   const fetchAllSliders = async () => {
     try {
