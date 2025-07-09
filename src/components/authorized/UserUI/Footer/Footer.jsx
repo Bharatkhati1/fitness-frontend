@@ -32,7 +32,6 @@ const Footer = () => {
 
   const handleSubmit = async () => {
     const trimmedEmail = email.trim();
-    console.log(trimmedEmail);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {

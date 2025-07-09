@@ -58,12 +58,12 @@ export const Login = (
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-      dispatch(authActions.setType(userType));
+      dispatch(authActions.setType(data?.user?.userType));
       localStorage.setItem("isAdmin", isAdmin);
       if (!isModal) {
         await new Promise((resolve) => setTimeout(resolve, 700));
         dispatch(authActions.checkingUserToken(false));
-        navigate(isAdmin ? `/${route}/slider-management/manage` : "/", {
+        navigate(isAdmin ? `/${route}/service-management/services` : "/", {
           replace: true,
         });
       } else {
@@ -114,16 +114,23 @@ export const getAccessToken = (isAdmin, userType) => {
         dispatch(authActions.setUserDetails({ ...data?.user }));
         dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
       }
-      dispatch(authActions.setType(userType));
+      dispatch(authActions.setType(data?.user?.userType));
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      if (
+        error.response.data.error ==
+        "Your account is De-Activated. Please Contact Administrator"
+      ) {
+        window.location.href = `/`;
+      } else {
+        toast.error(error?.response?.data?.message);
+      }
     } finally {
       dispatch(authActions.checkingUserToken(false));
     }
   };
 };
 
-export const logoutUser = (isUser, navigate) => {
+export const logoutUser = (isUser, userType) => {
   if (window.performance && window.performance.clearResourceTimings) {
     window.performance.clearResourceTimings();
   }
@@ -137,7 +144,7 @@ export const logoutUser = (isUser, navigate) => {
     const type = isUser ? "userRefreshToken" : "adminRefreshToken";
     dispatch(authActions.setLoginButtonDisable(true));
     const fetchData = async () => {
-      await userAxios
+      await webAxios
         .post(
           `/logout`,
           { type },
@@ -163,7 +170,7 @@ export const logoutUser = (isUser, navigate) => {
         window.open("/login-user", "_self", false);
       } else {
         localStorage.removeItem("isAdmin");
-        window.open("/admin", "_self", false);
+        window.open(`/${userType}`, "_self", false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -198,7 +205,7 @@ export const getServicesForUser = () => {
 export const getKitchenData = ({
   search = "",
   page = 1,
-  limit = 10,
+  limit = 8,
   category,
   type,
 } = {}) => {
@@ -238,7 +245,7 @@ export const fetchAllProducts = ({
   page,
   limit,
   setTotalPages,
-  setTotalItems
+  setTotalItems,
 } = {}) => {
   return async (dispatch) => {
     if (typeof search !== "string") {
@@ -256,7 +263,7 @@ export const fetchAllProducts = ({
         userApiRoutes.get_all_packages(query)
       );
       setTotalPages(response.data.totalPages);
-      setTotalItems(response.data.totalItems)
+      setTotalItems(response.data.totalItems);
       const filter = response.data.data;
       dispatch(authActions.setAllPackages(filter));
     } catch (error) {

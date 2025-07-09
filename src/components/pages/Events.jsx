@@ -119,7 +119,6 @@ export default function Events() {
     }));
   };
 
-  console.log(carouselRef);
   const handleSubmit = async (e) => {
     e.preventDefault();
 

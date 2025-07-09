@@ -145,6 +145,39 @@ function Smartkitchen() {
     }
   };
 
+  const getPaginationRange = () => {
+    const delta = 1;
+    const range = [];
+    const rangeWithDots = [];
+    let left = page - delta;
+    let right = page + delta;
+
+    for (let i = 1; i <= kitchenData.totalPages; i++) {
+      if (
+        i === 1 ||
+        i === kitchenData.totalPages ||
+        (i >= left && i <= right)
+      ) {
+        range.push(i);
+      }
+    }
+
+    let l;
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l > 2) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
+
   const settings = {
     dots: false,
     infinite: false,
@@ -153,9 +186,10 @@ function Smartkitchen() {
     slidesToScroll: 2,
     arrows: true,
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 4 } },
-      { breakpoint: 992, settings: { slidesToShow: 4 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 1200, settings: { slidesToShow: 5 } },
+      { breakpoint: 992, settings: { slidesToShow: 5 } },
+      { breakpoint: 768, settings: { slidesToShow: 4 } },
+       { breakpoint: 576, settings: { slidesToShow: 3 } },
       { breakpoint: 481, settings: { slidesToShow: 2 } },
       { breakpoint: 0, settings: { slidesToShow: 2 } },
     ],
@@ -274,10 +308,12 @@ function Smartkitchen() {
       {/* Recipe Cards */}
       <section className="SmartKichinlist">
         <div className="container">
-          <h3 className="SmartKichinlistitle">{kitchenData.length} Recipes</h3>
+          <h3 className="SmartKichinlistitle">
+            {kitchenData?.totalItems} Recipes
+          </h3>
           <div className="row row-cols-4 SmartKichinlistrow">
-            {kitchenData?.length > 0 ? (
-              kitchenData?.map((item) => (
+            {kitchenData?.items?.length > 0 ? (
+              kitchenData?.items?.map((item) => (
                 <div className="col" key={item.id}>
                   <figure>
                     {item?.Master?.name?.length > 0 && (
@@ -314,38 +350,49 @@ function Smartkitchen() {
           <div className="paginationfooter d-flex align-items-center justify-content-center">
             <div className="paginationBox d-flex justify-content-center">
               <ul className="pagination">
+                {/* Previous Button */}
                 <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                  <a
+                  <button
                     className="page-link"
                     onClick={() => handlePageChange(page - 1)}
                   >
-                    <img src={leftp} />
-                  </a>
+                    <img src={leftp} alt="Previous" />
+                  </button>
                 </li>
-                {[...Array(kitchenData.totalPages)].map((_, idx) => (
+
+                {/* Dynamic Page Numbers */}
+                {getPaginationRange().map((p, index) => (
                   <li
-                    key={idx}
-                    className={`page-item ${page === idx + 1 ? "active" : ""}`}
+                    key={index}
+                    className={`page-item ${p === page ? "active" : ""} ${
+                      p === "..." ? "disabled" : ""
+                    }`}
                   >
-                    <a
-                      className="page-link"
-                      onClick={() => handlePageChange(idx + 1)}
-                    >
-                      {idx + 1}
-                    </a>
+                    {p === "..." ? (
+                      <span className="page-link">...</span>
+                    ) : (
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(p)}
+                      >
+                        {p}
+                      </button>
+                    )}
                   </li>
                 ))}
+
+                {/* Next Button */}
                 <li
                   className={`page-item ${
                     page === kitchenData.totalPages ? "disabled" : ""
                   }`}
                 >
-                  <a
+                  <button
                     className="page-link"
                     onClick={() => handlePageChange(page + 1)}
                   >
-                    <img src={leftR} />
-                  </a>
+                    <img src={leftR} alt="Next" />
+                  </button>
                 </li>
               </ul>
             </div>

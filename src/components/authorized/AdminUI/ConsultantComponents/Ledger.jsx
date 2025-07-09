@@ -24,47 +24,66 @@ const Ledger = () => {
     fetchTransactionHistory();
   }, []);
   return (
-    <div className="row">
-      <div className="col-xl-12">
-        <div className="card">
-          <div className="card-header d-flex justify-content-between align-items-center">
-            <h4 className="card-title">All transactions</h4>
-          </div>
-          <div className="card-body p-0">
-            <div className="table-responsive">
-              <table className="table align-middle mb-0 table-hover table-centered">
-                <thead className="bg-light-subtle">
-                  <tr>
-                    <th>ID</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Credit</th>
-                    <th>Debit</th>
-                    <th>Line Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactions?.map((transaction, index) => (
+    <>
+      {" "}
+      <div className="d-flex justify-content-end mb-3">
+        <button
+          className="download-report-btn"
+          // onClick={() => handleDownloadReport()}
+        >
+          EXPORT DATA
+        </button>
+      </div>
+      <div className="row">
+        <div className="col-xl-12">
+          <div className="card">
+            <div className="card-header d-flex justify-content-between align-items-center">
+              <h4 className="card-title">All transactions</h4>
+            </div>
+            <div className="card-body p-0">
+              <div className="table-responsive">
+                <table className="table align-middle mb-0 table-hover table-centered">
+                  <thead className="bg-light-subtle">
                     <tr>
-                      <td>{index + 1}</td>
-                      <td>
-                        {moment(transaction.createdAt).format(
-                          "DD-MM-YYYY HH:mm"
-                        )}
-                      </td>
-                      <td>{transaction.comment}</td>
-                      <td>{transaction.type=='credit' ?`₹${transaction.amount}`:'-'}</td>
-                      <td>{transaction.type !='credit' ?`₹${transaction.amount}`:'-'}</td>
-                      <td>{transaction.currentBalance}</td>
+                      <th>ID</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Credit</th>
+                      <th>Debit</th>
+                      <th>Line Balance</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {transactions?.map((transaction, index) => (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>
+                          {moment(transaction.createdAt).format(
+                            "DD-MM-YYYY HH:mm"
+                          )}
+                        </td>
+                        <td>{transaction.comment}</td>
+                        <td>
+                          {transaction.type == "credit"
+                            ? `₹${transaction.amount}`
+                            : "-"}
+                        </td>
+                        <td>
+                          {transaction.type != "credit"
+                            ? `₹${transaction.amount}`
+                            : "-"}
+                        </td>
+                        <td>{transaction.currentBalance}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

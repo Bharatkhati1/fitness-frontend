@@ -10,9 +10,7 @@ const TopBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logoutUser(false, navigate));
-  };
+
   let type = "";
   if (pathname.includes("/admin")) {
     type = "admin";
@@ -21,6 +19,10 @@ const TopBar = () => {
   } else if (pathname.includes("/service-provider")) {
     type = "service-provider";
   }
+
+  const handleLogout = () => {
+    dispatch(logoutUser(false,  type));
+  };
 
   const getUserType = () => {
     if (pathname.includes("/admin")) return "admin";

@@ -85,7 +85,6 @@ const ContactDetails = () => {
 
   const normalFields = [
     { label: "Instagram", name: "instagram" },
-    { label: "Facebook", name: "facebook" },
     { label: "LinkedIn", name: "linkedin" },
     { label: "Twitter", name: "twitter" },
     { label: "YouTube", name: "youtube" },

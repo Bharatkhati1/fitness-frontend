@@ -277,7 +277,7 @@ function Home() {
             items={1}
             className="owl-theme"
             autoplaySpeed={500}
-            autoplayTimeout={5000}
+            autoplayTimeout={8000}
             loop={true}
             margin={0}
             nav={true}
@@ -480,7 +480,7 @@ function Home() {
                                     to={`/service-details/${srv.name
                                       .toLowerCase()
                                       .replace(/\s+/g, "-")}`}
-                                    className=" mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
+                                    className="mb-1 btn btn-primary w-100 hvr-shutter-out-horizontal"
                                   >
                                     Know more
                                   </Link>
@@ -558,7 +558,7 @@ function Home() {
             </p>
           </div>
           <div className="row g-4 g-sm-3">
-            {kitchenData.slice(0, 3).map((data) => (
+            {kitchenData?.items?.slice(0, 3).map((data) => (
               <div className="col-md-4 SmartKichinContent">
                 <figure>
                   <img

@@ -594,7 +594,7 @@ const ServiceManagement = () => {
                                       </Link>
                                     </td>
                                     <td>{service.name}</td>
-                                    <td>{getShortText(service.description)}</td>
+                                    <td>{getShortText(service.shortDescription)}</td>
                                     <td>
                                       <span
                                         className={`badge ${

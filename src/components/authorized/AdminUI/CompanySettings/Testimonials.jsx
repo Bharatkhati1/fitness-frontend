@@ -22,7 +22,7 @@ const Testimonials = () => {
     try {
       setLoadingId(id);
       await adminAxios.put(adminApiRoutes.update_testimonialStatus(id), {
-        status: status, 
+        status: status,
       });
       toast.success(`Testimonial ${status.toLowerCase()} successfully.`);
       fetchTestimonials();
@@ -53,6 +53,7 @@ const Testimonials = () => {
                     <th>Rating</th>
                     <th>Package Name</th>
                     <th>Service Name</th>
+                    <th>Description</th>
                     <th>Status</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -66,6 +67,7 @@ const Testimonials = () => {
                         <td>{item.rating}</td>
                         <td>{item.Package?.name || "-"}</td>
                         <td>{item.Service?.name || "-"}</td>
+                        <td>{item?.description}</td>
                         <td>
                           <span
                             className={`badge text-bg-${
@@ -86,7 +88,7 @@ const Testimonials = () => {
                           ) : item.isApproved === "Pending" ? (
                             <>
                               <button
-                                className="btn btn-soft-primary btn-sm me-2"
+                                className="btn btn-sm btn-primary me-2 mb-2"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Approved")
                                 }
@@ -94,7 +96,7 @@ const Testimonials = () => {
                                 Approve
                               </button>
                               <button
-                                className="btn btn-sm btn-danger"
+                                className="btn btn-soft-primary mb-2"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Rejected")
                                 }
@@ -103,7 +105,14 @@ const Testimonials = () => {
                               </button>
                             </>
                           ) : (
-                            <span className="text-muted">No actions</span>
+                            <button
+                              className="btn btn-sm btn-danger"
+                              onClick={() =>
+                                handleApproveReject(item.id, "Pending")
+                              }
+                            >
+                              UnApprove
+                            </button>
                           )}
                         </td>
                       </tr>

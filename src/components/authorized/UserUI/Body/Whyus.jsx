@@ -9,7 +9,7 @@ const Whyus = () => {
     <section className="WhyUs SectionSpace mt-4">
     <div className="container">
       <div class="PageTitle text-center"><h2>why us ?</h2></div>
-      <div className="row justify-content-center g-4 g-sm-3">
+      <div className="row justify-content-center g-lg-4 g-3">
         <div className="col-md-4 col-sm-6">
           <div className="WhyUsinner">
             <figure>

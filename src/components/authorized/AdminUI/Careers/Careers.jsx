@@ -183,7 +183,7 @@ const Careers = () => {
             onClick={handleSubmit}
             disabled={isLoading}
           >
-            {isEdit ? "Update Career" : "Create Career"}
+            {isEdit ? "Update Job" : "Create Job"}
           </button>
         </div>
       </div>

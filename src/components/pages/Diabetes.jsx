@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import DOMPurify from "dompurify";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { webAxios } from "../../utils/constants";
+import { formatINRCurrency, webAxios } from "../../utils/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AddToCart } from "../../store/auth/AuthExtraReducers";
@@ -274,7 +274,8 @@ function PackageDetails() {
                                   <div className="row h-100 ">
                                     <div className="col-12">
                                       <h3>
-                                        ₹{plan.price} | {plan.duration} months
+                                        {formatINRCurrency(plan?.price)} |{" "}
+                                        {plan.duration} months
                                       </h3>
                                       {plan.description && (
                                         <>
@@ -397,7 +398,8 @@ function PackageDetails() {
                                   <div className="row h-100 ">
                                     <div className="col-12">
                                       <h3>
-                                        ₹{plan.price} | {plan.duration} months
+                                        {formatINRCurrency(plan?.price)} |{" "}
+                                        {plan.duration} months
                                       </h3>
                                       {plan.description && (
                                         <>
