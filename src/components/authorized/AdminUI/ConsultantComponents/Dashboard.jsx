@@ -96,6 +96,7 @@ const Dashboard = () => {
                     <tr>
                       <th>Booking Id</th>
                       <th>User name</th>
+                      <th>Associated Package | Service</th>
                       <th>Amount</th>
                       <th>Earning</th>
                       <th>Start</th>
@@ -108,6 +109,10 @@ const Dashboard = () => {
                         <tr key={index}>
                           <td>{data?.bookingId}</td>
                           <td>{data?.User?.name}</td>
+                          <td>
+                            {data?.Package?.name} |{" "}
+                            {data?.Package?.Service?.name}
+                          </td>
                           <td>₹{data?.amount}</td>
                           <td>₹{data?.consultantEarning}</td>
                           <td>

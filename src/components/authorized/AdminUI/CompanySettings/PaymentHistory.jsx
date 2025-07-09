@@ -8,7 +8,7 @@ import { Tabs } from "antd";
 const PaymentHistory = () => {
   const [transactions, setTransactions] = useState([]);
   const [activeTab, setActiveTab] = useState("consultant");
-
+  const [loading, setLoading] = useState(false)
   const [consultants, setConsultants] = useState([]);
   const [partners, setPartners] = useState([]);
 
@@ -37,6 +37,7 @@ const PaymentHistory = () => {
   // Fetch transactions
   const fetchTransactions = async () => {
     try {
+      setLoading(true)
       if (activeTab === "consultant") {
         const res = await adminAxios.get(
           adminApiRoutes.consultant_payment_history(selectedConsultant || null)
@@ -50,6 +51,8 @@ const PaymentHistory = () => {
       }
     } catch (error) {
       toast.error("Failed to fetch transactions");
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -127,14 +130,14 @@ const PaymentHistory = () => {
                 <thead className="bg-light-subtle">
                   <tr>
                     <th>ID</th>
-                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Description</th>
                     {activeTab === "partner" && <th>B2B Partner Name</th>}
                     {activeTab === "consultant" && (
                       <th>Service Provider Name</th>
                     )}
+                    <th>Type</th>
                     <th>Amount</th>
-                    <th>Description</th>
-                    <th>Created At</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,6 +145,18 @@ const PaymentHistory = () => {
                     transactions.map((transaction, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
+                        <td>
+                          {moment(transaction.createdAt).format(
+                            "DD-MM-YYYY HH:mm"
+                          )}
+                        </td>
+                        <td>{transaction.comment || "-"}</td>
+                        {activeTab === "partner" && (
+                          <td>{transaction?.Partner?.name || "-"}</td>
+                        )}
+                        {activeTab === "consultant" && (
+                          <td>{transaction?.Consultant?.name || "-"}</td>
+                        )}
                         <td>
                           <span
                             className={`badge ${
@@ -153,19 +168,8 @@ const PaymentHistory = () => {
                             {transaction.type}
                           </span>
                         </td>
+
                         <td>₹{transaction.amount}</td>
-                        {activeTab === "partner" && (
-                          <td>{transaction?.Partner?.name || "-"}</td>
-                        )}
-                        {activeTab === "consultant" && (
-                          <td>{transaction?.Consultant?.name || "-"}</td>
-                        )}
-                        <td>{transaction.comment || "-"}</td>
-                        <td>
-                          {moment(transaction.createdAt).format(
-                            "DD-MM-YYYY HH:mm"
-                          )}
-                        </td>
                       </tr>
                     ))
                   ) : (
