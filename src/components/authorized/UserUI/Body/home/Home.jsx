@@ -428,7 +428,7 @@ function Home() {
               autoplayTimeout={9000}
             >
               {services?.map((group, index) => (
-                <div className="row d-flex flex-wrap g-4 g-sm-3" key={index}>
+                <div className="row d-flex flex-wrap g-lg-4 g-3" key={index}>
                   {group.map((srv, idx) => {
                     let parsedActions = [];
                     try {
@@ -557,7 +557,7 @@ function Home() {
               meals effortlessly with ease and convenience
             </p>
           </div>
-          <div className="row g-4 g-sm-3">
+          <div className="row g-lg-4 g-3">
             {kitchenData?.items?.slice(0, 3).map((data) => (
               <div className="col-md-4 SmartKichinContent">
                 <figure>

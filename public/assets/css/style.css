@@ -1358,7 +1358,7 @@ header.sticky {
 .btn.max-width {
   min-width: 353px;
   margin: auto;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .RegisterPage .SocialUsers {
@@ -3151,7 +3151,7 @@ body .owl-carousel .owl-item .product-list figure img {
 
 .btn.btn-primary.xm-btn {
   min-width: 160px;
-  font-size: 18px;
+  font-size: 11px;
 }
 
 .btn.Nonvegbtn {
@@ -5939,4 +5939,8 @@ section.WhyUs.SectionSpace {
 
 .position-relative.allpakagessec.mt-4 {
     margin-top: 100px !important;
+}
+
+.col-md-6.OurHealthBlogContent p {
+    margin-bottom: 20px;
 }
