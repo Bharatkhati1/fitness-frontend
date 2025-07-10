@@ -231,7 +231,7 @@ function Blogs() {
       >
         <div className="mobile-filters-card" onClick={(e) => e.stopPropagation()}>
           <button
-            className="close-btn btn btn-link w-100 text-end"
+            className="close-btn btn btn-primary btn-link w-100 text-end"
             onClick={() => setShowMobileFilters(false)}
           >
             Close ✖
