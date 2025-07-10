@@ -27,6 +27,7 @@ function Innovation() {
   const [cmsDetails, setCmsDetails] = useState({});
   const [totalPages, setTotalPages] = useState(1);
   const [sliders, setSliders] = useState([]);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -182,19 +183,17 @@ function Innovation() {
           <div className="filtersBox innovationfilters">
             <div className="filtersBoxInner">
               <div className="filterOwl">
-                <ul className="taginfolist ps-4 ">
+                <ul className="taginfolist ps-4">
                   <div className="row">
-                    <div className="col-xxl-auto col-sm-auto taginfoleft pe-0">
+                    <div className="col-xxl-auto col-sm-auto taginfoleft pe-0 d-none d-lg-block">
                       <li
-                        className={
-                          selectedCategory === "all" ? "active" : ""
-                        }
+                        className={selectedCategory === "all" ? "active" : ""}
                         onClick={() => handleSelectCategory("all")}
                       >
                         <span className="tag-info">All</span>
                       </li>
                     </div>
-                    <div className="col-xxl col-sm  taginforight">
+                    <div className="col-xxl col-sm taginforight d-none d-lg-block">
                       {categories.length > 0 && (
                         <OwlCarousel
                           className="owl-theme"
@@ -206,14 +205,9 @@ function Innovation() {
                         >
                           {categories.map((cat) => (
                             <li
-                              className={
-                                selectedCategory === cat.id
-                                  ? "active px-2"
-                                  : "px-2"
-                              }
-                              onClick={() => {
-                                handleSelectCategory(cat.id);
-                              }}
+                              key={cat.id}
+                              className={selectedCategory === cat.id ? "active px-2" : "px-2"}
+                              onClick={() => handleSelectCategory(cat.id)}
                             >
                               <span className="tag-info">{cat.name}</span>
                             </li>
@@ -221,10 +215,48 @@ function Innovation() {
                         </OwlCarousel>
                       )}
                     </div>
+                    <div className="col-auto d-lg-none d-block ms-auto">
+                      <button
+                        className="btn btn-primary filter-btn"
+                        onClick={() => setShowMobileFilters(true)}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M1.5 1.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .4.8L10 8.333V13.5a.5.5 0 0 1-.8.4l-2-1.5a.5.5 0 0 1-.2-.4V8.333L1.1 1.8a.5.5 0 0 1 .4-.8z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </ul>
               </div>
+            </div>
+          </div>
 
+          {/* Mobile Filter Overlay */}
+          <div
+            className={`mobile-filters-overlay ${showMobileFilters ? "show" : ""}`}
+            onClick={() => setShowMobileFilters(false)}
+          >
+            <div className="mobile-filters-card" onClick={(e) => e.stopPropagation()}>
+              <button className="close-btn btn btn-primary btn-link w-100 text-end" onClick={() => setShowMobileFilters(false)}>
+                Close ✖
+              </button>
+              <ul className="list-unstyled  gap-2">
+                <li
+                  className={selectedCategory === "all" ? "active mb-2" : "mb-2"}
+                  onClick={() => { handleSelectCategory("all"); setShowMobileFilters(false); }}
+                >
+                  <span className="tag-info">All</span>
+                </li>
+                {categories.map((cat) => (
+                  <li
+                    key={cat.id}
+                    className={selectedCategory === cat.id ? "active mb-2" : "mb-2"}
+                    onClick={() => { handleSelectCategory(cat.id); setShowMobileFilters(false); }}
+                  >
+                    <span className="tag-info">{cat.name}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           {innovation.length > 0 ? (

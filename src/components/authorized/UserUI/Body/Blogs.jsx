@@ -21,6 +21,7 @@ function Blogs() {
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("DESC");
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const limit = 10;
 
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
@@ -146,16 +147,16 @@ function Blogs() {
             <div className="filterOwl">
               <ul className="taginfolist ps-4">
                 <div className="row">
-                  <div className="col-xxl-auto col-sm-auto taginfoleft pe-0">
+                  <div className="col-xxl-auto col-sm-auto taginfoleft pe-0 d-none d-lg-block">
                     <li
                       style={{ zIndex: "1000" }}
                       className={selectedCategory == "all" ? "active" : ""}
-                      onClick={(e) => handleSelectCategory("all")}
+                      onClick={() => handleSelectCategory("all")}
                     >
                       <span className="tag-info">All</span>
                     </li>
                   </div>
-                  <div className="col-xxl col-sm  taginforight pe-4">
+                  <div className="col-xxl col-sm taginforight pe-4 d-none d-lg-block">
                     {categories.length > 0 && (
                       <OwlCarousel
                         className="owl-theme"
@@ -165,28 +166,17 @@ function Blogs() {
                         items={5}
                         nav
                         responsive={{
-                          0: {
-                            items: 1, // 0px and up
-                          },
-                          481: {
-                            items: 2, // 0px and up
-                          },
-                          768: {
-                            items: 3, // 600px and up
-                          },
-                          992: {
-                            items: 4, // 600px and up
-                          },
-                          1200: {
-                            items: 5, // 1000px and up
-                          },
+                          0: { items: 1 },
+                          481: { items: 2 },
+                          768: { items: 3 },
+                          992: { items: 4 },
+                          1200: { items: 5 },
                         }}
                       >
                         {categories.map((cat) => (
                           <li
-                            className={
-                              selectedCategory === cat.id ? "active" : ""
-                            }
+                            key={cat.id}
+                            className={selectedCategory === cat.id ? "active" : ""}
                             onClick={() => {
                               setSearchTerm("");
                               handleSelectCategory(cat.id);
@@ -198,14 +188,24 @@ function Blogs() {
                       </OwlCarousel>
                     )}
                   </div>
+                  <div className="col-auto d-lg-none d-block ms-auto">
+                    <button
+                      className="btn btn-primary filter-btn"
+                      onClick={() => setShowMobileFilters(true)}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M1.5 1.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .4.8L10 8.333V13.5a.5.5 0 0 1-.8.4l-2-1.5a.5.5 0 0 1-.2-.4V8.333L1.1 1.8a.5.5 0 0 1 .4-.8z" />
+                      </svg>
+                    </button>
+                  </div>
                   <div className="col-auto sortbyright">
                     <select
                       className="form-select"
                       onChange={(e) => {
                         const value = e.target.value;
-                        if (value == "1") {
+                        if (value === "1") {
                           setSortBy("ASC");
-                        } else if (value == "2") {
+                        } else if (value === "2") {
                           setSortBy("DESC");
                         }
                       }}
@@ -220,8 +220,46 @@ function Blogs() {
                 </div>
               </ul>
             </div>
-
           </div>
+        </div>
+      </div>
+
+      {/* Mobile filter overlay */}
+      <div
+        className={`mobile-filters-overlay ${showMobileFilters ? "show" : ""}`}
+        onClick={() => setShowMobileFilters(false)}
+      >
+        <div className="mobile-filters-card" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="close-btn btn btn-link w-100 text-end"
+            onClick={() => setShowMobileFilters(false)}
+          >
+            Close ✖
+          </button>
+          <ul className="list-unstyled  gap-2">
+            <li
+              className={selectedCategory === "all" ? "active mb-2" : "mb-2"}
+              onClick={() => {
+                handleSelectCategory("all");
+                setShowMobileFilters(false);
+              }}
+            >
+              <span className="tag-info">All</span>
+            </li>
+            {categories.map((cat) => (
+              <li
+                key={cat.id}
+                className={selectedCategory === cat.id ? "active mb-2" : "mb-2"}
+                onClick={() => {
+                  setSearchTerm("");
+                  handleSelectCategory(cat.id);
+                  setShowMobileFilters(false);
+                }}
+              >
+                <span className="tag-info">{cat.name}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
