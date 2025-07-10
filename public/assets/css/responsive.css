@@ -243,6 +243,107 @@
   }
 }
 
+@media (max-width: 992px) {
+  .bannerSection .owl-carousel .owl-item {
+    aspect-ratio: inherit;
+  }
+
+  .bannerSection .owl-theme .owl-dots {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .BestTag {
+    margin-top: 24px;
+    background: #eee;
+  }
+
+  .circletagShapeBox {
+    display: none;
+  }
+
+  .circletagShapeBox {
+    right: 10%;
+    top: 54px;
+  }
+
+  .slider-image {
+    position: static;
+  }
+
+  .SmartKichinContent figure img {
+    height: auto;
+  }
+
+  section.SmartKichin.SectionSpace {
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .owl-p ul li {
+    font-size: 12px;
+  }
+
+  .bannerSectionLeft h1 {
+    font-size: 16px;
+  }
+
+  .ClientListinfo {
+    margin: 10px 0 !important;
+  }
+
+  .innerbannerContent p {
+    flex-wrap: wrap;
+  }
+  select.form-select.w-25 {
+    width: 100% !important;
+    margin-top: 15px;
+  }
+
+  .innerbannerContent {
+    position: static;
+  }
+
+  .innerbanner:after {
+    background: rgb(0 0 0 / 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  .innerbanner figure {
+    position: relative;
+  }
+  .innerbanner figure:after {
+    background: rgb(0 0 0 / 50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+  }
+
+  .innerbannerContent p {
+    color: #000;
+  }
+  .innerbannerContent {
+    padding: 0;
+  }
+
+  .row.row-cols-5.SmartKichinlistrow figcaption h4 {
+    height: auto;
+  }
+}
+
 @media (min-width: 1200px) and (max-width: 1680px) {
   /* .MuktiBox,
   .PosterSec {
@@ -1305,6 +1406,11 @@
   .MuktiBox {
     height: auto;
   }
+
+  .SmartKichinslider {
+    width: 95%;
+    margin: auto;
+  }
 }
 
 @media (max-width: 991px) {
@@ -1613,6 +1719,8 @@
   .getintouchinner .col-md-6 {
     width: 100%;
     margin-bottom: 20px;
+    padding-top: 30px !important;
+    margin-bottom: 0;
   }
 
   .row.GetIntouchinnerright {
@@ -2042,11 +2150,41 @@
     position: relative;
     top: -28px;
   }
+
+  .SmartKichinlist .col {
+    margin-bottom: 30px;
+    width: 50%;
+  }
+
+  .SmartKichinlistrow figcaption p {
+    height: AUTO;
+  }
+
+  .arrowrleft,
+  .arrowrright {
+    display: none;
+  }
+
+  .position-relative.allpakagessec.mt-4 {
+    margin-top: 0px !important;
+  }
+
+  .product-list figure img {
+    height: auto;
+  }
+
+  .Joinourhealth {
+    padding-top: 20px !important;
+  }
 }
 
 @media (max-width: 767px) {
   .innerbanner figure img {
     height: 280px;
+  }
+
+  .product-list figure img {
+    height: auto;
   }
 
   .innerbannerContent {
@@ -2233,10 +2371,6 @@
     font-size: 22px;
   }
 
-  .innerbannerContent {
-    padding: 0 12px;
-  }
-
   ul.radioList li {
     margin-right: 0;
   }
@@ -2339,9 +2473,14 @@
     margin-bottom: 0;
   }
 
+  .innerbannerContent {
+    margin-top: 10px;
+  }
+
   .innerbannerContent h2 {
     font-size: 24px;
     margin-bottom: 0;
+    color: #000;
   }
 
   .filterOwl button.owl-next span,
@@ -2484,7 +2623,7 @@
   }
 
   .col-md-4.clientfeedbackleft figure img {
-    height: 500px;
+    height: auto;
     width: 100%;
     object-fit: cover;
   }
@@ -2690,6 +2829,60 @@
   span.bannerup img {
     position: relative;
     top: -13px;
+  }
+
+  .SmartKichinlistrow figure img {
+    height: auto;
+  }
+
+  .innerbannerContent .row.mt-3.align-items-end .col {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .searcwithbtn.d-flex {
+    flex-wrap: wrap;
+  }
+
+  .btnserch.d-flex.align-items-center {
+    width: 100%;
+  }
+  .btnserch {
+    gap: 10px;
+  }
+  .btnserch .btn {
+    width: 50%;
+    background: #000;
+    color: #fff !important;
+    margin: 0;
+  }
+
+  .FOLLOWUS.bannerfollow {
+    display: none;
+  }
+  .SearchBox input {
+    background: #ddd;
+    margin-bottom: 10px;
+  }
+
+  span.bannerup img {
+    width: 117px;
+    margin: auto;
+    display: block;
+  }
+
+  span.bannerup {
+    margin-left: 0;
+    top: 0;
+  }
+
+  span.bannerup img {
+    top: 0;
+  }
+
+  .blogbanner.smartkitchein-banner .innerbannerContent {
+    bottom: 30px;
+    margin-top: -86px;
   }
 }
 
@@ -3011,10 +3204,13 @@
     display: none;
   }
 
-  .clientfeedbackslider .owl-carousel.owl-theme {
+  /* .clientfeedbackslider .owl-carousel.owl-theme {
     width: 75%;
-  }
+  } */
 
+  .getintouchinner .getintouchinnerleft figure img {
+    height: auto;
+  }
   .productslists .owl-carousel.owl-theme {
     width: 85%;
   }
@@ -3221,15 +3417,6 @@
     margin-left: 0;
   }
 
-  .SearchBox input {
-    height: 40px;
-    font-size: 14px;
-  }
-
-  .btnserch .btn {
-    height: 40px;
-  }
-
   .blogbanner .innerbannerContent {
     bottom: 12px;
   }
@@ -3243,11 +3430,6 @@
     display: none;
   }
 
-  span.bannerup {
-    margin-left: 2px;
-    top: 29px;
-  }
-
   .blogbannertitle {
     top: 75px;
   }
@@ -3256,111 +3438,21 @@
     display: flex;
     align-items: center;
   }
-}
 
-@media (max-width: 992px) {
-  .bannerSection .owl-carousel .owl-item {
-    aspect-ratio: inherit;
+  .SearchBox input {
+    margin-bottom: 0;
   }
 
-  .bannerSection .owl-theme .owl-dots {
-    position: static;
-    margin-top: 12px;
+  .SmartKichinslider {
+    width: 85%;
+    margin: auto;
   }
-
-  .BestTag {
-    margin-top: 24px;
-    background: #eee;
-  }
-
-  .circletagShapeBox {
-    display: none;
-  }
-
-  .circletagShapeBox {
-    right: 10%;
-    top: 54px;
-  }
-
-  .slider-image {
-    position: static;
-  }
-
-  .SmartKichinContent figure img {
-    height: auto;
-  }
-
-  section.SmartKichin.SectionSpace {
-    padding-bottom: 30px;
-  }
-}
-
-@media (max-width: 576px) {
-  .owl-p ul li {
-    font-size: 12px;
-  }
-
-  .bannerSectionLeft h1 {
-    font-size: 16px;
-  }
-
-  .ClientListinfo {
-    margin: 10px 0 !important;
-  }
-
-  .innerbannerContent p {
-    flex-wrap: wrap;
-  }
-  select.form-select.w-25 {
-    width: 100% !important;
-    margin-top: 15px;
-  }
-
-  .innerbannerContent {
-    position: static;
-  }
-
-  .innerbanner:after {
-    background: rgb(0 0 0 / 50%);
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    content: "";
-    width: 100%;
-    height: 100%;
-    display: none;
-  }
-  .innerbanner figure {
-    position: relative;
-  }
-  .innerbanner figure:after {
-    background: rgb(0 0 0 / 50%);
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    content: "";
-    width: 100%;
-    height: 100%;
-  }
-
-  .innerbannerContent p {
-    color: #000;
-  }
-  .innerbannerContent {
-    padding: 0;
-    padding-top: 20px;
-  }
-
-      .row.row-cols-5.SmartKichinlistrow figcaption h4 {
-        height: auto;
-    }
 }
 
 @media (max-width: 480px) {
+  .SmartKichinlist .col {
+    width: 100%;
+  }
   a.navbar-brand img {
     width: 100px;
   }
@@ -3797,6 +3889,7 @@
     height: 300px;
     width: 100%;
     object-fit: cover;
+    border-radius: 8px;
   }
 
   .WhyUsinner p {
@@ -4122,17 +4215,6 @@
     margin-right: 20px;
   }
 
-  .blogbanner .innerbannerContent {
-    width: 90%;
-    margin: auto;
-    position: absolute;
-  }
-
-  .SmartKichinslider .slick-prev,
-  .SmartKichinslider .slick-next {
-    display: none !important;
-  }
-
   .SmartKichinlistrow figure img {
     height: auto;
   }
@@ -4161,12 +4243,16 @@
     font-size: 14px;
   }
 
- .EventsBannercontent  .hvr-shutter-out-horizontal {
+  .EventsBannercontent .hvr-shutter-out-horizontal {
     text-align: center;
     margin: auto;
-}
+  }
 
-.SmartKichinlistrow figcaption p {
-        height: auto;
-    }
+  .SmartKichinlistrow figcaption p {
+    height: auto;
+  }
+
+  .blogbanner.smartkitchein-banner .innerbannerContent {
+    margin-top: -60px;
+  }
 }

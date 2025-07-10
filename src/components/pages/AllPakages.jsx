@@ -229,10 +229,10 @@ function AllPakages() {
 
         <div className="productslists">
           <div className="container">
-            <h4 className="producttitle">{totalItems} Package</h4>
+            <h4 className="producttitle mb-4">{totalItems} Package</h4>
 
             {Array.isArray(allPackages) && allPackages.length > 0 ? (
-              <div className="position-relative">
+              <div className="position-relative allpakagessec mt-4">
                 <div className="arrowrleft">
                   {currentPage > 1 && (
                     <svg
