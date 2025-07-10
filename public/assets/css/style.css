@@ -3117,7 +3117,7 @@ body .owl-carousel .owl-item .product-list figure img {
 }
 
 .SmartKichinlistrow figcaption {
-  text-align: center;
+  text-align: start;
   padding: 15px 10px;
 }
 
@@ -5850,7 +5850,7 @@ section.WhyUs.SectionSpace {
   min-height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 /* .row.productslistsrow {
     position: relative;

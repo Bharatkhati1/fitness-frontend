@@ -264,10 +264,10 @@ function Home() {
       <section className="bannerSection">
         <div className="container position-relative">
           <div className="circletagShapeBox">
-            <img className="heartBeatImg" src={heartbeat} alt="" />
+            {/* <img className="heartBeatImg" src={heartbeat} alt="" />
             <span className="circletagShape">
               <img src={Tagcircle} />
-            </span>
+            </span> */}
           </div>
         </div>
         {sliders.length > 0 && (

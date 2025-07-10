@@ -52,12 +52,25 @@ const Consultants = () => {
 
   const handleFormDataChange = (e) => {
     const { name, value, type, files } = e.target;
+
     if (type === "file") {
       setFormData((prev) => ({ ...prev, image: files[0] }));
       setSelectedFileName(files[0]?.name || "");
     } else if (type === "radio") {
       setFormData((prev) => ({ ...prev, [name]: value === "true" }));
     } else {
+      // Validation for name
+      if (name === "name") {
+        const isValidName = /^[A-Za-z\s]*$/.test(value);
+        if (!isValidName) return; // Ignore invalid input
+      }
+
+      // Validation for phone
+      if (name === "phone") {
+        const isValidPhone = /^\d{0,10}$/.test(value); // allow typing up to 10 digits
+        if (!isValidPhone) return;
+      }
+
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };

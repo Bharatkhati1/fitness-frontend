@@ -82,13 +82,13 @@ const Testimonials = () => {
                           </span>
                         </td>
                         <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                        <td style={{width:"180px"}}>
+                        <td style={{width:"220px"}}>
                           {loadingId === item.id ? (
                             <span className="text-primary">Updating...</span>
                           ) : item.isApproved === "Pending" ? (
                             <>
                               <button
-                                className="btn btn-sm btn-primary me-2 mb-2"
+                                className="btn btn-sm btn-primary testimonial-btn me-2 mb-2"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Approved")
                                 }
@@ -96,7 +96,7 @@ const Testimonials = () => {
                                 Approve
                               </button>
                               <button
-                                className="btn btn-soft-primary mb-2"
+                                className="btn btn-soft-primary testimonial-btn mb-2"
                                 onClick={() =>
                                   handleApproveReject(item.id, "Rejected")
                                 }
@@ -106,7 +106,7 @@ const Testimonials = () => {
                             </>
                           ) : (
                             <button
-                              className="btn btn-sm btn-danger"
+                              className="btn btn-sm testimonial-btn btn-danger"
                               onClick={() =>
                                 handleApproveReject(item.id, "Pending")
                               }

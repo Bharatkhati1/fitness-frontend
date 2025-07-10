@@ -159,13 +159,13 @@ function MyTestimonails() {
 
         <div className="modalbody">
           <div className="form-field mb-3">
-            <label>Service</label>
+            <label>Packages</label>
             <select
               className="form-select"
               value={selectedService}
               onChange={(e) => setSelectedService(e.target.value)}
             >
-              <option value="">Select a service</option>
+              <option value="">Select a package</option>
               {packages?.map((pkg) => (
                 <option value={pkg?.PackagePlan?.Package?.id}>
                   {pkg?.PackagePlan?.Package?.name}

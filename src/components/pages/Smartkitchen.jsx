@@ -189,7 +189,7 @@ function Smartkitchen() {
       { breakpoint: 1200, settings: { slidesToShow: 5 } },
       { breakpoint: 992, settings: { slidesToShow: 5 } },
       { breakpoint: 768, settings: { slidesToShow: 4 } },
-       { breakpoint: 576, settings: { slidesToShow: 3 } },
+      { breakpoint: 576, settings: { slidesToShow: 3 } },
       { breakpoint: 481, settings: { slidesToShow: 2 } },
       { breakpoint: 0, settings: { slidesToShow: 2 } },
     ],
@@ -328,14 +328,20 @@ function Smartkitchen() {
                     />
                   </figure>
                   <figcaption>
+                    {item?.tagNames.length > 0 &&
+                      item?.tagNames?.map((item) => (
+                        <span className="tags-smart-kitchen">{item} </span>
+                      ))}
                     <h4>{item.name}</h4>
                     <p>{item.description}</p>
-                    <a
-                      onClick={() => downloadRecipe(item.id)}
-                      className="btn btn-primary xm-btn hvr-shutter-out-horizontal"
-                    >
-                      Download Recipe
-                    </a>
+                    <div className="d-flex justify-content-center">
+                      <a
+                        onClick={() => downloadRecipe(item.id)}
+                        className="btn btn-primary xm-btn hvr-shutter-out-horizontal mt-2"
+                      >
+                        Download Recipe
+                      </a>
+                    </div>
                   </figcaption>
                 </div>
               ))

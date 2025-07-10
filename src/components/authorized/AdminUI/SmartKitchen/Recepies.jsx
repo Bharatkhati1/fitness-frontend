@@ -171,6 +171,7 @@ const Recepies = () => {
     fetchAllCategories();
     fetchAllTags();
   }, []);
+  console.log(formData);
   return (
     <>
       {/* Form Section */}
@@ -257,12 +258,17 @@ const Recepies = () => {
                     <Select
                       allowClear
                       size="large"
+                      mode="multiple"
                       style={{ width: "100%" }}
                       placeholder="Select Category"
                       value={formData.tagId}
-                      onChange={(value) =>
-                        setFormData((prev) => ({ ...prev, tagId: value }))
-                      }
+                      onChange={(value) => {
+                        if (value.length <= 5) {
+                          setFormData((prev) => ({ ...prev, tagId: value }));
+                        } else {
+                          toast.warn("You can select a maximum of 5 tags.");
+                        }
+                      }}
                     >
                       {tags.map((tg) => (
                         <Option key={tg.id} value={tg.id}>
@@ -428,7 +434,11 @@ const Recepies = () => {
                           <td>{recipe.name}</td>
                           <td>{recipe.type}</td>
                           <td>{recipe.ItemCategory.name}</td>
-                          <td>{recipe?.Master?.name || "-"}</td>
+                          <td>
+                            {recipe?.tagNames
+                              ?.map((item) => `#${item}`)
+                              .join(" ") || "-"}
+                          </td>
                           <td>{recipe.description}</td>
                           <td>
                             <span

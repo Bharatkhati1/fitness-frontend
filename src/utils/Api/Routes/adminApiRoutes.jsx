@@ -149,6 +149,9 @@ const adminApiRoutes = {
 
   //PAY PARTNER/CONSULTANTS
   add_debit: (type) => `/add-debit/${type}`,
+
+  //Update admin profile
+  update_profile:(id)=>`/users-profile/${id}`
 };
 
 export default adminApiRoutes;

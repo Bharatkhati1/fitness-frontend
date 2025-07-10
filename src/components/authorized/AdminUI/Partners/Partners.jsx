@@ -48,7 +48,14 @@ const Partners = () => {
   };
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (field === "name") {
+      // Allow only alphabets and spaces
+      if (!/^[A-Za-z\s]*$/.test(value)) return;
+    }
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   const handleSubmit = async () => {

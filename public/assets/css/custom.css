@@ -273,34 +273,32 @@ select.form-control {
   color: #800030;
 }
 
-.text-muted{
+.text-muted {
   font-size: 11px;
   margin-top: 3px;
 }
 
-.single-crousol
- {
-   display: flex !important;
-   justify-content: center;
+.single-crousol {
+  display: flex !important;
+  justify-content: center;
 }
 
-.SmartKichinslider{
-  border:2px solid transparent;
+.SmartKichinslider {
+  border: 2px solid transparent;
 }
-.SmartKichinslider .active-image{
-  border:2px solid #800030;
-} 
-.SmartKichinlist .SmartKichinlistitle{
- 
+.SmartKichinslider .active-image {
+  border: 2px solid #800030;
+}
+.SmartKichinlist .SmartKichinlistitle {
   font-size: 27px;
   color: #007946;
   font-weight: 700;
   margin-bottom: 20px;
 }
-.FOLLOWUS{
+.FOLLOWUS {
   margin-bottom: 20px;
 }
-.download-report-btn{
+.download-report-btn {
   height: 40px;
   padding: 8px 13px;
   background-color: #800030;
@@ -309,30 +307,28 @@ select.form-control {
   color: white;
   margin-top: 20px;
 }
-body .ourcluture .owl-carousel .owl-item .first-slider{
-  width: 40% !important 
+body .ourcluture .owl-carousel .owl-item .first-slider {
+  width: 40% !important;
 }
 
-
-body .ourcluture .owl-carousel .owl-item.active img{
+body .ourcluture .owl-carousel .owl-item.active img {
   transform: scale(0.85); /* shrink side items */
   transition: transform 0.3s ease;
 }
-body .ourcluture .owl-carousel .owl-item.active.center{
-  width:25% !important; /* full size for center item */
-  z-index: 2; 
+body .ourcluture .owl-carousel .owl-item.active.center {
+  width: 25% !important; /* full size for center item */
+  z-index: 2;
 }
 
-.select-partner-coupon{
+.select-partner-coupon {
   height: 45px !important;
 }
 .select-partner-coupon {
-  appearance: auto !important; 
+  appearance: auto !important;
 }
-.ant-tabs-tab-btn{
-outline: none !important;
+.ant-tabs-tab-btn {
+  outline: none !important;
 }
-
 
 .smartkictchentag {
   position: absolute;
@@ -360,17 +356,36 @@ outline: none !important;
   color: #ffffff;
 }
 
-.custom-modal  label.form-check-label.event-register{
+.custom-modal label.form-check-label.event-register {
   font-size: 14px;
 }
-.profile-admin-container{
+.profile-admin-container {
   overflow-y: auto;
   overflow-x: hidden;
   height: calc(100% - 27px);
 }
-.OurHealthBlogContent figure img{
+.OurHealthBlogContent figure img {
   border-radius: 8px;
 }
-.SmartKichinContent figure img{
+.SmartKichinContent figure img {
   border-radius: 4px;
+}
+
+.tags-smart-kitchen {
+  font-weight: 700;
+  font-size: 14px;
+  background-color: #eaecf0;
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 14px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+}
+
+.testimonial-btn {
+  min-width: 90px;
 }

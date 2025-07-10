@@ -12,12 +12,11 @@ import { useLocation } from "react-router-dom";
 
 const BasicInfo = ({ user, type }) => {
   const profileImgref = useRef(null);
-
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
   });
-
+  const [isUpdates, setISUpdated] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -35,7 +34,7 @@ const BasicInfo = ({ user, type }) => {
 
   // Sync props with local state on mount or when user changes
   useEffect(() => {
-    if (user) {
+    if (user && !isUpdates) {
       setFormData({
         firstName: user.firstName || "",
         email: user.email || "",
@@ -61,7 +60,11 @@ const BasicInfo = ({ user, type }) => {
   };
 
   const handlePasswordSubmit = async () => {
-    if (!passwords.newPassword || !passwords.confirmPassword || !passwords.currentPassword) {
+    if (
+      !passwords.newPassword ||
+      !passwords.confirmPassword ||
+      !passwords.currentPassword
+    ) {
       toast.error("Please fill in all password fields.");
       return;
     }
@@ -98,10 +101,36 @@ const BasicInfo = ({ user, type }) => {
     }
   };
 
-  const handleProfileSubmit = () => {
-    // Collect formData and profileImage for submission
-    console.log("Profile Updated Data:", { ...formData, profileImage });
-    toast.success("Profile data collected for update.");
+  const handleProfileSubmit = async () => {
+    try {
+      let image_dir;
+      if (type === "admin") {
+        image_dir = "users";
+      } else if (type === "consultant") {
+        image_dir = "consultants";
+      } else {
+        image_dir = "partners";
+      }
+
+      const form = new FormData();
+      form.append("userType", type);
+      form.append("name", formData.firstName);
+      form.append("image_dir", image_dir);
+
+      if (profileImage) {
+        form.append("profile_image", profileImage);
+      }
+
+      const res = await adminAxios.put(
+        adminApiRoutes.update_profile(user.id),
+        form
+      );
+      setISUpdated(true);
+      console.log("Profile Updated Data:", { ...formData, profileImage });
+      toast.success("Profile data updated.");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong.");
+    }
   };
 
   return (
