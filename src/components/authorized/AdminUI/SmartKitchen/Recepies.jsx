@@ -27,6 +27,7 @@ const Recepies = () => {
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedPdfName, setSelectedPdfname] = useState("");
   const [allCategories, setAllCategories] = useState([]);
+  const [filteredData, setfilteredData] = useState([]);
   const [tags, setTags] = useState([]);
   const fileInputRef = useRef(null);
   const pdfInputRef = useRef(null);
@@ -36,6 +37,7 @@ const Recepies = () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_all_recipies);
       setAllReceipes(res.data.data);
+      setfilteredData(res.data.data);
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to fetch data");
     }
@@ -151,6 +153,17 @@ const Recepies = () => {
     });
     if (fileInputRef.current) fileInputRef.current.value = "";
     if (pdfInputRef.current) pdfInputRef.current.value = "";
+  };
+
+  const handleSearch = (search) => {
+    if (search.length > 0) {
+      const filterValue = allReceipes.filter((val) =>
+        val.name.toLowerCase().includes(search.toLowerCase())
+      );
+      setfilteredData(filterValue);
+    } else {
+      setfilteredData(allReceipes);
+    }
   };
 
   useEffect(() => {
@@ -360,6 +373,14 @@ const Recepies = () => {
 
       {/* Table Section */}
       <div className="row mt-4">
+        <div className="d-flex justify-content-end mb-3">
+          <input
+            className="w-50"
+            placeholder="Search here"
+            onChange={(e) => handleSearch(e.target.value)}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
         <div className="col-xl-12">
           <div className="card">
             <div className="card-header">
@@ -382,8 +403,8 @@ const Recepies = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {allReceipes.length ? (
-                      allReceipes.map((recipe, index) => (
+                    {filteredData.length ? (
+                      filteredData.map((recipe, index) => (
                         <tr key={recipe.id}>
                           <td>{index + 1}</td>
                           <td>
@@ -407,7 +428,7 @@ const Recepies = () => {
                           <td>{recipe.name}</td>
                           <td>{recipe.type}</td>
                           <td>{recipe.ItemCategory.name}</td>
-                          <td>{recipe?.Master?.name||'-'}</td>
+                          <td>{recipe?.Master?.name || "-"}</td>
                           <td>{recipe.description}</td>
                           <td>
                             <span
@@ -433,7 +454,7 @@ const Recepies = () => {
                                     type: recipe.type,
                                     categoryId: recipe.categoryId,
                                     recipe: null,
-                                    tagId:recipe.tagId,
+                                    tagId: recipe.tagId,
                                     isActive: recipe.isActive,
                                   });
                                   setSelectedPdfname(recipe.recipe);

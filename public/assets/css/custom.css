@@ -374,3 +374,81 @@ outline: none !important;
 .SmartKichinContent figure img{
   border-radius: 4px;
 }
+.mobile-filters-overlay {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-filters-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-filters-card {
+  background: #fff;
+  width: 100%;
+  height: 70%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 16px;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-filters-overlay.show .mobile-filters-card {
+  transform: translateY(0);
+}
+
+.mobile-filters-card ul {
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-filters-card li {
+
+    list-style: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    background: #4caf502e;
+    font-size: 16px;
+    color: #007946;
+    font-weight: 700;
+}
+
+.mobile-filters-card li.active {
+  background-color: #007946;
+  color: #fff;
+  border-color: #007946;
+}
+
+.close-btn {
+  margin-bottom: 12px;
+}
+
+
+.mobile-filters-card button {
+    width: 30px !important;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 20px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 14px;
+}

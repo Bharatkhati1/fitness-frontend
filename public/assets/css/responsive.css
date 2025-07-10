@@ -1399,9 +1399,6 @@
     background-position: center;
     height: auto;
   }
-  .btn.btn-primary.xm-btn {
-    font-size: 15px;
-  }
 
   .MuktiBox {
     height: auto;
@@ -1410,6 +1407,10 @@
   .SmartKichinslider {
     width: 95%;
     margin: auto;
+  }
+
+  .SmartKichinlistrow figcaption p {
+    height: 80px;
   }
 }
 
@@ -2176,6 +2177,23 @@
   .Joinourhealth {
     padding-top: 20px !important;
   }
+
+  .bannerSection {
+    padding-top: 65px;
+  }
+
+  .OurHealthBlogContent .btn.max-width {
+    min-width: 100%;
+    font-size: 14px;
+  }
+
+  .OurBlogs .OurHealthBlogContent figure img {
+    height: auto;
+  }
+
+  .ant-modal.custom-modal .modalhead h3 {
+    font-size: 26px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -2884,6 +2902,18 @@
     bottom: 30px;
     margin-top: -86px;
   }
+
+  section.BlogDeatils:after {
+    display: none;
+  }
+
+  figure.hc-img {
+    margin-top: 30px;
+  }
+
+      .innovationlist figure img {
+        height: auto;
+    }
 }
 
 @media (max-width: 575px) {
@@ -3007,6 +3037,7 @@
 
   .btn.max-width {
     min-width: 80%;
+    font-size: 14px;
   }
 
   .RegisterPage .col-md-7.me-auto {
@@ -3447,6 +3478,18 @@
     width: 85%;
     margin: auto;
   }
+
+  .ant-modal.custom-modal .modalhead h3 {
+    font-size: 22px;
+  }
+
+  .ant-modal.custom-modal .modalbody {
+    padding: 20px 30px 40px;
+  }
+
+  .ant-modal.custom-modal .modalhead {
+    padding: 20px 30px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -3592,9 +3635,7 @@
     font-size: 18px;
   }
 
-  .btn.max-width {
-    font-size: 16px;
-  }
+
 
   .bookappoinmentl figure img {
     width: 97%;
@@ -4255,4 +4296,10 @@
   .blogbanner.smartkitchein-banner .innerbannerContent {
     margin-top: -60px;
   }
+
+  .bannerSection {
+    padding-top: 55px;
+  }
+
+  .Bytext span::before,.Bytext span:after{ display: none;}
 }

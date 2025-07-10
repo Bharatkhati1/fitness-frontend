@@ -21,7 +21,7 @@ const TopBar = () => {
   }
 
   const handleLogout = () => {
-    dispatch(logoutUser(false,  type));
+    dispatch(logoutUser(false, type));
   };
 
   const getUserType = () => {
@@ -33,31 +33,35 @@ const TopBar = () => {
   // Function to extract display name from NavItems
   const getTitleFromNavItems = (pathname) => {
     const userType = getUserType();
-    if (!userType) return "Profil";
-    
+    if (!userType) return "Profile";
+
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length < 2) return "Dashboard";
-    
-    const mainPath = segments[1];
-    const subPath = segments[2];
+
+    const fullPath = segments.slice(1).join("/"); // skip leading slash segment
+
     const navGroups = NavItems[userType];
-    
     if (!navGroups) return "Dashboard";
-    
+
     for (const group of Object.values(navGroups)) {
-      const foundItem = group.items.find(item => item.path === mainPath);
-      if (foundItem) {
-        if (foundItem.subMenu && subPath) {
-          const subItem = foundItem.subMenu.find(s => s.path === subPath);
-          return subItem ? `${foundItem.name} / ${subItem.name}` : foundItem.name;
+      for (const item of group.items) {
+        if (item.path == fullPath) {
+          return item.name;
         }
-        return foundItem.name;
+
+        if (item.subMenu) {
+          for (const subItem of item.subMenu) {
+            const combinedSubPath = `${item.path}/${subItem.path}`;
+            if (combinedSubPath == fullPath) {
+              return `${item.name} / ${subItem.name}`;
+            }
+          }
+        }
       }
     }
-    
+
     return "Profile";
   };
-
 
   const pageTitle = getTitleFromNavItems(pathname);
   return (
