@@ -82,7 +82,7 @@ const Testimonials = () => {
                           </span>
                         </td>
                         <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                        <td>
+                        <td style={{width:"180px"}}>
                           {loadingId === item.id ? (
                             <span className="text-primary">Updating...</span>
                           ) : item.isApproved === "Pending" ? (

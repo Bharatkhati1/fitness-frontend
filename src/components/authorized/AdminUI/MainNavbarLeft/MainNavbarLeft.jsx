@@ -209,7 +209,7 @@ export const NavItems = {
         {
           id: 1,
           name: "All Users",
-          path: "company-settings/users",
+          path: "all-users",
         },
       ],
     },
@@ -219,12 +219,12 @@ export const NavItems = {
         {
           id: 1,
           name: "Package Orders",
-          path: "company-settings/orders",
+          path: "order-management/orders",
         },
         {
           id: 1,
           name: "Appointments",
-          path: "company-settings/appointments",
+          path: "order-management/appointments",
         },
       ],
     },

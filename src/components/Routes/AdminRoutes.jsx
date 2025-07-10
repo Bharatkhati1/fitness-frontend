@@ -24,6 +24,8 @@ import Profile from "../authorized/AdminUI/Profile/profile";
 import PaymentHistory from "../authorized/AdminUI/CompanySettings/PaymentHistory";
 import Testimonials from "../authorized/AdminUI/TestimonialManagement/index";
 import AboutUs from "../authorized/AdminUI/AboutUsPages/index";
+import Users from "../authorized/AdminUI/CompanySettings/Users/Users";
+import OrderManagement from "../authorized/AdminUI/OrderManagement/index";
 
 export default function AdminRoutes() {
   return (
@@ -50,6 +52,8 @@ export default function AdminRoutes() {
           <Route path="blog-management/*" element={<Blogs />} />
           <Route path="smart-kitchen/*" element={<SmartKitchen />} />
           <Route path="consultants/*" element={<Consultants />} />
+          <Route path="all-users" element={<Users />} />
+          <Route path="order-management/*" element={<OrderManagement />} />
           <Route path="innovation/*" element={<Innovation />} />
           <Route path="payment-history" element={<PaymentHistory />} />
           <Route path="testimonials-management/*" element={<Testimonials />} />
