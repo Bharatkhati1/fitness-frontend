@@ -174,7 +174,7 @@ button:focus:not(:focus-visible) {
 }
 
 .btn {
-  font-size: 14px;
+  font-size: 13px !important;
   font-weight: 700;
   text-transform: uppercase;
   display: inline-flex;
@@ -604,9 +604,8 @@ body .heartBeatImg {
   background: rgb(0 0 0 / 12%);
 }
 
-.VideBox iframe {
-  display: block;
-  margin: auto;
+.VideBox video {
+height: 680px;
 }
 
 .SectionSpace {
@@ -646,7 +645,7 @@ body .heartBeatImg {
   z-index: 9;
   position: relative;
   border-radius: 8px;
-  text-align: center;
+  text-align: start;
 }
 
 .SmartKichinContent figcaption h3 {
@@ -4897,7 +4896,7 @@ ul.whyparthnerlist li {
 
 .service-btn a {
   min-width: auto;
-  font-size: 13px;
+  font-size: 13px !important;
   padding: 0 3px !important;
 }
 
