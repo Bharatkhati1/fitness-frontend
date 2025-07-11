@@ -8,20 +8,21 @@ import { ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "bootstrap";
 import $ from "jquery";
+import { GOOGLE_CLIENT_KEY } from "./utils/constants.jsx";
 
 window.$ = window.jQuery = $;
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <ToastContainer position="top-right" autoClose={3000} />
         <Suspense fallback="Loading...">
-          <GoogleOAuthProvider clientId="790862085191-jofh2icrpk1gp8e38dlutd6l59uf10pb.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId='1025334248508-p80966cajrji9jlhh919cdtqas15pn57.apps.googleusercontent.com'>
             <App />
           </GoogleOAuthProvider>
         </Suspense>
       </Provider>
     </BrowserRouter>
-  // </StrictMode>
+  </StrictMode>
 );

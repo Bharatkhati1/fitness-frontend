@@ -177,9 +177,28 @@ const Partners = () => {
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
                       ref={fileInputRef}
                       onChange={(e) => {
-                        handleChange("image", e.target.files[0]);
+                        const file = e.target.files[0];
+                        if (file) {
+                          const allowedTypes = [
+                            "image/png",
+                            "image/jpeg",
+                            "image/jpg",
+                            "image/webp",
+                            "image/gif",
+                            "image/avif",
+                          ];
+
+                          if (!allowedTypes.includes(file.type)) {
+                            toast.error("Only image files are allowed.");
+                            e.target.value = ""; 
+                            return;
+                          }
+
+                          handleChange("image", file); 
+                        }
                       }}
                     />
+
                     <ImageDimensionNote type="partners" />
                   </div>
                 </div>

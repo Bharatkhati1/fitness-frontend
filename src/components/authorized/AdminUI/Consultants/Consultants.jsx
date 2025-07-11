@@ -270,8 +270,29 @@ const Consultants = () => {
                       ref={fileInputRef}
                       className="form-control"
                       accept="image/png, image/jpeg, image/jpg, image/webp, image/gif, image/avif"
-                      onChange={handleFormDataChange}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const allowedTypes = [
+                            "image/png",
+                            "image/jpeg",
+                            "image/jpg",
+                            "image/webp",
+                            "image/gif",
+                            "image/avif",
+                          ];
+
+                          if (!allowedTypes.includes(file.type)) {
+                            toast.error("Only image files are allowed.");
+                            e.target.value = ""; 
+                            return;
+                          }
+
+                          handleFormDataChange(e);
+                        }
+                      }}
                     />
+
                     <ImageDimensionNote type="manageConsultant" />
                   </div>
                 </div>

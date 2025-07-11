@@ -36,6 +36,7 @@ const ServiceManagement = () => {
   const storyImageRef = useRef(null);
   const selectedIdref = useRef(null);
 
+  console.log(ctaButtons);
   const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
   const fetchAllServices = async () => {
@@ -151,7 +152,7 @@ const ServiceManagement = () => {
     setSelectedBannerFileName("");
     setCtaButtons([]);
     setStoryImage(null);
-    setIsPublished("")
+    setIsPublished("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -250,7 +251,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setServiceBannerImage(e.target.files[0])}
                     />
-                    <ImageDimensionNote  type="innerBanner"/>
+                    <ImageDimensionNote type="innerBanner" />
                   </div>
                 </div>
 
@@ -269,7 +270,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setSliderImage(e.target.files[0])}
                     />
-                     <ImageDimensionNote  type="service"/>
+                    <ImageDimensionNote type="service" />
                   </div>
                 </div>
 
@@ -288,7 +289,7 @@ const ServiceManagement = () => {
                       className="form-control"
                       onChange={(e) => setStoryImage(e.target.files[0])}
                     />
-                     <ImageDimensionNote  type="storyImage"/>
+                    <ImageDimensionNote type="storyImage" />
                   </div>
                 </div>
 
@@ -406,13 +407,15 @@ const ServiceManagement = () => {
                     <label className="form-label">CTA Button</label>
                     <div className="">
                       {ctaOptions.map((option, index) => {
-                        const matchedButton = ctaButtons?.find(
-                          (btn) => btn.name === option
-                        );
-                        const inputValue =
-                          emailInputs[option] ??
-                          matchedButton?.emails.join(", ") ??
-                          "";
+                        let matchedButton;
+                        try {
+                          matchedButton = Array.isArray(ctaButtons)
+                            ? ctaButtons.find((btn) => btn.name === option)
+                            : false;
+                        } catch (error) {
+                          matchedButton = false;
+                        }
+
                         return (
                           <div
                             className="row align-items-center my-1"
@@ -594,7 +597,9 @@ const ServiceManagement = () => {
                                       </Link>
                                     </td>
                                     <td>{service.name}</td>
-                                    <td>{getShortText(service.shortDescription)}</td>
+                                    <td>
+                                      {getShortText(service.shortDescription)}
+                                    </td>
                                     <td>
                                       <span
                                         className={`badge ${
@@ -619,7 +624,7 @@ const ServiceManagement = () => {
                                             setCtaButtons(
                                               JSON.parse(service.actions) || []
                                             );
-                                            setIsPublished(service.isPublished)
+                                            setIsPublished(service.isPublished);
                                             setSliderName(service.name);
                                             setSliderHeading(
                                               service.description
@@ -638,7 +643,6 @@ const ServiceManagement = () => {
                                             setStoryImageName(
                                               service?.story_image
                                             );
-                                            
                                           }}
                                         >
                                           <iconify-icon

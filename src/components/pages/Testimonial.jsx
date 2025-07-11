@@ -193,7 +193,7 @@ function Testimonial() {
                             </figure>
                             <figcaption>
                               <h4>{fullName}</h4>
-                              <p>{rating?.Package?.name || ""}</p>
+                              <p>{user?.city || ""}</p>
                             </figcaption>
                           </div>
                         </div>

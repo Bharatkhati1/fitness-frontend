@@ -152,7 +152,7 @@ const CreateUpdatePackage = () => {
       }
     }
 
-    let k =0;
+    let k = 0;
     // Append images for Single variants
     for (let i = 0; i < packageVariantsSingle.length; i++) {
       if (packageVariantsSingle[i].image) {
@@ -545,13 +545,14 @@ const CreateUpdatePackage = () => {
                     <label className="form-label">CTA Button</label>
                     <div className="">
                       {ctaOptions.map((option, index) => {
-                        const matchedButton = ctaButtons.find(
-                          (btn) => btn.name === option
-                        );
-                        const inputValue =
-                          emailInputs[option] ??
-                          matchedButton?.emails.join(", ") ??
-                          "";
+                        let matchedButton;
+                        try {
+                          matchedButton = Array.isArray(ctaButtons)
+                            ? ctaButtons.find((btn) => btn.name === option)
+                            : false;
+                        } catch (error) {
+                          matchedButton = false;
+                        }
                         return (
                           <div
                             className="row align-items-center my-1"
@@ -715,7 +716,7 @@ const CreateUpdatePackage = () => {
                 type="combo"
               />
             </div>
-            
+
             <div className="card-body">
               <p className="title">
                 {packageVariantsSingle.length > 0 ? (

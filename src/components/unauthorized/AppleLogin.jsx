@@ -2,6 +2,7 @@ import React from "react";
 import AppleLogin from "react-apple-login";
 import AppleIcon from "../../../public/assets/img/AppleIcon.png";
 import { jwtDecode } from "jwt-decode";
+import { APPLE_CLIENT_ID, redirect_url } from "../../utils/constants";
 
 const AppleLoginButton = ({handleSocialLoginGoogle}) => {
   const handleAppleResponse = (response) => {
@@ -12,8 +13,8 @@ const AppleLoginButton = ({handleSocialLoginGoogle}) => {
   return (
     <div>
       <AppleLogin
-        clientId="com.thedailyfitness.web.login"
-        redirectURI="https://daily-fitness.24livehost.com/login-user"
+        clientId={APPLE_CLIENT_ID}
+        redirectURI={redirect_url}
         usePopup={true}
         callback={handleAppleResponse}
         scope="email name"

@@ -151,7 +151,8 @@ const adminApiRoutes = {
   add_debit: (type) => `/add-debit/${type}`,
 
   //Update admin profile
-  update_profile:(id)=>`/users-profile/${id}`
+  update_profile:(id)=>`/users-profile/${id}`,
+  export_transactions:(type, userid)=>`/export-payment-histories/${type}?userid=${userid}`
 };
 
 export default adminApiRoutes;

@@ -132,6 +132,7 @@ export default function AddToBag() {
     }
   };
 
+  console.log(appointmentData)
   const handlePayment = async () => {
     if (type === "cart" && cartItems.length === 0) {
       toast.error("No item in the cart!");
@@ -458,7 +459,7 @@ export default function AddToBag() {
                     </div>
 
                     <div className="form-group mb-3">
-                      <label>Address ;</label>
+                      <label>Address</label>
                       <input
                         type="text"
                         name="address"

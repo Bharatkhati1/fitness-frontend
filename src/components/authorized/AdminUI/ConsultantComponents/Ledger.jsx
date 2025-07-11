@@ -20,16 +20,42 @@ const Ledger = () => {
     }
   };
 
+  const handleDownloadReport = async () => {
+    try {
+      const res = await adminAxios.get(
+        adminApiRoutes.export_transactions("consultant", user.id)
+      );
+      const csvContent = res.data;
+
+      if (!csvContent) {
+        toast.error("No data to download.");
+        return;
+      }
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `ledge-report.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
     fetchTransactionHistory();
   }, []);
   return (
     <>
-      {" "}
       <div className="d-flex justify-content-end mb-3">
         <button
           className="download-report-btn"
-          // onClick={() => handleDownloadReport()}
+          onClick={() => handleDownloadReport()}
         >
           EXPORT DATA
         </button>
