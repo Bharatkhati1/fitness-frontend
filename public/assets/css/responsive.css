@@ -95,7 +95,7 @@
 
   .service-btn a {
     min-width: 160px !important;
-    font-size: 11px;
+    font-size: 11px !important;
     padding: 0 4px;
     height: 42px;
   }
@@ -373,10 +373,6 @@
   .OurServicesRow .col-md-4 {
     margin-bottom: 40px;
     padding: 0 20px;
-  }
-
-  .VideBox iframe {
-    height: 400px;
   }
 
   .SmartKichin .PageTitle.text-center {
@@ -748,10 +744,6 @@
   .OurServicesRow .col-md-4 {
     margin-bottom: 20px;
     padding: 0 10px;
-  }
-
-  .VideBox iframe {
-    width: 65%;
   }
 
   .SmartKichin .PageTitle p {
@@ -2299,8 +2291,7 @@
     margin-bottom: 30px;
   }
 
-  .VideBox iframe {
-    width: 80%;
+  .VideBox video {
     height: 300px;
   }
 

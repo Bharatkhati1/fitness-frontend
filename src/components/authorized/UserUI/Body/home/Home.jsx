@@ -262,14 +262,6 @@ function Home() {
         onGetRecipe={onGetRecipe}
       />
       <section className="bannerSection">
-        <div className="container position-relative">
-          <div className="circletagShapeBox">
-            {/* <img className="heartBeatImg" src={heartbeat} alt="" />
-            <span className="circletagShape">
-              <img src={Tagcircle} />
-            </span> */}
-          </div>
-        </div>
         {sliders.length > 0 && (
           <OwlCarousel
             autoplay={true}
@@ -336,20 +328,22 @@ function Home() {
                           </ul>
                         )}
 
-                       { showButtons &&<div className="BannerBtn d-flex">
-                          <Link
-                            className="hvr-shutter-out-horizontal"
-                            to={"/all-packages"}
-                          >
-                            Join Now
-                          </Link>
-                          <Link
-                            to={"/trial-7-days"}
-                            className="hvr-shutter-out-horizontal"
-                          >
-                            book a trial
-                          </Link>
-                        </div>}
+                        {showButtons && (
+                          <div className="BannerBtn d-flex">
+                            <Link
+                              className="hvr-shutter-out-horizontal"
+                              to={"/all-packages"}
+                            >
+                              Join Now
+                            </Link>
+                            <Link
+                              to={"/trial-7-days"}
+                              className="hvr-shutter-out-horizontal"
+                            >
+                              book a trial
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -535,12 +529,10 @@ function Home() {
         <div className="VideBox bg-black" ref={videoContainerRef}>
           <video
             ref={videoRef}
-            style={{ objectFit: "fill" }}
             src="https://daily-fitness-api.24livehost.com/uploads/video/homepage_video.MP4"
             width="100%"
             loop
             crossOrigin="anonymous"
-            height="509"
             controls={true}
             muted
             playsInline
@@ -570,12 +562,14 @@ function Home() {
                 <figcaption>
                   <h3>{data.name}</h3>
                   <p>{data.description}</p>
-                  <button
-                    onClick={() => downloadRecipe(data.id)}
-                    className="btn btn-primary hvr-shutter-out-horizontal"
-                  >
-                    Download Recipe
-                  </button>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      onClick={() => downloadRecipe(data.id)}
+                      className="btn btn-primary hvr-shutter-out-horizontal"
+                    >
+                      Download Recipe
+                    </button>
+                  </div>
                 </figcaption>
               </div>
             ))}
