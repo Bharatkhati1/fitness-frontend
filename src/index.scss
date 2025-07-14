@@ -1,12 +1,11 @@
-
-.editing{
+.editing {
   border: 2px solid #f57b47;
 }
-.card-header{
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  button{
+  button {
     border-radius: 8px;
     border: 1px solid transparent;
     font-weight: 500;
@@ -18,7 +17,6 @@
     color: white;
   }
 }
-
 
 .bmi-underweight {
   color: #00bcd4; /* Cyan */
@@ -39,15 +37,8 @@
   color: #f44336; /* Red */
   font-weight: bold;
 }
-// @media (prefers-color-scheme: light) {
-//   :root {
-//     color: #213547;
-//     background-color: #ffffff;
-//   }
-//   a:hover {
-//     color: #747bff;
-//   }
-//   button {
-//     background-color: #f9f9f9;
-//   }
-// }
+.contentlink {
+  p {
+    margin: 0px;
+  }
+}

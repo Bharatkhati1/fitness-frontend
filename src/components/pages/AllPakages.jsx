@@ -25,6 +25,7 @@ function AllPakages() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const debouncedSearch = useDebounce(search, 400);
   const debouncedServiceId = useDebounce(serviceId, 400);
@@ -168,7 +169,7 @@ function AllPakages() {
       </section>
 
       <section className="allpakages sectionSpace ">
-        <div className="container">
+        <div className="container  d-none d-lg-block">
           <div class="InnerPageTitle ">
             <h4 className="mb-0">Browse By services</h4>
           </div>
@@ -226,7 +227,67 @@ function AllPakages() {
             )}
           </div>
         </div>
-
+        <div className="row">
+          <div className="col-auto d-lg-none d-block ms-auto">
+            <button
+              className="btn btn-primary filter-btn me-4"
+              onClick={() => setShowMobileFilters(true)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path d="M1.5 1.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .4.8L10 8.333V13.5a.5.5 0 0 1-.8.4l-2-1.5a.5.5 0 0 1-.2-.4V8.333L1.1 1.8a.5.5 0 0 1 .4-.8z" />
+              </svg>
+            </button>
+          </div>
+          {/* Mobile filter overlay */}
+          <div
+            className={`mobile-filters-overlay ${
+              showMobileFilters ? "show" : ""
+            }`}
+            onClick={() => setShowMobileFilters(false)}
+          >
+            <div
+              className="mobile-filters-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="close-btn btn btn-primary btn-link w-100 text-end"
+                onClick={() => setShowMobileFilters(false)}
+              >
+                ✖
+              </button>
+              <ul className="list-unstyled  gap-2">
+                <li
+                  className={serviceId === null ? "active mb-2" : "mb-2"}
+                  onClick={() => {
+                    setServiceId(null);
+                    setShowMobileFilters(false);
+                  }}
+                >
+                  <span className="tag-info">All</span>
+                </li>
+                {allServices.map((srv) => (
+                  <li
+                    key={srv.id}
+                    className={srv.id === serviceId ? "active mb-2" : "mb-2"}
+                    onClick={() => {
+                      setSearch("");
+                      setServiceId(srv.id);
+                      setShowMobileFilters(false);
+                    }}
+                  >
+                    <span className="tag-info">{formatName(srv.name)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
         <div className="productslists">
           <div className="container">
             <h4 className="producttitle mb-4">{totalItems} Package</h4>

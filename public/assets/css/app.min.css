@@ -19007,11 +19007,10 @@ body .btn-soft-primary {
 
 
 }
-.btn{
-  height: 40px;
-  font-size: 11px;
-  padding: 13px 10px; 
-}
+body .btn{
+height: 40px;
+font-size: 13px;
+padding: 13px 10px;}
 
 .btn-soft-secondary {
   --bs-btn-color: #5d7186;

@@ -40,6 +40,7 @@
     font-size: 14px;
     margin-bottom: 6px;
   }
+   body .btn{ font-size: 11px !important;}
 }
 
 @media (max-width: 1400px) {
@@ -57,6 +58,7 @@
   span.bannerup {
     margin-left: 0;
   }
+ 
 }
 
 @media (min-width: 1400px) {
@@ -2186,6 +2188,12 @@
   .ant-modal.custom-modal .modalhead h3 {
     font-size: 26px;
   }
+
+  button.btn.btn-primary.filter-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 4px;
+}
 }
 
 @media (max-width: 767px) {
@@ -2902,9 +2910,9 @@
     margin-top: 30px;
   }
 
-      .innovationlist figure img {
-        height: auto;
-    }
+  .innovationlist figure img {
+    height: auto;
+  }
 }
 
 @media (max-width: 575px) {
@@ -3626,8 +3634,6 @@
     font-size: 18px;
   }
 
-
-
   .bookappoinmentl figure img {
     width: 97%;
     height: auto;
@@ -4292,5 +4298,8 @@
     padding-top: 55px;
   }
 
-  .Bytext span::before,.Bytext span:after{ display: none;}
+  .Bytext span::before,
+  .Bytext span:after {
+    display: none;
+  }
 }
