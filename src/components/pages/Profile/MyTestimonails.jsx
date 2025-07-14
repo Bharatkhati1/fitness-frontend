@@ -14,6 +14,7 @@ function MyTestimonails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alltestimonials, setAlltestimonials] = useState([]);
   const [packages, setpackages] = useState([]);
+  const [editTestimonial, setEditTestimonial] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedService, setSelectedService] = useState("");
   const [testimonialText, setTestimonialText] = useState("");
@@ -24,6 +25,7 @@ function MyTestimonails() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setEditTestimonial(null);
     resetForm();
   };
 
@@ -79,10 +81,12 @@ function MyTestimonails() {
       toast.error(error.response.data.message);
     }
   };
+
   useEffect(() => {
     fetchtestimonials();
     fetchFeedbackPackages();
   }, []);
+
   return (
     <>
       <div className="CardBody">
@@ -121,19 +125,30 @@ function MyTestimonails() {
                   </ul>
                   <p>{testimonial.description}</p>
 
-                  {/* <div className="cardfooter d-flex align-items-center justify-content-between">
-                  <span>Submitted on {moment(testimonial.createdAt).format("DD MMM YYYY")}</span>
-                  <div className="actioninfo d-flex">
-                    <a>
-                      <img src={pencilicon} alt="edit" />
-                      Edit
-                    </a>
-                    <a className="dele-btn">
-                      <img src={delicon} alt="delete" />
-                      Delete
-                    </a>
+                  <div className="cardfooter d-flex align-items-center justify-content-between">
+                    <span>
+                      Submitted on{" "}
+                      {moment(testimonial.createdAt).format("DD MMM YYYY")}
+                    </span>
+                    <div className="actioninfo d-flex">
+                      <a
+                        onClick={() => {
+                          setIsModalOpen(true);
+                          setSelectedService(testimonial?.packageId);
+                          handleStarClick(testimonial?.rating - 1);
+                          setTestimonialText(testimonial?.description);
+                          setEditTestimonial(true);
+                        }}
+                      >
+                        <img src={pencilicon} alt="edit" />
+                        Edit
+                      </a>
+                      <a className="dele-btn">
+                        <img src={delicon} alt="delete" />
+                        Delete
+                      </a>
+                    </div>
                   </div>
-                </div> */}
                 </div>
               </div>
             </div>
@@ -154,7 +169,7 @@ function MyTestimonails() {
         className="custom-modal"
       >
         <div className="modalhead">
-          <h3>Add New Testimonial</h3>
+          <h3>{editTestimonial ? `Edit` : `Add New`} Testimonial</h3>
         </div>
 
         <div className="modalbody">

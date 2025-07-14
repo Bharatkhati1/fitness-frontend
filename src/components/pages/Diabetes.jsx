@@ -136,7 +136,7 @@ function PackageDetails() {
     if (isLoggedIn) {
       toast.success("Login successfully.");
     }
-    setOpenLogin(false);
+    setopenLoginModal(false);
   };
 
   return (
