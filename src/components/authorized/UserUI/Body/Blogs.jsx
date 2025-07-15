@@ -179,6 +179,9 @@ function Blogs() {
                             className={
                               selectedCategory === cat.id ? "active" : ""
                             }
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
                             onClick={() => {
                               setSearchTerm("");
                               handleSelectCategory(cat.id);
@@ -317,16 +320,16 @@ function Blogs() {
                         dangerouslySetInnerHTML={{
                           __html: blog.shortDescription,
                         }}
+                      />
+                      <br></br>{" "}
+                      <Link
+                        style={{ color: "green" }}
+                        to={`/blog/${blog.title
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
                       >
-                        <Link
-                          style={{ color: "green" }}
-                          to={`/blog/${blog.title
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
-                        >
-                          Read More <img src={readMoreimg} />
-                        </Link>
-                      </div>
+                        Read More <img src={readMoreimg} />
+                      </Link>
                     </div>
                   </figcaption>
                 </div>

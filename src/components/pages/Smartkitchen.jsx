@@ -327,13 +327,18 @@ function Smartkitchen() {
                       alt={item.name}
                     />
                   </figure>
-                  <figcaption>
-                    {item?.tagNames.length > 0 &&
-                      item?.tagNames?.map((item) => (
-                        <span className="tags-smart-kitchen">{item} </span>
-                      ))}
-                    <h4>{item.name}</h4>
-                    <p>{item.description}</p>
+                  <figcaption
+                    style={{ height: "274px" }}
+                    className="d-flex flex-column justify-content-between align-items-center"
+                  >
+                    <div>
+                      {item?.tagNames.length > 0 &&
+                        item?.tagNames?.map((item) => (
+                          <span className="tags-smart-kitchen">{item} </span>
+                        ))}
+                      <h4>{item.name}</h4>
+                      <p>{item.description}</p>
+                    </div>
                     <div className="d-flex justify-content-center">
                       <a
                         onClick={() => downloadRecipe(item.id)}
