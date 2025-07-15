@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PageLoader from "../PageLoader";
+import CompLogo from "../../../public/assets/img/footerLogo.png";
 import "./unAuthorized.scss";
 import GymRightImg from "./gym-main.jpg";
 import EyeIcon from "../../../public/assets/img/eye-icon.png";
@@ -36,9 +36,17 @@ const AdminLogin = ({ type, route }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    const trimmedValue =
+      type === "checkbox"
+        ? checked
+        : ["username", "password"].includes(name)
+        ? value.trim()
+        : value;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: trimmedValue,
     }));
   };
 
@@ -58,10 +66,25 @@ const AdminLogin = ({ type, route }) => {
 
   const onLoginFormSubmit = (e) => {
     e.preventDefault();
+
+    // Trim both fields
+    const trimmedUsername = formData.username.trim();
+    const trimmedPassword = formData.password.trim();
+
+    // Optional: update formData to remove spaces visually too
+    setFormData({
+      ...formData,
+      username: trimmedUsername,
+      password: trimmedPassword,
+    });
+
     if (validate()) {
       dispatch(
         Login(
-          { username: formData.username, password: formData.password },
+          {
+            username: trimmedUsername,
+            password: trimmedPassword,
+          },
           navigate,
           type,
           route,
@@ -78,7 +101,7 @@ const AdminLogin = ({ type, route }) => {
       if (resetStep === 1) {
         await axios.post(`${GATEWAY_URL}/web/forgot-password`, {
           email: resetEmail,
-          userType:type,
+          userType: type,
         });
         toast.success("OTP sent to your email!");
         await new Promise((res) => setTimeout(res, 500));
@@ -232,11 +255,7 @@ const AdminLogin = ({ type, route }) => {
                 <div className="d-flex flex-column h-100 justify-content-center">
                   <div className="auth-logo mb-4">
                     <a className="logo-dark">
-                      <img
-                        src="assets/images/logo-dark.png"
-                        height="56"
-                        alt="logo dark"
-                      />
+                      <img src={CompLogo} height="56" alt="logo dark" />
                     </a>
                   </div>
 
@@ -249,7 +268,6 @@ const AdminLogin = ({ type, route }) => {
                         Enter your email address and password to access admin
                         panel.
                       </p>
-
                       <div className="mb-3">
                         <form
                           className="authentication-form"
@@ -317,18 +335,18 @@ const AdminLogin = ({ type, route }) => {
                             )}
                           </div>
                           {type != "admin" && (
-                        <div className="text-end mb-2">
-                          <span
-                            className="TextLink"
-                            style={{ cursor: "pointer", color: "#007bff" }}
-                            onClick={() => {
-                              setIsForgotPassword(true);
-                            }}
-                          >
-                            Forgot Password?
-                          </span>
-                        </div>
-                      )}
+                            <div className="text-end mb-2">
+                              <span
+                                className="TextLink"
+                                style={{ cursor: "pointer", color: "#007bff" }}
+                                onClick={() => {
+                                  setIsForgotPassword(true);
+                                }}
+                              >
+                                Forgot Password?
+                              </span>
+                            </div>
+                          )}
                           <div className="mb-1 text-center d-grid">
                             <button
                               className="btn btn-soft-primary"
@@ -342,8 +360,6 @@ const AdminLogin = ({ type, route }) => {
                           </div>
                         </form>
                       </div>
-
-                 
                     </>
                   )}
                 </div>

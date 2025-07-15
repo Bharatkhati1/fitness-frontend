@@ -249,7 +249,7 @@ const ProfileInfo = ({
             />
           </div>
           <div className="col-md-6 mb-3">
-            <label>Pin Code / Zip Code</label>
+            <label>Pin Code / Zip Code*</label>
             <input
               type="number"
               className="form-control"

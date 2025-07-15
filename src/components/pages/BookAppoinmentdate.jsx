@@ -11,7 +11,7 @@ import moment from "moment";
 function BookAppoinmentdate({ consultant, packageId, isFollowUp, type }) {
   const { encodedId } = useParams();
   const navigate = useNavigate();
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];

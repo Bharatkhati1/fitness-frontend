@@ -40,9 +40,17 @@ const LoginUser = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    const trimmedValue =
+      type === "checkbox"
+        ? checked
+        : ["username", "password"].includes(name)
+        ? value.trim()
+        : value;
+        
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: trimmedValue,
     }));
   };
 
@@ -64,10 +72,21 @@ const LoginUser = () => {
 
   const onLoginFormSubmit = (e) => {
     e.preventDefault();
+    // Trim both fields
+    const trimmedUsername = formData.username.trim();
+    const trimmedPassword = formData.password.trim();
+
+    // Optional: update formData to remove spaces visually too
+    setFormData({
+      ...formData,
+      username: trimmedUsername,
+      password: trimmedPassword,
+    });
+
     if (validate()) {
       dispatch(
         Login(
-          { username: formData.username, password: formData.password },
+          { username: trimmedUsername, password: trimmedPassword },
           navigate,
           false
         )
@@ -360,9 +379,7 @@ const LoginUser = () => {
                     />
                   </div>
                 </form>
-
               )}
-    
             </div>
           </div>
         </div>

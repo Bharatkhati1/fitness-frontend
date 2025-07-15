@@ -120,7 +120,7 @@ export const getAccessToken = (isAdmin, userType) => {
         error.response.data.error ==
         "Your account is De-Activated. Please Contact Administrator"
       ) {
-        window.location.href = `/`;
+        window.location.replace("/");
       } else {
         toast.error(error?.response?.data?.message);
       }

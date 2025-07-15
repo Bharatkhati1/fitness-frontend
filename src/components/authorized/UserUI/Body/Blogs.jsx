@@ -176,7 +176,9 @@ function Blogs() {
                         {categories.map((cat) => (
                           <li
                             key={cat.id}
-                            className={selectedCategory === cat.id ? "active" : ""}
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
                             onClick={() => {
                               setSearchTerm("");
                               handleSelectCategory(cat.id);
@@ -193,7 +195,13 @@ function Blogs() {
                       className="btn btn-primary filter-btn"
                       onClick={() => setShowMobileFilters(true)}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
                         <path d="M1.5 1.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .4.8L10 8.333V13.5a.5.5 0 0 1-.8.4l-2-1.5a.5.5 0 0 1-.2-.4V8.333L1.1 1.8a.5.5 0 0 1 .4-.8z" />
                       </svg>
                     </button>
@@ -229,12 +237,15 @@ function Blogs() {
         className={`mobile-filters-overlay ${showMobileFilters ? "show" : ""}`}
         onClick={() => setShowMobileFilters(false)}
       >
-        <div className="mobile-filters-card" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="mobile-filters-card"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             className="close-btn btn btn-primary btn-link w-100 text-end"
             onClick={() => setShowMobileFilters(false)}
           >
-             ✖
+            ✖
           </button>
           <ul className="list-unstyled  gap-2">
             <li
@@ -301,20 +312,21 @@ function Blogs() {
                       </span>
                     </div>
                     <div className="contentlinkmain">
-                      <div className="contentlink"
-
+                      <div
+                        className="contentlink"
                         dangerouslySetInnerHTML={{
                           __html: blog.shortDescription,
                         }}
-                      />
-                      <Link
-                        style={{ color: "green" }}
-                        to={`/blog/${blog.title
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
                       >
-                        Read More <img src={readMoreimg} />
-                      </Link>
+                        <Link
+                          style={{ color: "green" }}
+                          to={`/blog/${blog.title
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                        >
+                          Read More <img src={readMoreimg} />
+                        </Link>
+                      </div>
                     </div>
                   </figcaption>
                 </div>
@@ -345,8 +357,9 @@ function Blogs() {
                 {getPaginationRange().map((page, index) => (
                   <li
                     key={index}
-                    className={`page-item ${page === currentPage ? "active" : ""
-                      } ${page === "..." ? "disabled" : ""}`}
+                    className={`page-item ${
+                      page === currentPage ? "active" : ""
+                    } ${page === "..." ? "disabled" : ""}`}
                   >
                     {page === "..." ? (
                       <span className="page-link">...</span>
@@ -363,8 +376,9 @@ function Blogs() {
 
                 {/* Next Button */}
                 <li
-                  className={`page-item ${currentPage === totalPages ? "disabled" : ""
-                    }`}
+                  className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                  }`}
                 >
                   <button
                     className="page-link"
