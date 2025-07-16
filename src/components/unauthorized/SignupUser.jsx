@@ -182,7 +182,7 @@ function SignUpUser() {
 
         <div className="col-md-6">
           <div className="fieldbox mb-3">
-            <label>Your Whatsapp Number*</label>
+            <label>Your Phone Number*</label>
             <div className="contactInput">
               <span>+91</span>
               <input

@@ -132,7 +132,7 @@ export default function AddToBag() {
     }
   };
 
-  console.log(appointmentData)
+  console.log(appointmentData);
   const handlePayment = async () => {
     if (type === "cart" && cartItems.length === 0) {
       toast.error("No item in the cart!");
@@ -263,7 +263,8 @@ export default function AddToBag() {
     cartItems.forEach((item) => {
       const price = item.discountApplied
         ? parseFloat(
-            item?.PackagePlan?.price - Number(appliedCouponDetails?.value || 0)|| 0
+            item?.PackagePlan?.price -
+              Number(appliedCouponDetails?.value || 0) || 0
           )
         : parseFloat(item?.PackagePlan?.price || 0);
 
@@ -283,7 +284,6 @@ export default function AddToBag() {
   useEffect(() => {
     fetchProfileDetails();
     if (type === "cart") {
-      console.log("cart");
       fetchCartitems();
     } else {
       const storedData = localStorage.getItem("appointmentData");
@@ -301,7 +301,7 @@ export default function AddToBag() {
             className="form-control"
             placeholder="Add discount code"
             value={coupon}
-            onChange={(e) => setCoupon(e.target.value)}
+            onChange={(e) => setCoupon(e.target.value.toUpperCase())}
           />
           <img className="tagicon" src={discoutimg} />
           <button
@@ -511,7 +511,11 @@ export default function AddToBag() {
                                         )}
                                       </span>
                                       <span className="text-success fw-bold">
-                                        ₹{item?.PackagePlan?.price - Number(appliedCouponDetails?.value || 0)|| 0}
+                                        ₹
+                                        {item?.PackagePlan?.price -
+                                          Number(
+                                            appliedCouponDetails?.value || 0
+                                          ) || 0}
                                       </span>
                                     </>
                                   ) : (

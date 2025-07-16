@@ -20,6 +20,7 @@ const Coupon = () => {
     startDate: "",
     endDate: "",
     isActive: true,
+    isGlobal: false,
   });
   const items = [
     {
@@ -233,7 +234,12 @@ const Coupon = () => {
                       name="code"
                       placeholder="Enter coupon code"
                       value={formData.code}
-                      onChange={handleInputChange}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          code: e.target.value.toUpperCase(), // convert to uppercase
+                        }))
+                      }
                     />
                   </div>
                 </div>
@@ -297,51 +303,90 @@ const Coupon = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Partner */}
-                <div className="col-lg-6">
+                {/* Global Checkbox */}
+                <div className="col-lg-12">
                   <div className="mb-3">
-                    <label className="form-label">Select Partner</label>
-                    <select
-                      className="form-select"
-                      name="partnerId"
-                      value={formData.partnerId}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select partner</option>
-                      {partners.map((partner) => (
-                        <option key={partner.id} value={partner.id}>
-                          {partner.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Partner Commission */}
-                <div className="col-lg-6">
-                  <div className="mb-3">
-                    <label className="form-label">Partner Commission (%)</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="partnerCommission"
-                      placeholder="Enter commission percentage (0-100)"
-                      value={formData.partnerCommission}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (
-                          value === "" ||
-                          (Number(value) >= 0 && Number(value) <= 100)
-                        ) {
-                          handleInputChange(e);
+                    <label className="form-label">
+                      Associate the Coupon with B2B Partner
+                    </label>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="is-global"
+                        name="isGlobal"
+                        checked={formData.isGlobal}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            isGlobal: e.target.checked,
+                            partnerId: "",
+                            partnerCommission: "",
+                          }))
                         }
-                      }}
-                      min="0"
-                      max="100"
-                    />
+                      />
+                      <label className="form-check-label" htmlFor="is-global">
+                        Select if this coupon is intended for a specific B2B
+                        partner
+                      </label>
+                    </div>
+                    {formData.isGlobal && (
+                      <h4
+                        className="card-header"
+                        style={{ height: "1px", padding: "0px" }}
+                      ></h4>
+                    )}
                   </div>
                 </div>
+
+                {formData.isGlobal && (
+                  <>
+                    {/* Select Partner */}
+                    <div className="col-lg-6">
+                      <div className="mb-3">
+                        <label className="form-label">Select Partner</label>
+                        <select
+                          className="form-select"
+                          name="partnerId"
+                          value={formData.partnerId}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Select partner</option>
+                          {partners.map((partner) => (
+                            <option key={partner.id} value={partner.id}>
+                              {partner.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="mb-3">
+                        <label className="form-label">
+                          Partner Commission (%)
+                        </label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="partnerCommission"
+                          placeholder="Enter commission percentage (0-100)"
+                          value={formData.partnerCommission}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (
+                              value === "" ||
+                              (Number(value) >= 0 && Number(value) <= 100)
+                            ) {
+                              handleInputChange(e);
+                            }
+                          }}
+                          min="0"
+                          max="100"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {/* Max Usage */}
                 <div className="col-lg-6">
@@ -534,8 +579,8 @@ const Coupon = () => {
                       <th>Code</th>
                       <th>Type</th>
                       <th>Value</th>
-                      <th>Partner</th>
-                      <th>Commission</th>
+                      {activeTab != "global" && <th>Partner</th>}
+                      {activeTab != "global" && <th>Commission</th>}
                       <th>Max Usage</th>
                       <th>Dates</th>
                       <th>Status</th>
@@ -554,12 +599,16 @@ const Coupon = () => {
                             {item?.value}
                             {item?.type === "percent" ? "%" : ""}
                           </td>
-                          <td>{item?.Partner?.name || "-"}</td>
-                          <td>
-                            {item?.partnerCommission
-                              ? `${item.partnerCommission}%`
-                              : "-"}
-                          </td>
+                          {activeTab != "global" && (
+                            <td>{item?.Partner?.name || "-"}</td>
+                          )}
+                          {activeTab != "global" && (
+                            <td>
+                              {item?.partnerCommission
+                                ? `${item.partnerCommission}%`
+                                : "-"}
+                            </td>
+                          )}
                           <td>{item?.maxUsage || "∞"}</td>
                           <td>
                             {new Date(item?.startDate).toLocaleDateString()} -{" "}

@@ -9,6 +9,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
+import { toTitleCase } from "../../../../utils/constants.jsx";
 
 const ServiceManagement = () => {
   const [sliderName, setSliderName] = useState("");
@@ -36,7 +37,6 @@ const ServiceManagement = () => {
   const storyImageRef = useRef(null);
   const selectedIdref = useRef(null);
 
-  console.log(ctaButtons);
   const ctaOptions = ["Contact our Helpline", "Know more", "Talk to an Expert"];
 
   const fetchAllServices = async () => {
@@ -596,7 +596,7 @@ const ServiceManagement = () => {
                                         />
                                       </Link>
                                     </td>
-                                    <td>{service.name}</td>
+                                    <td>{toTitleCase(service.name)}</td>
                                     <td>
                                       {getShortText(service.shortDescription)}
                                     </td>

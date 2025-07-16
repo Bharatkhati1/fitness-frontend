@@ -23,3 +23,14 @@ export const formatINRCurrency = (amount) => {
     minimumFractionDigits: 2,
   }).format(amount);
 };
+
+export const toTitleCase = (str) => {
+  if (!str) return "";
+  return str
+    .toLowerCase() // make the whole string lowercase
+    .split(" ")
+    .map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join(" ");
+};

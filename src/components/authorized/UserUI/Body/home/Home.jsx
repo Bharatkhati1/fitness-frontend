@@ -264,13 +264,13 @@ function Home() {
       <section className="bannerSection">
         {sliders.length > 0 && (
           <OwlCarousel
-            autoplay={true}
+            // autoplay={true}
             dots={true}
             items={1}
             className="owl-theme"
             autoplaySpeed={500}
-            autoplayTimeout={8000}
-            loop={true}
+            // autoplayTimeout={8000}
+            // loop={true}
             margin={0}
             nav={true}
             navText={[prevArrow, nextArrow]}
@@ -287,7 +287,7 @@ function Home() {
                     <img crossOrigin="annoymous" src={slider.image_url} />
                   </div>
                   <div className="container h-100">
-                    <div className="row align-items-center h-100">
+                    <div className="row align-items-end h-100">
                       <div className="col-lg-6 bannerSectionLeft pe-0">
                         {options.includes("Badge") && (
                           <span className="BestTag">
@@ -329,7 +329,7 @@ function Home() {
                         )}
 
                         {showButtons && (
-                          <div className="BannerBtn d-flex">
+                          <div className="BannerBtn d-flex pb-4">
                             <Link
                               className="hvr-shutter-out-horizontal"
                               to={"/all-packages"}

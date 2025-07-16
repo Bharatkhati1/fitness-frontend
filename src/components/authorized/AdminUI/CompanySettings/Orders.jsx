@@ -42,7 +42,7 @@ const AllOrders = () => {
                     allOrders.map((item, index) => (
                       <tr key={item.orderId}>
                         <td>{item.orderId}</td>
-                        <td>{item.User.name}</td>
+                        <td>{item?.User?.name}</td>
                         <td>₹{item.totalAmount}</td>
                         <td>{item?.status}</td>
                         <td>
