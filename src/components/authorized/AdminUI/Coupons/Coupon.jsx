@@ -20,7 +20,7 @@ const Coupon = () => {
     startDate: "",
     endDate: "",
     isActive: true,
-    isGlobal: false,
+    isGlobal: true,
   });
   const items = [
     {
@@ -315,11 +315,11 @@ const Coupon = () => {
                         type="checkbox"
                         id="is-global"
                         name="isGlobal"
-                        checked={formData.isGlobal}
+                        checked={!formData.isGlobal}
                         onChange={(e) =>
                           setFormData((prev) => ({
                             ...prev,
-                            isGlobal: e.target.checked,
+                            isGlobal: e.target.checked ? false : true,
                             partnerId: "",
                             partnerCommission: "",
                           }))
@@ -330,7 +330,7 @@ const Coupon = () => {
                         partner
                       </label>
                     </div>
-                    {formData.isGlobal && (
+                    {!formData.isGlobal && (
                       <h4
                         className="card-header"
                         style={{ height: "1px", padding: "0px" }}
@@ -339,7 +339,7 @@ const Coupon = () => {
                   </div>
                 </div>
 
-                {formData.isGlobal && (
+                {!formData.isGlobal && (
                   <>
                     {/* Select Partner */}
                     <div className="col-lg-6">

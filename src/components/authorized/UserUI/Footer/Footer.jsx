@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FooterLogo from "../../../../../public/assets/img/footerLogo.png";
 import InstaIcon from "../../../../../public/assets/img/instagraIcon.png";
 import TwitterIcon from "../../../../../public/assets/img/twitterIcon.png";
@@ -8,16 +8,10 @@ import MesgIcon from "../../../../../public/assets/img/Mesgeicon.png";
 import { Link } from "react-router-dom";
 
 import linkedinblack from "../../../../../public/assets/img/linkedinblack.png";
-import {
-  getContactusDetails,
-  getServicesForUser,
-  sendInquiry,
-} from "../../../../store/auth/AuthExtraReducers";
-import { useDispatch } from "react-redux";
+import { sendInquiry } from "../../../../store/auth/AuthExtraReducers";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 const Footer = () => {
-  const dispatch = useDispatch();
   const { allServices = [], contactUsDetails = {} } = useSelector(
     (state) => state.auth
   );
@@ -51,11 +45,6 @@ const Footer = () => {
       toast.error("Something went wrong. Please try again.");
     }
   };
-
-  useEffect(() => {
-    dispatch(getServicesForUser());
-    dispatch(getContactusDetails());
-  }, []);
   return (
     <footer className="">
       <div className="container">
@@ -63,7 +52,10 @@ const Footer = () => {
           <div className="col-lg-2 col-sm-6 order-md-1 order-1 FooterContent  ">
             <figure>
               <Link to={"/"}>
-                <img src={FooterLogo} />
+                <img
+                  src={contactUsDetails?.frontLogoUrl || FooterLogo}
+                  crossOrigin="anonymous"
+                />
               </Link>
             </figure>
 
@@ -215,7 +207,10 @@ const Footer = () => {
       </div>
 
       <div className="BottomFooter d-flex align-items-center  justify-content-center">
-        <p>© {new Date().getFullYear()}. All rights reserved</p>
+        <p>
+          © {new Date().getFullYear()}.{" "}
+          {contactUsDetails?.copyright ? contactUsDetails?.copyright : "All rights reserved"}
+        </p>
         <ul className="BottomFooterList d-flex">
           <li>
             <Link to={"/privacy-policy"}>Privacy Policy</Link>

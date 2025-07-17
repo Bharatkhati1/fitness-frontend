@@ -190,6 +190,7 @@ const Consultants = () => {
                         { value: "Mr.", label: "Mr." },
                         { value: "Mrs.", label: "Mrs." },
                         { value: "Dr.", label: "Dr." },
+                        { value: "Ms.", label: "Ms." },
                       ]}
                     />
                   </div>

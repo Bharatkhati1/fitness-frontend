@@ -24,45 +24,71 @@ const TopBar = () => {
     dispatch(logoutUser(false, type));
   };
 
-  const getUserType = () => {
-    if (pathname.includes("/admin")) return "admin";
-    if (pathname.includes("/b2b-partner")) return "b2b-partner";
-    if (pathname.includes("/service-provider")) return "service-provider";
-    return "";
-  };
   // Function to extract display name from NavItems
   const getTitleFromNavItems = (pathname) => {
-    const userType = getUserType();
+    const userType = pathname.includes("/admin")
+      ? "admin"
+      : pathname.includes("/b2b-partner")
+      ? "b2b-partner"
+      : pathname.includes("/service-provider")
+      ? "service-provider"
+      : null;
+  
     if (!userType) return "Profile";
-
+  
     const segments = pathname.split("/").filter(Boolean);
     if (segments.length < 2) return "Dashboard";
-
-    const fullPath = segments.slice(1).join("/"); // skip leading slash segment
-
-    const navGroups = NavItems[userType];
-    if (!navGroups) return "Dashboard";
-
-    for (const group of Object.values(navGroups)) {
-      for (const item of group.items) {
-        if (item.path == fullPath) {
-          return item.name;
-        }
-
-        if (item.subMenu) {
-          for (const subItem of item.subMenu) {
-            const combinedSubPath = `${item.path}/${subItem.path}`;
-            if (combinedSubPath == fullPath) {
-              return `${item.name} / ${subItem.name}`;
+  
+    const fullPath = segments.slice(1).join("/"); // skip userType segment
+    const navItems = NavItems[userType];
+    if (!navItems) return "Dashboard";
+  
+    // Special handling for sections where "Manage" should be shown in title
+    const manageSections = ['news-media', 'innovation', 'testimonials'];
+  
+    for (const item of navItems) {
+      // Check main item path match
+      if (item.path === fullPath) {
+        return item.name;
+      }
+  
+      // Check submenu items
+      if (item.subMenu) {
+        for (const subItem of item.subMenu) {
+          const combinedPath = `${item.path}/${subItem.path}`;
+          
+          if (combinedPath === fullPath) {
+            // For specific sections, show "Manage" in the title
+            if (manageSections.includes(item.path) && subItem.path === 'manage') {
+              return `${item.name}`;
             }
+            // For other sections, show both parent and child
+            return `${item.name} / ${subItem.name}`;
           }
         }
       }
     }
-
-    return "Profile";
+  
+    // Fallback for nested routes beyond two levels
+    for (const item of navItems) {
+      if (fullPath.startsWith(item.path + "/")) {
+        const subPath = fullPath.replace(item.path + "/", "");
+        if (item.subMenu) {
+          const subItem = item.subMenu.find(sub => sub.path === subPath.split('/')[0]);
+          if (subItem) {
+            if (manageSections.includes(item.path) && subItem.path === 'manage') {
+              return `${item.name}`;
+            }
+            return `${item.name} / ${subItem.name}`;
+          }
+        }
+        return item.name;
+      }
+    }
+  
+    return "Dashboard";
   };
-
+  // Usage:
   const pageTitle = getTitleFromNavItems(pathname);
   return (
     <header className="topbar">
