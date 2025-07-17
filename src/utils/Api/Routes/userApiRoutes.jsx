@@ -100,20 +100,20 @@ const userApiRoutes = {
   //Testimnials profile
   get_testimonials: (serviceId, userId) => {
     const params = new URLSearchParams();
-  
     if (serviceId) params.append("serviceId", serviceId);
     if (userId) params.append("userId", userId);
-  
     return `/user/feedback?${params.toString()}`;
   },
-
+  delete_testimonial:(id)=>`/user/feedback/${id}`,
+  update_testimonial:(id)=>`/user/feedback/${id}`,
   add_testimonial:`/user/feedback`,
 
   get_feedback_package:`/user/feedback-packages`,
 
   update_profile_image:`/upload-profile-image`,
 
-  get_site_map:`/sitemap`
+  get_site_map:`/sitemap`,
+  
   
 };
 

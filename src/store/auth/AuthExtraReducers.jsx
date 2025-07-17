@@ -117,12 +117,16 @@ export const getAccessToken = (isAdmin, userType) => {
       dispatch(authActions.setType(data?.user?.userType));
     } catch (error) {
       if (
-        error.response.data.error ==
+        error.response?.data?.error ===
         "Your account is De-Activated. Please Contact Administrator"
       ) {
         window.location.replace("/");
       } else {
-        toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message );
+        if (!isAdmin) {
+          document.cookie =
+            "userRefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
       }
     } finally {
       dispatch(authActions.checkingUserToken(false));

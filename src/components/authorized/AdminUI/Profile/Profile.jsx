@@ -273,7 +273,6 @@ const BasicInfo = ({ user, type }) => {
     </>
   );
 };
-
 const GeneralInfo = ({ type }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -289,7 +288,38 @@ const GeneralInfo = ({ type }) => {
     kitchenInstagram: "",
     kitchenTwitter: "",
     script: "",
+    companyName: "",
+    title: "",
+    copyright: "",
+    front_logo: null,
+    admin_logo: null,
+    fevicon_icon: null,
   });
+
+  const [preview, setPreview] = useState({
+    front_logo: "",
+    admin_logo: "",
+    fevicon_icon: "",
+  });
+
+  const normalFields = [
+    { label: "Email", name: "email", placeholder: "Enter email" },
+    { label: "Phone", name: "phone", placeholder: "Enter phone number" },
+    { label: "Address", name: "address", placeholder: "Enter address" },
+    {
+      label: "Company Name",
+      name: "companyName",
+      placeholder: "Enter company name",
+    },
+    { label: "Title", name: "title", placeholder: "Enter title" },
+    { label: "Copyright", name: "copyright", placeholder: "Enter copyright" },
+  ];
+
+  const imageFields = [
+    { label: "Front Logo", name: "front_logo" },
+    { label: "Admin Logo", name: "admin_logo" },
+    { label: "Favicon Icon", name: "fevicon_icon" },
+  ];
 
   const onCancelEdit = () => {
     setIsEdit(false);
@@ -301,14 +331,33 @@ const GeneralInfo = ({ type }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (value) => {
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    const file = files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, [name]: file }));
+      setPreview((prev) => ({ ...prev, [name]: URL.createObjectURL(file) }));
+    }
+  };
+
+  const handleSubmit = async () => {
     if (!isEdit) return setIsEdit(true);
 
     try {
+      const form = new FormData();
+
+      Object.keys(formData).forEach((key) => {
+        form.append(key, formData[key]);
+      });
+
       const response = await adminAxios.post(
         adminApiRoutes.update_contact_details,
-        formData
+        form,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
+
       toast.success(response.data.message || "Updated successfully");
       setIsEdit(false);
     } catch (error) {
@@ -319,7 +368,21 @@ const GeneralInfo = ({ type }) => {
   const fetchContactDetails = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_contact_details);
-      setFormData(res.data.data);
+      const data = res.data.data;
+
+      setFormData((prev) => ({
+        ...prev,
+        ...data,
+        front_logo: null,
+        admin_logo: null,
+        fevicon_icon: null,
+      }));
+
+      setPreview({
+        front_logo: data.frontLogoUrl || "",
+        admin_logo: data.adminLogoUrl || "",
+        fevicon_icon: data.faviconIconUrl || "",
+      });
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to fetch details");
     }
@@ -329,7 +392,7 @@ const GeneralInfo = ({ type }) => {
     fetchContactDetails();
   }, []);
 
-  const renderInput = (label, name, placeholder = "", value) => (
+  const renderInput = (label, name, placeholder = "") => (
     <div className="col-lg-6 mb-3" key={name}>
       <label htmlFor={name} className="form-label">
         {label}
@@ -340,21 +403,37 @@ const GeneralInfo = ({ type }) => {
         name={name}
         className="form-control"
         placeholder={placeholder}
-        value={formData[name]}
+        value={formData[name] || ""}
         onChange={handleChange}
         readOnly={!isEdit}
       />
     </div>
   );
 
-  const normalFields = [
-    { label: "Email", name: "email", placeholder: "Enter email" },
-    { label: "Phone", name: "phone", placeholder: "Enter phone number" },
-    { label: "Address", name: "address", placeholder: "Enter address" },
-  ];
+  const renderImageInput = (label, name) => (
+    <div className="col-lg-6 mb-3" key={name}>
+      <label htmlFor={name} className="form-label">
+        {label}
+      </label>
+      {preview[name] && (
+        <div className="mb-2">
+          <img src={preview[name]} crossOrigin="anonymous" alt={label} height="60" />
+        </div>
+      )}
+      <input
+        type="file"
+        id={name}
+        name={name}
+        accept="image/*"
+        className="form-control"
+        onChange={handleFileChange}
+        disabled={!isEdit}
+      />
+    </div>
+  );
+
   return (
     <div className="row">
-      {/* Normal Details Card */}
       <div className="col-lg-12 mb-4">
         <div className={`card ${isEdit ? "editing" : ""}`}>
           <div className="card-header d-flex justify-content-between align-items-center">
@@ -370,19 +449,20 @@ const GeneralInfo = ({ type }) => {
               </button>
             )}
           </div>
+
           <div className="card-body">
             <div className="row">
               {normalFields.map((field) =>
-                renderInput(
-                  field.label,
-                  field.name,
-                  field.placeholder || `Enter ${field.label.toLowerCase()} link`
-                )
+                renderInput(field.label, field.name, field.placeholder)
+              )}
+              {imageFields.map((field) =>
+                renderImageInput(field.label, field.name)
               )}
             </div>
           </div>
+
           <div className="card-footer text-end border-top">
-            <button className="btn btn-primary" onClick={() => handleSubmit()}>
+            <button className="btn btn-primary" onClick={handleSubmit}>
               {isEdit ? "Update Changes" : "Edit"}
             </button>
           </div>
@@ -391,6 +471,7 @@ const GeneralInfo = ({ type }) => {
     </div>
   );
 };
+
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
   const { pathname } = useLocation();
@@ -407,6 +488,12 @@ const Profile = () => {
     kitchenYoutube: "",
     kitchenInstagram: "",
     kitchenTwitter: "",
+    companyName: "",
+    title: "",
+    copyright: "",
+    front_logo: "",
+    admin_logo: "",
+    fevicon_icon: "",
   });
 
   let type = "";

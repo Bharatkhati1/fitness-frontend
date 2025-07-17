@@ -16,6 +16,7 @@ const AdminLogin = ({ type, route }) => {
   const disableLoginButton = useSelector(
     (state) => state.auth.disableLoginButton
   );
+  const contactUsDetails = useSelector((state) => state.auth.contactUsDetails);
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -244,7 +245,6 @@ const AdminLogin = ({ type, route }) => {
       </div>
     </form>
   );
-
   return (
     <div className="d-flex flex-column h-100 p-3 login-page">
       <div className="d-flex flex-column flex-grow-1">
@@ -255,7 +255,7 @@ const AdminLogin = ({ type, route }) => {
                 <div className="d-flex flex-column h-100 justify-content-center">
                   <div className="auth-logo mb-4">
                     <a className="logo-dark">
-                      <img src={CompLogo} height="56" alt="logo dark" />
+                      <img src={contactUsDetails?.adminLogoUrl || CompLogo} height="56" crossOrigin="anonymous" alt="logo dark" />
                     </a>
                   </div>
 

@@ -1,7 +1,11 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { getAccessToken } from "./store/auth/AuthExtraReducers.jsx";
+import {
+  getAccessToken,
+  getContactusDetails,
+  getServicesForUser,
+} from "./store/auth/AuthExtraReducers.jsx";
 
 import "../public/assets/css/app.min.css";
 import "../public/assets/css/custom.css";
@@ -17,6 +21,7 @@ import AdminLogin from "./components/unauthorized/AdminLogin.jsx";
 import DiabetesHealthPakages from "./components/pages/DiabetesHealthPakages.jsx";
 import Testimonial from "./components/pages/Testimonial.jsx";
 import SiteMap from "./components/pages/SiteMap.jsx";
+import { addScriptToHead, updateFaviconAndTitle } from "./utils/constants.jsx";
 
 const ConsultantRoutes = lazy(() =>
   import("./components/Routes/ConsultantRoutes.jsx")
@@ -72,20 +77,14 @@ const App = () => {
     }
   };
 
-  const addScriptToHead = (src, id = "external-script") => {
-    if (document.getElementById(id)) return;
-
-    const script = document.createElement("script");
-    script.src = src;
-    script.id = id;
-    script.async = true;
-    document.head.appendChild(script);
-  };
-
   useEffect(() => {
-    if (contactUsDetails && contactUsDetails?.script?.length>0) {
+    if (contactUsDetails && contactUsDetails?.script?.length > 0) {
       addScriptToHead(contactUsDetails.script);
     }
+    updateFaviconAndTitle(
+      contactUsDetails.faviconIconUrl,
+      contactUsDetails.title
+    );
   }, [contactUsDetails]);
 
   useEffect(() => {
@@ -97,6 +96,10 @@ const App = () => {
     setIsAdminLogined(localStorage.getItem("isAdmin") === "true");
   }, [isCheckingToken, isAdmin]);
 
+  useEffect(() => {
+    dispatch(getServicesForUser());
+    dispatch(getContactusDetails());
+  }, []);
   // if (isCheckingToken) return <PageLoader />;
 
   return (

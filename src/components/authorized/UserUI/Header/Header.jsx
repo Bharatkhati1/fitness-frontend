@@ -19,6 +19,7 @@ const Header = () => {
     isLoggedIn,
     cartItems = [],
   } = useSelector((state) => state.auth);
+  const contactUsDetails = useSelector((state) => state.auth.contactUsDetails);
   const [openLogin, setOpenLogin] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
@@ -63,7 +64,7 @@ const Header = () => {
           <div className="navInner d-flex justify-content-between align-items-center">
             <div className="navLeft">
               <Navbar.Brand as={Link} to="/">
-                <img src={Logo} />
+                <img src={contactUsDetails?.frontLogoUrl || Logo} crossOrigin="anonymous" />
               </Navbar.Brand>
             </div>
             <div className="navRight d-flex align-items-center">

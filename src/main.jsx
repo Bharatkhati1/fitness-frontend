@@ -8,7 +8,6 @@ import { ToastContainer } from "react-toastify";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "bootstrap";
 import $ from "jquery";
-import { GOOGLE_CLIENT_KEY } from "./utils/constants.jsx";
 
 window.$ = window.jQuery = $;
 

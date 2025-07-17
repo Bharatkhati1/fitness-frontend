@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import { useSelector } from "react-redux";
+import {  toTitleCase } from "../../../../utils/constants.jsx";
 
 const PackageManagement = () => {
   const navigate = useNavigate();
@@ -160,7 +161,7 @@ const PackageManagement = () => {
                                         />
                                       </Link>
                                     </td>
-                                    <td>{item?.name}</td>
+                                    <td>{toTitleCase(item?.name)}</td>
                                     <td
                                       dangerouslySetInnerHTML={{
                                         __html: item?.shortDescription,

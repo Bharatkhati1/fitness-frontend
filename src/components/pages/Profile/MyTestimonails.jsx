@@ -8,6 +8,7 @@ import userAxios from "../../../utils/Api/userAxios";
 import userApiRoutes from "../../../utils/Api/Routes/userApiRoutes";
 import { useSelector } from "react-redux";
 import moment from "moment";
+// import ConfirmationPopup from "../../authorized/AdminUI/Popups/ConfirmationPopup";
 
 function MyTestimonails() {
   const { user } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ function MyTestimonails() {
   const [selectedRating, setSelectedRating] = useState(0);
   const [selectedService, setSelectedService] = useState("");
   const [testimonialText, setTestimonialText] = useState("");
+  const [editingTestimonialId, setEditingTestimonialId] = useState(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -33,6 +35,7 @@ function MyTestimonails() {
     setSelectedRating(0);
     setSelectedService("");
     setTestimonialText("");
+    setEditingTestimonialId(null);
   };
 
   const fetchtestimonials = async () => {
@@ -47,24 +50,55 @@ function MyTestimonails() {
     }
   };
 
+  const deleteTestimonial = async (id) => {
+    try {
+      const res = await userAxios.delete(userApiRoutes.delete_testimonial(id));
+      toast.success(res.data.message);
+      fetchtestimonials();
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const handleSubmit = async () => {
+    if (!selectedRating || !selectedService || !testimonialText.trim()) {
+      toast.error("Please fill all required fields.");
+      return;
+    }
+
     const matchingEntry = packages.find(
       (item) => item.PackagePlan?.Package?.id == selectedService
     );
     const serviceId = matchingEntry?.PackagePlan?.Package?.Service?.id || null;
+
     const payload = {
       rating: selectedRating,
       packageId: selectedService,
       description: testimonialText,
       serviceId: serviceId,
     };
+
     try {
-      const res = await userAxios.post(userApiRoutes.add_testimonial, payload);
+      let res;
+      if (editTestimonial && editingTestimonialId) {
+        res = await userAxios.put(
+          userApiRoutes.update_testimonial(editingTestimonialId),
+          payload
+        );
+      } else {
+        res = await userAxios.post(userApiRoutes.add_testimonial, payload);
+      }
+
       toast.success(res.data.message);
       setIsModalOpen(false);
       resetForm();
+      setEditTestimonial(false);
+      setEditingTestimonialId(null);
+      fetchtestimonials();
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
 
@@ -130,24 +164,34 @@ function MyTestimonails() {
                       Submitted on{" "}
                       {moment(testimonial.createdAt).format("DD MMM YYYY")}
                     </span>
-                    <div className="actioninfo d-flex">
-                      <a
-                        onClick={() => {
-                          setIsModalOpen(true);
-                          setSelectedService(testimonial?.packageId);
-                          handleStarClick(testimonial?.rating - 1);
-                          setTestimonialText(testimonial?.description);
-                          setEditTestimonial(true);
-                        }}
-                      >
-                        <img src={pencilicon} alt="edit" />
-                        Edit
-                      </a>
-                      <a className="dele-btn">
-                        <img src={delicon} alt="delete" />
-                        Delete
-                      </a>
-                    </div>
+                    {testimonial?.isApproved != "Approved" && (
+                      <div className="actioninfo d-flex">
+                        <a
+                          onClick={() => {
+                            setIsModalOpen(true);
+                            setSelectedService(testimonial?.packageId);
+                            handleStarClick(testimonial?.rating - 1);
+                            setTestimonialText(testimonial?.description);
+                            setEditTestimonial(true);
+                            setEditingTestimonialId(testimonial?.id);
+                          }}
+                        >
+                          <img src={pencilicon} alt="edit" />
+                          Edit
+                        </a>
+                        {/* <ConfirmationPopup
+                          bodyText="Are you sure you want to delete this Testimonial ?"
+                          title="Delete Testimonial"
+                          onOk={() => deleteTestimonial(testimonial.id)}
+                          buttonText={
+                            <>
+                              <img src={delicon} alt="delete" />
+                              Delete
+                            </>
+                          }
+                        /> */}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
