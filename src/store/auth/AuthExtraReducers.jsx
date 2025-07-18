@@ -16,62 +16,84 @@ export const Login = (
   onClose
 ) => {
   return async (dispatch) => {
+    // Check internet connectivity
+    if (!navigator.onLine) {
+      toast.error("Please check your Internet Connection");
+      return;
+    }
+
     try {
-      if (!navigator.onLine) {
-        toast.error("Please check your Internet Connection");
-        return;
-      }
+      // Set loading states
       dispatch(authActions.checkingUserToken(true));
       dispatch(authActions.setLoginButtonDisable(true));
+
+      // Prepare login request
       const type = isAdmin ? "adminRefreshToken" : "userRefreshToken";
+      const loginPayload = {
+        email: userData.username,
+        password: userData.password,
+        type,
+        userType,
+      };
+
+      // Make API call
       const { data } = await axios.post(
         `${GATEWAY_URL}/web/login`,
-        {
-          email: userData.username,
-          password: userData.password,
-          type: type,
-          userType,
-        },
-        {
-          withCredentials: true,
-        }
+        loginPayload,
+        { withCredentials: true }
       );
 
-      if (isAdmin) {
-        dispatch(
-          authActions.loginUser({
-            isLoggedIn: true,
-            isAdmin: isAdmin,
-            user: { ...data?.user },
-          })
-        );
-        dispatch(authActions.setAdminAcccessToken(data?.accessToken || ""));
-        dispatch(authActions.setAdminDetails({ ...data?.user }));
-      } else {
-        dispatch(
-          authActions.loginUser({
-            isLoggedIn: true,
-            isAdmin: isAdmin,
-            user: { ...data?.user },
-          })
-        );
-        dispatch(authActions.setUserDetails({ ...data?.user }));
-        dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
-      }
-      dispatch(authActions.setType(data?.user?.userType));
+      // Handle user data
+      const user = data?.user;
+      const accessToken = data?.accessToken || "";
+
+      // Common login actions
+      const loginPayload_common = {
+        isLoggedIn: true,
+        isAdmin,
+        user: { ...user },
+      };
+
+      dispatch(authActions.loginUser(loginPayload_common));
+      dispatch(authActions.setType(user?.userType));
       localStorage.setItem("isAdmin", isAdmin);
+
+      // Handle admin vs user specific actions
+      if (isAdmin) {
+        dispatch(authActions.setAdminAcccessToken(accessToken));
+        dispatch(authActions.setAdminDetails({ ...user }));
+      } else {
+        dispatch(authActions.setUserDetails({ ...user }));
+        dispatch(authActions.setUserAcccessToken(accessToken));
+
+        // Handle incomplete profile for regular users
+        if (!user.profileUpdated) {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          dispatch(authActions.checkingUserToken(false));
+          navigate("/profile");
+          return;
+        }
+      }
+
+      // Handle navigation
       if (!isModal) {
         await new Promise((resolve) => setTimeout(resolve, 700));
         dispatch(authActions.checkingUserToken(false));
-        navigate(isAdmin ? `/${route}/service-management/services` : "/", {
-          replace: true,
-        });
+        
+        const targetRoute = isAdmin 
+          ? `/${route}/service-management/services` 
+          : "/";
+        
+        navigate(targetRoute, { replace: true });
       } else {
-        onClose();
+        onClose?.();
       }
+
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      const errorMessage = error?.response?.data?.message || "Login failed. Please try again.";
+      toast.error(errorMessage);
     } finally {
+      // Reset loading states
       dispatch(authActions.setLoginButtonDisable(false));
       dispatch(authActions.checkingUserToken(false));
     }
@@ -122,7 +144,7 @@ export const getAccessToken = (isAdmin, userType) => {
       ) {
         window.location.replace("/");
       } else {
-        toast.error(error?.response?.data?.message );
+        toast.error(error?.response?.data?.message);
         if (!isAdmin) {
           document.cookie =
             "userRefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -296,7 +318,7 @@ export const getContactusDetails = () => {
   };
 };
 
-export const handleSocialLoginGoogle = async (
+export const handleSocialLoginGoogle = (
   dataGoogle,
   navigate,
   isAdmin = false
@@ -374,7 +396,7 @@ export const AddToCart = (plainId, isBuyNow = false, navigate) => {
   };
 };
 
-export const fetchCartitems = async () => {
+export const fetchCartitems = () => {
   return async (dispatch) => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item);

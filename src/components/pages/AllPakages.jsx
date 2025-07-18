@@ -290,7 +290,7 @@ function AllPakages() {
         </div>
         <div className="productslists">
           <div className="container">
-            <h4 className="producttitle mb-4">{totalItems} Package</h4>
+            <h4 className="producttitle mb-4">{totalItems} Packages</h4>
 
             {Array.isArray(allPackages) && allPackages.length > 0 ? (
               <div className="position-relative allpakagessec mt-4">

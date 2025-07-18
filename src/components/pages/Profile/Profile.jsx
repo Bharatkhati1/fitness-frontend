@@ -56,51 +56,7 @@ function Profile() {
     }
   };
 
-  const validateForm = () => {
-    if (!formData.firstName || formData.firstName.trim() === "") {
-      toast.error("First name is required");
-      return false;
-    }
-
-    if (!formData.age || isNaN(formData.age) || Number(formData.age) <= 0) {
-      toast.error("Valid age is required");
-      return false;
-    }
-
-    if (
-      !formData.phone ||
-      formData.phone.trim().length !== 10 ||
-      !/^\d{10}$/.test(formData.phone)
-    ) {
-      toast.error("Valid 10-digit phone number is required");
-      return false;
-    }
-
-    if (!formData.gender) {
-      toast.error("Gender is required");
-      return false;
-    }
-
-    if (formData.pincode && isNaN(formData.pincode)) {
-      toast.error("Pincode must be numeric");
-      return false;
-    }
-
-    if (formData.weight && isNaN(formData.weight)) {
-      toast.error("Weight must be numeric");
-      return false;
-    }
-
-    if (formData.height && isNaN(formData.height)) {
-      toast.error("Height must be numeric");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSave = async () => {
-    if (!validateForm()) return;
     try {
       await userAxios.put(userApiRoutes.update_profile, {
         ...formData,

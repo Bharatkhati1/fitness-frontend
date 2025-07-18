@@ -1,15 +1,15 @@
 import React from "react";
 import { logoutUser } from "../../../../store/auth/AuthExtraReducers";
-import userImage from "../../../../../public/assets/images/users/avatar-1.jpg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { NavItems } from "../MainNavbarLeft/MainNavbarLeft";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { useSelector } from "react-redux";
 
 const TopBar = () => {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   let type = "";
   if (pathname.includes("/admin")) {
@@ -90,6 +90,15 @@ const TopBar = () => {
   };
   // Usage:
   const pageTitle = getTitleFromNavItems(pathname);
+
+  let value = "";
+  if (pathname.includes("/admin")) {
+    value = "users";
+  } else if (pathname.includes("/b2b-partner")) {
+    value = "partners";
+  } else if (pathname.includes("/service-provider")) {
+    value = "consultants";
+  }
   return (
     <header className="topbar">
       <div className="container-fluid">
@@ -127,8 +136,10 @@ const TopBar = () => {
                 <span className="d-flex align-items-center">
                   <img
                     className="rounded-circle"
-                    width="32"
-                    src={userImage}
+                    width="36"
+                    height="36"
+                    crossOrigin="anonymous"
+                    src={`https://api.dailyfitness.ai:3005/uploads/${value}/${user?.profilePicture}`}
                     alt="avatar-3/"
                   />
                 </span>

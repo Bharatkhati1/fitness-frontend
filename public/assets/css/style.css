@@ -4520,6 +4520,7 @@ ul.whyparthnerlist li {
   box-shadow: 0 4px 11px rgb(0 0 0 / 25%);
   overflow: hidden;
   margin-bottom: 15px;
+  height: 290px;
 }
 
 .partnerssecbox h3 {

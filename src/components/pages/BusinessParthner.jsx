@@ -222,6 +222,9 @@ function BusinessParthner() {
                     className="owl-theme"
                     dots={false}
                     items={4}
+                    autoplay={true}
+                    autoplayTimeout={5000}
+                    loop={true}
                     merge={true}
                     nav={true}
                     margin={30}
