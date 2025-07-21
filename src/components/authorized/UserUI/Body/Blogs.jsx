@@ -179,6 +179,9 @@ function Blogs() {
                             className={
                               selectedCategory === cat.id ? "active" : ""
                             }
+                            className={
+                              selectedCategory === cat.id ? "active" : ""
+                            }
                             onClick={() => {
                               setSearchTerm("");
                               handleSelectCategory(cat.id);

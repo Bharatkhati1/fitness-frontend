@@ -104,11 +104,13 @@ function ContactUs() {
                   </figure>
                   <figcaption>
                     <h5>EMAIL ADDRESS</h5>
-                    <div className="textlink d-flex justify-content-center">
-                      <a href={`mailto:${contactUsDetails?.email}`}>
-                        {contactUsDetails?.email}
-                      </a>
-                    </div>
+                    <a
+                      href={`https://mail.google.com/mail/?view=cm&to=${contactUsDetails?.email}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {contactUsDetails?.email}
+                    </a>
                   </figcaption>
                 </div>
               </div>

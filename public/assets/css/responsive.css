@@ -40,7 +40,9 @@
     font-size: 14px;
     margin-bottom: 6px;
   }
-   body .btn{ font-size: 11px !important;}
+  body .btn {
+    font-size: 11px !important;
+  }
 }
 
 @media (max-width: 1400px) {
@@ -58,7 +60,6 @@
   span.bannerup {
     margin-left: 0;
   }
- 
 }
 
 @media (min-width: 1400px) {
@@ -1406,6 +1407,10 @@
   .SmartKichinlistrow figcaption p {
     height: 80px;
   }
+
+  .innerbanner {
+    padding-top: 75px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -2193,14 +2198,18 @@
     width: 46px;
     height: 46px;
     border-radius: 4px;
-}
+  }
+
+  .innerbanner {
+    padding-top: 65px;
+  }
+
+  .innerbanner figure img {
+    height: auto;
+  }
 }
 
 @media (max-width: 767px) {
-  .innerbanner figure img {
-    height: 280px;
-  }
-
   .product-list figure img {
     height: auto;
   }
@@ -3043,10 +3052,6 @@
     width: 100%;
   }
 
-  .innerbanner figure img {
-    height: 280px;
-  }
-
   .innerbannerContent h2 {
     font-size: 24px;
   }
@@ -3489,6 +3494,20 @@
   .ant-modal.custom-modal .modalhead {
     padding: 20px 30px;
   }
+
+  ul.BottomFooterList,
+  .BottomFooter p {
+    text-align: center;
+  }
+
+  .BottomFooter {
+    flex-wrap: wrap;
+  }
+
+  ul.BottomFooterList.d-flex {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -3565,10 +3584,6 @@
 
   .ContactInfoList li {
     margin-bottom: 5px;
-  }
-
-  .innerbanner figure img {
-    height: 255px;
   }
 
   .ToolsPageBox h4 {
@@ -3989,10 +4004,6 @@
     padding: 14px 0;
   }
 
-  .innerbanner figure img {
-    height: 224px;
-  }
-
   .partnerssecbox h3 {
     font-size: 14px;
   }
@@ -4301,5 +4312,9 @@
   .Bytext span::before,
   .Bytext span:after {
     display: none;
+  }
+
+  .innerbanner {
+    padding-top: 53px;
   }
 }

@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { webAxios } from "../../../../utils/constants";
 import userApiRoutes from "../../../../utils/Api/Routes/userApiRoutes";
 import { toast } from "react-toastify";
+import fillstar from "../../../../../public/assets/img/fillstar.png";
+import Avtar from "../../../pages/images/Avtar.png";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -23,7 +25,7 @@ function ServiceDetails() {
   const [open, setOpen] = useState(false);
   const [packages, setPackages] = useState([]);
   const { allServices = [] } = useSelector((state) => state.auth);
-  const owlRef = useRef(null)
+  const owlRef = useRef(null);
 
   const fetchServiceDetails = async () => {
     try {
@@ -47,7 +49,6 @@ function ServiceDetails() {
   useEffect(() => {
     fetchServiceDetails();
   }, [slug]);
-
 
   const handleOk = () => {
     setLoading(true);
@@ -73,14 +74,13 @@ function ServiceDetails() {
   </svg>
 `;
 
-const handleSlideChange = (event) => {
-  const currentIndex = event.item.index;
-  const targetElement = document.getElementById("services");
-  if (targetElement && currentIndex > 0) {
-    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-};
-
+  const handleSlideChange = (event) => {
+    const currentIndex = event.item.index;
+    const targetElement = document.getElementById("services");
+    if (targetElement && currentIndex > 0) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <>
@@ -113,63 +113,69 @@ const handleSlideChange = (event) => {
           ></p>
         </div>
       </div>
-      
+
       {details?.story_image_url && (
-        <div
-        className="our-approachmain position-relative pt-4 pb-4"
-      >
-        <div className="">
-            <img crossOrigin="anonymous" className="approach-image" src={details.story_image_url} alt="Approach Image" />
-        </div>
+        <div className="our-approachmain position-relative pt-4 pb-4">
+          <div className="">
+            <img
+              crossOrigin="anonymous"
+              className="approach-image"
+              src={details.story_image_url}
+              alt="Approach Image"
+            />
+          </div>
           <div className="container">
             <div className="app-middle-content">
-            <div className="PageTitle text-center pb-3">
-              <h2 className="text-white">our approach</h2>
-            </div>
+              <div className="PageTitle text-center pb-3">
+                <h2 className="text-white">our approach</h2>
+              </div>
 
-            <ul className="ourapproachlist">
-              <li>
-                <span>1</span>
-                <div className="content">
-                  <p>Root Cause Analysis of your issues by the experts</p>
-                </div>
-              </li>
+              <ul className="ourapproachlist">
+                <li>
+                  <span>1</span>
+                  <div className="content">
+                    <p>Root Cause Analysis of your issues by the experts</p>
+                  </div>
+                </li>
 
-              <li>
-                <span>2</span>
-                <div className="content">
-                  <p>
-                    Providing you with best customised services and
-                    consultations with sustainable solutions
-                  </p>
-                </div>
-              </li>
+                <li>
+                  <span>2</span>
+                  <div className="content">
+                    <p>
+                      Providing you with best customised services and
+                      consultations with sustainable solutions
+                    </p>
+                  </div>
+                </li>
 
-              <li>
-                <span>3</span>
-                <div className="content">
-                  <p>Regular follow ups and updates</p>
-                </div>
-              </li>
-              <li>
-                <span>4</span>
-                <div className="content">
-                  <p>Thorough and proactive customer service</p>
-                </div>
-              </li>
-              <li>
-                <span>5</span>
-                <div className="content">
-                  <p>Respecting your privacy</p>
-                </div>
-              </li>
-            </ul>
+                <li>
+                  <span>3</span>
+                  <div className="content">
+                    <p>Regular follow ups and updates</p>
+                  </div>
+                </li>
+                <li>
+                  <span>4</span>
+                  <div className="content">
+                    <p>Thorough and proactive customer service</p>
+                  </div>
+                </li>
+                <li>
+                  <span>5</span>
+                  <div className="content">
+                    <p>Respecting your privacy</p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       )}
 
-      <section className="sectionSpace servicedetail main-packge pb-0"  id="services">
+      <section
+        className="sectionSpace servicedetail main-packge pb-0"
+        id="services"
+      >
         <div className="container">
           <div className="PageTitle text-center">
             {Array.isArray(packages) && packages.length > 0 && (
@@ -180,98 +186,153 @@ const handleSlideChange = (event) => {
           <div className="">
             <div className="row servicedetaillisting">
               {Array.isArray(packages) &&
-              packages.length > 0 &&
-              Array.isArray(packages[0]) && (
-                <OwlCarousel
-                  className="owl-theme"
-                  autoplay={false}
-                  dots={true}
-                  items={1}
-                  ref={owlRef}
-                  margin={10}
-                  nav={true}
-                  navText={[prevArrow, nextArrow]}
-                  autoplaySpeed={3000}
-                  autoplayTimeout={9000}
-                  onChanged={handleSlideChange}
-                >
-                  {packages?.map((group, index) => (
-                    <div className="row" key={index}>
-                      {group.map((pkg, idx) => {
-                        const parsedActions = JSON.parse(pkg.actions || "[]");
-                        const actionNames = parsedActions.map(
-                          (action) => action.name
-                        );
-                        const showButton = (label) =>
-                          actionNames.includes(label);
-                        return (
-                          <div className="col-md-6" key={idx}>
-                            <div className="OurServicesContent">
-                              <figure>
-                                <img
-                                  crossOrigin="anonymous"
-                                  src={pkg.image_url}
-                                />
-                              </figure>
-                              <figcaption>
-                                <h3>{pkg.name}</h3>
-                                <p
-                                  dangerouslySetInnerHTML={{
-                                    __html: pkg?.shortDescription,
-                                  }}
-                                />
+                packages.length > 0 &&
+                Array.isArray(packages[0]) && (
+                  <OwlCarousel
+                    className="owl-theme"
+                    autoplay={false}
+                    dots={true}
+                    items={1}
+                    ref={owlRef}
+                    margin={10}
+                    nav={true}
+                    navText={[prevArrow, nextArrow]}
+                    autoplaySpeed={3000}
+                    autoplayTimeout={9000}
+                    onChanged={handleSlideChange}
+                  >
+                    {packages?.map((group, index) => (
+                      <div className="row" key={index}>
+                        {group.map((pkg, idx) => {
+                          const parsedActions = JSON.parse(pkg.actions || "[]");
+                          const actionNames = parsedActions.map(
+                            (action) => action.name
+                          );
+                          const showButton = (label) =>
+                            actionNames.includes(label);
+                          return (
+                            <div className="col-md-6" key={idx}>
+                              <div className="OurServicesContent">
+                                <figure>
+                                  <img
+                                    crossOrigin="anonymous"
+                                    src={pkg.image_url}
+                                  />
+                                </figure>
+                                <figcaption>
+                                  <h3>{pkg.name}</h3>
+                                  <p
+                                    dangerouslySetInnerHTML={{
+                                      __html: pkg?.shortDescription,
+                                    }}
+                                  />
 
-                                <div className="btn-group-box">
-                                  {showButton("Know more") && (
-                                    <Link
-                                      to={`/package/${pkg.name
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-")}`}
-                                      className="btn btn-primary hvr-shutter-out-horizontal"
-                                    >
-                                      Know More
-                                    </Link>
-                                  )}
-                                  {showButton("Consult a Doctor") && (
-                                    <Link
-                                      to={`/experts/${pkg.name
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-")}/doctor/${btoa(
-                                        pkg.id
-                                      )}`}
-                                      className="btn btn-primary hvr-shutter-out-horizontal"
-                                    >
-                                      Consult a Doctor
-                                    </Link>
-                                  )}
-                                  {showButton("Talk to a Therapist") && (
-                                    <Link
-                                      to={`/experts/${pkg.name
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-")}/therapist/${btoa(
-                                        pkg.id
-                                      )}`}
-                                      className="btn btn-primary hvr-shutter-out-horizontal"
-                                    >
-                                      Talk to a Therapist
-                                    </Link>
-                                  )}
-                                </div>
-                              </figcaption>
+                                  <div className="btn-group-box">
+                                    {showButton("Know more") && (
+                                      <Link
+                                        to={`/package/${pkg.name
+                                          .toLowerCase()
+                                          .replace(/\s+/g, "-")}`}
+                                        className="btn btn-primary hvr-shutter-out-horizontal"
+                                      >
+                                        Know More
+                                      </Link>
+                                    )}
+                                    {showButton("Consult a Doctor") && (
+                                      <Link
+                                        to={`/experts/${pkg.name
+                                          .toLowerCase()
+                                          .replace(/\s+/g, "-")}/doctor/${btoa(
+                                          pkg.id
+                                        )}`}
+                                        className="btn btn-primary hvr-shutter-out-horizontal"
+                                      >
+                                        Consult a Doctor
+                                      </Link>
+                                    )}
+                                    {showButton("Talk to a Therapist") && (
+                                      <Link
+                                        to={`/experts/${pkg.name
+                                          .toLowerCase()
+                                          .replace(
+                                            /\s+/g,
+                                            "-"
+                                          )}/therapist/${btoa(pkg.id)}`}
+                                        className="btn btn-primary hvr-shutter-out-horizontal"
+                                      >
+                                        Talk to a Therapist
+                                      </Link>
+                                    )}
+                                  </div>
+                                </figcaption>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ))}{" "}
-                </OwlCarousel>
-              ) }
+                          );
+                        })}
+                      </div>
+                    ))}{" "}
+                  </OwlCarousel>
+                )}
             </div>
           </div>
-        
         </div>
+        <section className="messageCofounders">
+          <div className="container">
+            <div className="messageCofoundersTitle">
+              <h2>what our clients say ?</h2>
+            </div>
 
-          <Whyus/>
+            {details?.UserFeedbacks && details.UserFeedbacks.length > 0 && (
+              <OwlCarousel
+                className="owl-theme"
+                autoplay={false}
+                dots={false}
+                items={2}
+                ref={owlRef}
+                margin={10}
+                nav={true}
+                navText={[prevArrow, nextArrow]}
+                autoplaySpeed={3000}
+                autoplayTimeout={9000}
+                // onChanged={handleSlideChange}
+              >
+                {details.UserFeedbacks.map((msg) => (
+                  <div className="messageCofoundersBg">
+                    <div className="rating">
+                      <ul className="rating d-flex">
+                        {[...Array(5)].map((_, i) => (
+                          <li key={i}>
+                            <a>
+                              <img
+                                src={fillstar}
+                                alt={`star-${i + 1}`}
+                                style={{
+                                  opacity: msg?.rating > i ? 1 : 0.3,
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <figure>
+                      <img
+                        crossOrigin="anonymous"
+                        src={msg?.User?.profilePictureUrl || Avtar}
+                      />
+                    </figure>
+                    <figcaption>
+                      <h4>{msg?.User?.name || "Anonymous"}</h4>
+                      <p>{msg.description}</p>
+                    </figcaption>
+                  </div>
+                ))}
+              </OwlCarousel>
+            )}
+          </div>
+        </section>
+        <Whyus />
       </section>
 
       <Modal
@@ -302,7 +363,11 @@ const handleSlideChange = (event) => {
                         </li>
                         <li>
                           <img src={MsgeIcon}></img>
-                          <a href="mailto:info@dailyfitness.ai">
+                          <a
+                            href="mailto:info@dailyfitness.ai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             info@dailyfitness.ai
                           </a>
                         </li>

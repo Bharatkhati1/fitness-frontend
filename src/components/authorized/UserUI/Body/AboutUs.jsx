@@ -112,7 +112,7 @@ function AboutUs() {
                   A group of visionary individuals who aim at innovating the
                   approach to human health and fitness. From workouts to
                   nutrition and from mental health to modern and alternative
-                  medicines, dailyfitness.in is your “online health-city”
+                  medicines, dailyfitness.ai is your “online health-city”
                 </p>
               </figcaption>
             </li>
@@ -124,7 +124,7 @@ function AboutUs() {
                 <h3>CORE VALUES</h3>
                 <p>
                   Integrity, Compassion and Scientific temper are the core
-                  values that drive the conduct at dailyfitness.in. Be it our
+                  values that drive the conduct at dailyfitness.ai. Be it our
                   own organisation or the relations with our clients, our values
                   are the very essence of our service.
                 </p>
@@ -172,7 +172,7 @@ function AboutUs() {
                 <div className="OurVisionMissionTitle">
                   <h3>OUR VISION</h3>
                   <p>
-                    Through these pillars, dailyfitness.in aims to become a
+                    Through these pillars, dailyfitness.ai aims to become a
                     trusted resource for effective and sustainable health and
                     fitness solutions
                   </p>
@@ -290,7 +290,7 @@ function AboutUs() {
                     <img src={MIcon1}></img>
                   </figure>
                   <div className="VisionMissioTitle">
-                    At dailyfitness.in, our mission is to empower individuals
+                    At dailyfitness.ai, our mission is to empower individuals
                     on their fitness and health journeys by providing
                     accessible, high-quality resources and tools.
                   </div>

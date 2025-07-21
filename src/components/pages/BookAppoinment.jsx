@@ -84,14 +84,14 @@ function BookAppoinment() {
           {details?.map((cons) => (
             <div className="bookappoinmentinner">
               <div className="row">
-                <div className="col-md-5 ">
+                <div className="col-md-4 ">
                   <div className="bookappoinmentl">
                     <figure>
                       <img crossOrigin="anonymous" src={cons?.image_url} />
                     </figure>
                   </div>
                 </div>
-                <div className="col-md-7 ">
+                <div className="col-md-8 ">
                   <div className="bookappoinmentr">
                     <div className="bookappoinmenthead d-flex justify-content-between align-items-end">
                       <div className="bpheadleft">

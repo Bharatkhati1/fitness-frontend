@@ -107,7 +107,9 @@ const FatLoass = () => {
             <h4>What is fat percentage?</h4>
             <p>
               Body fat percentage is the proportion of a person's body weight
-              that is made up of fat tissue...
+              that is made up of fat tissue. It is expressed as a percentage and
+              indicates how much of the body’s mass consists of fat compared to
+              everything else (muscle, bone, water, organs, etc.).
             </p>
           </div>
           <div className="row align-items-center">

@@ -1401,6 +1401,7 @@ ul.BottomFooterList,
 
 .innerbanner {
   position: relative;
+  padding-top: 78px;
 }
 
 .innerbanner .container {
@@ -2753,7 +2754,7 @@ button.owl-next span {
 .JoinourhealthContent .btn.btn-primary {
   min-width: 416px;
   height: 70px;
-  font-size: 22px;
+  font-size: 22px !important;
   margin-top: 25px;
 }
 

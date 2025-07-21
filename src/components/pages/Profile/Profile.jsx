@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import profileuserimg from "../../../../public/assets/img/profileuserimg.png";
 import pencilicons from "../../../../public/assets/img/pencilicon.png";
 import logouticon from "../../../../public/assets/img/logouticon.png";
 import { toast } from "react-toastify";

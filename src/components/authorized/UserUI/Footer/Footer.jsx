@@ -163,7 +163,7 @@ const Footer = () => {
 
                 <ul className="ContactInfoFooter">
                   <li>
-                    <img src={CallIcon} />
+                    <img src={CallIcon} /> 
                     {contactUsDetails?.phone &&
                       contactUsDetails.phone
                         .split(",")
@@ -176,8 +176,12 @@ const Footer = () => {
                   </li>
                   <li>
                     <img src={MesgIcon} />
-                    <a href={`mailto:${contactUsDetails?.email}`}>
-                      {contactUsDetails?.email}
+                    <a
+                      href={`mailto:${contactUsDetails.email}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {contactUsDetails.email}
                     </a>
                   </li>
                 </ul>
@@ -209,7 +213,9 @@ const Footer = () => {
       <div className="BottomFooter d-flex align-items-center  justify-content-center">
         <p>
           © {new Date().getFullYear()}.{" "}
-          {contactUsDetails?.copyright ? contactUsDetails?.copyright : "All rights reserved"}
+          {contactUsDetails?.copyright
+            ? contactUsDetails?.copyright
+            : "All rights reserved"}
         </p>
         <ul className="BottomFooterList d-flex">
           <li>
