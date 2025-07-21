@@ -56,9 +56,9 @@ function Profile() {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = async (type) => {
     try {
-      await userAxios.put(userApiRoutes.update_profile, {
+      await userAxios.put(userApiRoutes.update_profile(type), {
         ...formData,
         firstName: profileDetails.firstName,
         email: profileDetails.email,

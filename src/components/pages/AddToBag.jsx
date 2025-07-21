@@ -358,7 +358,7 @@ export default function AddToBag() {
     }
 
     try {
-      await userAxios.put(userApiRoutes.update_profile, formData);
+      await userAxios.put(userApiRoutes.update_profile('order'), formData);
       toast.success("Profile updated successfully");
       fetchProfileDetails();
     } catch (error) {
@@ -498,7 +498,7 @@ export default function AddToBag() {
                               </figure>
                               <figcaption>
                                 <h4>
-                                  {item?.PackagePlan?.Package?.Service?.name} -{" "}
+                                  {item?.PackagePlan?.Package?.Service?.name || item?.PackagePlan?.Package?.name} -{" "}
                                   {item?.PackagePlan?.duration} Months
                                 </h4>
 
