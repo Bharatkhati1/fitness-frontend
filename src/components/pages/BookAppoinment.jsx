@@ -126,11 +126,11 @@ function BookAppoinment() {
                         <a
                           onClick={() => {
                             isLoggedIn
-                              ?  (() => {
-                                setIsFollowUp(true);
-                                setSelectedConsultant(cons);
-                              })()
-                              : setOpenLoginModal(true)
+                              ? (() => {
+                                  setIsFollowUp(true);
+                                  setSelectedConsultant(cons);
+                                })()
+                              : setOpenLoginModal(true);
                           }}
                           className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
                         >
