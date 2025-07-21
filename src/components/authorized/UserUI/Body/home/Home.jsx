@@ -827,9 +827,17 @@ function Home() {
                     </li>
                     <li>
                       <img src={MsgeIcon}></img>
-                      <a href={`mailto:${contactUsDetails?.email}`}>
-                        {contactUsDetails?.email}
-                      </a>
+                      {contactUsDetails?.email ? (
+                        <a
+                          href={`mailto:${contactUsDetails.email}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {contactUsDetails.email}
+                        </a>
+                      ) : (
+                        <span>Not available</span>
+                      )}
                     </li>
                   </ul>
 

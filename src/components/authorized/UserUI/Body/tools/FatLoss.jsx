@@ -107,14 +107,16 @@ const FatLoass = () => {
             <h4>What is fat percentage?</h4>
             <p>
               Body fat percentage is the proportion of a person's body weight
-              that is made up of fat tissue...
+              that is made up of fat tissue. It is expressed as a percentage and
+              indicates how much of the body’s mass consists of fat compared to
+              everything else (muscle, bone, water, organs, etc.).
             </p>
           </div>
           <div className="row align-items-center">
             <div className="col-md-6">
               <div className="bmiCalculatorBg">
                 <div className="calculateHead">
-                  <h4>Calculate your fat loss by putting values below</h4>
+                  <h4>Calculate your fat percentage by putting values below</h4>
                 </div>
                 <div className="calculatebody">
                   <div className="calculaField mb-3">
@@ -128,7 +130,10 @@ const FatLoass = () => {
                             name="gender"
                             value="male"
                             checked={gender === "male"}
-                            onChange={() => setGender("male")}
+                            onChange={() => {
+                              setHip(0);
+                              setGender("male");
+                            }}
                           />
                           <label htmlFor="gender-male">Male</label>
                         </li>
@@ -256,13 +261,12 @@ const FatLoass = () => {
                         value={hip}
                         onChange={(e) => {
                           const val = e.target.value;
-                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =
                               (intPart || "").length + (decPart || "").length;
                             if (totalDigits <= 5) {
-                              setNeck(val);
+                              setHip(val);
                             }
                           }
                         }}

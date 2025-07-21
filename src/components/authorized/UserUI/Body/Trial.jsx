@@ -65,7 +65,7 @@ const Trial = () => {
             <div className="row mb-4">
               <div className="col-md-5 Diabetespageleft">
                 <figure>
-                  <img crossOrigin="anonymous" src={trialImage} />
+                  <img crossOrigin="anonymous" src='https://api.dailyfitness.ai:3005/uploads/packages/1750756267230-Trial_img.png' />
                 </figure>
               </div>
 

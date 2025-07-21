@@ -31,46 +31,53 @@ const userAxios = axios.create({
   baseURL: `${GATEWAY_URL}/web`,
 });
 
-let isRefreshing = false; 
+let isRefreshing = false;
+let refreshPromise = null;
 
 userAxios.interceptors.request.use(
   async (config) => {
     let token = getToken();
 
     if (!jwtVerify()) {
-      // ✅ Only try refresh once per request
+      // Prevent multiple simultaneous refresh attempts
       if (!isRefreshing) {
         isRefreshing = true;
-        try {
-          store.dispatch(authActions.checkingUserToken(true));
-          const { data } = await axios.post(
-            `${GATEWAY_URL}/web/refresh`,
-            { type: "userRefreshToken" },
-            { withCredentials: true }
-          );
+        refreshPromise = (async () => {
+          try {
+            store.dispatch(authActions.checkingUserToken(true));
+            const { data } = await axios.post(
+              `${GATEWAY_URL}/web/refresh`,
+              { type: "userRefreshToken" },
+              { withCredentials: true }
+            );
 
-          store.dispatch(
-            authActions.loginUser({
-              isLoggedIn: true,
-              isAdmin: false,
-              user: { ...data?.user },
-            })
-          );
-          store.dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
-          token = data?.accessToken;
-        } catch (err) {
-          console.error("Token refresh failed", err);
-          window.open("/login-user", "_self");
-        } finally {
-          isRefreshing = false;
-          store.dispatch(authActions.checkingUserToken(false));
-        }
-      } else {
-        window.open("/login-user", "_self");
+            store.dispatch(
+              authActions.loginUser({
+                isLoggedIn: true,
+                isAdmin: false,
+                user: { ...data?.user },
+              })
+            );
+            store.dispatch(authActions.setUserAcccessToken(data?.accessToken || ""));
+            return data?.accessToken;
+          } catch (err) {
+            console.error("Token refresh failed", err);
+            // Clear tokens and redirect
+            document.cookie = "userRefreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.replace("/login-user");
+            throw err;
+          } finally {
+            isRefreshing = false;
+            store.dispatch(authActions.checkingUserToken(false));
+          }
+        })();
       }
+
+      // Wait for the refresh to complete
+      token = await refreshPromise;
     }
 
-    // ✅ Set token headers
+    // Set token headers
     config.headers["authorization"] = `Bearer ${token}`;
     config.headers["currentTime"] = moment().format("YYYY-MM-DD HH:mm:ss");
     return config;

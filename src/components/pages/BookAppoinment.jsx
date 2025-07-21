@@ -121,7 +121,7 @@ function BookAppoinment() {
                           }
                           className="btn btn-primary mt-2 hvr-shutter-out-horizontal"
                         >
-                          make an appointment
+                          Book an appointment
                         </a>
                         <a
                           onClick={() => {

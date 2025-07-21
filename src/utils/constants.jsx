@@ -2,7 +2,7 @@ import axios from "axios";
 
 //local
 // export const GATEWAY_URL = `https://daily-fitness-api.24livehost.com`;
-// export const GOOGLE_CLIENT_KEY = `790862085191-jofh2icrpk1gp8e38dlutd6l59uf10pb.apps.googleusercontent.com`
+// export const GOOGLE_CLIENT_KEY = `241141550405-lvbu6j5uv0fh6orfnh63u2ok7b0c2i93.apps.googleusercontent.com`
 // export const redirect_url ='https://daily-fitness.24livehost.com/login-user'
 // export const APPLE_CLIENT_ID = `com.thedailyfitness.web.login`
 

@@ -8,6 +8,7 @@ import userAxios from "../../../utils/Api/userAxios";
 import userApiRoutes from "../../../utils/Api/Routes/userApiRoutes";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import ConfirmationPopup from "../../authorized/AdminUI/Popups/ConfirmationPopup";
 // import ConfirmationPopup from "../../authorized/AdminUI/Popups/ConfirmationPopup";
 
 function MyTestimonails() {
@@ -179,7 +180,7 @@ function MyTestimonails() {
                           <img src={pencilicon} alt="edit" />
                           Edit
                         </a>
-                        {/* <ConfirmationPopup
+                        <ConfirmationPopup
                           bodyText="Are you sure you want to delete this Testimonial ?"
                           title="Delete Testimonial"
                           onOk={() => deleteTestimonial(testimonial.id)}
@@ -189,7 +190,7 @@ function MyTestimonails() {
                               Delete
                             </>
                           }
-                        /> */}
+                        />
                       </div>
                     )}
                   </div>

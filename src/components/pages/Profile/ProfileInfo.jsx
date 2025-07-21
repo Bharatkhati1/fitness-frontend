@@ -269,7 +269,7 @@ const ProfileInfo = ({
       <div className="CardBbox mb-4">
         <div className="cardhead d-flex justify-content-between">
           <h3>Current Physical Measurements</h3>
-          <button onClick={() => handleSave()} className="update-meas-btn">
+          <button onClick={() => handleSave("measurements")} className="update-meas-btn">
             Update Measurments
           </button>
         </div>
@@ -468,7 +468,7 @@ const ProfileInfo = ({
       <div className="formbtn text-center mt-4 mb-4">
         <button
           className="btn btn-primary sm-btn hvr-shutter-out-horizontal"
-          onClick={handleSave}
+          onClick={() => handleSave("profile")}
         >
           Save Profile
         </button>

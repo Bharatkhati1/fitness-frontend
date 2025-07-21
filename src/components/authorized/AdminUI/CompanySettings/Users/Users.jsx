@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import adminAxios from "../../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
+import UserDetailModal from "../UserDetailModal";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const fetchAllUser = async () => {
     try {
@@ -29,7 +33,19 @@ const Users = () => {
   useEffect(() => {
     fetchAllUser();
   }, []);
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedUser(null);
+  };
+
   return (
+    <>
+    <UserDetailModal
+      visible={isModalVisible}
+      onCancel={handleCancel}
+      userData={selectedUser}
+    />  
     <div className="row">
       <div className="col-xl-12">
         <div className="card">
@@ -69,6 +85,16 @@ const Users = () => {
                         <td>
                           <div className="d-flex gap-2">
                             <button
+                              className="btn btn-sm btn-outline-info"
+                              onClick={() => {
+                                setSelectedUser(user);
+                                setIsModalVisible(true);
+                              }}
+                              style={{ border: 'none', background: 'none', padding: '4px' }}
+                            >
+                              <InfoCircleOutlined style={{ fontSize: '18px', color: '#1890ff' }} />
+                            </button>
+                            <button
                               className="status-user-btn"
                               onClick={() => updateStatusUser(user.id,user.isActive ? false : true )}
                             >
@@ -91,7 +117,7 @@ const Users = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div></>
   );
 };
 

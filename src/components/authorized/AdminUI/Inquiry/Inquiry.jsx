@@ -12,7 +12,18 @@ const Inquiry = () => {
     inquiry: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "phone", label: "Contact" },
       {
         key: "service",
@@ -25,12 +36,15 @@ const Inquiry = () => {
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -39,19 +53,33 @@ const Inquiry = () => {
     testimonial: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "message", label: "Message" },
       {
         key: "action",
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -60,19 +88,33 @@ const Inquiry = () => {
     community: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "phone", label: "Contact" },
       {
         key: "action",
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -111,7 +153,18 @@ const Inquiry = () => {
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
       { key: "contactFor", label: "Bussiness Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "phone", label: "Contact" },
       { key: "message", label: "Message" },
       {
@@ -119,12 +172,15 @@ const Inquiry = () => {
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -133,7 +189,18 @@ const Inquiry = () => {
     "event-registration": [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "phone", label: "Contact" },
       {
         key: "Event.title",
@@ -145,12 +212,15 @@ const Inquiry = () => {
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -159,7 +229,18 @@ const Inquiry = () => {
     "event-inquiry": [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
       { key: "name", label: "Name" },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       { key: "phone", label: "Contact" },
       { key: "message", label: "Message" },
       {
@@ -167,12 +248,15 @@ const Inquiry = () => {
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),
@@ -180,18 +264,32 @@ const Inquiry = () => {
     ],
     "news-latter": [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
-      { key: "email", label: "Email" },
+      {
+        key: "email",
+        label: "Email",
+        render: (item) =>
+          item?.email ? (
+            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+              {item.email}
+            </a>
+          ) : (
+            <span>Not available</span>
+          ),
+      },
       {
         key: "action",
         label: "Action",
         render: (item) =>
           item?.email ? (
-            <button
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-sm btn-primary"
-              onClick={() => window.open(`mailto:${item.email}`)}
+              style={{ color: "#fff" }}
             >
               Send Mail
-            </button>
+            </a>
           ) : (
             "-"
           ),

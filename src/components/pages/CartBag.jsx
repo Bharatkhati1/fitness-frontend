@@ -80,7 +80,7 @@ export default function CartBag() {
                       </figure>
                       <figcaption>
                         <h4>
-                          {item?.PackagePlan?.Package?.Service?.name} -{" "}
+                          {item?.PackagePlan?.Package?.Service?.name || item?.PackagePlan?.Package?.name} -{" "}
                           {item?.PackagePlan?.duration} Months
                         </h4>
                         <span className="price-text">

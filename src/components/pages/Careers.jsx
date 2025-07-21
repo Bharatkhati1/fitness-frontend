@@ -575,6 +575,7 @@ function Careers() {
                   onChange={handleChange}
                 >
                   <option value="">Open this select menu</option>
+                  <option value="0">Fresher</option>
                   <option value="1">1 year</option>
                   <option value="2">2-3 years</option>
                   <option value="3">3+ years</option>
