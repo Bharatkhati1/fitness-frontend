@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
@@ -17,7 +17,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -58,7 +62,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -93,7 +101,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -148,6 +160,24 @@ const Inquiry = () => {
         render: (item) =>
           item.createdAt ? new Date(item.createdAt).toLocaleDateString() : "-",
       },
+      {
+        key: "action",
+        label: "Action",
+        render: (item) =>
+          item?.email ? (
+            <a
+              href={`mailto:${item?.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-sm btn-primary"
+              style={{ color: "#fff" }}
+            >
+              Send Mail
+            </a>
+          ) : (
+            "-"
+          ),
+      },
     ],
     bussiness: [
       { key: "id", label: "ID", render: (_, __, i) => i + 1 },
@@ -158,7 +188,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -194,7 +228,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -234,7 +272,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (
@@ -269,7 +311,11 @@ const Inquiry = () => {
         label: "Email",
         render: (item) =>
           item?.email ? (
-            <a href={`mailto:${item.email}`} target="_blank" rel="noopener noreferrer">
+            <a
+              href={`mailto:${item.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {item.email}
             </a>
           ) : (

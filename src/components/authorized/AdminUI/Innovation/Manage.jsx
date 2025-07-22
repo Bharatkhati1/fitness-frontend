@@ -237,12 +237,22 @@ const Manage = () => {
                       placeholder="Enter read time (0-60 min)"
                       max="60"
                       value={formData.readTime}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value, 10);
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      onChange={e => {
+                        let value = e.target.value.replace(/[^0-9]/g, "");
+                        if (value === "") {
+                          setFormData(prev => ({ ...prev, readTime: "" }));
+                          return;
+                        }
+                        const val = parseInt(value, 10);
                         if (!isNaN(val) && val >= 0 && val <= 60) {
-                          setFormData((prev) => ({ ...prev, readTime: val }));
-                        } else if (e.target.value === "") {
-                          setFormData((prev) => ({ ...prev, readTime: "" }));
+                          setFormData(prev => ({ ...prev, readTime: val }));
+                        }
+                      }}
+                      onKeyPress={e => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
                         }
                       }}
                     />

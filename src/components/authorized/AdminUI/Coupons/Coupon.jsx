@@ -270,7 +270,26 @@ const Coupon = () => {
                       name="value"
                       placeholder="Enter value"
                       value={formData.value}
-                      onChange={handleInputChange}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      onChange={e => {
+                        let value = e.target.value.replace(/[^0-9]/g, "");
+                        // Allow empty value
+                        if (value === "") {
+                          handleInputChange({
+                            target: { name: "value", value: "" }
+                          });
+                          return;
+                        }
+                        handleInputChange({
+                          target: { name: "value", value }
+                        });
+                      }}
+                      onKeyPress={e => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
                 </div>
@@ -371,14 +390,18 @@ const Coupon = () => {
                           name="partnerCommission"
                           placeholder="Enter commission percentage (0-100)"
                           value={formData.partnerCommission}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (
-                              value === "" ||
-                              (Number(value) >= 0 && Number(value) <= 100)
-                            ) {
-                              handleInputChange(e);
+                          onChange={e => {
+                            let value = e.target.value.replace(/[^0-9]/g, "");
+                            // Allow empty value
+                            if (value === "") {
+                              handleInputChange({
+                                target: { name: "FIELD_NAME", value: "" }
+                              });
+                              return;
                             }
+                            handleInputChange({
+                              target: { name: "FIELD_NAME", value }
+                            });
                           }}
                           min="0"
                           max="100"
@@ -398,8 +421,30 @@ const Coupon = () => {
                       name="maxUsage"
                       placeholder="Enter maximum usage count"
                       value={formData.maxUsage}
-                      onChange={handleInputChange}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       min="1"
+                      onChange={e => {
+                        let value = e.target.value.replace(/[^0-9]/g, "");
+                        // Allow empty value
+                        if (value === "") {
+                          handleInputChange({
+                            target: { name: "maxUsage", value: "" }
+                          });
+                          return;
+                        }
+                        // Only allow values >= 1
+                        if (parseInt(value, 10) >= 1) {
+                          handleInputChange({
+                            target: { name: "maxUsage", value }
+                          });
+                        }
+                      }}
+                      onKeyPress={e => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
                 </div>

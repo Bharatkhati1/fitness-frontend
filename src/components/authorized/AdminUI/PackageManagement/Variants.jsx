@@ -65,7 +65,7 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 placeholder="Enter price"
                 className="form-control"
                 onChange={(e) => {
-                  const price = e.target.value;
+                  const price = e.target.value.replace(/[^0-9]/g, "");
                   setPackageVariants((prev) =>
                     prev.map((item, idx) =>
                       idx === index ? { ...item, price } : item
@@ -91,7 +91,7 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 max={12}
                 min={1}
                 onChange={(e) => {
-                  let duration = parseInt(e.target.value, 10);
+                  let duration = parseInt(e.target.value.replace(/[^0-9]/g, ""), 10);
                   if (duration > 12) duration = 12;
                   if (duration < 1 || isNaN(duration)) duration = "";
                   setPackageVariants((prev) =>

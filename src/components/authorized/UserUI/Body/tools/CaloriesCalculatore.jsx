@@ -108,7 +108,7 @@ function CaloriesCalculatore() {
                         min="0"
                         max="999"
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,3}$/.test(val)) {
                             setAge(Number(val));
                           }
@@ -155,7 +155,7 @@ function CaloriesCalculatore() {
                         inputMode="decimal"
                         value={height}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
@@ -188,7 +188,7 @@ function CaloriesCalculatore() {
                         placeholder="Enter weight"
                         value={weight}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =

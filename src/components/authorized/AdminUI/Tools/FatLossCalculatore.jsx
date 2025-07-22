@@ -110,7 +110,7 @@ const FatLossCalculatore = () => {
           <input
             type="number"
             value={currentWeight}
-            onChange={(e) => setCurrentWeight(e.target.value)}
+            onChange={(e) => setCurrentWeight(e.target.value.replace(/[^0-9]/g, ""))}
             className="form-input"
             min="30"
             max="300"
@@ -124,7 +124,7 @@ const FatLossCalculatore = () => {
           <input
             type="number"
             value={goalWeight}
-            onChange={(e) => setGoalWeight(e.target.value)}
+            onChange={(e) => setGoalWeight(e.target.value.replace(/[^0-9]/g, ""))}
             className="form-input"
             min="30"
             max="300"
@@ -138,7 +138,7 @@ const FatLossCalculatore = () => {
           <input
             type="number"
             value={timeframe}
-            onChange={(e) => setTimeframe(e.target.value)}
+            onChange={(e) => setTimeframe(e.target.value.replace(/[^0-9]/g, "") )}
             className="form-input"
             min="1"
             max="52"

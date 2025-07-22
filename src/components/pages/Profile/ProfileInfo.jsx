@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
+import { Tooltip } from "antd";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,7 +9,6 @@ import {
   PointElement,
   LineElement,
   Title,
-  Tooltip,
   Legend,
 } from "chart.js";
 
@@ -18,7 +18,6 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
   Legend
 );
 const ProfileInfo = ({
@@ -28,9 +27,9 @@ const ProfileInfo = ({
   setFormData,
   profileDetails,
 }) => {
-  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
     const numericFields = [
       "age",
       "pincode",
@@ -184,7 +183,7 @@ const ProfileInfo = ({
               placeholder="Enter your age"
               value={profileDetails.age}
               onChange={(e) => {
-                const val = e.target.value;
+                const val = e.target.value.replace(/[^0-9]/g, "");
                 if (/^\d{0,3}$/.test(val)) {
                   handleChange({ target: { name: "age", value: val } });
                 }
@@ -215,7 +214,7 @@ const ProfileInfo = ({
               placeholder="Enter 10-digit number"
               value={profileDetails.phone}
               onChange={(e) => {
-                const val = e.target.value;
+                const val = e.target.value.replace(/[^0-9]/g, "");
                 if (/^\d{0,10}$/.test(val)) {
                   handleChange(e);
                 }
@@ -256,7 +255,7 @@ const ProfileInfo = ({
               name="pincode"
               value={formData.pincode}
               onChange={(e) => {
-                const val = e.target.value;
+                const val = e.target.value.replace(/[^0-9]/g, "");
                 if (/^\d{0,6}$/.test(val)) {
                   handleChange(e);
                 }
@@ -269,7 +268,10 @@ const ProfileInfo = ({
       <div className="CardBbox mb-4">
         <div className="cardhead d-flex justify-content-between">
           <h3>Current Physical Measurements</h3>
-          <button onClick={() => handleSave("measurements")} className="update-meas-btn">
+          <button
+            onClick={() => handleSave("measurements")}
+            className="update-meas-btn"
+          >
             Update Measurments
           </button>
         </div>
@@ -283,7 +285,31 @@ const ProfileInfo = ({
               { name: "neckCirumference", label: "Neck Circumference (cm)" },
             ].map(({ name, label }) => (
               <div className="col-md-6 mb-3" key={name}>
-                <label>{label}</label>
+                <label>
+                  {label}
+                  {label.includes("cm") && (
+                    <Tooltip title="To convert inches to centimeters, multiply the value in inches by 2.54. Formula: 1 inch = 2.54 cm">
+                      <span
+                        style={{
+                          marginLeft: 6,
+                          cursor: "pointer",
+                          display: "inline-block",
+                          color: "#0d6efd",
+                          fontWeight: "bold",
+                          fontSize: "0.8em",
+                          border: "1px solid #0d6efd",
+                          borderRadius: "50%",
+                          width: 15,
+                          height: 16,
+                          textAlign: "center",
+                          lineHeight: "16px",
+                        }}
+                      >
+                        i
+                      </span>
+                    </Tooltip>
+                  )}
+                </label>
                 <input
                   type="number"
                   className="form-control"
@@ -315,20 +341,18 @@ const ProfileInfo = ({
                         </thead>
                         <tbody>
                           {profileDetails?.physicalMeasurement?.length > 0 ? (
-                            profileDetails.physicalMeasurement?.map(
-                              (item, index) => (
-                                <tr key={item.id}>
-                                  <td>
-                                    {moment(item?.createdAt).format("DD-MM-YY")}
-                                  </td>
-                                  <td>{item?.weight}</td>
-                                  <td>{item.height || "-"}</td>
-                                  <td>{item?.chest}</td>
-                                  <td>{item?.waistCirumference || "-"}</td>
-                                  <td>{item?.neckCirumference || "-"}</td>
-                                </tr>
-                              )
-                            )
+                            profileDetails.physicalMeasurement?.map((item) => (
+                              <tr key={item.id}>
+                                <td>
+                                  {moment(item?.createdAt).format("DD-MM-YY")}
+                                </td>
+                                <td>{item?.weight}</td>
+                                <td>{item.height || "-"}</td>
+                                <td>{item?.chest}</td>
+                                <td>{item?.waistCirumference || "-"}</td>
+                                <td>{item?.neckCirumference || "-"}</td>
+                              </tr>
+                            ))
                           ) : (
                             <tr>
                               <td colSpan="9" className="text-center">

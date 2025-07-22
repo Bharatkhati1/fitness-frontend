@@ -69,6 +69,6 @@ export const updateFaviconAndTitle = (iconUrl, title) => {
       document.title = title;
     }
   } catch (error) {
-    console.error("Invalid icon URL:", iconUrl);
+    console.error("Invalid icon URL:", iconUrl, error);
   }
 };

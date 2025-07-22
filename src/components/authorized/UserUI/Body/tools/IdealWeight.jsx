@@ -88,7 +88,7 @@ function Idealweight() {
                         placeholder="Enter value"
                         value={height}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =

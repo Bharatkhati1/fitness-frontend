@@ -73,7 +73,7 @@ const IdealWightCalculatore = () => {
             <input
               type="number"
               value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              onChange={(e) => setHeight(e.target.value.replace(/[^0-9]/g, ""))}
               className="form-input"
               min="100"
               max="300"

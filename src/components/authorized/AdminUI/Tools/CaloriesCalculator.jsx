@@ -80,7 +80,7 @@ const CaloriesCalculator = () => {
           <input
             type="number"
             value={age}
-            onChange={(e) => setAge(e.target.value)}
+            onChange={(e) => setAge(e.target.value.replace(/[^0-9]/g, ""))}
             className="form-input"
             min="1"
             max="120"
@@ -105,7 +105,7 @@ const CaloriesCalculator = () => {
           <input
             type="number"
             value={weight}
-            onChange={(e) => setWeight(e.target.value)}
+            onChange={(e) => setWeight(e.target.value.replace(/[^0-9]/g, ""))}
             className="form-input"
             min="1"
             step="0.1"
@@ -118,7 +118,7 @@ const CaloriesCalculator = () => {
           <input
             type="number"
             value={height}
-            onChange={(e) => setHeight(e.target.value)}
+            onChange={(e) => setHeight(e.target.value.replace(/[^0-9]/g, ""))}
             className="form-input"
             min="50"
             max="300"

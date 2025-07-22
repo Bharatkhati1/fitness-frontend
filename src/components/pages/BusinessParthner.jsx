@@ -339,7 +339,7 @@ function BusinessParthner() {
                         name="phone"
                         value={formData.phone}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,10}$/.test(val)) {
                             handleChange(e);
                           }

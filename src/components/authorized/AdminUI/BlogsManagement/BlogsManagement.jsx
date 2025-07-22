@@ -272,23 +272,26 @@ const BlogsManagement = () => {
                       min="0"
                       max="60"
                       value={readTime}
-                      onChange={(e) => {
-                        const value = e.target.value;
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      onChange={e => {
+                        let value = e.target.value;
+                        // Remove all non-digit characters
+                        value = value.replace(/[^0-9]/g, "");
                         // Allow empty value
                         if (value === "") {
                           setReadTime("");
                           return;
                         }
-
                         const numericValue = parseInt(value, 10);
-
                         // Only allow 0–60
-                        if (
-                          !isNaN(numericValue) &&
-                          numericValue >= 0 &&
-                          numericValue <= 60
-                        ) {
+                        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 60) {
                           setReadTime(numericValue);
+                        }
+                      }}
+                      onKeyPress={e => {
+                        if (!/[0-9]/.test(e.key)) {
+                          e.preventDefault();
                         }
                       }}
                     />

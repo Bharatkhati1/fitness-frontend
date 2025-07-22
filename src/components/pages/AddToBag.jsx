@@ -450,7 +450,7 @@ export default function AddToBag() {
                         value={formData.phone}
                         className="form-control"
                         onChange={(e) => {
-                          const value = e.target.value;
+                          const value = e.target.value.replace(/[^0-9]/g, "");
                           if (value.length <= 10) {
                             setFormData((prev) => ({ ...prev, phone: value }));
                           }
