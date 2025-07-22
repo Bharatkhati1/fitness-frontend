@@ -103,7 +103,7 @@ function ServiceDetails() {
       <div className="sectionSpace ">
         <div className="container">
           <p
-            className="m-0"
+            className="m-0 service-details-description"
             style={{
               minHeight: "auto",
             }}
@@ -276,62 +276,64 @@ function ServiceDetails() {
             </div>
           </div>
         </div>
-        <section className="messageCofounders">
-          <div className="container">
-            <div className="messageCofoundersTitle">
-              <h2>what our clients say ?</h2>
-            </div>
+        {details?.UserFeedbacks && details.UserFeedbacks.length > 0 && (
+          <section className="messageCofounders">
+            <div className="container">
+              <div className="messageCofoundersTitle">
+                <h2>what our clients say ?</h2>
+              </div>
 
-            {details?.UserFeedbacks && details.UserFeedbacks.length > 0 && (
-              <OwlCarousel
-                className="owl-theme"
-                autoplay={false}
-                dots={false}
-                items={2}
-                ref={owlRef}
-                margin={30}
-                nav={true}
-                navText={[prevArrow, nextArrow]}
-                autoplaySpeed={3000}
-                autoplayTimeout={9000}
-                // onChanged={handleSlideChange}
-              >
-                {details.UserFeedbacks.map((msg) => (
-                  <div className="messageCofoundersBg">
-                    <div className="rating">
-                      <ul className="rating d-flex">
-                        {[...Array(5)].map((_, i) => (
-                          <li key={i}>
-                            <a>
-                              <img
-                                src={fillstar}
-                                alt={`star-${i + 1}`}
-                                style={{
-                                  opacity: msg?.rating > i ? 1 : 0.3,
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
+              {details?.UserFeedbacks && details.UserFeedbacks.length > 0 && (
+                <OwlCarousel
+                  className="owl-theme"
+                  autoplay={false}
+                  dots={false}
+                  items={2}
+                  ref={owlRef}
+                  margin={30}
+                  nav={true}
+                  navText={[prevArrow, nextArrow]}
+                  autoplaySpeed={3000}
+                  autoplayTimeout={9000}
+                  // onChanged={handleSlideChange}
+                >
+                  {details.UserFeedbacks.map((msg) => (
+                    <div className="messageCofoundersBg">
+                      <div className="rating">
+                        <ul className="rating d-flex">
+                          {[...Array(5)].map((_, i) => (
+                            <li key={i}>
+                              <a>
+                                <img
+                                  src={fillstar}
+                                  alt={`star-${i + 1}`}
+                                  style={{
+                                    opacity: msg?.rating > i ? 1 : 0.3,
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <figure>
+                        <img
+                          crossOrigin="anonymous"
+                          src={msg?.User?.profilePictureUrl || Avtar}
+                        />
+                      </figure>
+                      <figcaption>
+                        <h4>{msg?.User?.name || "Anonymous"}</h4>
+                        <p>{msg.description}</p>
+                      </figcaption>
                     </div>
-                    <figure>
-                      <img
-                        crossOrigin="anonymous"
-                        src={msg?.User?.profilePictureUrl || Avtar}
-                      />
-                    </figure>
-                    <figcaption>
-                      <h4>{msg?.User?.name || "Anonymous"}</h4>
-                      <p>{msg.description}</p>
-                    </figcaption>
-                  </div>
-                ))}
-              </OwlCarousel>
-            )}
-          </div>
-        </section>
+                  ))}
+                </OwlCarousel>
+              )}
+            </div>
+          </section>
+        )}
         <Whyus />
       </section>
 

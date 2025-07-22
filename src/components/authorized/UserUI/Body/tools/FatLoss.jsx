@@ -162,7 +162,7 @@ const FatLoass = () => {
                         placeholder="Enter value"
                         value={height}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =
@@ -194,7 +194,7 @@ const FatLoass = () => {
                         placeholder="Enter value"
                         value={waist}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
@@ -227,7 +227,7 @@ const FatLoass = () => {
                         placeholder="Enter value"
                         value={neck}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
@@ -260,7 +260,7 @@ const FatLoass = () => {
                         placeholder="Enter value"
                         value={hip}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =

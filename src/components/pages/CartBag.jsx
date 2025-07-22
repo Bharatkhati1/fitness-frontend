@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import addtobagbg from "../../../public/assets/img/addtobagbg.png";
-import osproductimg1 from "../../../public/assets/img/osproductimg1.png";
 import deleteicon from "../../../public/assets/img/deleteicon.png";
 import userAxios from "../../utils/Api/userAxios";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";

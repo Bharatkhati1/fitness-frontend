@@ -260,7 +260,15 @@ function MyTestimonails() {
               className="form-control"
               placeholder="Share your experience with this service...."
               value={testimonialText}
-              onChange={(e) => setTestimonialText(e.target.value)}
+              onChange={e => {
+                const value = e.target.value;
+                const words = value.split(/\s+/).filter(Boolean);
+                if (words.length <= 70) {
+                  setTestimonialText(value);
+                } else {
+                  setTestimonialText(words.slice(0, 70).join(" "));
+                }
+              }}
             />
           </div>
 

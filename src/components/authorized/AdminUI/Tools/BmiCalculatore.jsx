@@ -63,7 +63,7 @@ const BmiCalculatore = () => {
               inputMode="numeric"
               value={weight}
               onChange={(e) => {
-                const val = e.target.value;
+                const val = e.target.value.replace(/[^0-9]/g, "");
                 if (/^\d*$/.test(val)) {
                   setWeight(val);
                 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button } from "antd";
-import { DatePicker } from "antd";
-import moment from "moment";
+import { Modal } from "antd";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -26,10 +24,6 @@ import yogaimg1 from "../../../public/assets/img/yogaimg1.png";
 import yogaimg2 from "../../../public/assets/img/yogaimg2.png";
 import yogaimg3 from "../../../public/assets/img/yogaimg3.png";
 
-import culturesliderimg1 from "../../../public/assets/img/culturesliderimg1.png";
-import culturesliderimg2 from "../../../public/assets/img/culturesliderimg2.png";
-import culturesliderimg3 from "../../../public/assets/img/culturesliderimg3.png";
-
 import joinimgv from "../../../public/assets/img/joinimgv.png";
 
 import bagicon from "../../../public/assets/img/bagicon.png";
@@ -44,6 +38,7 @@ function Careers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     dob: "",
     role: "",
     fitnessEnthusiast: "",
@@ -63,6 +58,7 @@ function Careers() {
     setIsModalOpen(false);
     setFormData({
       name: "",
+      email: "",
       dob: "",
       role: "",
       fitnessEnthusiast: "",
@@ -111,6 +107,7 @@ function Careers() {
 
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
+    formPayload.append("email", formData.email);
     formPayload.append("dob", formData.dob);
     formPayload.append("role", formData.role);
     formPayload.append("fitnessEnthusiast", formData.fitnessEnthusiast);
@@ -140,6 +137,7 @@ function Careers() {
       setIsModalOpen(false);
       setFormData({
         name: "",
+        email: "",
         dob: "",
         role: "",
         fitnessEnthusiast: "",
@@ -482,7 +480,18 @@ function Careers() {
                   onChange={handleChange}
                 />
               </div>
-
+              <div className="form-group mb-2">
+                <label>Email Id*</label>
+                <input
+                  placeholder="Enter your email id"
+                  className="form-control"
+                  type="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
               <div className="form-group mb-2">
                 <label>your Date of Birth*</label>
                 <input
@@ -494,7 +503,7 @@ function Careers() {
                   value={formData.dob}
                   style={{ textTransform: "uppercase" }}
                   onChange={handleChange}
-                  max={new Date().toISOString().split("T")[0]}
+                  max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split("T")[0]}
                 />
               </div>
 
@@ -575,10 +584,9 @@ function Careers() {
                   onChange={handleChange}
                 >
                   <option value="">Open this select menu</option>
-                  <option value="0">Fresher</option>
-                  <option value="1">1 year</option>
-                  <option value="2">2-3 years</option>
-                  <option value="3">3+ years</option>
+                  <option value="fresher">Fresher (0–1 years)</option>
+                  <option value="intermediate">Intermediate (1–3 years)</option>
+                  <option value="experienced">Experienced (3+ years)</option>
                 </select>
               </div>
 

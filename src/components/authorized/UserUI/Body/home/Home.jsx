@@ -264,13 +264,13 @@ function Home() {
       <section className="bannerSection">
         {sliders.length > 0 && (
           <OwlCarousel
-            // autoplay={true}
-            dots={true}
+            autoplay={true}
+            dots={false}
             items={1}
             className="owl-theme"
             autoplaySpeed={500}
-            // autoplayTimeout={8000}
-            // loop={true}
+            autoplayTimeout={8000}
+            loop={true}
             margin={0}
             nav={true}
             navText={[prevArrow, nextArrow]}
@@ -908,7 +908,7 @@ function Home() {
                         name="phone"
                         value={formData.phone}
                         onChange={(e) => {
-                          const val = e.target.value;
+                          const val = e.target.value.replace(/[^0-9]/g, "");
                           if (/^\d{0,10}$/.test(val)) {
                             handleChange(e);
                           }

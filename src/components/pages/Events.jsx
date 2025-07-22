@@ -112,11 +112,18 @@ export default function Events() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    if (name === "mobile") {
+      const val = value.replace(/[^0-9]/g, "");
+      setFormData((prev) => ({
+        ...prev,
+        [name]: val,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -665,7 +672,10 @@ export default function Events() {
                   }
                   required
                 />
-                <label className="form-check-label event-register" htmlFor="termsAccepted">
+                <label
+                  className="form-check-label event-register"
+                  htmlFor="termsAccepted"
+                >
                   I accept the{" "}
                   <a
                     style={{ color: "#0d6efd" }}
@@ -755,7 +765,7 @@ export default function Events() {
                       name="phone"
                       value={formDataContact.phone}
                       onChange={(e) => {
-                        const val = e.target.value;
+                        const val = e.target.value.replace(/[^0-9]/g, "");
                         if (/^\d{0,10}$/.test(val)) {
                           handleChangeContact(e);
                         }

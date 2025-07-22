@@ -605,7 +605,7 @@ body .heartBeatImg {
 }
 
 .VideBox video {
-height: 680px;
+  height: 680px;
 }
 
 .SectionSpace {
@@ -1536,11 +1536,11 @@ ul.BottomFooterList,
 
 .calculaField label {
   margin-bottom: 0;
-  font-size: 24px;
+  font-size: 16px;
   color: #1e1e1e;
   font-weight: 600;
-  min-width: 110px;
-  max-width: 110px;
+  min-width: 120px;
+  max-width: 120px;
 }
 
 .calulaterResult {
@@ -1599,7 +1599,7 @@ ul.wightList figure {
 
 .calculatebody {
   padding: 30px 30px 3px 30px;
-  width: 80%;
+  width: 100%;
 }
 
 .innerbanner figure img {
@@ -1797,13 +1797,11 @@ ul.optinallyList {
 }
 
 .taginfo {
-  position: absolute;
-  right: -122px;
-  top: 17px;
-  font-style: italic;
-  font-size: 14px;
+    position: absolute;
+    font-style: italic;
+    font-size: 14px;
+    bottom: -26px;
 }
-
 .calculateButton .btn.btn-primary {
   font-size: 18px;
   font-weight: 600;
@@ -1950,8 +1948,8 @@ ul.BottomFooterList li a {
 }
 
 body .main-packge .owl-item figure img {
-height: auto  !important;
-aspect-ratio: 1 / .7;
+  height: auto !important;
+  aspect-ratio: 1 / 0.7;
 }
 body .owl-item .OurServicesContent figure img {
   height: 250px;
@@ -2429,14 +2427,14 @@ section.OurTEAM {
   padding: 40px 0px 70px;
 }
 
-  .messageCofoundersBg figure img {
+.messageCofoundersBg figure img {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.feedbacksays .owl-carousel .owl-item  .messageCofoundersBg figure img {
+.feedbacksays .owl-carousel .owl-item .messageCofoundersBg figure img {
   width: 90px !important;
   height: 90px !important;
   border-radius: 50%;
@@ -2445,29 +2443,26 @@ section.OurTEAM {
 }
 
 .feedbacksays .rating {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-
 .feedbacksays .messageCofoundersBg p {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 86px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 86px;
 }
 
 .feedbacksays .owl-stage-outer {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .messageCofoundersBg figure {
   margin-bottom: 20px !important;
 }
-
-
 
 .messageCofoundersBg figcaption h4 {
   font-size: 21px;
@@ -5325,7 +5320,6 @@ ul.sitelistinner li a {
   left: 45px;
 } */
 
-
 .taginfolist {
   margin-bottom: 0;
 }
@@ -5903,7 +5897,6 @@ section.WhyUs.SectionSpace {
     margin-right: -36px;
 } */
 
-
 /* .arrowrleft svg {
     position: absolute;
     top: 0;
@@ -5929,51 +5922,52 @@ section.WhyUs.SectionSpace {
 /* Common arrow styles */
 .arrowrleft,
 .arrowrright {
-     position: sticky !important;
-    top: 64%;
-    /* transform: translateY(-50%); */
-    z-index: 10;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    width: 100% !important;
-     margin-top: -50px;
+  position: sticky !important;
+  top: 64%;
+  /* transform: translateY(-50%); */
+  z-index: 10;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 100% !important;
+  margin-top: -50px;
 }
 
 /* Position on left side */
 .arrowrleft {
-    left: 0;
-    text-align: left;
-    margin-left: -100px;
+  left: 0;
+  text-align: left;
+  margin-left: -100px;
 }
 
 /* Position on right side */
-.arrowrright  svg{
- position: relative;
- right: -100px;
+.arrowrright svg {
+  position: relative;
+  right: -100px;
 }
 .arrowrright {
   right: 0;
   text-align: right;
-     
-
 }
 
-
-.SmartKichinbox figure img,.SmartKichinlist .col figure img,.innovationlist figure img {
-    transition: 0.3s;
+.SmartKichinbox figure img,
+.SmartKichinlist .col figure img,
+.innovationlist figure img {
+  transition: 0.3s;
 }
 
-.SmartKichinbox:hover figure img,.SmartKichinlist .col:hover figure img,.innovationlist figure:hover img {
-    box-shadow: 0 0px 9px 2px rgb(0 0 0 / 40%);
-    transition: 0.3s;
-    transform: scale(0.98);
+.SmartKichinbox:hover figure img,
+.SmartKichinlist .col:hover figure img,
+.innovationlist figure:hover img {
+  box-shadow: 0 0px 9px 2px rgb(0 0 0 / 40%);
+  transition: 0.3s;
+  transform: scale(0.98);
 }
 
 .position-relative.allpakagessec.mt-4 {
-    margin-top: 100px !important;
+  margin-top: 100px !important;
 }
 
 .col-md-6.OurHealthBlogContent p {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
