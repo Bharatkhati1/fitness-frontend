@@ -11,6 +11,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const BasicInfo = ({ user, type }) => {
+  const { pathname } = useLocation();
   const profileImgref = useRef(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -31,7 +32,14 @@ const BasicInfo = ({ user, type }) => {
     confirm: false,
     current: false,
   });
-
+  let value = "";
+  if (pathname.includes("/admin")) {
+    value = "users";
+  } else if (pathname.includes("/b2b-partner")) {
+    value = "partners";
+  } else if (pathname.includes("/service-provider")) {
+    value = "consultants";
+  }
   // Sync props with local state on mount or when user changes
   useEffect(() => {
     if (user && !isUpdates) {
@@ -39,7 +47,7 @@ const BasicInfo = ({ user, type }) => {
         firstName: user.firstName || "",
         email: user.email || "",
       });
-      setPreviewImage(user.image || null);
+      setPreviewImage(`https://api.dailyfitness.ai:3005/uploads/${value}/${user?.image|| user?.profilePicture}` || null);
     }
   }, [user]);
 
@@ -175,6 +183,7 @@ const BasicInfo = ({ user, type }) => {
               <img
                 src={previewImage}
                 alt="Profile"
+                crossOrigin="anonymous"
                 style={{
                   width: "50px",
                   height: "50px",

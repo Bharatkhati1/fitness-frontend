@@ -133,13 +133,13 @@ const TopBar = () => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <span className="d-flex align-items-center">
+                <span className="d-flex align-items-center imageeee">
                   <img
                     className="rounded-circle"
                     width="36"
                     height="36"
                     crossOrigin="anonymous"
-                    src={`https://api.dailyfitness.ai:3005/uploads/${value}/${user?.profilePicture}`}
+                    src={`https://api.dailyfitness.ai:3005/uploads/${value}/${user?.image|| user?.profilePicture}`}
                     alt="avatar-3/"
                   />
                 </span>
