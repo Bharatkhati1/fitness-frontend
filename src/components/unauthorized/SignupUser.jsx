@@ -15,6 +15,7 @@ import { authActions } from "../../store/auth";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { jwtDecode } from "jwt-decode";
 import AppleLoginButton from "./AppleLogin";
+import { Link } from "react-router-dom";
 
 function SignUpUser() {
   const [step, setStep] = useState(1); // 1: email/password, 2: OTP input, 3: success
@@ -239,22 +240,14 @@ function SignUpUser() {
             />
             <label className="form-check-label" htmlFor="termsCheck">
               I accept the{" "}
-              <a
-                style={{ color: "#0d6efd" }}
-                href="https://daily-fitness.24livehost.com/terms-conditions"
-                target="_blank"
-              >
+              <Link style={{ color: "#0d6efd" }} to="/terms-conditions">
                 Terms & Conditions
-              </a>{" "}
+              </Link>{" "}
               and
-              <a
-                style={{ color: "#0d6efd" }}
-                href="https://daily-fitness.24livehost.com/privacy-policy"
-                target="_blank"
-              >
+              <Link style={{ color: "#0d6efd" }} to="/privacy-policy">
                 {" "}
                 Privacy Policy
-              </a>
+              </Link>
             </label>
           </div>
         </div>

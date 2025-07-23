@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import ConfirmationPopup from "../Popups/ConfirmationPopup.jsx";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import DOMPurify from "dompurify";
 import adminAxios from "../../../../utils/Api/adminAxios.jsx";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes.jsx";
 import Ckeditor from "../CkEditor/Ckeditor.jsx";
@@ -31,6 +30,7 @@ const BlogsManagement = () => {
   const fileInputRef = useRef(null);
   const bannerImgref = useRef(null);
   const selectedIdref = useRef(null);
+  const readTimeDefault = useRef("");
 
   const fetchAllBlogs = async () => {
     try {
@@ -265,7 +265,7 @@ const BlogsManagement = () => {
                       Read Time (minutes)
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       id="service-time"
                       className="form-control"
                       placeholder="Enter read time (0-60)"
@@ -273,20 +273,18 @@ const BlogsManagement = () => {
                       max="60"
                       value={readTime}
                       inputMode="numeric"
-                      pattern="[0-9]*"
-                      onChange={e => {
-                        let value = e.target.value;
-                        // Remove all non-digit characters
-                        value = value.replace(/[^0-9]/g, "");
-                        // Allow empty value
-                        if (value === "") {
-                          setReadTime("");
-                          return;
-                        }
-                        const numericValue = parseInt(value, 10);
-                        // Only allow 0–60
-                        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 60) {
-                          setReadTime(numericValue);
+                      onInput={e => {
+                        const input = e.target.value;
+                        const regex = /^[0-9]*$/; 
+                        if (regex.test(input)) {
+                          if (input.length <= 2 && parseInt(input) <= 60) {
+                            readTimeDefault.current = input;
+                            setReadTime(input);
+                          } else {
+                            e.target.value = readTimeDefault.current;
+                          }
+                        } else {
+                          e.target.value = readTimeDefault.current;
                         }
                       }}
                       onKeyPress={e => {

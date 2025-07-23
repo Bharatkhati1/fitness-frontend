@@ -30,6 +30,10 @@ import bagicon from "../../../public/assets/img/bagicon.png";
 import { webAxios } from "../../utils/constants.jsx";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes.jsx";
 import { toast } from "react-toastify";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 function Careers() {
   const [allJobs, setAllJobs] = useState([]);
@@ -45,6 +49,7 @@ function Careers() {
     resume_file: null,
     experience: "",
   });
+  const [dobError, setDobError] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -104,6 +109,10 @@ function Careers() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (dobError || !formData.dob) {
+      toast.error("Please select a valid date of birth.");
+      return;
+    }
 
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
@@ -493,18 +502,71 @@ function Careers() {
                 />
               </div>
               <div className="form-group mb-2">
-                <label>your Date of Birth*</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="dob"
-                  placeholder="Enter your DOB"
-                  required
-                  value={formData.dob}
-                  style={{ textTransform: "uppercase" }}
-                  onChange={handleChange}
-                  max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split("T")[0]}
-                />
+                <label
+                  style={{ color: "#2a2a2a" }}
+                  htmlFor="dob"
+                  className="form-label"
+                >
+                  Your Date Of Birth*
+                </label>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    value={formData.dob ? dayjs(formData.dob) : null}
+                    onChange={(date) => {
+                      if (date && date.isValid()) {
+                        const eighteenYearsAgo = dayjs().subtract(18, "year");
+                        if (date.isAfter(eighteenYearsAgo)) {
+                          setDobError(true); // Show error but don’t update the field
+                        } else {
+                          setDobError(false);
+                          handleChange({
+                            target: {
+                              name: "dob",
+                              value: date.format("YYYY-MM-DD"),
+                            },
+                          });
+                        }
+                      } else {
+                        // Allow clearing the field (backspace/delete works)
+                        if (date === null) {
+                          handleChange({ target: { name: "dob", value: "" } });
+                        } else {
+                          handleChange({
+                            target: {
+                              name: "dob",
+                              value: date.format("YYYY-MM-DD"),
+                            },
+                          });
+                          setDobError(true); // Show error if invalid format
+                        }
+                      }
+                    }}
+                    maxDate={dayjs().subtract(18, "year")}
+                    slotProps={{
+                      textField: {
+                        fullWidth: true,
+                        required: true,
+                        name: "dob",
+                        placeholder: "DD/MM/YYYY",
+                        style: { textTransform: "uppercase" },
+                        error: dobError,
+                        onBlur: (e) => {
+                          // Extra validation on blur (if needed)
+                          if (!formData.dob) setDobError(true);
+                        },
+                      },
+                    }}
+                  />
+                  {dobError && (
+                    <div
+                      style={{ color: "red", fontSize: "0.95em", marginTop: 4 }}
+                    >
+                      {formData.dob
+                        ? "You must be at least 18 years old."
+                        : "Please enter a valid date."}
+                    </div>
+                  )}
+                </LocalizationProvider>
               </div>
 
               <div className="form-group mb-2">
@@ -590,7 +652,11 @@ function Careers() {
                 </select>
               </div>
 
-              <button className="btn btn-primary max-btn mt-4" type="submit">
+              <button
+                className="btn btn-primary max-btn mt-4"
+                type="submit"
+                disabled={dobError || !formData.dob}
+              >
                 Apply Now
               </button>
             </form>

@@ -33,6 +33,7 @@ const Manage = () => {
   const fileInputRef = useRef(null);
   const selectedIdRef = useRef(null);
   const bannerImgRef = useRef(null);
+  const readTimeDefault = useRef("");
 
   const fetchAllBlogs = async () => {
     try {
@@ -230,7 +231,7 @@ const Manage = () => {
                   <div className="mb-3">
                     <label className="form-label">Read Time (0–60 min)</label>
                     <input
-                      type="number"
+                      type="text"
                       name="readTime"
                       className="form-control"
                       min="0"
@@ -238,21 +239,18 @@ const Manage = () => {
                       max="60"
                       value={formData.readTime}
                       inputMode="numeric"
-                      pattern="[0-9]*"
-                      onChange={e => {
-                        let value = e.target.value.replace(/[^0-9]/g, "");
-                        if (value === "") {
-                          setFormData(prev => ({ ...prev, readTime: "" }));
-                          return;
-                        }
-                        const val = parseInt(value, 10);
-                        if (!isNaN(val) && val >= 0 && val <= 60) {
-                          setFormData(prev => ({ ...prev, readTime: val }));
-                        }
-                      }}
-                      onKeyPress={e => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
+                      onInput={(e) => {
+                        const input = e.target.value;
+                        const regex = /^[0-9]*$/;
+                        if (
+                          regex.test(input) &&
+                          input.length <= 2 &&
+                          parseInt(input) <= 60
+                        ) {
+                          readTimeDefault.current = input;
+                          setFormData((prev) => ({ ...prev, readTime: input }));
+                        } else {
+                          e.target.value = readTimeDefault.current;
                         }
                       }}
                     />

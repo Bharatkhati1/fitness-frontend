@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CalorieCalculatorBanner from "../../../../../../public/assets/img/CalorieCalculatorBanner.png";
 import Form from "react-bootstrap/Form";
 import Diet1 from "../../../../../../public/assets/img/Diet1.png";
@@ -14,6 +14,10 @@ function CaloriesCalculatore() {
   const [goal, setGoal] = useState("maintain");
   const [calories, setCalories] = useState(null);
   const [error, setError] = useState("");
+
+  const ageDefault = useRef("");
+  const heightDefault = useRef("");
+  const weightDefault = useRef("");
 
   const convertToMetric = () => {
     let heightCm = height;
@@ -102,15 +106,19 @@ function CaloriesCalculatore() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter your age"
                         value={age}
                         min="0"
                         max="999"
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,3}$/.test(val)) {
-                            setAge(Number(val));
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 3) {
+                            ageDefault.current = input;
+                            setAge(Number(input));
+                          } else {
+                            e.target.value = ageDefault.current;
                           }
                         }}
                       />
@@ -150,20 +158,18 @@ function CaloriesCalculatore() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter height"
                         inputMode="decimal"
                         value={height}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setHeight(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            heightDefault.current = input;
+                            setHeight(input);
+                          } else {
+                            e.target.value = heightDefault.current;
                           }
                         }}
                       />
@@ -183,19 +189,18 @@ function CaloriesCalculatore() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         inputMode="decimal"
                         placeholder="Enter weight"
                         value={weight}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setWeight(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            weightDefault.current = input;
+                            setWeight(input);
+                          } else {
+                            e.target.value = weightDefault.current;
                           }
                         }}
                       />

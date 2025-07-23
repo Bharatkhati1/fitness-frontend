@@ -369,6 +369,9 @@ const LoginUser = () => {
                           );
                           handleSocialLoginGoogle(decoded);
                         }}
+                        ux_mode="popup"
+                        useOneTap={false}
+                        auto_select={false}
                         onError={() => {
                           toast.error("Login Failed: Server Error");
                         }}

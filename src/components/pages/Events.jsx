@@ -47,6 +47,8 @@ export default function Events() {
     eventTime: "",
     termsAccepted: false,
   });
+  const mobileDefault = useRef("");
+  const phoneDefault = useRef("");
 
   const fetchAllUpcomingEvents = async () => {
     try {
@@ -632,11 +634,20 @@ export default function Events() {
                 <input
                   placeholder="Enter your mobile number"
                   className="form-control"
-                  type="number"
+                  type="text"
                   name="mobile"
                   required
                   value={formData.mobile}
-                  onChange={handleChange}
+                  onInput={(e) => {
+                    const input = e.target.value;
+                    const regex = /^[0-9]*$/;
+                    if (regex.test(input) && input.length <= 10) {
+                      mobileDefault.current = input;
+                      setFormData((prev) => ({ ...prev, mobile: input }));
+                    } else {
+                      e.target.value = mobileDefault.current;
+                    }
+                  }}
                 />
               </div>
 
@@ -677,22 +688,14 @@ export default function Events() {
                   htmlFor="termsAccepted"
                 >
                   I accept the{" "}
-                  <a
-                    style={{ color: "#0d6efd" }}
-                    href="https://daily-fitness.24livehost.com/terms-conditions"
-                    target="_blank"
-                  >
+                  <Link style={{ color: "#0d6efd" }} to="/terms-conditions">
                     Terms & Conditions
-                  </a>{" "}
+                  </Link>{" "}
                   and
-                  <a
-                    style={{ color: "#0d6efd" }}
-                    href="https://daily-fitness.24livehost.com/privacy-policy"
-                    target="_blank"
-                  >
+                  <Link style={{ color: "#0d6efd" }} to="/privacy-policy">
                     {" "}
                     Privacy Policy
-                  </a>
+                  </Link>
                 </label>
               </div>
 
@@ -764,15 +767,22 @@ export default function Events() {
                     <input
                       name="phone"
                       value={formDataContact.phone}
-                      onChange={(e) => {
-                        const val = e.target.value.replace(/[^0-9]/g, "");
-                        if (/^\d{0,10}$/.test(val)) {
-                          handleChangeContact(e);
+                      onInput={(e) => {
+                        const input = e.target.value;
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(input) && input.length <= 10) {
+                          phoneDefault.current = input;
+                          setFormDataContact((prev) => ({
+                            ...prev,
+                            phone: input,
+                          }));
+                        } else {
+                          e.target.value = phoneDefault.current;
                         }
                       }}
                       placeholder="Enter your contact number"
                       className="form-control greyin"
-                      type="number"
+                      type="text"
                     />
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import IdealBanner from "../../../../../../public/assets/img/IdealBanner.png";
 import Form from "react-bootstrap/Form";
 import Diet2 from "../../../../../../public/assets/img/Diet2.png";
@@ -10,6 +10,7 @@ function Idealweight() {
   const [bodyFrame, setBodyFrame] = useState("");
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const heightDefault = useRef("");
 
   const calculateIdealWeight = () => {
     setError("");        // Clear previous error
@@ -84,18 +85,17 @@ function Idealweight() {
                     <div className="calculainSelect">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter value"
                         value={height}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setHeight(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            heightDefault.current = input;
+                            setHeight(input);
+                          } else {
+                            e.target.value = heightDefault.current;
                           }
                         }}
                       />

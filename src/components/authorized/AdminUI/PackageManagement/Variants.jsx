@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Ckeditor from "../CkEditor/Ckeditor";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote";
 
@@ -7,6 +7,9 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
     const updatedVariants = packageVariants.filter((_, idx) => idx !== index);
     setPackageVariants(updatedVariants);
   };
+
+  const priceDefaults = useRef([]);
+  const durationDefaults = useRef([]);
 
   return (
     <>
@@ -59,18 +62,24 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 Price
               </label>
               <input
-                type="number"
+                type="text"
                 id={`variants-price-${index}`}
                 value={variant.price}
                 placeholder="Enter price"
                 className="form-control"
-                onChange={(e) => {
-                  const price = e.target.value.replace(/[^0-9]/g, "");
-                  setPackageVariants((prev) =>
-                    prev.map((item, idx) =>
-                      idx === index ? { ...item, price } : item
-                    )
-                  );
+                onInput={e => {
+                  const input = e.target.value;
+                  const regex = /^[0-9]*$/; 
+                  if (regex.test(input)) {
+                    priceDefaults.current[index] = input;
+                    setPackageVariants(prev =>
+                      prev.map((item, idx) =>
+                        idx === index ? { ...item, price: input } : item
+                      )
+                    );
+                  } else {
+                    e.target.value = priceDefaults.current[index] || "";
+                  }
                 }}
               />
             </div>
@@ -84,21 +93,25 @@ const Variants = ({ isEdit, packageVariants, setPackageVariants }) => {
                 Duration (in months)
               </label>
               <input
-                type="number"
+                type="text"
                 id={`variants-duration-${index}`}
                 className="form-control"
                 value={variant.duration}
                 max={12}
                 min={1}
-                onChange={(e) => {
-                  let duration = parseInt(e.target.value.replace(/[^0-9]/g, ""), 10);
-                  if (duration > 12) duration = 12;
-                  if (duration < 1 || isNaN(duration)) duration = "";
-                  setPackageVariants((prev) =>
-                    prev.map((item, idx) =>
-                      idx === index ? { ...item, duration } : item
-                    )
-                  );
+                onInput={e => {
+                  const input = e.target.value;
+                  const regex = /^[0-9]*$/; 
+                  if (regex.test(input) && (input === "" || (parseInt(input, 10) >= 1 && parseInt(input, 10) <= 12))) {
+                    durationDefaults.current[index] = input;
+                    setPackageVariants(prev =>
+                      prev.map((item, idx) =>
+                        idx === index ? { ...item, duration: input } : item
+                      )
+                    );
+                  } else {
+                    e.target.value = durationDefaults.current[index] || "";
+                  }
                 }}
                 placeholder="Enter duration (max 12)"
               />

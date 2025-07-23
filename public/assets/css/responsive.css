@@ -181,7 +181,21 @@
   }
 
   .clientcontentbg > p {
-    min-height: 90px;
+    min-height: 145px;
+    font-size: 14px;
+  }
+
+  .owl-carousel .owl-item .testiuser figure img {
+    width: 50px !important;
+    height: 50px;
+  }
+
+  .testiuser figcaption h4 {
+    font-size: 16px;
+  }
+
+  .clientcontentbg > p {
+    margin-bottom: 15px;
   }
 
   .EventsBannercontent h3 {
@@ -1242,7 +1256,7 @@
   }
 
   .clientcontentbg > p {
-    min-height: 75px;
+    min-height: 145px;
   }
 
   .Browseservice .slick-prev {
@@ -2921,6 +2935,13 @@
 
   .innovationlist figure img {
     height: auto;
+  }
+
+  .clientfeedbackslider .owl-carousel:after {
+    display: none;
+  }
+  .clientcontentbg > p {
+    min-height: auto;
   }
 }
 

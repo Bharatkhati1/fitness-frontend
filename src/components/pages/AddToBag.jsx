@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import addtobagbg from "../../../public/assets/img/addtobagbg.png";
 import discoutimg from "../../../public/assets/img/discoutimg.png";
 import userAxios from "../../utils/Api/userAxios";
@@ -53,6 +53,7 @@ export default function AddToBag() {
   const [discountGet, setDiscounGet] = useState(0);
   const [appointmentData, setAppointmentData] = useState(null);
   const [ispaymentSuccessfull, setIsPaymentSuccessfull] = useState(false);
+  const phoneDefault = useRef("");
 
   const fetchProfileDetails = async () => {
     try {
@@ -445,14 +446,18 @@ export default function AddToBag() {
                         Phone Number<span className="validation">*</span>
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         name="phone"
                         value={formData.phone}
                         className="form-control"
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/[^0-9]/g, "");
-                          if (value.length <= 10) {
-                            setFormData((prev) => ({ ...prev, phone: value }));
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 10) {
+                            phoneDefault.current = input;
+                            setFormData(prev => ({ ...prev, phone: input }));
+                          } else {
+                            e.target.value = phoneDefault.current;
                           }
                         }}
                       />

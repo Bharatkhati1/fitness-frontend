@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const CaloriesCalculator = () => {
   const [age, setAge] = useState('');
@@ -8,6 +8,10 @@ const CaloriesCalculator = () => {
   const [activityLevel, setActivityLevel] = useState('sedentary');
   const [goal, setGoal] = useState('maintain');
   const [calories, setCalories] = useState(null);
+
+  const ageDefault = useRef("");
+  const weightDefault = useRef("");
+  const heightDefault = useRef("");
 
   const calculateCalories = () => {
     // Calculate BMR (Mifflin-St Jeor formula)
@@ -78,9 +82,18 @@ const CaloriesCalculator = () => {
         <div className="form-group">
           <label className="form-label">Age (years):</label>
           <input
-            type="number"
+            type="text"
             value={age}
-            onChange={(e) => setAge(e.target.value.replace(/[^0-9]/g, ""))}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                ageDefault.current = input;
+                setAge(input);
+              } else {
+                e.target.value = ageDefault.current;
+              }
+            }}
             className="form-input"
             min="1"
             max="120"
@@ -103,9 +116,18 @@ const CaloriesCalculator = () => {
         <div className="form-group">
           <label className="form-label">Weight (kg):</label>
           <input
-            type="number"
+            type="text"
             value={weight}
-            onChange={(e) => setWeight(e.target.value.replace(/[^0-9]/g, ""))}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                weightDefault.current = input;
+                setWeight(input);
+              } else {
+                e.target.value = weightDefault.current;
+              }
+            }}
             className="form-input"
             min="1"
             step="0.1"
@@ -116,9 +138,18 @@ const CaloriesCalculator = () => {
         <div className="form-group">
           <label className="form-label">Height (cm):</label>
           <input
-            type="number"
+            type="text"
             value={height}
-            onChange={(e) => setHeight(e.target.value.replace(/[^0-9]/g, ""))}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                heightDefault.current = input;
+                setHeight(input);
+              } else {
+                e.target.value = heightDefault.current;
+              }
+            }}
             className="form-input"
             min="50"
             max="300"

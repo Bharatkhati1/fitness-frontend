@@ -71,6 +71,7 @@ function Home() {
   const owlRef = useRef(null);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const phoneDefault = useRef("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -904,13 +905,19 @@ function Home() {
                     <div className="contactInput">
                       <span>+91</span>
                       <input
-                        type="number"
+                        type="text"
                         name="phone"
                         value={formData.phone}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e);
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 10) {
+                            phoneDefault.current = input;
+                            handleChange({
+                              target: { name: "phone", value: input },
+                            });
+                          } else {
+                            e.target.value = phoneDefault.current;
                           }
                         }}
                         placeholder="Enter your contact number"

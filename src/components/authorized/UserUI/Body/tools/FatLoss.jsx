@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FatBannerBg from "../../../../../../public/assets/img/FatBannerBg.png";
 import Form from "react-bootstrap/Form";
 import Diet3 from "../../../../../../public/assets/img/Diet3.png";
@@ -88,6 +88,11 @@ const FatLoass = () => {
     setIsInvalid(null);
   }, [waist, waistUnit, neck, neckUnit, hip, hipUnit, height, heightUnit]);
 
+  const heightDefault = useRef("");
+  const waistDefault = useRef("");
+  const neckDefault = useRef("");
+  const hipDefault = useRef("");
+
   return (
     <>
       <section className="innerbanner">
@@ -158,18 +163,17 @@ const FatLoass = () => {
                     <div className="calculainSelect d-flex">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter value"
                         value={height}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setHeight(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            heightDefault.current = input;
+                            setHeight(input);
+                          } else {
+                            e.target.value = heightDefault.current;
                           }
                         }}
                       />
@@ -190,19 +194,17 @@ const FatLoass = () => {
                     <div className="calculainSelect d-flex">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter value"
                         value={waist}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setWaist(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            waistDefault.current = input;
+                            setWaist(input);
+                          } else {
+                            e.target.value = waistDefault.current;
                           }
                         }}
                       />
@@ -223,19 +225,17 @@ const FatLoass = () => {
                     <div className="calculainSelect d-flex">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter value"
                         value={neck}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setNeck(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            neckDefault.current = input;
+                            setNeck(input);
+                          } else {
+                            e.target.value = neckDefault.current;
                           }
                         }}
                       />
@@ -256,18 +256,17 @@ const FatLoass = () => {
                     <div className="calculainSelect d-flex">
                       <input
                         className="form-control"
-                        type="number"
+                        type="text"
                         placeholder="Enter value"
                         value={hip}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
-                            const [intPart, decPart] = val.split(".");
-                            const totalDigits =
-                              (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
-                              setHip(val);
-                            }
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 5) {
+                            hipDefault.current = input;
+                            setHip(input);
+                          } else {
+                            e.target.value = hipDefault.current;
                           }
                         }}
                         disabled={gender === "male"}

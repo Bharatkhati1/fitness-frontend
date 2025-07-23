@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Businesspartnersbg from "../../../public/assets/img/Businesspartnersbg.png";
 
 import OwlCarousel from "react-owl-carousel";
@@ -68,6 +68,8 @@ function BusinessParthner() {
       message: "",
     });
   };
+
+  const phoneDefault = useRef("");
 
   useEffect(() => {
     fetchPartners();
@@ -338,15 +340,19 @@ function BusinessParthner() {
                       <input
                         name="phone"
                         value={formData.phone}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e);
+                        onInput={e => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input) && input.length <= 10) {
+                            phoneDefault.current = input;
+                            handleChange({ target: { name: "phone", value: input } });
+                          } else {
+                            e.target.value = phoneDefault.current;
                           }
                         }}
                         placeholder="Enter your contact number"
                         className="form-control greyin"
-                        type="number"
+                        type="text"
                       />
                     </div>
                   </div>

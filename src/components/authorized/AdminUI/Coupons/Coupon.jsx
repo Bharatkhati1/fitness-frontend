@@ -41,6 +41,9 @@ const Coupon = () => {
   const [partners, setPartners] = useState([]);
   const [packages, setPackages] = useState([]);
   const selectedIdRef = useRef(null);
+  const valueDefault = useRef("");
+  const partnerCommissionDefault = useRef("");
+  const maxUsageDefault = useRef("");
 
   const fetchCoupons = async () => {
     try {
@@ -265,25 +268,28 @@ const Coupon = () => {
                   <div className="mb-3">
                     <label className="form-label">Value*</label>
                     <input
-                      type="number"
+                      type="text" 
                       className="form-control"
                       name="value"
                       placeholder="Enter value"
                       value={formData.value}
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      onChange={e => {
-                        let value = e.target.value.replace(/[^0-9]/g, "");
-                        // Allow empty value
-                        if (value === "") {
-                          handleInputChange({
-                            target: { name: "value", value: "" }
-                          });
-                          return;
+                      onInput={e => {
+                        const input = e.target.value;
+                        const regex = /^[0-9]*$/; 
+                        if (regex.test(input)) {
+                          if (input.length <= 2 && parseInt(input) <= 100) {
+                          valueDefault.current = input;
+                            handleInputChange({
+                              target: { name: "value", value: input },
+                            });
+                          } else {
+                            e.target.value = valueDefault.current;
+                          }
+                        } else {
+                          e.target.value = valueDefault.current;
                         }
-                        handleInputChange({
-                          target: { name: "value", value }
-                        });
                       }}
                       onKeyPress={e => {
                         if (!/[0-9]/.test(e.key)) {
@@ -390,18 +396,17 @@ const Coupon = () => {
                           name="partnerCommission"
                           placeholder="Enter commission percentage (0-100)"
                           value={formData.partnerCommission}
-                          onChange={e => {
-                            let value = e.target.value.replace(/[^0-9]/g, "");
-                            // Allow empty value
-                            if (value === "") {
+                          onInput={e => {
+                            const input = e.target.value;
+                            const regex = /^[0-9]*$/; 
+                            if (regex.test(input) && (input === "" || (parseInt(input, 10) >= 0 && parseInt(input, 10) <= 100))) {
+                              partnerCommissionDefault.current = input;
                               handleInputChange({
-                                target: { name: "FIELD_NAME", value: "" }
+                                target: { name: "partnerCommission", value: input },
                               });
-                              return;
+                            } else {
+                              e.target.value = partnerCommissionDefault.current;
                             }
-                            handleInputChange({
-                              target: { name: "FIELD_NAME", value }
-                            });
                           }}
                           min="0"
                           max="100"
@@ -424,20 +429,16 @@ const Coupon = () => {
                       inputMode="numeric"
                       pattern="[0-9]*"
                       min="1"
-                      onChange={e => {
-                        let value = e.target.value.replace(/[^0-9]/g, "");
-                        // Allow empty value
-                        if (value === "") {
+                      onInput={e => {
+                        const input = e.target.value;
+                        const regex = /^[0-9]*$/; 
+                        if (regex.test(input) && (input === "" || parseInt(input, 10) >= 1)) {
+                          maxUsageDefault.current = input;
                           handleInputChange({
-                            target: { name: "maxUsage", value: "" }
+                            target: { name: "maxUsage", value: input },
                           });
-                          return;
-                        }
-                        // Only allow values >= 1
-                        if (parseInt(value, 10) >= 1) {
-                          handleInputChange({
-                            target: { name: "maxUsage", value }
-                          });
+                        } else {
+                          e.target.value = maxUsageDefault.current;
                         }
                       }}
                       onKeyPress={e => {

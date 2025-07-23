@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "antd";
-
-import innovationimg1 from "../../../public/assets/img/innovationimg1.png";
-import innovationimg2 from "../../../public/assets/img/innovationimg2.png";
-import innovationimg3 from "../../../public/assets/img/innovationimg3.png";
-
-import innovationicon1 from "../../../public/assets/img/innovationicon1.png";
-import innovationicon2 from "../../../public/assets/img/innovationicon2.png";
-import innovationicon3 from "../../../public/assets/img/innovationicon3.png";
+import { Modal } from "antd";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { toast } from "react-toastify";
 import { webAxios } from "../../utils/constants";
-import useDebounce from "../Hooks/useDebounce";
 import userApiRoutes from "../../utils/Api/Routes/userApiRoutes";
 import { Link } from "react-router-dom";
 
@@ -24,8 +15,6 @@ function Innovation() {
   const [categories, setBlogCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const [cmsDetails, setCmsDetails] = useState({});
-  const [totalPages, setTotalPages] = useState(1);
   const [sliders, setSliders] = useState([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
@@ -61,7 +50,6 @@ function Innovation() {
 
       const response = await webAxios.get(userApiRoutes.get_blogs(query));
       setinnovation(response.data.data);
-      setTotalPages(Math.ceil(response.data.total / limit));
     } catch (error) {
       console.error(error);
       toast.error(
@@ -85,19 +73,6 @@ function Innovation() {
     }
   };
 
-  const getCmsDetail = async () => {
-    try {
-      const response = await webAxios.get(
-        userApiRoutes.get_master_cms("innovations")
-      );
-      setCmsDetails(response.data.data);
-    } catch (error) {
-      console.error(error);
-      toast.error(
-        error.response?.data?.message || "Failed to fetch categories"
-      );
-    }
-  };
 
   const getSliders = async () => {
     try {
@@ -122,7 +97,6 @@ function Innovation() {
 
   useEffect(() => {
     getBlogCategories();
-    getCmsDetail();
     getSliders();
   }, []);
   return (

@@ -28,8 +28,11 @@ function MyTestimonails() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setTestimonialText("");
+    setSelectedService("");
+    setSelectedRating(0);
     setEditTestimonial(null);
-    resetForm();
+    // Add any other state resets needed for the popup
   };
 
   const resetForm = () => {
@@ -260,16 +263,19 @@ function MyTestimonails() {
               className="form-control"
               placeholder="Share your experience with this service...."
               value={testimonialText}
+              maxLength={220}
               onChange={e => {
                 const value = e.target.value;
-                const words = value.split(/\s+/).filter(Boolean);
-                if (words.length <= 70) {
+                if (value.length <= 220) {
                   setTestimonialText(value);
                 } else {
-                  setTestimonialText(words.slice(0, 70).join(" "));
+                  setTestimonialText(value.slice(0, 220));
                 }
               }}
             />
+            <div style={{ textAlign: 'right', fontSize: '0.95em', color: testimonialText.length >= 220 ? 'red' : '#888', marginTop: 2 }}>
+              {testimonialText.length} / 220
+            </div>
           </div>
 
           <div className="ModalFooter mt-4">

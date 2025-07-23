@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import gIcon1 from "../../../../../public/assets/img/gIcon1.svg";
 import gIcon2 from "../../../../../public/assets/img/gIcon2.svg";
 import gIcon3 from "../../../../../public/assets/img/gIcon3.svg";
@@ -25,6 +25,7 @@ function ContactUs() {
     message: "",
     contactFor: [],
   });
+  const phoneDefault = useRef("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -214,17 +215,29 @@ function ContactUs() {
                     <div className="contactInput">
                       <span className="greyin">+91</span>
                       <input
-                        name="phone"
-                        value={formData.phone}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
-                          if (/^\d{0,10}$/.test(val)) {
-                            handleChange(e);
-                          }
-                        }}
                         placeholder="Enter your contact number"
                         className="form-control greyin"
-                        type="number"
+                        type="text"
+                        name="phone"
+                        value={formData.phone}
+                        maxLength={10}
+                        onInput={(e) => {
+                          const input = e.target.value;
+                          const regex = /^[0-9]*$/; 
+                          if (regex.test(input)) {
+                            if (input.length <= 10) {
+                              phoneDefault.current = input;
+                              handleChange({
+                                target: { name: "phone", value: input },
+                              });
+                            } else {
+                              e.target.value = phoneDefault.current;
+                            }
+                          } else {
+                            e.target.value = phoneDefault.current;
+                          }
+                        }}
+                      
                       />
                     </div>
                   </div>

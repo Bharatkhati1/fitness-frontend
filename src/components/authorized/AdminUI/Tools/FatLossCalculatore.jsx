@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const FatLossCalculatore = () => {
   const [currentWeight, setCurrentWeight] = useState('');
@@ -8,6 +8,10 @@ const FatLossCalculatore = () => {
   const [activityLevel, setActivityLevel] = useState('sedentary');
   const [result, setResult] = useState(null);
   const [warning, setWarning] = useState('');
+
+  const currentWeightDefault = useRef("");
+  const goalWeightDefault = useRef("");
+  const timeframeDefault = useRef("");
 
   const calculateFatLoss = () => {
     // Reset warnings
@@ -108,9 +112,18 @@ const FatLossCalculatore = () => {
         <div className="form-group">
           <label className="form-label">Current Weight (kg):</label>
           <input
-            type="number"
+            type="text"
             value={currentWeight}
-            onChange={(e) => setCurrentWeight(e.target.value.replace(/[^0-9]/g, ""))}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                currentWeightDefault.current = input;
+                setCurrentWeight(input);
+              } else {
+                e.target.value = currentWeightDefault.current;
+              }
+            }}
             className="form-input"
             min="30"
             max="300"
@@ -122,9 +135,18 @@ const FatLossCalculatore = () => {
         <div className="form-group">
           <label className="form-label">Goal Weight (kg):</label>
           <input
-            type="number"
+            type="text"
             value={goalWeight}
-            onChange={(e) => setGoalWeight(e.target.value.replace(/[^0-9]/g, ""))}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                goalWeightDefault.current = input;
+                setGoalWeight(input);
+              } else {
+                e.target.value = goalWeightDefault.current;
+              }
+            }}
             className="form-input"
             min="30"
             max="300"
@@ -136,9 +158,18 @@ const FatLossCalculatore = () => {
         <div className="form-group">
           <label className="form-label">Timeframe (weeks):</label>
           <input
-            type="number"
+            type="text"
             value={timeframe}
-            onChange={(e) => setTimeframe(e.target.value.replace(/[^0-9]/g, "") )}
+            onInput={e => {
+              const input = e.target.value;
+              const regex = /^[0-9]*$/; 
+              if (regex.test(input)) {
+                timeframeDefault.current = input;
+                setTimeframe(input);
+              } else {
+                e.target.value = timeframeDefault.current;
+              }
+            }}
             className="form-input"
             min="1"
             max="52"

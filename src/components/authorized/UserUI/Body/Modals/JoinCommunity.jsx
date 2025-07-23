@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Modal } from "antd";
 import JoinImg from "../../../../../../public/assets/img/JoinImg.png";
 import { sendInquiry } from "../../../../../store/auth/AuthExtraReducers";
@@ -9,10 +9,11 @@ const JoinCommunity = ({ open, setOpen }) => {
     name: "",
     email: "",
     phone: "",
-    type:"community"
+    type: "community",
   });
   const [loading, setLoading] = useState(false);
-
+  const phoneDefault = useRef("");
+  const resultDefault = useRef("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -26,7 +27,7 @@ const JoinCommunity = ({ open, setOpen }) => {
     try {
       setLoading(true);
       await sendInquiry(formData);
-      setFormData({ name: "", email: "", phone: "", type:"community" });
+      setFormData({ name: "", email: "", phone: "", type: "community" });
       setOpen(false);
     } catch (error) {
       console.error(error);
@@ -44,7 +45,7 @@ const JoinCommunity = ({ open, setOpen }) => {
     <Modal
       open={open}
       onCancel={handleCancel}
-      footer={null} 
+      footer={null}
       className="custom-modal"
       centered
     >
@@ -100,17 +101,35 @@ const JoinCommunity = ({ open, setOpen }) => {
               <div className="form-group mb-2">
                 <label>Your Contact Number:</label>
                 <div className="contactInput">
-                  <span style={{color:"black", fontWeight:"500", fontSize:"14px"}}>+91</span>
+                  <span
+                    style={{
+                      color: "black",
+                      fontWeight: "500",
+                      fontSize: "14px",
+                    }}
+                  >
+                    +91
+                  </span>
                   <input
                     placeholder="Enter 10-Digit Mobile Number"
                     className="form-control"
-                    type="number"
+                    type="text"
                     name="phone"
                     value={formData.phone}
-                    onChange={(e) => {
-                      const val = e.target.value.replace(/[^0-9]/g, "");
-                      if (/^\d{0,10}$/.test(val)) {
-                        handleChange(e); 
+                    onInput={(e) => {
+                      const input = e.target.value;
+                      const regex = /^[0-9]*$/; 
+                      if (regex.test(input)) {
+                        if (input.length <= 10) {
+                          phoneDefault.current = input;
+                          handleChange({
+                            target: { name: "phone", value: input },
+                          });
+                        } else {
+                          e.target.value = phoneDefault.current;
+                        }
+                      } else {
+                        e.target.value = phoneDefault.current;
                       }
                     }}
                   />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const IdealWightCalculatore = () => {
   const [height, setHeight] = useState("");
@@ -6,6 +6,8 @@ const IdealWightCalculatore = () => {
   const [gender, setGender] = useState("male");
   const [bodyFrame, setBodyFrame] = useState("medium");
   const [result, setResult] = useState(null);
+
+  const heightDefault = useRef("");
 
   const calculateIdealWeight = () => {
     if (!height || !gender || !bodyFrame) {
@@ -71,9 +73,18 @@ const IdealWightCalculatore = () => {
           <label className="form-label">Height:</label>
           <div className="input-with-unit">
             <input
-              type="number"
+              type="text"
               value={height}
-              onChange={(e) => setHeight(e.target.value.replace(/[^0-9]/g, ""))}
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input)) {
+                  heightDefault.current = input;
+                  setHeight(input);
+                } else {
+                  e.target.value = heightDefault.current;
+                }
+              }}
               className="form-input"
               min="100"
               max="300"

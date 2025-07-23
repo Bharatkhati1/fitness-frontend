@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { Tooltip } from "antd";
@@ -140,6 +140,15 @@ const ProfileInfo = ({
     },
   };
 
+  const phoneDefault = useRef("");
+  const ageDefault = useRef("");
+  const pincodeDefault = useRef("");
+  const weightDefault = useRef("");
+  const heightDefault = useRef("");
+  const chestDefault = useRef("");
+  const waistCirumferenceDefault = useRef("");
+  const neckCirumferenceDefault = useRef("");
+
   return (
     <>
       <div className="CardBbox mb-4">
@@ -177,15 +186,19 @@ const ProfileInfo = ({
           <div className="col-md-6 mb-3">
             <label>Age*</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               name="age"
               placeholder="Enter your age"
               value={profileDetails.age}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                if (/^\d{0,3}$/.test(val)) {
-                  handleChange({ target: { name: "age", value: val } });
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input) && input.length <= 3) {
+                  ageDefault.current = input;
+                  handleChange({ target: { name: "age", value: input } });
+                } else {
+                  e.target.value = ageDefault.current;
                 }
               }}
             />
@@ -208,15 +221,19 @@ const ProfileInfo = ({
           <div className="col-md-6 mb-3">
             <label>Contact Number*</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               name="phone"
               placeholder="Enter 10-digit number"
               value={profileDetails.phone}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                if (/^\d{0,10}$/.test(val)) {
-                  handleChange(e);
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input) && input.length <= 10) {
+                  phoneDefault.current = input;
+                  handleChange({ target: { name: "phone", value: input } });
+                } else {
+                  e.target.value = phoneDefault.current;
                 }
               }}
             />
@@ -250,14 +267,18 @@ const ProfileInfo = ({
           <div className="col-md-6 mb-3">
             <label>Pin Code / Zip Code*</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               name="pincode"
               value={formData.pincode}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                if (/^\d{0,6}$/.test(val)) {
-                  handleChange(e);
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input) && input.length <= 6) {
+                  pincodeDefault.current = input;
+                  handleChange({ target: { name: "pincode", value: input } });
+                } else {
+                  e.target.value = pincodeDefault.current;
                 }
               }}
             />
@@ -278,12 +299,12 @@ const ProfileInfo = ({
         <div className="Cardbody row">
           <div className="Cardbody row">
             {[
-              { name: "weight", label: "Weight (kg)" },
-              { name: "height", label: "Height (cm)" },
-              { name: "chest", label: "Chest (cm)" },
-              { name: "waistCirumference", label: "Waist Circumference (cm)" },
-              { name: "neckCirumference", label: "Neck Circumference (cm)" },
-            ].map(({ name, label }) => (
+              { name: "weight", label: "Weight (kg)", ref: weightDefault },
+              { name: "height", label: "Height (cm)", ref: heightDefault },
+              { name: "chest", label: "Chest (cm)", ref: chestDefault },
+              { name: "waistCirumference", label: "Waist Circumference (cm)", ref: waistCirumferenceDefault },
+              { name: "neckCirumference", label: "Neck Circumference (cm)", ref: neckCirumferenceDefault },
+            ].map(({ name, label, ref }) => (
               <div className="col-md-6 mb-3" key={name}>
                 <label>
                   {label}
@@ -311,11 +332,20 @@ const ProfileInfo = ({
                   )}
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
                   name={name}
                   value={formData[name]}
-                  onChange={handleChange}
+                  onInput={e => {
+                    const input = e.target.value;
+                    const regex = /^[0-9]*$/; 
+                    if (regex.test(input) && input.length <= 5) {
+                      ref.current = input;
+                      handleChange({ target: { name, value: input } });
+                    } else {
+                      e.target.value = ref.current;
+                    }
+                  }}
                 />
               </div>
             ))}

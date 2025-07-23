@@ -475,3 +475,9 @@ body .ourcluture .owl-carousel .owl-item.active.center {
 .service-details-description li {
   margin-left: 20px;
 }
+
+.ant-modal.custom-modal .modalbody span {
+  font-size: 14px;
+  color: #5d7186;
+  font-weight: 400;
+}

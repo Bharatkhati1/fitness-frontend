@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const BmiCalculatore = () => {
   const [weight, setWeight] = useState("");
@@ -7,6 +7,9 @@ const BmiCalculatore = () => {
   const [heightUnit, setHeightUnit] = useState("m");
   const [bmi, setBmi] = useState(null);
   const [category, setCategory] = useState("");
+
+  const weightDefault = useRef("");
+  const heightDefault = useRef("");
 
   const calculateBMI = () => {
     // Convert weight to kg if in lbs
@@ -59,13 +62,17 @@ const BmiCalculatore = () => {
           <label>
             Weight:
             <input
-              type="number"
+              type="text"
               inputMode="numeric"
               value={weight}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^0-9]/g, "");
-                if (/^\d*$/.test(val)) {
-                  setWeight(val);
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input)) {
+                  weightDefault.current = input;
+                  setWeight(input);
+                } else {
+                  e.target.value = weightDefault.current;
                 }
               }}
               placeholder="e.g. 65"
@@ -88,11 +95,14 @@ const BmiCalculatore = () => {
               type="text"
               inputMode="numeric"
               value={height}
-              onChange={(e) => {
-                const val = e.target.value;
-                // Accept only digits (0-9)
-                if (/^\d*$/.test(val)) {
-                  setHeight(val);
+              onInput={e => {
+                const input = e.target.value;
+                const regex = /^[0-9]*$/; 
+                if (regex.test(input)) {
+                  heightDefault.current = input;
+                  setHeight(input);
+                } else {
+                  e.target.value = heightDefault.current;
                 }
               }}
               placeholder="e.g. 170"
