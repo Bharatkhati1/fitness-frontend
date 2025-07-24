@@ -155,7 +155,7 @@ const FatLoass = () => {
                   {/* Height */}
                   <div className="calculaField mb-3">
                     <label>Height:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="number"
@@ -187,7 +187,7 @@ const FatLoass = () => {
                   {/* Waist */}
                   <div className="calculaField mb-3">
                     <label>Waist Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="number"
@@ -220,7 +220,7 @@ const FatLoass = () => {
                   {/* Neck */}
                   <div className="calculaField mb-3"> 
                     <label>Neck Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="number"
@@ -253,7 +253,7 @@ const FatLoass = () => {
                   {/* Hip */}
                   <div className="calculaField mb-3">
                     <label>Hip Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="number"
