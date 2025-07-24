@@ -1,9 +1,16 @@
 const userApiRoutes = {
-  get_sliders:(slug)=>`/sliders?slug=${slug}`,
+  get_sliders: (slug) => `/sliders?slug=${slug}`,
 
   get_services: `/services?limit=1000`,
 
-  get_blogs: ({ search = '', page = 1, limit = 10, category, order, type} = {}) => {
+  get_blogs: ({
+    search = "",
+    page = 1,
+    limit = 10,
+    category,
+    order,
+    type,
+  } = {}) => {
     const params = new URLSearchParams();
 
     if (search) params.append("search", search);
@@ -14,20 +21,26 @@ const userApiRoutes = {
     if (category) params.append("category", category);
 
     const queryString = params.toString();
-    return `/blogs${queryString ? '?' + queryString : ''}`;
+    return `/blogs${queryString ? "?" + queryString : ""}`;
   },
 
-  get_blog_details:(slug)=>`/blogs/${slug}`,
+  get_blog_details: (slug) => `/blogs/${slug}`,
 
-  get_blog_categories:`/blogs-categories`,
+  get_blog_categories: `/blogs-categories`,
 
-  get_service_details:(slug)=>`/package/${slug}`,
+  get_service_details: (slug) => `/package/${slug}`,
 
-  get_package_details:(slug)=>`/package/${slug}/details`,
+  get_package_details: (slug) => `/package/${slug}/details`,
 
-  get_package_consultants:(id,type)=>`/package/${id}/consultants/${type}`,
+  get_package_consultants: (id, type) => `/package/${id}/consultants/${type}`,
 
-  get_kitchen_items: ({ search = '', page = 1, limit = 10, category, type } = {}) => {
+  get_kitchen_items: ({
+    search = "",
+    page = 1,
+    limit = 10,
+    category,
+    type,
+  } = {}) => {
     const params = new URLSearchParams();
     if (search) params.append("search", search);
     if (page) params.append("page", page);
@@ -36,66 +49,67 @@ const userApiRoutes = {
     if (type) params.append("type", type);
 
     const queryString = params.toString();
-    return `/smart-kitchen-items${queryString ? '?' + queryString : ''}`;
+    return `/smart-kitchen-items${queryString ? "?" + queryString : ""}`;
   },
 
-  get_kitchen_categories:`/smart-kitchen-category`,
+  get_kitchen_categories: `/smart-kitchen-category`,
 
-  download_recipe:(id)=>`/smart-kitchen-recipe/${id}`,
+  download_recipe: (id) => `/smart-kitchen-recipe/${id}`,
 
-  get_all_packages: ({ search = '', serviceId, page=1, limit=10 } = {}) => {
+  get_all_packages: ({ search = "", serviceId, page = 1, limit = 10 } = {}) => {
     const params = new URLSearchParams();
     if (search) params.append("search", search);
     if (serviceId) params.append("serviceId", serviceId);
     if (page) params.append("page", page);
     if (limit) params.append("limit", limit);
-    return `/package${params.toString() ? '?' + params.toString() : ''}`;
+    return `/package${params.toString() ? "?" + params.toString() : ""}`;
   },
 
-  get_teams:`/teams`,
+  get_teams: `/teams`,
 
-  get_success_stories:`/user/success-stories`,
+  get_success_stories: `/user/success-stories`,
 
-  send_inquiry:`/inquiry`,
+  send_inquiry: `/inquiry`,
 
-  get_contact_us_details:`/contact-us`,
+  get_contact_us_details: `/contact-us`,
 
-  social_login:`/social-login`,
+  social_login: `/social-login`,
 
-  get_careers:`/careers`,
+  get_careers: `/careers`,
 
-  get_privacy_policy_details:`/cms-pages/privacy-policy`,
-  get_refund_policy_details:`/cms-pages/return-policy`,
-  get_term_consitions:`/cms-pages/terms-conditions`,
-  get_master_cms:(slug)=>`/cms-pages/${slug}`,
+  get_privacy_policy_details: `/cms-pages/privacy-policy`,
+  get_refund_policy_details: `/cms-pages/return-policy`,
+  get_term_consitions: `/cms-pages/terms-conditions`,
+  get_master_cms: (slug) => `/cms-pages/${slug}`,
 
-  get_cart_item:`/cart-items`,
-  add_to_cart:`/add-to-cart`,
-  remove_from_cart:(id)=>`/remove-cart-items/${id}`,
-  apply_coupon:`/apply-coupon`,
-  remove_coupon:(code)=>`/remove-coupon/${code}`,
-  create_order_razorpay:`/payment-order`,
-  cart_checkout:`/checkout`,
+  get_cart_item: (id) => (id ? `/cart-items/?id=${id}` : `/cart-items`),
+  add_to_cart: `/add-to-cart`,
+  remove_from_cart: (id) => `/remove-cart-items/${id}`,
+  apply_coupon: `/apply-coupon`,
+  remove_coupon: (code) => `/remove-coupon/${code}`,
+  create_order_razorpay: `/payment-order`,
+  cart_checkout: `/checkout`,
 
-  consultant_availibility_slots:(id, selectedDate)=>`/consultant-available-slots/${id}?startDate=${selectedDate}&endDate=${selectedDate}`,
-  appointment_booking:`/appointment-booking`,
+  consultant_availibility_slots: (id, selectedDate) =>
+    `/consultant-available-slots/${id}?startDate=${selectedDate}&endDate=${selectedDate}`,
+  appointment_booking: `/appointment-booking`,
 
-  get_partners:`/partners?slug=partners`,
-  get_master_categories:(slug)=>`/categories?slug=${slug}`,
+  get_partners: `/partners?slug=partners`,
+  get_master_categories: (slug) => `/categories?slug=${slug}`,
 
-  get_upcoming_events:`/upcoming-events`,
-  get_past_events:`/past-events`,
-  get_event_detail:(slug)=>`/event-detail/${slug}`,
+  get_upcoming_events: `/upcoming-events`,
+  get_past_events: `/past-events`,
+  get_event_detail: (slug) => `/event-detail/${slug}`,
 
-  apply_job:`/apply-now`,
+  apply_job: `/apply-now`,
 
-  check_previous_booking_id:`/check-previous-booking`,
+  check_previous_booking_id: `/check-previous-booking`,
 
   //PPROFILE API'S USER
-  get_profile_details:`/user-profile`,
-  update_profile:(type)=>`/user-profile?type=${type ? type : 'user'}`,
-  get_packages_user:`/user-packages`,
-  user_consultation:`/user-consultations`,
+  get_profile_details: `/user-profile`,
+  update_profile: (type) => `/user-profile?type=${type ? type : "user"}`,
+  get_packages_user: `/user-packages`,
+  user_consultation: `/user-consultations`,
 
   //Testimnials profile
   get_testimonials: (serviceId, userId) => {
@@ -104,17 +118,15 @@ const userApiRoutes = {
     if (userId) params.append("userId", userId);
     return `/user/feedback?${params.toString()}`;
   },
-  delete_testimonial:(id)=>`/user/feedback/${id}`,
-  update_testimonial:(id)=>`/user/feedback/${id}`,
-  add_testimonial:`/user/feedback`,
+  delete_testimonial: (id) => `/user/feedback/${id}`,
+  update_testimonial: (id) => `/user/feedback/${id}`,
+  add_testimonial: `/user/feedback`,
 
-  get_feedback_package:`/user/feedback-packages`,
+  get_feedback_package: `/user/feedback-packages`,
 
-  update_profile_image:`/upload-profile-image`,
+  update_profile_image: `/upload-profile-image`,
 
-  get_site_map:`/sitemap`,
-  
-  
+  get_site_map: `/sitemap`,
 };
 
 export default userApiRoutes;

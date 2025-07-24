@@ -17,7 +17,7 @@ export default function CartBag() {
 
   const fetchCartitems = async () => {
     try {
-      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      const res = await userAxios.get(userApiRoutes.get_cart_item());
       setCartItems(res.data.data);
       return res.data.data
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Select, Tabs } from "antd";
+import { Select, Tabs, Tooltip } from "antd";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import ConfirmationPopup from "../Popups/ConfirmationPopup";
@@ -273,14 +273,14 @@ const Coupon = () => {
                       name="value"
                       placeholder="Enter value"
                       value={formData.value}
-                      inputMode="numeric"
                       pattern="[0-9]*"
                       onInput={e => {
                         const input = e.target.value;
-                        const regex = /^[0-9]*$/; 
+                        const regex = /^[0-9]*$/;
                         if (regex.test(input)) {
-                          if (input.length <= 2 && parseInt(input) <= 100) {
-                          valueDefault.current = input;
+                          if ((formData.type === "percent" && (input === "" || (input.length <= 2 && parseInt(input) <= 100))) ||
+                              (formData.type === "flat")) {
+                            valueDefault.current = input;
                             handleInputChange({
                               target: { name: "value", value: input },
                             });
@@ -289,11 +289,6 @@ const Coupon = () => {
                           }
                         } else {
                           e.target.value = valueDefault.current;
-                        }
-                      }}
-                      onKeyPress={e => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
                         }
                       }}
                     />
@@ -625,6 +620,7 @@ const Coupon = () => {
                       <th>Code</th>
                       <th>Type</th>
                       <th>Value</th>
+                      <th>Packages</th>
                       {activeTab != "global" && <th>Partner</th>}
                       {activeTab != "global" && <th>Commission</th>}
                       <th>Max Usage</th>
@@ -644,6 +640,28 @@ const Coupon = () => {
                           <td>
                             {item?.value}
                             {item?.type === "percent" ? "%" : ""}
+                          </td>
+                          <td>
+                            <Tooltip title={item?.CouponPackages?.map((data) => data.Package?.name).join(", ") || "No packages"}>
+                              <span
+                                style={{
+                                  marginLeft: 6,
+                                  cursor: "pointer",
+                                  display: "inline-block",
+                                  color: "#0d6efd",
+                                  fontWeight: "bold",
+                                  fontSize: "0.8em",
+                                  border: "1px solid #0d6efd",
+                                  borderRadius: "50%",
+                                  width: 15,
+                                  height: 16,
+                                  textAlign: "center",
+                                  lineHeight: "16px",
+                                }}
+                              >
+                                i
+                              </span>
+                            </Tooltip>
                           </td>
                           {activeTab != "global" && (
                             <td>{item?.Partner?.name || "-"}</td>

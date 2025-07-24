@@ -12,7 +12,7 @@ import { authActions } from "../../store/auth";
 import { formatINRCurrency } from "../../utils/constants";
 
 export default function AddToBag() {
-  const { type } = useParams();
+  const { type, id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const [formData, setFormData] = useState({
@@ -45,7 +45,6 @@ export default function AddToBag() {
   });
   const [total, setTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
-  const [apliedCode, setAppliedCode] = useState("");
   const [isDiscountapplied, setIsDiscountApllied] = useState(false);
   const [loading, setLoading] = useState(false);
   const [appliedCouponDetails, setAppliedCouponDetails] = useState("");
@@ -64,12 +63,14 @@ export default function AddToBag() {
       toast.error(error.response?.data?.error);
     }
   };
-
+console.log(id)
   const fetchCartitems = async () => {
     try {
-      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      const res = await userAxios.get(userApiRoutes.get_cart_item(id));
       setCartItems(res.data.data);
-      dispatch(authActions.setCartItems(res.data.data));
+      if (!id) {
+        dispatch(authActions.setCartItems(res.data.data));
+      }
     } catch (error) {
       setCartItems([]);
       dispatch(authActions.setCartItems([]));
@@ -109,6 +110,7 @@ export default function AddToBag() {
           ? {
               couponCode: coupon,
               type: "order",
+              ...(id ? { cartItemId: id } : {}),
             }
           : {
               couponCode: coupon,
@@ -120,7 +122,6 @@ export default function AddToBag() {
       updateDiscountedPrice(res.data.data);
       const firstEntry = Object.entries(res?.data?.data)[0];
       setAppliedCouponDetails(firstEntry[1]?.couponInfo || "");
-      setAppliedCode(firstEntry[1]?.couponInfo?.couponCode);
       setIsDiscountApllied(true);
       toast.success(res?.data?.message);
     } catch (error) {
@@ -133,7 +134,6 @@ export default function AddToBag() {
     }
   };
 
-  console.log(appointmentData);
   const handlePayment = async () => {
     if (type === "cart" && cartItems.length === 0) {
       toast.error("No item in the cart!");
@@ -175,6 +175,7 @@ export default function AddToBag() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 couponCode: discountPrice ? coupon : undefined,
+                ...(id ? { cartItemId: id } : {}),
               });
             } else {
               const payload = {
@@ -280,7 +281,7 @@ export default function AddToBag() {
     setTotal(totalsum);
     setDiscounGet(discountget);
     setDiscountPrice(sum);
-  }, [cartItems]);
+  }, [cartItems, appliedCouponDetails]);
 
   useEffect(() => {
     fetchProfileDetails();
@@ -574,7 +575,7 @@ export default function AddToBag() {
                           </li>
                           <li>
                             <span>Total:</span>
-                            <b>₹ {discountPrice || total}</b>
+                            <b>₹ {(discountPrice || total).toFixed(2)}</b>
                           </li>
                         </ul>
                       </>
@@ -642,8 +643,10 @@ export default function AddToBag() {
                             <span>Total:</span>
                             <b>
                               ₹{" "}
-                              {appointmentData.discountedAmount ||
-                                appointmentData.consultantFees}
+                              {(
+                                appointmentData.discountedAmount ||
+                                appointmentData.consultantFees
+                              ).toFixed(2)}
                             </b>
                           </li>
                         </ul>

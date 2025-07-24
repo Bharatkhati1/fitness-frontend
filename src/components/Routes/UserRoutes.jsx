@@ -95,6 +95,17 @@ export default function UserRoutes() {
               }
             />
              <Route
+              path="/checkout/:type/:id"
+              element={
+                <ProtectedRoute
+                  condition={userAccessToken.length > 0}
+                  redirectTo="/"
+                >
+                  <AddToBag />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/checkout/:type"
               element={
                 <ProtectedRoute

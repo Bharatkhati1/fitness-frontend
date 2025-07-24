@@ -53,7 +53,7 @@ function PackageDetails() {
 
   const fetchCartitems = async () => {
     try {
-      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      const res = await userAxios.get(userApiRoutes.get_cart_item());
       dispatch(authActions.setCartItems(res?.data?.data));
     } catch (error) {
       console.log(error);

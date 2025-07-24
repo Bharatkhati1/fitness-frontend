@@ -369,7 +369,7 @@ export const AddToCart = (plainId, isBuyNow = false, navigate) => {
         subscriptionPlanId: plainId,
         quantity: 1,
       });
-
+      const id = response?.data?.data?.id;
       if (!isBuyNow) {
         toast.update(toastId, {
           render: "Added to cart successfully!",
@@ -378,7 +378,7 @@ export const AddToCart = (plainId, isBuyNow = false, navigate) => {
           autoClose: 3000,
         });
       } else {
-        navigate("/checkout/cart");
+        navigate(`/checkout/cart/${id}`);
       }
       return response?.data;
     } catch (error) {
@@ -399,7 +399,7 @@ export const AddToCart = (plainId, isBuyNow = false, navigate) => {
 export const fetchCartitems = () => {
   return async (dispatch) => {
     try {
-      const res = await userAxios.get(userApiRoutes.get_cart_item);
+      const res = await userAxios.get(userApiRoutes.get_cart_item());
       dispatch(authActions.setCartItems(res.data.data || []));
     } catch (error) {
       toast.error(error.response.data.error);
