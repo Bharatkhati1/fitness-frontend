@@ -262,17 +262,17 @@ export default function AddToBag() {
     let discountget = 0;
     let totalsum = 0;
     cartItems.forEach((item) => {
-      const price = item.discountApplied
-        ? parseFloat(
-            item?.PackagePlan?.price -
-              Number(appliedCouponDetails?.value || 0) || 0
-          )
-        : parseFloat(item?.PackagePlan?.price || 0);
-
-      const dig = item.discountApplied
-        ? parseFloat(item?.discountValue || 0)
-        : 0;
-
+      let price = parseFloat(item?.PackagePlan?.price || 0);
+      let dig = 0;
+      if (item.discountApplied && appliedCouponDetails) {
+        if (appliedCouponDetails.type === "percent") {
+          dig = (price * Number(appliedCouponDetails.value || 0)) / 100;
+          price = price - dig;
+        } else {
+          dig = Number(appliedCouponDetails.value || 0);
+          price = price - dig;
+        }
+      }
       discountget += dig;
       sum += price;
       totalsum += parseFloat(item?.PackagePlan?.price || 0);
@@ -359,7 +359,7 @@ export default function AddToBag() {
     }
 
     try {
-      await userAxios.put(userApiRoutes.update_profile('order'), formData);
+      await userAxios.put(userApiRoutes.update_profile("order"), formData);
       toast.success("Profile updated successfully");
       fetchProfileDetails();
     } catch (error) {
@@ -450,12 +450,12 @@ export default function AddToBag() {
                         name="phone"
                         value={formData.phone}
                         className="form-control"
-                        onInput={e => {
+                        onInput={(e) => {
                           const input = e.target.value;
-                          const regex = /^[0-9]*$/; 
+                          const regex = /^[0-9]*$/;
                           if (regex.test(input) && input.length <= 10) {
                             phoneDefault.current = input;
-                            setFormData(prev => ({ ...prev, phone: input }));
+                            setFormData((prev) => ({ ...prev, phone: input }));
                           } else {
                             e.target.value = phoneDefault.current;
                           }
@@ -503,8 +503,11 @@ export default function AddToBag() {
                               </figure>
                               <figcaption>
                                 <h4>
-                                  {item?.PackagePlan?.Package?.Service?.name || item?.PackagePlan?.Package?.name} 
-                                  {item?.PackagePlan?.duration? ` - ${item?.PackagePlan?.duration} Months` : ``}
+                                  {item?.PackagePlan?.Package?.name ||
+                                    item?.PackagePlan?.Package?.Service?.name}
+                                  {item?.PackagePlan?.duration
+                                    ? ` - ${item?.PackagePlan?.duration} Months`
+                                    : ``}
                                 </h4>
 
                                 <span className="price-text">
@@ -517,10 +520,23 @@ export default function AddToBag() {
                                       </span>
                                       <span className="text-success fw-bold">
                                         ₹
-                                        {item?.PackagePlan?.price -
-                                          Number(
-                                            appliedCouponDetails?.value || 0
-                                          ) || 0}
+                                        {appliedCouponDetails?.type ===
+                                        "percent"
+                                          ? (
+                                              item?.PackagePlan?.price -
+                                              (item?.PackagePlan?.price *
+                                                Number(
+                                                  appliedCouponDetails?.value ||
+                                                    0
+                                                )) /
+                                                100
+                                            ).toFixed(2)
+                                          : (
+                                              item?.PackagePlan?.price -
+                                              Number(
+                                                appliedCouponDetails?.value || 0
+                                              )
+                                            ).toFixed(2)}
                                       </span>
                                     </>
                                   ) : (
