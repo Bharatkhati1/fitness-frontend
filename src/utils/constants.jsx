@@ -1,16 +1,16 @@
 import axios from "axios";
 
 //local
-export const GATEWAY_URL = `https://daily-fitness-api.24livehost.com`;
-export const GOOGLE_CLIENT_KEY = `241141550405-lvbu6j5uv0fh6orfnh63u2ok7b0c2i93.apps.googleusercontent.com`
-export const redirect_url ='https://daily-fitness.24livehost.com/login-user'
-export const APPLE_CLIENT_ID = `com.thedailyfitness.web.login`
+// export const GATEWAY_URL = `https://daily-fitness-api.24livehost.com`;
+// export const GOOGLE_CLIENT_KEY = `241141550405-lvbu6j5uv0fh6orfnh63u2ok7b0c2i93.apps.googleusercontent.com`
+// export const redirect_url ='https://daily-fitness.24livehost.com/login-user'
+// export const APPLE_CLIENT_ID = `com.thedailyfitness.web.login`
 
 //prod
-// export const GATEWAY_URL = `https://api.dailyfitness.ai:3005`;
-// export const GOOGLE_CLIENT_KEY = `1025334248508-p80966cajrji9jlhh919cdtqas15pn57.apps.googleusercontent.com`;
-// export const APPLE_CLIENT_ID = `com.uat.dailyfitness.ai.app`;
-// export const redirect_url = "https://uat.dailyfitness.ai/login-user";
+export const GATEWAY_URL = `https://api.dailyfitness.ai:3005`;
+export const GOOGLE_CLIENT_KEY = `1025334248508-p80966cajrji9jlhh919cdtqas15pn57.apps.googleusercontent.com`;
+export const APPLE_CLIENT_ID = `com.uat.dailyfitness.ai.app`;
+export const redirect_url = "https://uat.dailyfitness.ai/login-user";
 
 export const webAxios = axios.create({
   baseURL: `${GATEWAY_URL}/web`,

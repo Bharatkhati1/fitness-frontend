@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import adminAxios from "../../../../utils/Api/adminAxios";
 import adminApiRoutes from "../../../../utils/Api/Routes/adminApiRoutes";
 import { toast } from "react-toastify";
+import ShowFullDescriptionModal from "./Modals/ShowFullDescriptionModal";
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [loadingId, setLoadingId] = useState(null);
-
+  const [showFullDescriptionModal, setShowFullDescriptionModal] =
+    useState(false);
+  const [description, setDescription] = useState("");
   const fetchTestimonials = async () => {
     try {
       const res = await adminAxios.get(adminApiRoutes.get_testimonials);
@@ -67,7 +70,26 @@ const Testimonials = () => {
                         <td>{item.rating}</td>
                         <td>{item.Package?.name || "-"}</td>
                         <td>{item.Service?.name || "-"}</td>
-                        <td>{item?.description}</td>
+                        <td>
+                          <p>
+                            {item.description.length > 250 ? (
+                              <>
+                                {item.description.substring(0, 250)}...
+                                <button
+                                  onClick={() => {
+                                    setShowFullDescriptionModal(true);
+                                    setDescription(item.description);
+                                  }}
+                                  className="view-more-btn"
+                                >
+                                  view more
+                                </button>
+                              </>
+                            ) : (
+                              item.description
+                            )}
+                          </p>
+                        </td>
                         <td>
                           <span
                             className={`badge text-bg-${
@@ -82,7 +104,7 @@ const Testimonials = () => {
                           </span>
                         </td>
                         <td>{new Date(item.createdAt).toLocaleDateString()}</td>
-                        <td style={{width:"220px"}}>
+                        <td style={{ width: "220px" }}>
                           {loadingId === item.id ? (
                             <span className="text-primary">Updating...</span>
                           ) : item.isApproved === "Pending" ? (
@@ -130,6 +152,11 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
+      <ShowFullDescriptionModal
+        open={showFullDescriptionModal}
+        onCancel={() => setShowFullDescriptionModal(false)}
+        description={description}
+      />
     </div>
   );
 };
