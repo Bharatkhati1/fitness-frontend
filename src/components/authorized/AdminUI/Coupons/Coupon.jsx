@@ -268,18 +268,23 @@ const Coupon = () => {
                   <div className="mb-3">
                     <label className="form-label">Value*</label>
                     <input
-                      type="text" 
+                      type="text"
                       className="form-control"
                       name="value"
                       placeholder="Enter value"
                       value={formData.value}
                       pattern="[0-9]*"
-                      onInput={e => {
+                      onInput={(e) => {
                         const input = e.target.value;
                         const regex = /^[0-9]*$/;
                         if (regex.test(input)) {
-                          if ((formData.type === "percent" && (input === "" || (input.length <= 2 && parseInt(input) <= 100))) ||
-                              (formData.type === "flat")) {
+                          if (
+                            (formData.type === "percent" &&
+                              (input === "" ||
+                                (input.length <= 2 &&
+                                  parseInt(input) <= 100))) ||
+                            formData.type === "flat"
+                          ) {
                             valueDefault.current = input;
                             handleInputChange({
                               target: { name: "value", value: input },
@@ -391,13 +396,21 @@ const Coupon = () => {
                           name="partnerCommission"
                           placeholder="Enter commission percentage (0-100)"
                           value={formData.partnerCommission}
-                          onInput={e => {
+                          onInput={(e) => {
                             const input = e.target.value;
-                            const regex = /^[0-9]*$/; 
-                            if (regex.test(input) && (input === "" || (parseInt(input, 10) >= 0 && parseInt(input, 10) <= 100))) {
+                            const regex = /^[0-9]*$/;
+                            if (
+                              regex.test(input) &&
+                              (input === "" ||
+                                (parseInt(input, 10) >= 0 &&
+                                  parseInt(input, 10) <= 100))
+                            ) {
                               partnerCommissionDefault.current = input;
                               handleInputChange({
-                                target: { name: "partnerCommission", value: input },
+                                target: {
+                                  name: "partnerCommission",
+                                  value: input,
+                                },
                               });
                             } else {
                               e.target.value = partnerCommissionDefault.current;
@@ -424,10 +437,13 @@ const Coupon = () => {
                       inputMode="numeric"
                       pattern="[0-9]*"
                       min="1"
-                      onInput={e => {
+                      onInput={(e) => {
                         const input = e.target.value;
-                        const regex = /^[0-9]*$/; 
-                        if (regex.test(input) && (input === "" || parseInt(input, 10) >= 1)) {
+                        const regex = /^[0-9]*$/;
+                        if (
+                          regex.test(input) &&
+                          (input === "" || parseInt(input, 10) >= 1)
+                        ) {
                           maxUsageDefault.current = input;
                           handleInputChange({
                             target: { name: "maxUsage", value: input },
@@ -436,7 +452,7 @@ const Coupon = () => {
                           e.target.value = maxUsageDefault.current;
                         }
                       }}
-                      onKeyPress={e => {
+                      onKeyPress={(e) => {
                         if (!/[0-9]/.test(e.key)) {
                           e.preventDefault();
                         }
@@ -623,7 +639,7 @@ const Coupon = () => {
                       <th>Packages</th>
                       {activeTab != "global" && <th>Partner</th>}
                       {activeTab != "global" && <th>Commission</th>}
-                      <th>Max Usage</th>
+                      <th>Usage</th>
                       <th>Dates</th>
                       <th>Status</th>
                       <th>Actions</th>
@@ -642,7 +658,45 @@ const Coupon = () => {
                             {item?.type === "percent" ? "%" : ""}
                           </td>
                           <td>
-                            <Tooltip title={item?.CouponPackages?.map((data) => data.Package?.name).join(", ") || "No packages"}>
+                            <Tooltip
+                              title={
+                                <ul
+                                  style={{
+                                    margin: 0,
+                                    padding: 0,
+                                    listStyle: "none",
+                                  }}
+                                >
+                                  {(item?.CouponPackages || []).map(
+                                    (data, idx) => (
+                                      <li
+                                        key={idx}
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          marginBottom: 2,
+                                        }}
+                                      >
+                                        <span
+                                          style={{
+                                            color: "white",
+                                            fontWeight: "bold",
+                                            marginRight: 6,
+                                          }}
+                                        >
+                                          •
+                                        </span>
+                                        <span>{data.Package?.name}</span>
+                                      </li>
+                                    )
+                                  )}
+                                  {(!item?.CouponPackages ||
+                                    item?.CouponPackages.length === 0) && (
+                                    <li>No packages</li>
+                                  )}
+                                </ul>
+                              }
+                            >
                               <span
                                 style={{
                                   marginLeft: 6,
@@ -673,7 +727,9 @@ const Coupon = () => {
                                 : "-"}
                             </td>
                           )}
-                          <td>{item?.maxUsage || "∞"}</td>
+                          <td>
+                            {item?.usageCount || 0}/{item?.maxUsage || "∞"}
+                          </td>
                           <td>
                             {new Date(item?.startDate).toLocaleDateString()} -{" "}
                             {new Date(item?.endDate).toLocaleDateString()}
