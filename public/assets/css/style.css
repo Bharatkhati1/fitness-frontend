@@ -5987,3 +5987,8 @@ section.WhyUs.SectionSpace {
     padding: 0;
     margin: 0;
 }
+
+.owl-carousel .owl-item .slider-image img
+ {
+    width: 100% !important;
+}
