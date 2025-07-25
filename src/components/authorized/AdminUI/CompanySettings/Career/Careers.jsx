@@ -257,7 +257,7 @@ const Careers = () => {
                   onClick={handleSubmit}
                   disabled={loading}
                 >
-                 {loading ? "Saving..." : "Update Careers" }
+                 {loading ? "Saving..." : "Update Job" }
                 </button>
               </div>
             </div>

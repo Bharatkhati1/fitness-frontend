@@ -107,7 +107,8 @@ const Testimonials = () => {
                         <td style={{ width: "220px" }}>
                           {loadingId === item.id ? (
                             <span className="text-primary">Updating...</span>
-                          ) : item.isApproved === "Pending" ? (
+                          ) : item.isApproved === "Pending" ||
+                            item.isApproved === "Rejected" ? (
                             <>
                               <button
                                 className="btn btn-sm btn-primary testimonial-btn me-2 mb-2"
@@ -117,23 +118,15 @@ const Testimonials = () => {
                               >
                                 Approve
                               </button>
-                              <button
-                                className="btn btn-soft-primary testimonial-btn mb-2"
-                                onClick={() =>
-                                  handleApproveReject(item.id, "Rejected")
-                                }
-                              >
-                                Reject
-                              </button>
                             </>
                           ) : (
                             <button
-                              className="btn btn-sm testimonial-btn btn-danger"
+                              className="btn btn-soft-primary testimonial-btn mb-2"
                               onClick={() =>
-                                handleApproveReject(item.id, "Pending")
+                                handleApproveReject(item.id, "Rejected")
                               }
                             >
-                              UnApprove
+                              Reject
                             </button>
                           )}
                         </td>

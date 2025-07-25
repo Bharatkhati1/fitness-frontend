@@ -45,10 +45,10 @@ const AllAppointments = () => {
                         <tr key={item.bookingId}>
                           <td>{item.bookingId}</td>
                           <td>{item?.User?.name || '-'}</td>
-                          <td>{item.Package.name}</td>
+                          <td>{item?.Package?.name}</td>
                           <td>{item.amount}</td>
-                          <td>{item.Consultant.name}</td>
-                          <td>{item?.consultantEarning}</td>
+                          <td>{item?.Consultant?.name || '-'}</td>
+                          <td>{item?.consultantEarning}</td>  
                           <td>{item.bookingStart}</td>
                           <td>{item?.bookingEnd}</td>
                         </tr>

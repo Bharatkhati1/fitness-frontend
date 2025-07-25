@@ -105,11 +105,11 @@ function BmiCalculator() {
                         onChange={(e) => {
                           const val = e.target.value;
                           // Regex: up to 5 digits total, optional 1 dot, max 2 digits after decimal
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                          if (/^\d{0,3}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =
                               (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
+                            if (totalDigits <= 3) {
                               setHeight(val);
                             }
                           }
@@ -137,11 +137,11 @@ function BmiCalculator() {
                         value={weight}
                         onChange={(e) => {
                           const val = e.target.value;
-                          if (/^\d{0,5}(\.\d{0,2})?$/.test(val)) {
+                          if (/^\d{0,3}(\.\d{0,2})?$/.test(val)) {
                             const [intPart, decPart] = val.split(".");
                             const totalDigits =
                               (intPart || "").length + (decPart || "").length;
-                            if (totalDigits <= 5) {
+                            if (totalDigits <= 3) {
                               setWeight(val);
                             }
                           }

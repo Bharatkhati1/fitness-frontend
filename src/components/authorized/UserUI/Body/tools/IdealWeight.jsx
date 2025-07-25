@@ -91,7 +91,7 @@ function Idealweight() {
                         onInput={e => {
                           const input = e.target.value;
                           const regex = /^[0-9]*$/; 
-                          if (regex.test(input) && input.length <= 5) {
+                          if (regex.test(input) && input.length <= 3) {
                             heightDefault.current = input;
                             setHeight(input);
                           } else {

@@ -190,7 +190,7 @@ const Careers = () => {
 
       <div className="card mt-4">
         <div className="card-header">
-          <h4 className="card-title">All Careers</h4>
+          <h4 className="card-title">All Jobs</h4>
         </div>
         <div className="card-body p-0">
           <div className="table-responsive">

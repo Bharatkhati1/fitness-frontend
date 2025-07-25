@@ -63,7 +63,6 @@ export default function AddToBag() {
       toast.error(error.response?.data?.error);
     }
   };
-console.log(id)
   const fetchCartitems = async () => {
     try {
       const res = await userAxios.get(userApiRoutes.get_cart_item(id));
@@ -134,6 +133,7 @@ console.log(id)
     }
   };
 
+  console.log(appointmentData)
   const handlePayment = async () => {
     if (type === "cart" && cartItems.length === 0) {
       toast.error("No item in the cart!");
@@ -644,8 +644,8 @@ console.log(id)
                             <b>
                               ₹{" "}
                               {(
-                                appointmentData.discountedAmount ||
-                                appointmentData.consultantFees
+                                parseInt(appointmentData?.discountedAmount) ||
+                                parseInt(appointmentData?.consultantFees)
                               ).toFixed(2)}
                             </b>
                           </li>

@@ -10,6 +10,7 @@ import Ckeditor from "../CkEditor/Ckeditor.jsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageDimensionNote from "../../../../utils/ImageDimensionNote.jsx";
+import ConsultnatSelectedModal from "./Modal/ConsultnatSelectedModal.jsx";
 
 const { Option } = Select;
 
@@ -36,7 +37,10 @@ const CreateUpdatePackage = () => {
   const [selectedPackageDetails, setSelectedPackageDetails] = useState({});
   const [allServices, setAllServices] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [consultants, setConsultants] = useState([]);
   const [allConsultants, setAllConsultants] = useState([]);
+  const [showConsultantsModal, setShowConsultantsModal] = useState(false);
 
   const [packageInclusions, setPackageInclusions] = useState([
     { name: "", description: "", image: null, is_active: true },
@@ -490,9 +494,31 @@ const CreateUpdatePackage = () => {
                 {/* Medical consultants */}
                 <div className="col-lg-6">
                   <div className="mb-3">
-                    <label htmlFor="consultants" className="form-label">
-                      Medical Consultants
-                    </label>
+                    <div className="d-flex align-items-center mb-2">
+                      <label htmlFor="consultants" className="form-label mb-0">
+                        Medical Consultants
+                      </label>
+                      <span
+                        style={{
+                          marginLeft: 6,
+                          cursor: "pointer",
+                          display: "inline-block",
+                          color: "#0d6efd",
+                          fontWeight: "bold",
+                          fontSize: "0.8em",
+                          border: "1px solid #0d6efd",
+                          borderRadius: "50%",
+                          width: 15,
+                          height: 16,
+                          textAlign: "center",
+                          lineHeight: "16px",
+                        }}
+                        onClick={() => setShowConsultantsModal(true)}
+                        title="View selected consultants"
+                      >
+                        i
+                      </span>
+                    </div>
                     <Select
                       mode="multiple"
                       allowClear
@@ -597,41 +623,6 @@ const CreateUpdatePackage = () => {
                                 </label>
                               </div>
                             </div>
-
-                            {/* {matchedButton &&
-                              matchedButton.name != "Know more" && (
-                                <div className="col-lg-6">
-                                  <div className="email-new">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter emails ',' separated"
-                                      value={inputValue}
-                                      onChange={(e) => {
-                                        const input = e.target.value;
-                                        setEmailInputs((prev) => ({
-                                          ...prev,
-                                          [option]: input,
-                                        }));
-                                      }}
-                                      onBlur={() => {
-                                        const emailArray = inputValue
-                                          .split(",")
-                                          .map((email) => email.trim())
-                                          .filter((email) => email.length > 0);
-
-                                        setCtaButtons((prev) =>
-                                          prev.map((btn) =>
-                                            btn.name === option
-                                              ? { ...btn, emails: emailArray }
-                                              : btn
-                                          )
-                                        );
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              )} */}
                           </div>
                         );
                       })}
@@ -753,6 +744,16 @@ const CreateUpdatePackage = () => {
           </div>
         </div>
       </div>
+
+      {/* Consultants Modal */}
+      <ConsultnatSelectedModal
+        show={showConsultantsModal}
+        handleClose={() => setShowConsultantsModal(false)}
+        consultants={selectedConsultantsId.map((id) => {
+          const consultant = allConsultants.find((c) => c.id == id.value);
+          return consultant || { id, name: "Unknown Consultant" };
+        })}
+      />
     </>
   );
 };

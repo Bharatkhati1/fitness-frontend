@@ -160,7 +160,7 @@ const FatLoass = () => {
                   {/* Height */}
                   <div className="calculaField mb-3">
                     <label>Height:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="text"
@@ -169,7 +169,7 @@ const FatLoass = () => {
                         onInput={e => {
                           const input = e.target.value;
                           const regex = /^[0-9]*$/; 
-                          if (regex.test(input) && input.length <= 5) {
+                          if (regex.test(input) && input.length <= 3) {
                             heightDefault.current = input;
                             setHeight(input);
                           } else {
@@ -191,7 +191,7 @@ const FatLoass = () => {
                   {/* Waist */}
                   <div className="calculaField mb-3">
                     <label>Waist Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="text"
@@ -200,7 +200,7 @@ const FatLoass = () => {
                         onInput={e => {
                           const input = e.target.value;
                           const regex = /^[0-9]*$/; 
-                          if (regex.test(input) && input.length <= 5) {
+                          if (regex.test(input) && input.length <= 3) {
                             waistDefault.current = input;
                             setWaist(input);
                           } else {
@@ -222,7 +222,7 @@ const FatLoass = () => {
                   {/* Neck */}
                   <div className="calculaField mb-3"> 
                     <label>Neck Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="text"
@@ -231,7 +231,7 @@ const FatLoass = () => {
                         onInput={e => {
                           const input = e.target.value;
                           const regex = /^[0-9]*$/; 
-                          if (regex.test(input) && input.length <= 5) {
+                          if (regex.test(input) && input.length <= 3) {
                             neckDefault.current = input;
                             setNeck(input);
                           } else {
@@ -253,7 +253,7 @@ const FatLoass = () => {
                   {/* Hip */}
                   <div className="calculaField mb-3">
                     <label>Hip Circumference:</label>
-                    <div className="calculainSelect d-flex">
+                    <div className="ps-lg-4 ps-0 calculainSelect d-flex">
                       <input
                         className="form-control"
                         type="text"
@@ -262,7 +262,7 @@ const FatLoass = () => {
                         onInput={e => {
                           const input = e.target.value;
                           const regex = /^[0-9]*$/; 
-                          if (regex.test(input) && input.length <= 5) {
+                          if (regex.test(input) && input.length <= 3) {
                             hipDefault.current = input;
                             setHip(input);
                           } else {

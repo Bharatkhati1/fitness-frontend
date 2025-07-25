@@ -1427,6 +1427,7 @@ ul.BottomFooterList,
   content: "";
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .innerbannerContent h2 {
@@ -5971,7 +5972,6 @@ section.WhyUs.SectionSpace {
 .col-md-6.OurHealthBlogContent p {
   margin-bottom: 20px;
 }
-
 
 .bannerSection button.owl-dot {
     margin-bottom: 20px;
